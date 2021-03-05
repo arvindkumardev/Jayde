@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "349564581597",
+    "firebase_url": "https://iconnect-staging-c6de0.firebaseio.com",
+    "project_id": "iconnect-staging-c6de0",
+    "storage_bucket": "iconnect-staging-c6de0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:349564581597:android:7933ea51bb714d32834d34",
+        "android_client_info": {
+          "package_name": "com.emaartechnologies.iConnectStage"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "349564581597-92ajrfvvlbj3k0mljd0beb8lh0v1kg5t.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAcxSVQ0dLpLk6j3OIL_nv8uoZxtrWNvsE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "349564581597-92ajrfvvlbj3k0mljd0beb8lh0v1kg5t.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "349564581597-knk9as204jsvhv6hfrjaus3150hckp3j.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.emaartechnologies.iConnectStage"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

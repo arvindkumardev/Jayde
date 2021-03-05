@@ -1,0 +1,33 @@
+const NavigationRouteNames = {
+  HOME: 'home',
+  APPROVAL: 'approval',
+  PROFILE: 'profile',
+  Offers: 'offers',
+  LOGIN: 'login',
+  FAQ: 'faq',
+  FORGOT_PASSWORD: 'forgot_password',
+  SPLASH_SCREEN: 'splash_screen',
+  TUTORIAL_SCREEN: 'tut_screen',
+  OfferDetail: 'offer_detail',
+  AdvantagesList: 'advantages_list',
+  AdvantagesDetail: 'advantages_detail',
+  CHANGE_PASSWORD: 'changePassword',
+  TimeSheetList: 'tmesheet_list',
+  TimeSheetDetail: 'timesheet_detail',
+  REQUEST_FOR_CLAIM: 'request_for_claim',
+  APPLY_LEAVE: 'apply_leave',
+  LEAVE: 'leave',
+  EDUCATION_CLAIM: 'education_claim',
+  VERIFY_OTP: 'verify_otp',
+  APPROVAL_OPERA_LIST:'approval_opera_list',
+  APPROVAL_SALES_LIST:'approval_slaes_list',
+  APPROVAL_FINANCE_LIST:'approval_finance_list',
+  APPROVAL_PURCHASE_REQUEST_LIST:'APPROVAL_PURCHASE_REQUEST_LIST',
+  APPROVAL_PURCHASE_ORDER_LIST:'APPROVAL_PURCHASE_ORDER_LIST',
+  APPROVAL_SALES_DETAIL:'approval_slaes_details',
+  APPROVAL_OPERA_DETAIL:'approval_opera_details',
+  APPROVAL_MALLS_LIST:'approval_malls_list',
+  BIOMETRIC_SETUP:'BiometricSetup'
+};
+
+export default NavigationRouteNames;
