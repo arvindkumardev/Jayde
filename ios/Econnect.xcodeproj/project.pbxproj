@@ -16,13 +16,14 @@
 		280772972F0019A29431CC8E /* libPods-Econnect.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 77ADF0791EB8CFD3D07567F1 /* libPods-Econnect.a */; };
 		3BA27FC316EF4258AD3BFCD2 /* Proxima Nova Alt Condensed Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 74130FDFBA9D415C9D1674B6 /* Proxima Nova Alt Condensed Bold.otf */; };
 		47A6A78FD09D45559AEE6E9C /* Proxima Nova Alt Thin.otf in Resources */ = {isa = PBXBuildFile; fileRef = 6BB719C8A526412A8B8FF7BB /* Proxima Nova Alt Thin.otf */; };
+		55004C8825F24509004E5838 /* test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55004C8725F24509004E5838 /* test.swift */; };
+		55004D7D25F25C83004E5838 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 55004D7C25F25C83004E5838 /* Launch Screen.storyboard */; };
 		55E3FCB834454B218E7FA22D /* Proxima Nova Alt Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 51831716D5524E8C8961BD75 /* Proxima Nova Alt Bold.otf */; };
 		58A558FBF1D3432FBA5BEEB0 /* Proxima Nova Alt Extra Condensed Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = D85C60ECA33F480BB67147BB /* Proxima Nova Alt Extra Condensed Bold.otf */; };
 		6A1A0F0C25E047ED867BFD2D /* ProximaNova-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 16C981B3962C44EE8DBC2F04 /* ProximaNova-SemiBold.otf */; };
 		7605C70409B74590B6B3C9A9 /* ProximaNova-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 138C0206151E4A7D90D36737 /* ProximaNova-Bold.otf */; };
 		792C194962D644F584C5C0D5 /* Proxima Nova Black.otf in Resources */ = {isa = PBXBuildFile; fileRef = 57B955F47916471792A451A1 /* Proxima Nova Black.otf */; };
 		80AADDE1FC9741149E049F4F /* Proxima Nova Alt Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = BCC7969938464814835ED332 /* Proxima Nova Alt Light.otf */; };
-		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		931C0A4DD35F46C181EBF7A9 /* Proxima Nova ScOsf Extra Condensed Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 2F348143F8E54907B4DAA4A3 /* Proxima Nova ScOsf Extra Condensed Bold.otf */; };
 		A812C8FB29194C038E43B0CA /* Proxima Nova ScOsf Condensed Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = B446108C2EC24E0DB7203532 /* Proxima Nova ScOsf Condensed Bold.otf */; };
 		C1F93728731C4B3297595760 /* Proxima Nova Extra Condensed Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = A18E36744F7E4EF6A466C7A8 /* Proxima Nova Extra Condensed Bold.otf */; };
@@ -46,13 +47,15 @@
 		22A80D9626EB010CF53FEA40 /* Pods-Econnect.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Econnect.release.xcconfig"; path = "Target Support Files/Pods-Econnect/Pods-Econnect.release.xcconfig"; sourceTree = "<group>"; };
 		2F348143F8E54907B4DAA4A3 /* Proxima Nova ScOsf Extra Condensed Bold.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Proxima Nova ScOsf Extra Condensed Bold.otf"; path = "../assets/fonts/Proxima Nova ScOsf Extra Condensed Bold.otf"; sourceTree = "<group>"; };
 		51831716D5524E8C8961BD75 /* Proxima Nova Alt Bold.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Proxima Nova Alt Bold.otf"; path = "../assets/fonts/Proxima Nova Alt Bold.otf"; sourceTree = "<group>"; };
+		55004C8625F24509004E5838 /* Econnect-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Econnect-Bridging-Header.h"; sourceTree = "<group>"; };
+		55004C8725F24509004E5838 /* test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = test.swift; sourceTree = "<group>"; };
+		55004D7C25F25C83004E5838 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = "Launch Screen.storyboard"; path = "Econnect/Launch Screen.storyboard"; sourceTree = "<group>"; };
 		57B955F47916471792A451A1 /* Proxima Nova Black.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Proxima Nova Black.otf"; path = "../assets/fonts/Proxima Nova Black.otf"; sourceTree = "<group>"; };
 		5ECBBCDCB5214061B97EF6FC /* Proxima Nova ScOsf Bold.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Proxima Nova ScOsf Bold.otf"; path = "../assets/fonts/Proxima Nova ScOsf Bold.otf"; sourceTree = "<group>"; };
 		6BB719C8A526412A8B8FF7BB /* Proxima Nova Alt Thin.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Proxima Nova Alt Thin.otf"; path = "../assets/fonts/Proxima Nova Alt Thin.otf"; sourceTree = "<group>"; };
 		6FF077CE8F44BD21CC324CC9 /* libPods-Econnect-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Econnect-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		74130FDFBA9D415C9D1674B6 /* Proxima Nova Alt Condensed Bold.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Proxima Nova Alt Condensed Bold.otf"; path = "../assets/fonts/Proxima Nova Alt Condensed Bold.otf"; sourceTree = "<group>"; };
 		77ADF0791EB8CFD3D07567F1 /* libPods-Econnect.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Econnect.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = /Users/sahdev/Documents/rha/emaar/econnect/ios/Econnect/LaunchScreen.storyboard; sourceTree = "<absolute>"; };
 		A18E36744F7E4EF6A466C7A8 /* Proxima Nova Extra Condensed Bold.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Proxima Nova Extra Condensed Bold.otf"; path = "../assets/fonts/Proxima Nova Extra Condensed Bold.otf"; sourceTree = "<group>"; };
 		B446108C2EC24E0DB7203532 /* Proxima Nova ScOsf Condensed Bold.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Proxima Nova ScOsf Condensed Bold.otf"; path = "../assets/fonts/Proxima Nova ScOsf Condensed Bold.otf"; sourceTree = "<group>"; };
 		BCC7969938464814835ED332 /* Proxima Nova Alt Light.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Proxima Nova Alt Light.otf"; path = "../assets/fonts/Proxima Nova Alt Light.otf"; sourceTree = "<group>"; };
@@ -101,12 +104,12 @@
 		13B07FAE1A68108700A75B9A /* Econnect */ = {
 			isa = PBXGroup;
 			children = (
+				55004D7C25F25C83004E5838 /* Launch Screen.storyboard */,
 				187EDF6B25E3714B0016F764 /* GoogleService-Info.plist */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
-				81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */,
 				13B07FB71A68108700A75B9A /* main.m */,
 			);
 			name = Econnect;
@@ -144,12 +147,14 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				55004C8725F24509004E5838 /* test.swift */,
 				13B07FAE1A68108700A75B9A /* Econnect */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				2F796E219058A3AA30AD00CC /* Pods */,
 				0177A54BD1944E7482EABDF9 /* Resources */,
+				55004C8625F24509004E5838 /* Econnect-Bridging-Header.h */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -199,8 +204,8 @@
 				LastUpgradeCheck = 1130;
 				TargetAttributes = {
 					13B07F861A680F5B00A75B9A = {
-						DevelopmentTeam = G5545BW5TF;
-						LastSwiftMigration = 1120;
+						DevelopmentTeam = J57P38585K;
+						LastSwiftMigration = 1240;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -228,7 +233,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				55E3FCB834454B218E7FA22D /* Proxima Nova Alt Bold.otf in Resources */,
 				3BA27FC316EF4258AD3BFCD2 /* Proxima Nova Alt Condensed Bold.otf in Resources */,
@@ -236,6 +240,7 @@
 				80AADDE1FC9741149E049F4F /* Proxima Nova Alt Light.otf in Resources */,
 				02314150B4A74D71A8BACA36 /* Proxima Nova Alt Regular.otf in Resources */,
 				47A6A78FD09D45559AEE6E9C /* Proxima Nova Alt Thin.otf in Resources */,
+				55004D7D25F25C83004E5838 /* Launch Screen.storyboard in Resources */,
 				792C194962D644F584C5C0D5 /* Proxima Nova Black.otf in Resources */,
 				F9744CDB80864B7EAC6B39E6 /* Proxima Nova Condensed Bold.otf in Resources */,
 				C1F93728731C4B3297595760 /* Proxima Nova Extra Condensed Bold.otf in Resources */,
@@ -361,6 +366,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
+				55004C8825F24509004E5838 /* test.swift in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -377,7 +383,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 2;
-				DEVELOPMENT_TEAM = G5545BW5TF;
+				DEVELOPMENT_TEAM = J57P38585K;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = Econnect/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
@@ -387,9 +393,10 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = econnect.staging.com;
+				PRODUCT_BUNDLE_IDENTIFIER = staging.jayde.in;
 				PRODUCT_NAME = Econnect;
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "Econnect-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -406,7 +413,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 2;
-				DEVELOPMENT_TEAM = G5545BW5TF;
+				DEVELOPMENT_TEAM = J57P38585K;
 				INFOPLIST_FILE = Econnect/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -415,9 +422,10 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = econnect.staging.com;
+				PRODUCT_BUNDLE_IDENTIFIER = staging.jayde.in;
 				PRODUCT_NAME = Econnect;
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "Econnect-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 				VERSIONING_SYSTEM = "apple-generic";

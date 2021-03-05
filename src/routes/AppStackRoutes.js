@@ -1,5 +1,5 @@
-import React, {useContext} from 'react';
-import {createStackNavigator} from '@react-navigation/stack';
+import React, { useContext } from 'react';
+import { createStackNavigator } from '@react-navigation/stack';
 import NavigationRouteNames from './ScreenNames';
 import Login from '../containers/Login';
 import BottomTabStack from './BottomTabStack';
@@ -12,20 +12,19 @@ const AppStack = () => {
   return (
     <Stack.Navigator headerMode="screen">
       {!isLogin ? (
-          <Stack.Screen
-            name={NavigationRouteNames.LOGIN}
-            component={Login}
-            options={{ headerShown: false }}
-          />
+        <Stack.Screen
+          name={NavigationRouteNames.LOGIN}
+          component={Login}
+          options={{ headerShown: false }}
+        />
       ) : (
-            <Stack.Screen
-              name={NavigationRouteNames.HOME}
-              component={BottomTabStack}
-              options={{ headerShown: false }}
-            />
-        )
-      }
-    </Stack.Navigator >
+        <Stack.Screen
+          name={NavigationRouteNames.HOME}
+          component={BottomTabStack}
+          options={{ headerShown: false }}
+        />
+      )}
+    </Stack.Navigator>
   );
 };
 export default AppStack;
