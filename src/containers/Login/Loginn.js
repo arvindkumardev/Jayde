@@ -1,6 +1,6 @@
 import React, {useContext, useEffect, useState} from 'react';
 import * as Alert from 'react-native';
-import {KeyboardAvoidingView, Platform, TouchableOpacity, View, Text, Image, TextInput, } from 'react-native';
+import {KeyboardAvoidingView, Platform, TouchableOpacity, View} from 'react-native';
 
 import * as Yup from 'yup';
 import {useFormik} from 'formik';
@@ -25,7 +25,7 @@ import {logEvent} from '../../services/firebase/AnalyticService';
 import {ANALYTICS_EVENTS} from '../../services/firebase';
 
 // clearAll()
-function Login() {
+function Loginn() {
   const navigation = useNavigation();
   const [clickLogin, setClickLogin] = useState(false);
   const [openBiometric, setOpenBiometric] = useState(false);
@@ -296,38 +296,26 @@ function Login() {
   }, [emLoginLoading]);
 
   return (
-    <View style={{flex: 1,backgroundColor:Colors.mango}}>
+    <View style={{flex: 1,backgroundColor:Colors.purple}}>
 
         <KeyboardAvoidingView
           style={{flex: 1}}
           behavior={Platform.select({android: 'height', ios: 'padding'})}
           enabled>
-              <View style={{alignItems: 'center', marginTop: 40,}}>
-                 <Image style={{width: 160, height: 55}} source={require('./JaydeLogo01.png')}  />    
-                {/* <Image
-          style={{width: 34, height: 34}}
-          source={{uri: 
-       'https://i.ytimg.com/vi/h1iPGP72Y8c/maxresdefault.jpg'}}
-        /> */}
-              </View> 
           <View
             style={{
               flex: 1,
               justifyContent: 'center',
               paddingBottom: RfH(40),
             }}>
-           
-              <View style={{alignItems: 'center', marginTop: 120,}}>
-              <Text style={{color: '#fff', marginBottom: 20, fontSize : 40, lineHeight: 48, fontWeight: 'bold',}}>Hello!</Text>
-              </View>
             <View style={styles.formContainer}>
               <CustomText
-                fontSize={22}
+                fontSize={24}
                 color={Colors.black}
-                fontWeight={'500'}>
-                Mobile Number*
+                fontWeight={'bold'}>
+                Loginh
               </CustomText>
-              {/* <CustomTextInput
+              <CustomTextInput
                 label={'Username'}
                 inputLabelStyle={commonStyles.inputLabelStyle}
                 placeholder={'Email/Mobile Number'}
@@ -338,26 +326,25 @@ function Login() {
                 returnKeyType={'next'}
                 onSubmitEditing={() => onSubmitEditing('password')}
                 error={clickLogin && loginForm.errors.username}
-              /> */}
+              />
               <CustomTextInput
-                // label={'Password'}
+                label={'Password'}
                 inputLabelStyle={commonStyles.inputLabelStyle}
-                placeholder={'+91'}
-
+                placeholder={'Please provide password'}
+                secureTextEntry={!hidePassword}
+                showPasswordField={hidePassword}
                 handleShowPassword={(value) => setHidePassword(value)}
-                // icon={hidePassword ? Images.openEye : Images.closeEye}
+                icon={hidePassword ? Images.openEye : Images.closeEye}
                 value={loginForm.values.password}
                 onChangeHandler={(value) =>
                   loginForm.setFieldValue('password', value)
                 }
                 showClearButton={false}
-                keyboardType={'numeric'}
                 refKey={'password'}
                 error={clickLogin && loginForm.errors.password}
               />
-            
 
-              {/* <View style={styles.checkBoxContainer}>
+              <View style={styles.checkBoxContainer}>
                 <View style={{flexDirection: 'row', alignItems: 'center'}}>
                   <CheckBoxWrapper
                     isChecked={rememberMe}
@@ -365,14 +352,14 @@ function Login() {
                       setRememberMe((rememberMe) => !rememberMe)
                     }
                   />
-                   <View style={{marginLeft: RfW(10)}}>
+                  <View style={{marginLeft: RfW(10)}}>
                     <CustomText
                       color={Colors.black}
                       fontSize={12}
                       styling={{paddingVertical: RfH(4)}}>
                       Keep me logged in
                     </CustomText>
-                  </View> 
+                  </View>
                 </View>
                 <TouchableOpacity
                   onPress={comingSoonAlert}
@@ -381,33 +368,12 @@ function Login() {
                     Need help?
                   </CustomText>
                 </TouchableOpacity>
-              </View> */}
-              <View style={{marginTop: RfH(21)}}>
-                <GradientButton title={'Confirm'} onPress={handleLogin} />
               </View>
-             
+              <View style={{marginTop: RfH(21)}}>
+                <GradientButton title={'LOGIN'} onPress={handleLogin} />
+              </View>
             </View>
-            </View>
-
-           <View style={{flex: 1,}}>
-          <View style={{marginTop: 40, marginHorizontal: RfW(56),
-    backgroundColor: Colors.white,
-    padding: RfW(10),
-    borderRadius: RfH(25),}}>
-      <View style={{alignItems: 'center', justifyContent: 'center', flexDirection: 'row',}}>
-            <Text style={{color: 'orange',}}>PARTNER LOGIN</Text>
-            <Text style={{ marginLeft: 5,}}>Click here</Text>
           </View>
-          </View>
-          <View style={{alignItems: 'flex-end', marginTop: 20, marginRight: 10,}}>
-          <Image style={{width: 98, height: 103,}} source={require('./Mask_Group_28.png')}  />
-          </View>
-          <View style={{ alignItems: 'center'}}>
-               <Text style={{ color: '#fff', marginTop: 10, marginBottom: 30,}}>Don't have an account? <Text style={{color: '#fff',
-    textDecorationLine: 'underline'}} onPress={ ()=> Linking.openURL('#') }>Create one</Text></Text>
-               </View> 
-               </View>
-          {/* <Text style={{ color: '#fff', marginBottom: 70, justifyContent: 'center',}}>dfdfdfdf</Text> */}
         </KeyboardAvoidingView>
       <Biometric
         isFaceIdEnable={biometric.isFaceId}
@@ -416,8 +382,7 @@ function Login() {
         handleSuccessfulAuth={handleSuccessfulAuth}
         biometricModelVisible={biometric.modelVisible}
       />
-      
     </View>
   );
 }
-export default Login;
+export default Loginn;

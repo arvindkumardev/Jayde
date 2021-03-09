@@ -35,8 +35,8 @@ GradientButton.propTypes = {
 GradientButton.defaultProps = {
   styling: {},
   textColor: Colors.white,
-  fontSize: 14,
-  colors: ['#64B6E9', '#6932CE'],
+  fontSize: 18,
+  colors: ['#ABC270', '#64B6E9', '#6932CE',],
   onPress: null,
 };
 

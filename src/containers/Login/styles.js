@@ -4,7 +4,7 @@ import {Colors} from '../../theme';
 
 const styles = StyleSheet.create({
   formContainer: {
-    marginHorizontal: RfW(16),
+    marginHorizontal: RfW(21),
     backgroundColor: Colors.white,
     padding: RfW(25),
     borderRadius: RfH(25),

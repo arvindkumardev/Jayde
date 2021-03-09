@@ -33,5 +33,7 @@ const Colors = {
   backgroundColor:'#EEF2F4',
   grayLine:'#E8EDEE',
   backgroundYellow: '#c3a061',
+  mango: '#F7A435',
+  lightOlive: '#ABC270',
 };
 export default Colors;
