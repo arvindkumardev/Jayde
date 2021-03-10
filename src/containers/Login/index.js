@@ -389,7 +389,7 @@ function Login() {
             </View>
             </View>
 
-           <View style={{flex: 1,}}>
+           <View style={{flex: 1}}>
           <View style={{marginTop: 40, marginHorizontal: RfW(56),
     backgroundColor: Colors.white,
     padding: RfW(10),

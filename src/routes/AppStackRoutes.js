@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import NavigationRouteNames from './ScreenNames';
 import Login from '../containers/Login';
+import HomeScreen from '../containers/Dashboard';
 //import Loginn from '../containers/Login/Loginn';
 import BottomTabStack from './BottomTabStack';
 import UserContext from '../containers/Login/user.context';
@@ -15,7 +16,7 @@ const AppStack = () => {
       {!isLogin ? (
         <Stack.Screen
           name={NavigationRouteNames.LOGIN}
-          component={Login}
+          component={HomeScreen}
           options={{ headerShown: false }}
         />
       ) : (
