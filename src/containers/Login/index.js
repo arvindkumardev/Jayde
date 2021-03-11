@@ -1,6 +1,6 @@
 import React, {useContext, useEffect, useState} from 'react';
 import * as Alert from 'react-native';
-import {KeyboardAvoidingView, Platform, TouchableOpacity, View, Text, Image, TextInput, } from 'react-native';
+import {KeyboardAvoidingView, Platform, TouchableOpacity, View, Text, Image, TextInput, ScrollView, } from 'react-native';
 
 import * as Yup from 'yup';
 import {useFormik} from 'formik';
@@ -295,21 +295,20 @@ function Login() {
     setLoader(emLoginLoading);
   }, [emLoginLoading]);
 
+  const [title,setTitle]=useState('Hello!');
+
   return (
     <View style={{flex: 1,backgroundColor:Colors.mango}}>
+      <ScrollView>
 
         <KeyboardAvoidingView
           style={{flex: 1}}
           behavior={Platform.select({android: 'height', ios: 'padding'})}
           enabled>
-              <View style={{alignItems: 'center', marginTop: 40,}}>
+              {/* <View style={{alignItems: 'center', marginTop: 40,}}>
                  <Image style={{width: 160, height: 55}} source={require('./JaydeLogo01.png')}  />    
-                {/* <Image
-          style={{width: 34, height: 34}}
-          source={{uri: 
-       'https://i.ytimg.com/vi/h1iPGP72Y8c/maxresdefault.jpg'}}
-        /> */}
-              </View> 
+              </View>  */}
+              <View style={{flex: 1,}}>
           <View
             style={{
               flex: 1,
@@ -317,8 +316,18 @@ function Login() {
               paddingBottom: RfH(40),
             }}>
            
-              <View style={{alignItems: 'center', marginTop: 120,}}>
-              <Text style={{color: '#fff', marginBottom: 20, fontSize : 40, lineHeight: 48, fontWeight: 'bold',}}>Hello!</Text>
+
+           <View style={{alignItems: 'center', marginTop: 40,}}>
+                 <Image style={{width: 160, height: 55}} source={require('./JaydeLogo01.png')}  />    
+                {/* <Image
+          style={{width: 34, height: 34}}
+          source={{uri: 
+       'https://i.ytimg.com/vi/h1iPGP72Y8c/maxresdefault.jpg'}}
+        /> */}
+              </View> 
+
+              <View style={{alignItems: 'center', marginTop: 60,}}>
+              <Text style={{color: '#fff', marginBottom: 20, fontSize : 40, lineHeight: 48, fontWeight: 'bold',}}>{title}</Text>
               </View>
             <View style={styles.formContainer}>
               <CustomText
@@ -387,10 +396,9 @@ function Login() {
               </View>
              
             </View>
-            </View>
-
-           <View style={{flex: 1}}>
-          <View style={{marginTop: 40, marginHorizontal: RfW(56),
+            
+            <View style={{flex: 1}}>
+          <View style={{marginTop: 15, marginHorizontal: RfW(56),
     backgroundColor: Colors.white,
     padding: RfW(10),
     borderRadius: RfH(25),}}>
@@ -407,6 +415,11 @@ function Login() {
     textDecorationLine: 'underline'}} onPress={ ()=> Linking.openURL('#') }>Create one</Text></Text>
                </View> 
                </View>
+
+            </View>
+
+          
+               </View>
           {/* <Text style={{ color: '#fff', marginBottom: 70, justifyContent: 'center',}}>dfdfdfdf</Text> */}
         </KeyboardAvoidingView>
       <Biometric
@@ -416,7 +429,7 @@ function Login() {
         handleSuccessfulAuth={handleSuccessfulAuth}
         biometricModelVisible={biometric.modelVisible}
       />
-      
+      </ScrollView>
     </View>
   );
 }

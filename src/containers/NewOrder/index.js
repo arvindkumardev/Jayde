@@ -25,7 +25,7 @@ import {KeyboardAvoidingView, Platform, TouchableOpacity, View, Text, Image, Tex
 // import {ANALYTICS_EVENTS} from '../../services/firebase';
 
 // clearAll()
-function HomeScreen() {
+function NewOrder() {
   //const navigation = useNavigation();
   // const [clickLogin, setClickLogin] = useState(false);
   // const [openBiometric, setOpenBiometric] = useState(false);
@@ -295,104 +295,102 @@ function HomeScreen() {
   //   setLoader(emLoginLoading);
   // }, [emLoginLoading]);
 
-  const [title,setTitle]=useState('Good Morning');
-  const [title1,setTitle1]=useState('Prem Kumar');
-  const [title2,setTitle2]=useState('Current Orders');
+   const [title,setTitle]=useState('NEW ORDER');
+   const [title1,setTitle1]=useState('Please choose a category');
+  // const [title2,setTitle2]=useState('Current Orders');
 
-  const [arraydata,setarraydata]=useState([
-    {
-    name: '3 Ton Paper',
-    date: '21/01/21',
-    orderid: 'JYD/N/21/019',
-    image: require('./Group_9993.png'),
-    images: require('./Fill_164.png'),
-    status: 'Pending',
-  },  {
-    name: '4 Ton Paper',
-    date: '21/01/21',
-    orderid: 'JYD/N/21/021',
-    image: require('./Group_9993.png'),
-    images: require('./Icon_metro-truck.png'),
-    status: 'In Transit',
-  },  {
-    name: '3 Ton Plastic',
-    date: '21/01/21',
-    orderid: 'JYD/N/21/011',
-    image: require('./Group_9992.png'),
-    images: require('./Group_9995.png'),
-    status: 'Completed',
-  }])
+  // const [arraydata,setarraydata]=useState([
+  //   {
+  //   name: '3 Ton Paper',
+  //   date: '21/01/21',
+  //   orderid: 'JYD/N/21/019',
+  //   image: require('./Group_9993.png'),
+  //   images: require('./Fill_164.png'),
+  //   status: 'Pending',
+  // },  {
+  //   name: '4 Ton Paper',
+  //   date: '21/01/21',
+  //   orderid: 'JYD/N/21/021',
+  //   image: require('./Group_9993.png'),
+  //   images: require('./Icon_metro-truck.png'),
+  //   status: 'In Transit',
+  // },  {
+  //   name: '3 Ton Plastic',
+  //   date: '21/01/21',
+  //   orderid: 'JYD/N/21/011',
+  //   image: require('./Group_9992.png'),
+  //   images: require('./Group_9995.png'),
+  //   status: 'Completed',
+  // }])
 
   const [arraydata1,setarraydata1]=useState([
     {
-    menuname: 'Create Order',
-    menu1image: require('./Group_9551.png'),
-    menu2image: require('./Icon_ionic-md-create.png'),
+    menuname: 'PAPER',
+    text: '01',
+    menu2image: require('./Group_2687.png'),
   },  {
-    menuname: 'Existing Order',
-    menu1image: require('./Group_9551.png'),
-    menu2image: require('./Project.png'),
+    menuname: 'PLASTIC',
+    text: '02',
+    menu2image: require('./Group_2687.png'),
   },  {
-    menuname: 'Profile',
-    menu1image: require('./Group_9551.png'),
-    menu2image: require('./Project.png'),
+    menuname: 'E-WASTE',
+    text: '03',
+    menu2image: require('./Group_2687.png'),
   },  {
-    menuname: 'Logout',
-    menu1image: require('./Group_9551.png'),
-    menu2image: require('./Project.png'),
+    menuname: 'MIX WASTE',
+    text: '04',
+    menu2image: require('./Group_2687.png'),
   }])
 
-  const _RenderItem = (index, item) => {
-    return (
-      <View style={{flexDirection: 'row', marginLeft: 24,}}>
-      <View style={{flex: .2, }}>
-      <Image style={{width: 66, height: 66, marginTop: 10,}} source={item.image}  />
-      </View>
-      <View style={{flex: .6, }}>
-      <Text style={{fontSize: 17, marginLeft: 15, marginTop: 12,}}>{item.orderid}</Text>
-      <Text style={{fontSize: 15, marginLeft: 15,}}>{item.name}</Text>
-      <Text style={{fontSize: 11, marginLeft: 15,}}>{item.date}</Text>
-      </View>
-      <View style={{flex: .2,}}>
-      <Image style={{width: 15, height: 18, marginTop: 30, marginLeft: 15,}} source={item.images}  />
-      <Text style={{fontSize: 11, color: '#000',}}>{item.status}</Text>
-      </View>
-      </View>     
-    )
-  }
+  // const _RenderItem = (index, item) => {
+  //   return (
+  //     <View style={{flexDirection: 'row', marginLeft: 24,}}>
+  //     <View style={{flex: .2, }}>
+  //     <Image style={{width: 66, height: 66, marginTop: 10,}} source={item.image}  />
+  //     </View>
+  //     <View style={{flex: .6, }}>
+  //     <Text style={{fontSize: 17, marginLeft: 15, marginTop: 12,}}>{item.orderid}</Text>
+  //     <Text style={{fontSize: 15, marginLeft: 15,}}>{item.name}</Text>
+  //     <Text style={{fontSize: 11, marginLeft: 15,}}>{item.date}</Text>
+  //     </View>
+  //     <View style={{flex: .2,}}>
+  //     <Image style={{width: 15, height: 18, marginTop: 30, marginLeft: 15,}} source={item.images}  />
+  //     <Text style={{fontSize: 11, color: '#000',}}>{item.status}</Text>
+  //     </View>
+  //     </View>     
+  //   )
+  // }
 
   const _RenderItem1 = (index, item) => {
     return (
-      <View style={{flexDirection: 'row', }}>
-          <View style={{flex: 1, width: 167, height: 200, backgroundColor: '#f8a230', marginLeft: 24, marginTop: 5, borderTopLeftRadius: 10, borderTopRightRadius : 10, borderBottomLeftRadius: 10, borderBottomRightRadius: 10,}}>
-          <Image style={{width: 5, height: 19, marginTop: 15, marginLeft: 15,}} source={item.menu1image}  />
+      
+          <View style={{width: '35%', height: 149, backgroundColor: '#fff', marginLeft: 24, marginTop: 25, borderTopLeftRadius: 10, borderTopRightRadius : 10, borderBottomLeftRadius: 10, borderBottomRightRadius: 10,}}>
+          <Text style={{fontSize: 16, color: '#796a6a', fontWeight: 'Poppins-SemiBold', marginTop: 11,}}>{item.text}</Text>
           <View style={{alignItems: 'flex-end', marginRight: 26,}}>
-          <Image style={{width: 26, height: 26, marginTop: 88,}} source={item.menu2image}  />
+          <Image style={{width: 26, height: 26, marginTop: 38,}} source={item.menu2image}  />
           </View>
           <View style={{alignItems: 'center', }}>
-               <Text style={{fontSize: 17, color: '#fff', fontWeight: 'Poppins-SemiBold', marginTop: 11,}}>{item.menuname}</Text>
+               <Text style={{fontSize: 16, color: '#796a6a', fontWeight: 'Poppins-SemiBold', marginTop: 11,}}>{item.menuname}</Text>
                </View>
             </View>     
-            {/* <View style={{flex: 1, width: 164, height: 164, backgroundColor: '#fec868', marginLeft: 24, marginTop: 40, borderRadius: 10,}}>
-            <Image style={{width: 5, height: 19, marginTop: 15, marginLeft: 15,}} source={require('./Group_9551.png')}  />
-            <View style={{alignItems: 'flex-end', marginRight: 18,}}>
-            <Image style={{width: 33, height: 26, marginTop: 53,}} source={require('./Project.png')}  />
-            </View>
-            <View style={{alignItems: 'flex-end', marginTop: 11,}}>
-            <Text style={{fontSize: 17, color: '#fff', fontWeight: 'Poppins-SemiBold', }}>Existing Order</Text>
-            </View>
-            </View>            */}
-            </View>   
+           
+               
     )
   }
   
   
   
   return (
-    <View style={{flex: 1,backgroundColor: 'white',}}>
+    <View style={{flex: 1,backgroundColor: '#f6f6f6',}}>
        <ScrollView>
-
-         <View style={{flexDirection: 'row',}}>
+       <View style={{alignItems: 'center', marginTop: 40,}}>
+                 <Image style={{width: 155, height: 54}} source={require('./Jayde_Logo_02.png')}  /> 
+				 </View>
+         <View style={{marginTop: 50, marginLeft: 24, alignItems: 'center',}}>
+            <Text style={{fontSize: 16,}}>{title}</Text>
+            <Text style={{fontSize: 14, marginTop: 5,}}>{title1}</Text>
+        </View>
+         {/* <View style={{flexDirection: 'row',}}>
          <View style={{flex: .6, marginTop: 50, marginLeft: 24,}}>
         <Text style={{fontSize: 20,}}>{title}</Text>
         <Text style={{fontSize: 34, marginTop: 5,}}>{title1}</Text>
@@ -403,95 +401,32 @@ function HomeScreen() {
           <Image style={{width: 125, height: 132,}} source={require('./Mask_Group_28.png')}  />
           </View>
           </View>
-          </View>
+          </View> */}
 
           <FlatList
         data={arraydata1}
-         horizontal={true}
+        //  horizontal={true}
         renderItem={({ index, item }) =>
           _RenderItem1(index, item)
+          // numColumns={2}
         }
-        //  keyExtractor={(item) => `list-item-${Math.random() * 10}`}
+        numColumns={2}
       />
 
-          {/* <View style={{flexDirection: 'row', }}>
-          <View style={{flex: 1, width: 167, height: 200, backgroundColor: '#f8a230', marginLeft: 24, marginTop: 5, borderTopLeftRadius: 10, borderTopRightRadius : 10, borderBottomLeftRadius: 10, borderBottomRightRadius: 10,}}>
-          <Image style={{width: 5, height: 19, marginTop: 15, marginLeft: 15,}} source={require('./Group_9551.png')}  />
-          <View style={{alignItems: 'flex-end', marginRight: 26,}}>
-          <Image style={{width: 26, height: 26, marginTop: 88,}} source={require('./Icon_ionic-md-create.png')}  />
-          </View>
-          <View style={{alignItems: 'center', }}>
-               <Text style={{fontSize: 17, color: '#fff', fontWeight: 'Poppins-SemiBold', marginTop: 11,}}>Create Order</Text>
-               </View>
-            </View>     
-            <View style={{flex: 1, width: 164, height: 164, backgroundColor: '#fec868', marginLeft: 24, marginTop: 40, borderRadius: 10,}}>
-            <Image style={{width: 5, height: 19, marginTop: 15, marginLeft: 15,}} source={require('./Group_9551.png')}  />
-            <View style={{alignItems: 'flex-end', marginRight: 18,}}>
-            <Image style={{width: 33, height: 26, marginTop: 53,}} source={require('./Project.png')}  />
-            </View>
-            <View style={{alignItems: 'flex-end', marginTop: 11,}}>
-            <Text style={{fontSize: 17, color: '#fff', fontWeight: 'Poppins-SemiBold', }}>Existing Order</Text>
-            </View>
-            </View>           
-            </View> */}
+         
             
-            <View style={{marginLeft: 24, marginTop: 15,}}>
+            {/* <View style={{marginLeft: 24, marginTop: 15,}}>
             <Text style={{fontSize: 17, color: '#000', fontFamily: 'Poppins-SemiBold', }}>{title2}</Text>
-            </View>
-
-            {/* <View style={{flexDirection: 'row', marginLeft: 24,}}>
-            <View style={{flex: .2, }}>
-            <Image style={{width: 66, height: 66, marginTop: 10,}} source={require('./Group_9993.png')}  />
-            </View>
-            <View style={{flex: .6, }}>
-            <Text style={{fontSize: 17, marginLeft: 15, marginTop: 12,}}>JYD/N/21/019</Text>
-            <Text style={{fontSize: 15, marginLeft: 15,}}>3 Ton Paper</Text>
-            <Text style={{fontSize: 11, marginLeft: 15,}}>21/01/21</Text>
-            </View>
-            <View style={{flex: .2,}}>
-            <Image style={{width: 15, height: 18, marginTop: 30, marginLeft: 10,}} source={require('./Fill_164.png')}  />
-            <Text style={{fontSize: 11, }}>Pending</Text>
-            </View>
             </View> */}
 
-            {/* <View style={{flexDirection: 'row', marginLeft: 24,}}>
-            <View style={{flex: .2, }}>
-            <Image style={{width: 66, height: 66, marginTop: 10,}} source={require('./Group_9993.png')}  />
-            </View>
-            <View style={{flex: .6, }}>
-            <Text style={{fontSize: 17, marginLeft: 15, marginTop: 12,}}>JYD/N/21/021</Text>
-            <Text style={{fontSize: 15, marginLeft: 15,}}>4 Ton Paper</Text>
-            <Text style={{fontSize: 11, marginLeft: 15,}}>21/01/21</Text>
-            </View>
-            <View style={{flex: .2,}}>
-            <Image style={{width: 15, height: 13, marginTop: 30, marginLeft: 10,}} source={require('./Icon_metro-truck.png')}  />
-            <Text style={{fontSize: 11, }}>In Transit</Text>
-            </View>
-            </View> */}
-
-            {/* <View style={{flexDirection: 'row', marginLeft: 24,}}>
-            <View style={{flex: .2, }}>
-            <Image style={{width: 66, height: 66, marginTop: 10,}} source={require('./Group_9992.png')}  />
-            </View>
-            <View style={{flex: .6, }}>
-            <Text style={{fontSize: 17, marginLeft: 15, marginTop: 12,}}>JYD/N/21/011</Text>
-            <Text style={{fontSize: 15, marginLeft: 15,}}>3 Ton Plastic</Text>
-            <Text style={{fontSize: 11, marginLeft: 15,}}>21/01/21</Text>
-            </View>
-            <View style={{flex: .2,}}>
-            <Image style={{width: 15, height: 15, marginTop: 30, marginLeft: 15,}} source={require('./Group_9995.png')}  />
-            <Text style={{fontSize: 11, color: '#abc270',}}>Completed</Text>
-            </View>
-            </View> */}
-
-            <FlatList
+            {/* <FlatList
         data={arraydata}
-        // horizontal={true}
+        
         renderItem={({ index, item }) =>
           _RenderItem(index, item)
         }
-        //  keyExtractor={(item) => `list-item-${Math.random() * 10}`}
-      />
+        
+      /> */}
 
           </ScrollView> 
         {/* <KeyboardAvoidingView
@@ -616,4 +551,4 @@ function HomeScreen() {
     </View>
   );
 }
-export default HomeScreen;
+export default NewOrder;
