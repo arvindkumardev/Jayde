@@ -4,7 +4,9 @@ import NavigationRouteNames from './ScreenNames';
 import Login from '../containers/Login';
 import HomeScreen from '../containers/Dashboard';
 import NewOrder from '../containers/NewOrder';
-//import Loginn from '../containers/Login/Loginn';
+import NewOrderList from '../containers/NewOrderList';
+import AccountCreate from '../containers/AccountCreate';
+import SignUp from '../containers/SignUp';
 import BottomTabStack from './BottomTabStack';
 import UserContext from '../containers/Login/user.context';
 
@@ -17,7 +19,7 @@ const AppStack = () => {
       {!isLogin ? (
         <Stack.Screen
           name={NavigationRouteNames.LOGIN}
-          component={NewOrder}
+          component={SignUp}
           options={{ headerShown: false }}
         />
       ) : (
