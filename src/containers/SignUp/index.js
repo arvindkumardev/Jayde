@@ -1,6 +1,7 @@
 import React, {useContext, useEffect, useState} from 'react';
 import * as Alert from 'react-native';
 import {KeyboardAvoidingView, Platform, TouchableOpacity, View, Text, Image, TextInput, ScrollView, } from 'react-native';
+import DropDownPicker from 'react-native-dropdown-picker';
 
 import * as Yup from 'yup';
 import {useFormik} from 'formik';
@@ -368,7 +369,8 @@ function Login() {
                  label={'Password'}
                 inputLabelStyle={commonStyles.inputLabelStyle}
                 placeholder={'Password'}
-
+                secureTextEntry={!hidePassword}
+                showPasswordField={hidePassword}
                 handleShowPassword={(value) => setHidePassword(value)}
                  icon={hidePassword ? Images.openEye : Images.closeEye}
                 value={loginForm.values.password}
@@ -407,6 +409,8 @@ function Login() {
                   </CustomText>
                 </TouchableOpacity>
               </View> */}
+           
+
               <View style={{marginTop: RfH(21)}}>
                 <GradientButton title={'Confirm'} onPress={handleLogin} />
               </View>
@@ -423,11 +427,11 @@ function Login() {
             <Text style={{ marginLeft: 5,}}>Click here</Text>
           </View>
           </View> */}
-          {/* <View style={{alignItems: 'flex-end', marginTop: 20, marginRight: 10,}}>
-          <Image style={{width: 98, height: 103,}} source={require('./Mask_Group_28.png')}  />
-          </View> */}
+          <View style={{alignItems: 'flex-end', marginTop: 20, marginRight: 25,}}>
+                <Text style={{ marginLeft: 5, color: '#fff',}}>Forgot Password?</Text>
+          </View>
           <View style={{ alignItems: 'center'}}>
-               <Text style={{ color: '#fff', marginTop: 10, marginBottom: 30,}}>Don't have an account? <Text style={{color: '#fff',
+               <Text style={{ color: '#fff', marginTop: 30, marginBottom: 30,}}>Don't have an account? <Text style={{color: '#fff',
     textDecorationLine: 'underline'}} onPress={ ()=> Linking.openURL('#') }>Create one</Text></Text>
                </View> 
                </View>

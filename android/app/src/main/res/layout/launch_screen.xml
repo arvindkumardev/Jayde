@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
+    android:background="@mipmap/logoimage"
     android:orientation="vertical">
 
 <!--    <ImageView-->
@@ -11,9 +12,9 @@
 <!--        android:src="@mipmap/logo"-->
 <!--        android:layout_marginTop="24dp"/>-->
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:src="@mipmap/logoimage"
-        android:layout_marginTop="7.7dp"/>
+<!--    <ImageView-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:src="@mipmap/logoimage"-->
+<!--        android:layout_marginTop="7.7dp"/>-->
 </LinearLayout>
