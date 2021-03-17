@@ -19,11 +19,13 @@ import Biometric from '../../components/Biometric';
 import UserContext from './user.context';
 import useAxios from 'axios-hooks';
 import styles from './styles';
-import {LOGIN_URL} from '../../utils/urls';
+import { ENDPOINT, LOGIN_URL } from '../../utils/urls';
 import commonStyles from '../../theme/commonStyles';
 import {BIOMETRIC_FAILURE_ERROR, FACE_ID_ERROR, FINGER_ID_ERROR,} from '../../utils/error';
 import {logEvent} from '../../services/firebase/AnalyticService';
 import {ANALYTICS_EVENTS} from '../../services/firebase';
+import { userLogin } from "../../services/middleware/user";
+import axios from "axios";
 
 // clearAll()
 function Login() {
@@ -51,26 +53,25 @@ function Login() {
     errorImage: Images.errorCredential,
   });
 
-  const [
-    {data: emLoginData, loading: emLoginLoading, error: emLoginError},
-    emLogin,
-  ] = useAxios(
-    {
-      url: LOGIN_URL,
-      method: 'get',
-    },
-    {manual: true},
-  );
-
-  const triggerLogin = (username, password, org) => {
-    emLogin();
-      // emLogin({
-      //   data: {
-      //     userName: username,
-      //     passWord: password,
-      //   },
-      // });
+  const [ { data: emLoginData, loading: emLoginLoading, error: emLoginError}, emLogin ] = useAxios({ url: LOGIN_URL, method:"POST" }, { manual: true});
+  
+  const triggerLogin = async (username, password, org) => {
+    try{
+      const response = await userLogin({email: username, password: password});
+      console.log(response);
+      setLoader(false);
+      // setLogin(true);
+      moveToHome()
+    }
+    catch(e){
+      console.log("Error", e);
+      setLoader(false);
+    }
   };
+
+  const moveToHome = () => {
+    navigation.navigate(NavigationRouteNames.HOME, {});
+  }
 
   const detectFingerprintAvailable = () => {
     console.log("isBiometricEnabled",isBiometricEnabled)
@@ -99,12 +100,18 @@ function Login() {
   };
 
   useEffect(() => {
+    console.log("Post data of login", emLoginData);
     if (emLoginData) {
         detectFingerprintAvailable();
       } else {
         console.log("error")
       }
   }, [emLoginData]);
+
+
+  useEffect(() => {
+    console.log("Post data of login error", emLoginError);
+  }, [emLoginError]);
 
   const setBiometricChange = () => {
     setOpenBiometric(true);
@@ -243,14 +250,22 @@ function Login() {
   };
 
   const handleLogin = () => {
-    setClickLogin(true);
-    if (isEmpty(loginForm.errors)) {
-      triggerLogin(
-        loginForm.values.username,
-        loginForm.values.password,
-        selectCompany,
-      );
-    }
+    // setClickLogin(true);
+    setLoader(true);
+    triggerLogin(
+      loginForm.values.username,
+      loginForm.values.password,
+      selectCompany,
+    );
+
+    // if (isEmpty(loginForm.errors)) {
+    //   console.log("Login details", loginForm.values);
+    //   triggerLogin(
+    //     loginForm.values.username,
+    //     loginForm.values.password,
+    //     selectCompany,
+    //   );
+    // }
   };
 
   const handleSuccessfulAuth = () => {
@@ -344,7 +359,7 @@ function Login() {
               </View> 
 
               <View style={{alignItems: 'center', marginTop: 60,}}>
-              <Text style={{color: '#fff', marginBottom: 20, fontSize : 40, lineHeight: 48, fontWeight: 'bold',}}>{title}</Text>
+              <Text style={{color: '#fff', marginBottom: 20, fontSize : 40, lineHeight: 48, fontWeight: 'bold',}}>{title}{JSON.stringify(emLoginData)}</Text>
               </View>
             <View style={styles.formContainer}>
               {/* <CustomText

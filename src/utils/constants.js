@@ -1,3 +1,4 @@
+import { ENDPOINT } from "../utils/index";
 export const STANDARD_SCREEN_DIMENSIONS = {height: 812, width: 375};
 export const LOCAL_STORAGE_DATA_KEY = {
   TUTORIAL_SHOWN: 'TUTORIAL_SHOWN',
@@ -6,7 +7,7 @@ export const LOCAL_STORAGE_DATA_KEY = {
   USER_INFO: 'USER_INFO',
   JWT_TOKEN: 'JWT_TOKEN',
 };
-export const BASE_URL = 'https://jsonplaceholder.typicode.com';
+export const BASE_URL = ENDPOINT;
 
 
 export const STANDARD_SCREEN_SIZE = 812;

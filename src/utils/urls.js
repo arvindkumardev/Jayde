@@ -1,6 +1,7 @@
-
-const LOGIN_URL = '/todos/1';
+import { ENDPOINT } from "../utils/index";
+const LOGIN_URL = `${ENDPOINT}/api/user/login`;
 
 export {
-  LOGIN_URL
+  LOGIN_URL,
+  ENDPOINT
 };
