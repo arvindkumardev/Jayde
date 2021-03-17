@@ -1,7 +1,7 @@
 import React, {useContext, useEffect, useState} from 'react';
 import * as Alert from 'react-native';
 import {KeyboardAvoidingView, Platform, TouchableOpacity, View, Text, Image, TextInput, ScrollView, } from 'react-native';
-import DropDownPicker from 'react-native-dropdown-picker';
+// import DropDownPicker from 'react-native-dropdown-picker';
 
 import * as Yup from 'yup';
 import {useFormik} from 'formik';
@@ -28,7 +28,7 @@ import { userLogin } from "../../services/middleware/user";
 import axios from "axios";
 
 // clearAll()
-function Login() {
+function SignUp() {
   const navigation = useNavigation();
   const [clickLogin, setClickLogin] = useState(false);
   const [openBiometric, setOpenBiometric] = useState(false);
@@ -468,4 +468,4 @@ function Login() {
     </View>
   );
 }
-export default Login;
+export default SignUp;
