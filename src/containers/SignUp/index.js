@@ -39,7 +39,7 @@ function SignUp() {
   const [selectCompanyModal, setSelectCompanyModal] = useState(false);
   const [needHelpModal, setNeedHelpModal] = useState(false);
   const [hidePassword, setHidePassword] = useState(false);
-  const [rememberMe, setRememberMe] = useState(false);
+  // const [rememberMe, setRememberMe] = useState(false);
   const [showError, setShowError] = useState(false);
   const [isFaceId, setIsFaceId] = useState(false);
   const [biometric, setBiometric] = useState({
@@ -318,8 +318,8 @@ function SignUp() {
   }, [emLoginLoading]);
 
   const _SignupFunc = async () => {
-
-    const URL = "http://ec2-52-91-165-234.compute-1.amazonaws.com/api/user/register"
+    if (rememberMe == true) {
+      const URL = "http://ec2-52-91-165-234.compute-1.amazonaws.com/api/user/register"
     // alert(URL)
     // console.log(URL)
     axios.post(URL, {
@@ -329,7 +329,7 @@ function SignUp() {
         phone: loginForm.values.phone,
         businessType: "seller",
         // device_name:device  
-        device_name: 'opppp'
+        // device_name: 'opppp'
     }).then(function (response) {
             // AsyncStorage.setItem('@storage_Key', response.data.token)
             // AsyncStorage.setItem('Name', response.data.data.name)
@@ -355,6 +355,8 @@ function SignUp() {
             }
             
         });
+    } else { alert('please accept policy') }
+    
 
     // if (emailStatus != '') {
     //     if (passwordStatus != "") {
@@ -373,11 +375,12 @@ function SignUp() {
 
 }
 
-  const [title,setTitle]=useState('Hello!');
+  const [title,setTitle]=useState('Sign Up!');
   const [title1,setTitle1]=useState('Forgot Password?');
   const [title2,setTitle2]=useState('Dont have an account?');
   const [title3,setTitle3]=useState('Create one');
   const [title4,setTitle4]=useState('Signup');
+  const [rememberMe,setRememberMe]=useState(false);
 
   return (
     <View style={{flex: 1,backgroundColor:Colors.mango}}>
@@ -516,7 +519,7 @@ function SignUp() {
               />
             </View>
 
-              {/* <View style={styles.checkBoxContainer}>
+              <View style={styles.checkBoxContainer}>
                 <View style={{flexDirection: 'row', alignItems: 'center'}}>
                   <CheckBoxWrapper
                     isChecked={rememberMe}
@@ -527,20 +530,21 @@ function SignUp() {
                    <View style={{marginLeft: RfW(10)}}>
                     <CustomText
                       color={Colors.black}
-                      fontSize={12}
+                      fontSize={15}
                       styling={{paddingVertical: RfH(4)}}>
-                      Keep me logged in
+                      I agree to the Terms and Conditions
                     </CustomText>
                   </View> 
                 </View>
-                <TouchableOpacity
+                {/* <TouchableOpacity
                   onPress={comingSoonAlert}
                   activeOpacity={0.7}>
                   <CustomText fontSize={12} color={Colors.black}>
                     Need help?
                   </CustomText>
-                </TouchableOpacity>
-              </View> */}
+                </TouchableOpacity> */}
+              </View>
+
                <View style={{marginTop: RfH(10)}}>
               <TouchableOpacity style={{marginTop:20,
     borderRadius: 10,
