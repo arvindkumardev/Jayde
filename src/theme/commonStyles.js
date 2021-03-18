@@ -9,7 +9,7 @@ import {Fonts} from './index';
 const commonStyles = StyleSheet.create({
   inputLabelStyle: {
     fontFamily: Font.regular,
-    fontSize: RFValue(12, STANDARD_SCREEN_SIZE),
+    fontSize: RFValue(16, STANDARD_SCREEN_SIZE),
     fontWeight: 'normal',
     fontStyle: 'normal',
     color: Colors.coolGrey,
@@ -38,6 +38,18 @@ const commonStyles = StyleSheet.create({
     fontStyle: 'italic',
     flex: 1,
     textAlignVertical: 'top',
+  },
+  inputLabelText: {
+    fontFamily: Font.regular,
+    fontSize: RFValue(16, STANDARD_SCREEN_SIZE),
+    fontWeight: 'normal',
+    fontStyle: 'normal',
+    color: Colors.coolGrey,
+    marginBottom: 5,
+  },
+  dropDownText: {
+    fontFamily: Fonts.regular,
+    fontSize: 15
   },
 });
 export default commonStyles;

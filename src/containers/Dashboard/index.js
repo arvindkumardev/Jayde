@@ -304,42 +304,42 @@ function HomeScreen() {
     name: '3 Ton Paper',
     date: '21/01/21',
     orderid: 'JYD/N/21/019',
-    image: require('./Group_9993.png'),
-    images: require('./Fill_164.png'),
+    image: require('../../assets/Images/Dashboard/Group_9993.png'),
+    images: require('../../assets/Images/Dashboard/Fill_164.png'),
     status: 'Pending',
   },  {
     name: '4 Ton Paper',
     date: '21/01/21',
     orderid: 'JYD/N/21/021',
-    image: require('./Group_9993.png'),
-    images: require('./Icon_metro-truck.png'),
+    image: require('../../assets/Images/Dashboard/Group_9993.png'),
+    images: require('../../assets/Images/Dashboard/Icon_metro-truck.png'),
     status: 'In Transit',
   },  {
     name: '3 Ton Plastic',
     date: '21/01/21',
     orderid: 'JYD/N/21/011',
-    image: require('./Group_9992.png'),
-    images: require('./Group_9995.png'),
+    image: require('../../assets/Images/Dashboard/Group_9992.png'),
+    images: require('../../assets/Images/Dashboard/Group_9995.png'),
     status: 'Completed',
   }])
 
   const [arraydata1,setarraydata1]=useState([
     {
     menuname: 'Create Order',
-    menu1image: require('./Group_9551.png'),
-    menu2image: require('./Icon_ionic-md-create.png'),
+    menu1image: require('../../assets/Images/Dashboard/Group_9551.png'),
+    menu2image: require('../../assets/Images/Dashboard/Icon_ionic-md-create.png'),
   },  {
     menuname: 'Existing Order',
-    menu1image: require('./Group_9551.png'),
-    menu2image: require('./Project.png'),
+    menu1image: require('../../assets/Images/Dashboard/Group_9551.png'),
+    menu2image: require('../../assets/Images/Dashboard/Project.png'),
   },  {
     menuname: 'Profile',
-    menu1image: require('./Group_9551.png'),
-    menu2image: require('./Project.png'),
+    menu1image: require('../../assets/Images/Dashboard/Group_9551.png'),
+    menu2image: require('../../assets/Images/Dashboard/Project.png'),
   },  {
     menuname: 'Logout',
-    menu1image: require('./Group_9551.png'),
-    menu2image: require('./Project.png'),
+    menu1image: require('../../assets/Images/Dashboard/Group_9551.png'),
+    menu2image: require('../../assets/Images/Dashboard/Project.png'),
   }])
 
   const _RenderItem = (index, item) => {
@@ -400,7 +400,7 @@ function HomeScreen() {
 
         <View style={{flex: .4, }}>
         <View style={{alignItems: 'flex-end', marginTop: 10, marginRight: 10,}}>
-          <Image style={{width: 125, height: 132,}} source={require('./Mask_Group_28.png')}  />
+          <Image style={{width: 125, height: 132,}} source={require('../../assets/Images/Dashboard/Mask_Group_28.png')}  />
           </View>
           </View>
           </View>

@@ -15,13 +15,14 @@ import AppLoader from "./AppLoader";
 
 const axios = Axios.create({
   baseURL: BASE_URL,
-  headers: {'Content-Type': 'application/json'},
+  headers: {'content-Type': 'application/json'},
 });
 
 axios.interceptors.request.use(
   async (config) => {
-    console.log('config', config);
+    console.log('Request config', config);
     const token = await getSaveData(LOCAL_STORAGE_DATA_KEY.JWT_TOKEN);
+    console.log("Token", token);
     if (token) {
       config.headers['jwt-token'] = token;
     }
@@ -32,11 +33,12 @@ axios.interceptors.request.use(
 
 axios.interceptors.response.use(
   (data) => {
-    console.log('config', data);
+    console.log('Response ', data);
     return data;
   },
   (error) => Promise.reject(error),
 );
+
 configure({axios});
 
 function App() {
@@ -62,7 +64,7 @@ function App() {
       )}
       <UserState>
               <AppLoader>
-          <AppStack />
+                <AppStack />
               </AppLoader>
       </UserState>
     </NavigationContainer>
