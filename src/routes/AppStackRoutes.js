@@ -3,10 +3,10 @@ import { createStackNavigator } from '@react-navigation/stack';
 import NavigationRouteNames from './ScreenNames';
 import Login from '../containers/Login';
 import HomeScreen from '../containers/Dashboard';
-import NewOrder from '../containers/NewOrder';
+// import LoginWithEmail from '../containers/LoginWithEmail';
+import PricingRequest from "../containers/PricingRequest";
 import NewOrderList from '../containers/NewOrderList';
 import AccountCreate from '../containers/AccountCreate';
-import PricingRequest from "../containers/PricingRequest";
 import SignUp from '../containers/SignUp';
 import BottomTabStack from './BottomTabStack';
 import UserContext from '../containers/Login/user.context';
@@ -20,8 +20,9 @@ const AppStack = () => {
       {!isLogin ? (
         <Stack.Screen
           name={NavigationRouteNames.LOGIN}
-          component={PricingRequest}
-          initialParams={{title: 'Paper Waste'}}
+          component={SignUp}
+          options={{ headerShown: false }}
+          // options={{ title: 'Paper Waste' }}
         />
       ) : (
         <Stack.Screen

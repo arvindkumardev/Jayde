@@ -306,7 +306,7 @@ function AccountCreate() {
         <View style={{flex: 1,}}>
         <TouchableOpacity>  
                     <View>  
-                    <Image style={{width: 24, height: 24, marginLeft: 24,}} source={require('./Left_Arrow_Icon.png')}  />   
+                    <Image style={{width: 24, height: 24, marginLeft: 24,}} source={require('../../assets/Images/AccountCreate/Left_Arrow_Icon.png')}  />   
                     </View>  
                 </TouchableOpacity>  
         </View>
@@ -320,11 +320,11 @@ function AccountCreate() {
           </View>   
 
        <View style={{alignItems: 'center', marginTop: 40,}}>
-                 <Image style={{width: 155, height: 54}} source={require('./JaydeLogo01.png')}  />    
+                 <Image style={{width: 155, height: 54}} source={require('../../assets/Images/AccountCreate/JaydeLogo01.png')}  />    
               </View> 
         
         <View style={{flex: 1, width: 310, height: 218, backgroundColor: '#ffffff', alignItems: 'center', borderRadius: 20, marginLeft: 24, marginTop: 62,}}>
-          <Image style={{width: 114, height: 114, marginTop: 32,}} source={require('./Group.png')}  /> 
+          <Image style={{width: 114, height: 114, marginTop: 32,}} source={require('../../assets/Images/AccountCreate/Group.png')}  /> 
           <Text style={{fontSize: 15, color: '#232323', }}>{title}</Text>
         </View>
 
