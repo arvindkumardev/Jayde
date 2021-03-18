@@ -21,7 +21,7 @@ const AppStack = () => {
         <Stack.Screen
           name={NavigationRouteNames.LOGIN}
           component={PricingRequest}
-          options={{ title: 'Paper Waste' }}
+          initialParams={{title: 'Paper Waste'}}
         />
       ) : (
         <Stack.Screen

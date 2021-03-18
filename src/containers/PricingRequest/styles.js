@@ -6,7 +6,36 @@ import Fonts from "../../theme/Fonts";
 import { Colors } from '../../theme';
 
 const styles = StyleSheet.create({
-
+  locationTxt:{
+    flex: 3,
+    height: 45,
+    marginRight: 15
+  },
+  imagePickerContainer:{
+    marginTop: 15,
+    height: 90
+  },
+  imageContainer:{
+    alignItems:'center',
+    flexDirection:'row',
+    justifyContent:'space-around',
+    marginTop: 20
+  },
+  uploadImage:{
+    width: 200,
+    height: 100
+  },
+  removeBtn:{
+    paddingVertical: 8,
+    paddingHorizontal: 10,
+    backgroundColor:'red',
+    borderRadius: 10
+  },
+  cameraPreview:{
+    flex: 1,
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+  },
   headerContainer:{
     alignItems:'center',
     marginBottom: 20,
