@@ -296,6 +296,10 @@ function Login() {
   }, [emLoginLoading]);
 
   const [title,setTitle]=useState('Hello!');
+  const [title1,setTitle1]=useState('Click here');
+  const [title2,setTitle2]=useState('Dont have an account?');
+  const [title3,setTitle3]=useState('Create one');
+  const [title4,setTitle4]=useState('PARTNER LOGIN');
 
   return (
     <View style={{flex: 1,backgroundColor:Colors.mango}}>
@@ -318,7 +322,7 @@ function Login() {
            
 
            <View style={{alignItems: 'center', marginTop: 40,}}>
-                 <Image style={{width: 160, height: 55}} source={require('./JaydeLogo01.png')}  />    
+                 <Image style={{width: 160, height: 55}} source={require('../../assets/Images/Login/JaydeLogo01.png')}  />    
                 {/* <Image
           style={{width: 34, height: 34}}
           source={{uri: 
@@ -403,16 +407,16 @@ function Login() {
     padding: RfW(10),
     borderRadius: RfH(25),}}>
       <View style={{alignItems: 'center', justifyContent: 'center', flexDirection: 'row',}}>
-            <Text style={{color: 'orange',}}>PARTNER LOGIN</Text>
-            <Text style={{ marginLeft: 5,}}>Click here</Text>
+            <Text style={{color: 'orange',}}>{title4}</Text>
+            <Text style={{ marginLeft: 5,}}>{title1}</Text>
           </View>
           </View>
           <View style={{alignItems: 'flex-end', marginTop: 20, marginRight: 10,}}>
-          <Image style={{width: 98, height: 103,}} source={require('./Mask_Group_28.png')}  />
+          <Image style={{width: 98, height: 103,}} source={require('../../assets/Images/Login/Mask_Group_28.png')}  />
           </View>
           <View style={{ alignItems: 'center'}}>
-               <Text style={{ color: '#fff', marginTop: 10, marginBottom: 30,}}>Don't have an account? <Text style={{color: '#fff',
-    textDecorationLine: 'underline'}} onPress={ ()=> Linking.openURL('#') }>Create one</Text></Text>
+               <Text style={{ color: '#fff', marginTop: 10, marginBottom: 30,}}>{title2}<Text style={{color: '#fff',
+    textDecorationLine: 'underline'}} onPress={ ()=> Linking.openURL('#') }>{title3}</Text></Text>
                </View> 
                </View>
 

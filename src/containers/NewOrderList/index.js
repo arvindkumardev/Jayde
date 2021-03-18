@@ -302,16 +302,16 @@ function NewOrderList() {
   const [arraydata,setarraydata]=useState([
     {
     name: 'PAPER WASTE',
-    image: require('./Group_10089.png'),
+    image: require('../../assets/Images/NewOrderList/Group_10089.png'),
   },  {
     name: 'PLASTIC WASTE',
-    image: require('./Group_10090.png'),
+    image: require('../../assets/Images/NewOrderList/Group_10090.png'),
   },  {
     name: 'ELECTRONIC WASTE',
-    image: require('./Group_10091.png'),
+    image: require('../../assets/Images/NewOrderList/Group_10091.png'),
   },  {
     name: 'MIX WASTE',
-    image: require('./Group_10088.png'),
+    image: require('../../assets/Images/NewOrderList/Group_10088.png'),
   }])
 
  

@@ -312,6 +312,10 @@ function SignUp() {
   }, [emLoginLoading]);
 
   const [title,setTitle]=useState('Hello!');
+  const [title1,setTitle1]=useState('Forgot Password?');
+  const [title2,setTitle2]=useState('Dont have an account?');
+  const [title3,setTitle3]=useState('Create one');
+  const [title4,setTitle4]=useState('Signup');
 
   return (
     <View style={{flex: 1,backgroundColor:Colors.mango}}>
@@ -336,21 +340,22 @@ function SignUp() {
         <View style={{flex: 1,}}>
         <TouchableOpacity>  
                     <View>  
-                    <Image style={{width: 24, height: 24, marginLeft: 24,}} source={require('./Left_Arrow_Icon.png')}  />   
+                    <Image style={{width: 24, height: 24, marginLeft: 24,}} source={require('../../assets/Images/signupImage/Left_Arrow_Icon.png')}  />   
+                        
                     </View>  
                 </TouchableOpacity>  
         </View>
         <View style={{flex: 1,}}>
         <TouchableOpacity>  
                     <View style={{alignItems: 'flex-end',}}>  
-                        <Text style={{fontSize: 16, color: '#fff', marginRight: 20,}}>Signup</Text>  
+                        <Text style={{fontSize: 16, color: '#fff', marginRight: 20,}}>{title4}</Text>  
                     </View>  
                 </TouchableOpacity>  
         </View>
           </View> 
             
            <View style={{alignItems: 'center', marginTop: 40,}}>
-                 <Image style={{width: 160, height: 55}} source={require('./JaydeLogo01.png')}  />    
+                 <Image style={{width: 160, height: 55}} source={require('../../assets/Images/signupImage/JaydeLogo01.png')}  />    
                 {/* <Image
           style={{width: 34, height: 34}}
           source={{uri: 
@@ -443,11 +448,11 @@ function SignUp() {
           </View>
           </View> */}
           <View style={{alignItems: 'flex-end', marginTop: 20, marginRight: 25,}}>
-                <Text style={{ marginLeft: 5, color: '#fff',}}>Forgot Password?</Text>
+                <Text style={{ marginLeft: 5, color: '#fff',}}>{title1}</Text>
           </View>
           <View style={{ alignItems: 'center'}}>
-               <Text style={{ color: '#fff', marginTop: 30, marginBottom: 30,}}>Don't have an account? <Text style={{color: '#fff',
-    textDecorationLine: 'underline'}} onPress={ ()=> Linking.openURL('#') }>Create one</Text></Text>
+               <Text style={{ color: '#fff', marginTop: 30, marginBottom: 30,}}>{title2}<Text style={{color: '#fff',
+    textDecorationLine: 'underline'}} onPress={ ()=> Linking.openURL('#') }>{title3}</Text></Text>
                </View> 
                </View>
 
