@@ -18,6 +18,7 @@ import FAIcon from "react-native-vector-icons/FontAwesome";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import Camera from "../../components/Camera";
 import { launchImageLibrary } from 'react-native-image-picker';
+import { getSubCategory } from "../../services/middleware/quote";
 
 
 const PricingRequest= () => {
@@ -27,6 +28,7 @@ const PricingRequest= () => {
   const [ showCamera, setShowCamera ] = useState(false);
   const [ wasteImage, setWasteImage ] = useState(null);
   const [ base64Image, setBase64Image ] = useState('');
+  const [ subCategories, setSubCategories ] = useState([]);
   
   const onShowCamera = () => {
     console.log(showCamera);
@@ -38,6 +40,11 @@ const PricingRequest= () => {
       title: title ? <Text style={{fontFamily: Fonts.bold, fontSize: 18}}>{title}</Text> : <Text style={{fontFamily: Fonts.bold, fontSize: 18}}>Paper Waste</Text>
     })
   }, [navigation]);
+
+  useEffect( async () => {
+    const { data } = await getSubCategory(1);
+    console.log("Getting response from subcategory ", data);
+  }, [])
 
   const onClose = () => {
     setShowCamera(false);

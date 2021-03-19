@@ -13,13 +13,13 @@ const styles = StyleSheet.create({
   },
   imagePickerContainer:{
     marginTop: 15,
-    height: 90
+    height: 50
   },
   imageContainer:{
     alignItems:'center',
     flexDirection:'row',
     justifyContent:'space-around',
-    marginTop: 20
+    marginTop: 40
   },
   uploadImage:{
     width: 200,
@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
   headerContainer:{
     alignItems:'center',
     marginBottom: 20,
-    paddingTop: RfH(70)
+    paddingTop: 30
   },
   confirmButton:{
     marginTop:20,

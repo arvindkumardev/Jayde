@@ -8,6 +8,8 @@ import PricingRequest from "../containers/PricingRequest";
 import NewOrderList from '../containers/NewOrderList';
 import AccountCreate from '../containers/AccountCreate';
 import SignUp from '../containers/SignUp';
+import NewOrder from "../containers/NewOrder/index";
+import PriceConfirm from "../containers/PriceConfirm/index";
 import BottomTabStack from './BottomTabStack';
 import UserContext from '../containers/Login/user.context';
 
@@ -20,9 +22,8 @@ const AppStack = () => {
       {!isLogin ? (
         <Stack.Screen
           name={NavigationRouteNames.LOGIN}
-          component={SignUp}
-          options={{ headerShown: false }}
-          // options={{ title: 'Paper Waste' }}
+          component={PricingRequest}
+          initialParams={{title: 'Paper Waste'}}
         />
       ) : (
         <Stack.Screen
