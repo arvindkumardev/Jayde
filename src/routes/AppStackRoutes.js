@@ -22,7 +22,7 @@ const AppStack = () => {
       {!isLogin ? (
         <Stack.Screen
           name={NavigationRouteNames.LOGIN}
-          component={AdminNewOrder}
+          component={SignUp}
           options={{ headerShown: false }}
           // options={{ title: 'Paper Waste' }}
         />

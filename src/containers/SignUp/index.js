@@ -99,6 +99,8 @@ function SignUp() {
     }
   };
 
+
+
   // useEffect(() => {
   //   console.log("Post data of login", emLoginData);
   //   if (emLoginData) {
@@ -491,6 +493,7 @@ function SignUp() {
                   loginForm.setFieldValue('phone', value)
                 }
                 // returnKeyType={'next'}
+                keyboardType={'numeric'}
                 onSubmitEditing={() => onSubmitEditing('phone')}
                 error={clickLogin && loginForm.errors.phone}
               />
