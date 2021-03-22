@@ -13,6 +13,7 @@ import BottomTabStack from './BottomTabStack';
 import UserContext from '../containers/Login/user.context';
 import Order from '../containers/Order';
 import ChooseAggregator from '../containers/ChooseAggregator';
+import OrderAssign from '../containers/OrderAssign';
 
 const Stack = createStackNavigator();
 

@@ -74,7 +74,7 @@ function Order() {
     return (
       <View style={{flexDirection: 'row', marginLeft: 24,}}>
       <View style={{flex: .2, }}>
-      <Image style={{width: 66, height: 66, marginTop: 10,}} source={item.image}  />
+      <Image style={{width: 66, height: 66, marginTop: 10,}} source={require('../../assets/Images/AdminSelectOrder/Group10061.png')}  />
       </View>
       <View style={{flex: .6, }}>
       <Text style={{fontSize: 17, marginLeft: 15, marginTop: 12,}}>{item.orderid}</Text>
@@ -82,7 +82,7 @@ function Order() {
       <Text style={{fontSize: 11, marginLeft: 15,}}>{item.date}</Text>
       </View>
       <View style={{flex: .2,}}>
-      <Image style={{width: 15, height: 18, marginTop: 30, marginLeft: 15,}} source={item.images}  />
+      <Image style={{width: 15, height: 18, marginTop: 30, marginLeft: 15,}} source={require('../../assets/Images/Dashboard/Fill_164.png')}  />
       <Text style={{fontSize: 11, color: '#000',}}>{item.status}</Text>
       </View>
       </View>     
