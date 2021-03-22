@@ -11,7 +11,8 @@ import AccountCreate from '../containers/AccountCreate';
 import SignUp from '../containers/SignUp';
 import BottomTabStack from './BottomTabStack';
 import UserContext from '../containers/Login/user.context';
-import AdminSelectOrder from '../containers/AdminSelectOrder';
+import Order from '../containers/Order';
+import ChooseAggregator from '../containers/ChooseAggregator';
 
 const Stack = createStackNavigator();
 
@@ -22,7 +23,7 @@ const AppStack = () => {
       {!isLogin ? (
         <Stack.Screen
           name={NavigationRouteNames.LOGIN}
-          component={SignUp}
+          component={ChooseAggregator}
           options={{ headerShown: false }}
           // options={{ title: 'Paper Waste' }}
         />
