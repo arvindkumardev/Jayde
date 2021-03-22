@@ -9,6 +9,7 @@ import {
 import UserContext from '../Login/user.context';
 import {useNavigation, useRoute} from '@react-navigation/native';
 import Styles from "./styles";
+import NavigationRouteNames from '../../routes/ScreenNames';
 
 const NewOrder= () => {
   const { user, setLogin } = useContext(UserContext);
@@ -21,11 +22,15 @@ const NewOrder= () => {
     })
   }, [navigation]);
 
+  const handleGetQuote = () => {
+    navigation.navigate(NavigationRouteNames.PRICE_REQUEST);
+  }
+
   return (
       <View style={Styles.screenContainer}>
           <Text style={Styles.labelTxt}>What would you want to do?</Text>
           <View style={Styles.btnContainer}>
-            <TouchableOpacity style={Styles.btnGetQuote}>
+            <TouchableOpacity style={Styles.btnGetQuote} onPress={handleGetQuote}>
                 <Text style={Styles.btnTextWhite}>GET QUOTE</Text>
             </TouchableOpacity>
             <TouchableOpacity style={Styles.btnSchedule}>

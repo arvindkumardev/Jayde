@@ -19,6 +19,7 @@ import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view
 import Camera from "../../components/Camera";
 import { launchImageLibrary } from 'react-native-image-picker';
 import { getSubCategory } from "../../services/middleware/quote";
+import NavigationRouteNames from '../../routes/ScreenNames';
 
 
 const PricingRequest= () => {
@@ -82,6 +83,9 @@ const PricingRequest= () => {
     setBase64Image('');
   }
   
+  const handleConfirm = () => {
+    navigation.navigate(NavigationRouteNames.PRICE_CONFIRM)
+  }
   return (
       <KeyboardAwareScrollView style={{flex:1, paddingHorizontal:RfW(20)}}>
             <View style={Styles.headerContainer}>
@@ -148,7 +152,7 @@ const PricingRequest= () => {
               </View>
             </View>
             <View style={{marginTop: RfH(10)}}>
-              <TouchableOpacity style={Styles.confirmButton} onPress={() => { } }>
+              <TouchableOpacity style={Styles.confirmButton} onPress={handleConfirm}>
                   <Text style={Styles.confirmBtnText}>CONFIRM</Text>
               </TouchableOpacity>
             </View>

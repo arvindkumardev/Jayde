@@ -11,6 +11,7 @@ import {useNavigation, useRoute} from '@react-navigation/native';
 import FAIcon from "react-native-vector-icons/FontAwesome";
 import Styles from "./styles";
 import { Fonts } from '../../theme';
+import NavigationRouteNames from '../../routes/ScreenNames';
 
 const PriceConfirm = () => {
   const { user, setLogin } = useContext(UserContext);
@@ -23,6 +24,9 @@ const PriceConfirm = () => {
     })
   }, [navigation]);
 
+  const handleSchedulePickup = () => {
+      navigation.navigate(NavigationRouteNames.CONFIRM_ADDRESS)
+  }
   return (
       <View style={Styles.screenContainer}>
           <View style={Styles.quoteContainer}>
@@ -63,7 +67,7 @@ const PriceConfirm = () => {
             </View>
           </View>
           <View style={Styles.btnContainer}>
-            <TouchableOpacity style={Styles.btnPrimary}>
+            <TouchableOpacity style={Styles.btnPrimary} onPress={handleSchedulePickup}>
                 <Text style={Styles.btnTextWhite}>SCHEDULE PICKUP</Text>
             </TouchableOpacity>
           </View>
