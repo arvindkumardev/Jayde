@@ -2,10 +2,17 @@ import React, {useContext, useEffect, useState} from 'react';
 import * as Alert from 'react-native';
 import {KeyboardAvoidingView, Platform, TouchableOpacity, View, Text, Image, TextInput, FlatList, ScrollView} from 'react-native';
 import  DropDownPicker from "react-native-dropdown-picker";
-
+import axios from "axios";
+import useAxios from 'axios-hooks';
 
 function OrderAssign() {
   
+  const [arraydata,setarraydata]=useState([
+    {
+         name: 'Waste type',
+         type: 'Plastic',
+      }
+  ])
 
    const [title1,setTitle1]=useState('Ref No- JYD/SC/2020/0067');
    const [title4,setTitle4]=useState('Order Assign');
@@ -20,6 +27,35 @@ function OrderAssign() {
    const [title10,setTitle10]=useState('26/07/2020');
    const [title11,setTitle11]=useState('Purchase Amount');
    const [title12,setTitle12]=useState('₹ 25,864');
+
+   const _AggreFunc = async () => {
+    // if (rememberMe == true) {
+      const URL = "http://ec2-52-91-165-234.compute-1.amazonaws.com/api/admin/aggregators"
+    axios.get(URL, ).then(function (response) { 
+            console.log(response)
+            setarraydata(response.data);
+            console.log("arraydata",arraydata)
+            alert(JSON.stringify(response))
+            // navigation.navigate("PropertyListingPage", { value: ["1"] })
+            // setLoading(false)
+        }).catch(function (error) {
+            console.log(JSON.stringify(error), "hello");
+            setLoading(false)
+            if (error.response.data.errors) {
+                Alert.alert("Error", Object.values(error.response.data.errors)[0][0])
+
+            }
+            else {
+                Alert.alert("Error", error.response.data.message)
+            }
+            
+        });
+    // } else { alert('please accept policy') }
+}
+
+  useEffect(() => {
+    _AggreFunc()
+  }, []);
 
   
   return (
@@ -139,6 +175,7 @@ function OrderAssign() {
                 }}
                 dropDownStyle={{backgroundColor: '#fafafa'}}
                 onChangeItem={item => console.log(item)}
+                // onPress={() => {_AggreFunc()}}
               />
             </View>
       

@@ -24,7 +24,7 @@ const AppStack = () => {
       {!isLogin ? (
         <Stack.Screen
           name={NavigationRouteNames.LOGIN}
-          component={ChooseAggregator}
+          component={OrderAssign}
           options={{ headerShown: false }}
           // options={{ title: 'Paper Waste' }}
         />
