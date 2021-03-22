@@ -22,6 +22,18 @@ function ChooseAggregator() {
       label: 'Kings Enterprises'
      },
     ];
+
+  //  const colors = [
+	// 		{
+	// 			label: 'red'
+	// 		},
+	// 		{
+	// 			label: 'green'
+	// 		},
+	// 		{
+	// 			label: 'blue'
+	// 		}
+	// 	];
     
   const [title4,setTitle4]=useState('Send to Aggregator');
 
@@ -70,16 +82,19 @@ function ChooseAggregator() {
         // keyboardType="numeric"
       />
 
-          <Text style={{fontSize: 17, color: '#121212', marginLeft: 24,}}>Choose Aggregator</Text>
+          <Text style={{fontSize: 17, color: '#121212', marginLeft: 24, marginTop: 15,}}>Choose Aggregator</Text>
 
         <View style={{flex: 1, marginTop: 10, marginRight: 24, marginLeft: 24,}}>
-          <RadioButtonRN
+          <RadioButtonRN 
   data={data}
+  circleSize={10}
+  initial={4}
+  // data={colors}
   selectedBtn={(e) => console.log(e)}
 />
 </View>
 
-<View style={{flex: 1, marginTop: 10, marginRight: 24, marginLeft: 24,}}>
+<View style={{flex: 1, marginTop: 40, marginRight: 24, marginLeft: 24,}}>
               <TouchableOpacity style={{marginTop:20,
     borderRadius: 13,
     backgroundColor: 'orange',

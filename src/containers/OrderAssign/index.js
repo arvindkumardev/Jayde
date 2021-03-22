@@ -20,43 +20,7 @@ function OrderAssign() {
    const [title10,setTitle10]=useState('26/07/2020');
    const [title11,setTitle11]=useState('Purchase Amount');
    const [title12,setTitle12]=useState('₹ 25,864');
-  //  const [title13,setTitle13]=useState('Pickup Address');
-  //  const [title14,setTitle14]=useState('1812, buildind No 2, Banjara Hills. Hyderabad (TN)');
- 
 
-  // const [arraydata,setarraydata]=useState([
-  //   {
-  //   name: 'Waste type',
-  //   type: 'Plastic',
-  // },  {
-  //   name: 'Waste Sub Category',
-  //   type: 'Type 1',
-  // },  {
-  //   name: 'Volume',
-  //   type: '3 Tons',
-  // },  {
-  //   name: 'Purchase Date',
-  //   type: '26/07/2020',
-  // },  {
-  //   name: 'Purchase Amount',
-  //   type: '₹ 25,864',
-  // },  {
-  //   name: 'Pickup Address',
-  //   type: '1812, buildind No 2, Banjara Hills. Hyderabad (TN)',
-  // }])
-
-  // const _RenderItem = (index, item) => {
-  //   return (
-  //     <View style={{flexDirection: 'row', marginLeft: 24,}}>
-  //     <View style={{flex: 1, }}>
-  //     <Text style={{fontSize: 15, color: '#121212', marginTop: 20, fontFamily: 'ProximaNova-Regular',}}>{item.name}</Text>
-  //     </View>
-  //     <View style={{flex: 1, alignItems: 'flex-end',}}>
-  //     <Text style={{fontSize: 15, color: '#121212', marginTop: 20, fontFamily: 'ProximaNova-Regular', marginRight: 30,}}>{item.type}</Text>
-  //     </View>
-  //     </View>     
-  //   )
-  // }
   
   return (
     <View style={{flex: 1,backgroundColor: '#ffffff',}}>
@@ -79,11 +43,11 @@ function OrderAssign() {
         </View>
           </View> 
           
-        <View style={{alignItems: 'center',  marginTop: 35,}}>
+        <View style={{alignItems: 'center',  marginTop: 25,}}>
           <Text style={{marginLeft: 24, fontSize: 17, color: '#121212', fontWeight: "bold",}}>{title1}</Text>
         </View>
         
-        <View style={{width: 310, height: 215, backgroundColor: '#f5f5f5', borderRadius: 20, marginLeft: 24, marginTop: 35, marginRight: 24,}}>
+        <View style={{width: 310, height: 215, backgroundColor: '#f5f5f5', borderRadius: 20, marginLeft: 24, marginTop: 25, marginRight: 24,}}>
         
         <View style={{flexDirection: 'row', marginLeft: 24,}}>
       <View style={{flex: 1, }}>
@@ -130,47 +94,9 @@ function OrderAssign() {
       </View>
       </View> 
 
-      {/* <View style={{flexDirection: 'row', marginLeft: 24,}}>
-      <View style={{flex: 1, }}>
-      <Text style={{fontSize: 15, color: '#121212', marginTop: 20, fontFamily: 'ProximaNova-Regular',}}>{title13}</Text>
-      </View>
-      <View style={{flex: 1, alignItems: 'flex-end',}}>
-      <Text style={{fontSize: 15, color: '#121212', marginTop: 20, fontFamily: 'ProximaNova-Regular', marginRight: 30,}}>{title14}</Text>
-      </View>
-      </View>  */}
-
-        {/* <FlatList
-        data={arraydata}
-        
-        renderItem={({ index, item }) =>
-          _RenderItem(index, item)
-        }  
-        /> */}
 
        </View>
-        
-{/* 
-       <View style={{flexDirection: 'row', marginTop: 70,}}>
-        <View style={{flex: 1, marginTop: 10, marginLeft: 24,}}>
-              <TouchableOpacity style={{marginTop:20,
-    borderRadius: 10,
-    backgroundColor: '#fff',
-    paddingVertical: 10,
-    alignItems:'center',borderColor: 'orange', borderWidth: 1,}} onPress={() => {_SignupFunc()}}>
-                  <Text style={{fontSize: 18, color: 'orange'}}>REJECT</Text>
-              </TouchableOpacity>
-             </View>
-        
-             <View style={{flex: 1, marginTop: 10, marginRight: 24, marginLeft: 7,}}>
-              <TouchableOpacity style={{marginTop:20,
-    borderRadius: 13,
-    backgroundColor: 'orange',
-    paddingVertical: 11,
-    alignItems:'center'}} onPress={() => {_SignupFunc()}}>
-                  <Text style={{fontSize: 18, color: '#ffffff'}}>ACCEPT</Text>
-              </TouchableOpacity>
-             </View>
-        </View> */}
+      
 
              <View style={{marginTop: 15, marginRight: 24, marginLeft: 24,}}>
               <Text>Select business type</Text>
@@ -185,7 +111,7 @@ function OrderAssign() {
                 defaultValue={"0"}
                 // globalTextStyle={commonStyles.dropDownText}
                 containerStyle={{height: 45}}
-                style={{backgroundColor: '#e4e4e4'}}
+                style={{backgroundColor: '#e4e4e4', marginTop: 5,}}
                 itemStyle={{
                     justifyContent: 'flex-start',
                 }}
@@ -207,7 +133,7 @@ function OrderAssign() {
                 defaultValue={"0"}
                 // globalTextStyle={commonStyles.dropDownText}
                 containerStyle={{height: 45}}
-                style={{backgroundColor: '#e4e4e4'}}
+                style={{backgroundColor: '#e4e4e4', marginTop: 5,}}
                 itemStyle={{
                     justifyContent: 'flex-start',
                 }}
@@ -216,7 +142,7 @@ function OrderAssign() {
               />
             </View>
       
-        <View style={{flex: 1, marginTop: 10, marginRight: 24, marginLeft: 24,}}>
+        <View style={{flex: 1, marginTop: 20, marginRight: 24, marginLeft: 24,}}>
               <TouchableOpacity style={{marginTop:20,
     borderRadius: 13,
     backgroundColor: 'orange',
