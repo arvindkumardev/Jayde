@@ -15,19 +15,35 @@ import Order from '../containers/Order';
 import ChooseAggregator from '../containers/ChooseAggregator';
 import OrderAssign from '../containers/OrderAssign';
 
+
 const Stack = createStackNavigator();
 
 const AppStack = () => {
   const { isLogin } = useContext(UserContext);
   return (
-    <Stack.Navigator headerMode="screen">
+    // <Stack.Navigator headerMode="screen">
+    //   {!isLogin ? (
+    //     <Stack.Screen
+    //       name={NavigationRouteNames.LOGIN}
+    //       component={SignUp}
+    //       options={{ headerShown: false }}
+    //       // options={{ title: 'Paper Waste' }}
+    //     />
+    <Stack.Navigator headerMode="screen" initialRouteName={isLogin ? NavigationRouteNames.HOME : NavigationRouteNames.LOGIN_WITH_EMAIL }>
       {!isLogin ? (
+        <>
         <Stack.Screen
-          name={NavigationRouteNames.LOGIN}
+          name={NavigationRouteNames.SIGNUP}
           component={SignUp}
           options={{ headerShown: false }}
-          // options={{ title: 'Paper Waste' }}
         />
+         {/* SIGNUP SCREEN */}
+         <Stack.Screen
+          name={NavigationRouteNames.LOGIN_WITH_EMAIL}
+          component={LoginWithEmail}
+          options={{ headerShown: false }}
+        />
+        </>
       ) : (
         <Stack.Screen
           name={NavigationRouteNames.HOME}
