@@ -3,12 +3,12 @@ require_relative '../node_modules/@react-native-community/cli-platform-ios/nativ
 
 platform :ios, '12.1'
 
-target 'Econnect' do
+target 'Jayde' do
   config = use_native_modules!
 
   use_react_native!(:path => config["reactNativePath"])
 
-  # target 'EconnectTests' do
+  # target 'JaydeTests' do
   #   inherit! :complete
     # Pods for testing
   # end
