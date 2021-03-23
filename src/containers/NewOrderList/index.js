@@ -1,6 +1,16 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import * as Alert from 'react-native';
-import {KeyboardAvoidingView, Platform, TouchableOpacity, View, Text, Image, TextInput, FlatList, ScrollView} from 'react-native';
+import {
+  KeyboardAvoidingView,
+  Platform,
+  TouchableOpacity,
+  View,
+  Text,
+  Image,
+  TextInput,
+  FlatList,
+  ScrollView,
+} from 'react-native';
 
 // import * as Yup from 'yup';
 // import {useFormik} from 'formik';
@@ -295,63 +305,79 @@ function NewOrderList() {
   //   setLoader(emLoginLoading);
   // }, [emLoginLoading]);
 
-   const [title,setTitle]=useState('New Order');
-   const [title1,setTitle1]=useState('Please Choose a Category');
+  const [title, setTitle] = useState('New Order');
+  const [title1, setTitle1] = useState('Please Choose a Category');
   // const [title2,setTitle2]=useState('Current Orders');
 
-  const [arraydata,setarraydata]=useState([
+  const [arraydata, setarraydata] = useState([
     {
-    name: 'PAPER WASTE',
-    image: require('../../assets/Images/NewOrderList/Group_10089.png'),
-  },  {
-    name: 'PLASTIC WASTE',
-    image: require('../../assets/Images/NewOrderList/Group_10090.png'),
-  },  {
-    name: 'ELECTRONIC WASTE',
-    image: require('../../assets/Images/NewOrderList/Group_10091.png'),
-  },  {
-    name: 'MIX WASTE',
-    image: require('../../assets/Images/NewOrderList/Group_10088.png'),
-  }])
-
- 
+      name: 'PAPER WASTE',
+      image: require('../../assets/Images/NewOrderList/Group_10089.png'),
+    },
+    {
+      name: 'PLASTIC WASTE',
+      image: require('../../assets/Images/NewOrderList/Group_10090.png'),
+    },
+    {
+      name: 'ELECTRONIC WASTE',
+      image: require('../../assets/Images/NewOrderList/Group_10091.png'),
+    },
+    {
+      name: 'MIX WASTE',
+      image: require('../../assets/Images/NewOrderList/Group_10088.png'),
+    },
+  ]);
 
   const _RenderItem = (index, item) => {
     return (
-      <View style={{flexDirection: 'row', marginLeft: 24,}}>
-      <View style={{flex: .2, }}>
-      <Image style={{width: 66, height: 66, marginTop: 32,}} source={item.image}  />
-      </View>
-      <View style={{flex: .8, }}>
-      <Text style={{fontSize: 17, marginLeft: 35, color: '#121212', marginTop: 58, fontFamily: 'ProximaNova-Regular',}}>{item.name}</Text>
-      </View>
-      </View>     
-    )
-  }
- 
-  
-  return (
-    <View style={{flex: 1,backgroundColor: '#f6f6f6',}}>
-       <ScrollView>
-      
-         <View style={{marginTop: 50, marginLeft: 24, alignItems: 'center',}}>
-            <Text style={{fontSize: 34, color: '#121212', fontWeight: 'bold',}}>{title}</Text>
-            <Text style={{fontSize: 17, marginTop: 5, color: '#121212', fontFamily: 'ProximaNova-Regular',}}>{title1}</Text>
+      <View style={{ flexDirection: 'row', marginLeft: 24 }}>
+        <View style={{ flex: 0.2 }}>
+          <Image
+            style={{ width: 66, height: 66, marginTop: 32 }}
+            source={item.image}
+          />
         </View>
-        
+        <View style={{ flex: 0.8 }}>
+          <Text
+            style={{
+              fontSize: 17,
+              marginLeft: 35,
+              color: '#121212',
+              marginTop: 58,
+              fontFamily: 'ProximaNova-Regular',
+            }}
+          >
+            {item.name}
+          </Text>
+        </View>
+      </View>
+    );
+  };
 
-            <FlatList
-        data={arraydata}
-        
-        renderItem={({ index, item }) =>
-          _RenderItem(index, item)
-        }
-        
-      />
+  return (
+    <View style={{ flex: 1, backgroundColor: '#f6f6f6' }}>
+      <ScrollView>
+        <View style={{ marginTop: 50, marginLeft: 24, alignItems: "center" }}>
+          <Text style={{ fontSize: 34, color: '#121212', fontWeight: 'bold' }}>
+            {title}
+          </Text>
+          <Text
+            style={{
+              fontSize: 17,
+              marginTop: 5,
+              color: '#121212',
+              fontFamily: 'ProximaNova-Regular',
+            }}
+          >
+            {title1}
+          </Text>
+        </View>
 
-          </ScrollView> 
-        
-      
+        <FlatList
+          data={arraydata}
+          renderItem={({ index, item }) => _RenderItem(index, item)}
+        />
+      </ScrollView>
     </View>
   );
 }
