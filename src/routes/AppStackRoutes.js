@@ -14,6 +14,7 @@ import BottomTabStack from './BottomTabStack';
 import UserContext from '../containers/Login/user.context';
 import AddressConfirm from "../containers/AddressConfirm/index";
 import PickupDetails from "../containers/PickupDetails/index";
+import CallRequest from "../containers/CallRequest/index";
 
 const Stack = createStackNavigator();
 
@@ -48,6 +49,11 @@ const AppStack = () => {
         <Stack.Screen
           name={NavigationRouteNames.PICKUP_DETAILS}
           component={PickupDetails}
+        />
+        {/* Call request screen number: 70 */}
+        <Stack.Screen
+          name={NavigationRouteNames.CALL_REQUEST}
+          component={CallRequest}
         />
         </>
       ) : (

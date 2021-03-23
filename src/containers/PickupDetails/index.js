@@ -13,6 +13,8 @@ import NavigationRouteNames from '../../routes/ScreenNames';
 import {KeyboardAwareScrollView} from "react-native-keyboard-aware-scroll-view";
 import { Colors, Fonts } from '../../theme';
 import { Dimensions } from 'react-native';
+import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
+import { mapStyle } from "./mapStyle";
 const PickupDetails = () => {
   const { user, setLogin } = useContext(UserContext);
   const navigation = useNavigation();
@@ -24,28 +26,38 @@ const PickupDetails = () => {
     })
   }, [navigation]);
 
-  const handleGetQuote = () => {
-    navigation.navigate(NavigationRouteNames.PRICE_REQUEST);
+  const handleConfirm = () => {
+    navigation.navigate(NavigationRouteNames.CALL_REQUEST);
   }
 
   return (
-      <KeyboardAwareScrollView style={{ flex: 1, paddingBottom: 20, paddingHorizontal: 20 }}>
+      <KeyboardAwareScrollView style={Styles.mainContainer}>
 
         <View style={{ flex: 3 }}>
-          <Image source={require("./map.png")} style={{width: Dimensions.get('screen').width, height: 500}}/>
+          <MapView
+            provider={PROVIDER_GOOGLE}
+            customMapStyle={mapStyle}
+            style={{width:600, height: 500 }}
+            initialRegion={{
+              latitude: 37.78825,
+              longitude: -122.4324,
+              latitudeDelta: 0.0922,
+              longitudeDelta: 0.0421,
+            }}
+          />
         </View>
-        <View style={{ flex: 1, width:'100%' }}>
-          <View style={{borderBottomWidth: 1, borderBottomColor: '#ccc'}}>
-            <TextInput style={{fontFamily:Fonts.regular, fontSize: 16}} placeholder={"Select pickup location"}/>
+        <View style={Styles.userInputContainer}>
+          <View style={Styles.inputContainer}>
+            <TextInput style={Styles.txtInput} placeholder={"Select pickup location"}/>
           </View>
-          <View style={{ flex: 1, borderBottomWidth: 1, borderBottomColor: '#ccc', flexDirection:'row', alignItems:'center', justifyContent:'space-between'}}>
-            <TextInput style={{ flex: 3, fontFamily: Fonts.regular, fontSize: 16}} placeholder={"Your location"}/>
-            <TouchableOpacity style={{flex:1,}}>
-              <Text style={{ color: Colors.mango, fontSize: 16}}>CHANGE</Text>
+          <View style={[Styles.inputContainer, Styles.twoElementsContainer]}>
+            <TextInput style={Styles.firstElement} placeholder={"Your location"}/>
+            <TouchableOpacity style={{ flex:1 }}>
+              <Text style={Styles.txtPrimary}>CHANGE</Text>
             </TouchableOpacity>
           </View>
           <View>
-            <TouchableOpacity style={Styles.btnGetQuote}>
+            <TouchableOpacity style={Styles.btnPrimary} onPress={handleConfirm}>
               <Text style={Styles.btnTextWhite}>CONFIRM LOCATION & PROCEED</Text>
             </TouchableOpacity>
           </View>

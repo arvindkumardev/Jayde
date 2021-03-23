@@ -6,49 +6,54 @@ import Fonts from "../../theme/Fonts";
 import { Colors } from '../../theme';
 
 const styles = StyleSheet.create({
+    txtPrimary:{
+      color: Colors.mango,
+      fontSize: 16
+    },
+    firstElement:{
+      flex: 3,
+      fontFamily: Fonts.regular,
+      fontSize: 16
+    },
+    twoElementsContainer:{
+      flexDirection:'row',
+      alignItems:'center',
+      justifyContent:'space-between'
+    },
+    txtInput:{
+      fontFamily:Fonts.regular,
+      fontSize: 16
+    },
+    inputContainer: {
+      borderBottomWidth: 1,
+      borderBottomColor: '#ccc'
+    },
+    userInputContainer:{
+      flex: 1,
+      width:'100%',
+      paddingHorizontal: 20
+    },
+    mainContainer:{
+      flex: 1,
+      paddingBottom: 20
+    },
     headerTxt:{
         fontFamily: Fonts.bold,
         fontSize: 18
     },
-    btnContainer:{
-        width:'100%',
-        paddingHorizontal: 20
-    },
-    screenContainer:{
-        flex: 1,
-        alignItems:'center',
-        justifyContent:'center'
-    },
-    labelTxt:{
-        fontFamily: Fonts.regular,
-        fontSize: 18
-    },
-    btnGetQuote:{
+    btnPrimary:{
         marginTop:20,
         borderRadius: 10,
         backgroundColor:Colors.mango,
         paddingVertical: 15,
         alignItems:'center',
     },
-  btnTextWhite:{
-    fontSize: 18,
-    fontFamily:
-    Fonts.regular,
-    color: Colors.white
-  },
-  btnTextGray:{
-    fontSize: 18,
-    fontFamily:
-    Fonts.regular,
-    color: Colors.grayThree
-  },
-  btnSchedule:{
-    marginTop:20,
-    borderRadius: 10,
-    backgroundColor:Colors.grayLine,
-    paddingVertical: 15,
-    alignItems:'center',
-  }
+    btnTextWhite:{
+      fontSize: 18,
+      fontFamily:
+      Fonts.regular,
+      color: Colors.white
+    },
 });
 
 export default styles;

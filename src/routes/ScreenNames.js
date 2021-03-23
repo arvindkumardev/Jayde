@@ -33,7 +33,8 @@ const NavigationRouteNames = {
   NEW_ORDER: 'NewOrder',
   CONFIRM_ADDRESS : 'AddressConfirm',
   PRICE_CONFIRM: 'PriceConfirm',
-  PICKUP_DETAILS : 'PickupDetails'
+  PICKUP_DETAILS : 'PickupDetails',
+  CALL_REQUEST : 'CallRequest',
 };
 
 export default NavigationRouteNames;
