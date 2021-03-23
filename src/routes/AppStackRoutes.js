@@ -37,10 +37,16 @@ const AppStack = () => {
           component={SignUp}
           options={{ headerShown: false }}
         />
-         {/* SIGNUP SCREEN */}
+         {/* Login SCREEN */}
          <Stack.Screen
           name={NavigationRouteNames.LOGIN_WITH_EMAIL}
           component={LoginWithEmail}
+          options={{ headerShown: false }}
+        />
+        {/* Dashboard SCREEN */}
+        <Stack.Screen
+          name={NavigationRouteNames.HOMESCREEN}
+          component={HomeScreen}
           options={{ headerShown: false }}
         />
         </>

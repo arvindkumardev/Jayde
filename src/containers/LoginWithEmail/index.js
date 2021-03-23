@@ -92,7 +92,7 @@ function LoginWithEmail() {
   }, [emLoginLoading]);
 
   const screenNavigate = () => {
-    navigation.navigate(NavigationRouteNames.SIGNUP);
+    navigation.navigate(NavigationRouteNames.HOMESCREEN);
   }
 
   const _LoginFunc = async () => {

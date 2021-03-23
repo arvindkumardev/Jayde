@@ -33,6 +33,7 @@ const NavigationRouteNames = {
   ASSIGN_ORDER : 'OrderAssign',
   SIGNUP: 'SignUp',
   LOGIN_WITH_EMAIL: 'LoginWithEmail',
+  HOMESCREEN: 'HomeScreen',
 };
 
 export default NavigationRouteNames;
