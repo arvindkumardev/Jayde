@@ -36,7 +36,7 @@ function ChooseAggregator() {
 	// 	];
     
   const [title4,setTitle4]=useState('Send to Aggregator');
-
+  const [title1,setTitle1]=useState('Choose Aggregator');
   
   return (
     <View style={{flex: 1,backgroundColor: 'white',}}>
@@ -82,7 +82,7 @@ function ChooseAggregator() {
         // keyboardType="numeric"
       />
 
-          <Text style={{fontSize: 17, color: '#121212', marginLeft: 24, marginTop: 15,}}>Choose Aggregator</Text>
+          <Text style={{fontSize: 17, color: '#121212', marginLeft: 24, marginTop: 15,}}>{title1}</Text>
 
         <View style={{flex: 1, marginTop: 10, marginRight: 24, marginLeft: 24,}}>
           <RadioButtonRN 
