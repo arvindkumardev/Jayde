@@ -1,4 +1,4 @@
-package com.econnect.stage;
+package in.jayde;
 
 import android.os.Bundle;
 
