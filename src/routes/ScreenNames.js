@@ -27,7 +27,13 @@ const NavigationRouteNames = {
   APPROVAL_SALES_DETAIL:'approval_slaes_details',
   APPROVAL_OPERA_DETAIL:'approval_opera_details',
   APPROVAL_MALLS_LIST:'approval_malls_list',
-  BIOMETRIC_SETUP:'BiometricSetup'
+  BIOMETRIC_SETUP:'BiometricSetup',
+
+  NEW_ORDER: 'NewOrderList',
+  ASSIGN_ORDER : 'OrderAssign',
+  SIGNUP: 'SignUp',
+  LOGIN_WITH_EMAIL: 'LoginWithEmail',
+  HOMESCREEN: 'HomeScreen',
 };
 
 export default NavigationRouteNames;
