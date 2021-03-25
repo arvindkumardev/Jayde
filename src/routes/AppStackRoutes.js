@@ -31,7 +31,7 @@ const AppStack = () => {
       initialRouteName={
         isLogin
           ? NavigationRouteNames.HOME
-          : NavigationRouteNames.LOGIN_WITH_EMAIL
+          : NavigationRouteNames.PRICE_CONFIRM
       }
     >
       {!isLogin ? (

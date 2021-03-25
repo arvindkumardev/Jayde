@@ -6,6 +6,16 @@ import Fonts from "../../theme/Fonts";
 import { Colors } from '../../theme';
 
 const styles = StyleSheet.create({
+    changeTxtButtonContainer:{
+      flex:1
+    },
+    mapView:{
+      width:600,
+      height: 500
+    },
+    mapContainer:{
+      flex: 3
+    },
     txtPrimary:{
       color: Colors.mango,
       fontSize: 16
@@ -13,15 +23,6 @@ const styles = StyleSheet.create({
     firstElement:{
       flex: 3,
       fontFamily: Fonts.regular,
-      fontSize: 16
-    },
-    twoElementsContainer:{
-      flexDirection:'row',
-      alignItems:'center',
-      justifyContent:'space-between'
-    },
-    txtInput:{
-      fontFamily:Fonts.regular,
       fontSize: 16
     },
     inputContainer: {
@@ -36,23 +37,6 @@ const styles = StyleSheet.create({
     mainContainer:{
       flex: 1,
       paddingBottom: 20
-    },
-    headerTxt:{
-        fontFamily: Fonts.bold,
-        fontSize: 18
-    },
-    btnPrimary:{
-        marginTop:20,
-        borderRadius: 10,
-        backgroundColor:Colors.mango,
-        paddingVertical: 15,
-        alignItems:'center',
-    },
-    btnTextWhite:{
-      fontSize: 18,
-      fontFamily:
-      Fonts.regular,
-      color: Colors.white
     },
 });
 

@@ -11,7 +11,7 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
 
-        Intent intent = new Intent(this, com.econnect.stage.MainActivity.class);
+        Intent intent = new Intent(this, in.jayde.MainActivity.class);
         startActivity(intent);
         finish();
     }

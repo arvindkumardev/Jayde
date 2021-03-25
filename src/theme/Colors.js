@@ -35,5 +35,6 @@ const Colors = {
   backgroundYellow: '#c3a061',
   mango: '#F7A435',
   lightOlive: '#ABC270',
+  grayBackground: '#f5f5f5',
 };
 export default Colors;

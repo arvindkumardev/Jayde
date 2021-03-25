@@ -5,8 +5,7 @@ import { logout, RfH, RfW } from "../../utils/helpers";
 import UserContext from "../Login/user.context";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import Styles from './styles';
-import Fonts from '../../theme/Fonts';
-import Colors from '../../theme/Colors';
+import { Colors, Fonts, AppStyles } from "../../theme";
 import DropDownPicker from 'react-native-dropdown-picker';
 import FAIcon from 'react-native-vector-icons/FontAwesome';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
@@ -32,9 +31,9 @@ const PricingRequest = () => {
     const { title } = route.params;
     navigation.setOptions({
       title: title ? (
-        <Text style={{ fontFamily: Fonts.bold, fontSize: 18 }}>{title}</Text>
+        <Text style={[AppStyles.txtBlackBold, AppStyles.f18]}>{title}</Text>
       ) : (
-        <Text style={{ fontFamily: Fonts.bold, fontSize: 18 }}>
+        <Text style={[AppStyles.txtBlackBold, AppStyles.f18]}>
           Paper Waste
         </Text>
       ),

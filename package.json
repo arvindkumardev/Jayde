@@ -6,7 +6,7 @@
     "android": "react-native run-android",
     "ios": "react-native run-ios",
     "start": "react-native start",
-    "clean-dev": "npm run clean-android-build && cd .. && npm run android",
+    "clean-dev": "cd android && ./gradlew clean && cd .. && npm run android",
     "clean-android-assets": "rm -rf ./android/app/src/main/res/drawable-*; rm -rf ./android/app/src/main/res/raw-*",
     "clean-android-build": "cd android && ./gradlew clean",
     "build-android-stage": "cd android && ./gradlew assembleRelease",

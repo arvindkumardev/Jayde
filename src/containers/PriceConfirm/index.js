@@ -4,7 +4,7 @@ import UserContext from '../Login/user.context';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import FAIcon from "react-native-vector-icons/FontAwesome";
 import Styles from "./styles";
-import { Fonts } from '../../theme';
+import { Fonts, AppStyles } from '../../theme';
 import NavigationRouteNames from '../../routes/ScreenNames';
 
 const PriceConfirm = () => {
@@ -14,7 +14,7 @@ const PriceConfirm = () => {
 
   useLayoutEffect(() => {
     navigation.setOptions({
-      title: <Text style={Styles.headerTxt}>Paper</Text>,
+      title: <Text style={[AppStyles.txtBlackBold, AppStyles.f18]}>Paper</Text>,
     });
   }, [navigation]);
 
@@ -23,39 +23,39 @@ const PriceConfirm = () => {
   };
   return (
     <View style={Styles.screenContainer}>
-      <View style={Styles.quoteContainer}>
-        <Text style={Styles.labelTxt}>Provisional Price</Text>
-        <View style={Styles.priceContainer}>
-          <View style={Styles.itemContainer}>
-            <View style={{ width: '45%' }}>
-              <Text style={Styles.itemTxt}>Subcategory</Text>
+      <View style={[AppStyles.mt20, AppStyles.w100, AppStyles.alignCenter]}>
+        <Text style={[AppStyles.txtBlackBold, AppStyles.f18]}>Provisional Price</Text>
+        <View style={[AppStyles.w100, AppStyles.ph40, AppStyles.mt20]}>
+          <View style={AppStyles.flexRowSpaceBetween}>
+            <View style={AppStyles.w45}>
+              <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f16]}>Subcategory</Text>
             </View>
-            <View style={{ width: '45%' }}>
-              <Text style={Styles.itemTxt}>Type 2</Text>
-            </View>
-          </View>
-          <View style={Styles.itemContainer}>
-            <View style={{ width: '45%' }}>
-              <Text style={Styles.itemTxt}>Location</Text>
-            </View>
-            <View style={{ width: '45%' }}>
-              <Text style={Styles.itemTxt}>Hyderabad</Text>
+            <View style={AppStyles.w45}>
+              <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f16]}>Type 2</Text>
             </View>
           </View>
-          <View style={Styles.itemContainer}>
-            <View style={{ width: '45%' }}>
-              <Text style={Styles.itemTxt}>Valume</Text>
+          <View style={AppStyles.flexRowSpaceBetween}>
+            <View style={AppStyles.w45}>
+              <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f16]}>Location</Text>
             </View>
-            <View style={{ width: '45%' }}>
-              <Text style={Styles.itemTxt}>5 Tons</Text>
+            <View style={AppStyles.w45}>
+              <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f16]}>Hyderabad</Text>
+            </View>
+          </View>
+          <View style={AppStyles.flexRowSpaceBetween}>
+            <View style={AppStyles.w45}>
+              <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f16]}>Valume</Text>
+            </View>
+            <View style={AppStyles.w45}>
+              <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f16]}>5 Tons</Text>
             </View>
           </View>
           <View style={Styles.totalPriceContainer}>
-            <View style={{ width: '45%' }}>
-              <Text style={Styles.totalTxt}>Estimated Price</Text>
+            <View style={AppStyles.w45}>
+              <Text style={[AppStyles.txtBlackBold, AppStyles.f16]}>Estimated Price</Text>
             </View>
-            <View style={{ width: '45%' }}>
-              <Text style={Styles.totalTxt}>
+            <View style={AppStyles.w45}>
+              <Text style={[AppStyles.txtBlackBold, AppStyles.f16]}>
                 <FAIcon size={14} name="rupee" /> 6000
               </Text>
             </View>
@@ -64,10 +64,10 @@ const PriceConfirm = () => {
       </View>
       <View style={Styles.btnContainer}>
         <TouchableOpacity
-          style={Styles.btnPrimary}
+          style={[AppStyles.mt20, AppStyles.br10, AppStyles.btnPrimary, AppStyles.pv10, AppStyles.alignCenter]}
           onPress={handleSchedulePickup}
         >
-          <Text style={Styles.btnTextWhite}>SCHEDULE PICKUP</Text>
+          <Text style={[AppStyles.txtWhiteRegular, AppStyles.f18]}>SCHEDULE PICKUP</Text>
         </TouchableOpacity>
       </View>
     </View>

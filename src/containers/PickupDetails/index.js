@@ -5,7 +5,7 @@ import { useNavigation, useRoute } from '@react-navigation/native';
 import Styles from "./styles";
 import NavigationRouteNames from '../../routes/ScreenNames';
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-import { Colors, Fonts } from '../../theme';
+import { Colors, Fonts, AppStyles } from '../../theme';
 import { Dimensions } from 'react-native';
 import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
 import { mapStyle } from "./mapStyle";
@@ -16,7 +16,7 @@ const PickupDetails = () => {
 
   useLayoutEffect(() => {
     navigation.setOptions({
-      title: <Text style={Styles.headerTxt}>New Order</Text>,
+      title: <Text style={[AppStyles.txtBlackBold, AppStyles.f18]}>New Order</Text>,
     });
   }, [navigation]);
 
@@ -27,11 +27,11 @@ const PickupDetails = () => {
   return (
       <KeyboardAwareScrollView style={Styles.mainContainer}>
 
-        <View style={{ flex: 3 }}>
+        <View style={Styles.mapContainer}>
           <MapView
             provider={PROVIDER_GOOGLE}
             customMapStyle={mapStyle}
-            style={{width:600, height: 500 }}
+            style={Styles.mapView}
             initialRegion={{
               latitude: 37.78825,
               longitude: -122.4324,
@@ -42,17 +42,17 @@ const PickupDetails = () => {
         </View>
         <View style={Styles.userInputContainer}>
           <View style={Styles.inputContainer}>
-            <TextInput style={Styles.txtInput} placeholder={"Select pickup location"}/>
+            <TextInput style={[AppStyles.txtSecandaryRegular, AppStyles.f16]} placeholder={"Select pickup location"}/>
           </View>
-          <View style={[Styles.inputContainer, Styles.twoElementsContainer]}>
+          <View style={[Styles.inputContainer, AppStyles.flexRowAlignCenter]}>
             <TextInput style={Styles.firstElement} placeholder={"Your location"}/>
-            <TouchableOpacity style={{ flex:1 }}>
-              <Text style={Styles.txtPrimary}>CHANGE</Text>
+            <TouchableOpacity style={Styles.changeTxtButtonContainer}>
+              <Text style={[AppStyles.txtPrimaryRegular, AppStyles.f16]}>CHANGE</Text>
             </TouchableOpacity>
           </View>
           <View>
-            <TouchableOpacity style={Styles.btnPrimary} onPress={handleConfirm}>
-              <Text style={Styles.btnTextWhite}>CONFIRM LOCATION & PROCEED</Text>
+            <TouchableOpacity style={[AppStyles.mt20, AppStyles.br10, AppStyles.btnPrimary, AppStyles.pv15, AppStyles.alignCenter]} onPress={handleConfirm}>
+              <Text style={[AppStyles.txtWhiteRegular, AppStyles.f18]}>CONFIRM LOCATION & PROCEED</Text>
             </TouchableOpacity>
           </View>
         </View>
