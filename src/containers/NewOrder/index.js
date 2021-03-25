@@ -7,19 +7,17 @@ import { Colors, AppStyles } from "../../theme";
 import NavigationRouteNames from '../../routes/ScreenNames';
 
 const NewOrder = () => {
-  const { user, setLogin } = useContext(UserContext);
+  // const { user, setLogin } = useContext(UserContext);
   const navigation = useNavigation();
-  const route = useRoute();
 
+  const handleGetQuote = () => {
+    navigation.navigate(NavigationRouteNames.PRICE_REQUEST);
+  };
   useLayoutEffect(() => {
     navigation.setOptions({
       title: <Text style={[AppStyles.txtBlackBold, AppStyles.f18]}>New Order</Text>,
     });
   }, [navigation]);
-
-  const handleGetQuote = () => {
-    navigation.navigate(NavigationRouteNames.PRICE_REQUEST);
-  };
 
   return (
     <View style={Styles.screenContainer}>

@@ -38,12 +38,12 @@ const PricingRequest = () => {
         </Text>
       ),
     });
-  }, [navigation]);
-
-  useEffect(async () => {
-    const { data } = await getSubCategory(1);
-    console.log('Getting response from subcategory ', data);
   }, []);
+
+  // useEffect(async () => {
+  //   const { data } = await getSubCategory(1);
+  //   console.log('Getting response from subcategory ', data);
+  // }, []);
 
   const onClose = () => {
     setShowCamera(false);

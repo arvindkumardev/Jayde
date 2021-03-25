@@ -31,7 +31,7 @@ const AppStack = () => {
       initialRouteName={
         isLogin
           ? NavigationRouteNames.HOME
-          : NavigationRouteNames.PRICE_CONFIRM
+          : NavigationRouteNames.LOGIN_WITH_EMAIL
       }
     >
       {!isLogin ? (
@@ -72,7 +72,7 @@ const AppStack = () => {
           />
           {/* Screen - 16 */}
           <Stack.Screen
-            name={NavigationRouteNames.NEW_ORDER}
+            name={NavigationRouteNames.NEW_ORDER_REQUEST}
             component={NewOrder}
           />
           {/* Screen - 18 */}

@@ -40,6 +40,7 @@ const NavigationRouteNames = {
   SIGNUP: "SignUp",
   LOGIN_WITH_EMAIL: "LoginWithEmail",
   HOME_SCREEN: "HomeScreen",
+  NEW_ORDER_REQUEST:"NewOrder"
 };
 
 export default NavigationRouteNames;

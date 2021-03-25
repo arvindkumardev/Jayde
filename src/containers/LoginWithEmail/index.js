@@ -97,7 +97,7 @@ function LoginWithEmail() {
 
   const _LoginFunc = async () => {
     // if (rememberMe == true) {
-      const URL = "http://ec2-52-91-165-234.compute-1.amazonaws.com/api/user/login"
+      const URL = "http://ec2-52-91-165-234.compute-1.amazonaws.com/api/mobile/login"
     // alert(URL)
     // console.log(URL)
     axios.post(URL, {
@@ -106,17 +106,16 @@ function LoginWithEmail() {
     }).then(function (response) {
             console.log(response)
             screenNavigate();
-            alert(JSON.stringify(response))
         }).catch(function (error) {
             console.log(JSON.stringify(error), "hello");
             // setLoading(false)
-            if (error.response.data.errors) {
-                Alert.alert("Error", Object.values(error.response.data.errors)[0][0])
+            // if (error.response.data.errors) {
+            //     Alert.alert("Error", Object.values(error.response.data.errors)[0][0])
 
-            }
-            else {
-                Alert.alert("Error", error.response.data.message)
-            }
+            // }
+            // else {
+            //     Alert.alert("Error", error.response.data.message)
+            // }
 
         });
     // } else { alert('please accept policy') }

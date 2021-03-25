@@ -1,6 +1,8 @@
 import React, {useContext, useEffect, useState} from 'react';
 import * as Alert from 'react-native';
+import { useNavigation } from "@react-navigation/native";
 import {KeyboardAvoidingView, Platform, TouchableOpacity, View, Text, Image, TextInput, FlatList, ScrollView} from 'react-native';
+import NavigationRouteNames from '../../routes/ScreenNames';
 
 // import * as Yup from 'yup';
 // import {useFormik} from 'formik';
@@ -298,6 +300,7 @@ function HomeScreen() {
   const [title,setTitle]=useState('Good Morning');
   const [title1,setTitle1]=useState('Prem Kumar');
   const [title2,setTitle2]=useState('Current Orders');
+  const navigation = useNavigation();
 
   const [arraydata,setarraydata]=useState([
     {
@@ -342,6 +345,9 @@ function HomeScreen() {
     menu2image: require('../../assets/Images/Dashboard/Project.png'),
   }])
 
+  const handleNavigate = () => {
+    navigation.navigate(NavigationRouteNames.NEW_ORDER_REQUEST);
+  }
   const _RenderItem = (index, item) => {
     return (
       <View style={{flexDirection: 'row', marginLeft: 24,}}>
@@ -367,7 +373,9 @@ function HomeScreen() {
           <View style={{flex: 1, width: 167, height: 200, backgroundColor: '#f8a230', marginLeft: 24, marginTop: 5, borderTopLeftRadius: 10, borderTopRightRadius : 10, borderBottomLeftRadius: 10, borderBottomRightRadius: 10,}}>
           <Image style={{width: 5, height: 19, marginTop: 15, marginLeft: 15,}} source={item.menu1image}  />
           <View style={{alignItems: 'flex-end', marginRight: 26,}}>
-          <Image style={{width: 26, height: 26, marginTop: 88,}} source={item.menu2image}  />
+            <TouchableOpacity onPress={handleNavigate}>
+              <Image style={{width: 26, height: 26, marginTop: 88,}} source={item.menu2image}  />
+            </TouchableOpacity>
           </View>
           <View style={{alignItems: 'center', }}>
                <Text style={{fontSize: 17, color: '#fff', fontWeight: 'Poppins-SemiBold', marginTop: 11,}}>{item.menuname}</Text>
