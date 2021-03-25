@@ -1,31 +1,58 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import * as Alert from 'react-native';
-import {KeyboardAvoidingView, Platform, TouchableOpacity, View, Text, Image, TextInput, ScrollView, } from 'react-native';
+import {
+  KeyboardAvoidingView,
+  Platform,
+  TouchableOpacity,
+  View,
+  Text,
+  Image,
+  TextInput,
+  ScrollView,
+} from 'react-native';
 
 import * as Yup from 'yup';
-import {useFormik} from 'formik';
+import { useFormik } from 'formik';
 import Colors from '../../theme/Colors';
-import {CheckBoxWrapper, CustomTextInput, GradientButton,} from '../../components';
-import {alertBox, comingSoonAlert, getSaveData, isValidUserName, RfH, RfW, storeData} from '../../utils/helpers';
+import {
+  CheckBoxWrapper,
+  CustomTextInput,
+  GradientButton,
+} from '../../components';
+import {
+  alertBox,
+  comingSoonAlert,
+  getSaveData,
+  isValidUserName,
+  RfH,
+  RfW,
+  storeData,
+} from '../../utils/helpers';
 import CustomText from '../../components/CustomText';
-import {isEmpty} from 'lodash';
+import { isEmpty } from 'lodash';
 import Images from '../../theme/Images';
 import NavigationRouteNames from '../../routes/ScreenNames';
-import {useNavigation} from '@react-navigation/core';
+import { useNavigation } from '@react-navigation/core';
 import UserContext from './user.context';
 import useAxios from 'axios-hooks';
 import styles from './styles';
-import {LOGIN_URL} from '../../utils/urls';
+import { LOGIN_URL } from '../../utils/urls';
 import commonStyles from '../../theme/commonStyles';
 import axios from "axios";
-import {useRoute} from '@react-navigation/native';
+import { useRoute } from '@react-navigation/native';
 import { loginWithHooks } from "../../services/middleware/user";
-
 
 function LoginWithEmail() {
   const navigation = useNavigation();
   const [clickLogin, setClickLogin] = useState(false);
-  const {user, setUserObj, setLogin, orgLoading, orgData, setLoader} = useContext(UserContext);
+  const {
+    user,
+    setUserObj,
+    setLogin,
+    orgLoading,
+    orgData,
+    setLoader,
+  } = useContext(UserContext);
   const [tries, setTries] = useState(2);
   const [selectCompany, setSelectCompany] = useState({});
   const [selectCompanyModal, setSelectCompanyModal] = useState(false);
@@ -40,19 +67,23 @@ function LoginWithEmail() {
   });
 
   const [
-    {data: emLoginData, loading: emLoginLoading, error: emLoginError},
+    { data: emLoginData, loading: emLoginLoading, error: emLoginError },
     emLogin,
   ] = loginWithHooks();
 
   const triggerLogin = async (username, password, org) => {
-    const { data } = await emLogin({ data: JSON.stringify({ email: username, password: password }) })
-    console.log("Response ", data );
+    const { data } = await emLogin({
+      data: { email: username, password: password },
+    });
+    console.log("Response ", data);
   };
 
-
-
   const validationSchema = Yup.object().shape({
-    username: Yup.string().test('username', 'Please provide valid username', value => isValidUserName(value)),
+    username: Yup.string().test(
+      'username',
+      'Please provide valid username',
+      (value) => isValidUserName(value)
+    ),
     password: Yup.string().required('Please provide password'),
   });
 
@@ -61,17 +92,16 @@ function LoginWithEmail() {
     validateOnBlur: true,
     initialValues: {
       username: '',
-      password: ''
+      password: '',
     },
     validationSchema,
   });
-
 
   const handleLogin = () => {
     triggerLogin(
       loginForm.values.username,
       loginForm.values.password,
-      selectCompany,
+      selectCompany
     );
     // setClickLogin(true);
     // if (isEmpty(loginForm.errors)) {
@@ -87,67 +117,70 @@ function LoginWithEmail() {
   //   return inputs[id] ? inputs[id].focus() : null;
   // };
 
-  useEffect(()=>{
+  useEffect(() => {
     setLoader(emLoginLoading);
   }, [emLoginLoading]);
 
   const screenNavigate = () => {
     navigation.navigate(NavigationRouteNames.HOME_SCREEN);
-  }
+  };
 
   const _LoginFunc = async () => {
     // if (rememberMe == true) {
-      const URL = "http://ec2-52-91-165-234.compute-1.amazonaws.com/api/mobile/login"
+    const URL =
+      'http://ec2-52-91-165-234.compute-1.amazonaws.com/api/mobile/login';
     // alert(URL)
     // console.log(URL)
-    axios.post(URL, {
+    axios
+      .post(URL, {
         email: loginForm.values.username,
         password: loginForm.values.password,
-    }).then(function (response) {
-            console.log(response)
-            screenNavigate();
-        }).catch(function (error) {
-            console.log(JSON.stringify(error), "hello");
-            // setLoading(false)
-            // if (error.response.data.errors) {
-            //     Alert.alert("Error", Object.values(error.response.data.errors)[0][0])
+      })
+      .then(function (response) {
+        console.log(response);
+        screenNavigate();
+      })
+      .catch(function (error) {
+        console.log(JSON.stringify(error), "hello");
+        // setLoading(false)
+        // if (error.response.data.errors) {
+        //     Alert.alert("Error", Object.values(error.response.data.errors)[0][0])
 
-            // }
-            // else {
-            //     Alert.alert("Error", error.response.data.message)
-            // }
-
-        });
+        // }
+        // else {
+        //     Alert.alert("Error", error.response.data.message)
+        // }
+      });
     // } else { alert('please accept policy') }
-}
+  };
 
-  const [title,setTitle]=useState('Hello!');
-  const [title1,setTitle1]=useState('Forgot Password?');
-  const [title2,setTitle2]=useState('Dont have an account?');
-  const [title3,setTitle3]=useState('Create one');
-  const [title4,setTitle4]=useState('Signup');
+  const [title, setTitle] = useState('Hello!');
+  const [title1, setTitle1] = useState('Forgot Password?');
+  const [title2, setTitle2] = useState('Dont have an account?');
+  const [title3, setTitle3] = useState('Create one');
+  const [title4, setTitle4] = useState('Signup');
 
   // const navigation = useNavigation();
   const route = useRoute();
 
   return (
-    <View style={{flex: 1,backgroundColor:Colors.mango}}>
+    <View style={{ flex: 1, backgroundColor: Colors.mango }}>
       <ScrollView>
-
         <KeyboardAvoidingView
-          style={{flex: 1}}
-          behavior={Platform.select({android: 'height', ios: 'padding'})}
-          enabled>
-              <View style={{flex: 1,}}>
-          <View
-            style={{
-              flex: 1,
-              justifyContent: 'center',
-              paddingBottom: RfH(40),
-            }}>
+          style={{ flex: 1 }}
+          behavior={Platform.select({ android: 'height', ios: 'padding' })}
+          enabled
+        >
+          <View style={{ flex: 1 }}>
+            <View
+              style={{
+                flex: 1,
+                justifyContent: 'center',
+                paddingBottom: RfH(40),
+              }}
+            >
+              {/*
 
-           {/* 
-           
            Seems this section is not required - Jitender
 
            <View style={{flexDirection: 'row', marginTop: 30,}}>
@@ -165,48 +198,61 @@ function LoginWithEmail() {
                     </View>
                 </TouchableOpacity>
         </View>
-          </View> 
+          </View>
           */}
 
-           <View style={{alignItems: 'center', marginTop: 40,}}>
-                 <Image style={{width: 160, height: 55}} source={require('../../assets/Images/LoginWithEmail/JaydeLogo01.png')}  />
+              <View style={{ alignItems: 'center', marginTop: 40 }}>
+                <Image
+                  style={{ width: 160, height: 55 }}
+                  source={require('../../assets/Images/LoginWithEmail/JaydeLogo01.png')}
+                />
               </View>
 
-              <View style={{alignItems: 'center', marginTop: 60,}}>
-              <Text style={{color: '#fff', marginBottom: 20, fontSize : 40, lineHeight: 48, fontWeight: 'bold',}}>{title}</Text>
+              <View style={{ alignItems: 'center', marginTop: 60 }}>
+                <Text
+                  style={{
+                    color: '#fff',
+                    marginBottom: 20,
+                    fontSize: 40,
+                    lineHeight: 48,
+                    fontWeight: 'bold',
+                  }}
+                >
+                  {title}
+                </Text>
               </View>
-            <View style={styles.formContainer}>
-              <CustomTextInput
-                label={'Email'}
-                inputLabelStyle={commonStyles.inputLabelStyle}
-                placeholder={'Email'}
-                value={loginForm.values.username}
-                onChangeHandler={(value) =>
-                  loginForm.setFieldValue('username', value)
-                }
-                returnKeyType={'next'}
-                onSubmitEditing={() => onSubmitEditing('password')}
-                error={clickLogin && loginForm.errors.username}
-              />
-              <CustomTextInput
-                 label={'Password'}
-                inputLabelStyle={commonStyles.inputLabelStyle}
-                placeholder={'Password'}
-                secureTextEntry={!hidePassword}
-                showPasswordField={hidePassword}
-                handleShowPassword={(value) => setHidePassword(value)}
-                 icon={hidePassword ? Images.openEye : Images.closeEye}
-                value={loginForm.values.password}
-                onChangeHandler={(value) =>
-                  loginForm.setFieldValue('password', value)
-                }
-                showClearButton={false}
-                keyboardType={'password'}
-                refKey={'password'}
-                error={clickLogin && loginForm.errors.password}
-              />
+              <View style={styles.formContainer}>
+                <CustomTextInput
+                  label={'Email'}
+                  inputLabelStyle={commonStyles.inputLabelStyle}
+                  placeholder={'Email'}
+                  value={loginForm.values.username}
+                  onChangeHandler={(value) =>
+                    loginForm.setFieldValue('username', value)
+                  }
+                  returnKeyType={'next'}
+                  onSubmitEditing={() => onSubmitEditing('password')}
+                  error={clickLogin && loginForm.errors.username}
+                />
+                <CustomTextInput
+                  label={'Password'}
+                  inputLabelStyle={commonStyles.inputLabelStyle}
+                  placeholder={'Password'}
+                  secureTextEntry={!hidePassword}
+                  showPasswordField={hidePassword}
+                  handleShowPassword={(value) => setHidePassword(value)}
+                  icon={hidePassword ? Images.openEye : Images.closeEye}
+                  value={loginForm.values.password}
+                  onChangeHandler={(value) =>
+                    loginForm.setFieldValue('password', value)
+                  }
+                  showClearButton={false}
+                  keyboardType={'default'}
+                  refKey={'password'}
+                  error={clickLogin && loginForm.errors.password}
+                />
 
-           {/* <View style={{marginTop: RfH(10)}}>
+                {/* <View style={{marginTop: RfH(10)}}>
               <TouchableOpacity style={{marginTop:20,
     borderRadius: 10,
     backgroundColor: 'orange',
@@ -216,26 +262,37 @@ function LoginWithEmail() {
               </TouchableOpacity>
              </View> */}
 
-              <View style={{marginTop: RfH(21)}}>
-                <GradientButton title={'Confirm'} onPress={handleLogin} />
+                <View style={{ marginTop: RfH(21) }}>
+                  <GradientButton title={'Confirm'} onPress={handleLogin} />
+                </View>
               </View>
 
+              <View style={{ flex: 1 }}>
+                <View
+                  style={{
+                    alignItems: 'flex-end',
+                    marginTop: 20,
+                    marginRight: 25,
+                  }}
+                >
+                  <Text style={{ marginLeft: 5, color: '#fff' }}>{title1}</Text>
+                </View>
+                <View style={{ alignItems: 'center' }}>
+                  <Text
+                    style={{ color: '#fff', marginTop: 30, marginBottom: 30 }}
+                  >
+                    {title2}
+                    <Text
+                      style={{ color: '#fff', textDecorationLine: 'underline' }}
+                      onPress={() => Linking.openURL('#')}
+                    >
+                      {title3}
+                    </Text>
+                  </Text>
+                </View>
+              </View>
             </View>
-
-            <View style={{flex: 1}}>
-          <View style={{alignItems: 'flex-end', marginTop: 20, marginRight: 25,}}>
-                <Text style={{ marginLeft: 5, color: '#fff',}}>{title1}</Text>
           </View>
-          <View style={{ alignItems: 'center'}}>
-               <Text style={{ color: '#fff', marginTop: 30, marginBottom: 30,}}>{title2}<Text style={{color: '#fff',
-    textDecorationLine: 'underline'}} onPress={ ()=> Linking.openURL('#') }>{title3}</Text></Text>
-               </View>
-               </View>
-
-            </View>
-
-
-               </View>
         </KeyboardAvoidingView>
       </ScrollView>
     </View>

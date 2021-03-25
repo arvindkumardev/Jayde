@@ -425,7 +425,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = jayde.in;
+				PRODUCT_BUNDLE_IDENTIFIER = in.jayde;
 				PRODUCT_NAME = Jayde;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Jayde-Bridging-Header.h";
@@ -454,7 +454,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = jayde.in;
+				PRODUCT_BUNDLE_IDENTIFIER = in.jayde;
 				PRODUCT_NAME = Jayde;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Jayde-Bridging-Header.h";
