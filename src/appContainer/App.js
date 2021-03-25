@@ -18,8 +18,11 @@ const axios = Axios.create({
   headers: {'content-Type': 'application/json'},
 });
 
+const CancelToken = Axios.CancelToken;
 axios.interceptors.request.use(
   async (config) => {
+    const source = CancelToken.source();
+    config.cancelToken = source.token;
     console.log('Request config', config);
     const token = await getSaveData(LOCAL_STORAGE_DATA_KEY.JWT_TOKEN);
     console.log("Token", token);

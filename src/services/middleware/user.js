@@ -1,15 +1,7 @@
-import { LOGIN_URL } from "../../utils/urls";
-import axios from "axios";
+import { LOGIN_URL, GET_UNITS } from "../../utils/urls";
 import useAxios from "axios-hooks";
 
-const userLogin = async (userCredentials = {}) => {
-  const { data } = await axios.post(LOGIN_URL, userCredentials, {
-    headers: { 'content-type': 'application/json' },
-  });
-  return data;
-};
-
-const loginWithHooks = () => {
+const userLogin = () => {
   return useAxios(
     {
       url: LOGIN_URL,
@@ -17,7 +9,7 @@ const loginWithHooks = () => {
       headers: { 'content-type': 'application/json' },
     },
     { manual: true }
-  );
+  )
 };
 
-export { userLogin, loginWithHooks };
+export { userLogin };

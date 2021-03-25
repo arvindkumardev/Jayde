@@ -40,7 +40,7 @@ import { LOGIN_URL } from '../../utils/urls';
 import commonStyles from '../../theme/commonStyles';
 import axios from "axios";
 import { useRoute } from '@react-navigation/native';
-import { loginWithHooks } from "../../services/middleware/user";
+import { userLogin } from "../../services/middleware/user";
 
 function LoginWithEmail() {
   const navigation = useNavigation();
@@ -69,13 +69,17 @@ function LoginWithEmail() {
   const [
     { data: emLoginData, loading: emLoginLoading, error: emLoginError },
     emLogin,
-  ] = loginWithHooks();
+  ] = userLogin();
+
 
   const triggerLogin = async (username, password, org) => {
-    const { data } = await emLogin({
-      data: { email: username, password: password },
-    });
-    console.log("Response ", data);
+    try{
+      const { data } = await emLogin({ data: {email: username, password: password} });
+      console.log("Response from login ", data)
+    }
+    catch(e){
+      console.log("Response error", e);
+    }
   };
 
   const validationSchema = Yup.object().shape({
@@ -125,42 +129,6 @@ function LoginWithEmail() {
     navigation.navigate(NavigationRouteNames.HOME_SCREEN);
   };
 
-  const _LoginFunc = async () => {
-    // if (rememberMe == true) {
-    const URL =
-      'http://ec2-52-91-165-234.compute-1.amazonaws.com/api/mobile/login';
-    // alert(URL)
-    // console.log(URL)
-    axios
-      .post(URL, {
-        email: loginForm.values.username,
-        password: loginForm.values.password,
-      })
-      .then(function (response) {
-        console.log(response);
-        screenNavigate();
-      })
-      .catch(function (error) {
-        console.log(JSON.stringify(error), "hello");
-        // setLoading(false)
-        // if (error.response.data.errors) {
-        //     Alert.alert("Error", Object.values(error.response.data.errors)[0][0])
-
-        // }
-        // else {
-        //     Alert.alert("Error", error.response.data.message)
-        // }
-      });
-    // } else { alert('please accept policy') }
-  };
-
-  const [title, setTitle] = useState('Hello!');
-  const [title1, setTitle1] = useState('Forgot Password?');
-  const [title2, setTitle2] = useState('Dont have an account?');
-  const [title3, setTitle3] = useState('Create one');
-  const [title4, setTitle4] = useState('Signup');
-
-  // const navigation = useNavigation();
   const route = useRoute();
 
   return (
@@ -179,35 +147,12 @@ function LoginWithEmail() {
                 paddingBottom: RfH(40),
               }}
             >
-              {/*
-
-           Seems this section is not required - Jitender
-
-           <View style={{flexDirection: 'row', marginTop: 30,}}>
-        <View style={{flex: 1,}}>
-        <TouchableOpacity>
-                    <View>
-                    <Image style={{width: 24, height: 24, marginLeft: 24,}} source={require('../../assets/Images/LoginWithEmail/Left_Arrow_Icon.png')}  />
-                    </View>
-                </TouchableOpacity>
-        </View>
-        <View style={{flex: 1,}}>
-        <TouchableOpacity>
-                    <View style={{alignItems: 'flex-end',}}>
-                        <Text style={{fontSize: 16, color: '#fff', marginRight: 20,}}>{title4}</Text>
-                    </View>
-                </TouchableOpacity>
-        </View>
-          </View>
-          */}
-
               <View style={{ alignItems: 'center', marginTop: 40 }}>
                 <Image
                   style={{ width: 160, height: 55 }}
                   source={require('../../assets/Images/LoginWithEmail/JaydeLogo01.png')}
                 />
               </View>
-
               <View style={{ alignItems: 'center', marginTop: 60 }}>
                 <Text
                   style={{
@@ -218,7 +163,7 @@ function LoginWithEmail() {
                     fontWeight: 'bold',
                   }}
                 >
-                  {title}
+                  Hello!
                 </Text>
               </View>
               <View style={styles.formContainer}>
@@ -251,17 +196,6 @@ function LoginWithEmail() {
                   refKey={'password'}
                   error={clickLogin && loginForm.errors.password}
                 />
-
-                {/* <View style={{marginTop: RfH(10)}}>
-              <TouchableOpacity style={{marginTop:20,
-    borderRadius: 10,
-    backgroundColor: 'orange',
-    paddingVertical: 15,
-    alignItems:'center'}} onPress={() => {_SignupFunc()}}>
-                  <Text style={{fontSize: 18, color: 'white'}}>CONFIRM</Text>
-              </TouchableOpacity>
-             </View> */}
-
                 <View style={{ marginTop: RfH(21) }}>
                   <GradientButton title={'Confirm'} onPress={handleLogin} />
                 </View>
@@ -275,18 +209,18 @@ function LoginWithEmail() {
                     marginRight: 25,
                   }}
                 >
-                  <Text style={{ marginLeft: 5, color: '#fff' }}>{title1}</Text>
+                  <Text style={{ marginLeft: 5, color: '#fff' }}>Forgot Password?</Text>
                 </View>
                 <View style={{ alignItems: 'center' }}>
                   <Text
                     style={{ color: '#fff', marginTop: 30, marginBottom: 30 }}
                   >
-                    {title2}
+                    Dont have an account?
                     <Text
                       style={{ color: '#fff', textDecorationLine: 'underline' }}
                       onPress={() => Linking.openURL('#')}
                     >
-                      {title3}
+                      Create one
                     </Text>
                   </Text>
                 </View>
