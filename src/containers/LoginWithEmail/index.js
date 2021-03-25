@@ -19,7 +19,7 @@ import {LOGIN_URL} from '../../utils/urls';
 import commonStyles from '../../theme/commonStyles';
 import axios from "axios";
 import {useRoute} from '@react-navigation/native';
-
+import { loginWithHooks } from "../../services/middleware/user";
 
 
 function LoginWithEmail() {
@@ -42,16 +42,11 @@ function LoginWithEmail() {
   const [
     {data: emLoginData, loading: emLoginLoading, error: emLoginError},
     emLogin,
-  ] = useAxios(
-    {
-      url: LOGIN_URL,
-      method: 'get',
-    },
-    {manual: true},
-  );
+  ] = loginWithHooks();
 
-  const triggerLogin = (username, password, org) => {
-    emLogin();
+  const triggerLogin = async (username, password, org) => {
+    const { data } = await emLogin({ data: JSON.stringify({ email: username, password: password }) })
+    console.log("Response ", data );
   };
 
 
@@ -73,14 +68,19 @@ function LoginWithEmail() {
 
 
   const handleLogin = () => {
-    setClickLogin(true);
-    if (isEmpty(loginForm.errors)) {
-      triggerLogin(
-        loginForm.values.username,
-        loginForm.values.password,
-        selectCompany,
-      );
-    }
+    triggerLogin(
+      loginForm.values.username,
+      loginForm.values.password,
+      selectCompany,
+    );
+    // setClickLogin(true);
+    // if (isEmpty(loginForm.errors)) {
+    //   triggerLogin(
+    //     loginForm.values.username,
+    //     loginForm.values.password,
+    //     selectCompany,
+    //   );
+    // }
   };
 
   // const onSubmitEditing = (id) => {
@@ -146,6 +146,10 @@ function LoginWithEmail() {
               paddingBottom: RfH(40),
             }}>
 
+           {/* 
+           
+           Seems this section is not required - Jitender
+
            <View style={{flexDirection: 'row', marginTop: 30,}}>
         <View style={{flex: 1,}}>
         <TouchableOpacity>
@@ -161,7 +165,8 @@ function LoginWithEmail() {
                     </View>
                 </TouchableOpacity>
         </View>
-          </View>
+          </View> 
+          */}
 
            <View style={{alignItems: 'center', marginTop: 40,}}>
                  <Image style={{width: 160, height: 55}} source={require('../../assets/Images/LoginWithEmail/JaydeLogo01.png')}  />
@@ -212,7 +217,7 @@ function LoginWithEmail() {
              </View> */}
 
               <View style={{marginTop: RfH(21)}}>
-                <GradientButton title={'Confirm'} onPress={() => {_LoginFunc()}} />
+                <GradientButton title={'Confirm'} onPress={handleLogin} />
               </View>
 
             </View>

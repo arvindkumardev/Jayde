@@ -7,9 +7,11 @@ const userLogin = async (userCredentials = {}) => {
     return data;
 }
 
-// const loginWithHooks = useAxios({ url: LOGIN_URL, method: 'get' }, {manual: true});
+const loginWithHooks = () => {
+    return useAxios({ url: LOGIN_URL, method: 'POST', headers:{'content-type': 'application/json'} }, {manual: true});
+}
 
 export {
     userLogin,
-    // loginWithHooks
+    loginWithHooks
 }
