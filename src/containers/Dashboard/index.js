@@ -1,7 +1,17 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import * as Alert from 'react-native';
-import { useNavigation } from "@react-navigation/native";
-import {KeyboardAvoidingView, Platform, TouchableOpacity, View, Text, Image, TextInput, FlatList, ScrollView} from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import {
+  KeyboardAvoidingView,
+  Platform,
+  TouchableOpacity,
+  View,
+  Text,
+  Image,
+  TextInput,
+  FlatList,
+  ScrollView,
+} from 'react-native';
 import NavigationRouteNames from '../../routes/ScreenNames';
 
 // import * as Yup from 'yup';
@@ -28,7 +38,7 @@ import NavigationRouteNames from '../../routes/ScreenNames';
 
 // clearAll()
 function HomeScreen() {
-  //const navigation = useNavigation();
+  // const navigation = useNavigation();
   // const [clickLogin, setClickLogin] = useState(false);
   // const [openBiometric, setOpenBiometric] = useState(false);
   // const [isBiometricEnabled, setIsBiometricEnabled] = useState(false);
@@ -297,91 +307,118 @@ function HomeScreen() {
   //   setLoader(emLoginLoading);
   // }, [emLoginLoading]);
 
-  const [title,setTitle]=useState('Good Morning');
-  const [title1,setTitle1]=useState('Prem Kumar');
-  const [title2,setTitle2]=useState('Current Orders');
+  const [title, setTitle] = useState('Good Morning');
+  const [title1, setTitle1] = useState('Prem Kumar');
+  const [title2, setTitle2] = useState('Current Orders');
   const navigation = useNavigation();
 
-  const [arraydata,setarraydata]=useState([
+  const [arraydata, setarraydata] = useState([
     {
-    name: '3 Ton Paper',
-    date: '21/01/21',
-    orderid: 'JYD/N/21/019',
-    image: require('../../assets/Images/Dashboard/Group_9993.png'),
-    images: require('../../assets/Images/Dashboard/Fill_164.png'),
-    status: 'Pending',
-  },  {
-    name: '4 Ton Paper',
-    date: '21/01/21',
-    orderid: 'JYD/N/21/021',
-    image: require('../../assets/Images/Dashboard/Group_9993.png'),
-    images: require('../../assets/Images/Dashboard/Icon_metro-truck.png'),
-    status: 'In Transit',
-  },  {
-    name: '3 Ton Plastic',
-    date: '21/01/21',
-    orderid: 'JYD/N/21/011',
-    image: require('../../assets/Images/Dashboard/Group_9992.png'),
-    images: require('../../assets/Images/Dashboard/Group_9995.png'),
-    status: 'Completed',
-  }])
+      name: '3 Ton Paper',
+      date: '21/01/21',
+      orderid: 'JYD/N/21/019',
+      image: require('../../assets/Images/Dashboard/Group_9993.png'),
+      images: require('../../assets/Images/Dashboard/Fill_164.png'),
+      status: 'Pending',
+    },
+    {
+      name: '4 Ton Paper',
+      date: '21/01/21',
+      orderid: 'JYD/N/21/021',
+      image: require('../../assets/Images/Dashboard/Group_9993.png'),
+      images: require('../../assets/Images/Dashboard/Icon_metro-truck.png'),
+      status: 'In Transit',
+    },
+    {
+      name: '3 Ton Plastic',
+      date: '21/01/21',
+      orderid: 'JYD/N/21/011',
+      image: require('../../assets/Images/Dashboard/Group_9992.png'),
+      images: require('../../assets/Images/Dashboard/Group_9995.png'),
+      status: 'Completed',
+    },
+  ]);
 
-  const [arraydata1,setarraydata1]=useState([
+  const [arraydata1, setarraydata1] = useState([
     {
-    menuname: 'Create Order',
-    menu1image: require('../../assets/Images/Dashboard/Group_9551.png'),
-    menu2image: require('../../assets/Images/Dashboard/Icon_ionic-md-create.png'),
-  },  {
-    menuname: 'Existing Order',
-    menu1image: require('../../assets/Images/Dashboard/Group_9551.png'),
-    menu2image: require('../../assets/Images/Dashboard/Project.png'),
-  },  {
-    menuname: 'Profile',
-    menu1image: require('../../assets/Images/Dashboard/Group_9551.png'),
-    menu2image: require('../../assets/Images/Dashboard/Project.png'),
-  },  {
-    menuname: 'Logout',
-    menu1image: require('../../assets/Images/Dashboard/Group_9551.png'),
-    menu2image: require('../../assets/Images/Dashboard/Project.png'),
-  }])
+      menuname: 'Create Order',
+      menu1image: require('../../assets/Images/Dashboard/Group_9551.png'),
+      menu2image: require('../../assets/Images/Dashboard/Icon_ionic-md-create.png'),
+    },
+    {
+      menuname: 'Existing Order',
+      menu1image: require('../../assets/Images/Dashboard/Group_9551.png'),
+      menu2image: require('../../assets/Images/Dashboard/Project.png'),
+    },
+    {
+      menuname: 'Profile',
+      menu1image: require('../../assets/Images/Dashboard/Group_9551.png'),
+      menu2image: require('../../assets/Images/Dashboard/Project.png'),
+    },
+    {
+      menuname: 'Logout',
+      menu1image: require('../../assets/Images/Dashboard/Group_9551.png'),
+      menu2image: require('../../assets/Images/Dashboard/Project.png'),
+    },
+  ]);
 
   const handleNavigate = () => {
     navigation.navigate(NavigationRouteNames.NEW_ORDER_REQUEST);
-  }
+  };
   const _RenderItem = (index, item) => {
     return (
-      <View style={{flexDirection: 'row', marginLeft: 24,}}>
-      <View style={{flex: .2, }}>
-      <Image style={{width: 66, height: 66, marginTop: 10,}} source={item.image}  />
+      <View style={{ flexDirection: 'row', marginLeft: 24 }}>
+        <View style={{ flex: 0.2 }}>
+          <Image style={{ width: 66, height: 66, marginTop: 10 }} source={item.image} />
+        </View>
+        <View style={{ flex: 0.6 }}>
+          <Text style={{ fontSize: 17, marginLeft: 15, marginTop: 12 }}>{item.orderid}</Text>
+          <Text style={{ fontSize: 15, marginLeft: 15 }}>{item.name}</Text>
+          <Text style={{ fontSize: 11, marginLeft: 15 }}>{item.date}</Text>
+        </View>
+        <View style={{ flex: 0.2 }}>
+          <Image style={{ width: 15, height: 18, marginTop: 30, marginLeft: 15 }} source={item.images} />
+          <Text style={{ fontSize: 11, color: '#000' }}>{item.status}</Text>
+        </View>
       </View>
-      <View style={{flex: .6, }}>
-      <Text style={{fontSize: 17, marginLeft: 15, marginTop: 12,}}>{item.orderid}</Text>
-      <Text style={{fontSize: 15, marginLeft: 15,}}>{item.name}</Text>
-      <Text style={{fontSize: 11, marginLeft: 15,}}>{item.date}</Text>
-      </View>
-      <View style={{flex: .2,}}>
-      <Image style={{width: 15, height: 18, marginTop: 30, marginLeft: 15,}} source={item.images}  />
-      <Text style={{fontSize: 11, color: '#000',}}>{item.status}</Text>
-      </View>
-      </View>     
-    )
-  }
+    );
+  };
 
   const _RenderItem1 = (index, item) => {
     return (
-      <View style={{flexDirection: 'row', }}>
-          <View style={{flex: 1, width: 167, height: 200, backgroundColor: '#f8a230', marginLeft: 24, marginTop: 5, borderTopLeftRadius: 10, borderTopRightRadius : 10, borderBottomLeftRadius: 10, borderBottomRightRadius: 10,}}>
-          <Image style={{width: 5, height: 19, marginTop: 15, marginLeft: 15,}} source={item.menu1image}  />
-          <View style={{alignItems: 'flex-end', marginRight: 26,}}>
+      <View style={{ flexDirection: 'row' }}>
+        <View
+          style={{
+            flex: 1,
+            width: 167,
+            height: 200,
+            backgroundColor: '#f8a230',
+            marginLeft: 24,
+            marginTop: 5,
+            borderTopLeftRadius: 10,
+            borderTopRightRadius: 10,
+            borderBottomLeftRadius: 10,
+            borderBottomRightRadius: 10,
+          }}>
+          <Image style={{ width: 5, height: 19, marginTop: 15, marginLeft: 15 }} source={item.menu1image} />
+          <View style={{ alignItems: 'flex-end', marginRight: 26 }}>
             <TouchableOpacity onPress={handleNavigate}>
-              <Image style={{width: 26, height: 26, marginTop: 88,}} source={item.menu2image}  />
+              <Image style={{ width: 26, height: 26, marginTop: 88 }} source={item.menu2image} />
             </TouchableOpacity>
           </View>
-          <View style={{alignItems: 'center', }}>
-               <Text style={{fontSize: 17, color: '#fff', fontWeight: 'Poppins-SemiBold', marginTop: 11,}}>{item.menuname}</Text>
-               </View>
-            </View>     
-            {/* <View style={{flex: 1, width: 164, height: 164, backgroundColor: '#fec868', marginLeft: 24, marginTop: 40, borderRadius: 10,}}>
+          <View style={{ alignItems: 'center' }}>
+            <Text
+              style={{
+                fontSize: 17,
+                color: '#fff',
+                fontWeight: 'Poppins-SemiBold',
+                marginTop: 11,
+              }}>
+              {item.menuname}
+            </Text>
+          </View>
+        </View>
+        {/* <View style={{flex: 1, width: 164, height: 164, backgroundColor: '#fec868', marginLeft: 24, marginTop: 40, borderRadius: 10,}}>
             <Image style={{width: 5, height: 19, marginTop: 15, marginLeft: 15,}} source={require('./Group_9551.png')}  />
             <View style={{alignItems: 'flex-end', marginRight: 18,}}>
             <Image style={{width: 33, height: 26, marginTop: 53,}} source={require('./Project.png')}  />
@@ -390,39 +427,37 @@ function HomeScreen() {
             <Text style={{fontSize: 17, color: '#fff', fontWeight: 'Poppins-SemiBold', }}>Existing Order</Text>
             </View>
             </View>            */}
-            </View>   
-    )
-  }
-  
-  
-  
-  return (
-    <View style={{flex: 1,backgroundColor: 'white',}}>
-       <ScrollView>
+      </View>
+    );
+  };
 
-         <View style={{flexDirection: 'row',}}>
-         <View style={{flex: .6, marginTop: 50, marginLeft: 24,}}>
-        <Text style={{fontSize: 20,}}>{title}</Text>
-        <Text style={{fontSize: 34, marginTop: 5,}}>{title1}</Text>
+  return (
+    <View style={{ flex: 1, backgroundColor: 'white' }}>
+      <ScrollView>
+        <View style={{ flexDirection: 'row' }}>
+          <View style={{ flex: 0.6, marginTop: 50, marginLeft: 24 }}>
+            <Text style={{ fontSize: 20 }}>{title}</Text>
+            <Text style={{ fontSize: 34, marginTop: 5 }}>{title1}</Text>
+          </View>
+
+          <View style={{ flex: 0.4 }}>
+            <View style={{ alignItems: 'flex-end', marginTop: 10, marginRight: 10 }}>
+              <Image
+                style={{ width: 125, height: 132 }}
+                source={require('../../assets/Images/Dashboard/Mask_Group_28.png')}
+              />
+            </View>
+          </View>
         </View>
 
-        <View style={{flex: .4, }}>
-        <View style={{alignItems: 'flex-end', marginTop: 10, marginRight: 10,}}>
-          <Image style={{width: 125, height: 132,}} source={require('../../assets/Images/Dashboard/Mask_Group_28.png')}  />
-          </View>
-          </View>
-          </View>
+        <FlatList
+          data={arraydata1}
+          horizontal
+          renderItem={({ index, item }) => _RenderItem1(index, item)}
+          //  keyExtractor={(item) => `list-item-${Math.random() * 10}`}
+        />
 
-          <FlatList
-        data={arraydata1}
-         horizontal={true}
-        renderItem={({ index, item }) =>
-          _RenderItem1(index, item)
-        }
-        //  keyExtractor={(item) => `list-item-${Math.random() * 10}`}
-      />
-
-          {/* <View style={{flexDirection: 'row', }}>
+        {/* <View style={{flexDirection: 'row', }}>
           <View style={{flex: 1, width: 167, height: 200, backgroundColor: '#f8a230', marginLeft: 24, marginTop: 5, borderTopLeftRadius: 10, borderTopRightRadius : 10, borderBottomLeftRadius: 10, borderBottomRightRadius: 10,}}>
           <Image style={{width: 5, height: 19, marginTop: 15, marginLeft: 15,}} source={require('./Group_9551.png')}  />
           <View style={{alignItems: 'flex-end', marginRight: 26,}}>
@@ -431,7 +466,7 @@ function HomeScreen() {
           <View style={{alignItems: 'center', }}>
                <Text style={{fontSize: 17, color: '#fff', fontWeight: 'Poppins-SemiBold', marginTop: 11,}}>Create Order</Text>
                </View>
-            </View>     
+            </View>
             <View style={{flex: 1, width: 164, height: 164, backgroundColor: '#fec868', marginLeft: 24, marginTop: 40, borderRadius: 10,}}>
             <Image style={{width: 5, height: 19, marginTop: 15, marginLeft: 15,}} source={require('./Group_9551.png')}  />
             <View style={{alignItems: 'flex-end', marginRight: 18,}}>
@@ -440,14 +475,21 @@ function HomeScreen() {
             <View style={{alignItems: 'flex-end', marginTop: 11,}}>
             <Text style={{fontSize: 17, color: '#fff', fontWeight: 'Poppins-SemiBold', }}>Existing Order</Text>
             </View>
-            </View>           
-            </View> */}
-            
-            <View style={{marginLeft: 24, marginTop: 15,}}>
-            <Text style={{fontSize: 17, color: '#000', fontFamily: 'Poppins-SemiBold', }}>{title2}</Text>
             </View>
+            </View> */}
 
-            {/* <View style={{flexDirection: 'row', marginLeft: 24,}}>
+        <View style={{ marginLeft: 24, marginTop: 15 }}>
+          <Text
+            style={{
+              fontSize: 17,
+              color: '#000',
+              fontFamily: 'Poppins-SemiBold',
+            }}>
+            {title2}
+          </Text>
+        </View>
+
+        {/* <View style={{flexDirection: 'row', marginLeft: 24,}}>
             <View style={{flex: .2, }}>
             <Image style={{width: 66, height: 66, marginTop: 10,}} source={require('./Group_9993.png')}  />
             </View>
@@ -462,7 +504,7 @@ function HomeScreen() {
             </View>
             </View> */}
 
-            {/* <View style={{flexDirection: 'row', marginLeft: 24,}}>
+        {/* <View style={{flexDirection: 'row', marginLeft: 24,}}>
             <View style={{flex: .2, }}>
             <Image style={{width: 66, height: 66, marginTop: 10,}} source={require('./Group_9993.png')}  />
             </View>
@@ -477,7 +519,7 @@ function HomeScreen() {
             </View>
             </View> */}
 
-            {/* <View style={{flexDirection: 'row', marginLeft: 24,}}>
+        {/* <View style={{flexDirection: 'row', marginLeft: 24,}}>
             <View style={{flex: .2, }}>
             <Image style={{width: 66, height: 66, marginTop: 10,}} source={require('./Group_9992.png')}  />
             </View>
@@ -492,35 +534,32 @@ function HomeScreen() {
             </View>
             </View> */}
 
-            <FlatList
-        data={arraydata}
-        // horizontal={true}
-        renderItem={({ index, item }) =>
-          _RenderItem(index, item)
-        }
-        //  keyExtractor={(item) => `list-item-${Math.random() * 10}`}
-      />
-
-          </ScrollView> 
-        {/* <KeyboardAvoidingView
+        <FlatList
+          data={arraydata}
+          // horizontal={true}
+          renderItem={({ index, item }) => _RenderItem(index, item)}
+          //  keyExtractor={(item) => `list-item-${Math.random() * 10}`}
+        />
+      </ScrollView>
+      {/* <KeyboardAvoidingView
           style={{flex: 1}}
           behavior={Platform.select({android: 'height', ios: 'padding'})}
           enabled>
               <View style={{alignItems: 'center', marginTop: 40,}}>
                  <Image style={{width: 160, height: 55}} source={require('./JaydeLogo01.png')}  />     */}
-                {/* <Image
+      {/* <Image
           style={{width: 34, height: 34}}
-          source={{uri: 
+          source={{uri:
        'https://i.ytimg.com/vi/h1iPGP72Y8c/maxresdefault.jpg'}}
         /> */}
-              {/* </View> 
+      {/* </View>
           <View
             style={{
               flex: 1,
               justifyContent: 'center',
               paddingBottom: RfH(40),
             }}>
-           
+
               <View style={{alignItems: 'center', marginTop: 120,}}>
               <Text style={{color: '#fff', marginBottom: 20, fontSize : 40, lineHeight: 48, fontWeight: 'bold',}}>Hello!</Text>
               </View>
@@ -531,7 +570,7 @@ function HomeScreen() {
                 fontWeight={'500'}>
                 Mobile Number*
               </CustomText> */}
-              {/* <CustomTextInput
+      {/* <CustomTextInput
                 label={'Username'}
                 inputLabelStyle={commonStyles.inputLabelStyle}
                 placeholder={'Email/Mobile Number'}
@@ -543,7 +582,7 @@ function HomeScreen() {
                 onSubmitEditing={() => onSubmitEditing('password')}
                 error={clickLogin && loginForm.errors.username}
               /> */}
-              {/* <CustomTextInput
+      {/* <CustomTextInput
                  label={'Password'}
                 inputLabelStyle={commonStyles.inputLabelStyle}
                 placeholder={'+91'}
@@ -559,9 +598,8 @@ function HomeScreen() {
                 refKey={'password'}
                 error={clickLogin && loginForm.errors.password}
               /> */}
-            
 
-              {/* <View style={styles.checkBoxContainer}>
+      {/* <View style={styles.checkBoxContainer}>
                 <View style={{flexDirection: 'row', alignItems: 'center'}}>
                   <CheckBoxWrapper
                     isChecked={rememberMe}
@@ -576,7 +614,7 @@ function HomeScreen() {
                       styling={{paddingVertical: RfH(4)}}>
                       Keep me logged in
                     </CustomText>
-                  </View> 
+                  </View>
                 </View>
                 <TouchableOpacity
                   onPress={comingSoonAlert}
@@ -586,10 +624,10 @@ function HomeScreen() {
                   </CustomText>
                 </TouchableOpacity>
               </View> */}
-              {/* <View style={{marginTop: RfH(21)}}>
+      {/* <View style={{marginTop: RfH(21)}}>
                 <GradientButton title={'Confirm'} onPress={handleLogin} />
               </View>
-             
+
             </View>
             </View>
 
@@ -609,9 +647,9 @@ function HomeScreen() {
           <View style={{ alignItems: 'center'}}>
                <Text style={{ color: '#fff', marginTop: 10, marginBottom: 30,}}>Don't have an account? <Text style={{color: '#fff',
     textDecorationLine: 'underline'}} onPress={ ()=> Linking.openURL('#') }>Create one</Text></Text>
-               </View> 
                </View>
-          
+               </View>
+
         </KeyboardAvoidingView>
       <Biometric
         isFaceIdEnable={biometric.isFaceId}
@@ -620,7 +658,6 @@ function HomeScreen() {
         handleSuccessfulAuth={handleSuccessfulAuth}
         biometricModelVisible={biometric.modelVisible}
       /> */}
-      
     </View>
   );
 }

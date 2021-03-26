@@ -1,6 +1,5 @@
-import React, {useContext, useEffect, useState} from 'react';
-import * as Alert from 'react-native';
-import {KeyboardAvoidingView, Platform, TouchableOpacity, View, Text, Image, TextInput, FlatList, ScrollView} from 'react-native';
+import React, { useState } from 'react';
+import { Image, ScrollView, Text, TouchableOpacity, View } from 'react-native';
 
 // import * as Yup from 'yup';
 // import {useFormik} from 'formik';
@@ -26,7 +25,7 @@ import {KeyboardAvoidingView, Platform, TouchableOpacity, View, Text, Image, Tex
 
 // clearAll()
 function AccountCreate() {
-  //const navigation = useNavigation();
+  // const navigation = useNavigation();
   // const [clickLogin, setClickLogin] = useState(false);
   // const [openBiometric, setOpenBiometric] = useState(false);
   // const [isBiometricEnabled, setIsBiometricEnabled] = useState(false);
@@ -295,43 +294,60 @@ function AccountCreate() {
   //   setLoader(emLoginLoading);
   // }, [emLoginLoading]);
 
-   const [title,setTitle]=useState('Your account has been created');
-   const [title1,setTitle1]=useState('Signup');
+  const [title, setTitle] = useState('Your account has been created');
+  const [title1, setTitle1] = useState('Signup');
   // const [title2,setTitle2]=useState('Current Orders');
-  
+
   return (
-    <View style={{flex: 1,backgroundColor: '#f7a435',}}>
-       <ScrollView>
-       <View style={{flexDirection: 'row', marginTop: 30,}}>
-        <View style={{flex: 1,}}>
-        <TouchableOpacity>  
-                    <View>  
-                    <Image style={{width: 24, height: 24, marginLeft: 24,}} source={require('../../assets/Images/AccountCreate/Left_Arrow_Icon.png')}  />   
-                    </View>  
-                </TouchableOpacity>  
-        </View>
-        <View style={{flex: 1,}}>
-        <TouchableOpacity>  
-                    <View style={{alignItems: 'flex-end',}}>  
-                        <Text style={{fontSize: 16, color: '#fff', marginRight: 20,}}>{title1}</Text>  
-                    </View>  
-                </TouchableOpacity>  
-        </View>
-          </View>   
-
-       <View style={{alignItems: 'center', marginTop: 40,}}>
-                 <Image style={{width: 155, height: 54}} source={require('../../assets/Images/AccountCreate/JaydeLogo01.png')}  />    
-              </View> 
-        
-        <View style={{flex: 1, width: 310, height: 218, backgroundColor: '#ffffff', alignItems: 'center', borderRadius: 20, marginLeft: 24, marginTop: 62,}}>
-          <Image style={{width: 114, height: 114, marginTop: 32,}} source={require('../../assets/Images/AccountCreate/Group.png')}  /> 
-          <Text style={{fontSize: 15, color: '#232323', }}>{title}</Text>
+    <View style={{ flex: 1, backgroundColor: '#f7a435' }}>
+      <ScrollView>
+        <View style={{ flexDirection: 'row', marginTop: 30 }}>
+          <View style={{ flex: 1 }}>
+            <TouchableOpacity>
+              <View>
+                <Image
+                  style={{ width: 24, height: 24, marginLeft: 24 }}
+                  source={require('../../assets/Images/AccountCreate/Left_Arrow_Icon.png')}
+                />
+              </View>
+            </TouchableOpacity>
+          </View>
+          <View style={{ flex: 1 }}>
+            <TouchableOpacity>
+              <View style={{ alignItems: 'flex-end' }}>
+                <Text style={{ fontSize: 16, color: '#fff', marginRight: 20 }}>{title1}</Text>
+              </View>
+            </TouchableOpacity>
+          </View>
         </View>
 
-          </ScrollView> 
-        
-      
+        <View style={{ alignItems: 'center', marginTop: 40 }}>
+          <Image
+            style={{ width: 155, height: 54 }}
+            source={require('../../assets/Images/AccountCreate/JaydeLogo01.png')}
+          />
+        </View>
+
+        <View
+          style={{
+            flex: 1,
+            width: 310,
+            height: 218,
+            backgroundColor: '#ffffff',
+            alignItems: 'center',
+            borderRadius: 20,
+            marginLeft: 24,
+            marginTop: 62,
+          }}>
+          <Image
+            style={{ width: 114, height: 114, marginTop: 32 }}
+            source={require('../../assets/Images/AccountCreate/Group.png')}
+          />
+          <Text style={{ fontSize: 15, color: '#232323' }}>{title}</Text>
+        </View>
+      </ScrollView>
     </View>
   );
 }
+
 export default AccountCreate;
