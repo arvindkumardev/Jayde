@@ -10,7 +10,7 @@ const NewOrder = () => {
   const navigation = useNavigation();
 
   const handleGetQuote = () => {
-    navigation.navigate(NavigationRouteNames.PRICE_REQUEST);
+    navigation.navigate(NavigationRouteNames.PRICE_CONFIRM);
   };
   useLayoutEffect(() => {
     navigation.setOptions({

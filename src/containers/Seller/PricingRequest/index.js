@@ -24,7 +24,8 @@ const PricingRequest = () => {
     setShowCamera(!showCamera);
   };
   useLayoutEffect(() => {
-    const { title } = route.params;
+    const { title, categoryId } = route.params;
+    console.log("Category Id fetch", categoryId);
     navigation.setOptions({
       title: title ? (
         <Text style={[AppStyles.txtBlackBold, AppStyles.f18]}>{title}</Text>
@@ -78,7 +79,7 @@ const PricingRequest = () => {
   };
 
   const handleConfirm = () => {
-    navigation.navigate(NavigationRouteNames.PRICE_CONFIRM);
+    navigation.navigate(NavigationRouteNames.NEW_ORDER_REQUEST);
   };
   return (
     <KeyboardAwareScrollView style={{ flex: 1, paddingHorizontal: RfW(20) }}>

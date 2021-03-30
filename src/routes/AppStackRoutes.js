@@ -11,6 +11,7 @@ import UserContext from "../appContainer/context/user.context";
 import AddressConfirm from "../containers/Seller/AddressConfirm/index";
 import PickupDetails from "../containers/Seller/PickupDetails/index";
 import CallRequest from "../containers/Seller/CallRequest/index";
+import NewOrderList from "../containers/NewOrderList/index";
 import { USER_ROLE } from "./constants";
 
 const Stack = createStackNavigator();
@@ -43,6 +44,10 @@ const AppStack = (props) => {
             <Stack.Screen
               name={NavigationRouteNames.PRICE_CONFIRM}
               component={PriceConfirm}
+            />
+            <Stack.Screen
+              component={NewOrderList}
+              name={NavigationRouteNames.NEW_ORDER}
             />
             {/* Screen - 16 */}
             <Stack.Screen

@@ -363,7 +363,7 @@ function HomeScreen() {
   ]);
 
   const handleNavigate = () => {
-    navigation.navigate(NavigationRouteNames.NEW_ORDER_REQUEST);
+    navigation.navigate(NavigationRouteNames.NEW_ORDER);
   };
   const _RenderItem = (index, item) => {
     return (

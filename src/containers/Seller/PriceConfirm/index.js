@@ -68,6 +68,11 @@ const PriceConfirm = () => {
         >
           <Text style={[AppStyles.txtWhiteRegular, AppStyles.f18]}>SCHEDULE PICKUP</Text>
         </TouchableOpacity>
+        <TouchableOpacity
+          style={[AppStyles.mt20, AppStyles.br10, AppStyles.btnSecandary, AppStyles.pv10, AppStyles.alignCenter]}
+        >
+          <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f18]}>CONTACT JAYDE</Text>
+        </TouchableOpacity>
       </View>
     </View>
   );

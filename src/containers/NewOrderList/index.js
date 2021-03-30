@@ -11,6 +11,8 @@ import {
   FlatList,
   ScrollView,
 } from 'react-native';
+import { useNavigation } from "@react-navigation/native";
+import NavigationRouteNames from "../../routes/ScreenNames";
 
 // import * as Yup from 'yup';
 // import {useFormik} from 'formik';
@@ -307,30 +309,38 @@ function NewOrderList() {
 
   const [title, setTitle] = useState('New Order');
   const [title1, setTitle1] = useState('Please Choose a Category');
+  const navigation = useNavigation();
   // const [title2,setTitle2]=useState('Current Orders');
 
   const [arraydata, setarraydata] = useState([
     {
       name: 'PAPER WASTE',
       image: require('../../assets/Images/NewOrderList/Group_10089.png'),
+      categoryId: 1
     },
     {
       name: 'PLASTIC WASTE',
       image: require('../../assets/Images/NewOrderList/Group_10090.png'),
+      categoryId: 2
     },
     {
       name: 'ELECTRONIC WASTE',
       image: require('../../assets/Images/NewOrderList/Group_10091.png'),
+      categoryId: 3
     },
     {
       name: 'MIX WASTE',
       image: require('../../assets/Images/NewOrderList/Group_10088.png'),
+      categoryId: 4
     },
   ]);
 
+  const handleNavigate = (title, category) => {
+    navigation.navigate(NavigationRouteNames.PRICE_REQUEST, { title: title, categoryId: category })
+  }
   const _RenderItem = (index, item) => {
     return (
-      <View style={{ flexDirection: 'row', marginLeft: 24 }}>
+      <TouchableOpacity style={{ flexDirection: 'row', marginLeft: 24 }} onPress={() => { handleNavigate(item.name, item.categoryId) }}>
         <View style={{ flex: 0.2 }}>
           <Image
             style={{ width: 66, height: 66, marginTop: 32 }}
@@ -350,7 +360,7 @@ function NewOrderList() {
             {item.name}
           </Text>
         </View>
-      </View>
+      </TouchableOpacity>
     );
   };
 
