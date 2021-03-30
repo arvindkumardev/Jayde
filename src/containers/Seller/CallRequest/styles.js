@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native';
-import { RfH, RfW } from '../../utils/helpers';
-import Fonts from "../../theme/Fonts";
-import { Colors } from '../../theme';
+import { RfH, RfW } from '../../../utils/helpers';
+import Fonts from "../../../theme/Fonts";
+import { Colors } from '../../../theme';
 
 const styles = StyleSheet.create({
   active:{

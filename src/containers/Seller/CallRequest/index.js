@@ -6,16 +6,13 @@ import {
     TextInput,
     Image
     } from 'react-native';
-import UserContext from '../Login/user.context';
 import {useNavigation, useRoute} from '@react-navigation/native';
 import Styles from "./styles";
-import { Colors, AppStyles } from "../../theme";
 import MIcon from "react-native-vector-icons/MaterialCommunityIcons";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-
+import { Colors, Fonts, AppStyles } from '../../../theme';
 
 const CallRequest = () => {
-  const { user, setLogin } = useContext(UserContext);
   const navigation = useNavigation();
   
   useLayoutEffect(() => {

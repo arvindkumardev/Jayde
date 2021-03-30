@@ -3,21 +3,16 @@ import { createStackNavigator } from "@react-navigation/stack";
 import NavigationRouteNames from "./ScreenNames";
 import HomeScreen from "../containers/Dashboard";
 import LoginWithEmail from "../containers/LoginWithEmail";
-import PricingRequest from "../containers/PricingRequest";
+import PricingRequest from "../containers/Seller/PricingRequest";
 import SignUp from "../containers/SignUp";
-import NewOrder from "../containers/NewOrder/index";
-import PriceConfirm from "../containers/PriceConfirm/index";
-import BottomTabStack from "./BottomTabStack";
+import NewOrder from "../containers/Seller/NewOrder/index";
+import PriceConfirm from "../containers/Seller/PriceConfirm/index";
 import UserContext from "../appContainer/context/user.context";
-import AddressConfirm from "../containers/AddressConfirm/index";
-import PickupDetails from "../containers/PickupDetails/index";
-import CallRequest from "../containers/CallRequest/index";
-import { getSaveData } from "../utils/helpers";
-import { LOCAL_STORAGE_DATA_KEY } from "../utils/constants";
-import AdminRoutes from "../routes/AdminStack/AdminRoutes";
-import SellerRoutes from "../routes/SellerStack/SellerRoutes";
+import AddressConfirm from "../containers/Seller/AddressConfirm/index";
+import PickupDetails from "../containers/Seller/PickupDetails/index";
+import CallRequest from "../containers/Seller/CallRequest/index";
+import { USER_ROLE } from "./constants";
 
-const USER_ROLE= { SELLER: "seller", ADMIN: "admin" };
 const Stack = createStackNavigator();
 
 const AppStack = (props) => {
@@ -25,7 +20,6 @@ const AppStack = (props) => {
   const role = userRole || props.userRole;
   const loginCheck = isLogin || props.isLogin;
   const SwitchNavigation = (role) => {
-    console.log("Switch Navigation role is ", role);
     switch(role){
       case USER_ROLE.SELLER:
         return <>

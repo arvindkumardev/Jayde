@@ -1,16 +1,17 @@
 import React, { useContext, useEffect, useState, useLayoutEffect } from 'react';
 import { View, Text, TouchableOpacity, TextInput, Image } from 'react-native';
-import UserContext from '../Login/user.context';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import Styles from "./styles";
-import NavigationRouteNames from '../../routes/ScreenNames';
+import NavigationRouteNames from '../../../routes/ScreenNames';
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-import { Colors, Fonts, AppStyles } from '../../theme';
+
 import { Dimensions } from 'react-native';
 import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
 import { mapStyle } from "./mapStyle";
+import { Colors, Fonts, AppStyles } from '../../../theme';
+
+
 const PickupDetails = () => {
-  const { user, setLogin } = useContext(UserContext);
   const navigation = useNavigation();
   const route = useRoute();
 

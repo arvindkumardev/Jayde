@@ -1,21 +1,17 @@
 import React, { useContext, useEffect, useState, useLayoutEffect } from "react";
 import { View, Text, TouchableOpacity, TextInput, Image } from "react-native";
-import { GradientButton } from "../../components";
-import { logout, RfH, RfW } from "../../utils/helpers";
-import UserContext from "../Login/user.context";
+import { logout, RfH, RfW } from "../../../utils/helpers";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import Styles from './styles';
-import { Colors, Fonts, AppStyles } from "../../theme";
+import { Colors, Fonts, AppStyles } from "../../../theme";
 import DropDownPicker from 'react-native-dropdown-picker';
 import FAIcon from 'react-native-vector-icons/FontAwesome';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import Camera from '../../components/Camera';
+import Camera from '../../../components/Camera';
 import { launchImageLibrary } from "react-native-image-picker";
-import { getSubCategory } from '../../services/middleware/quote';
-import NavigationRouteNames from "../../routes/ScreenNames";
+import NavigationRouteNames from '../../../routes/ScreenNames';
 
 const PricingRequest = () => {
-  const { user, setLogin } = useContext(UserContext);
   const navigation = useNavigation();
   const route = useRoute();
   const [showCamera, setShowCamera] = useState(false);

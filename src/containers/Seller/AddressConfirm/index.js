@@ -4,16 +4,15 @@ import {
     Text,
     TouchableOpacity,
     } from 'react-native';
-import UserContext from '../Login/user.context';
 import {useNavigation, useRoute} from '@react-navigation/native';
 import FAIcon from "react-native-vector-icons/FontAwesome";
 import Checkbox from "@react-native-community/checkbox";
 import Styles from "./styles";
-import { Fonts, Colors, AppStyles } from '../../theme';
-import NavigationRouteNames from '../../routes/ScreenNames';
+
+import NavigationRouteNames from '../../../routes/ScreenNames';
+import { Colors, Fonts, AppStyles } from '../../../theme';
 
 const PriceConfirm = () => {
-  const { user, setLogin } = useContext(UserContext);
   const navigation = useNavigation();
   const route = useRoute();
 

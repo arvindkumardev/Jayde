@@ -1,14 +1,13 @@
 import React, { useContext, useEffect, useState, useLayoutEffect } from 'react';
 import { View, Text, TouchableOpacity, TextInput, Image } from 'react-native';
-import UserContext from '../Login/user.context';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import FAIcon from "react-native-vector-icons/FontAwesome";
 import Styles from "./styles";
-import { Fonts, AppStyles } from '../../theme';
-import NavigationRouteNames from '../../routes/ScreenNames';
+import NavigationRouteNames from '../../../routes/ScreenNames';
+import { Fonts, Colors, AppStyles } from '../../../theme';
+
 
 const PriceConfirm = () => {
-  const { user, setLogin } = useContext(UserContext);
   const navigation = useNavigation();
   const route = useRoute();
 
