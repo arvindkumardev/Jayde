@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import 'react-native-gesture-handler';
 import SplashScreen from 'react-native-splash-screen/index';
 
@@ -10,8 +10,10 @@ import {configure} from 'axios-hooks';
 import Axios from 'axios';
 import {BASE_URL, LOCAL_STORAGE_DATA_KEY} from '../utils/constants';
 import {getSaveData} from '../utils/helpers';
-import UserState from '../containers/Login/userstate';
+import UserState from '../appContainer/context/user';
 import AppLoader from "./AppLoader";
+import NavigationRouteNames from '../routes/ScreenNames';
+import UserContext from "./context/user.context";
 
 const axios = Axios.create({
   baseURL: BASE_URL,
@@ -27,7 +29,7 @@ axios.interceptors.request.use(
     const token = await getSaveData(LOCAL_STORAGE_DATA_KEY.JWT_TOKEN);
     console.log("Token", token);
     if (token) {
-      config.headers['jwt-token'] = token;
+      config.headers['Authorization'] = `Bearer ${token}`;
     }
     return config;
   },
@@ -44,14 +46,38 @@ axios.interceptors.response.use(
 
 configure({axios});
 
+const ROLE_BASED_NAVIGATION = { "seller" : NavigationRouteNames.PRICE_CONFIRM }
+
 function App() {
+  const { isLogin, setLogin } = useContext(UserContext)
   const [showTopBar, setShowTopBar] = useState(false);
+  const [ token, setToken ] = useState(null);
+  const [ tokenLogin, setIsLogin ] = useState(false);
+
+  const [ loginUserRole, setUserRole ] = useState('');
 
   const onStateChangeHandle = (state) => {
     const {params} = state.routes[state.index];
     setShowTopBar(params && params.showTopBar);
   };
 
+  const getToken = async () => {
+    const token = await getSaveData(LOCAL_STORAGE_DATA_KEY.JWT_TOKEN);
+    const userRole = await getSaveData(LOCAL_STORAGE_DATA_KEY.USER_ROLE);
+    if(token){
+      setToken(token);
+      setIsLogin(true);
+      setUserRole(userRole)
+    }
+  }
+  
+  useEffect(() => {
+    if(!token){
+      getToken();
+    }
+  }, [])
+
+  
 
   useEffect(() => {
       SplashScreen.hide();
@@ -67,7 +93,7 @@ function App() {
       )}
       <UserState>
               <AppLoader>
-                <AppStack />
+                <AppStack userRole={loginUserRole} isLogin={tokenLogin} />
               </AppLoader>
       </UserState>
     </NavigationContainer>

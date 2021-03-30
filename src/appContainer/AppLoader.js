@@ -5,6 +5,7 @@ import UserContext from '../containers/Login/user.context';
 
 function AppLoader(props) {
     const {isLoading} = useContext(UserContext);
+    console.log("Loading changed", isLoading);
     return (
         <>
             <Loader isLoading={isLoading} />

@@ -1,4 +1,4 @@
-import { LOGIN_URL, GET_UNITS } from "../../utils/urls";
+import { LOGIN_URL } from "../../utils/urls";
 import useAxios from "axios-hooks";
 
 const userLogin = () => {

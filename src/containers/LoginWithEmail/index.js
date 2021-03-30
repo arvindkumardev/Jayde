@@ -33,14 +33,15 @@ import { isEmpty } from 'lodash';
 import Images from '../../theme/Images';
 import NavigationRouteNames from '../../routes/ScreenNames';
 import { useNavigation } from '@react-navigation/core';
-import UserContext from './user.context';
+import UserContext from "../../appContainer/context/user.context";
 import useAxios from 'axios-hooks';
 import styles from './styles';
 import { LOGIN_URL } from '../../utils/urls';
 import commonStyles from '../../theme/commonStyles';
 import axios from "axios";
 import { useRoute } from '@react-navigation/native';
-import { userLogin } from "../../services/middleware/user";
+import { userLogin } from "./user";
+import { LOCAL_STORAGE_DATA_KEY } from '../../utils/constants';
 
 function LoginWithEmail() {
   const navigation = useNavigation();
@@ -52,6 +53,7 @@ function LoginWithEmail() {
     orgLoading,
     orgData,
     setLoader,
+    setUserRole
   } = useContext(UserContext);
   const [tries, setTries] = useState(2);
   const [selectCompany, setSelectCompany] = useState({});
@@ -75,7 +77,19 @@ function LoginWithEmail() {
   const triggerLogin = async (username, password, org) => {
     try{
       const { data } = await emLogin({ data: {email: username, password: password} });
-      console.log("Response from login ", data)
+      console.log("Login Response", data);
+      if(data.status){
+        await setLogin(data.status);
+        await storeData(LOCAL_STORAGE_DATA_KEY.JWT_TOKEN, data.data.token);
+        await storeData(LOCAL_STORAGE_DATA_KEY.USER_ROLE, data.data.business_type);
+        await setUserRole(data.data.business_type);
+        await setUserObj(data.data);
+      }
+      else{
+        console.log("Login failed");
+        alert(data.message);
+      }
+      
     }
     catch(e){
       console.log("Response error", e);
@@ -105,10 +119,12 @@ function LoginWithEmail() {
     triggerLogin(
       loginForm.values.username,
       loginForm.values.password,
-      selectCompany
+      selectCompany,
     );
     // setClickLogin(true);
     // if (isEmpty(loginForm.errors)) {
+    //   setLoader(true);
+    //   console.log("Calling trigger login");
     //   triggerLogin(
     //     loginForm.values.username,
     //     loginForm.values.password,
@@ -121,9 +137,9 @@ function LoginWithEmail() {
   //   return inputs[id] ? inputs[id].focus() : null;
   // };
 
-  useEffect(() => {
-    setLoader(emLoginLoading);
-  }, [emLoginLoading]);
+  // useEffect(() => {
+  //   setLoader(emLoginLoading);
+  // }, [emLoginLoading]);
 
   const screenNavigate = () => {
     navigation.navigate(NavigationRouteNames.HOME_SCREEN);
@@ -218,7 +234,7 @@ function LoginWithEmail() {
                     Dont have an account?
                     <Text
                       style={{ color: '#fff', textDecorationLine: 'underline' }}
-                      onPress={() => Linking.openURL('#')}
+                      onPress={() => navigation.navigate(NavigationRouteNames.SIGNUP)}
                     >
                       Create one
                     </Text>
