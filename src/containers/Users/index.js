@@ -10,18 +10,13 @@ import {useNavigation} from '@react-navigation/core';
 import {useRoute} from '@react-navigation/native';
 import AppStyles from "../../theme/Styles/texts";
 import AppStyle from "../../theme/Styles/spaces";
-import style from "../../theme/Styles/Container";
+import style from "../../theme/Styles/container";
 import styles from '../../components/CustomImage/style';
 import { users } from "../../services/middleware/user";
 
 function Users() {
-  //  const [page, setPage] = useState(1);
    const navigation = useNavigation();
    const route = useRoute();
-
-  //  const loadMore = () => {
-  //   setPage(page + 1);
-  // };
 
    const [
     { data: emLoginData, loading: emLoginLoading, error: emLoginError },
@@ -42,19 +37,6 @@ function Users() {
    useEffect(()=>{
     triggerLogin();
   }, navigation);
-
-  // useEffect(() => {
-  //   const loadProducts = async () => {
-  //     setIsLoading(true);
-  //     let response = await fetch(
-  //       `${api}&page=${page}&perPage=4`
-  //     );
-  //     let results = await response.json();
-  //     setProducts([...products, ...results.data]);
-  //     setIsLoading(false);
-  //   };
-  //   loadProducts();
-  // }, [page]);
 
    const [arraydata,setarraydata]=useState([])
   
@@ -126,16 +108,6 @@ function Users() {
         }
       />
 
-{/* <FlatList
-      data={arraydata}
-      keyExtractor={item => item.id}
-      // renderItem={index, item}
-      renderItem={({ index, item }) =>
-          _RenderItem(index, item)
-        }
-      onEndReached={loadMore}
-      onEndThreshold={0.3}
-    /> */}
 
           </ScrollView> 
         

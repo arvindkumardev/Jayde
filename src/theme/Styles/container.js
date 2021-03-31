@@ -12,15 +12,24 @@ const container = StyleSheet.create({
   br10: {
     borderRadius: 10,
   },
+  br13:{
+    borderRadius: 13
+},
   w100: {
     width: '100%',
   },
   w45: {
     width: '45%',
   },
+  w85:{
+    width: '85%'
+},
   primaryColor: {
     color: Colors.mango,
   },
+  whitecolor:{
+    color: Colors.white
+},
   flexRowSpaceBetween: {
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -42,6 +51,24 @@ const container = StyleSheet.create({
     flex: 1,
     justifyContent: 'space-between',
   },
+  flexDir: {
+    flexDirection:'row',
+},
+flex1: {
+    flex: 1,
+},
+borderwidth1: {
+    borderWidth: 1,
+},
+flexpointone: {
+    flex: .1,
+},
+flexpointthree: {
+    flex: .3,
+},
+flexpointnine: {
+    flex: .9,
+},
 });
 
 export default container;

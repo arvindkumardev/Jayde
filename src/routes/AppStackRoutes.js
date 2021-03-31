@@ -12,6 +12,12 @@ import AddressConfirm from "../containers/Seller/AddressConfirm/index";
 import PickupDetails from "../containers/Seller/PickupDetails/index";
 import CallRequest from "../containers/Seller/CallRequest/index";
 import NewOrderList from "../containers/NewOrderList/index";
+import ViewNewOrder from "../containers/ViewNewOrder";
+import Confirmation from "../containers/Confirmation";
+import AccountCreate from "../containers/AccountCreate";
+import OrderAssign from "../containers/OrderAssign";
+import Order from "../containers/Order";
+import Users from "../containers/Users";
 import { USER_ROLE } from "./constants";
 
 const Stack = createStackNavigator();
@@ -26,8 +32,8 @@ const AppStack = (props) => {
         return <>
           {/* Dashboard SCREEN */}
             <Stack.Screen
-              name={NavigationRouteNames.HOME_SCREEN}
-              component={HomeScreen}
+              name={NavigationRouteNames.USERS}
+              component={Users}
             />
             {/* Screen - 19 */}
             <Stack.Screen

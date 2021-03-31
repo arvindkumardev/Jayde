@@ -18,20 +18,6 @@ function OrderAssign() {
       }
   ])
 
-   const [title1,setTitle1]=useState('Ref No- JYD/SC/2020/0067');
-   const [title4,setTitle4]=useState('Order Assign');
-
-   const [title2,setTitle2]=useState('Waste type');
-   const [title3,setTitle3]=useState('Plastic');
-   const [title5,setTitle5]=useState('Waste Sub Category');
-   const [title6,setTitle6]=useState('Type 1');
-   const [title7,setTitle7]=useState('Volume');
-   const [title8,setTitle8]=useState('3 Tons');
-   const [title9,setTitle9]=useState('Purchase Date');
-   const [title10,setTitle10]=useState('26/07/2020');
-   const [title11,setTitle11]=useState('Purchase Amount');
-   const [title12,setTitle12]=useState('₹ 25,864');
-
    const navigation = useNavigation();
    const route = useRoute();
   
@@ -79,60 +65,60 @@ function OrderAssign() {
         <View style={Styles.flx2}>
         <TouchableOpacity>  
                     <View>  
-                        <Text style={Styles.topTitle}>{title4}</Text>  
+                        <Text style={Styles.topTitle}>Order Assign</Text>  
                     </View>  
                 </TouchableOpacity>  
         </View>
           </View> 
           
         <View style={Styles.refView}>
-          <Text style={Styles.refText}>{title1}</Text>
+          <Text style={Styles.refText}>Ref No- JYD/SC/2020/0067</Text>
         </View>
         
         <View style={Styles.boxView}>
         
         <View style={Styles.boxText}>
       <View style={Styles.flx}>
-      <Text style={Styles.boxtxtt}>{title2}</Text>
+      <Text style={Styles.boxtxtt}>Waste type</Text>
       </View>
       <View style={Styles.boxTxtView}>
-      <Text style={Styles.boxTextt1}>{title3}</Text>
+      <Text style={Styles.boxTextt1}>Plastic</Text>
       </View>
       </View> 
 
       <View style={Styles.boxText}>
       <View style={Styles.flx}>
-      <Text style={Styles.boxtxtt}>{title5}</Text>
+      <Text style={Styles.boxtxtt}>Waste Sub Category</Text>
       </View>
       <View style={Styles.boxTxtView}>
-      <Text style={Styles.boxTextt1}>{title6}</Text>
+      <Text style={Styles.boxTextt1}>Type 1</Text>
       </View>
       </View> 
 
       <View style={Styles.boxText}>
       <View style={Styles.flx}>
-      <Text style={Styles.boxtxtt}>{title7}</Text>
+      <Text style={Styles.boxtxtt}>Volume</Text>
       </View>
       <View style={Styles.boxTxtView}>
-      <Text style={Styles.boxTextt1}>{title8}</Text>
+      <Text style={Styles.boxTextt1}>3 Tons</Text>
       </View>
       </View> 
 
       <View style={Styles.boxText}>
       <View style={Styles.flx}>
-      <Text style={Styles.boxtxtt}>{title9}</Text>
+      <Text style={Styles.boxtxtt}>Purchase Date</Text>
       </View>
       <View style={Styles.boxTxtView}>
-      <Text style={Styles.boxTextt1}>{title10}</Text>
+      <Text style={Styles.boxTextt1}>26/07/2020</Text>
       </View>
       </View> 
 
       <View style={Styles.boxText}>
       <View style={Styles.flx}>
-      <Text style={Styles.boxtxtt}>{title11}</Text>
+      <Text style={Styles.boxtxtt}>Purchase Amount</Text>
       </View>
       <View style={Styles.boxTxtView}>
-      <Text style={Styles.boxTextt1}>{title12}</Text>
+      <Text style={Styles.boxTextt1}>₹ 25,864</Text>
       </View>
       </View> 
 

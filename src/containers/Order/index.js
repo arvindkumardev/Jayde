@@ -32,8 +32,7 @@ function Order() {
     triggerLogin();
   }, navigation);
 
-  // const [
-  //    ] = newOrder();
+
 
 
   const [title4,setTitle4]=useState('New Orders');

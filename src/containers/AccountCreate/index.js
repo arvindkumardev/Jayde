@@ -5,10 +5,6 @@ import Styles from "./styles";
 
 function AccountCreate() {
   
-
-   const [title,setTitle]=useState('Your account has been created');
-   const [title1,setTitle1]=useState('Signup');
-  
   return (
     <View style={Styles.topView}>
        <ScrollView>
@@ -23,7 +19,7 @@ function AccountCreate() {
         <View style={Styles.viewFlex}>
         <TouchableOpacity>  
                     <View style={Styles.topTitleView}>  
-                        <Text style={Styles.topTitle}>{title1}</Text>  
+                        <Text style={Styles.topTitle}>Signup</Text>  
                     </View>  
                 </TouchableOpacity>  
         </View>
@@ -35,7 +31,7 @@ function AccountCreate() {
         
         <View style={Styles.boxContent}>
           <Image style={Styles.boxImage} source={require('../../assets/Images/AccountCreate/Group.png')}  /> 
-          <Text style={Styles.boxText}>{title}</Text>
+          <Text style={Styles.boxText}>Your account has been created</Text>
         </View>
 
           </ScrollView> 

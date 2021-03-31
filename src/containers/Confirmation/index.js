@@ -4,7 +4,7 @@ import {KeyboardAvoidingView, Platform, TouchableOpacity, View, Text, Image, Tex
 import Styles from "./styles";
 import AppStyles from "../../theme/Styles/texts";
 import AppStyle from "../../theme/Styles/spaces";
-import style from "../../theme/Styles/Container";
+import style from "../../theme/Styles/container";
 import styles from '../../components/CustomImage/style';
 import NavigationRouteNames from '../../routes/ScreenNames';
 import {useNavigation} from '@react-navigation/core';
@@ -12,20 +12,6 @@ import {useRoute} from '@react-navigation/native';
 
 
 function Confirmation() {
-  
-  
-   const [title,setTitle]=useState('SUCCESS');
-
-   const [title2,setTitle2]=useState('Category');
-   const [title3,setTitle3]=useState('Paper');
-   const [title5,setTitle5]=useState('Sub Category');
-   const [title6,setTitle6]=useState('Type 2');
-   const [title7,setTitle7]=useState('Volume');
-   const [title8,setTitle8]=useState('2 Tons');
-   const [title9,setTitle9]=useState('Location');
-   const [title10,setTitle10]=useState('Hyderabad');
-   const [title11,setTitle11]=useState('Prov. Price');
-   const [title12,setTitle12]=useState('₹ 25,864');
 
    const navigation = useNavigation();
    const route = useRoute();
@@ -41,7 +27,7 @@ function Confirmation() {
         
         <View style={Styles.boxContent}>
           <Image style={Styles.boxImage} source={require('../../assets/Images/AccountCreate/Group.png')}  /> 
-          <Text style={[AppStyles.txtBlackBold, AppStyles.f20, AppStyles.spacing1]}>{title}</Text>
+          <Text style={[AppStyles.txtBlackBold, AppStyles.f20, AppStyles.spacing1]}>SUCCESS</Text>
 
           <View style={[style.w85, style.borderwidth1, AppStyle.mt20, Styles.bdrclr]}></View>
            
@@ -52,46 +38,46 @@ function Confirmation() {
         
         <View style={[style.flexDir, AppStyle.ml24]}>
       <View style={style.flex1}>
-      <Text style={[AppStyles.f15, AppStyle.mt20, AppStyles.txtSecandaryRegular]}>{title2}</Text>
+      <Text style={[AppStyles.f15, AppStyle.mt20, AppStyles.txtSecandaryRegular]}>Category</Text>
       </View>
       <View style={[style.flex1, AppStyles.alignfend]}>
-      <Text style={[AppStyles.f15, AppStyles.txtBlackRegular, AppStyle.mt20, AppStyle.mr30]}>{title3}</Text>
+      <Text style={[AppStyles.f15, AppStyles.txtBlackRegular, AppStyle.mt20, AppStyle.mr30]}>Paper</Text>
       </View>
       </View> 
 
       <View style={[style.flexDir, AppStyle.ml24]}>
       <View style={style.flex1}>
-      <Text style={[AppStyles.f15, AppStyle.mt20, AppStyles.txtSecandaryRegular]}>{title5}</Text>
+      <Text style={[AppStyles.f15, AppStyle.mt20, AppStyles.txtSecandaryRegular]}>Sub Category</Text>
       </View>
       <View style={[style.flex1, AppStyles.alignfend]}>
-      <Text style={[AppStyles.f15, AppStyles.txtBlackRegular, AppStyle.mt20, AppStyle.mr30]}>{title6}</Text>
+      <Text style={[AppStyles.f15, AppStyles.txtBlackRegular, AppStyle.mt20, AppStyle.mr30]}>Type 2</Text>
       </View>
       </View> 
 
       <View style={[style.flexDir, AppStyle.ml24]}>
       <View style={style.flex1}>
-      <Text style={[AppStyles.f15, AppStyle.mt20, AppStyles.txtSecandaryRegular]}>{title7}</Text>
+      <Text style={[AppStyles.f15, AppStyle.mt20, AppStyles.txtSecandaryRegular]}>Volume</Text>
       </View>
       <View style={[style.flex1, AppStyles.alignfend]}>
-      <Text style={[AppStyles.f15, AppStyles.txtBlackRegular, AppStyle.mt20, AppStyle.mr30]}>{title8}</Text>
+      <Text style={[AppStyles.f15, AppStyles.txtBlackRegular, AppStyle.mt20, AppStyle.mr30]}>2 Tons</Text>
       </View>
       </View> 
 
       <View style={[style.flexDir, AppStyle.ml24]}>
       <View style={style.flex1}>
-      <Text style={[AppStyles.f15, AppStyle.mt20, AppStyles.txtSecandaryRegular]}>{title9}</Text>
+      <Text style={[AppStyles.f15, AppStyle.mt20, AppStyles.txtSecandaryRegular]}>Location</Text>
       </View>
       <View style={[style.flex1, AppStyles.alignfend]}>
-      <Text style={[AppStyles.f15, AppStyles.txtBlackRegular, AppStyle.mt20, AppStyle.mr30]}>{title10}</Text>
+      <Text style={[AppStyles.f15, AppStyles.txtBlackRegular, AppStyle.mt20, AppStyle.mr30]}>Hyderabad</Text>
       </View>
       </View> 
 
       <View style={[style.flexDir, AppStyle.ml24]}>
       <View style={style.flex1}>
-      <Text style={[AppStyles.f15, AppStyle.mt20, AppStyles.txtSecandaryRegular]}>{title11}</Text>
+      <Text style={[AppStyles.f15, AppStyle.mt20, AppStyles.txtSecandaryRegular]}>Prov. Price</Text>
       </View>
       <View style={[style.flex1, AppStyles.alignfend]}>
-      <Text style={[AppStyles.f15, AppStyles.txtBlackRegular, AppStyle.mt20, AppStyle.mr30]}>{title12}</Text>
+      <Text style={[AppStyles.f15, AppStyles.txtBlackRegular, AppStyle.mt20, AppStyle.mr30]}>₹ 25,864</Text>
       </View>
       </View> 
 
