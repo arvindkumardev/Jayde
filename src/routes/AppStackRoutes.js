@@ -18,6 +18,7 @@ import AccountCreate from "../containers/AccountCreate";
 import OrderAssign from "../containers/OrderAssign";
 import Order from "../containers/Order";
 import Users from "../containers/Users";
+import PickUpOrder from "../containers/PickUpOrder";
 import { USER_ROLE } from "./constants";
 
 const Stack = createStackNavigator();
@@ -32,8 +33,8 @@ const AppStack = (props) => {
         return <>
           {/* Dashboard SCREEN */}
             <Stack.Screen
-              name={NavigationRouteNames.USERS}
-              component={Users}
+              name={NavigationRouteNames.PICKUP_ORDER}
+              component={PickUpOrder}
             />
             {/* Screen - 19 */}
             <Stack.Screen

@@ -48,6 +48,7 @@ const NavigationRouteNames = {
   ORDER_ASSIGN:"OrderAssign",
   ORDER:"Order",
   USERS:"Users",
+  PICKUP_ORDER:"PickUpOrder",
 };
 
 export default NavigationRouteNames;
