@@ -3,37 +3,68 @@ import {RfH, RfW} from '../../utils/helpers';
 import {Colors} from '../../theme';
 
 const styles = StyleSheet.create({
-  formContainer: {
-    marginHorizontal: RfW(21),
-    backgroundColor: Colors.white,
-    padding: RfW(25),
-    borderRadius: RfH(25),
+  mainView: {
+    flex: 1,
+    backgroundColor: 'white',
   },
-  checkBoxContainer: {
-    marginVertical: RfW(23),
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
+  topArrowView: {
+    flexDirection: 'row', 
+    marginTop: 30, 
+    marginBottom: 10,
   },
-  loginButton: {
-    marginVertical: RfH(25),
-    paddingVertical: RfH(17),
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: Colors.yellow,
-    borderRadius: RfH(12),
-    shadowColor: 'rgba(0, 0, 0, 0.16)',
-    shadowOffset: {
-      width: 0,
-      height: 3,
-    },
-    shadowRadius: 6,
-    shadowOpacity: 1,
+  topArrowFlex: { 
+    flex: .4,
   },
-  eyeIcon: {
-    fontSize: 18,
-    color: '#818181',
-    paddingBottom: RfH(8),
+  topTitleFlex: {
+    flex: .6,
+  },
+  topArrowImg: {
+    width: 24, 
+    height: 34, 
+    marginLeft: 34,
+  },
+  topTitle: {
+    fontSize: 20, 
+    color: '#000000', 
+    fontWeight: "bold",
+  },
+  dataView: {
+    flexDirection: 'row', 
+    marginLeft: 24,
+  },
+  flx1: {
+    flex: .2,
+  },
+  flx2: {
+    flex: .6,
+  },
+  leftImg: {
+    width: 66, 
+    height: 66, 
+    marginTop: 10,
+  },
+  txt1: {
+    fontSize: 17, 
+    marginLeft: 15, 
+    marginTop: 12,
+  },
+  txt2: {
+    fontSize: 15, 
+    marginLeft: 15,
+  },
+  txt3: {
+    fontSize: 11, 
+    marginLeft: 15,
+  },
+  rgtIcon: {
+    width: 15, 
+    height: 18, 
+    marginTop: 30, 
+    marginLeft: 15,
+  },
+  rgtStatus: {
+    fontSize: 11, 
+    color: '#000',
   },
 });
 export default styles;

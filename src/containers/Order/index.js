@@ -2,111 +2,88 @@ import React, {useContext, useEffect, useState} from 'react';
 import * as Alert from 'react-native';
 import {KeyboardAvoidingView, Platform, TouchableOpacity, View, Text, Image, TextInput, FlatList, ScrollView} from 'react-native';
 import arraydata1 from '../../utils/arraydata';
-
+import Styles from "./styles";
+import { newOrder } from "../../services/middleware/user";
+import NavigationRouteNames from '../../routes/ScreenNames';
+import {useNavigation} from '@react-navigation/core';
+import {useRoute} from '@react-navigation/native';
 
 function Order() {
+  const navigation = useNavigation();
+  const route = useRoute();
+
+  const [
+    { data: emLoginData, loading: emLoginLoading, error: emLoginError },
+    emLogin,
+  ] = newOrder();
+
+  const triggerLogin = async () => {
+    try{
+            const { data } = await emLogin({ data: {} });
+            console.log("Response from login ", data.data[0].newOrders)
+            setarraydata(data.data[0].newOrders)
+          }
+          catch(e){
+            console.log("Response error", e);
+          }
+         };
+
+   useEffect(()=>{
+    triggerLogin();
+  }, navigation);
+
+  // const [
+  //    ] = newOrder();
 
 
   const [title4,setTitle4]=useState('New Orders');
+  
 
-  const [arraydata,setarraydata]=useState(arraydata1);
-  // const [arraydata,setarraydata]=useState([
-  //   {
-  //   name: '3 Ton Paper',
-  //   date: '21/01/21',
-  //   orderid: 'JYD/N/21/019',
-  //   image: require('../../assets/Images/AdminSelectOrder/Group10061.png'),
-  //   images: require('../../assets/Images/Dashboard/Fill_164.png'),
-  //   status: 'Pending',
-  // },  {
-  //   name: '4 Ton Paper',
-  //   date: '21/01/21',
-  //   orderid: 'JYD/N/21/021',
-  //   image: require('../../assets/Images/AdminSelectOrder/Group10061.png'),
-  //   images: require('../../assets/Images/Dashboard/Fill_164.png'),
-  //   status: 'Pending',
-  // },  {
-  //   name: '3 Ton Plastic',
-  //   date: '21/01/21',
-  //   orderid: 'JYD/N/21/011',
-  //   image: require('../../assets/Images/AdminSelectOrder/Group10063.png'),
-  //   images: require('../../assets/Images/Dashboard/Fill_164.png'),
-  //   status: 'Pending',
-  // },  {
-  //   name: '4 Ton Paper',
-  //   date: '21/01/21',
-  //   orderid: 'JYD/N/21/021',
-  //   image: require('../../assets/Images/AdminSelectOrder/Group10061.png'),
-  //   images: require('../../assets/Images/Dashboard/Fill_164.png'),
-  //   status: 'Pending',
-  // },  {
-  //   name: '3 Ton Plastic',
-  //   date: '21/01/21',
-  //   orderid: 'JYD/N/21/011',
-  //   image: require('../../assets/Images/AdminSelectOrder/Group10063.png'),
-  //   images: require('../../assets/Images/Dashboard/Fill_164.png'),
-  //   status: 'Pending',
-  // },  {
-  //   name: '4 Ton Paper',
-  //   date: '21/01/21',
-  //   orderid: 'JYD/N/21/021',
-  //   image: require('../../assets/Images/AdminSelectOrder/Group10061.png'),
-  //   images: require('../../assets/Images/Dashboard/Fill_164.png'),
-  //   status: 'Pending',
-  // },  {
-  //   name: '3 Ton Plastic',
-  //   date: '21/01/21',
-  //   orderid: 'JYD/N/21/011',
-  //   image: require('../../assets/Images/AdminSelectOrder/Group10063.png'),
-  //   images: require('../../assets/Images/Dashboard/Fill_164.png'),
-  //   status: 'Pending',
-  // },  {
-  //   name: '4 Ton Paper',
-  //   date: '21/01/21',
-  //   orderid: 'JYD/N/21/021',
-  //   image: require('../../assets/Images/AdminSelectOrder/Group10061.png'),
-  //   images: require('../../assets/Images/Dashboard/Fill_164.png'),
-  //   status: 'Pending',
-  // },])
+  const [arraydata,setarraydata]=useState([]);
+  // const [arraydata,setarraydata]=useState(arraydata1);
+
+  const screenNavigate = () => {
+    navigation.navigate(NavigationRouteNames.NEW_ORDERR);
+  }
 
 
   const _RenderItem = (index, item) => {
     return (
-      <View style={{flexDirection: 'row', marginLeft: 24,}}>
-      <View style={{flex: .2, }}>
-      <Image style={{width: 66, height: 66, marginTop: 10,}} source={require('../../assets/Images/AdminSelectOrder/Group10061.png')}  />
+      <TouchableOpacity style={Styles.dataView} onPress={() => {screenNavigate(item)}}>
+      <View style={Styles.flx1}>
+      <Image style={Styles.leftImg} source={require('../../assets/Images/AdminSelectOrder/Group10061.png')}  />
       </View>
-      <View style={{flex: .6, }}>
-      <Text style={{fontSize: 17, marginLeft: 15, marginTop: 12,}}>{item.orderid}</Text>
-      <Text style={{fontSize: 15, marginLeft: 15,}}>{item.name}</Text>
-      <Text style={{fontSize: 11, marginLeft: 15,}}>{item.date}</Text>
+      <View style={Styles.flx2}>
+      <Text style={Styles.txt1}>{item.order_no}</Text>
+      <Text style={Styles.txt2}>{item.category_name}</Text>
+      <Text style={Styles.txt3}>{item.pickup_date}</Text>
       </View>
-      <View style={{flex: .2,}}>
-      <Image style={{width: 15, height: 18, marginTop: 30, marginLeft: 15,}} source={require('../../assets/Images/Dashboard/Fill_164.png')}  />
-      <Text style={{fontSize: 11, color: '#000',}}>{item.status}</Text>
-      </View>
-      </View>     
+      {/* <View style={Styles.flx1}>
+      <Image style={Styles.rgtIcon} source={require('../../assets/Images/Dashboard/Fill_164.png')}  />
+      <Text style={Styles.rgtStatus}>{item.status}</Text>
+      </View> */}
+      </TouchableOpacity>     
     )
   }
 
   
   return (
-    <View style={{flex: 1,backgroundColor: 'white',}}>
+    <View style={Styles.mainView}>
        <ScrollView>
             
-            <View style={{flexDirection: 'row', marginTop: 30, marginBottom: 10,}}>
-        <View style={{flex: .4,}}>
+            <View style={Styles.topArrowView}>
+        <View style={Styles.topArrowFlex}>
         <TouchableOpacity>  
                     <View>  
-                    <Image style={{width: 24, height: 34, marginLeft: 34,}} source={require('../../assets/Images/AdminSelectOrder/Group10058.png')}  />   
+                    <Image style={Styles.topArrowImg} source={require('../../assets/Images/AdminSelectOrder/Group10058.png')}  />   
                         
                     </View>  
                 </TouchableOpacity>  
         </View>
-        <View style={{flex: .6,}}>
+        <View style={Styles.topTitleFlex}>
         <TouchableOpacity>  
                     <View>  
-                        <Text style={{fontSize: 20, color: '#000000', fontWeight: "bold",}}>{title4}</Text>  
+                        <Text style={Styles.topTitle}>{title4}</Text>  
                     </View>  
                 </TouchableOpacity>  
         </View>
@@ -115,7 +92,6 @@ function Order() {
 
             <FlatList
         data={arraydata}
-        // horizontal={true}
         renderItem={({ index, item }) =>
           _RenderItem(index, item)
         }
