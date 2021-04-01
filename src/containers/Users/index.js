@@ -1,6 +1,6 @@
 import React, {useContext, useEffect, useState} from 'react';
 import * as Alert from 'react-native';
-import {KeyboardAvoidingView, Platform, TouchableOpacity, View, Text, Image, TextInput, FlatList, ScrollView} from 'react-native';
+import {KeyboardAvoidingView, Platform, TouchableOpacity, View, Text, Image, TextInput, FlatList, ScrollView, ActivityIndicator} from 'react-native';
 import  DropDownPicker from "react-native-dropdown-picker";
 import axios from "axios";
 import useAxios from 'axios-hooks';
@@ -18,15 +18,25 @@ function Users() {
    const navigation = useNavigation();
    const route = useRoute();
 
+  const [loading, setLoading] = useState(true);
+  const [dataSource, setDataSource] = useState([]);
+  const [offset, setOffset] = useState(1);
+
    const [
     { data: emLoginData, loading: emLoginLoading, error: emLoginError },
     emLogin,
-  ] = users();
+  ] = users(offset);
 
   const triggerLogin = async () => {
     try{
             const { data } = await emLogin({ data: {} });
             console.log("Response from login ", data.data[0].users)
+            setOffset(offset + 1);
+            let listData = arraydata;
+            let data1 = listData.concat(data.data[0].users);
+            setarraydata(data1);
+            // setDataSource([...dataSource, setarraydata(data.data[0].users)]);
+            setLoading(false);
             setarraydata(data.data[0].users)
           }
           catch(e){
@@ -38,14 +48,36 @@ function Users() {
     triggerLogin();
   }, navigation);
 
+   
    const [arraydata,setarraydata]=useState([])
   
    const screenNavigate = () => {
     navigation.navigate(NavigationRouteNames.HOMESCREEN);
   }
 
+  const renderFooter = () => {
+    return (
+      //Footer View with Load More button
+      <View style={styles.footer}>
+        <TouchableOpacity
+          activeOpacity={0.9}
+          onPress={triggerLogin}
+          //On Click of button load more data
+          style={Styles.confirmBtnn}>
+          <Text style={Styles.confirm}>Load More</Text>
+          {/* {loading ? (
+            <ActivityIndicator
+              color="white"
+              style={{marginLeft: 8}} />
+          ) : null} */}
+        </TouchableOpacity>
+      </View>
+    );
+  };
+
   const _RenderItem = (index, item) => {
     return (
+      
        <View style={Styles.boxView}>
         
         
@@ -60,7 +92,7 @@ function Users() {
       </View>
       </View> 
 
-      <Text style={[AppStyles.f15, AppStyle.ml24,]}>{item.businessname}</Text>
+      <Text style={[AppStyles.f15, AppStyle.ml24,]}>{item.business_name}</Text>
       <Text style={[AppStyles.f15, AppStyle.ml24,]}>{item.name}</Text>
       {/* <Text style={[AppStyles.f15, AppStyle.ml24,]}>{item.password}</Text> */}
       
@@ -69,10 +101,17 @@ function Users() {
       <View style={[style.flexpointone]}>
       <Image style={Styles.lftimga} source={require('../../assets/Images/Users/noun_Recycle_3673532.png')}  /> 
       </View>
-      <View style={[style.flexpointnine]}>
+      <View style={[style.flexpointthree]}>
       <Text style={[AppStyle.ml24, AppStyles.txtSecandaryRegular, AppStyles.f13]}>{item.business_type}</Text>
       </View>
+      <View style={{height: '100%', width: 1, borderLeftColor: '000', borderBottomWidth: 20, }}>
+        </View>
+        <View>
+          <Text style={[AppStyle.ml20, AppStyles.txtSecandaryRegular, AppStyles.f13]}>{item.type}</Text>
+          </View>
       </View>
+
+      
 
 
        </View>
@@ -100,13 +139,18 @@ function Users() {
         </View>
           </View> 
 
+          
+
 
        <FlatList
         data={arraydata}
         renderItem={({ index, item }) =>
-          _RenderItem(index, item)
+          _RenderItem(index, item) 
         }
+        ListFooterComponent={renderFooter}
       />
+
+
 
 
           </ScrollView> 

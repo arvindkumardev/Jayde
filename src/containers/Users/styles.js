@@ -39,6 +39,16 @@ const styles = StyleSheet.create({
     height: 34, 
     marginLeft: 34,
   },
-
+  confirm: {
+    fontSize: 18, 
+    color: '#ffffff',
+  },
+  confirmBtnn: {
+    marginTop:20,
+    borderRadius: 13,
+    backgroundColor: '#ABC270',
+    paddingVertical: 11,
+    alignItems:'center',
+  },
 });
 export default styles;

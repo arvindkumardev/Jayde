@@ -33,8 +33,9 @@ const AppStack = (props) => {
         return <>
           {/* Dashboard SCREEN */}
             <Stack.Screen
-              name={NavigationRouteNames.PICKUP_ORDER}
-              component={PickUpOrder}
+              name={NavigationRouteNames.USERS}
+              component={Users}
+              options={{ headerShown: false }}
             />
             {/* Screen - 19 */}
             <Stack.Screen

@@ -87,7 +87,16 @@ const PickUpOrder = () => {
     navigation.navigate(NavigationRouteNames.NEW_ORDER_REQUEST);
   };
   return (
-    <KeyboardAwareScrollView style={{ flex: 1, paddingHorizontal: RfW(20) }}>
+    <KeyboardAwareScrollView style={{ flex: 1, paddingHorizontal: RfW(20), backgroundColor: '#ffffff', }}>
+      <View style={[style.flexDir, AppStyle.mt20,]}>
+        <View style={style.flexpointthree}>
+        <Image style={Styles.lftimg} source={require('../../assets/Images/AdminNewOrder/Group10055.png')}  />
+          </View>
+        <View style={style.flexpointseven}>
+          <Text style={[Appstyles.txtBlackBold, Appstyles.f20,]}>Pickup Order</Text>
+          </View>
+        </View>
+
        <View style={Appstyles.aligncen}>
        <Text style={[Appstyles.txtBlackBold, Appstyles.f17, AppStyle.mt30,]}>Ref No- JYD/SC/2020/0067</Text>
        </View>
@@ -177,7 +186,7 @@ const PickUpOrder = () => {
         </View>
       </View>
 
-      <View style={Styles.imagePickerContainer}>
+      <View style={[Styles.imagePickerContainer, AppStyle.mt20,]}>
         <Text style={Styles.inputLabelText}>Add weigh bridge slip</Text>
         <View
           style={{
@@ -187,7 +196,7 @@ const PickUpOrder = () => {
           }}
         >
           <TouchableOpacity
-            style={Styles.iconButton}
+            style={[Styles.iconButton, AppStyle.mr10]}
             onPress={() => onShowCamera()}
           >
             <FAIcon
@@ -241,7 +250,7 @@ const PickUpOrder = () => {
           }}
         >
           <TouchableOpacity
-            style={Styles.iconButton}
+            style={[Styles.iconButton, AppStyle.mr10]}
             onPress={() => onShowCamera()}
           >
             <FAIcon
@@ -295,7 +304,7 @@ const PickUpOrder = () => {
           }}
         >
           <TouchableOpacity
-            style={Styles.iconButton}
+            style={[Styles.iconButton, AppStyle.mr10]}
             onPress={() => onShowCamera()}
           >
             <FAIcon
@@ -349,7 +358,7 @@ const PickUpOrder = () => {
           }}
         >
           <TouchableOpacity
-            style={Styles.iconButton}
+            style={[Styles.iconButton, AppStyle.mr10]}
             onPress={() => onShowCamera()}
           >
             <FAIcon
@@ -375,7 +384,7 @@ const PickUpOrder = () => {
               color={Colors.grayThree}
             />
             <Text
-              style={{ color: Colors.grayThree, fontFamily: Fonts.regular }}
+              style={{ color: Colors.grayThree, fontFamily: Fonts.regula, }}
             >
               Library
             </Text>
@@ -411,7 +420,7 @@ const PickUpOrder = () => {
      
       
       
-      <View style={{ marginTop: RfH(10) }}>
+      <View style={{ marginTop: RfH(10), marginTop: 25, marginBottom: 25 }}>
         <TouchableOpacity style={Styles.confirmButton} onPress={handleConfirm}>
           <Text style={Styles.confirmBtnText}>CONFIRM</Text>
         </TouchableOpacity>

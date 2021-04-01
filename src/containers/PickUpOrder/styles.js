@@ -99,11 +99,14 @@ const styles = StyleSheet.create({
   boxView: {
     width: 310, 
     height: 235, 
-    backgroundColor: '#ffffff', 
+    backgroundColor: '#f5f5f5', 
     borderRadius: 10, 
     // marginLeft: 24, 
     marginTop: 25, 
     // marginRight: 24,
+  },
+  lib: {
+    borderRadius: 10,
   },
 });
 
