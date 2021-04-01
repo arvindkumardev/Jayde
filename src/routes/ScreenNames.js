@@ -40,7 +40,15 @@ const NavigationRouteNames = {
   SIGNUP: "SignUp",
   LOGIN_WITH_EMAIL: "LoginWithEmail",
   HOME_SCREEN: "HomeScreen",
-  NEW_ORDER_REQUEST:"NewOrder"
+  NEW_ORDER_REQUEST:"NewOrder",
+
+  VIEW_NEW_ORDER:"ViewNewOrder",
+  CONFIRMATION:"Confirmation",
+  ACCOUNT_CREATE:"AccountCreate",
+  ORDER_ASSIGN:"OrderAssign",
+  ORDER:"Order",
+  USERS:"Users",
+  PICKUP_ORDER:"PickUpOrder",
 };
 
 export default NavigationRouteNames;

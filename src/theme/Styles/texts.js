@@ -36,11 +36,20 @@ const texts = StyleSheet.create({
         fontFamily: Fonts.bold,
         color: Colors.warmGrey
     },
+    f11:{
+        fontSize: 11
+    },
     f12:{
         fontSize: 12
     },
+    f15:{
+        fontSize: 15
+    },
     f16:{
         fontSize: 16
+    },
+    f17:{
+        fontSize: 17
     },
     f18:{
         fontSize: 18
@@ -51,6 +60,18 @@ const texts = StyleSheet.create({
     flexRowAlignCenter:{
         flexDirection:'row',
         alignItems:'center'
+    },
+    spacing1:{
+        letterSpacing: 1,
+    },
+    alignfend: {
+        alignItems: 'flex-end',
+    },
+    aligncen: {
+        alignItems:'center',
+    },
+    textalig: {
+        textAlign: 'center',
     },
 })
 

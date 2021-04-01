@@ -13,6 +13,9 @@ const spaces = StyleSheet.create({
     pv10:{
         paddingVertical: 10,
     },
+    pv11:{
+        paddingVertical: 11,
+    },
     pv15:{
         paddingVertical: 15
     },
@@ -69,14 +72,35 @@ const spaces = StyleSheet.create({
     mr10:{
         marginRight: 10
     },
+    mr20:{
+        marginRight: 20
+    },
+    mr30:{
+        marginRight: 30
+    },
     ml10:{
         marginLeft: 10
+    },
+    ml20:{
+        marginLeft: 20
+    },
+    ml24:{
+        marginLeft: 24
     },
     mb10:{
         marginBottom: 10
     },
     mt10:{
         marginTop: 10,
+    },
+    mt14:{
+        marginTop: 14,
+    },
+    mt30:{
+        marginTop: 30
+    },
+    mt40:{
+        marginTop: 40
     },
     mt20:{
         marginTop: 20

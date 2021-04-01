@@ -3,37 +3,56 @@ import {RfH, RfW} from '../../utils/helpers';
 import {Colors} from '../../theme';
 
 const styles = StyleSheet.create({
-  formContainer: {
-    marginHorizontal: RfW(21),
-    backgroundColor: Colors.white,
-    padding: RfW(25),
-    borderRadius: RfH(25),
+  topView: {
+    flex: 1,
+    backgroundColor: '#f7a435',
   },
-  checkBoxContainer: {
-    marginVertical: RfW(23),
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
+  topArrow: {
+    flexDirection: 'row', 
+    marginTop: 30,
   },
-  loginButton: {
-    marginVertical: RfH(25),
-    paddingVertical: RfH(17),
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: Colors.yellow,
-    borderRadius: RfH(12),
-    shadowColor: 'rgba(0, 0, 0, 0.16)',
-    shadowOffset: {
-      width: 0,
-      height: 3,
-    },
-    shadowRadius: 6,
-    shadowOpacity: 1,
+  leftArrow: {
+    width: 24, 
+    height: 24, 
+    marginLeft: 24,
   },
-  eyeIcon: {
-    fontSize: 18,
-    color: '#818181',
-    paddingBottom: RfH(8),
+  boxContent: {
+    flex: 1, 
+    width: 310, 
+    height: 218, 
+    backgroundColor: '#ffffff', 
+    alignItems: 'center', 
+    borderRadius: 20, 
+    marginLeft: 24, 
+    marginTop: 62,
   },
+  boxImage: {
+    width: 114, 
+    height: 114, 
+    marginTop: 32,
+  },
+  boxText: {
+    fontSize: 15, 
+    color: '#232323',
+  },
+  logoImage: {
+    width: 155, 
+    height: 54,
+  },
+  logoView: {
+    alignItems: 'center', 
+    marginTop: 40,
+  },
+  topTitle: {
+    fontSize: 16, 
+    color: '#fff', 
+    marginRight: 20,
+  },
+  topTitleView: {
+    alignItems: 'flex-end',
+  },
+  viewFlex: {
+    flex: 1,
+  }
 });
 export default styles;
