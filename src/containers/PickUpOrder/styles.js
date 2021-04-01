@@ -96,6 +96,15 @@ const styles = StyleSheet.create({
     Fonts.regular,
     fontSize: 16
   },
+  boxView: {
+    width: 310, 
+    height: 235, 
+    backgroundColor: '#ffffff', 
+    borderRadius: 10, 
+    // marginLeft: 24, 
+    marginTop: 25, 
+    // marginRight: 24,
+  },
 });
 
 export default styles;

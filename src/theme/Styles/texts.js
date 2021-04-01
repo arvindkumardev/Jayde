@@ -42,8 +42,14 @@ const texts = StyleSheet.create({
     f12:{
         fontSize: 12
     },
+    f15:{
+        fontSize: 15
+    },
     f16:{
         fontSize: 16
+    },
+    f17:{
+        fontSize: 17
     },
     f18:{
         fontSize: 18

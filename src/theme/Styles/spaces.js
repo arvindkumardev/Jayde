@@ -81,6 +81,9 @@ const spaces = StyleSheet.create({
     ml10:{
         marginLeft: 10
     },
+    ml20:{
+        marginLeft: 20
+    },
     ml24:{
         marginLeft: 24
     },

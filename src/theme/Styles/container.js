@@ -66,6 +66,15 @@ flexpointone: {
 flexpointthree: {
     flex: .3,
 },
+flexpointfour: {
+  flex: .4,
+},
+flexpointsix: {
+  flex: .6,
+},
+flexpointseven: {
+  flex: .7,
+},
 flexpointnine: {
     flex: .9,
 },

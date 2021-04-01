@@ -10,6 +10,9 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import Camera from '../../components/Camera';
 import { launchImageLibrary } from "react-native-image-picker";
 import NavigationRouteNames from '../../routes/ScreenNames';
+import Appstyles from "../../theme/Styles/texts";
+import AppStyle from "../../theme/Styles/spaces";
+import style from "../../theme/Styles/container";
 
 
 
@@ -85,6 +88,66 @@ const PickUpOrder = () => {
   };
   return (
     <KeyboardAwareScrollView style={{ flex: 1, paddingHorizontal: RfW(20) }}>
+       <View style={Appstyles.aligncen}>
+       <Text style={[Appstyles.txtBlackBold, Appstyles.f17, AppStyle.mt30,]}>Ref No- JYD/SC/2020/0067</Text>
+       </View>
+       <View style={Styles.boxView}>
+
+         <View style={[style.flexDir, AppStyle.mt20,]}>
+         <View style={style.flexpointsix}>
+           <Text style={[Appstyles.txtSecandaryRegular, Appstyles.f15, AppStyle.mt10, AppStyle.ml20]}>Waste type</Text>
+           </View>
+           <View style={[style.flexpointfour, Appstyles.alignfend]}>
+           <Text style={[Appstyles.txtBlackRegular, Appstyles.f15, AppStyle.mt10, AppStyle.mr20]}>Plastic</Text>
+           </View>
+           </View>
+
+           <View style={style.flexDir}>
+         <View style={style.flexpointsix}>
+           <Text style={[Appstyles.txtSecandaryRegular, Appstyles.f15, AppStyle.mt10, AppStyle.ml20]}>Waste sub category</Text>
+           </View>
+           <View style={[style.flexpointfour, Appstyles.alignfend]}>
+           <Text style={[Appstyles.txtBlackRegular, Appstyles.f15, AppStyle.mt10, AppStyle.mr20]}>Type 1</Text>
+           </View>
+           </View>
+
+           <View style={style.flexDir}>
+         <View style={style.flexpointsix}>
+           <Text style={[Appstyles.txtSecandaryRegular, Appstyles.f15, AppStyle.mt10, AppStyle.ml20]}>Volume</Text>
+           </View>
+           <View style={[style.flexpointfour, Appstyles.alignfend]}>
+           <Text style={[Appstyles.txtBlackRegular, Appstyles.f15, AppStyle.mt10, AppStyle.mr20]}>3 Tons</Text>
+           </View>
+           </View>
+
+           <View style={style.flexDir}>
+         <View style={style.flexpointsix}>
+           <Text style={[Appstyles.txtSecandaryRegular, Appstyles.f15, AppStyle.mt10, AppStyle.ml20]}>Purchase Date</Text>
+           </View>
+           <View style={[style.flexpointfour, Appstyles.alignfend]}>
+           <Text style={[Appstyles.txtBlackRegular, Appstyles.f15, AppStyle.mt10, AppStyle.mr20]}>26/07/2020</Text>
+           </View>
+           </View>
+
+           <View style={style.flexDir}>
+         <View style={style.flexpointsix}>
+           <Text style={[Appstyles.txtSecandaryRegular, Appstyles.f15, AppStyle.mt10, AppStyle.ml20]}>Purchase amount</Text>
+           </View>
+           <View style={[style.flexpointfour, Appstyles.alignfend]}>
+           <Text style={[Appstyles.txtBlackRegular, Appstyles.f15, AppStyle.mt10, AppStyle.mr20]}>₹ 25,864</Text>
+           </View>
+           </View>
+
+           <View style={style.flexDir}>
+         <View style={style.flexpointsix}>
+           <Text style={[Appstyles.txtSecandaryRegular, Appstyles.f15, AppStyle.mt10, AppStyle.ml20]}>Pickup Address</Text>
+           </View>
+           <View style={[style.flexpointfour, Appstyles.alignfend]}>
+           <Text style={[Appstyles.txtBlackRegular, Appstyles.f11, AppStyle.mt10, , AppStyle.mr20]}>1812, building No 2, Banjara Hills. Hyderabad (TN)</Text>
+           </View>
+           </View>
+       </View>
+
       <View style={Styles.headerContainer}>
         <Text style={Styles.headerText}>Enter the following details</Text>
       </View>
