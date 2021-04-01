@@ -10,6 +10,7 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import Camera from '../../../components/Camera';
 import { launchImageLibrary } from "react-native-image-picker";
 import NavigationRouteNames from '../../../routes/ScreenNames';
+import { Platform } from "react-native";
 
 const PricingRequest = () => {
   const navigation = useNavigation();
@@ -82,123 +83,46 @@ const PricingRequest = () => {
     navigation.navigate(NavigationRouteNames.NEW_ORDER_REQUEST);
   };
   return (
-    <KeyboardAwareScrollView style={{ flex: 1, paddingHorizontal: RfW(20) }}>
-      <View style={Styles.headerContainer}>
-        <Text style={Styles.headerText}>Get Quote</Text>
-      </View>
-      <View style={{ marginTop: 15 }}>
-        <Text style={Styles.inputLabelText}>Please choose a sub category</Text>
-        <DropDownPicker
-          showArrow={true}
-          items={[
-            { label: "USA", value: "usa", hidden: true },
-            { label: "Select one", value: "0" },
-            { label: "France", value: "france" },
-          ]}
-          defaultValue={'0'}
-          globalTextStyle={Styles.dropDownText}
-          containerStyle={{ height: 45 }}
-          style={{ backgroundColor: "#e4e4e4" }}
-          itemStyle={{
-            justifyContent: "flex-start",
-          }}
-          dropDownStyle={{ backgroundColor: "#fafafa" }}
-          onChangeItem={(item) => console.log(item)}
-        />
-      </View>
-      <View style={Styles.viewVolume}>
-        <Text style={Styles.inputLabelText}>Volume</Text>
-        <View style={Styles.viewVolumeInputContainer}>
-          <TextInput
-            placeholder={"Enter location"}
-            style={[Styles.inputText, Styles.locationTxt]}
-          />
-          <DropDownPicker
-            items={[
-              { label: "USA", value: "usa", hidden: true },
-              { label: "Units", value: "0" },
-              { label: "France", value: "france" },
-            ]}
-            defaultValue={'0'}
-            globalTextStyle={Styles.dropDownText}
-            containerStyle={{ height: 45, flex: 2 }}
-            style={{ backgroundColor: "#e4e4e4" }}
-            itemStyle={{
-              justifyContent: "flex-start",
-            }}
-            dropDownStyle={{ backgroundColor: "#fafafa" }}
-            onChangeItem={(item) => console.log(item)}
-          />
+    <KeyboardAwareScrollView style={[AppStyles.ph20, AppStyles.pv15,{backgroundColor:'#fff'}]} contentContainerStyle={AppStyles.flex1SpaceBetween}>
+      <View>
+        <View style={AppStyles.alignCenter}>
+          <Text style={[AppStyles.txtBlackBold, AppStyles.f18]}>Get Quote</Text>
+        </View>
+        <View style={[AppStyles.mt20]}>
+              <Text style={[AppStyles.txtBlackRegular, AppStyles.f16, AppStyles.mb10]}>Please choose a sub category</Text>
+        </View>
+        <View style={[AppStyles.mt20]}>
+              <View>
+                <Text style={[AppStyles.txtBlackRegular, AppStyles.f16, AppStyles.mb10]}>Add Location</Text>
+              </View>
+              <View style={{flex: 1}}>
+
+                <View style={{flex: 1}}>
+                <TextInput style={{paddingVertical: 20}} placeholder={'Enter volume'}/>
+                  <DropDownPicker
+                      items={[
+                          {label: 'Select one', value: 'usa', hidden: true},
+                          {label: 'UK', value: 'uk' },
+                          {label: 'France', value: 'france' },
+                      ]}
+                      defaultValue={'usa'}
+                      containerStyle={{height: 40}}
+                      style={{backgroundColor: '#fafafa'}}
+                      itemStyle={{
+                          justifyContent: 'flex-start'
+                      }}
+                      dropDownStyle={{backgroundColor: '#fafafa'}}
+                      onChangeItem={ item => console.log(item) }
+                  />
+              </View>
+              </View>
         </View>
       </View>
-      <View style={{ marginTop: 15 }}>
-        <Text style={Styles.inputLabelText}>Add Location</Text>
-        <TextInput placeholder={"Enter location"} style={Styles.inputText} />
-      </View>
-      <View style={Styles.imagePickerContainer}>
-        <Text style={Styles.inputLabelText}>Add Picture</Text>
-        <View
-          style={{
-            flex: 1,
-            flexDirection: "row",
-            justifyContent: "space-between",
-          }}
-        >
-          <TouchableOpacity
-            style={Styles.iconButton}
-            onPress={() => onShowCamera()}
-          >
-            <FAIcon
-              name={"camera"}
-              size={25}
-              style={{ marginRight: 10 }}
-              color={Colors.grayThree}
-            />
-            <Text
-              style={{ color: Colors.grayThree, fontFamily: Fonts.regular }}
-            >
-              Camera
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={Styles.iconButton}
-            onPress={() => onLibraryOpen()}
-          >
-            <FAIcon
-              name={"image"}
-              size={25}
-              style={{ marginRight: 10 }}
-              color={Colors.grayThree}
-            />
-            <Text
-              style={{ color: Colors.grayThree, fontFamily: Fonts.regular }}
-            >
-              Library
-            </Text>
-          </TouchableOpacity>
-          <Camera
-            visible={showCamera}
-            onClose={onClose}
-            onTakePic={onTakePic}
-          />
-        </View>
-      </View>
-      <View style={{ marginTop: RfH(10) }}>
-        <TouchableOpacity style={Styles.confirmButton} onPress={handleConfirm}>
-          <Text style={Styles.confirmBtnText}>CONFIRM</Text>
+      <View>
+        <TouchableOpacity style={[AppStyles.btnPrimary, AppStyles.alignCenter, AppStyles.pv10, AppStyles.br10]}>
+          <Text style={[AppStyles.txtWhiteRegular, AppStyles.f18]}>CONFIRM</Text>
         </TouchableOpacity>
       </View>
-      {wasteImage != null && (
-        <View style={Styles.imageContainer}>
-          <Image source={{ uri: wasteImage.uri }} style={Styles.uploadImage} />
-          <TouchableOpacity
-            onPress={() => onRemoveImage()}
-            style={Styles.removeBtn}
-          >
-            <FAIcon name={"trash-o"} size={20} color={"#fff"} />
-          </TouchableOpacity>
-        </View>
-      )}
     </KeyboardAwareScrollView>
   );
 };
