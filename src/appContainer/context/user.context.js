@@ -5,10 +5,12 @@ const UserContext = createContext({
   isLogin: false,
   isLoading: false,
   userRole: '',
-  setUserRole: () => {},
-  setLogin: () => {},
-  setUserObj: () => {},
-  setLoader:() => {},
+  orgData: [],
+  setUserObj: (userObj) => {},
+  setLogin: (login) => {},
+  setLoader:(loading) => {},
+  setUserRole: (role) => {},
+  setOrgData : (orgData) => {}
 });
 
 export default UserContext;

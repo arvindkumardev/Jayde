@@ -1,16 +1,16 @@
-import React, { useContext, useEffect, useState, useLayoutEffect } from "react";
-import { View, Text, TouchableOpacity, TextInput, Image } from "react-native";
-import { logout, RfH, RfW } from "../../../utils/helpers";
+/* eslint-disable react/jsx-curly-brace-presence */
+/* eslint-disable no-console */
+/* eslint-disable import/no-duplicates */
+/* eslint-disable prettier/prettier */
+/* eslint-disable no-unused-vars */
+import React, { useState, useLayoutEffect } from "react";
+import { View, Text, TouchableOpacity, TextInput } from "react-native";
 import { useNavigation, useRoute } from "@react-navigation/native";
-import Styles from './styles';
-import { Colors, Fonts, AppStyles } from "../../../theme";
 import DropDownPicker from 'react-native-dropdown-picker';
-import FAIcon from 'react-native-vector-icons/FontAwesome';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import Camera from '../../../components/Camera';
 import { launchImageLibrary } from "react-native-image-picker";
+import { AppStyles } from "../../../theme";
 import NavigationRouteNames from '../../../routes/ScreenNames';
-import { Platform } from "react-native";
 
 const PricingRequest = () => {
   const navigation = useNavigation();
@@ -28,13 +28,7 @@ const PricingRequest = () => {
     const { title, categoryId } = route.params;
     console.log("Category Id fetch", categoryId);
     navigation.setOptions({
-      title: title ? (
-        <Text style={[AppStyles.txtBlackBold, AppStyles.f18]}>{title}</Text>
-      ) : (
-        <Text style={[AppStyles.txtBlackBold, AppStyles.f18]}>
-          Paper Waste
-        </Text>
-      ),
+      title: 'Paper Waste'
     });
   }, []);
 

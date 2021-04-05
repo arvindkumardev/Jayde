@@ -1,3 +1,12 @@
+/* eslint-disable react/jsx-curly-brace-presence */
+/* eslint-disable dot-notation */
+/* eslint-disable no-console */
+/* eslint-disable no-param-reassign */
+/* eslint-disable prefer-destructuring */
+/* eslint-disable no-unused-vars */
+/* eslint-disable import/no-useless-path-segments */
+/* eslint-disable import/order */
+/* eslint-disable prettier/prettier */
 import React, {useContext, useEffect, useState} from 'react';
 import 'react-native-gesture-handler';
 import SplashScreen from 'react-native-splash-screen/index';
@@ -46,10 +55,8 @@ axios.interceptors.response.use(
 
 configure({axios});
 
-const ROLE_BASED_NAVIGATION = { "seller" : NavigationRouteNames.PRICE_CONFIRM }
-
 function App() {
-  const { isLogin, setLogin, setUserRole } = useContext(UserContext)
+  const { isLogin, setLogin, setUserRole, userRole } = useContext(UserContext);
   const [showTopBar, setShowTopBar] = useState(false);
   const [ token, setToken ] = useState(null);
   const [ tokenLogin, setIsLogin ] = useState(false);
@@ -63,14 +70,15 @@ function App() {
 
   const getToken = async () => {
     const token = await getSaveData(LOCAL_STORAGE_DATA_KEY.JWT_TOKEN);
-    const userRole = await getSaveData(LOCAL_STORAGE_DATA_KEY.USER_ROLE);
+    const role = await getSaveData(LOCAL_STORAGE_DATA_KEY.USER_ROLE);
     if(token){
-      console.log("Token received", token);
+      console.log("Token received", token, role);
       setToken(token);
       setIsLogin(true);
-      setUserRole(userRole)
-      setLoginUserRole(userRole)
+      setLoginUserRole(role);
+      setUserRole(role);
       setLogin(true);
+      console.log("User login after setting all the values ", isLogin, userRole, role);
     }
   }
   

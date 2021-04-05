@@ -1,13 +1,18 @@
-import React, { useContext, useEffect, useState } from 'react';
-import * as Alert from 'react-native';
+/* eslint-disable no-undef */
+/* eslint-disable react/jsx-curly-brace-presence */
+/* eslint-disable global-require */
+/* eslint-disable no-console */
+/* eslint-disable no-unused-vars */
+/* eslint-disable import/no-extraneous-dependencies */
+/* eslint-disable import/order */
+/* eslint-disable prettier/prettier */
+import React, { useContext, useState } from 'react';
 import {
   KeyboardAvoidingView,
   Platform,
-  TouchableOpacity,
   View,
   Text,
   Image,
-  TextInput,
   ScrollView,
 } from 'react-native';
 
@@ -15,31 +20,21 @@ import * as Yup from 'yup';
 import { useFormik } from 'formik';
 import Colors from '../../theme/Colors';
 import {
-  CheckBoxWrapper,
   CustomTextInput,
   GradientButton,
 } from '../../components';
 import {
-  alertBox,
-  comingSoonAlert,
-  getSaveData,
   isValidUserName,
   RfH,
-  RfW,
   storeData,
+  removeData
 } from '../../utils/helpers';
-import CustomText from '../../components/CustomText';
-import { isEmpty } from 'lodash';
 import Images from '../../theme/Images';
 import NavigationRouteNames from '../../routes/ScreenNames';
 import { useNavigation } from '@react-navigation/core';
 import UserContext from "../../appContainer/context/user.context";
-import useAxios from 'axios-hooks';
 import styles from './styles';
-import { LOGIN_URL } from '../../utils/urls';
 import commonStyles from '../../theme/commonStyles';
-import axios from "axios";
-import { useRoute } from '@react-navigation/native';
 import { userLogin } from "./user";
 import { LOCAL_STORAGE_DATA_KEY } from '../../utils/constants';
 
@@ -47,36 +42,22 @@ function LoginWithEmail() {
   const navigation = useNavigation();
   const [clickLogin, setClickLogin] = useState(false);
   const {
-    user,
     setUserObj,
     setLogin,
-    orgLoading,
-    orgData,
-    setLoader,
     setUserRole
   } = useContext(UserContext);
-  const [tries, setTries] = useState(2);
   const [selectCompany, setSelectCompany] = useState({});
-  const [selectCompanyModal, setSelectCompanyModal] = useState(false);
-  const [needHelpModal, setNeedHelpModal] = useState(false);
   const [hidePassword, setHidePassword] = useState(false);
-  const [rememberMe, setRememberMe] = useState(false);
-  const [showError, setShowError] = useState(false);
-  const [errorObj, setErrorObj] = useState({
-    errorDescription: '',
-    errorTitle: 'Oops!',
-    errorImage: Images.errorCredential,
-  });
 
   const [
-    { data: emLoginData, loading: emLoginLoading, error: emLoginError },
+,
     emLogin,
   ] = userLogin();
 
 
-  const triggerLogin = async (username, password, org) => {
+  const triggerLogin = async (username, password) => {
     try{
-      const { data } = await emLogin({ data: {email: username, password: password} });
+      const { data } = await emLogin({ data: {email: username, password} });
       console.log("Login Response", data);
       if(data.status){
         await setLogin(data.status);
@@ -95,6 +76,7 @@ function LoginWithEmail() {
       console.log("Response error", e);
     }
   };
+
 
   const validationSchema = Yup.object().shape({
     username: Yup.string().test(
@@ -141,11 +123,7 @@ function LoginWithEmail() {
   //   setLoader(emLoginLoading);
   // }, [emLoginLoading]);
 
-  const screenNavigate = () => {
-    navigation.navigate(NavigationRouteNames.HOME_SCREEN);
-  };
 
-  const route = useRoute();
 
   return (
     <View style={{ flex: 1, backgroundColor: Colors.mango }}>
