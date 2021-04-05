@@ -49,12 +49,12 @@ configure({axios});
 const ROLE_BASED_NAVIGATION = { "seller" : NavigationRouteNames.PRICE_CONFIRM }
 
 function App() {
-  const { isLogin, setLogin } = useContext(UserContext)
+  const { isLogin, setLogin, setUserRole } = useContext(UserContext)
   const [showTopBar, setShowTopBar] = useState(false);
   const [ token, setToken ] = useState(null);
   const [ tokenLogin, setIsLogin ] = useState(false);
 
-  const [ loginUserRole, setUserRole ] = useState('');
+  const [ loginUserRole, setLoginUserRole ] = useState('');
 
   const onStateChangeHandle = (state) => {
     const {params} = state.routes[state.index];
@@ -65,9 +65,12 @@ function App() {
     const token = await getSaveData(LOCAL_STORAGE_DATA_KEY.JWT_TOKEN);
     const userRole = await getSaveData(LOCAL_STORAGE_DATA_KEY.USER_ROLE);
     if(token){
+      console.log("Token received", token);
       setToken(token);
       setIsLogin(true);
       setUserRole(userRole)
+      setLoginUserRole(userRole)
+      setLogin(true);
     }
   }
   

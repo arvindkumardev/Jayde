@@ -19,6 +19,7 @@ import OrderAssign from "../containers/OrderAssign";
 import Order from "../containers/Order";
 import Users from "../containers/Users";
 import PickUpOrder from "../containers/PickUpOrder";
+import Dashboard from "../containers/Dashboard/index";
 import { USER_ROLE } from "./constants";
 
 const Stack = createStackNavigator();
@@ -33,8 +34,8 @@ const AppStack = (props) => {
         return <>
           {/* Dashboard SCREEN */}
             <Stack.Screen
-              name={NavigationRouteNames.USERS}
-              component={Users}
+              name={NavigationRouteNames.HOME_SCREEN}
+              component={Dashboard}
               options={{ headerShown: false }}
             />
             {/* Screen - 19 */}
