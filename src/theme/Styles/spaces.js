@@ -84,11 +84,17 @@ const spaces = StyleSheet.create({
     ml20:{
         marginLeft: 20
     },
+    ml30:{
+        marginLeft: 30
+    },
     ml24:{
         marginLeft: 24
     },
     mb10:{
         marginBottom: 10
+    },
+    mt5:{
+        marginTop: 5,
     },
     mt10:{
         marginTop: 10,
@@ -99,11 +105,17 @@ const spaces = StyleSheet.create({
     mt30:{
         marginTop: 30
     },
+    mt35:{
+        marginTop: 35
+    },
     mt40:{
         marginTop: 40
     },
     mt20:{
         marginTop: 20
+    },
+    mb6:{
+        marginBottom: 6
     },
     mb20:{
         marginBottom: 20

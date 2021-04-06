@@ -6,6 +6,7 @@ const commonOld = {
   clock: require('../../assets/commonOld/clock.png'),
   document: require('../../assets/commonOld/document.png'),
   blueCheck: require('../../assets/commonOld/blueCheck.png'),
+  orangeCheck: require('../../assets/commonOld/orangeCheck.png'),
   blueCheckOne: require('../../assets/commonOld/blueCheckOne.png'),
   cancel: require('../../assets/commonOld/cancel.png'),
   greenCheck: require('../../assets/commonOld/greenCheck.png'),

@@ -161,7 +161,7 @@ const PickUpOrder = () => {
         <Text style={Styles.headerText}>Enter the following details</Text>
       </View>
       <View style={Styles.viewVolume}>
-        <Text style={Styles.inputLabelText}>Enter the Weight</Text>
+        <Text style={Styles.inputLabelText}>Enter The Weight</Text>
         <View style={Styles.viewVolumeInputContainer}>
           <TextInput
             placeholder={"Enter Volume"}
@@ -187,7 +187,7 @@ const PickUpOrder = () => {
       </View>
 
       <View style={[Styles.imagePickerContainer, AppStyle.mt20,]}>
-        <Text style={Styles.inputLabelText}>Add weigh bridge slip</Text>
+        <Text style={Styles.inputLabelText}>Add Weigh Bridge Slip</Text>
         <View
           style={{
             flex: 1,
@@ -241,7 +241,7 @@ const PickUpOrder = () => {
       </View>
 
       <View style={Styles.imagePickerContainer}>
-        <Text style={Styles.inputLabelText}>Add Vehicle pictures</Text>
+        <Text style={Styles.inputLabelText}>Add Vehicle Pictures</Text>
         <View
           style={{
             flex: 1,
@@ -290,12 +290,12 @@ const PickUpOrder = () => {
       </View>
 
       <View style={{ marginTop: 35 }}>
-        <Text style={Styles.inputLabelText}>Enter the Way Bill Number</Text>
+        <Text style={Styles.inputLabelText}>Enter The Way Bill Number</Text>
         <TextInput placeholder={"Enter Vehicle Number"} style={Styles.inputText} />
       </View>
 
       <View style={Styles.imagePickerContainer}>
-        <Text style={Styles.inputLabelText}>Add Vehicle pictures</Text>
+        <Text style={Styles.inputLabelText}>Add Vehicle Pictures</Text>
         <View
           style={{
             flex: 1,
@@ -349,7 +349,7 @@ const PickUpOrder = () => {
       </View>
 
       <View style={Styles.imagePickerContainer}>
-        <Text style={Styles.inputLabelText}>Add invoice pictures</Text>
+        <Text style={Styles.inputLabelText}>Add Invoice Pictures</Text>
         <View
           style={{
             flex: 1,
