@@ -2,7 +2,11 @@
 /* eslint-disable import/no-duplicates */
 /* eslint-disable prettier/prettier */
 import React, { useContext } from "react";
+import { TouchableOpacity } from "react-native";
+import { DrawerActions } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
+import { createDrawerNavigator } from "@react-navigation/drawer";
+import FAIcon from "react-native-vector-icons/FontAwesome";
 import NavigationRouteNames from "./ScreenNames";
 import HomeScreen from "../containers/Dashboard";
 import LoginWithEmail from "../containers/LoginWithEmail";
@@ -19,11 +23,30 @@ import Dashboard from "../containers/Dashboard/index";
 import PaymentVerification from "../containers/PaymentVerification";
 import { USER_ROLE } from "./constants";
 import { AppStyles } from "../theme";
+import DrawerSideBar from "../containers/DrawerSideBar/index";
 
 const Stack = createStackNavigator();
+const Drawer = createDrawerNavigator();
 
 const NoHeaderScreen = {headerShown: false};
 const CommonHeaderStyle = {headerTitleStyle: [AppStyles.txtBlackBold, AppStyles.f18]};
+const DrawerMenu = ({navigation}) => ({
+  title: null,
+  headerStyle: {borderBottomWidth: 0, elevation: 0},
+  headerLeft: () => <TouchableOpacity onPress={() => { navigation.dispatch(DrawerActions.toggleDrawer()) } } style={{marginLeft: 10}}><FAIcon name="navicon" size={25} /></TouchableOpacity>
+})
+
+const DrawerStack = () => {
+  return (
+    // eslint-disable-next-line react/jsx-props-no-spreading
+    <Drawer.Navigator drawerContent={ props => <DrawerSideBar {...props} />}>
+        <Drawer.Screen
+          component={Dashboard}
+          name={NavigationRouteNames.HOME_SCREEN}
+        />
+    </Drawer.Navigator>
+  )
+}
 
 const AppStack = (props) => {
   const { isLogin, userRole } = useContext(UserContext);
@@ -36,8 +59,8 @@ const AppStack = (props) => {
           {/* Dashboard SCREEN */}
             <Stack.Screen
               name={NavigationRouteNames.HOME_SCREEN}
-              component={Dashboard}
-              options={NoHeaderScreen}
+              component={DrawerStack}
+              options={DrawerMenu}
             />
             {/* Screen - 19 */}
             <Stack.Screen
