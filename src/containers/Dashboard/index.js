@@ -47,7 +47,7 @@ const statusIcon = {
 
 function HomeScreen() {
   const navigation = useNavigation();
-  const { setLogin } = useContext(UserContext);
+  const { user, isLogin, userRole, setLogin } = useContext(UserContext);
 
   const handleUserLogout = async () => {
     await removeData(LOCAL_STORAGE_DATA_KEY.JWT_TOKEN);
@@ -107,7 +107,7 @@ function HomeScreen() {
               <MCIcon name="pencil" color={Colors.white} size={20} />
             </TouchableOpacity>
             <View style={{ alignItems: 'center', paddingHorizontal: 10 }}>
-              <Text style={{ fontSize: 18, color: Colors.white }}>{item.menuname}</Text>
+              <Text style={{ fontSize: 18, color: Colors.white }}>{item.menuName}</Text>
             </View>
           </View>
         </View>
@@ -140,6 +140,9 @@ function HomeScreen() {
           showsHorizontalScrollIndicator={false}
           renderItem={({ index, item }) => _renderMenu(index, item)}
         />
+        <TouchableOpacity onPress={() => handleUserLogout()}>
+          <Text>Logout</Text>
+        </TouchableOpacity>
         <View style={{ marginLeft: 24, marginTop: 15 }}>
           <Text
             style={{
@@ -155,4 +158,5 @@ function HomeScreen() {
     </View>
   );
 }
+
 export default HomeScreen;
