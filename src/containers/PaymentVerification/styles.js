@@ -20,40 +20,38 @@ const styles = StyleSheet.create({
     backgroundColor:'red',
     borderRadius: 10
   },
-  // headerContainer:{
-  //   alignItems:'center',
-  //   marginBottom: 20,
-  //   paddingTop: 30
-  // },
   confirmButton:{
-    marginTop:20,
+    marginTop: 20,
     borderRadius: 10,
     backgroundColor:Colors.mango,
-    paddingVertical: 15,
     alignItems:'center',
-    marginRight: 5,
+    height: 44,
+    width: 156,
+    marginLeft: 4,
   },
   confirmButtonn:{
     marginTop:20,
     borderRadius: 10,
     backgroundColor:Colors.white,
-    paddingVertical: 15,
+    height: 44,
+    width: 156,
     alignItems:'center',
     borderColor: Colors.mango,
     borderWidth: 1,
-    marginRight: 10,
   },
   confirmBtnText:{
-    fontSize: 18,
+    fontSize: 17,
     fontFamily:
     Fonts.regular,
-    color: Colors.white
+    color: Colors.white,
+    marginTop: 10,
   },
   confirmBtnTextt:{
-    fontSize: 18,
+    fontSize: 17,
     fontFamily:
     Fonts.regular,
-    color: Colors.mango
+    color: Colors.mango,
+    marginTop: 10,
   },
   inputText:{
     backgroundColor:'#e4e4e4',
@@ -81,7 +79,84 @@ const styles = StyleSheet.create({
     marginLeft: 290, 
     marginTop: 15, 
     fontSize: 15,
-  }
+  },
+
+  // is the material weighted css
+  viewVolume:{
+    marginTop: 15,
+    height: 60,
+    width: '100%'
+  },
+  viewVolumeInputContainer:{
+    flex: 1,
+    flexDirection:'row',
+    justifyContent:'space-between'
+  },
+  inputLabelText: {
+    marginBottom: 5,
+    fontFamily:
+    Fonts.regular,
+    fontSize: 16
+  },
+  locationTxt:{
+    flex: 3,
+    height: 45,
+    marginRight: 15
+  },
+  inputText:{
+    backgroundColor:'#e4e4e4',
+    borderRadius: 10,
+    paddingLeft: 15,
+    fontFamily: Fonts.regular
+  },
+  dropDownText: {
+    fontFamily: Fonts.regular,
+    fontSize: 16
+  },
+  imagePickerContainer:{
+    marginTop: 15,
+    height: 50
+  },
+  imageContainer:{
+    alignItems:'center',
+    flexDirection:'row',
+    justifyContent:'space-around',
+    marginTop: 40
+  },
+  uploadImage:{
+    width: 200,
+    height: 100
+  },
+  iconButton:{
+    borderRadius: 10,
+    paddingHorizontal: 45,
+    paddingVertical: 25,
+    backgroundColor:'#ccc',
+    flexDirection:'row',
+    alignItems:'center'
+  },
+  confirmButtonaa:{
+    marginTop:20,
+    borderRadius: 10,
+    backgroundColor:Colors.mango,
+    paddingVertical: 15,
+    alignItems:'center'
+  },
+  confirmBtnTextaa:{
+    fontSize: 18,
+    fontFamily:
+    Fonts.regular,
+    color: Colors.white
+  },
+  headerContainer:{
+    alignItems:'center',
+    marginBottom: 20,
+    paddingTop: 30
+  },
+  headerText:{
+    fontFamily: Fonts.bold,
+    fontSize: 20
+  },
 });
 
 export default styles;

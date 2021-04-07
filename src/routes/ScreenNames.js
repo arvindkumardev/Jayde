@@ -50,6 +50,7 @@ const NavigationRouteNames = {
   USERS:"Users",
   PICKUP_ORDER:"PickUpOrder",
   PAYMENT_VERIFICATION:"PaymentVerification",
+  ORDER_DETAILS:"OrderDetails",
 };
 
 export default NavigationRouteNames;
