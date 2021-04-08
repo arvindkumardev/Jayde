@@ -8,14 +8,18 @@ const styles = StyleSheet.create({
     marginTop:20,
     borderRadius: 10,
     backgroundColor:Colors.mango,
-    paddingVertical: 15,
-    alignItems:'center'
+    width: 317,
+    // paddingVertical: 15,
+    height: 44,
+    alignItems:'center',
+    borderRadius: 10,
   },
   confirmBtnText:{
     fontSize: 18,
     fontFamily:
     Fonts.regular,
-    color: Colors.white
+    color: Colors.white,
+    marginTop: 10,
   },
   boxView: {
     width: 310, 
