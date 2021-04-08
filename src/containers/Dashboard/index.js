@@ -10,6 +10,7 @@ import { removeData } from '../../utils/helpers';
 import { LOCAL_STORAGE_DATA_KEY } from '../../utils/constants';
 import UserContext from '../../appContainer/context/user.context';
 import { USERS_ROLE_MENU } from '../../routes/constants';
+import Styles from './styles';
 
 const STATIC_DATA = [
   {
@@ -38,10 +39,15 @@ const STATIC_DATA = [
   },
 ];
 
+const statusIcon = {
+  Pending: { iconName: 'clock-o', color: Colors.grayThree },
+  'In Transit': { iconName: 'truck', color: Colors.grayThree },
+  Completed: { iconName: 'check-circle', color: Colors.green },
+};
+
 function HomeScreen() {
   const navigation = useNavigation();
-
-  const { setLogin } = useContext(UserContext);
+  const { user, isLogin, userRole, setLogin } = useContext(UserContext);
 
   const handleUserLogout = async () => {
     await removeData(LOCAL_STORAGE_DATA_KEY.JWT_TOKEN);
@@ -56,20 +62,20 @@ function HomeScreen() {
       handleUserLogout();
     }
   };
-
   const _renderData = (index, item) => {
     return (
-      <TouchableOpacity key={index} style={{ flexDirection: 'row', marginLeft: 24 }}>
+      <TouchableOpacity key={index} style={Styles.dataItemContainer}>
         <View style={{ flex: 0.2 }}>
-          <Image style={{ width: 66, height: 66, marginTop: 10 }} source={item.image} />
+          <Image style={Styles.dataItemImage} source={item.image} />
         </View>
         <View style={{ flex: 0.6 }}>
-          <Text style={{ fontSize: 17, marginLeft: 15, marginTop: 12 }}>{item.orderid}</Text>
-          <Text style={{ fontSize: 15, marginLeft: 15 }}>{item.name}</Text>
-          <Text style={{ fontSize: 11, marginLeft: 15 }}>{item.date}</Text>
+          <Text style={Styles.textOrderId}>{item.orderid}</Text>
+          <Text style={Styles.textName}>{item.name}</Text>
+          <Text style={Styles.textDate}>{item.date}</Text>
         </View>
-        <View style={{ flex: 0.2 }}>
-          <Image style={{ width: 15, height: 18, marginTop: 30, marginLeft: 15 }} source={item.images} />
+        <View style={{ flex: 0.2, alignItems: 'center', marginRight: 15 }}>
+          {/* <Image style={{ width: 15, height: 18, marginTop: 30, marginLeft: 15 }} source={item.images} /> */}
+          <FAIcon name={statusIcon[item.status].iconName} color={statusIcon[item.status].color} size={20} />
           <Text style={{ fontSize: 11, color: '#000' }}>{item.status}</Text>
         </View>
       </TouchableOpacity>
@@ -101,7 +107,7 @@ function HomeScreen() {
               <MCIcon name="pencil" color={Colors.white} size={20} />
             </TouchableOpacity>
             <View style={{ alignItems: 'center', paddingHorizontal: 10 }}>
-              <Text style={{ fontSize: 18, color: Colors.white }}>{item.menuname}</Text>
+              <Text style={{ fontSize: 18, color: Colors.white }}>{item.menuName}</Text>
             </View>
           </View>
         </View>
@@ -134,6 +140,9 @@ function HomeScreen() {
           showsHorizontalScrollIndicator={false}
           renderItem={({ index, item }) => _renderMenu(index, item)}
         />
+        <TouchableOpacity onPress={() => handleUserLogout()}>
+          <Text>Logout</Text>
+        </TouchableOpacity>
         <View style={{ marginLeft: 24, marginTop: 15 }}>
           <Text
             style={{
@@ -149,4 +158,5 @@ function HomeScreen() {
     </View>
   );
 }
+
 export default HomeScreen;

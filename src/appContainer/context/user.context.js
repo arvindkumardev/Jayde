@@ -1,4 +1,4 @@
-import React, {createContext} from 'react';
+import React, { createContext } from 'react';
 
 const UserContext = createContext({
   user: {},
@@ -8,9 +8,9 @@ const UserContext = createContext({
   orgData: [],
   setUserObj: (userObj) => {},
   setLogin: (login) => {},
-  setLoader:(loading) => {},
+  setLoader: (loading) => {},
   setUserRole: (role) => {},
-  setOrgData : (orgData) => {}
+  setOrgData: (orgData) => {},
 });
 
 export default UserContext;

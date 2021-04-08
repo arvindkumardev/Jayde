@@ -9,8 +9,15 @@ import { useNavigation, useRoute } from "@react-navigation/native";
 import DropDownPicker from 'react-native-dropdown-picker';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { launchImageLibrary } from "react-native-image-picker";
-import { AppStyles } from "../../../theme";
+import { AppStyles, Colors } from "../../../theme";
 import NavigationRouteNames from '../../../routes/ScreenNames';
+import DropDown from "../../../components/Picker/index";
+
+const data = [
+  {label: 'Test1', value: '1', key: 1, color: Colors.mango, displayValue: true },
+  {label: 'Test2', value: '2', key: 2, color: Colors.mango, displayValue: '' },
+  {label: 'Test3', value: '3', key: 3, color: Colors.mango, displayValue: '' },
+]
 
 const PricingRequest = () => {
   const navigation = useNavigation();
@@ -19,6 +26,7 @@ const PricingRequest = () => {
   const [wasteImage, setWasteImage] = useState(null);
   const [base64Image, setBase64Image] = useState("");
   const [subCategories, setSubCategories] = useState([]);
+  const [selectedItem, setSelectedItem ] = useState('')
 
   const onShowCamera = () => {
     console.log(showCamera);
@@ -72,7 +80,9 @@ const PricingRequest = () => {
     setWasteImage(null);
     setBase64Image("");
   };
-
+  const handleDropDownSelection = (val) => {
+    setSelectedItem(val);
+  }
   const handleConfirm = () => {
     navigation.navigate(NavigationRouteNames.NEW_ORDER_REQUEST);
   };
@@ -90,25 +100,7 @@ const PricingRequest = () => {
                 <Text style={[AppStyles.txtBlackRegular, AppStyles.f16, AppStyles.mb10]}>Add Location</Text>
               </View>
               <View style={{flex: 1}}>
-
-                <View style={{flex: 1}}>
-                <TextInput style={{paddingVertical: 20}} placeholder={'Enter volume'}/>
-                  <DropDownPicker
-                      items={[
-                          {label: 'Select one', value: 'usa', hidden: true},
-                          {label: 'UK', value: 'uk' },
-                          {label: 'France', value: 'france' },
-                      ]}
-                      defaultValue={'usa'}
-                      containerStyle={{height: 40}}
-                      style={{backgroundColor: '#fafafa'}}
-                      itemStyle={{
-                          justifyContent: 'flex-start'
-                      }}
-                      dropDownStyle={{backgroundColor: '#fafafa'}}
-                      onChangeItem={ item => console.log(item) }
-                  />
-              </View>
+                {/* <DropDown items={data} containerStyle={{ borderRadius: 10, color:'#000'}} itemStyle={{color: '#000' }} onValueChange={handleDropDownSelection} selectedValue={selectedItem} /> */}
               </View>
         </View>
       </View>
