@@ -6,7 +6,7 @@
 /* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable import/order */
 /* eslint-disable prettier/prettier */
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   KeyboardAvoidingView,
   Platform,
@@ -14,8 +14,9 @@ import {
   Text,
   Image,
   ScrollView,
+  TouchableOpacity,
 } from "react-native";
-
+import {isEmpty, isNumber} from 'lodash';
 import * as Yup from "yup";
 import { useFormik } from "formik";
 import Colors from "../../theme/Colors";
@@ -37,6 +38,8 @@ import styles from "./styles";
 import commonStyles from "../../theme/commonStyles";
 import { userLogin } from "./user";
 import { LOCAL_STORAGE_DATA_KEY } from "../../utils/constants";
+import { AppStyles } from "../../theme";
+import FAIcon from "react-native-vector-icons/FontAwesome";
 
 function LoginWithEmail() {
   const navigation = useNavigation();
@@ -46,11 +49,12 @@ function LoginWithEmail() {
     setUserObj,
     setLogin,
     setUserRole,
+    setLoader
   } = useContext(UserContext);
   const [selectCompany, setSelectCompany] = useState({});
   const [hidePassword, setHidePassword] = useState(false);
 
-  const [, emLogin] = userLogin();
+  const [{data, loading, error}, emLogin] = userLogin();
 
 
   const triggerLogin = async (username, password) => {
@@ -73,6 +77,9 @@ function LoginWithEmail() {
     }
   };
 
+  useEffect(()=>{
+    setLoader(loading)
+  },[loading])
 
   const validationSchema = Yup.object().shape({
     username: Yup.string().test(
@@ -91,34 +98,17 @@ function LoginWithEmail() {
       password: "",
     },
     validationSchema,
-  });
-
-  const handleLogin = () => {
-    triggerLogin(
+    onSubmit: () => triggerLogin(
       loginForm.values.username,
       loginForm.values.password,
       selectCompany,
-    );
-    // setClickLogin(true);
-    // if (isEmpty(loginForm.errors)) {
-    //   setLoader(true);
-    //   console.log("Calling trigger login");
-    //   triggerLogin(
-    //     loginForm.values.username,
-    //     loginForm.values.password,
-    //     selectCompany,
-    //   );
-    // }
+    )
+  });
+
+  const handleLogin = async () => {
+    setClickLogin(true);
+    await loginForm.submitForm();
   };
-
-  // const onSubmitEditing = (id) => {
-  //   return inputs[id] ? inputs[id].focus() : null;
-  // };
-
-  // useEffect(() => {
-  //   setLoader(emLoginLoading);
-  // }, [emLoginLoading]);
-
 
   return (
     <View style={{ flex: 1, backgroundColor: Colors.mango }}>
@@ -130,32 +120,20 @@ function LoginWithEmail() {
         >
           <View style={{ flex: 1 }}>
             <View
-              style={{
-                flex: 1,
-                justifyContent: "center",
-                paddingBottom: RfH(40),
-              }}
+              style={[AppStyles.flexpointnine]}
             >
-              <View style={{ alignItems: "center", marginTop: 40 }}>
-                <Image
-                  style={{ width: 160, height: 55 }}
+              <View style={[AppStyles.alignCenter, AppStyles.mt40]}>
+                <Image style={{ width: 160, height: 55 }}
                   source={require("../../assets/Images/LoginWithEmail/JaydeLogo01.png")}
                 />
               </View>
-              <View style={{ alignItems: "center", marginTop: 60 }}>
-                <Text
-                  style={{
-                    color: "#fff",
-                    marginBottom: 20,
-                    fontSize: 40,
-                    lineHeight: 48,
-                    fontWeight: "bold",
-                  }}
-                >
-                  Hello! {isLogin ? 1 : 0}
+              <View style={[AppStyles.alignCenter, AppStyles.mt40]}>
+                <Text style={[AppStyles.txtWhiteBold, AppStyles.f40, AppStyles.pv10]}>
+                  Hello!
                 </Text>
               </View>
               <View style={styles.formContainer}>
+                <View style={{paddingHorizontal: 20}}>
                 <CustomTextInput
                   label={"Email"}
                   inputLabelStyle={commonStyles.inputLabelStyle}
@@ -185,8 +163,12 @@ function LoginWithEmail() {
                   refKey={"password"}
                   error={clickLogin && loginForm.errors.password}
                 />
+                </View>
                 <View style={{ marginTop: RfH(21) }}>
-                  <GradientButton title={"Confirm"} onPress={handleLogin} />
+                  <TouchableOpacity onPress={handleLogin} style={{ paddingLeft: 40, paddingRight: 20, backgroundColor: Colors.green, paddingVertical: 10, borderTopLeftRadius: 30, borderBottomLeftRadius: 30, borderBottomRightRadius: 30, alignItems:'center', alignSelf: 'flex-end', flexDirection:'row' }}>
+                    <Text style={[AppStyles.txtWhiteBold, AppStyles.f18]}>Confirm</Text>
+                    <FAIcon name="long-arrow-right" color={'#fff'} style={{marginLeft: 10}} size={20}/>
+                  </TouchableOpacity>
                 </View>
               </View>
 
@@ -205,12 +187,13 @@ function LoginWithEmail() {
                     style={{ color: "#fff", marginTop: 30, marginBottom: 30 }}
                   >
                     Dont have an account?
+                    <TouchableOpacity onPress={() => navigation.navigate(NavigationRouteNames.SIGNUP)}>
                     <Text
                       style={{ color: "#fff", textDecorationLine: "underline" }}
-                      onPress={() => navigation.navigate(NavigationRouteNames.SIGNUP)}
                     >
                       Create one
                     </Text>
+                    </TouchableOpacity>
                   </Text>
                 </View>
               </View>

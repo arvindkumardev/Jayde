@@ -8,13 +8,13 @@ import { Colors } from "../theme";
 const USER_ROLE = {
   SELLER: "seller",
   ADMIN: "admin",
-  AGGRATOR: "aggrator",
+  AGGRATOR: "aggregate",
   RECYCLER: "recycler",
   EPR: "EPR",
 };
 
 const USERS_ROLE_MENU = {
-  SELLER: [
+  seller: [
     {
       menuName: "Create Order",
       menu1image: require("../assets/Images/Dashboard/Group_9551.png"),
@@ -44,7 +44,7 @@ const USERS_ROLE_MENU = {
       screenName: "Logout",
     },
   ],
-  ADMIN: [
+  admin: [
     {
       menuName: "Logout",
       menu1image: require("../assets/Images/Dashboard/Group_9551.png"),
@@ -53,7 +53,7 @@ const USERS_ROLE_MENU = {
       screenName: "Logout",
     },
   ],
-  AGGRATOR: [
+  aggregate: [
     {
       menuName: "View New Order",
       menu1image: require("../assets/Images/Dashboard/Group_9551.png"),
@@ -83,7 +83,7 @@ const USERS_ROLE_MENU = {
       screenName: "Logout",
     },
   ],
-  RECYCLER: [{
+  recycler: [{
     menuName: "Logout",
     menu1image: require("../assets/Images/Dashboard/Group_9551.png"),
     menu2image: require("../assets/Images/Dashboard/Project.png"),
@@ -99,4 +99,10 @@ const USERS_ROLE_MENU = {
   }],
 };
 
-export { USER_ROLE, USERS_ROLE_MENU };
+const STATUS_ICON = {
+  Pending: { iconName: 'clock-o', color: Colors.grayThree },
+  'In Transit': { iconName: 'truck', color: Colors.grayThree },
+  Completed: { iconName: 'check-circle', color: Colors.green },
+};
+
+export { USER_ROLE, USERS_ROLE_MENU, STATUS_ICON };

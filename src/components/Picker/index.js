@@ -1,28 +1,31 @@
 /* eslint-disable no-empty */
 /* eslint-disable prefer-destructuring */
 import React, { useState } from 'react';
-import { Text, Platform, ActionSheetIOS, TouchableOpacity } from 'react-native';
+import { Text, Platform, ActionSheetIOS, TouchableOpacity, View } from 'react-native';
 import { Picker } from '@react-native-community/picker';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import PropTypes from 'prop-types';
+import Styles from "./styles";
 
 const DropDown = (props) => {
-  const { items, onValueChange, selectedValue, containerStyle, itemStyle, placeholderText } = props;
+  const { items, onValueChange, selectedValue, containerStyle, itemStyle, placeholderText, mode } = props;
   const [iosSelectedValue, setSelectedValue] = useState(selectedValue || placeholderText);
   const getAndroidDropDown = (dropDownData = []) => {
     const Item = Picker.Item;
     return (
-      <Picker
-        mode="dropdown"
-        itemStyle={itemStyle}
-        style={containerStyle}
-        onValueChange={onValueChange}
-        selectedValue={selectedValue}>
-        <Item label={placeholderText} value="" />
-        {dropDownData.map((item) => (
-          <Item value={item.value} label={item.label} />
-        ))}
-      </Picker>
+      <View style={[Styles.androidPickerContainer, containerStyle]}>
+        <Picker
+          mode={mode}
+          itemStyle={itemStyle}
+          // style={containerStyle}
+          onValueChange={onValueChange}
+          selectedValue={selectedValue}>
+          <Item label={placeholderText} value="" />
+          {dropDownData.map((item) => (
+            <Item value={item.value} label={item.label} />
+          ))}
+        </Picker>
+      </View>
     );
   };
   const openActionSheet = () => {
@@ -59,6 +62,7 @@ const DropDown = (props) => {
 };
 
 DropDown.propTypes = {
+  mode: PropTypes.string,
   onValueChange: PropTypes.func,
   itemStyle: {},
   selectedValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
@@ -76,6 +80,7 @@ DropDown.defaultProps = {
   containerStyle: {},
   itemStyle: {},
   placeholderText: 'Please select item',
+  mode: 'modal',
 };
 
 export default DropDown;

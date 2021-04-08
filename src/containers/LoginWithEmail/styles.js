@@ -6,7 +6,8 @@ const styles = StyleSheet.create({
   formContainer: {
     marginHorizontal: RfW(21),
     backgroundColor: Colors.white,
-    padding: RfW(25),
+    paddingVertical: RfW(10),
+    paddingHorizontal: RfH(10),
     borderRadius: RfH(25),
   },
   checkBoxContainer: {

@@ -32,7 +32,8 @@ const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
 
 const NoHeaderScreen = { headerShown: false };
-const CommonHeaderStyle = { headerTitleStyle: [AppStyles.txtBlackBold, AppStyles.f18] };
+const NoTitleHeader = {title: null, headerStyle: { borderBottomWidth: 0, elevation: 0 }};
+const CommonHeaderStyle = { headerTitleStyle: [AppStyles.txtBlackBold, AppStyles.f18], headerStyle: { borderBottomWidth: 0, elevation: 0 } };
 const DrawerMenu = ({ navigation }) => ({
   title: null,
   headerStyle: { borderBottomWidth: 0, elevation: 0 },
@@ -54,44 +55,19 @@ const DrawerStack = () => {
 };
 
 const AppStack = (props) => {
-  // const { isLogin, userRole } = useContext(UserContext);
-
-  // console.log("isLogin, userRole", isLogin, userRole);
-
   const { isLogin, userRole, setLogin, setUserRole } = useContext(UserContext);
-
   const getToken = async () => {
     const token = await getSaveData(LOCAL_STORAGE_DATA_KEY.JWT_TOKEN);
     const role = await getSaveData(LOCAL_STORAGE_DATA_KEY.USER_ROLE);
     if (token) {
-      console.log("Token received", token, role);
-      // setIsLogin(true);
-
       setLogin(true);
       setUserRole(role);
-      // setLoadingToken(false);
-      // setToken(token);
-      // setLoginUserRole(role);
-
-      console.log("User login after setting all the values ", isLogin, userRole, role);
-
     }
     SplashScreen.hide();
   };
 
-  useEffect(() => {
-    // if (!token) {
-    getToken().then(() => {
-      // setLoadingToken(false);
-      console.log("User login after setting all the values 12312312", isLogin, userRole);
-
-    }).catch(() => {
-      console.log("User login after setting all the values 3453453453", isLogin, userRole);
-      // setLoadingToken(false);
-    });
-    // } else {
-    // setLoadingToken(false);
-    // }
+  useEffect(async () => {
+    await getToken();
   }, []);
 
   const role = userRole || props.userRole;
@@ -128,7 +104,7 @@ const AppStack = (props) => {
           <Stack.Screen
             component={NewOrderList}
             name={NavigationRouteNames.NEW_ORDER}
-            options={CommonHeaderStyle}
+            options={NoTitleHeader}
           />
           {/* Screen - 16 */}
           <Stack.Screen
@@ -149,12 +125,115 @@ const AppStack = (props) => {
             options={CommonHeaderStyle}
           />
         </>;
+        case USER_ROLE.AGGRATOR:
+          return <>
+            {/* Dashboard SCREEN */}
+            <Stack.Screen
+              name={NavigationRouteNames.HOME_SCREEN}
+              component={DrawerStack}
+              options={DrawerMenu}
+            />
+            {/* Screen - 19 */}
+            <Stack.Screen
+              name={NavigationRouteNames.CONFIRM_ADDRESS}
+              component={AddressConfirm}
+              options={CommonHeaderStyle}
+            />
+            {/* Screen - 15 */}
+            <Stack.Screen
+              name={NavigationRouteNames.PRICE_REQUEST}
+              component={PricingRequest}
+              initialParams={{ title: "Paper Waste" }}
+              options={CommonHeaderStyle}
+            />
+            {/* Screen - 17 */}
+            <Stack.Screen
+              name={NavigationRouteNames.PRICE_CONFIRM}
+              component={PriceConfirm}
+              options={CommonHeaderStyle}
+            />
+            <Stack.Screen
+              component={NewOrderList}
+              name={NavigationRouteNames.NEW_ORDER}
+              options={NoHeaderScreen}
+            />
+            {/* Screen - 16 */}
+            <Stack.Screen
+              name={NavigationRouteNames.NEW_ORDER_REQUEST}
+              component={NewOrder}
+              options={CommonHeaderStyle}
+            />
+            {/* Screen - 18 */}
+            <Stack.Screen
+              name={NavigationRouteNames.PICKUP_DETAILS}
+              component={PickupDetails}
+              options={CommonHeaderStyle}
+            />
+            {/* Call request screen number: 70 */}
+            <Stack.Screen
+              name={NavigationRouteNames.CALL_REQUEST}
+              component={CallRequest}
+              options={CommonHeaderStyle}
+            />
+          </>;
+    case USER_ROLE.RECYCLER:
+      return <>
+        {/* Dashboard SCREEN */}
+        <Stack.Screen
+          name={NavigationRouteNames.HOME_SCREEN}
+          component={DrawerStack}
+          options={DrawerMenu}
+        />
+        {/* Screen - 19 */}
+        <Stack.Screen
+          name={NavigationRouteNames.CONFIRM_ADDRESS}
+          component={AddressConfirm}
+          options={CommonHeaderStyle}
+        />
+        {/* Screen - 15 */}
+        <Stack.Screen
+          name={NavigationRouteNames.PRICE_REQUEST}
+          component={PricingRequest}
+          initialParams={{ title: "Paper Waste" }}
+          options={CommonHeaderStyle}
+        />
+        {/* Screen - 17 */}
+        <Stack.Screen
+          name={NavigationRouteNames.PRICE_CONFIRM}
+          component={PriceConfirm}
+          options={CommonHeaderStyle}
+        />
+        <Stack.Screen
+          component={NewOrderList}
+          name={NavigationRouteNames.NEW_ORDER}
+          options={NoHeaderScreen}
+        />
+        {/* Screen - 16 */}
+        <Stack.Screen
+          name={NavigationRouteNames.NEW_ORDER_REQUEST}
+          component={NewOrder}
+          options={CommonHeaderStyle}
+        />
+        {/* Screen - 18 */}
+        <Stack.Screen
+          name={NavigationRouteNames.PICKUP_DETAILS}
+          component={PickupDetails}
+          options={CommonHeaderStyle}
+        />
+        {/* Call request screen number: 70 */}
+        <Stack.Screen
+          name={NavigationRouteNames.CALL_REQUEST}
+          component={CallRequest}
+          options={CommonHeaderStyle}
+        />
+      </>;
       case USER_ROLE.ADMIN:
         return <>
           {/* Dashboard SCREEN */}
           <Stack.Screen
             name={NavigationRouteNames.HOME_SCREEN}
             component={HomeScreen}
+            options={NoHeaderScreen}
           />
           {/* Screen - 19 */}
           <Stack.Screen
