@@ -1,15 +1,15 @@
-/* eslint-disable no-underscore-dangle */
 /* eslint-disable global-require */
+/* eslint-disable no-underscore-dangle */
 import React, { useContext } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { TouchableOpacity, View, Text, Image, FlatList, ScrollView } from 'react-native';
 import FAIcon from 'react-native-vector-icons/FontAwesome';
 import MCIcon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { Colors } from '../../theme/index';
+import { AppStyles, Colors } from '../../theme/index';
 import { removeData } from '../../utils/helpers';
 import { LOCAL_STORAGE_DATA_KEY } from '../../utils/constants';
 import UserContext from '../../appContainer/context/user.context';
-import { USERS_ROLE_MENU } from '../../routes/constants';
+import { USERS_ROLE_MENU, STATUS_ICON } from '../../routes/constants';
 import Styles from './styles';
 
 const STATIC_DATA = [
@@ -39,15 +39,9 @@ const STATIC_DATA = [
   },
 ];
 
-const statusIcon = {
-  Pending: { iconName: 'clock-o', color: Colors.grayThree },
-  'In Transit': { iconName: 'truck', color: Colors.grayThree },
-  Completed: { iconName: 'check-circle', color: Colors.green },
-};
-
 function HomeScreen() {
   const navigation = useNavigation();
-  const { user, isLogin, userRole, setLogin } = useContext(UserContext);
+  const { userRole, setLogin } = useContext(UserContext);
 
   const handleUserLogout = async () => {
     await removeData(LOCAL_STORAGE_DATA_KEY.JWT_TOKEN);
@@ -65,18 +59,17 @@ function HomeScreen() {
   const _renderData = (index, item) => {
     return (
       <TouchableOpacity key={index} style={Styles.dataItemContainer}>
-        <View style={{ flex: 0.2 }}>
+        <View style={Styles.dataImage}>
           <Image style={Styles.dataItemImage} source={item.image} />
         </View>
-        <View style={{ flex: 0.6 }}>
-          <Text style={Styles.textOrderId}>{item.orderid}</Text>
-          <Text style={Styles.textName}>{item.name}</Text>
-          <Text style={Styles.textDate}>{item.date}</Text>
+        <View style={[Styles.dataItemContent, AppStyles.ml10]}>
+          <Text style={[AppStyles.txtBlackRegular, AppStyles.f17]}>{item.orderid}</Text>
+          <Text style={[AppStyles.txtBlackRegular, AppStyles.f15]}>{item.name}</Text>
+          <Text style={[AppStyles.txtBlackRegular, AppStyles.f12]}>{item.date}</Text>
         </View>
-        <View style={{ flex: 0.2, alignItems: 'center', marginRight: 15 }}>
-          {/* <Image style={{ width: 15, height: 18, marginTop: 30, marginLeft: 15 }} source={item.images} /> */}
-          <FAIcon name={statusIcon[item.status].iconName} color={statusIcon[item.status].color} size={20} />
-          <Text style={{ fontSize: 11, color: '#000' }}>{item.status}</Text>
+        <View style={Styles.statusIcon}>
+          <FAIcon name={STATUS_ICON[item.status].iconName} color={STATUS_ICON[item.status].color} size={20} />
+          <Text style={[AppStyles.txtBlackRegular]}>{item.status}</Text>
         </View>
       </TouchableOpacity>
     );
@@ -84,78 +77,51 @@ function HomeScreen() {
 
   const _renderMenu = (index, item) => {
     return (
-      <View key={index} style={{ flexDirection: 'row' }}>
-        <View
-          style={{
-            flex: 1,
-            width: 175,
-            height: 200,
-            marginLeft: 20,
-            borderRadius: 10,
-            backgroundColor: item.color,
-            justifyContent: 'space-between',
-          }}>
-          <View>
-            <TouchableOpacity style={{ marginLeft: 20, marginTop: 10 }}>
-              <FAIcon name="ellipsis-v" color={Colors.white} size={30} />
-            </TouchableOpacity>
-          </View>
-          <View style={{ width: '100%', marginBottom: 20 }}>
-            <TouchableOpacity
-              onPress={() => handleNavigate(item.screenName)}
-              style={{ paddingHorizontal: 20, alignSelf: 'flex-end' }}>
-              <MCIcon name="pencil" color={Colors.white} size={20} />
-            </TouchableOpacity>
-            <View style={{ alignItems: 'center', paddingHorizontal: 10 }}>
-              <Text style={{ fontSize: 18, color: Colors.white }}>{item.menuName}</Text>
-            </View>
-          </View>
+      <View key={index} style={[Styles.menuContainer, { backgroundColor: item.color }]}>
+        <View>
+          <TouchableOpacity style={Styles.menuEllipseContainer}>
+            <FAIcon name="ellipsis-v" color={Colors.white} size={30} />
+          </TouchableOpacity>
         </View>
+        <TouchableOpacity onPress={() => handleNavigate(item.screenName)} style={Styles.menuActionItem}>
+          <MCIcon name={item.iconName} color={Colors.white} size={20} style={{ alignSelf: 'flex-end' }} />
+          <View>
+            <Text style={[AppStyles.txtWhiteBold, AppStyles.f16]}>{item.menuName}</Text>
+          </View>
+        </TouchableOpacity>
       </View>
     );
   };
 
   return (
-    <View style={{ flex: 1, backgroundColor: 'white' }}>
-      <ScrollView>
-        <View style={{ flexDirection: 'row' }}>
-          <View style={{ flex: 0.6, marginTop: 50, marginLeft: 24 }}>
-            <Text style={{ fontSize: 20 }}>Good Morning</Text>
-            <Text style={{ fontSize: 34, marginTop: 5 }}>Prem Kumar</Text>
-          </View>
-
-          <View style={{ flex: 0.4 }}>
-            <View style={{ alignItems: 'flex-end', marginTop: 10, marginRight: 10 }}>
-              <Image
-                style={{ width: 125, height: 132 }}
-                source={require('../../assets/Images/Dashboard/Mask_Group_28.png')}
-              />
-            </View>
+    <ScrollView style={{ backgroundColor: Colors.white }}>
+      <View style={AppStyles.flexRowSpaceBetween}>
+        <View style={[AppStyles.mt30, AppStyles.ml30]}>
+          <Text style={[AppStyles.txtBlackBold, AppStyles.f18]}>Good Morning</Text>
+          <Text style={[AppStyles.txtBlackBold, AppStyles.f35]}>Prem Kumar</Text>
+          <Text>{userRole}</Text>
+        </View>
+        <View>
+          <View style={{ alignItems: 'flex-end', marginTop: 10, marginRight: 10 }}>
+            <Image
+              style={{ width: 125, height: 132 }}
+              source={require('../../assets/Images/Dashboard/Mask_Group_28.png')}
+            />
           </View>
         </View>
+      </View>
 
-        <FlatList
-          data={USERS_ROLE_MENU.SELLER}
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          renderItem={({ index, item }) => _renderMenu(index, item)}
-        />
-        <TouchableOpacity onPress={() => handleUserLogout()}>
-          <Text>Logout</Text>
-        </TouchableOpacity>
-        <View style={{ marginLeft: 24, marginTop: 15 }}>
-          <Text
-            style={{
-              fontSize: 17,
-              color: '#000',
-              fontFamily: 'Poppins-SemiBold',
-            }}>
-            Current Orders
-          </Text>
-        </View>
-        <FlatList data={STATIC_DATA} renderItem={({ index, item }) => _renderData(index, item)} />
-      </ScrollView>
-    </View>
+      <FlatList
+        data={USERS_ROLE_MENU[userRole]}
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        renderItem={({ index, item }) => _renderMenu(index, item)}
+      />
+      <View style={[AppStyles.pl30, AppStyles.mt20]}>
+        <Text style={[AppStyles.txtBlackBold, AppStyles.f20]}>Current Orders</Text>
+      </View>
+      <FlatList data={STATIC_DATA} renderItem={({ index, item }) => _renderData(index, item)} />
+    </ScrollView>
   );
 }
 

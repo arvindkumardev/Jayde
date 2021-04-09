@@ -6,7 +6,7 @@
 /* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable import/order */
 /* eslint-disable prettier/prettier */
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   KeyboardAvoidingView,
   Platform,
@@ -14,8 +14,10 @@ import {
   Text,
   Image,
   ScrollView,
+  TouchableOpacity,
+  Dimensions
 } from "react-native";
-
+import {isEmpty, isNumber} from 'lodash';
 import * as Yup from "yup";
 import { useFormik } from "formik";
 import Colors from "../../theme/Colors";
@@ -37,6 +39,8 @@ import styles from "./styles";
 import commonStyles from "../../theme/commonStyles";
 import { userLogin } from "./user";
 import { LOCAL_STORAGE_DATA_KEY } from "../../utils/constants";
+import { AppStyles } from "../../theme";
+import FAIcon from "react-native-vector-icons/FontAwesome";
 
 function LoginWithEmail() {
   const navigation = useNavigation();
@@ -46,17 +50,17 @@ function LoginWithEmail() {
     setUserObj,
     setLogin,
     setUserRole,
+    setLoader
   } = useContext(UserContext);
   const [selectCompany, setSelectCompany] = useState({});
   const [hidePassword, setHidePassword] = useState(false);
 
-  const [, emLogin] = userLogin();
+  const [{data, loading, error}, emLogin] = userLogin();
 
 
   const triggerLogin = async (username, password) => {
     try {
       const { data } = await emLogin({ data: { email: username, password } });
-      console.log("Login Response", data);
       if (data.status) {
         await setLogin(data.status);
         await storeData(LOCAL_STORAGE_DATA_KEY.JWT_TOKEN, data.data.token);
@@ -64,7 +68,6 @@ function LoginWithEmail() {
         await setUserRole(data.data.business_type);
         await setUserObj(data.data);
       } else {
-        console.log("Login failed");
         alert(data.message);
       }
 
@@ -73,6 +76,9 @@ function LoginWithEmail() {
     }
   };
 
+  useEffect(()=>{
+    setLoader(loading)
+  },[loading])
 
   const validationSchema = Yup.object().shape({
     username: Yup.string().test(
@@ -91,134 +97,83 @@ function LoginWithEmail() {
       password: "",
     },
     validationSchema,
-  });
-
-  const handleLogin = () => {
-    triggerLogin(
+    onSubmit: () => triggerLogin(
       loginForm.values.username,
       loginForm.values.password,
       selectCompany,
-    );
-    // setClickLogin(true);
-    // if (isEmpty(loginForm.errors)) {
-    //   setLoader(true);
-    //   console.log("Calling trigger login");
-    //   triggerLogin(
-    //     loginForm.values.username,
-    //     loginForm.values.password,
-    //     selectCompany,
-    //   );
-    // }
+    )
+  });
+
+  const handleLogin = async () => {
+    setClickLogin(true);
+    await loginForm.submitForm();
   };
 
-  // const onSubmitEditing = (id) => {
-  //   return inputs[id] ? inputs[id].focus() : null;
-  // };
-
-  // useEffect(() => {
-  //   setLoader(emLoginLoading);
-  // }, [emLoginLoading]);
-
-
   return (
-    <View style={{ flex: 1, backgroundColor: Colors.mango }}>
-      <ScrollView>
-        <KeyboardAvoidingView
-          style={{ flex: 1 }}
-          behavior={Platform.select({ android: "height", ios: "padding" })}
-          enabled
-        >
-          <View style={{ flex: 1 }}>
-            <View
-              style={{
-                flex: 1,
-                justifyContent: "center",
-                paddingBottom: RfH(40),
-              }}
-            >
-              <View style={{ alignItems: "center", marginTop: 40 }}>
-                <Image
-                  style={{ width: 160, height: 55 }}
+      <ScrollView contentContainerStyle={{backgroundColor:Colors.mango, justifyContent:'space-between', height: Dimensions.get('window').height}}>
+            <View>
+              <View style={[AppStyles.alignCenter, AppStyles.mt40]}>
+                <Image style={{ width: 160, height: 55 }}
                   source={require("../../assets/Images/LoginWithEmail/JaydeLogo01.png")}
                 />
               </View>
-              <View style={{ alignItems: "center", marginTop: 60 }}>
-                <Text
-                  style={{
-                    color: "#fff",
-                    marginBottom: 20,
-                    fontSize: 40,
-                    lineHeight: 48,
-                    fontWeight: "bold",
-                  }}
-                >
-                  Hello! {isLogin ? 1 : 0}
+              <View style={[AppStyles.alignCenter, AppStyles.mt40]}>
+                <Text style={[AppStyles.txtWhiteBold, AppStyles.f40, AppStyles.pv10]}>
+                  Hello!
                 </Text>
               </View>
               <View style={styles.formContainer}>
-                <CustomTextInput
-                  label={"Email"}
-                  inputLabelStyle={commonStyles.inputLabelStyle}
-                  placeholder={"Email"}
-                  value={loginForm.values.username}
-                  onChangeHandler={(value) =>
-                    loginForm.setFieldValue("username", value)
-                  }
-                  returnKeyType={"next"}
-                  onSubmitEditing={() => onSubmitEditing("password")}
-                  error={clickLogin && loginForm.errors.username}
-                />
-                <CustomTextInput
-                  label={"Password"}
-                  inputLabelStyle={commonStyles.inputLabelStyle}
-                  placeholder={"Password"}
-                  secureTextEntry={!hidePassword}
-                  showPasswordField={hidePassword}
-                  handleShowPassword={(value) => setHidePassword(value)}
-                  icon={hidePassword ? Images.openEye : Images.closeEye}
-                  value={loginForm.values.password}
-                  onChangeHandler={(value) =>
-                    loginForm.setFieldValue("password", value)
-                  }
-                  showClearButton={false}
-                  keyboardType={"default"}
-                  refKey={"password"}
-                  error={clickLogin && loginForm.errors.password}
-                />
+                <View style={AppStyles.pv20}>
+                  <CustomTextInput
+                    label={"Email"}
+                    inputLabelStyle={commonStyles.inputLabelStyle}
+                    placeholder={"Email"}
+                    value={loginForm.values.username}
+                    onChangeHandler={(value) =>
+                      loginForm.setFieldValue("username", value)
+                    }
+                    returnKeyType={"next"}
+                    onSubmitEditing={() => onSubmitEditing("password")}
+                    error={clickLogin && loginForm.errors.username}
+                  />
+                  <CustomTextInput
+                    label={"Password"}
+                    inputLabelStyle={commonStyles.inputLabelStyle}
+                    placeholder={"Password"}
+                    secureTextEntry={!hidePassword}
+                    showPasswordField={hidePassword}
+                    handleShowPassword={(value) => setHidePassword(value)}
+                    icon={hidePassword ? Images.openEye : Images.closeEye}
+                    value={loginForm.values.password}
+                    onChangeHandler={(value) =>
+                      loginForm.setFieldValue("password", value)
+                    }
+                    showClearButton={false}
+                    keyboardType={"default"}
+                    refKey={"password"}
+                    error={clickLogin && loginForm.errors.password}
+                  />
+                </View>
                 <View style={{ marginTop: RfH(21) }}>
-                  <GradientButton title={"Confirm"} onPress={handleLogin} />
+                  <TouchableOpacity onPress={handleLogin} style={styles.loginButton}>
+                    <Text style={[AppStyles.txtWhiteBold, AppStyles.f18]}>Confirm</Text>
+                    <FAIcon name="long-arrow-right" color={'#fff'} style={AppStyles.ml10} size={20}/>
+                  </TouchableOpacity>
                 </View>
               </View>
-
-              <View style={{ flex: 1 }}>
-                <View
-                  style={{
-                    alignItems: "flex-end",
-                    marginTop: 20,
-                    marginRight: 25,
-                  }}
-                >
-                  <Text style={{ marginLeft: 5, color: "#fff" }}>Forgot Password?</Text>
-                </View>
-                <View style={{ alignItems: "center" }}>
-                  <Text
-                    style={{ color: "#fff", marginTop: 30, marginBottom: 30 }}
-                  >
-                    Dont have an account?
-                    <Text
-                      style={{ color: "#fff", textDecorationLine: "underline" }}
-                      onPress={() => navigation.navigate(NavigationRouteNames.SIGNUP)}
-                    >
-                      Create one
-                    </Text>
-                  </Text>
+              <TouchableOpacity style={{alignSelf:'flex-end', marginRight: 40, marginTop: 20}}>
+                <Text style={[AppStyles.txtWhiteRegular, AppStyles.f15]}>Forgot password?</Text>
+              </TouchableOpacity>
+              </View>
+              <View style={{width:'100%', alignItems:'center', alignSelf:'flex-end', marginBottom: 20}}>
+                <View style={{flexDirection:'row' }}>
+                  <Text style={[AppStyles.txtWhiteRegular, AppStyles.f15]}>Don't have an account?</Text>
+                  <TouchableOpacity onPress={() => navigation.navigate(NavigationRouteNames.SIGNUP)}>
+                    <Text style={[AppStyles.txtWhiteRegular, AppStyles.f15]}> Create one</Text>
+                  </TouchableOpacity>
                 </View>
               </View>
-            </View>
-          </View>
-        </KeyboardAvoidingView>
       </ScrollView>
-    </View>
   );
 }
 

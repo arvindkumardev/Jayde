@@ -12,24 +12,24 @@ const container = StyleSheet.create({
   br10: {
     borderRadius: 10,
   },
-  br13:{
-    borderRadius: 13
-},
+  br13: {
+    borderRadius: 13,
+  },
   w100: {
     width: '100%',
   },
   w45: {
     width: '45%',
   },
-  w85:{
-    width: '85%'
-},
+  w85: {
+    width: '85%',
+  },
   primaryColor: {
     color: Colors.mango,
   },
-  whitecolor:{
-    color: Colors.white
-},
+  whitecolor: {
+    color: Colors.white,
+  },
   flexRowSpaceBetween: {
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -52,35 +52,35 @@ const container = StyleSheet.create({
     justifyContent: 'space-between',
   },
   flexDir: {
-    flexDirection:'row',
-},
-flex1: {
+    flexDirection: 'row',
+  },
+  flex1: {
     flex: 1,
-},
-borderwidth1: {
+  },
+  borderwidth1: {
     borderWidth: 1,
-},
-borderwidth2: {
-  borderWidth: 2,
-},
-flexpointone: {
-    flex: .1,
-},
-flexpointthree: {
-    flex: .3,
-},
-flexpointfour: {
-  flex: .4,
-},
-flexpointsix: {
-  flex: .6,
-},
-flexpointseven: {
-  flex: .7,
-},
-flexpointnine: {
-    flex: .9,
-},
+  },	
+  borderwidth2: {
+    borderWidth: 2,
+  },
+  flexpointone: {
+    flex: 0.1,
+  },
+  flexpointthree: {
+    flex: 0.3,
+  },
+  flexpointfour: {
+    flex: 0.4,
+  },
+  flexpointsix: {
+    flex: 0.6,
+  },
+  flexpointseven: {
+    flex: 0.7,
+  },
+  flexpointnine: {
+    flex: 0.9,
+  },
 });
 
 export default container;
