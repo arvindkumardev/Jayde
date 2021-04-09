@@ -4,11 +4,7 @@ import { logout, RfH, RfW } from "../../../utils/helpers";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import Styles from './styles';
 import { Colors, Fonts, AppStyles } from "../../../theme";
-import DropDownPicker from 'react-native-dropdown-picker';
-import FAIcon from 'react-native-vector-icons/FontAwesome';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import Camera from '../../../components/Camera';
-import { launchImageLibrary } from "react-native-image-picker";
 import NavigationRouteNames from '../../../routes/ScreenNames';
 import Appstyles from "../../../theme/Styles/texts";
 import AppStyle from "../../../theme/Styles/spaces";
@@ -26,6 +22,9 @@ const OrderDetails = () => {
   const handleConfirm = () => {
     navigation.navigate(NavigationRouteNames.NEW_ORDER_REQUEST);
   };
+
+  const [rememberMe,setRememberMe]=useState(false);
+
   return (
     <KeyboardAwareScrollView style={{ flex: 1, paddingHorizontal: RfW(20), backgroundColor: '#ffffff', }}>
       <View style={[style.flexDir, AppStyle.mt20,]}>
@@ -123,11 +122,11 @@ const OrderDetails = () => {
 
          <View>
             <View style={[style.flexDir, style.alignCenter, AppStyle.mt20]}>
-            <Checkbox
+            	  <Checkbox
                         disabled={false}
-                        value={true}
-                        tintColors={{ true: Colors.mango, false: '#777' }}
-                        onValueChange={(newValue) => console.log(newValue)}
+                        value={!rememberMe}
+                        tintColors={{ true: Colors.mango, false: Colors.mango, }}
+                        onValueChange={(rememberMe) => setRememberMe(!rememberMe)}
                     />
                <View style={{marginLeft: RfW(10)}}>
                 <CustomText

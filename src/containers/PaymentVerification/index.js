@@ -27,12 +27,19 @@ const PaymentVerification = () => {
   const [selected,setSelected]=useState(false);
   const [selected1,setSelected1]=useState(false);
   const [selected2,setSelected2]=useState(false);
+  const [selected3,setSelected3]=useState(false);
   const [rememberMe,setRememberMe]=useState(false);
   const [rememberMe1,setRememberMe1]=useState(false);
   const [rememberMe2,setRememberMe2]=useState(false);
+  const [rememberMe3,setRememberMe3]=useState(false);
+  const [rememberMe4,setRememberMe4]=useState(false);
   const [shouldShow, setShouldShow] = useState(true);
   const [shouldShow1, setShouldShow1] = useState(true);
   const [shouldShow2, setShouldShow2] = useState(true);
+  const [shouldShow3, setShouldShow3] = useState(false);
+  const [shouldShow4, setShouldShow4] = useState(true);
+  const [shouldShow5, setShouldShow5] = useState(true);
+  const [shouldShow6, setShouldShow6] = useState(true);
   const [showCamera, setShowCamera] = useState(false);
   const [wasteImage, setWasteImage] = useState(null);
   const [base64Image, setBase64Image] = useState("");
@@ -88,7 +95,7 @@ const PaymentVerification = () => {
       setRememberMe(rememberMe);
       setSelected(false);
     }  else {
-      alert("Please Fill The Details First");
+      // alert("Please Fill The Details First");
     }
   }
 
@@ -97,17 +104,23 @@ const PaymentVerification = () => {
       setRememberMe1(rememberMe1);
       setSelected1(false);
     }  else {
-      alert("Please Fill The Details First");
+      // alert("Please Fill The Details First");
     }
   }
 
-  // const selectedCheckbox2 = (setRememberMe2) => {
-  //   if (selected2) {
-  //     setRememberMe2(rememberMe2)
-  //   }  else {
-  //     alert("Please Fill The Details First");
-  //   }
-  // }
+  const selectedCheckbox2 = (setRememberMe4) => {
+    if (selected3) {
+      setRememberMe4(rememberMe4);
+      setSelected3(false);
+    }  else {
+      // alert("Please Fill The Details First");
+    }
+  }
+
+  const proposeWeight = (shouldShow3,selected2) => {
+    setShouldShow3(shouldShow3);
+    setSelected2(selected2);
+  }
   return (
     <KeyboardAwareScrollView style={{ flex: 1, paddingHorizontal: RfW(20), backgroundColor: '#ffffff', }}>
       <View style={[style.flexDir, AppStyle.mt20,]}>
@@ -115,7 +128,7 @@ const PaymentVerification = () => {
         <Image style={Styles.lftimg} source={require('../../assets/Images/AdminNewOrder/Group10055.png')}  />
           </View>
         <View style={style.flexpointseven}>
-          <Text style={[Appstyles.txtBlackBold, Appstyles.f20,]}>Payment</Text>
+          <Text style={[Appstyles.txtBlackBold, Appstyles.f20,]}>Order Details</Text>
           </View>
         </View>
 
@@ -180,7 +193,9 @@ const PaymentVerification = () => {
        </View>
 
       <View style={[style.flexDir, AppStyle.mt35,]}>
-      <TouchableOpacity style={[style.flexpointfour]} onPress={() => setShouldShow(!shouldShow)}>
+      <TouchableOpacity style={[style.flexpointfour]} onPress={() => {setShouldShow(!shouldShow)   
+      setShouldShow3(false)
+      setSelected2(false)}}>
         <Text style={[Appstyles.txtBlackRegular, Appstyles.f15,]}>Is the material Weighted</Text>
       </TouchableOpacity>
      
@@ -196,288 +211,199 @@ const PaymentVerification = () => {
              
                   </View>
                   {shouldShow ? (
-        //  <View style={[AppStyle.mt20,]}>
-        //  <Text style={[Appstyles.txtBlackRegular, Appstyles.f15, AppStyle.mb6,]}>Test</Text>
-        //  <View style={{flex: 1, flexDirection: 'row'}}>
-        //  <TextInput placeholder={"25,864"} style={Styles.inputTextf} />
-        //  <FAIcon style={Styles.rupee} size={15} name="rupee" />
-        //  </View>
-        //  </View>
 
         // start view
         <View>
-            <View style={Styles.headerContainer}>
-            <Text style={Styles.headerText}>Enter the following details</Text>
-            </View>
-
-            <View style={Styles.viewVolume}>
-            <Text style={Styles.inputLabelText}>Enter The Weight</Text>
-            <View style={Styles.viewVolumeInputContainer}>
-              <TextInput
-                placeholder={"Enter Volume"}
-                style={[Styles.inputText, Styles.locationTxt]}
-              />
-              <DropDownPicker
-                items={[
-                  { label: "USA", value: "usa", hidden: true },
-                  { label: "Units", value: "0" },
-                  { label: "France", value: "france" },
-                ]}
-                defaultValue={'0'}
-                globalTextStyle={Styles.dropDownText}
-                containerStyle={{ height: 45, flex: 2 }}
-                style={{ backgroundColor: "#e4e4e4" }}
-                itemStyle={{
-                  justifyContent: "flex-start",
-                }}
-                dropDownStyle={{ backgroundColor: "#fafafa" }}
-                onChangeItem={(item) => console.log(item)}
-              />
+         <View style={style.flexDir}>
+            <View style={style.flex1}>
+            <View>
+              <TouchableOpacity style={{ marginTop: 20,
+    borderRadius: 10,
+    // backgroundColor:Colors.mango,
+    backgroundColor: shouldShow3 == true ? Colors.mango : Colors.grayBackground,
+    alignItems:'center',
+    height: 44,
+    width: 154,}} onPress={() => {proposeWeight(true,false)}}>
+                {/* <Text style={[Appstyles.txtSecandaryRegular, Appstyles.f15, AppStyle.mt10,]}>Confirm Weight</Text> */}
+                <Text style={{fontSize: 15, marginTop: 10, 
+                color: shouldShow3 == true ? Colors.white : Colors.warmGrey, }}>Confirm Weight</Text>
+              </TouchableOpacity>
             </View>
             </View>
-
-            <View style={[Styles.imagePickerContainer, AppStyle.mt20,]}>
-        <Text style={Styles.inputLabelText}>Add Weigh Bridge Slip</Text>
-        <View
-          style={{
-            flex: 1,
-            flexDirection: "row",
-            justifyContent: "space-between",
-          }}
-        >
-          <TouchableOpacity
-            style={[Styles.iconButton, AppStyle.mr10]}
-            onPress={() => onShowCamera()}
-          >
-            <FAIcon
-              name={"camera"}
-              size={25}
-              style={{ marginRight: 10 }}
-              color={Colors.grayThree}
-            />
-            <Text
-              style={{ color: Colors.grayThree, fontFamily: Fonts.regular }}
-            >
-              Camera
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={Styles.iconButton}
-            onPress={() => onLibraryOpen()}
-          >
-            <FAIcon
-              name={"image"}
-              size={25}
-              style={{ marginRight: 10 }}
-              color={Colors.grayThree}
-            />
-            <Text
-              style={{ color: Colors.grayThree, fontFamily: Fonts.regular }}
-            >
-              Library
-            </Text>
-          </TouchableOpacity>
-          <Camera
-            visible={showCamera}
-            onClose={onClose}
-            onTakePic={onTakePic}
-          />
-        </View>
-      </View>
-
-      <View style={{ marginTop: 35 }}>
-        <Text style={Styles.inputLabelText}>Enter Vehicle Number</Text>
-        <TextInput placeholder={"Enter Vehicle Number"} style={Styles.inputText} />
-      </View>
-
-      <View style={Styles.imagePickerContainer}>
-        <Text style={Styles.inputLabelText}>Add Vehicle Pictures</Text>
-        <View
-          style={{
-            flex: 1,
-            flexDirection: "row",
-            justifyContent: "space-between",
-          }}
-        >
-          <TouchableOpacity
-            style={[Styles.iconButton, AppStyle.mr10]}
-            onPress={() => onShowCamera()}
-          >
-            <FAIcon
-              name={"camera"}
-              size={25}
-              style={{ marginRight: 10 }}
-              color={Colors.grayThree}
-            />
-            <Text
-              style={{ color: Colors.grayThree, fontFamily: Fonts.regular }}
-            >
-              Camera
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={Styles.iconButton}
-            onPress={() => onLibraryOpen()}
-          >
-            <FAIcon
-              name={"image"}
-              size={25}
-              style={{ marginRight: 10 }}
-              color={Colors.grayThree}
-            />
-            <Text
-              style={{ color: Colors.grayThree, fontFamily: Fonts.regular }}
-            >
-              Library
-            </Text>
-          </TouchableOpacity>
-          <Camera
-            visible={showCamera}
-            onClose={onClose}
-            onTakePic={onTakePic}
-          />
-        </View>
-      </View>
-
-      <View style={{ marginTop: 35 }}>
-        <Text style={Styles.inputLabelText}>Enter The Way Bill Number</Text>
-        <TextInput placeholder={"Enter Vehicle Number"} style={Styles.inputText} />
-      </View>
-
-      <View style={Styles.imagePickerContainer}>
-        <Text style={Styles.inputLabelText}>Add Vehicle Pictures</Text>
-        <View
-          style={{
-            flex: 1,
-            flexDirection: "row",
-            justifyContent: "space-between",
-          }}
-        >
-          <TouchableOpacity
-            style={[Styles.iconButton, AppStyle.mr10]}
-            onPress={() => onShowCamera()}
-          >
-            <FAIcon
-              name={"camera"}
-              size={25}
-              style={{ marginRight: 10 }}
-              color={Colors.grayThree}
-            />
-            <Text
-              style={{ color: Colors.grayThree, fontFamily: Fonts.regular }}
-            >
-              Camera
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={Styles.iconButton}
-            onPress={() => onLibraryOpen()}
-          >
-            <FAIcon
-              name={"image"}
-              size={25}
-              style={{ marginRight: 10 }}
-              color={Colors.grayThree}
-            />
-            <Text
-              style={{ color: Colors.grayThree, fontFamily: Fonts.regular }}
-            >
-              Library
-            </Text>
-          </TouchableOpacity>
-          <Camera
-            visible={showCamera}
-            onClose={onClose}
-            onTakePic={onTakePic}
-          />
-        </View>
-      </View>
-
-      <View style={{ marginTop: 35 }}>
-        <Text style={Styles.inputLabelText}>Enter Invoice Number</Text>
-        <TextInput placeholder={"Enter Vehicle Number"} style={Styles.inputText} />
-      </View>
-
-      <View style={Styles.imagePickerContainer}>
-        <Text style={Styles.inputLabelText}>Add Invoice Pictures</Text>
-        <View
-          style={{
-            flex: 1,
-            flexDirection: "row",
-            justifyContent: "space-between",
-          }}
-        >
-          <TouchableOpacity
-            style={[Styles.iconButton, AppStyle.mr10]}
-            onPress={() => onShowCamera()}
-          >
-            <FAIcon
-              name={"camera"}
-              size={25}
-              style={{ marginRight: 10 }}
-              color={Colors.grayThree}
-            />
-            <Text
-              style={{ color: Colors.grayThree, fontFamily: Fonts.regular }}
-            >
-              Camera
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={Styles.iconButton}
-            onPress={() => onLibraryOpen()}
-          >
-            <FAIcon
-              name={"image"}
-              size={25}
-              style={{ marginRight: 10 }}
-              color={Colors.grayThree}
-            />
-            <Text
-              style={{ color: Colors.grayThree, fontFamily: Fonts.regula, }}
-            >
-              Library
-            </Text>
-          </TouchableOpacity>
-          <Camera
-            visible={showCamera}
-            onClose={onClose}
-            onTakePic={onTakePic}
-          />
-        </View>
-      </View>
-
-      <View style={{ marginTop: RfH(10), marginTop: 25, marginBottom: 25 }}>
-        <TouchableOpacity style={Styles.confirmButtonaa} onPress={() => setSelected(true)}>
-          <Text style={Styles.confirmBtnTextaa}>CONFIRM</Text>
-        </TouchableOpacity>
-      </View>
-
+            <View style={style.flex1}>
+            <View>
+              <TouchableOpacity style={{  marginTop:20,
+    borderRadius: 10,
+    backgroundColor: selected2 == true ? Colors.mango : Colors.grayBackground,
+    // backgroundColor:Colors.grayBackground,
+    height: 44,
+    width: 154,
+    alignItems:'center',
+    marginLeft: 9,}} onPress={() => {proposeWeight(false,true)}}>
+                <Text style={{fontSize: 15, marginTop: 10, 
+                color: selected2 == true ? Colors.white : Colors.warmGrey, }}>Propose Weight</Text>
+              </TouchableOpacity>
+            </View>
+            </View>
+          </View>
       </View>
    
         // End View
         ) : null}
 
-               {/* hide and show start */}
-               {/* <Button
-                  style={{height: 10,}}
-          title="Hide/Show Component"
-          onPress={() => setShouldShow(!shouldShow)}
-        />
-                  {shouldShow ? (
-         <View style={[AppStyle.mt20,]}>
-         <Text style={[Appstyles.txtBlackRegular, Appstyles.f15, AppStyle.mb6,]}>Payment Required</Text>
-         <View style={{flex: 1, flexDirection: 'row'}}>
-         <TextInput placeholder={"25,864"} style={Styles.inputTextf} />
-         <FAIcon style={Styles.rupee} size={15} name="rupee" />
-         </View>
-         </View>
-        ) : null} */}
+             {/* Start Confirm Weight */}
+             {shouldShow3 == true ? (
+             <View>
+
+{/* <View style={Styles.viewVolume}>
+                <Text style={Styles.inputLabelText}>Enter New Volume</Text>
+                <View style={Styles.viewVolumeInputContainer}>
+                  <TextInput
+                    placeholder={"Enter Volume"}
+                    style={[Styles.inputText, Styles.locationTxt]}
+                  />
+                  <DropDownPicker
+                    items={[
+                      { label: "USA", value: "usa", hidden: true },
+                      { label: "Units", value: "0" },
+                      { label: "France", value: "france" },
+                    ]}
+                    defaultValue={'0'}
+                    globalTextStyle={Styles.dropDownText}
+                    containerStyle={{ height: 45, flex: 2 }}
+                    style={{ backgroundColor: "#e4e4e4" }}
+                    itemStyle={{
+                      justifyContent: "flex-start",
+                    }}
+                    dropDownStyle={{ backgroundColor: "#fafafa" }}
+                    onChangeItem={(item) => console.log(item)}
+                  />
+              </View>
+           </View> */}
+
+                        <View style={{ marginTop: 20 }}>
+                  <Text style={Styles.inputLabelText}>Kanta Slip Number</Text>
+                  <TextInput placeholder={"Slip Number"} style={Styles.inputText} />
+                </View>
+
+                <View style={[style.flexDir,, Styles.viewVolume]}>
+                <View style={style.flex1}>
+                  <Text style={Styles.inputLabelText}>Date</Text>
+                  <View style={Styles.viewVolumeInputContainer}>
+                    <TextInput
+                      placeholder={"dd/mm/yyyy"}
+                      style={[Styles.inputText, Styles.locationTxt]}
+                    />
+                  </View> 
+                  </View>
+                  <View style={style.flex1}>
+                  <Text style={Styles.inputLabelText}>Upload Documents</Text>
+                  <View style={Styles.viewVolumeInputContainer}>
+                    <TextInput
+                      placeholder={"Upload file"}
+                      style={[Styles.inputText, Styles.locationTxt]}
+                    />
+                  </View> 
+                  </View>
+                  </View>
+
+                  <View style={style.flexDir}>
+                      <View style={style.flex1}>
+                      <View style={{ marginTop: RfH(10), marginTop: 5, marginBottom: 25 }}>
+                        <TouchableOpacity style={Styles.confirmButtonn} onPress={handleConfirm}>
+                          <Text style={Styles.confirmBtnTextt}>CANCEL</Text>
+                        </TouchableOpacity>
+                      </View>
+                      </View>
+                      <View style={style.flex1}>
+                      <View style={{ marginTop: RfH(10), marginTop: 5, marginBottom: 25 }}>
+                        <TouchableOpacity style={Styles.confirmButton} onPress={handleConfirm}>
+                          <Text style={Styles.confirmBtnText}>CONFIRM</Text>
+                        </TouchableOpacity>
+                      </View>
+                      </View>
+                  </View>
+             </View>  
+             ) : null || selected2 == true ? ( 
+              <View>
+                  <View style={Styles.viewVolume}>
+                <Text style={Styles.inputLabelText}>Enter New Volume</Text>
+                <View style={Styles.viewVolumeInputContainer}>
+                  <TextInput
+                    placeholder={"Enter Volume"}
+                    style={[Styles.inputText, Styles.locationTxt]}
+                  />
+                  <DropDownPicker
+                    items={[
+                      { label: "USA", value: "usa", hidden: true },
+                      { label: "Units", value: "0" },
+                      { label: "France", value: "france" },
+                    ]}
+                    defaultValue={'0'}
+                    globalTextStyle={Styles.dropDownText}
+                    containerStyle={{ height: 45, flex: 2 }}
+                    style={{ backgroundColor: "#e4e4e4" }}
+                    itemStyle={{
+                      justifyContent: "flex-start",
+                    }}
+                    dropDownStyle={{ backgroundColor: "#fafafa" }}
+                    onChangeItem={(item) => console.log(item)}
+                  />
+              </View>
+           </View>
+
+              <View style={{ marginTop: 20 }}>
+        <Text style={Styles.inputLabelText}>Kanta Slip Number</Text>
+        <TextInput placeholder={"Slip Number"} style={Styles.inputText} />
+      </View>
+
+      <View style={[style.flexDir,, Styles.viewVolume]}>
+      <View style={style.flex1}>
+        <Text style={Styles.inputLabelText}>Date</Text>
+        <View style={Styles.viewVolumeInputContainer}>
+          <TextInput
+            placeholder={"dd/mm/yyyy"}
+            style={[Styles.inputText, Styles.locationTxt]}
+          />
+        </View> 
+        </View>
+        <View style={style.flex1}>
+        <Text style={Styles.inputLabelText}>Upload Documents</Text>
+        <View style={Styles.viewVolumeInputContainer}>
+          <TextInput
+            placeholder={"Upload file"}
+            style={[Styles.inputText, Styles.locationTxt]}
+          />
+        </View> 
+        </View>
+        </View>
+
+        <View style={style.flexDir}>
+            <View style={style.flex1}>
+            <View style={{ marginTop: RfH(10), marginTop: 5, marginBottom: 25 }}>
+              <TouchableOpacity style={Styles.confirmButtonn} onPress={handleConfirm}>
+                <Text style={Styles.confirmBtnTextt}>CANCEL</Text>
+              </TouchableOpacity>
+            </View>
+            </View>
+            <View style={style.flex1}>
+            <View style={{ marginTop: RfH(10), marginTop: 5, marginBottom: 25 }}>
+              <TouchableOpacity style={Styles.confirmButton} onPress={() => {setSelected(true)   
+       setRememberMe(!rememberMe)
+      }}>
+                <Text style={Styles.confirmBtnText}>CONFIRM</Text>
+              </TouchableOpacity>
+            </View>
+            </View>
+        </View>
+   </View>  
+             ) : null  } 
+             {/* End Confirm Weight */}
 
 
-                  
-
-        {/* hide and show finish */}
+             
+        
+  
          {/* Start Material pickup confirmation */}
         <View style={[style.flexDir, AppStyle.mt20,]}>
       <TouchableOpacity style={[style.flexpointfour]} onPress={() => setShouldShow1(!shouldShow1)}>
@@ -489,13 +415,13 @@ const PaymentVerification = () => {
                   <CheckBoxWrapper
                     isChecked={rememberMe1}
                     checkBoxHandler={() =>
-                      selectedCheckbox1((setRememberMe1) => !rememberMe1)
+                      selectedCheckbox1((rememberMe1) => !rememberMe1)
                     }
                   />
                   </View>
              
                   </View>
-                  {shouldShow1 ? (
+                  {!shouldShow1 ? (
                 <View>
                 <View style={[AppStyle.mt20,]}>
     <Text style={[Appstyles.txtBlackRegular, Appstyles.f15, AppStyle.mb6,]}>Payment Required</Text>
@@ -563,7 +489,7 @@ const PaymentVerification = () => {
   </View>
   <View style={style.flex1}>
   <View style={{ marginTop: RfH(10), marginTop: 5, marginBottom: 25 }}>
-    <TouchableOpacity style={Styles.confirmButton} onPress={() => setSelected1(true)}>
+    <TouchableOpacity style={Styles.confirmButton} onPress={() => setShouldShow6(!shouldShow6)}>
       <Text style={Styles.confirmBtnText}>CONFIRM</Text>
     </TouchableOpacity>
   </View>
@@ -573,8 +499,20 @@ const PaymentVerification = () => {
                    ) : null} 
                   {/* End Material pickup confirmation */}
 
+                   {/* Start Confirm Pickup */}
+             {!shouldShow6 ? (
+             <View>
+              <TouchableOpacity style={Styles.confirmButtonnabcd} onPress={() => {setSelected1(true)   
+       setRememberMe1(!rememberMe1)
+      }}>
+                <Text style={[Appstyles.txtSecandaryRegular, Appstyles.f17, AppStyle.mt10,]}>Confirm Pickup</Text>
+              </TouchableOpacity>
+            </View>
+            ) : null}
+            {/* End Confirm Pickup */}
+
                   <View style={[style.flexDir, AppStyle.mt20,]}>
-      <TouchableOpacity style={[style.flexpointsix]}>
+      <TouchableOpacity style={[style.flexpointsix]} onPress={() => setShouldShow4(!shouldShow4)}>
         <Text style={[Appstyles.txtBlackRegular, Appstyles.f15,]}>Has the material reached your warehouse</Text>
       </TouchableOpacity>
      
@@ -582,15 +520,76 @@ const PaymentVerification = () => {
       <View style={[style.flexpointfour, AppStyle.mt10, Appstyles.alignfend, AppStyle.mr10]}>
                   <CheckBoxWrapper
                    style={{width: 50, height: 50}}
-                    isChecked={rememberMe2}
+                    isChecked={rememberMe4}
                     checkBoxHandler={() =>
-                      setRememberMe2((setRememberMe2) => !rememberMe2)
+                      // setRememberMe2((setRememberMe2) => !rememberMe2)
+                      selectedCheckbox2((setRememberMe4) => !rememberMe4)
                     }
                   />
                   </View>
              
                   </View>
-     
+
+                   {/* Start material reached your warehouse */}
+             {!shouldShow4 ? (
+             <View>
+                        <View style={{ marginTop: 20 }}>
+                  <Text style={Styles.inputLabelText}>Vehicle Number</Text>
+                  <TextInput placeholder={"Enter Vehicle Number"} style={Styles.inputText} />
+                </View>
+
+                <View style={[style.flexDir,, Styles.viewVolume]}>
+                <View style={style.flex1}>
+                  <Text style={Styles.inputLabelText}>Date</Text>
+                  <View style={Styles.viewVolumeInputContainer}>
+                    <TextInput
+                      placeholder={"dd/mm/yyyy"}
+                      style={[Styles.inputText, Styles.locationTxt]}
+                    />
+                  </View> 
+                  </View>
+                  <View style={style.flex1}>
+                  <Text style={Styles.inputLabelText}>Upload Documents</Text>
+                  <View style={Styles.viewVolumeInputContainer}>
+                    <TextInput
+                      placeholder={"Upload file"}
+                      style={[Styles.inputText, Styles.locationTxt]}
+                    />
+                  </View> 
+                  </View>
+                  </View>
+
+                  <View style={style.flexDir}>
+                      <View style={style.flex1}>
+                      <View style={{ marginTop: RfH(10), marginTop: 5, marginBottom: 25 }}>
+                        <TouchableOpacity style={Styles.confirmButtonn} onPress={handleConfirm}>
+                          <Text style={Styles.confirmBtnTextt}>CANCEL</Text>
+                        </TouchableOpacity>
+                      </View>
+                      </View>
+                      <View style={style.flex1}>
+                      <View style={{ marginTop: RfH(10), marginTop: 5, marginBottom: 25 }}>
+                        <TouchableOpacity style={Styles.confirmButton} onPress={() => setShouldShow5(!shouldShow5)}>
+                          <Text style={Styles.confirmBtnText}>CONFIRM</Text>
+                        </TouchableOpacity>
+                      </View>
+                      </View>
+                  </View>
+             </View>  
+             ) : null}
+             {/* End material reached your warehouse */}
+
+             {/* Start Confirm Receipt */}
+             {!shouldShow5 ? (
+             <View>
+              <TouchableOpacity style={Styles.confirmButtonnabcd} onPress={() => {setSelected3(true)   
+       setRememberMe4(!rememberMe4)
+      }}>
+                <Text style={[Appstyles.txtSecandaryRegular, Appstyles.f17, AppStyle.mt10,]}>Confirm Receipt</Text>
+              </TouchableOpacity>
+            </View>
+            ) : null}
+            {/* End Confirm Receipt */}
 
       
      

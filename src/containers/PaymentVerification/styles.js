@@ -4,6 +4,33 @@ import Fonts from "../../theme/Fonts";
 import { Colors } from '../../theme';
 
 const styles = StyleSheet.create({
+  confirmButtonnabcd:{
+    borderRadius: 10,
+    backgroundColor:Colors.grayBackground,
+    height: 44,
+    width: 315,
+    alignItems:'center',
+    marginTop: 10,
+  },
+  confirmButtonabc:{
+    marginTop: 20,
+    borderRadius: 10,
+    backgroundColor:Colors.mango,
+    // backgroundColor: shouldShow3 == true ? Colors.mango : Colors.grayBackground,
+    alignItems:'center',
+    height: 44,
+    width: 154,
+  },
+  confirmButtonnabc:{
+    marginTop:20,
+    borderRadius: 10,
+    backgroundColor:Colors.grayBackground,
+    // backgroundColor: selected2 == true ? Colors.mango : Colors.grayBackground,
+    height: 44,
+    width: 154,
+    alignItems:'center',
+    marginLeft: 9,
+  },
   imageContainer:{
     alignItems:'center',
     flexDirection:'row',
@@ -40,14 +67,14 @@ const styles = StyleSheet.create({
     borderWidth: 1,
   },
   confirmBtnText:{
-    fontSize: 17,
+    fontSize: 15,
     fontFamily:
     Fonts.regular,
     color: Colors.white,
     marginTop: 10,
   },
   confirmBtnTextt:{
-    fontSize: 17,
+    fontSize: 15,
     fontFamily:
     Fonts.regular,
     color: Colors.mango,

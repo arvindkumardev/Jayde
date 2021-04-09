@@ -111,6 +111,9 @@ const spaces = StyleSheet.create({
     mt40:{
         marginTop: 40
     },
+    mt50:{
+        marginTop: 50
+    },
     mt20:{
         marginTop: 20
     },

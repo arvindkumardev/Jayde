@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   confirmBtnText:{
-    fontSize: 18,
+    fontSize: 17,
     fontFamily:
     Fonts.regular,
     color: Colors.white,
