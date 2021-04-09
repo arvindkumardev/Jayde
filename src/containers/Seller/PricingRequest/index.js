@@ -1,87 +1,79 @@
-import React, { useState, useLayoutEffect } from 'react';
+import React, { useState, useLayoutEffect, useEffect, useContext } from 'react';
 import { View, Text, TouchableOpacity, TextInput } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import { launchImageLibrary } from 'react-native-image-picker';
 import FAIcon from 'react-native-vector-icons/FontAwesome';
 import { AppStyles, Colors } from '../../../theme';
 import NavigationRouteNames from '../../../routes/ScreenNames';
 import DropDown from '../../../components/Picker/index';
-import { UploadDocument, CustomSelect } from '../../../components/index';
-
-const data = [
-  { label: 'Test1', value: '1', key: 1, color: Colors.mango, displayValue: true },
-  { label: 'Test2', value: '2', key: 2, color: Colors.mango, displayValue: '' },
-  { label: 'Test3', value: '3', key: 3, color: Colors.mango, displayValue: '' },
-];
+import { UploadDocument } from '../../../components/index';
+import { getSubCategories, getUnits, createQuote } from './middleware';
+import UserContext from '../../../appContainer/context/user.context';
 
 const PricingRequest = () => {
   const navigation = useNavigation();
+  const { setLoader } = useContext(UserContext);
   const route = useRoute();
-  const [showCamera, setShowCamera] = useState(false);
-  const [wasteImage, setWasteImage] = useState(null);
-  const [base64Image, setBase64Image] = useState('');
-  const [subCategories, setSubCategories] = useState([]);
-  const [selectedItem, setSelectedItem] = useState('');
   const [imageUpload, setImageUpload] = useState(false);
+  const [subCategories, setSubCategoryes] = useState([]);
+  const [unitPickerData, setUnitData] = useState([]);
+  const [{ data: subData }, onGetSubCategories] = getSubCategories();
+  const [{ data: unitsData }, onGetUnits] = getUnits();
+  const [{ data: quoteData, loading, error }, onSubmitQuote] = createQuote();
 
-  const onShowCamera = () => {
-    console.log(showCamera);
-    setShowCamera(!showCamera);
-  };
+  const [categoryId, setCategoryId] = useState(0);
+  const [subCategoryId, setSubCategoryId] = useState('');
+  const [volume, setVolume] = useState('');
+  const [location, setLocation] = useState('');
+  const [unit, setUnit] = useState('');
+
+  useEffect(() => {
+    if (subData) {
+      const pickerData = subData.map((item) => ({ label: item.sub_category_name, value: item.id }));
+      setSubCategoryes(pickerData);
+    }
+  }, [subData]);
+
+  useEffect(() => {
+    if (unitsData) {
+      const pickderData = unitsData.map((item) => ({ label: item.unit_name, value: item.id }));
+      setUnitData(pickderData);
+    }
+  }, [unitsData]);
+
+  // useEffect(() => {
+  //   setLoader(quoteProgress);
+  // }, [quoteProgress]);
+
+  useEffect(() => {
+    console.log('Quote submit data response', quoteData, loading);
+    setLoader(loading);
+  }, [quoteData, loading]);
+
   useLayoutEffect(() => {
     const { title, categoryId } = route.params;
+    onGetSubCategories({ data: { id: categoryId } });
+    onGetUnits();
+    setCategoryId(categoryId);
     navigation.setOptions({
-      title: 'Paper Waste',
+      title,
     });
   }, []);
 
-  // useEffect(async () => {
-  //   const { data } = await getSubCategory(1);
-  //   console.log('Getting response from subcategory ', data);
-  // }, []);
-
-  const onClose = () => {
-    setShowCamera(false);
-  };
-
-  const onLibraryOpen = () => {
-    const options = {
-      title: 'Select Image',
-      storageOptions: {
-        skipBackup: true,
-        path: 'images',
+  const handleConfirm = () => {
+    onSubmitQuote({
+      data: {
+        primeId: 0,
+        category_id: categoryId,
+        sub_category_id: subCategoryId,
+        qty: volume,
+        unit,
+        location,
+        uploaded_files: '',
       },
-    };
-    launchImageLibrary(options, (response) => {
-      console.log('Response = ', response);
-      if (response.didCancel) {
-        console.log('User cancelled image picker');
-      } else if (response.error) {
-        console.log('ImagePicker Error: ', response.error);
-      } else {
-        setWasteImage(response);
-      }
     });
   };
 
-  const onTakePic = (imageObject) => {
-    console.log(imageObject.base64);
-    setWasteImage(imageObject);
-    setBase64Image(imageObject.base64);
-    setShowCamera(false);
-  };
-
-  const onRemoveImage = () => {
-    setWasteImage(null);
-    setBase64Image('');
-  };
-  const handleDropDownSelection = (val) => {
-    setSelectedItem(val);
-  };
-  const handleConfirm = () => {
-    navigation.navigate(NavigationRouteNames.NEW_ORDER_REQUEST);
-  };
   return (
     <KeyboardAwareScrollView
       style={[AppStyles.ph20, AppStyles.pv15, { backgroundColor: '#fff' }]}
@@ -93,10 +85,10 @@ const PricingRequest = () => {
         <View style={[AppStyles.mt20]}>
           <Text style={[AppStyles.txtBlackRegular, AppStyles.f16, AppStyles.mb10]}>Please choose a sub category</Text>
           <DropDown
-            items={data}
+            items={subCategories}
             itemStyle={{ color: '#000' }}
-            onValueChange={handleDropDownSelection}
-            selectedValue={selectedItem}
+            onValueChange={(val) => setSubCategoryId(val)}
+            selectedValue={subCategoryId}
             containerStyle={{ borderRadius: 10, backgroundColor: Colors.grayTwo, paddingLeft: 10 }}
           />
         </View>
@@ -108,16 +100,18 @@ const PricingRequest = () => {
             <View style={{ flex: 2, paddingRight: 10 }}>
               <TextInput
                 placeholder="Enter volume"
+                value={volume}
+                onChangeText={(txt) => setVolume(txt)}
                 style={{ backgroundColor: Colors.grayTwo, borderRadius: 10, paddingLeft: 10 }}
               />
             </View>
             <View style={{ flex: 1 }}>
               <DropDown
-                items={data}
+                items={unitPickerData}
                 placeholderText="Units"
                 itemStyle={{ color: '#000' }}
-                onValueChange={handleDropDownSelection}
-                selectedValue={selectedItem}
+                onValueChange={(val) => setUnit(val)}
+                selectedValue={unit}
                 containerStyle={{ borderRadius: 10, backgroundColor: Colors.grayTwo, paddingLeft: 10 }}
               />
             </View>
@@ -129,7 +123,9 @@ const PricingRequest = () => {
           </View>
           <View>
             <TextInput
+              value={location}
               placeholder="Enter location"
+              onChangeText={(txt) => setLocation(txt)}
               style={{ backgroundColor: Colors.grayTwo, borderRadius: 10, paddingLeft: 10 }}
             />
           </View>

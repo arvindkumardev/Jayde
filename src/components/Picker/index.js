@@ -21,8 +21,8 @@ const DropDown = (props) => {
           onValueChange={onValueChange}
           selectedValue={selectedValue}>
           <Item label={placeholderText} value="" />
-          {dropDownData.map((item) => (
-            <Item value={item.value} label={item.label} />
+          {dropDownData.map((item, index) => (
+            <Item key={index} value={item.value} label={item.label} />
           ))}
         </Picker>
       </View>

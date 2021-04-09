@@ -34,7 +34,7 @@ axios.interceptors.request.use(
   async (config) => {
     const source = CancelToken.source();
     config.cancelToken = source.token;
-    console.log("Request config", config);
+    console.log("Request config", config.data);
     const token = await getSaveData(LOCAL_STORAGE_DATA_KEY.JWT_TOKEN);
     console.log("Token", token);
     if (token) {

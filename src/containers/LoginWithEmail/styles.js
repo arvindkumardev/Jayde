@@ -1,6 +1,6 @@
-import {StyleSheet} from 'react-native';
-import {RfH, RfW} from '../../utils/helpers';
-import {Colors} from '../../theme';
+import { StyleSheet } from 'react-native';
+import { RfH, RfW } from '../../utils/helpers';
+import { Colors } from '../../theme';
 
 const styles = StyleSheet.create({
   formContainer: {
@@ -17,19 +17,16 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   loginButton: {
-    marginVertical: RfH(25),
-    paddingVertical: RfH(17),
-    justifyContent: 'center',
+    paddingLeft: 40,
+    paddingRight: 20,
+    backgroundColor: Colors.green,
+    paddingVertical: 10,
+    borderTopLeftRadius: 30,
+    borderBottomLeftRadius: 30,
+    borderBottomRightRadius: 30,
     alignItems: 'center',
-    backgroundColor: Colors.yellow,
-    borderRadius: RfH(12),
-    shadowColor: 'rgba(0, 0, 0, 0.16)',
-    shadowOffset: {
-      width: 0,
-      height: 3,
-    },
-    shadowRadius: 6,
-    shadowOpacity: 1,
+    alignSelf: 'flex-end',
+    flexDirection: 'row',
   },
   eyeIcon: {
     fontSize: 18,

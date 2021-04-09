@@ -84,7 +84,7 @@ function HomeScreen() {
           </TouchableOpacity>
         </View>
         <TouchableOpacity onPress={() => handleNavigate(item.screenName)} style={Styles.menuActionItem}>
-          <MCIcon name="pencil" color={Colors.white} size={20} style={{ alignSelf: 'flex-end' }} />
+          <MCIcon name={item.iconName} color={Colors.white} size={20} style={{ alignSelf: 'flex-end' }} />
           <View>
             <Text style={[AppStyles.txtWhiteBold, AppStyles.f16]}>{item.menuName}</Text>
           </View>

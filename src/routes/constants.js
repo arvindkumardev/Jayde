@@ -13,36 +13,276 @@ const USER_ROLE = {
   EPR: "EPR",
 };
 
+const DRAWER_MENU = {
+  seller: [
+      {
+          name: 'My Home',
+          color: Colors.mango,
+          iconName: 'home',
+          screenName: NavigationRouteNames.NEW_ORDER_REQUEST
+      },
+      {
+          name: 'Download Reports',
+          color: Colors.mango,
+          iconName: 'download',
+          screenName: ''
+      },
+      {
+          name: 'Manage Orders',
+          color: Colors.mango,
+          iconName: 'edit',
+          screenName: ''
+      },
+      {
+          name: 'Manage EPR',
+          color: Colors.mango,
+          iconName: 'th-large',
+          screenName: ''
+      },
+      {
+          name: 'Manage Sub Category',
+          color: Colors.mango,
+          iconName: 'tasks',
+          screenName: ''
+      },
+      {
+          name: 'Manage Jayde Users',
+          color: Colors.mango,
+          iconName: 'snowflake-o',
+          screenName: ''
+      },
+      {
+          name: 'Users',
+          color: Colors.mango,
+          iconName: 'users',
+          screenName: ''
+      },
+      {
+          name: 'Logout',
+          color: Colors.mango,
+          iconName: 'power-off',
+          screenName: 'logout'
+      },
+  ],
+  admin: [
+    {
+        name: 'My Home',
+        color: Colors.mango,
+        iconName: 'home',
+        screenName: NavigationRouteNames.NEW_ORDER_REQUEST
+    },
+    {
+        name: 'Download Reports',
+        color: Colors.mango,
+        iconName: 'download',
+        screenName: ''
+    },
+    {
+        name: 'Manage Orders',
+        color: Colors.mango,
+        iconName: 'edit',
+        screenName: ''
+    },
+    {
+        name: 'Manage EPR',
+        color: Colors.mango,
+        iconName: 'th-large',
+        screenName: ''
+    },
+    {
+        name: 'Manage Sub Category',
+        color: Colors.mango,
+        iconName: 'tasks',
+        screenName: ''
+    },
+    {
+        name: 'Manage Jayde Users',
+        color: Colors.mango,
+        iconName: 'snowflake-o',
+        screenName: ''
+    },
+    {
+        name: 'Users',
+        color: Colors.mango,
+        iconName: 'users',
+        screenName: ''
+    },
+    {
+        name: 'Logout',
+        color: Colors.mango,
+        iconName: 'power-off',
+        screenName: 'logout'
+    },
+  ],
+  aggregate: [
+    {
+        name: 'My Home',
+        color: Colors.mango,
+        iconName: 'home',
+        screenName: NavigationRouteNames.NEW_ORDER_REQUEST
+    },
+    {
+        name: 'Download Reports',
+        color: Colors.mango,
+        iconName: 'download',
+        screenName: ''
+    },
+    {
+        name: 'Manage Orders',
+        color: Colors.mango,
+        iconName: 'edit',
+        screenName: ''
+    },
+    {
+        name: 'Manage EPR',
+        color: Colors.mango,
+        iconName: 'th-large',
+        screenName: ''
+    },
+    {
+        name: 'Manage Sub Category',
+        color: Colors.mango,
+        iconName: 'tasks',
+        screenName: ''
+    },
+    {
+        name: 'Manage Jayde Users',
+        color: Colors.mango,
+        iconName: 'snowflake-o',
+        screenName: ''
+    },
+    {
+        name: 'Users',
+        color: Colors.mango,
+        iconName: 'users',
+        screenName: ''
+    },
+    {
+        name: 'Logout',
+        color: Colors.mango,
+        iconName: 'power-off',
+        screenName: 'logout'
+    },
+  ],
+  recycler: [
+    {
+        name: 'My Home',
+        color: Colors.mango,
+        iconName: 'home',
+        screenName: NavigationRouteNames.NEW_ORDER_REQUEST
+    },
+    {
+        name: 'Download Reports',
+        color: Colors.mango,
+        iconName: 'download',
+        screenName: ''
+    },
+    {
+        name: 'Manage Orders',
+        color: Colors.mango,
+        iconName: 'edit',
+        screenName: ''
+    },
+    {
+        name: 'Manage EPR',
+        color: Colors.mango,
+        iconName: 'th-large',
+        screenName: ''
+    },
+    {
+        name: 'Manage Sub Category',
+        color: Colors.mango,
+        iconName: 'tasks',
+        screenName: ''
+    },
+    {
+        name: 'Manage Jayde Users',
+        color: Colors.mango,
+        iconName: 'snowflake-o',
+        screenName: ''
+    },
+    {
+        name: 'Users',
+        color: Colors.mango,
+        iconName: 'users',
+        screenName: ''
+    },
+    {
+        name: 'Logout',
+        color: Colors.mango,
+        iconName: 'power-off',
+        screenName: 'logout'
+    },
+  ],
+  EPR: [
+    {
+        name: 'My Home',
+        color: Colors.mango,
+        iconName: 'home',
+        screenName: NavigationRouteNames.NEW_ORDER_REQUEST
+    },
+    {
+        name: 'Download Reports',
+        color: Colors.mango,
+        iconName: 'download',
+        screenName: ''
+    },
+    {
+        name: 'Manage Orders',
+        color: Colors.mango,
+        iconName: 'edit',
+        screenName: ''
+    },
+    {
+        name: 'Manage EPR',
+        color: Colors.mango,
+        iconName: 'th-large',
+        screenName: ''
+    },
+    {
+        name: 'Manage Sub Category',
+        color: Colors.mango,
+        iconName: 'tasks',
+        screenName: ''
+    },
+    {
+        name: 'Manage Jayde Users',
+        color: Colors.mango,
+        iconName: 'snowflake-o',
+        screenName: ''
+    },
+    {
+        name: 'Users',
+        color: Colors.mango,
+        iconName: 'users',
+        screenName: ''
+    },
+    {
+        name: 'Logout',
+        color: Colors.mango,
+        iconName: 'power-off',
+        screenName: 'logout'
+    },
+  ],
+
+};
+
 const USERS_ROLE_MENU = {
   seller: [
     {
       menuName: "Create Order",
       menu1image: require("../assets/Images/Dashboard/Group_9551.png"),
-      menu2image: require("../assets/Images/Dashboard/Icon_ionic-md-create.png"),
+      iconName: 'pencil',
       color: Colors.mango,
       screenName: NavigationRouteNames.NEW_ORDER,
     },
     {
       menuName: "Existing Order",
       menu1image: require("../assets/Images/Dashboard/Group_9551.png"),
-      menu2image: require("../assets/Images/Dashboard/Project.png"),
+      iconName: 'pencil',
       color: Colors.mango,
       screenName: "",
-    },
-    {
-      menuName: "Profile",
-      menu1image: require("../assets/Images/Dashboard/Group_9551.png"),
-      menu2image: require("../assets/Images/Dashboard/Project.png"),
-      color: Colors.mango,
-      screenName: "",
-    },
-    {
-      menuName: "Logout",
-      menu1image: require("../assets/Images/Dashboard/Group_9551.png"),
-      menu2image: require("../assets/Images/Dashboard/Project.png"),
-      color: Colors.mango,
-      screenName: "Logout",
-    },
+    }
   ],
   admin: [
     {
@@ -57,21 +297,21 @@ const USERS_ROLE_MENU = {
     {
       menuName: "View New Order",
       menu1image: require("../assets/Images/Dashboard/Group_9551.png"),
-      menu2image: require("../assets/Images/Dashboard/Icon_ionic-md-create.png"),
+      iconName: 'pencil',
       color: Colors.mango,
       screenName: "",
     },
     {
       menuName: "Open Scheduled Order",
       menu1image: require("../assets/Images/Dashboard/Group_9551.png"),
-      menu2image: require("../assets/Images/Dashboard/Icon_ionic-md-create.png"),
+      iconName: 'folder-open',
       color: Colors.mango,
       screenName: "",
     },
     {
       menuName: "View Completed Order",
       menu1image: require("../assets/Images/Dashboard/Group_9551.png"),
-      menu2image: require("../assets/Images/Dashboard/Icon_ionic-md-create.png"),
+      iconName: 'check-circle',
       color: Colors.green,
       screenName: "",
     },
@@ -105,4 +345,4 @@ const STATUS_ICON = {
   Completed: { iconName: 'check-circle', color: Colors.green },
 };
 
-export { USER_ROLE, USERS_ROLE_MENU, STATUS_ICON };
+export { USER_ROLE, USERS_ROLE_MENU, STATUS_ICON, DRAWER_MENU };

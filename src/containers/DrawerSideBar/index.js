@@ -1,62 +1,32 @@
 /* eslint-disable prettier/prettier */
-import React from 'react';
-import { FlatList, View, Text, TouchableOpacity, Image } from 'react-native';
+import React, { useContext } from 'react';
+import { FlatList, View, Text, TouchableOpacity, Image,  } from 'react-native';
 import FAIcon from "react-native-vector-icons/FontAwesome";
 import { Colors, AppStyles } from '../../theme';
 import NavigationRouteNames from "../../routes/ScreenNames";
 import Styles from "./styles";
-
-const STATIC_MENU = [
-    {
-        name: 'My Home',
-        color: Colors.mango,
-        iconName: 'home',
-        screenName: NavigationRouteNames.NEW_ORDER_REQUEST
-    },
-    {
-        name: 'Download Reports',
-        color: Colors.mango,
-        iconName: 'download',
-        screenName: ''
-    },
-    {
-        name: 'Manage Orders',
-        color: Colors.mango,
-        iconName: 'edit',
-        screenName: ''
-    },
-    {
-        name: 'Manage EPR',
-        color: Colors.mango,
-        iconName: 'th-large',
-        screenName: ''
-    },
-    {
-        name: 'Manage Sub Category',
-        color: Colors.mango,
-        iconName: 'tasks',
-        screenName: ''
-    },
-    {
-        name: 'Manage Jayde Users',
-        color: Colors.mango,
-        iconName: 'snowflake-o',
-        screenName: ''
-    },
-    {
-        name: 'Users',
-        color: Colors.mango,
-        iconName: 'users',
-        screenName: ''
-    },
-];
+import { removeData } from '../../utils/helpers';
+import { LOCAL_STORAGE_DATA_KEY } from '../../utils/constants';
+import UserContext from '../../appContainer/context/user.context';
+import { DRAWER_MENU } from "../../routes/constants";
 
 const newLocal = '../../assets/Images/Login/Mask_Group_28.png';
 const DrawerSideBar = (props) => {
     const { navigation } = props;
+    const { userRole, setLogin } = useContext(UserContext);
 
+    const handleUserLogout = async () => {
+        await removeData(LOCAL_STORAGE_DATA_KEY.JWT_TOKEN);
+        await removeData(LOCAL_STORAGE_DATA_KEY.USER_ROLE);
+        setLogin(false);
+      };
     const onNavigation = (screenName) => {
-        navigation.navigate(screenName)
+        if(screenName === 'logout'){
+            handleUserLogout();
+        }
+        else{
+            navigation.navigate(screenName)
+        }
     }
     const onRenderMenu = (item) => {
         return (
@@ -84,7 +54,7 @@ const DrawerSideBar = (props) => {
                 </View>
             </View>
             <FlatList
-                data={STATIC_MENU}
+                data={DRAWER_MENU[userRole]}
                 renderItem={onRenderMenu}
             />
         </View>
