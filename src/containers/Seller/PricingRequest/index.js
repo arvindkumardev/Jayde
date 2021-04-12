@@ -46,8 +46,10 @@ const PricingRequest = () => {
   // }, [quoteProgress]);
 
   useEffect(() => {
-    console.log('Quote submit data response', quoteData, loading);
     setLoader(loading);
+    if(quoteData && quoteData.status){
+      alert('Quote');
+    }
   }, [quoteData, loading]);
 
   useLayoutEffect(() => {
