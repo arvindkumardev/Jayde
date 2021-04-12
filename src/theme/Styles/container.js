@@ -59,6 +59,9 @@ const container = StyleSheet.create({
   },
   borderwidth1: {
     borderWidth: 1,
+  },	
+  borderwidth2: {
+    borderWidth: 2,
   },
   flexpointone: {
     flex: 0.1,

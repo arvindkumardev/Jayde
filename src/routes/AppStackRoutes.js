@@ -22,6 +22,8 @@ import CallRequest from "../containers/Seller/CallRequest/index";
 import NewOrderList from "../containers/NewOrderList/index";
 import Dashboard from "../containers/Dashboard/index";
 import PaymentVerification from "../containers/PaymentVerification";
+import ViewNewOrder from "../containers/ViewNewOrder";
+import WorkOrderEmail from "../containers/WorkOrderEmail";
 import OrderDetails from "../containers/Seller/OrderDetails";
 import { USER_ROLE } from "./constants";
 import { AppStyles } from "../theme";
