@@ -119,6 +119,14 @@ const styles = StyleSheet.create({
     flexDirection:'row',
     justifyContent:'space-between'
   },
+  viewVolumeInputContainerDate:{
+    width: 169,
+    height: 44,
+  },
+  viewVolumeInputContainerK: {
+    width: 157,
+    height: 44,
+  },
   inputLabelText: {
     marginBottom: 5,
     fontFamily:
@@ -128,6 +136,12 @@ const styles = StyleSheet.create({
   locationTxt:{
     flex: 3,
     height: 45,
+    width: 159,
+    marginRight: 15
+  },
+  locationTxtStyle:{
+    flex: 3,
+    height: 44,
     marginRight: 15
   },
   inputText:{

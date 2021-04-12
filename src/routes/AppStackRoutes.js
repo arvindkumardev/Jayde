@@ -232,6 +232,12 @@ const AppStack = (props) => {
       </>;
       case USER_ROLE.ADMIN:
         return <>
+         {/* Dashboard SCREEN */}
+         {/* <Stack.Screen
+          name={NavigationRouteNames.HOME_SCREEN}
+          component={DrawerStack}
+          options={DrawerMenu}
+        /> */}
           {/* Dashboard SCREEN */}
           <Stack.Screen
             name={NavigationRouteNames.HOME_SCREEN}

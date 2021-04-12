@@ -44,6 +44,8 @@ const PaymentVerification = () => {
   const [wasteImage, setWasteImage] = useState(null);
   const [base64Image, setBase64Image] = useState("");
   const [subCategories, setSubCategories] = useState([]);
+  const [slipNumber,setSlipNumber] = useState("");
+  
 
   const onShowCamera = () => {
     console.log(showCamera);
@@ -113,7 +115,25 @@ const PaymentVerification = () => {
       setRememberMe4(rememberMe4);
       setSelected3(false);
     }  else {
-      // alert("Please Fill The Details First");
+       //alert("Please Fill The Material Pick-up confirmation First");
+    }
+  }
+
+  const dataSubmit = () => {
+    if (rememberMe) {
+      setShouldShow1(!shouldShow1)
+    }
+    else {
+      alert("Please Fill The Material Weighted First");
+    }
+  }
+
+  const dataSubmit1 = () => {
+    if (rememberMe1) {
+      setShouldShow4(!shouldShow4)
+    }
+    else {
+      alert("Please Fill The Material Pick-up confirmation First");
     }
   }
 
@@ -289,19 +309,19 @@ const PaymentVerification = () => {
                 <View style={[style.flexDir,, Styles.viewVolume]}>
                 <View style={style.flex1}>
                   <Text style={Styles.inputLabelText}>Date</Text>
-                  <View style={Styles.viewVolumeInputContainer}>
+                  <View style={Styles.viewVolumeInputContainerK}>
                     <TextInput
                       placeholder={"dd/mm/yyyy"}
-                      style={[Styles.inputText, Styles.locationTxt]}
+                      style={[Styles.inputText]}
                     />
                   </View> 
                   </View>
-                  <View style={style.flex1}>
+                  <View style={[style.flex1, AppStyles.ml10]}>
                   <Text style={Styles.inputLabelText}>Upload Documents</Text>
-                  <View style={Styles.viewVolumeInputContainer}>
+                  <View style={Styles.viewVolumeInputContainerK}>
                     <TextInput
                       placeholder={"Upload file"}
-                      style={[Styles.inputText, Styles.locationTxt]}
+                      style={[Styles.inputText,]}
                     />
                   </View> 
                   </View>
@@ -317,7 +337,10 @@ const PaymentVerification = () => {
                       </View>
                       <View style={style.flex1}>
                       <View style={{ marginTop: RfH(10), marginTop: 5, marginBottom: 25 }}>
-                        <TouchableOpacity style={Styles.confirmButton} onPress={handleConfirm}>
+                        <TouchableOpacity style={Styles.confirmButton} onPress={() => {setSelected(true)   
+       setRememberMe(!rememberMe)
+       setSlipNumber("")
+      }}>
                           <Text style={Styles.confirmBtnText}>CONFIRM</Text>
                         </TouchableOpacity>
                       </View>
@@ -354,22 +377,27 @@ const PaymentVerification = () => {
 
               <View style={{ marginTop: 20 }}>
         <Text style={Styles.inputLabelText}>Kanta Slip Number</Text>
-        <TextInput placeholder={"Slip Number"} style={Styles.inputText} />
+        <TextInput placeholder={"Slip Number"} style={Styles.inputText} 
+        value={slipNumber}
+        onChangeText={(text) => setSlipNumber(text)} 
+        />
       </View>
 
       <View style={[style.flexDir,, Styles.viewVolume]}>
       <View style={style.flex1}>
         <Text style={Styles.inputLabelText}>Date</Text>
-        <View style={Styles.viewVolumeInputContainer}>
+        <View style={Styles.viewVolumeInputContainerK}>
           <TextInput
             placeholder={"dd/mm/yyyy"}
             style={[Styles.inputText, Styles.locationTxt]}
+            value={""}
+            onChangeText1={""}
           />
         </View> 
         </View>
-        <View style={style.flex1}>
+        <View style={[style.flex1, AppStyles.ml10]}>
         <Text style={Styles.inputLabelText}>Upload Documents</Text>
-        <View style={Styles.viewVolumeInputContainer}>
+        <View style={Styles.viewVolumeInputContainerK}>
           <TextInput
             placeholder={"Upload file"}
             style={[Styles.inputText, Styles.locationTxt]}
@@ -390,6 +418,7 @@ const PaymentVerification = () => {
             <View style={{ marginTop: RfH(10), marginTop: 5, marginBottom: 25 }}>
               <TouchableOpacity style={Styles.confirmButton} onPress={() => {setSelected(true)   
        setRememberMe(!rememberMe)
+       setSlipNumber("")
       }}>
                 <Text style={Styles.confirmBtnText}>CONFIRM</Text>
               </TouchableOpacity>
@@ -406,7 +435,7 @@ const PaymentVerification = () => {
   
          {/* Start Material pickup confirmation */}
         <View style={[style.flexDir, AppStyle.mt20,]}>
-      <TouchableOpacity style={[style.flexpointfour]} onPress={() => setShouldShow1(!shouldShow1)}>
+      <TouchableOpacity style={[style.flexpointfour]} onPress={() => dataSubmit()}>
         <Text style={[Appstyles.txtBlackRegular, Appstyles.f15,]}>Material Pick-up confirmation</Text>
       </TouchableOpacity>
      
@@ -512,7 +541,7 @@ const PaymentVerification = () => {
             {/* End Confirm Pickup */}
 
                   <View style={[style.flexDir, AppStyle.mt20,]}>
-      <TouchableOpacity style={[style.flexpointsix]} onPress={() => setShouldShow4(!shouldShow4)}>
+      <TouchableOpacity style={[style.flexpointsix]} onPress={() => dataSubmit1()}>
         <Text style={[Appstyles.txtBlackRegular, Appstyles.f15,]}>Has the material reached your warehouse</Text>
       </TouchableOpacity>
      
@@ -538,22 +567,22 @@ const PaymentVerification = () => {
                   <TextInput placeholder={"Enter Vehicle Number"} style={Styles.inputText} />
                 </View>
 
-                <View style={[style.flexDir,, Styles.viewVolume]}>
+                <View style={[style.flexDir, Styles.viewVolume]}>
                 <View style={style.flex1}>
                   <Text style={Styles.inputLabelText}>Date</Text>
-                  <View style={Styles.viewVolumeInputContainer}>
+                  <View style={Styles.viewVolumeInputContainerDate}>
                     <TextInput
                       placeholder={"dd/mm/yyyy"}
-                      style={[Styles.inputText, Styles.locationTxt]}
+                      style={[Styles.inputText, Styles.locationTxtStyle]}
                     />
                   </View> 
                   </View>
-                  <View style={style.flex1}>
+                  <View style={[style.flex1, AppStyle.ml10]}>
                   <Text style={Styles.inputLabelText}>Upload Documents</Text>
-                  <View style={Styles.viewVolumeInputContainer}>
+                  <View style={Styles.viewVolumeInputContainerDate}>
                     <TextInput
                       placeholder={"Upload file"}
-                      style={[Styles.inputText, Styles.locationTxt]}
+                      style={[Styles.inputText, Styles.locationTxtStyle]}
                     />
                   </View> 
                   </View>
