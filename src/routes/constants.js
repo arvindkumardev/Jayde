@@ -42,13 +42,13 @@ const DRAWER_MENU = {
       {
           name: 'Profile',
           color: Colors.mango,
-          iconName: 'users',
+          iconName: 'user',
           screenName: ''
       },
       {
           name: 'Users',
           color: Colors.mango,
-          iconName: 'user',
+          iconName: 'users',
           screenName: ''
       },
       {
@@ -142,37 +142,37 @@ const DRAWER_MENU = {
     {
         name: 'Order Summary',
         color: Colors.mango,
-        iconName: 'download',
+        iconName: 'wpforms',
         screenName: ''
     },
     {
         name: 'Profile',
         color: Colors.mango,
-        iconName: 'edit',
+        iconName: 'user',
         screenName: ''
     },
     {
         name: 'Inventory',
         color: Colors.mango,
-        iconName: 'th-large',
+        iconName: 'archive',
         screenName: ''
     },
     {
         name: 'Users',
         color: Colors.mango,
-        iconName: 'tasks',
+        iconName: 'users',
         screenName: ''
     },
     {
         name: 'Work Orders',
         color: Colors.mango,
-        iconName: 'snowflake-o',
+        iconName: 'folder',
         screenName: ''
     },
     {
         name: 'Smart Contracts',
         color: Colors.mango,
-        iconName: 'users',
+        iconName: 'sticky-note',
         screenName: ''
     },
     {
@@ -192,31 +192,31 @@ const DRAWER_MENU = {
     {
         name: 'Work Orders',
         color: Colors.mango,
-        iconName: 'download',
+        iconName: 'folder',
         screenName: ''
     },
     {
         name: 'Profile',
         color: Colors.mango,
-        iconName: 'edit',
+        iconName: 'user',
         screenName: ''
     },
     {
         name: 'Inventory',
         color: Colors.mango,
-        iconName: 'th-large',
+        iconName: 'archive',
         screenName: ''
     },
     {
         name: 'Users',
         color: Colors.mango,
-        iconName: 'tasks',
+        iconName: 'users',
         screenName: ''
     },
     {
         name: 'Smart Contracts',
         color: Colors.mango,
-        iconName: 'snowflake-o',
+        iconName: 'sticky-note',
         screenName: ''
     },
     {
@@ -239,30 +239,6 @@ const DRAWER_MENU = {
         iconName: 'download',
         screenName: ''
     },
-    // {
-    //     name: 'Manage Orders',
-    //     color: Colors.mango,
-    //     iconName: 'edit',
-    //     screenName: ''
-    // },
-    // {
-    //     name: 'Manage EPR',
-    //     color: Colors.mango,
-    //     iconName: 'th-large',
-    //     screenName: ''
-    // },
-    // {
-    //     name: 'Manage Sub Category',
-    //     color: Colors.mango,
-    //     iconName: 'tasks',
-    //     screenName: ''
-    // },
-    // {
-    //     name: 'Manage Jayde Users',
-    //     color: Colors.mango,
-    //     iconName: 'snowflake-o',
-    //     screenName: ''
-    // },
     {
         name: 'Profile',
         color: Colors.mango,
