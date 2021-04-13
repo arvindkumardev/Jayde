@@ -40,7 +40,7 @@ function NewOrderList() {
   }, [data, loading]);
 
   const handleNavigate = (title, category) => {
-    navigation.navigate(NavigationRouteNames.PRICE_REQUEST, { title, categoryId: category });
+    navigation.navigate(NavigationRouteNames.NEW_ORDER_REQUEST, { title, categoryId: category });
   };
   const _renderItem = (index, item) => (
     <TouchableOpacity onPress={() => handleNavigate(item.category_name, item.id)} style={Styles.itemContainer}>

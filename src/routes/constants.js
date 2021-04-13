@@ -19,19 +19,19 @@ const DRAWER_MENU = {
           name: 'My Home',
           color: Colors.mango,
           iconName: 'home',
-          screenName: NavigationRouteNames.NEW_ORDER_REQUEST
+          screenName: NavigationRouteNames.HOME_SCREEN
       },
       {
           name: 'New Order',
           color: Colors.mango,
           iconName: 'folder-open',
-          screenName: ''
+          screenName: NavigationRouteNames.NEW_ORDER
       },
       {
           name: 'My Orders',
           color: Colors.mango,
           iconName: 'folder',
-          screenName: ''
+          screenName: NavigationRouteNames.PRICE_REQUEST
       },
       {
           name: 'Payments',
@@ -110,7 +110,7 @@ const DRAWER_MENU = {
     {
         name: 'Profile',
         color: Colors.mango,
-        iconName: 'tasks',
+        iconName: 'user',
         screenName: ''
     },
     {
@@ -258,7 +258,7 @@ const DRAWER_MENU = {
 const USERS_ROLE_MENU = {
   seller: [
     {
-      menuName: "Create Order",
+      menuName: "New Order",
       menu1image: require("../assets/Images/Dashboard/Group_9551.png"),
       iconName: 'pencil',
       color: Colors.mango,

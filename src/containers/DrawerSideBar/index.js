@@ -21,7 +21,7 @@ const DrawerSideBar = (props) => {
     //console.log("userdata",JSON.stringyfy(setUserObj))
     const getusername = async() => {const username = await 
         getSaveData (LOCAL_STORAGE_DATA_KEY.USER_NAME);
-        console.log("username",username);
+        // console.log("username",username);
     setName(username)}
         useEffect(async () => {
             await getusername();

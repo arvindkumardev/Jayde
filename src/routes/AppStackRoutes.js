@@ -107,6 +107,7 @@ const AppStack = (props) => {
           <Stack.Screen
             component={NewOrderList}
             name={NavigationRouteNames.NEW_ORDER}
+            initialParams={{ title: "Paper Waste" }}
             options={NoTitleHeader}
           />
           {/* Screen - 16 */}
