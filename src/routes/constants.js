@@ -22,40 +22,46 @@ const DRAWER_MENU = {
           screenName: NavigationRouteNames.NEW_ORDER_REQUEST
       },
       {
-          name: 'Download Reports',
+          name: 'New Order',
           color: Colors.mango,
-          iconName: 'download',
+          iconName: 'folder-open',
           screenName: ''
       },
       {
-          name: 'Manage Orders',
+          name: 'My Orders',
           color: Colors.mango,
-          iconName: 'edit',
+          iconName: 'folder',
           screenName: ''
       },
       {
-          name: 'Manage EPR',
+          name: 'Payments',
           color: Colors.mango,
-          iconName: 'th-large',
+          iconName: 'credit-card-alt',
           screenName: ''
       },
       {
-          name: 'Manage Sub Category',
+          name: 'Profile',
           color: Colors.mango,
-          iconName: 'tasks',
-          screenName: ''
-      },
-      {
-          name: 'Manage Jayde Users',
-          color: Colors.mango,
-          iconName: 'snowflake-o',
+          iconName: 'users',
           screenName: ''
       },
       {
           name: 'Users',
           color: Colors.mango,
-          iconName: 'users',
+          iconName: 'user',
           screenName: ''
+      },
+      {
+          name: 'Contact Jayde',
+          color: Colors.mango,
+          iconName: 'phone-square',
+          screenName: ''
+      },
+      {
+        name: 'Smart Contracts',
+        color: Colors.mango,
+        iconName: 'sticky-note',
+        screenName: ''
       },
       {
           name: 'Logout',
@@ -72,7 +78,7 @@ const DRAWER_MENU = {
         screenName: NavigationRouteNames.NEW_ORDER_REQUEST
     },
     {
-        name: 'Download Reports',
+        name: 'Download Report',
         color: Colors.mango,
         iconName: 'download',
         screenName: ''
@@ -91,6 +97,18 @@ const DRAWER_MENU = {
     },
     {
         name: 'Manage Sub Category',
+        color: Colors.mango,
+        iconName: 'tasks',
+        screenName: ''
+    },
+    // {
+    //     name: 'Manage Provisional Pricing',
+    //     color: Colors.mango,
+    //     iconName: 'tasks',
+    //     screenName: ''
+    // },
+    {
+        name: 'Profile',
         color: Colors.mango,
         iconName: 'tasks',
         screenName: ''
@@ -122,37 +140,37 @@ const DRAWER_MENU = {
         screenName: NavigationRouteNames.NEW_ORDER_REQUEST
     },
     {
-        name: 'Download Reports',
+        name: 'Order Summary',
         color: Colors.mango,
         iconName: 'download',
         screenName: ''
     },
     {
-        name: 'Manage Orders',
+        name: 'Profile',
         color: Colors.mango,
         iconName: 'edit',
         screenName: ''
     },
     {
-        name: 'Manage EPR',
+        name: 'Inventory',
         color: Colors.mango,
         iconName: 'th-large',
         screenName: ''
     },
     {
-        name: 'Manage Sub Category',
+        name: 'Users',
         color: Colors.mango,
         iconName: 'tasks',
         screenName: ''
     },
     {
-        name: 'Manage Jayde Users',
+        name: 'Work Orders',
         color: Colors.mango,
         iconName: 'snowflake-o',
         screenName: ''
     },
     {
-        name: 'Users',
+        name: 'Smart Contracts',
         color: Colors.mango,
         iconName: 'users',
         screenName: ''
@@ -172,39 +190,33 @@ const DRAWER_MENU = {
         screenName: NavigationRouteNames.NEW_ORDER_REQUEST
     },
     {
-        name: 'Download Reports',
+        name: 'Work Orders',
         color: Colors.mango,
         iconName: 'download',
         screenName: ''
     },
     {
-        name: 'Manage Orders',
+        name: 'Profile',
         color: Colors.mango,
         iconName: 'edit',
         screenName: ''
     },
     {
-        name: 'Manage EPR',
+        name: 'Inventory',
         color: Colors.mango,
         iconName: 'th-large',
         screenName: ''
     },
     {
-        name: 'Manage Sub Category',
+        name: 'Users',
         color: Colors.mango,
         iconName: 'tasks',
         screenName: ''
     },
     {
-        name: 'Manage Jayde Users',
+        name: 'Smart Contracts',
         color: Colors.mango,
         iconName: 'snowflake-o',
-        screenName: ''
-    },
-    {
-        name: 'Users',
-        color: Colors.mango,
-        iconName: 'users',
         screenName: ''
     },
     {
@@ -222,37 +234,37 @@ const DRAWER_MENU = {
         screenName: NavigationRouteNames.NEW_ORDER_REQUEST
     },
     {
-        name: 'Download Reports',
+        name: 'Order Summary',
         color: Colors.mango,
         iconName: 'download',
         screenName: ''
     },
+    // {
+    //     name: 'Manage Orders',
+    //     color: Colors.mango,
+    //     iconName: 'edit',
+    //     screenName: ''
+    // },
+    // {
+    //     name: 'Manage EPR',
+    //     color: Colors.mango,
+    //     iconName: 'th-large',
+    //     screenName: ''
+    // },
+    // {
+    //     name: 'Manage Sub Category',
+    //     color: Colors.mango,
+    //     iconName: 'tasks',
+    //     screenName: ''
+    // },
+    // {
+    //     name: 'Manage Jayde Users',
+    //     color: Colors.mango,
+    //     iconName: 'snowflake-o',
+    //     screenName: ''
+    // },
     {
-        name: 'Manage Orders',
-        color: Colors.mango,
-        iconName: 'edit',
-        screenName: ''
-    },
-    {
-        name: 'Manage EPR',
-        color: Colors.mango,
-        iconName: 'th-large',
-        screenName: ''
-    },
-    {
-        name: 'Manage Sub Category',
-        color: Colors.mango,
-        iconName: 'tasks',
-        screenName: ''
-    },
-    {
-        name: 'Manage Jayde Users',
-        color: Colors.mango,
-        iconName: 'snowflake-o',
-        screenName: ''
-    },
-    {
-        name: 'Users',
+        name: 'Profile',
         color: Colors.mango,
         iconName: 'users',
         screenName: ''
