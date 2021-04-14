@@ -26,6 +26,7 @@ const PricingRequest = () => {
   const [volume, setVolume] = useState('');
   const [location, setLocation] = useState('');
   const [unit, setUnit] = useState('');
+  const [titleName, setTitleName] = useState("");
 
   useEffect(() => {
     if (subData) {
@@ -44,6 +45,9 @@ const PricingRequest = () => {
   // useEffect(() => {
   //   setLoader(quoteProgress);
   // }, [quoteProgress]);
+  // const handleGetQuote = () => {
+  //   navigation.navigate(NavigationRouteNames.PRICE_CONFIRM);
+  // };
 
   useEffect(() => {
     setLoader(loading);
@@ -51,6 +55,10 @@ const PricingRequest = () => {
       alert('Quote');
     }
   }, [quoteData, loading]);
+
+  const handleGetQuote = () => {
+    navigation.navigate(NavigationRouteNames.HOME_SCREEN,{title:titleName});
+  };
 
   useLayoutEffect(() => {
     const { title, categoryId } = route.params;
@@ -149,7 +157,7 @@ const PricingRequest = () => {
       <View>
         <TouchableOpacity
           style={[AppStyles.btnPrimary, AppStyles.alignCenter, AppStyles.pv10, AppStyles.br10]}
-          onPress={handleConfirm}>
+          onPress={handleConfirm, handleGetQuote}>
           <Text style={[AppStyles.txtWhiteRegular, AppStyles.f18]}>CONFIRM</Text>
         </TouchableOpacity>
       </View>

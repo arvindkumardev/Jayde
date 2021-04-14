@@ -35,7 +35,7 @@ const NavigationRouteNames = {
   PICKUP_DETAILS: "PickupDetails",
   CALL_REQUEST: "CallRequest",
 
-  NEW_ORDER: "NewOrderList",
+  NEW_ORDER: "OrderType",
   ASSIGN_ORDER: "OrderAssign",
   SIGNUP: "SignUp",
   LOGIN_WITH_EMAIL: "LoginWithEmail",

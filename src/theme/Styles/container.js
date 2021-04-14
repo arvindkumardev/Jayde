@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+import { color } from 'react-native-reanimated';
 import Colors from '../Colors';
 import Fonts from '../Fonts';
 
@@ -80,6 +81,9 @@ const container = StyleSheet.create({
   },
   flexpointnine: {
     flex: 0.9,
+  },
+  borderColorMango: {
+    borderColor: Colors.mango,
   },
 });
 

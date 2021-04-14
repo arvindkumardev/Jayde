@@ -1,5 +1,5 @@
 import useAxios from 'axios-hooks';
-import { GET_CATEGORIES } from '../../utils/urls';
+import { GET_CATEGORIES } from '../../../utils/urls';
 
 const getCategories = () => {
   return useAxios(

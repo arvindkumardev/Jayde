@@ -19,7 +19,7 @@ import UserContext from "../appContainer/context/user.context";
 import AddressConfirm from "../containers/Seller/AddressConfirm/index";
 import PickupDetails from "../containers/Seller/PickupDetails/index";
 import CallRequest from "../containers/Seller/CallRequest/index";
-import NewOrderList from "../containers/NewOrderList/index";
+import OrderType from "../containers/Seller/OrderType/index";
 import Dashboard from "../containers/Dashboard/index";
 import PaymentVerification from "../containers/PaymentVerification";
 import ViewNewOrder from "../containers/ViewNewOrder";
@@ -105,7 +105,7 @@ const AppStack = (props) => {
             options={CommonHeaderStyle}
           />
           <Stack.Screen
-            component={NewOrderList}
+            component={OrderType}
             name={NavigationRouteNames.NEW_ORDER}
             initialParams={{ title: "Paper Waste" }}
             options={NoTitleHeader}
@@ -157,7 +157,7 @@ const AppStack = (props) => {
               options={CommonHeaderStyle}
             />
             <Stack.Screen
-              component={NewOrderList}
+              component={OrderType}
               name={NavigationRouteNames.NEW_ORDER}
               options={NoHeaderScreen}
             />
@@ -208,7 +208,7 @@ const AppStack = (props) => {
           options={CommonHeaderStyle}
         />
         <Stack.Screen
-          component={NewOrderList}
+          component={OrderType}
           name={NavigationRouteNames.NEW_ORDER}
           options={NoHeaderScreen}
         />

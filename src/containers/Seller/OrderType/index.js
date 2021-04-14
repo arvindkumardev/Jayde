@@ -12,19 +12,19 @@ import {
   ScrollView,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import NavigationRouteNames from '../../routes/ScreenNames';
-import { AppStyles, Colors } from '../../theme';
+import NavigationRouteNames from '../../../routes/ScreenNames';
+import { AppStyles, Colors } from '../../../theme';
 import { getCategories } from './middleware';
-import UserContext from '../../appContainer/context/user.context';
+import UserContext from '../../../appContainer/context/user.context';
 import Styles from "./styles";
 
 const ORDER_IMAGE = {
-  'E-Waste': require('../../assets/Images/NewOrderList/Group_10091.png'),
-  Paper: require('../../assets/Images/NewOrderList/Group_10089.png'),
-  Plastic: require('../../assets/Images/NewOrderList/Group_10090.png'),
-  'Mix Waste': require('../../assets/Images/NewOrderList/Group_10088.png'),
+  'E-Waste': require('../../../assets/Images/NewOrderList/Group_10091.png'),
+  Paper: require('../../../assets/Images/NewOrderList/Group_10089.png'),
+  Plastic: require('../../../assets/Images/NewOrderList/Group_10090.png'),
+  'Mix Waste': require('../../../assets/Images/NewOrderList/Group_10088.png'),
 };
-function NewOrderList() {
+function OrderType() {
   const navigation = useNavigation();
   const { setLoader } = useContext(UserContext);
   const [categories, setCategories] = useState([]);
@@ -55,12 +55,14 @@ function NewOrderList() {
 
   return (
     <ScrollView style={{ backgroundColor: Colors.white }}>
-      <View style={[AppStyles.mt40, AppStyles.ml24, AppStyles.alignCenter]}>
+      <View style={[AppStyles.mt10, AppStyles.ml24, AppStyles.alignCenter]}>
         <Text style={[AppStyles.txtBlackBold, AppStyles.f35]}>New Order</Text>
-        <Text style={[AppStyles.f17, AppStyles.txtBlackRegular]}>Please Choose a Category</Text>
+        <Text style={[AppStyles.f17, AppStyles.txtBlackRegular]}>Choose a Category</Text>
       </View>
+      <View style={AppStyles.mt20}>
       <FlatList data={categories} renderItem={({ index, item }) => _renderItem(index, item)} />
+      </View>
     </ScrollView>
   );
 }
-export default NewOrderList;
+export default OrderType;

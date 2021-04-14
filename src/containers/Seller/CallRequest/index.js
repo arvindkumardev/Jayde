@@ -10,10 +10,16 @@ import {useNavigation, useRoute} from '@react-navigation/native';
 import Styles from "./styles";
 import MIcon from "react-native-vector-icons/MaterialCommunityIcons";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import NavigationRouteNames from '../../../routes/ScreenNames';
 import { Colors, Fonts, AppStyles } from '../../../theme';
 
 const CallRequest = () => {
   const navigation = useNavigation();
+  const route = useRoute();
+
+  const handleSchedulePickup = () => {
+    navigation.navigate(NavigationRouteNames.CONFIRM_ADDRESS);
+  };
   
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -65,7 +71,7 @@ const CallRequest = () => {
                   <Text style={AppStyles.txtBlackRegular}>11:00 am - 1:00 PM</Text>
               </TouchableOpacity>
           </View>
-          <TouchableOpacity style={[AppStyles.mt20, AppStyles.br10, AppStyles.btnPrimary, AppStyles.pv15, AppStyles.alignCenter]}>
+          <TouchableOpacity style={[AppStyles.mt20, AppStyles.br10, AppStyles.btnPrimary, AppStyles.pv10, AppStyles.alignCenter]} onPress={handleSchedulePickup}>
               <Text style={[AppStyles.f18, AppStyles.txtWhiteRegular]}>
                   CONFIRM
               </Text>
