@@ -1,17 +1,11 @@
-import React, {useContext, useEffect, useState, useLayoutEffect } from 'react';
-import {
-    View,
-    Text,
-    TouchableOpacity,
-    TextInput,
-    Image
-    } from 'react-native';
-import {useNavigation, useRoute} from '@react-navigation/native';
-import Styles from "./styles";
-import MIcon from "react-native-vector-icons/MaterialCommunityIcons";
-import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import React, { useLayoutEffect } from 'react';
+import { View, Text, TouchableOpacity, TextInput } from 'react-native';
+import { useNavigation, useRoute } from '@react-navigation/native';
+import MIcon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import Styles from './styles';
 import NavigationRouteNames from '../../../routes/ScreenNames';
-import { Colors, Fonts, AppStyles } from '../../../theme';
+import { Colors, AppStyles } from '../../../theme';
 
 const CallRequest = () => {
   const navigation = useNavigation();
@@ -20,64 +14,80 @@ const CallRequest = () => {
   const handleSchedulePickup = () => {
     navigation.navigate(NavigationRouteNames.CONFIRM_ADDRESS);
   };
-  
+
   useLayoutEffect(() => {
     navigation.setOptions({
-      title: <Text style={[AppStyles.txtBlackBold, AppStyles.f18]}>Call Back Request</Text>
-    })
+      title: <Text style={[AppStyles.txtBlackBold, AppStyles.f18]}>Call Back Request</Text>,
+    });
   }, [navigation]);
 
-  const handleConfirm = () => {
-
-  }
+  const handleConfirm = () => {};
   return (
-      <KeyboardAwareScrollView style={Styles.mainContainer}>
-          <View style={[AppStyles.w100, AppStyles.alignCenter, AppStyles.mt20]}>
-              <Text style={[AppStyles.txtBlackBold, AppStyles.f16]}>Please confirm your details</Text>
-          </View>
-          <View style={AppStyles.mt20}>
-              <View>
-                <Text style={[AppStyles.txtBlackRegular, AppStyles.f16, AppStyles.mb10]}>Contact person</Text>
-                <TextInput placeholder={"Aggregator"} style={[AppStyles.txtSecandaryRegular, AppStyles.btnSecandary, AppStyles.br10, AppStyles.mb10, AppStyles.pl20]}/>
-              </View>
-              <View>
-                <Text style={[[AppStyles.txtBlackRegular, AppStyles.f16, AppStyles.mb10]]}>Contact number</Text>
-                <TextInput placeholder={"Earthbox venture pvt. ltd."} style={[AppStyles.txtSecandaryRegular, AppStyles.btnSecandary, AppStyles.br10, AppStyles.mb10, AppStyles.pl20]} />
-              </View>
-              <View>
-                <Text style={[AppStyles.txtBlackRegular, AppStyles.f16, AppStyles.mb10]}>Upload File</Text>
-                <TouchableOpacity style={[Styles.inputText, Styles.inputIcon, AppStyles.br10]}>
-                    <Text style={Styles.txtFileUpload}>Select file</Text>
-                    <MIcon name={'attachment'} size={25} color={Colors.grayThree} />
-                </TouchableOpacity>
-              </View>
-          </View>
-          <View style={[AppStyles.mv20]}>
-              <Text style={[AppStyles.txtBlackRegular, AppStyles.f16]}>Preferred time slot</Text>
-              <TouchableOpacity style={[AppStyles.pv15, AppStyles.ph20, AppStyles.flexRowSpaceBetween]}>
-                  <Text style={AppStyles.txtBlackRegular}>09-03-2021</Text>
-                  <Text style={AppStyles.txtBlackRegular}>11:00 am - 1:00 PM</Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={[AppStyles.pv15, AppStyles.ph20, AppStyles.flexRowSpaceBetween]}>
-                  <Text style={AppStyles.txtBlackRegular}>09-03-2021</Text>
-                  <Text style={AppStyles.txtBlackRegular}>11:00 am - 1:00 PM</Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={[AppStyles.pv15, AppStyles.ph20, AppStyles.flexRowSpaceBetween, Styles.active]}>
-                    <Text style={AppStyles.txtBlackRegular}>09-03-2021</Text>
-                    <Text style={AppStyles.txtBlackRegular}>11:00 am - 1:00 PM</Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={[AppStyles.pv15, AppStyles.ph20, AppStyles.flexRowSpaceBetween]}>
-                  <Text style={AppStyles.txtBlackRegular}>09-03-2021</Text>
-                  <Text style={AppStyles.txtBlackRegular}>11:00 am - 1:00 PM</Text>
-              </TouchableOpacity>
-          </View>
-          <TouchableOpacity style={[AppStyles.mt20, AppStyles.br10, AppStyles.btnPrimary, AppStyles.pv10, AppStyles.alignCenter]} onPress={handleSchedulePickup}>
-              <Text style={[AppStyles.f18, AppStyles.txtWhiteRegular]}>
-                  CONFIRM
-              </Text>
+    <KeyboardAwareScrollView style={Styles.mainContainer}>
+      <View style={[AppStyles.w100, AppStyles.alignCenter, AppStyles.mt20]}>
+        <Text style={[AppStyles.txtBlackBold, AppStyles.f16]}>Please confirm your details</Text>
+      </View>
+      <View style={AppStyles.mt20}>
+        <View>
+          <Text style={[AppStyles.txtBlackRegular, AppStyles.f16, AppStyles.mb10]}>Contact person</Text>
+          <TextInput
+            placeholder="Name..."
+            style={[
+              AppStyles.txtSecandaryRegular,
+              AppStyles.btnSecandary,
+              AppStyles.br10,
+              AppStyles.mb10,
+              AppStyles.pl20,
+            ]}
+          />
+        </View>
+        <View>
+          <Text style={[[AppStyles.txtBlackRegular, AppStyles.f16, AppStyles.mb10]]}>Contact number</Text>
+          <TextInput
+            placeholder="Contact number..."
+            style={[
+              AppStyles.txtSecandaryRegular,
+              AppStyles.btnSecandary,
+              AppStyles.br10,
+              AppStyles.mb10,
+              AppStyles.pl20,
+            ]}
+          />
+        </View>
+        <View>
+          <Text style={[AppStyles.txtBlackRegular, AppStyles.f16, AppStyles.mb10]}>Upload File</Text>
+          <TouchableOpacity style={[Styles.inputText, Styles.inputIcon, AppStyles.br10]}>
+            <Text style={Styles.txtFileUpload}>Select file</Text>
+            <MIcon name="attachment" size={25} color={Colors.grayThree} />
           </TouchableOpacity>
-      </KeyboardAwareScrollView>
+        </View>
+      </View>
+      <View style={[AppStyles.mv20]}>
+        <Text style={[AppStyles.txtBlackRegular, AppStyles.f16]}>Preferred time slot</Text>
+        <TouchableOpacity style={[AppStyles.pv15, AppStyles.ph20, AppStyles.flexRowSpaceBetween]}>
+          <Text style={AppStyles.txtBlackRegular}>09-03-2021</Text>
+          <Text style={AppStyles.txtBlackRegular}>11:00 am - 1:00 PM</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={[AppStyles.pv15, AppStyles.ph20, AppStyles.flexRowSpaceBetween]}>
+          <Text style={AppStyles.txtBlackRegular}>09-03-2021</Text>
+          <Text style={AppStyles.txtBlackRegular}>11:00 am - 1:00 PM</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={[AppStyles.pv15, AppStyles.ph20, AppStyles.flexRowSpaceBetween, Styles.active]}>
+          <Text style={AppStyles.txtBlackRegular}>09-03-2021</Text>
+          <Text style={AppStyles.txtBlackRegular}>11:00 am - 1:00 PM</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={[AppStyles.pv15, AppStyles.ph20, AppStyles.flexRowSpaceBetween]}>
+          <Text style={AppStyles.txtBlackRegular}>09-03-2021</Text>
+          <Text style={AppStyles.txtBlackRegular}>11:00 am - 1:00 PM</Text>
+        </TouchableOpacity>
+      </View>
+      <TouchableOpacity
+        style={[AppStyles.mt20, AppStyles.br10, AppStyles.btnPrimary, AppStyles.pv10, AppStyles.alignCenter]}
+        onPress={handleSchedulePickup}>
+        <Text style={[AppStyles.f18, AppStyles.txtWhiteRegular]}>CONFIRM</Text>
+      </TouchableOpacity>
+    </KeyboardAwareScrollView>
   );
-}
+};
 
 export default CallRequest;

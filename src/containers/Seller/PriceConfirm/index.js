@@ -11,6 +11,7 @@ import { Fonts, Colors, AppStyles } from '../../../theme';
 const PriceConfirm = () => {
   const navigation = useNavigation();
   const route = useRoute();
+  const is
 
   useLayoutEffect(() => {
     const { title } = route.params
