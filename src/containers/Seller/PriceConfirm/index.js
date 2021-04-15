@@ -11,7 +11,6 @@ import { Fonts, Colors, AppStyles } from '../../../theme';
 const PriceConfirm = () => {
   const navigation = useNavigation();
   const route = useRoute();
-  const [schedulePick, setSchedulePick] = useState("");
 
   useLayoutEffect(() => {
     const { title } = route.params;

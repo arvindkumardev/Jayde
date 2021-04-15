@@ -1,22 +1,12 @@
 import React, { useContext, useEffect, useState } from 'react';
 import * as Alert from 'react-native';
-import {
-  KeyboardAvoidingView,
-  Platform,
-  TouchableOpacity,
-  View,
-  Text,
-  Image,
-  TextInput,
-  FlatList,
-  ScrollView,
-} from 'react-native';
+import { TouchableOpacity, View, Text, Image, FlatList, ScrollView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import NavigationRouteNames from '../../../routes/ScreenNames';
 import { AppStyles, Colors } from '../../../theme';
 import { getCategories } from './middleware';
 import UserContext from '../../../appContainer/context/user.context';
-import Styles from "./styles";
+import Styles from './styles';
 
 const ORDER_IMAGE = {
   'E-Waste': require('../../../assets/Images/NewOrderList/Group_10091.png'),
@@ -47,9 +37,7 @@ function OrderType() {
       <View>
         <Image style={Styles.itemImageSize} source={ORDER_IMAGE[item.category_name]} />
       </View>
-      <Text style={[AppStyles.txtBlackRegular, AppStyles.f18, AppStyles.ml20]}>
-        {item.category_name}
-      </Text>
+      <Text style={[AppStyles.txtBlackRegular, AppStyles.f18, AppStyles.ml20]}>{item.category_name}</Text>
     </TouchableOpacity>
   );
 
@@ -60,7 +48,7 @@ function OrderType() {
         <Text style={[AppStyles.f17, AppStyles.txtBlackRegular]}>Choose a Category</Text>
       </View>
       <View style={AppStyles.mt20}>
-      <FlatList data={categories} renderItem={({ index, item }) => _renderItem(index, item)} />
+        <FlatList data={categories} renderItem={({ index, item }) => _renderItem(index, item)} />
       </View>
     </ScrollView>
   );
