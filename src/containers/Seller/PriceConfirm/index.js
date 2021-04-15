@@ -11,6 +11,7 @@ import { Fonts, Colors, AppStyles } from '../../../theme';
 const PriceConfirm = () => {
   const navigation = useNavigation();
   const route = useRoute();
+  const [schedulePick, setSchedulePick] = useState("");
 
   useLayoutEffect(() => {
     const { title } = route.params;
@@ -94,15 +95,11 @@ const PriceConfirm = () => {
        </View> : <View style={Styles.btnContainer}>
        <TouchableOpacity
            style={[AppStyles.mt20, AppStyles.br10, AppStyles.borderwidth1, AppStyles.borderColorMango, AppStyles.whitecolor, AppStyles.pv10, AppStyles.alignCenter]}
-          //  onPress={setSchedulePick("1")}
-          onPress={() => {confirmBtn()}}
-           >
+          onPress={() => {confirmBtn()}}>
            <Text style={[AppStyles.txtPrimaryRegular, AppStyles.f17]}>CONFIRM</Text>
          </TouchableOpacity>
          <TouchableOpacity
-           style={[AppStyles.mt20, AppStyles.br10, AppStyles.btnPrimary, AppStyles.pv10, AppStyles.alignCenter]}
-          //  onPress={handleSchedulePickup}
-         >
+           style={[AppStyles.mt20, AppStyles.br10, AppStyles.btnPrimary, AppStyles.pv10, AppStyles.alignCenter]}>
            <Text style={[AppStyles.txtWhiteRegular, AppStyles.f17]}>REJECT</Text>
          </TouchableOpacity>
        </View>   }

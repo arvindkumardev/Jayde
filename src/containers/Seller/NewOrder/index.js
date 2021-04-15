@@ -9,8 +9,8 @@ const NewOrder = () => {
   const navigation = useNavigation();
   const route = useRoute();
 
-  const handleGetQuote = () => {
-    navigation.navigate(NavigationRouteNames.PRICE_REQUEST, { title: 'Get Quote' });
+  const handleGetQuote = (btnstatus) => {
+    navigation.navigate(NavigationRouteNames.PRICE_REQUEST, { title: 'Get Quote', status:btnstatus });
   };
 
   const handleSchedulePickup = () => {
@@ -30,12 +30,12 @@ const NewOrder = () => {
       <View style={[AppStyles.w100, AppStyles.ph20]}>
         <TouchableOpacity
           style={[AppStyles.mt20, AppStyles.br10, AppStyles.btnPrimary, AppStyles.pv10, AppStyles.alignCenter]}
-          onPress={handleGetQuote}>
+          onPress={() => {handleGetQuote("0")}}>
           <Text style={[AppStyles.txtWhiteRegular, AppStyles.f18]}>GET QUOTE</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={[AppStyles.mt20, AppStyles.br10, AppStyles.btnSecandary, AppStyles.pv10, AppStyles.alignCenter]}
-          onPress={handleSchedulePickup}>
+          onPress={() => {handleGetQuote("1")}}>
           <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f18]}>SCHEDULE PICKUP</Text>
         </TouchableOpacity>
       </View>
