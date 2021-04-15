@@ -73,7 +73,22 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     bottom: 20,
     position:'absolute'
-  }
+  },
+  paperBox: {
+    width: 321,
+    height: 126,
+    borderRadius: 10,
+  },
+  deliveryBox: {
+    width: 321,
+    height: 145,
+    borderRadius: 10,
+  },
+  addressBox: {
+    width: 321,
+    height: 64,
+    borderRadius: 10,
+  },
 });
 
 export default styles;

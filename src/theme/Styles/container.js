@@ -10,6 +10,9 @@ const container = StyleSheet.create({
   btnSecandary: {
     backgroundColor: Colors.grayBackground,
   },
+ whitebackgrnd: {
+    backgroundColor: Colors.white,
+  },
   br10: {
     borderRadius: 10,
   },

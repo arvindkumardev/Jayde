@@ -71,7 +71,7 @@ const CallRequest = () => {
                   <Text style={AppStyles.txtBlackRegular}>11:00 am - 1:00 PM</Text>
               </TouchableOpacity>
           </View>
-          <TouchableOpacity style={[AppStyles.mt20, AppStyles.br10, AppStyles.btnPrimary, AppStyles.pv10, AppStyles.alignCenter]} onPress={handleSchedulePickup}>
+          <TouchableOpacity style={[AppStyles.mt20, AppStyles.br10, AppStyles.btnPrimary, AppStyles.pv10, AppStyles.alignCenter]}>
               <Text style={[AppStyles.f18, AppStyles.txtWhiteRegular]}>
                   CONFIRM
               </Text>

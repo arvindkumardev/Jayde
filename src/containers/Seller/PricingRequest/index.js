@@ -27,6 +27,7 @@ const PricingRequest = () => {
   const [location, setLocation] = useState('');
   const [unit, setUnit] = useState('');
   const [titleName, setTitleName] = useState("");
+  const [quotestatus, setquotestatus] = useState("");
 
   useEffect(() => {
     if (subData) {
@@ -57,11 +58,13 @@ const PricingRequest = () => {
   }, [quoteData, loading]);
 
   const handleGetQuote = () => {
-    navigation.navigate(NavigationRouteNames.HOME_SCREEN,{title:titleName});
+    navigation.navigate(NavigationRouteNames.PRICE_CONFIRM,{title:titleName,status:quotestatus});
   };
 
   useLayoutEffect(() => {
     const { title, categoryId } = route.params;
+    const { status } = route.params;
+    setquotestatus(status);
     onGetSubCategories({ data: { id: categoryId } });
     onGetUnits();
     setCategoryId(categoryId);

@@ -31,7 +31,7 @@ const DRAWER_MENU = {
           name: 'My Orders',
           color: Colors.mango,
           iconName: 'folder',
-          screenName: NavigationRouteNames.PRICE_CONFIRM
+          screenName: ''
       },
       {
           name: 'Payments',

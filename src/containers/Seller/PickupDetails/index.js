@@ -22,7 +22,7 @@ const PickupDetails = () => {
   }, [navigation]);
 
   const handleConfirm = () => {
-    navigation.navigate(NavigationRouteNames.CALL_REQUEST);
+    navigation.navigate(NavigationRouteNames.CONFIRM_ADDRESS);
   }
 
   return (
@@ -52,7 +52,7 @@ const PickupDetails = () => {
             </TouchableOpacity>
           </View>
           <View>
-            <TouchableOpacity style={[AppStyles.mt20, AppStyles.br10, AppStyles.btnPrimary, AppStyles.pv15, AppStyles.alignCenter]} onPress={handleConfirm}>
+            <TouchableOpacity style={[AppStyles.mt20, AppStyles.br10, AppStyles.btnPrimary, AppStyles.pv10, AppStyles.alignCenter]}>
               <Text style={[AppStyles.txtWhiteRegular, AppStyles.f18]}>CONFIRM LOCATION & PROCEED</Text>
             </TouchableOpacity>
           </View>
