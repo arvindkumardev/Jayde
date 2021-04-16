@@ -12,7 +12,7 @@ const CallRequest = () => {
   const route = useRoute();
 
   const handleSchedulePickup = () => {
-    navigation.navigate(NavigationRouteNames.CONFIRM_ADDRESS);
+    navigation.navigate(NavigationRouteNames.CALLBACK_CONFIRMATION);
   };
 
   useLayoutEffect(() => {
@@ -70,19 +70,19 @@ const CallRequest = () => {
         </TouchableOpacity>
         <TouchableOpacity style={[AppStyles.pv15, AppStyles.ph20, AppStyles.flexRowSpaceBetween]}>
           <Text style={AppStyles.txtBlackRegular}>09-03-2021</Text>
-          <Text style={AppStyles.txtBlackRegular}>11:00 am - 1:00 PM</Text>
+          <Text style={AppStyles.txtBlackRegular}>3:00 pm - 5:00 pm</Text>
         </TouchableOpacity>
         <TouchableOpacity style={[AppStyles.pv15, AppStyles.ph20, AppStyles.flexRowSpaceBetween, Styles.active]}>
-          <Text style={AppStyles.txtBlackRegular}>09-03-2021</Text>
+          <Text style={AppStyles.txtBlackRegular}>10-03-2021</Text>
           <Text style={AppStyles.txtBlackRegular}>11:00 am - 1:00 PM</Text>
         </TouchableOpacity>
         <TouchableOpacity style={[AppStyles.pv15, AppStyles.ph20, AppStyles.flexRowSpaceBetween]}>
-          <Text style={AppStyles.txtBlackRegular}>09-03-2021</Text>
-          <Text style={AppStyles.txtBlackRegular}>11:00 am - 1:00 PM</Text>
+          <Text style={AppStyles.txtBlackRegular}>10-03-2021</Text>
+          <Text style={AppStyles.txtBlackRegular}>3:00 pm - 5:00 pm</Text>
         </TouchableOpacity>
       </View>
       <TouchableOpacity
-        style={[AppStyles.mt20, AppStyles.br10, AppStyles.btnPrimary, AppStyles.pv10, AppStyles.alignCenter]}>
+        style={[AppStyles.mt20, AppStyles.br10, AppStyles.btnPrimary, AppStyles.pv10, AppStyles.alignCenter]} onPress={() => {handleSchedulePickup()}}>
         <Text style={[AppStyles.f18, AppStyles.txtWhiteRegular]}>CONFIRM</Text>
       </TouchableOpacity>
     </KeyboardAwareScrollView>

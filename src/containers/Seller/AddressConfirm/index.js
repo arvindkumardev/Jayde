@@ -20,7 +20,7 @@ const PriceConfirm = () => {
   }, [navigation]);
 
   const handleConfirm = () => {
-    navigation.navigate(NavigationRouteNames.PICKUP_DETAILS);
+    navigation.navigate(NavigationRouteNames.PICKUP_DATE);
   };
   return (
     <View style={[AppStyles.flex1SpaceBetween, AppStyles.pb20, style.whitebackgrnd,]}>

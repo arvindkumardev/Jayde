@@ -52,6 +52,8 @@ const NavigationRouteNames = {
   PAYMENT_VERIFICATION:"PaymentVerification",
   ORDER_DETAILS:"OrderDetails",
   WORKORDER_EMAIL:"WorkOrderEmail",
+  CALLBACK_CONFIRMATION:"CallBackConfirmation",
+  PICKUP_DATE:"PickupDate",
 };
 
 export default NavigationRouteNames;

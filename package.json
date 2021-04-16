@@ -40,6 +40,7 @@
     "radio-buttons-react-native": "^1.0.4",
     "react": "17.0.1",
     "react-native": "0.63.4",
+    "react-native-calendars": "^1.1255.0",
     "react-native-camera": "^3.43.0",
     "react-native-collapsible": "^1.5.3",
     "react-native-confirmation-code-field": "^6.5.1",
@@ -71,6 +72,7 @@
     "react-native-webview": "^11.0.2",
     "react-uuid": "^1.0.2",
     "rn-fetch-blob": "^0.12.0",
+    "toggle-switch-react-native": "^3.2.0",
     "yup": "^0.32.6"
   },
   "devDependencies": {

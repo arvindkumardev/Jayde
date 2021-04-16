@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   dataItemContent: {
-    flex: 0.6,
+    flex: 0.5,
   },
   dataImage: {
     flex: 0.2,
@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
     color: '#000',
   },
   statusIcon: {
-    flex: 0.2,
+    flex: 0.3,
     alignItems: 'center',
     marginRight: 15,
   },

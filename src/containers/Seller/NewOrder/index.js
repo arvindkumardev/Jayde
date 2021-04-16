@@ -17,12 +17,12 @@ const NewOrder = () => {
     navigation.navigate(NavigationRouteNames.PRICE_REQUEST, { title: 'Schedule Pickup' });
   };
 
-  useLayoutEffect(() => {
-    const { title, categoryId } = route.params;
-    navigation.setOptions({
-      title,
-    });
-  }, []);
+  // useLayoutEffect(() => {
+  //   const { title, categoryId } = route.params;
+  //   navigation.setOptions({
+  //     title,
+  //   });
+  // }, []);
 
   return (
     <View style={Styles.screenContainer}>

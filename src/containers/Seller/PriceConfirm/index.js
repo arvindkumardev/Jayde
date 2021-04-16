@@ -70,7 +70,7 @@ const PriceConfirm = () => {
               <Text style={[AppStyles.txtBlackBold, AppStyles.f16]}>Estimated Price</Text>
             </View>
             <View style={AppStyles.flexpointfour}>
-              <Text style={[AppStyles.txtBlackBold, AppStyles.f16]}>
+              <Text style={[AppStyles.txtBlackBold, AppStyles.f16, Styles.estPrice]}>
                 <FAIcon size={14} name="rupee" /> 6000
               </Text>
             </View>

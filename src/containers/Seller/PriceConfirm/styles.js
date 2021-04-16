@@ -15,6 +15,7 @@ const styles = StyleSheet.create({
       borderBottomColor: '#707070',
       borderBottomWidth: 1,
       marginTop: 5,
+      marginRight: 20,
     },
     screenContainer:{
         flex: 1,
@@ -32,6 +33,9 @@ const styles = StyleSheet.create({
       height: 190,
       borderRadius: 10,
       backgroundColor: '#f5f5f5',
+    },
+    estPrice: {
+      marginLeft: 10,
     },
 });
 

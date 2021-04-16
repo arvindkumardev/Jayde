@@ -25,6 +25,8 @@ import PaymentVerification from "../containers/PaymentVerification";
 import ViewNewOrder from "../containers/ViewNewOrder";
 import WorkOrderEmail from "../containers/WorkOrderEmail";
 import OrderDetails from "../containers/Seller/OrderDetails";
+import CallBackConfirmation from "../containers/Seller/CallBackConfirmation";
+import PickupDate from "../containers/Seller/PickupDate";
 import { USER_ROLE } from "./constants";
 import { AppStyles } from "../theme";
 import DrawerSideBar from "../containers/DrawerSideBar/index";
@@ -127,6 +129,18 @@ const AppStack = (props) => {
             name={NavigationRouteNames.CALL_REQUEST}
             component={CallRequest}
             options={CommonHeaderStyle}
+          />
+           {/* Call back confirmation */}
+           <Stack.Screen
+            name={NavigationRouteNames.CALLBACK_CONFIRMATION}
+            component={CallBackConfirmation}
+            options={NoTitleHeader}
+          />
+          {/* Pickup Date Time Slot Screen */}
+          <Stack.Screen
+            name={NavigationRouteNames.PICKUP_DATE}
+            component={PickupDate}
+            options={NoTitleHeader}
           />
         </>;
         case USER_ROLE.AGGRATOR:
