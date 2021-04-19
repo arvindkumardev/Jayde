@@ -1,4 +1,4 @@
-import React, { useLayoutEffect } from 'react';
+import React, { useState, useLayoutEffect } from 'react';
 import { View, Text, TouchableOpacity, TextInput } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import MIcon from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -6,10 +6,12 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import Styles from './styles';
 import NavigationRouteNames from '../../../routes/ScreenNames';
 import { Colors, AppStyles } from '../../../theme';
+import { UploadDocument } from '../../../components/index';
 
 const CallRequest = () => {
   const navigation = useNavigation();
   const route = useRoute();
+  const [imageUpload, setImageUpload] = useState(false);
 
   const handleSchedulePickup = () => {
     navigation.navigate(NavigationRouteNames.CALLBACK_CONFIRMATION);
@@ -56,10 +58,11 @@ const CallRequest = () => {
         </View>
         <View>
           <Text style={[AppStyles.txtBlackRegular, AppStyles.f16, AppStyles.mb10]}>Upload File</Text>
-          <TouchableOpacity style={[Styles.inputText, Styles.inputIcon, AppStyles.br10]}>
+          <TouchableOpacity style={[Styles.inputText, Styles.inputIcon, AppStyles.br10]} onPress={() => setImageUpload(!imageUpload)}>
             <Text style={Styles.txtFileUpload}>Select file</Text>
             <MIcon name="attachment" size={25} color={Colors.grayThree} />
           </TouchableOpacity>
+          <UploadDocument handleClose={() => setImageUpload(false)} isVisible={imageUpload} />
         </View>
       </View>
       <View style={[AppStyles.mv20]}>

@@ -88,6 +88,14 @@ const container = StyleSheet.create({
   borderColorMango: {
     borderColor: Colors.mango,
   },
+  inputIcon:{
+    flexDirection:'row',
+    alignItems:'center',
+    justifyContent:'space-between',
+    paddingHorizontal: 20,
+    paddingVertical: 10,
+    backgroundColor:Colors.grayBackground,
+  },
 });
 
 export default container;

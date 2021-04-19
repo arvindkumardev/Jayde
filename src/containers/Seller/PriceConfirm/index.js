@@ -12,12 +12,21 @@ const PriceConfirm = () => {
   const navigation = useNavigation();
   const route = useRoute();
   const [schedulePick, setSchedulePick] = useState("");
+  const [location, setLocation] = useState('');
+  const [unit, setUnit] = useState('');
+  const [volume, setVolume] = useState('');
 
   useLayoutEffect(() => {
     const { title } = route.params;
     const { status } = route.params;
+    const { Location } = route.params;
+    const { Unit } = route.params;
+    const { Volume } = route.params;
     console.log("status",status);
     setSchedulePick(status);
+    setLocation(Location);
+    setUnit(Unit);
+    setVolume(Volume);
     navigation.setOptions({
       title,
     });
@@ -54,15 +63,15 @@ const PriceConfirm = () => {
               <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f16]}>Location</Text>
             </View>
             <View style={AppStyles.flexpointfour}>
-              <Text style={[AppStyles.txtBlackRegular, AppStyles.f16]}>Hyderabad</Text>
+              <Text style={[AppStyles.txtBlackRegular, AppStyles.f16]}>{location}</Text>
             </View>
           </View>
           <View style={AppStyles.flexRowSpaceBetween}>
             <View style={AppStyles.flexpointsix}>
-              <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f16]}>Valume</Text>
+              <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f16]}>Volume</Text>
             </View>
             <View style={AppStyles.flexpointfour}>
-              <Text style={[AppStyles.txtBlackRegular, AppStyles.f16]}>5 Tons</Text>
+              <Text style={[AppStyles.txtBlackRegular, AppStyles.f16]}>{volume} {unit}</Text>
             </View>
           </View>
           <View style={Styles.totalPriceContainer}>

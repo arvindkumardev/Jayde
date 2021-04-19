@@ -9,6 +9,7 @@ import DropDown from '../../../components/Picker/index';
 import { UploadDocument } from '../../../components/index';
 import { getSubCategories, getUnits, createQuote } from './middleware';
 import UserContext from '../../../appContainer/context/user.context';
+import MIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const PricingRequest = () => {
   const navigation = useNavigation();
@@ -30,6 +31,7 @@ const PricingRequest = () => {
   const [quotestatus, setquotestatus] = useState("");
 
   useEffect(() => {
+    // console.log("update",subData);
     if (subData) {
       const pickerData = subData.map((item) => ({ label: item.sub_category_name, value: item.id }));
       setSubCategoryes(pickerData);
@@ -53,12 +55,13 @@ const PricingRequest = () => {
   useEffect(() => {
     setLoader(loading);
     if (quoteData && quoteData.status) {
-      alert('Quote');
+      // alert('Quote');
     }
   }, [quoteData, loading]);
 
   const handleGetQuote = () => {
-    navigation.navigate(NavigationRouteNames.PRICE_CONFIRM, { title: titleName, status:quotestatus });
+    // console.log("abc",unit);
+    navigation.navigate(NavigationRouteNames.PRICE_CONFIRM, { title: titleName, status:quotestatus, Location: location, Unit: unit, Volume: volume,});
   };
 
   useLayoutEffect(() => {
@@ -150,8 +153,12 @@ const PricingRequest = () => {
           <View>
             <TouchableOpacity
               onPress={() => setImageUpload(!imageUpload)}
-              style={[AppStyles.pv10, { backgroundColor: Colors.grayTwo }, AppStyles.alignCenter]}>
-              <FAIcon name="photo" size={25} />
+              style={[AppStyles.pv10, { backgroundColor: Colors.grayTwo }, AppStyles.alignCenter, AppStyles.inputIcon,]}>
+              {/* <FAIcon name="photo" size={25} /> */}
+              <Text style={AppStyles.txtSecandaryRegular}>Attach File</Text>
+              <MIcon name="attachment" size={25} color={Colors.grayThree} />
+              {/* <Text style={Styles.txtFileUpload}>Select file</Text>
+            <MIcon name="attachment" size={25} color={Colors.grayThree} /> */}
             </TouchableOpacity>
             <UploadDocument handleClose={() => setImageUpload(false)} isVisible={imageUpload} />
           </View>
@@ -160,7 +167,8 @@ const PricingRequest = () => {
       <View>
         <TouchableOpacity
           style={[AppStyles.btnPrimary, AppStyles.alignCenter, AppStyles.pv10, AppStyles.br10]}
-          onPress={(handleConfirm, handleGetQuote)}>
+          // onPress={(handleConfirm)}>
+            onPress={() => {(handleConfirm(), handleGetQuote())}}>
           <Text style={[AppStyles.txtWhiteRegular, AppStyles.f18]}>CONFIRM</Text>
         </TouchableOpacity>
       </View>

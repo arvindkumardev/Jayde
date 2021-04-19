@@ -10,7 +10,7 @@ const NewOrder = () => {
   const route = useRoute();
 
   const handleGetQuote = (btnstatus) => {
-    navigation.navigate(NavigationRouteNames.PRICE_REQUEST, { title: 'Get Quote', status:btnstatus });
+    navigation.navigate(NavigationRouteNames.PRICE_REQUEST, { title: 'Paper Waste', status:btnstatus });
   };
 
   const handleSchedulePickup = () => {
