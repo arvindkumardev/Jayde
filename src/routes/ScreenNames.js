@@ -54,6 +54,7 @@ const NavigationRouteNames = {
   WORKORDER_EMAIL:"WorkOrderEmail",
   CALLBACK_CONFIRMATION:"CallBackConfirmation",
   PICKUP_DATE:"PickupDate",
+  ENABLEDISABLE_USER:"EnableDisableUser",
 };
 
 export default NavigationRouteNames;

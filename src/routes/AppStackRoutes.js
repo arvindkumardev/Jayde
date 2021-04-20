@@ -32,6 +32,8 @@ import { AppStyles } from "../theme";
 import DrawerSideBar from "../containers/DrawerSideBar/index";
 import { getSaveData } from "../utils/helpers";
 import { LOCAL_STORAGE_DATA_KEY } from "../utils/constants";
+import EnableDisableUser from "../containers/EnableDisableUser";
+import Users from "../containers/Users";
 
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -289,6 +291,12 @@ const AppStack = (props) => {
           <Stack.Screen
             name={NavigationRouteNames.CALL_REQUEST}
             component={CallRequest}
+          />
+           {/* User Popup Screen */}
+           <Stack.Screen
+            name={NavigationRouteNames.ENABLEDISABLE_USER}
+            component={EnableDisableUser}
+            options={NoTitleHeader}
           />
         </>;
       default:

@@ -13,6 +13,12 @@ const container = StyleSheet.create({
  whitebackgrnd: {
     backgroundColor: Colors.white,
   },
+  grayBackground: {
+    backgroundColor: Colors.warmGrey,
+  },
+  lightOlive: {
+    backgroundColor: Colors.lightOlive,
+  },
   br10: {
     borderRadius: 10,
   },
@@ -87,6 +93,9 @@ const container = StyleSheet.create({
   },
   borderColorMango: {
     borderColor: Colors.mango,
+  },
+  borderColorLightOlive: {
+    borderColor: Colors.lightOlive,
   },
   inputIcon:{
     flexDirection:'row',
