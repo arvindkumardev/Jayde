@@ -4,9 +4,9 @@ import {KeyboardAvoidingView, Platform, TouchableOpacity, View, Text, Image, Tex
 import Styles from "./styles";
 import {useNavigation} from '@react-navigation/core';
 import {useRoute} from '@react-navigation/native';
-import AppStyles from "../../theme/Styles/texts";
-import AppStyle from "../../theme/Styles/spaces";
-import style from "../../theme/Styles/container";
+import AppStyles from "../../../theme/Styles/texts";
+import AppStyle from "../../../theme/Styles/spaces";
+import style from "../../../theme/Styles/container";
 
 function EnableDisableUser() {
    const navigation = useNavigation();
@@ -36,7 +36,7 @@ function EnableDisableUser() {
 
       <View style={[style.flexDir, AppStyle.mt14]}>
       <View style={[style.flexpointone]}>
-      <Image style={Styles.lftimga} source={require('../../assets/Images/Users/noun_Recycle_3673532.png')}  /> 
+      <Image style={Styles.lftimga} source={require('../../../assets/Images/Users/noun_Recycle_3673532.png')}  /> 
       </View>
       <View style={[style.flexpointthree]}>
       <Text style={[AppStyle.ml24, AppStyles.txtSecandaryRegular, AppStyles.f13]}>Seller</Text>

@@ -1,7 +1,7 @@
 import {StyleSheet} from 'react-native';
-import {RfH, RfW} from '../../utils/helpers';
-import {Colors} from '../../theme';
-import Fonts from '../../theme/Fonts';
+import {RfH, RfW} from '../../../utils/helpers';
+import {Colors} from '../../../theme';
+import Fonts from '../../../theme/Fonts';
 
 const styles = StyleSheet.create({
   boxView: {

@@ -5,14 +5,14 @@ import  DropDownPicker from "react-native-dropdown-picker";
 import axios from "axios";
 import useAxios from 'axios-hooks';
 import Styles from "./styles";
-import NavigationRouteNames from '../../routes/ScreenNames';
+import NavigationRouteNames from '../../../routes/ScreenNames';
 import {useNavigation} from '@react-navigation/core';
 import {useRoute} from '@react-navigation/native';
-import AppStyles from "../../theme/Styles/texts";
-import AppStyle from "../../theme/Styles/spaces";
-import style from "../../theme/Styles/container";
-import styles from '../../components/CustomImage/style';
-import { users } from "../../services/middleware/user";
+import AppStyles from "../../../theme/Styles/texts";
+import AppStyle from "../../../theme/Styles/spaces";
+import style from "../../../theme/Styles/container";
+import styles from '../../../components/CustomImage/style';
+import { users } from "../../../services/middleware/user";
 
 function Users() {
    const navigation = useNavigation();
@@ -99,7 +99,7 @@ function Users() {
 
       <View style={[style.flexDir, AppStyle.mt14]}>
       <View style={[style.flexpointone]}>
-      <Image style={Styles.lftimga} source={require('../../assets/Images/Users/noun_Recycle_3673532.png')}  /> 
+      <Image style={Styles.lftimga} source={require('../../../assets/Images/Users/noun_Recycle_3673532.png')}  /> 
       </View>
       <View style={[style.flexpointthree]}>
       <Text style={[AppStyle.ml24, AppStyles.txtSecandaryRegular, AppStyles.f13]}>{item.business_type}</Text>
@@ -126,7 +126,7 @@ function Users() {
         <View style={Styles.flx1}>
         <TouchableOpacity onPress={() => {screenNavigate()}}>  
                     <View>  
-                    <Image style={Styles.lftimg} source={require('../../assets/Images/AdminNewOrder/Group10055.png')}  />   
+                    <Image style={Styles.lftimg} source={require('../../../assets/Images/AdminNewOrder/Group10055.png')}  />   
                     </View>  
                 </TouchableOpacity>  
         </View>

@@ -32,9 +32,13 @@ import { AppStyles } from "../theme";
 import DrawerSideBar from "../containers/DrawerSideBar/index";
 import { getSaveData } from "../utils/helpers";
 import { LOCAL_STORAGE_DATA_KEY } from "../utils/constants";
-import EnableDisableUser from "../containers/EnableDisableUser";
-import Users from "../containers/Users";
+import EnableDisableUser from "../containers/Admin/EnableDisableUser";
+import Users from "../containers/Admin/Users";
+import OrderAssign from "../containers/Admin/OrderAssign";
 import OrderFailed from "../containers/Seller/OrderFailed";
+import OrderConfirmation from "../containers/Aggregator/OrderConfirmation";
+import WarehouseDetails from "../containers/Aggregator/WarehouseDetails";
+import { resolveConfig } from "prettier";
 
 
 const Stack = createStackNavigator();
@@ -72,7 +76,9 @@ const AppStack = (props) => {
       setLogin(true);
       setUserRole(role);
     }
-    SplashScreen.hide();
+    setTimeout( () => {
+      SplashScreen.hide();
+    }, 2500);
   };
 
   useEffect(async () => {

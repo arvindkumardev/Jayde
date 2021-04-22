@@ -5,7 +5,7 @@ import  DropDownPicker from "react-native-dropdown-picker";
 import axios from "axios";
 import useAxios from 'axios-hooks';
 import Styles from "./styles";
-import NavigationRouteNames from '../../routes/ScreenNames';
+import NavigationRouteNames from '../../../routes/ScreenNames';
 import {useNavigation} from '@react-navigation/core';
 import {useRoute} from '@react-navigation/native';
 
@@ -58,7 +58,7 @@ function OrderAssign() {
         <View style={Styles.flx1}>
         <TouchableOpacity>  
                     <View>  
-                    <Image style={Styles.lftimg} source={require('../../assets/Images/AdminNewOrder/Group10055.png')}  />   
+                    <Image style={Styles.lftimg} source={require('../../../assets/Images/AdminNewOrder/Group10055.png')}  />   
                     </View>  
                 </TouchableOpacity>  
         </View>

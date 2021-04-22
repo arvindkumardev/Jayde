@@ -56,6 +56,8 @@ const NavigationRouteNames = {
   PICKUP_DATE:"PickupDate",
   ENABLEDISABLE_USER:"EnableDisableUser",
   ORDER_FAILED:"OrderFailed",
+  ORDER_CONFIRMATION:"OrderConfirmation",
+  WAREHOUSE_DETAILS:"WarehouseDetails",
 };
 
 export default NavigationRouteNames;
