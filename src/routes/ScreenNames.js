@@ -55,6 +55,7 @@ const NavigationRouteNames = {
   CALLBACK_CONFIRMATION:"CallBackConfirmation",
   PICKUP_DATE:"PickupDate",
   ENABLEDISABLE_USER:"EnableDisableUser",
+  ORDER_FAILED:"OrderFailed",
 };
 
 export default NavigationRouteNames;

@@ -34,6 +34,8 @@ import { getSaveData } from "../utils/helpers";
 import { LOCAL_STORAGE_DATA_KEY } from "../utils/constants";
 import EnableDisableUser from "../containers/EnableDisableUser";
 import Users from "../containers/Users";
+import OrderFailed from "../containers/Seller/OrderFailed";
+
 
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -142,6 +144,12 @@ const AppStack = (props) => {
           <Stack.Screen
             name={NavigationRouteNames.PICKUP_DATE}
             component={PickupDate}
+            options={NoTitleHeader}
+          />
+           {/* Pickup Date Time Slot Screen */}
+           <Stack.Screen
+            name={NavigationRouteNames.ORDER_FAILED}
+            component={OrderFailed}
             options={NoTitleHeader}
           />
         </>;

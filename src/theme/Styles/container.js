@@ -40,6 +40,9 @@ const container = StyleSheet.create({
   whitecolor: {
     color: Colors.white,
   },
+  warmgreycolor: {
+    color: Colors.warmGrey,
+  },
   flexRowSpaceBetween: {
     flexDirection: 'row',
     justifyContent: 'space-between',
