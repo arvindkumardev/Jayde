@@ -36,5 +36,6 @@ const Colors = {
   mango: '#F7A435',
   lightOlive: '#ABC270',
   grayBackground: '#f5f5f5',
+  mangoTwo: '#f8a230',
 };
 export default Colors;

@@ -50,6 +50,9 @@ const container = StyleSheet.create({
   alignCenter: {
     alignItems: 'center',
   },
+  justifyCon: {
+    justifyContent: 'center',
+  },
   topBorderGray: {
     paddingTop: 20,
     borderTopColor: '#ccc',
@@ -79,17 +82,26 @@ const container = StyleSheet.create({
   flexpointone: {
     flex: 0.1,
   },
+  flexpointtwo: {
+    flex: 0.2,
+  },
   flexpointthree: {
     flex: 0.3,
   },
   flexpointfour: {
     flex: 0.4,
   },
+  flexpointfive: {
+    flex: 0.5,
+  },
   flexpointsix: {
     flex: 0.6,
   },
   flexpointseven: {
     flex: 0.7,
+  },
+  flexpointeight: {
+    flex: 0.8,
   },
   flexpointnine: {
     flex: 0.9,

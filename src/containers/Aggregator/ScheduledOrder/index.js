@@ -9,26 +9,20 @@ import CustomText from '../../../components/CustomText';
 import NavigationRouteNames from '../../../routes/ScreenNames';
 import {useNavigation} from '@react-navigation/core';
 import {useRoute} from '@react-navigation/native';
-import { AppStyles, Colors } from '../../../theme';
-import DropDown from '../../../components/Picker/index';
+import { AppStyles } from '../../../theme';
 
 
-function WarehouseDetails() {
+function ScheduledOrder() {
 
    const navigation = useNavigation();
    const route = useRoute();
-   const [subCategories, setSubCategoryes] = useState([]);
-   const [subCategoryId, setSubCategoryId] = useState('');
-   const [volume, setVolume] = useState('');
-   const [unitPickerData, setUnitData] = useState([]);
-   const [unit, setUnit] = useState('');
   
    const screenNavigate = () => {
     navigation.navigate(NavigationRouteNames.HOMESCREEN);
   }
 
   useLayoutEffect(() => {
-    const title='Order Warehouse details';
+    const title='Scheduled Order';
    navigation.setOptions({
     title,
   });
@@ -99,50 +93,33 @@ function WarehouseDetails() {
            </View>
        </View>
 
-       <View style={[AppStyle.ml20, AppStyle.mr20]}>
-         <Text style={[Appstyles.txtBlackBold, Appstyles.f17, AppStyle.mt35, Appstyles.textalig]}>Confirm the receipt and quantity</Text>
-       <View style={[AppStyles.mt20]}>
-          <Text style={[AppStyles.txtBlackRegular, AppStyles.f16, AppStyles.mb10]}>Category</Text>
-          <DropDown
-            items={subCategories}
-            placeholderText="Select category"
-            itemStyle={{ color: '#000' }}
-            onValueChange={(val) => setSubCategoryId(val)}
-            selectedValue={subCategoryId}
-            containerStyle={{ borderRadius: 10, backgroundColor: Colors.grayTwo, paddingLeft: 10 }}
-          />
-        </View>
-        <View style={[AppStyles.mt20]}>
-          <View>
-            <Text style={[AppStyles.txtBlackRegular, AppStyles.f16, AppStyles.mb10]}>Enter the Weight</Text>
-          </View>
-          <View style={{ flexDirection: 'row' }}>
-            <View style={{ flex: 2, paddingRight: 10 }}>
-              <TextInput
-                placeholder="Enter volume"
-                value={volume}
-                onChangeText={(txt) => setVolume(txt)}
-                style={{ backgroundColor: Colors.grayTwo, borderRadius: 10, paddingLeft: 10 }}
-              />
-            </View>
-            <View style={{ flex: 1 }}>
-              <DropDown
-                items={unitPickerData}
-                placeholderText="Units"
-                itemStyle={{ color: '#000' }}
-                onValueChange={(val) => setUnit(val)}
-                selectedValue={unit}
-                containerStyle={{ borderRadius: 10, backgroundColor: Colors.grayTwo, paddingLeft: 10 }}
-              />
-            </View>
-          </View>
-        </View>
-        </View>
+         <View style={[style.flexDir, AppStyle.ml20, AppStyle.mt35]}>
+         <View style={style.flexpointseven}>
+           <Text style={[Appstyles.txtBlackBold, Appstyles.f17]}>Current Status</Text>
+         </View>
+         <View style={style.flexpointthree}>
+           <Text style={[Appstyles.txtmangoTwoRegular, Appstyles.f11, AppStyle.ml10]}>View Details</Text>
+         </View>
+         </View>
+
+         <View style={[style.flexDir, AppStyle.ml20, AppStyle.mt20]}>
+         <View style={style.flexpointtwo}>
+         <Image source={require('../../../assets/Images/Aggregator/ScheduledOrder/confirm.png')}  />
+         </View>
+         <View style={style.flexpointfive}>
+           <Text style={[Appstyles.txtBlackRegular, Appstyles.f15]}>Order</Text>
+           <Text style={[Appstyles.txtSecandaryRegular, Appstyles.f11]}>26/07/2020</Text>
+         </View>
+         <View style={[style.flexpointthree, Appstyles.aligncen]}>
+         <Image source={require('../../../assets/Images/Aggregator/ScheduledOrder/pending.png')}  />
+           <Text style={[Appstyles.txtSecandaryRegular, Appstyles.f11]}>Pending</Text>
+         </View>
+         </View>
 
        <View style={Styles.btnContainer}>
        <TouchableOpacity
-           style={Styles.confirmbtn}>
-           <Text style={[Appstyles.txtWhiteRegular, Appstyles.f17, Appstyles.textalig, AppStyle.mt10]}>CONFIRM</Text>
+           style={[Styles.confirmbtn, AppStyle.mb20]}>
+           <Text style={[Appstyles.txtWhiteRegular, Appstyles.f17, Appstyles.textalig, AppStyle.mt10]}>PICKUP ORDER</Text>
          </TouchableOpacity>
        </View>
 
@@ -152,4 +129,4 @@ function WarehouseDetails() {
     </View>
   );
 }
-export default WarehouseDetails;
+export default ScheduledOrder;

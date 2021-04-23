@@ -36,8 +36,13 @@ import EnableDisableUser from "../containers/Admin/EnableDisableUser";
 import Users from "../containers/Admin/Users";
 import OrderAssign from "../containers/Admin/OrderAssign";
 import OrderFailed from "../containers/Seller/OrderFailed";
+import WorkOrderDetails from "../containers/Seller/WorkOrderDetails";
 import OrderConfirmation from "../containers/Aggregator/OrderConfirmation";
 import WarehouseDetails from "../containers/Aggregator/WarehouseDetails";
+import ScheduledOrder from "../containers/Aggregator/ScheduledOrder";
+import Inventory from "../containers/Aggregator/Inventory";
+import NewWorkOrder from "../containers/Aggregator/NewWorkOrder";
+import Workordersummary from "../containers/Aggregator/Workordersummary";
 import { resolveConfig } from "prettier";
 
 
@@ -46,7 +51,7 @@ const Drawer = createDrawerNavigator();
 
 const NoHeaderScreen = { headerShown: false };
 const NoTitleHeader = {title: null, headerStyle: { borderBottomWidth: 0, elevation: 0 }};
-const CommonHeaderStyle = { headerTitleStyle: [AppStyles.txtBlackBold, AppStyles.f18], headerStyle: { borderBottomWidth: 0, elevation: 0 } };
+const CommonHeaderStyle = { headerTitleStyle: [AppStyles.txtBlackBold, AppStyles.f18, AppStyles.ml10,], headerStyle: { borderBottomWidth: 0, elevation: 0 } };
 const DrawerMenu = ({ navigation }) => ({
   title: null,
   headerStyle: { borderBottomWidth: 0, elevation: 0 },
@@ -158,6 +163,12 @@ const AppStack = (props) => {
             component={OrderFailed}
             options={NoTitleHeader}
           />
+           {/* Work Order Details Screen number: 31 */}
+           <Stack.Screen
+            name={NavigationRouteNames.WORKORDER_DETAILS}
+            component={WorkOrderDetails}
+            options={CommonHeaderStyle}
+          />
         </>;
         case USER_ROLE.AGGRATOR:
           return <>
@@ -207,6 +218,42 @@ const AppStack = (props) => {
             <Stack.Screen
               name={NavigationRouteNames.CALL_REQUEST}
               component={CallRequest}
+              options={CommonHeaderStyle}
+            />
+             {/* Schedule Order screen number: 25 */}
+             <Stack.Screen
+              name={NavigationRouteNames.SCHEDULE_ORDER}
+              component={ScheduledOrder}
+              options={CommonHeaderStyle}
+            />
+              {/* Inventory screen number: 40 */}
+              <Stack.Screen
+              name={NavigationRouteNames.INVENTORY}
+              component={Inventory}
+              options={CommonHeaderStyle}
+            />
+              {/* Order CONFIRMATION screen number: 27 */}
+              <Stack.Screen
+              name={NavigationRouteNames.ORDER_CONFIRMATION}
+              component={OrderConfirmation}
+              options={CommonHeaderStyle}
+            />
+             {/* Warehouse Details screen number: 32 */}
+             <Stack.Screen
+              name={NavigationRouteNames.WAREHOUSE_DETAILS}
+              component={WarehouseDetails}
+              options={CommonHeaderStyle}
+            />
+            {/* New Work Order screen number: 32 */}
+            <Stack.Screen
+              name={NavigationRouteNames.NEW_WORKORDER}
+              component={NewWorkOrder}
+              options={CommonHeaderStyle}
+            />
+            {/* Work Order Summary screen number: 42 */}
+            <Stack.Screen
+              name={NavigationRouteNames.WORKORDER_SUMMARY}
+              component={Workordersummary}
               options={CommonHeaderStyle}
             />
           </>;

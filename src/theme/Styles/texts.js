@@ -15,6 +15,10 @@ const texts = StyleSheet.create({
     fontFamily: Fonts.regular,
     color: Colors.mango,
   },
+  txtmangoTwoRegular: {
+    fontFamily: Fonts.regular,
+    color: Colors.mangoTwo,
+  },
   txtSecandaryRegular: {
     fontFamily: Fonts.regular,
     color: Colors.warmGrey,
@@ -40,6 +44,9 @@ const texts = StyleSheet.create({
   },
   f12: {
     fontSize: 12,
+  },
+  f13: {
+    fontSize: 13,
   },
   f15: {
     fontSize: 15,

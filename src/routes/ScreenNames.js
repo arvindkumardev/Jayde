@@ -34,6 +34,7 @@ const NavigationRouteNames = {
   PRICE_CONFIRM: "PriceConfirm",
   PICKUP_DETAILS: "PickupDetails",
   CALL_REQUEST: "CallRequest",
+  WORKORDER_DETAILS:"WorkOrderDetails",
 
   NEW_ORDER: "OrderType",
   ASSIGN_ORDER: "OrderAssign",
@@ -56,8 +57,13 @@ const NavigationRouteNames = {
   PICKUP_DATE:"PickupDate",
   ENABLEDISABLE_USER:"EnableDisableUser",
   ORDER_FAILED:"OrderFailed",
+
   ORDER_CONFIRMATION:"OrderConfirmation",
   WAREHOUSE_DETAILS:"WarehouseDetails",
+  SCHEDULE_ORDER:"ScheduledOrder",
+  INVENTORY:"Inventory",
+  NEW_WORKORDER:"NewWorkOrder",
+  WORKORDER_SUMMARY:"Workordersummary",
 };
 
 export default NavigationRouteNames;

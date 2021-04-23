@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState, useLayoutEffect} from 'react';
 import * as Alert from 'react-native';
 import {KeyboardAvoidingView, Platform, TouchableOpacity, View, Text, Image, TextInput, FlatList, ScrollView} from 'react-native';
 import Styles from "./styles";
@@ -20,6 +20,13 @@ function OrderConfirmation() {
    const screenNavigate = () => {
     navigation.navigate(NavigationRouteNames.HOMESCREEN);
   }
+
+  useLayoutEffect(() => {
+    const title='New Order';
+   navigation.setOptions({
+    title,
+  });
+  }, []);
   
   return (
     <View style={Styles.topView}>
