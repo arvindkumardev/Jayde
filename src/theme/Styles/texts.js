@@ -39,6 +39,9 @@ const texts = StyleSheet.create({
     fontFamily: Fonts.bold,
     color: Colors.warmGrey,
   },
+  f9: {
+    fontSize: 9,
+  },
   f11: {
     fontSize: 11,
   },

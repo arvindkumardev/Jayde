@@ -64,6 +64,13 @@ const NavigationRouteNames = {
   INVENTORY:"Inventory",
   NEW_WORKORDER:"NewWorkOrder",
   WORKORDER_SUMMARY:"Workordersummary",
+  COMPLETED_ORDER:"CompletedOrder",
+
+  PAYMENT_DETAILS:"PaymentDetails",
+
+  UPDATE_PROFILE:"UpdateProfile",
+  BUSINESS_DETAIL:"BusinessDetail",
+  PROFILE_UPDATE:"ProfileUpdate",
 };
 
 export default NavigationRouteNames;

@@ -52,11 +52,11 @@ function Workordersummary() {
           <Text style={[AppStyles.txtBlackRegular, AppStyles.f15]}>JYD/N/21/019</Text>
           <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f13]}>Vijaynanda Krafts pvt ltd</Text>
           </View>
-          <View style={[AppStyles.flexpointtwo, AppStyles.ml30,]}>
+          {/* <View style={[AppStyles.flexpointtwo, AppStyles.ml30,]}>
           <TouchableOpacity onPress={() => { delView() }}>
           <FAIcon size={18} name="trash" />
           </TouchableOpacity>
-          </View>
+          </View> */}
           </View>
 
          <View style={[AppStyles.flexDir, AppStyles.mt20]}>

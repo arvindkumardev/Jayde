@@ -43,6 +43,11 @@ import ScheduledOrder from "../containers/Aggregator/ScheduledOrder";
 import Inventory from "../containers/Aggregator/Inventory";
 import NewWorkOrder from "../containers/Aggregator/NewWorkOrder";
 import Workordersummary from "../containers/Aggregator/Workordersummary";
+import CompletedOrder from "../containers/Aggregator/CompletedOrder";
+import PaymentDetails from "../containers/Recycler/PaymentDetails";
+import UpdateProfile from "../containers/UpdateProfile";
+import BusinessDetail from "../containers/BusinessDetail";
+import ProfileUpdate from "../containers/ProfileUpdate";
 import { resolveConfig } from "prettier";
 
 
@@ -256,6 +261,12 @@ const AppStack = (props) => {
               component={Workordersummary}
               options={CommonHeaderStyle}
             />
+            {/* Completed Order screen number: 45 */}
+            <Stack.Screen
+              name={NavigationRouteNames.COMPLETED_ORDER}
+              component={CompletedOrder}
+              options={CommonHeaderStyle}
+            />
           </>;
     case USER_ROLE.RECYCLER:
       return <>
@@ -305,6 +316,12 @@ const AppStack = (props) => {
         <Stack.Screen
           name={NavigationRouteNames.CALL_REQUEST}
           component={CallRequest}
+          options={CommonHeaderStyle}
+        />
+         {/* Payment Details screen number: 44 */}
+         <Stack.Screen
+          name={NavigationRouteNames.PAYMENT_DETAILS}
+          component={PaymentDetails}
           options={CommonHeaderStyle}
         />
       </>;
@@ -358,6 +375,24 @@ const AppStack = (props) => {
             name={NavigationRouteNames.ENABLEDISABLE_USER}
             component={EnableDisableUser}
             options={NoTitleHeader}
+          />
+           {/* Update Profile Screen number: 50 */}
+           <Stack.Screen
+            name={NavigationRouteNames.UPDATE_PROFILE}
+            component={UpdateProfile}
+            options={NoTitleHeader}
+          />
+          {/* Business Detail Screen number: 51 */}
+          <Stack.Screen
+            name={NavigationRouteNames.BUSINESS_DETAIL}
+            component={BusinessDetail}
+            options={CommonHeaderStyle}
+          />
+          {/* Profile Update Screen number: 52 */}
+          <Stack.Screen
+            name={NavigationRouteNames.PROFILE_UPDATE}
+            component={ProfileUpdate}
+            options={CommonHeaderStyle}
           />
         </>;
       default:
