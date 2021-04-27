@@ -29,6 +29,8 @@ function NewWorkOrder() {
   }
 
   useLayoutEffect(() => {
+    const {status} = route.params;
+    setAggregate(status);
     const title='New Order';
    navigation.setOptions({
     title,
@@ -42,23 +44,23 @@ function NewWorkOrder() {
        <View style={[AppStyle.ml20, AppStyle.mr20]}>
          <Text style={[Appstyles.txtBlackBold, Appstyles.f17, AppStyle.mt35, Appstyles.textalig]}>Create New Order Here</Text>
          {aggregate == "1" ? 
-       <View style={[AppStyles.mt20]}>
+      <View style={[AppStyles.mt20]}>
+      <Text style={[AppStyles.txtBlackRegular, AppStyles.f16, AppStyles.mb10]}>Aggregator</Text>
+      <DropDown
+        items={subCategories}
+        placeholderText="Select Aggregator"
+        itemStyle={{ color: '#000' }}
+        onValueChange={(val) => setSubCategoryId(val)}
+        selectedValue={subCategoryId}
+        containerStyle={{ borderRadius: 10, backgroundColor: Colors.grayTwo, paddingLeft: 10 }}
+      />
+    </View>
+         :
+         <View style={[AppStyles.mt20]}>
           <Text style={[AppStyles.txtBlackRegular, AppStyles.f16, AppStyles.mb10]}>Recycler</Text>
           <DropDown
             items={subCategories}
             placeholderText="Select recycler"
-            itemStyle={{ color: '#000' }}
-            onValueChange={(val) => setSubCategoryId(val)}
-            selectedValue={subCategoryId}
-            containerStyle={{ borderRadius: 10, backgroundColor: Colors.grayTwo, paddingLeft: 10 }}
-          />
-        </View>
-         :
-        <View style={[AppStyles.mt20]}>
-          <Text style={[AppStyles.txtBlackRegular, AppStyles.f16, AppStyles.mb10]}>Aggregator</Text>
-          <DropDown
-            items={subCategories}
-            placeholderText="Select Aggregator"
             itemStyle={{ color: '#000' }}
             onValueChange={(val) => setSubCategoryId(val)}
             selectedValue={subCategoryId}

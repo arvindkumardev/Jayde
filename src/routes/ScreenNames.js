@@ -74,6 +74,9 @@ const NavigationRouteNames = {
   DOWNLOAD_REPORT:"DownloadReport",
   MANAGE_EPR:"ManageEPR",
   SUBCATEGORY_DETAILS:"SubCategoryDetails",
+  PROVISIONAL_PRICING:"ProvisionalPricing",
+  SMART_CONTRACT:"SmartContract",
+  AUDIT_TRAIL:"AuditTrail",
 };
 
 export default NavigationRouteNames;

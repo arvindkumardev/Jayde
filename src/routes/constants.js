@@ -61,7 +61,7 @@ const DRAWER_MENU = {
         name: 'Smart Contracts',
         color: Colors.mango,
         iconName: 'sticky-note',
-        screenName: ''
+        screenName: NavigationRouteNames.SMART_CONTRACT
       },
       {
           name: 'Logout',
@@ -75,7 +75,7 @@ const DRAWER_MENU = {
         name: 'My Home',
         color: Colors.mango,
         iconName: 'home',
-        screenName: NavigationRouteNames.NEW_ORDER_REQUEST
+        screenName: NavigationRouteNames.HOME_SCREEN
     },
     {
         name: 'Download Report',
@@ -101,12 +101,12 @@ const DRAWER_MENU = {
         iconName: 'tasks',
         screenName: NavigationRouteNames.SUBCATEGORY_DETAILS
     },
-    // {
-    //     name: 'Manage Provisional Pricing',
-    //     color: Colors.mango,
-    //     iconName: 'tasks',
-    //     screenName: ''
-    // },
+    {
+        name: 'Manage Provisional Pricing',
+        color: Colors.mango,
+        iconName: 'tasks',
+        screenName: NavigationRouteNames.PROVISIONAL_PRICING
+    },
     {
         name: 'Profile',
         color: Colors.mango,
@@ -137,7 +137,7 @@ const DRAWER_MENU = {
         name: 'My Home',
         color: Colors.mango,
         iconName: 'home',
-        screenName: NavigationRouteNames.NEW_ORDER_REQUEST
+        screenName: NavigationRouteNames.HOME_SCREEN
     },
     {
         name: 'Order Summary',
@@ -173,7 +173,7 @@ const DRAWER_MENU = {
         name: 'Smart Contracts',
         color: Colors.mango,
         iconName: 'sticky-note',
-        screenName: ''
+        screenName: NavigationRouteNames.SMART_CONTRACT
     },
     {
         name: 'Logout',
@@ -187,7 +187,7 @@ const DRAWER_MENU = {
         name: 'My Home',
         color: Colors.mango,
         iconName: 'home',
-        screenName: NavigationRouteNames.NEW_ORDER_REQUEST
+        screenName: NavigationRouteNames.HOME_SCREEN
     },
     {
         name: 'Work Orders',
@@ -205,7 +205,7 @@ const DRAWER_MENU = {
         name: 'Inventory',
         color: Colors.mango,
         iconName: 'archive',
-        screenName: ''
+        screenName: NavigationRouteNames.INVENTORY 
     },
     {
         name: 'Users',
@@ -217,7 +217,7 @@ const DRAWER_MENU = {
         name: 'Smart Contracts',
         color: Colors.mango,
         iconName: 'sticky-note',
-        screenName: ''
+        screenName: NavigationRouteNames.SMART_CONTRACT
     },
     {
         name: 'Logout',
@@ -231,7 +231,7 @@ const DRAWER_MENU = {
         name: 'My Home',
         color: Colors.mango,
         iconName: 'home',
-        screenName: NavigationRouteNames.NEW_ORDER_REQUEST
+        screenName: NavigationRouteNames.HOME_SCREEN
     },
     {
         name: 'Order Summary',

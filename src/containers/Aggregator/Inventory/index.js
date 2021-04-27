@@ -15,8 +15,8 @@ function Inventory() {
    const route = useRoute();
    
   
-   const screenNavigate = () => {
-    navigation.navigate(NavigationRouteNames.NEW_WORKORDER);
+   const screenNavigate = (btnstatus) => {
+    navigation.navigate(NavigationRouteNames.NEW_WORKORDER, {status:btnstatus});
   }
 
      useLayoutEffect(() => {

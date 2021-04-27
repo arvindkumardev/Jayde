@@ -38,6 +38,7 @@ import OrderAssign from "../containers/Admin/OrderAssign";
 import DownloadReport from "../containers/Admin/DownloadReport";
 import ManageEPR from "../containers/Admin/ManageEPR";
 import SubCategoryDetails from "../containers/Admin/SubCategoryDetails";
+import ProvisionalPricing from "../containers/Admin/ProvisionalPricing";
 import OrderFailed from "../containers/Seller/OrderFailed";
 import WorkOrderDetails from "../containers/Seller/WorkOrderDetails";
 import OrderConfirmation from "../containers/Aggregator/OrderConfirmation";
@@ -52,6 +53,8 @@ import UpdateProfile from "../containers/UpdateProfile";
 import BusinessDetail from "../containers/BusinessDetail";
 import ProfileUpdate from "../containers/ProfileUpdate";
 import Confirmation from "../containers/Confirmation";
+import SmartContract from "../containers/SmartContract";
+import AuditTrail from "../containers/AuditTrail";
 import { resolveConfig } from "prettier";
 
 
@@ -184,6 +187,18 @@ const AppStack = (props) => {
             component={Confirmation}
             options={CommonHeaderStyle}
           />
+          {/* Smart Contract Screen number: 70*/}
+          <Stack.Screen
+            name={NavigationRouteNames.SMART_CONTRACT}
+            component={SmartContract}
+            options={CommonHeaderStyle}
+          />
+          {/* Audit Trail Screen number: 72*/}
+          <Stack.Screen
+            name={NavigationRouteNames.AUDIT_TRAIL}
+            component={AuditTrail}
+            options={CommonHeaderStyle}
+          />
         </>;
         case USER_ROLE.AGGRATOR:
           return <>
@@ -277,6 +292,18 @@ const AppStack = (props) => {
               component={CompletedOrder}
               options={CommonHeaderStyle}
             />
+             {/* Smart Contract Screen number: 70*/}
+          <Stack.Screen
+            name={NavigationRouteNames.SMART_CONTRACT}
+            component={SmartContract}
+            options={CommonHeaderStyle}
+          />
+          {/* Audit Trail Screen number: 72*/}
+          <Stack.Screen
+            name={NavigationRouteNames.AUDIT_TRAIL}
+            component={AuditTrail}
+            options={CommonHeaderStyle}
+          />
           </>;
     case USER_ROLE.RECYCLER:
       return <>
@@ -334,6 +361,36 @@ const AppStack = (props) => {
           component={PaymentDetails}
           options={CommonHeaderStyle}
         />
+         {/* Inventory screen number: 40 */}
+         <Stack.Screen
+              name={NavigationRouteNames.INVENTORY}
+              component={Inventory}
+              options={CommonHeaderStyle}
+            />
+            {/* New Work Order screen number: 32 */}
+            <Stack.Screen
+              name={NavigationRouteNames.NEW_WORKORDER}
+              component={NewWorkOrder}
+              options={CommonHeaderStyle}
+            />
+             {/* Work Order Summary screen number: 42 */}
+             <Stack.Screen
+              name={NavigationRouteNames.WORKORDER_SUMMARY}
+              component={Workordersummary}
+              options={CommonHeaderStyle}
+            />
+             {/* Smart Contract Screen number: 70*/}
+          <Stack.Screen
+            name={NavigationRouteNames.SMART_CONTRACT}
+            component={SmartContract}
+            options={CommonHeaderStyle}
+          />
+          {/* Audit Trail Screen number: 72*/}
+          <Stack.Screen
+            name={NavigationRouteNames.AUDIT_TRAIL}
+            component={AuditTrail}
+            options={CommonHeaderStyle}
+          />
       </>;
       case USER_ROLE.ADMIN:
         return <>
@@ -426,6 +483,12 @@ const AppStack = (props) => {
            <Stack.Screen
             name={NavigationRouteNames.SUBCATEGORY_DETAILS}
             component={SubCategoryDetails}
+            options={CommonHeaderStyle}
+          />
+           {/* Provisional Pricing Screen number: 94*/}
+           <Stack.Screen
+            name={NavigationRouteNames.PROVISIONAL_PRICING}
+            component={ProvisionalPricing}
             options={CommonHeaderStyle}
           />
         </>;
