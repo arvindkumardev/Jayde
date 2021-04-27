@@ -35,6 +35,9 @@ import { LOCAL_STORAGE_DATA_KEY } from "../utils/constants";
 import EnableDisableUser from "../containers/Admin/EnableDisableUser";
 import Users from "../containers/Admin/Users";
 import OrderAssign from "../containers/Admin/OrderAssign";
+import DownloadReport from "../containers/Admin/DownloadReport";
+import ManageEPR from "../containers/Admin/ManageEPR";
+import SubCategoryDetails from "../containers/Admin/SubCategoryDetails";
 import OrderFailed from "../containers/Seller/OrderFailed";
 import WorkOrderDetails from "../containers/Seller/WorkOrderDetails";
 import OrderConfirmation from "../containers/Aggregator/OrderConfirmation";
@@ -48,6 +51,7 @@ import PaymentDetails from "../containers/Recycler/PaymentDetails";
 import UpdateProfile from "../containers/UpdateProfile";
 import BusinessDetail from "../containers/BusinessDetail";
 import ProfileUpdate from "../containers/ProfileUpdate";
+import Confirmation from "../containers/Confirmation";
 import { resolveConfig } from "prettier";
 
 
@@ -172,6 +176,12 @@ const AppStack = (props) => {
            <Stack.Screen
             name={NavigationRouteNames.WORKORDER_DETAILS}
             component={WorkOrderDetails}
+            options={CommonHeaderStyle}
+          />
+          {/* Confirmation Screen */}
+          <Stack.Screen
+            name={NavigationRouteNames.CONFIRMATION}
+            component={Confirmation}
             options={CommonHeaderStyle}
           />
         </>;
@@ -392,6 +402,30 @@ const AppStack = (props) => {
           <Stack.Screen
             name={NavigationRouteNames.PROFILE_UPDATE}
             component={ProfileUpdate}
+            options={CommonHeaderStyle}
+          />
+          {/* User List Screen */}
+          <Stack.Screen
+            name={NavigationRouteNames.USERS}
+            component={Users}
+            options={CommonHeaderStyle}
+          />
+           {/* Download Report Screen number: 91*/}
+           <Stack.Screen
+            name={NavigationRouteNames.DOWNLOAD_REPORT}
+            component={DownloadReport}
+            options={CommonHeaderStyle}
+          />
+           {/* ManageEPR Screen number: 92*/}
+           <Stack.Screen
+            name={NavigationRouteNames.MANAGE_EPR}
+            component={ManageEPR}
+            options={CommonHeaderStyle}
+          />
+           {/* Sub Category Details Screen number: 93*/}
+           <Stack.Screen
+            name={NavigationRouteNames.SUBCATEGORY_DETAILS}
+            component={SubCategoryDetails}
             options={CommonHeaderStyle}
           />
         </>;

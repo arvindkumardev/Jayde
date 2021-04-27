@@ -71,6 +71,9 @@ const NavigationRouteNames = {
   UPDATE_PROFILE:"UpdateProfile",
   BUSINESS_DETAIL:"BusinessDetail",
   PROFILE_UPDATE:"ProfileUpdate",
+  DOWNLOAD_REPORT:"DownloadReport",
+  MANAGE_EPR:"ManageEPR",
+  SUBCATEGORY_DETAILS:"SubCategoryDetails",
 };
 
 export default NavigationRouteNames;

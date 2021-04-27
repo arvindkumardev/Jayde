@@ -18,12 +18,13 @@ const styles = StyleSheet.create({
   boxContent: {
     flex: 1, 
     width: 310, 
-    height: 544, 
+    height: 574, 
     backgroundColor: '#ffffff', 
     alignItems: 'center', 
     borderRadius: 20, 
     marginLeft: 24, 
     marginTop: 32,
+    marginBottom: 40,
   },
   boxImage: {
     width: 132, 
@@ -32,7 +33,7 @@ const styles = StyleSheet.create({
   },
   bxVu: {
     width: 310, 
-    height: 285, 
+    height: 295, 
     borderRadius: 20, 
     marginLeft: 24, 
     marginTop: 5, 

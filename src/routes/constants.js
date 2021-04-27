@@ -81,7 +81,7 @@ const DRAWER_MENU = {
         name: 'Download Report',
         color: Colors.mango,
         iconName: 'download',
-        screenName: ''
+        screenName: NavigationRouteNames.DOWNLOAD_REPORT
     },
     {
         name: 'Manage Orders',
@@ -93,13 +93,13 @@ const DRAWER_MENU = {
         name: 'Manage EPR',
         color: Colors.mango,
         iconName: 'th-large',
-        screenName: ''
+        screenName: NavigationRouteNames.MANAGE_EPR
     },
     {
         name: 'Manage Sub Category',
         color: Colors.mango,
         iconName: 'tasks',
-        screenName: ''
+        screenName: NavigationRouteNames.SUBCATEGORY_DETAILS
     },
     // {
     //     name: 'Manage Provisional Pricing',
@@ -123,7 +123,7 @@ const DRAWER_MENU = {
         name: 'Users',
         color: Colors.mango,
         iconName: 'users',
-        screenName: ''
+        screenName: NavigationRouteNames.USERS
     },
     {
         name: 'Logout',

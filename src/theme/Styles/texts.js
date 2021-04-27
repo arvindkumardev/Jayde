@@ -35,6 +35,10 @@ const texts = StyleSheet.create({
     fontFamily: Fonts.bold,
     color: Colors.mango,
   },
+  txtmangoTwoBold: {
+    fontFamily: Fonts.bold,
+    color: Colors.mangoTwo,
+  },
   txtSecandaryBold: {
     fontFamily: Fonts.bold,
     color: Colors.warmGrey,

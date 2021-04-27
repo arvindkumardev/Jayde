@@ -22,8 +22,9 @@ const PickupDetails = () => {
   }, [navigation]);
 
   const handleConfirm = () => {
-    navigation.navigate(NavigationRouteNames.CONFIRM_ADDRESS);
+    navigation.navigate(NavigationRouteNames.CONFIRMATION);
   }
+  // CONFIRMATION
 
   return (
       <KeyboardAwareScrollView style={Styles.mainContainer}>
@@ -52,7 +53,8 @@ const PickupDetails = () => {
             </TouchableOpacity>
           </View>
           <View>
-            <TouchableOpacity style={[AppStyles.mt20, AppStyles.br10, AppStyles.btnPrimary, AppStyles.pv10, AppStyles.alignCenter]}>
+            <TouchableOpacity style={[AppStyles.mt20, AppStyles.br10, AppStyles.btnPrimary, AppStyles.pv10, AppStyles.alignCenter]}
+            onPress={() => handleConfirm()}>
               <Text style={[AppStyles.txtWhiteRegular, AppStyles.f18]}>CONFIRM LOCATION & PROCEED</Text>
             </TouchableOpacity>
           </View>

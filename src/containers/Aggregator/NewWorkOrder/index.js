@@ -22,9 +22,10 @@ function NewWorkOrder() {
    const [volume, setVolume] = useState('');
    const [unitPickerData, setUnitData] = useState([]);
    const [unit, setUnit] = useState('');
+   const [aggregate, setAggregate] = useState("");
   
    const screenNavigate = () => {
-    navigation.navigate(NavigationRouteNames.HOMESCREEN);
+    navigation.navigate(NavigationRouteNames.WORKORDER_SUMMARY);
   }
 
   useLayoutEffect(() => {
@@ -40,6 +41,7 @@ function NewWorkOrder() {
 
        <View style={[AppStyle.ml20, AppStyle.mr20]}>
          <Text style={[Appstyles.txtBlackBold, Appstyles.f17, AppStyle.mt35, Appstyles.textalig]}>Create New Order Here</Text>
+         {aggregate == "1" ? 
        <View style={[AppStyles.mt20]}>
           <Text style={[AppStyles.txtBlackRegular, AppStyles.f16, AppStyles.mb10]}>Recycler</Text>
           <DropDown
@@ -51,6 +53,18 @@ function NewWorkOrder() {
             containerStyle={{ borderRadius: 10, backgroundColor: Colors.grayTwo, paddingLeft: 10 }}
           />
         </View>
+         :
+        <View style={[AppStyles.mt20]}>
+          <Text style={[AppStyles.txtBlackRegular, AppStyles.f16, AppStyles.mb10]}>Aggregator</Text>
+          <DropDown
+            items={subCategories}
+            placeholderText="Select Aggregator"
+            itemStyle={{ color: '#000' }}
+            onValueChange={(val) => setSubCategoryId(val)}
+            selectedValue={subCategoryId}
+            containerStyle={{ borderRadius: 10, backgroundColor: Colors.grayTwo, paddingLeft: 10 }}
+          />
+        </View> }
 
         <View style={[AppStyles.mt20]}>
           <Text style={[AppStyles.txtBlackRegular, AppStyles.f16, AppStyles.mb10]}>Category</Text>
@@ -133,7 +147,7 @@ function NewWorkOrder() {
 
        <View style={Styles.btnContainer}>
        <TouchableOpacity
-           style={Styles.confirmbtn}>
+           style={Styles.confirmbtn} onPress={() => screenNavigate()}>
            <Text style={[Appstyles.txtWhiteRegular, Appstyles.f17, Appstyles.textalig, AppStyle.mt10]}>SAVE</Text>
          </TouchableOpacity>
        </View>
