@@ -17,9 +17,13 @@ function SmartContract() {
    const navigation = useNavigation();
    const route = useRoute();
   
+   const ownedContracts = () => {
+    navigation.navigate(NavigationRouteNames.OWNED_CONTRACTS);
+   }
+
    const screenNavigate = () => {
     navigation.navigate(NavigationRouteNames.AUDIT_TRAIL);
-  }
+   }
 
   useLayoutEffect(() => {
     const title='Smart Contracts';
@@ -32,8 +36,8 @@ function SmartContract() {
     <View style={Styles.topView}>
        <ScrollView>
        
+       <TouchableOpacity onPress={() => ownedContracts()}>
        <View style={Styles.boxView}>
-
            <View style={style.flexDir}>
          <View style={style.flexpointeight}>
            <Text style={[Appstyles.txtWhiteBold, Appstyles.f17, AppStyle.mt20, AppStyle.ml20]}>Owned Contracts</Text>
@@ -45,6 +49,7 @@ function SmartContract() {
            </View>
            <Text style={[Appstyles.txtWhiteRegular, Appstyles.f13, AppStyle.mt10, AppStyle.ml20]}>View all the contacts that you own.</Text>
        </View>
+       </TouchableOpacity>
 
        <TouchableOpacity onPress={() => screenNavigate()}>
        <View style={Styles.auditboxView}>

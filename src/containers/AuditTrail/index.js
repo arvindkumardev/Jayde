@@ -22,7 +22,7 @@ function AuditTrail() {
    const [unit, setUnit] = useState('');
   
    const screenNavigate = () => {
-    navigation.navigate(NavigationRouteNames.HOMESCREEN);
+    navigation.navigate(NavigationRouteNames.SMARTCONTRACT_DETAIL);
   }
 
      useLayoutEffect(() => {
@@ -56,7 +56,7 @@ function AuditTrail() {
         </View>
         <View style={AppStyles.flex1}>
        <TouchableOpacity
-           style={[Styles.confirmbtn, AppStyles.mb20]}>
+           style={[Styles.confirmbtn, AppStyles.mb20]} onPress={() => screenNavigate()}>
            <Text style={[AppStyles.txtWhiteRegular, AppStyles.f17, AppStyles.textalig, AppStyles.mt10]}>SUBMIT</Text>
          </TouchableOpacity>
          </View>

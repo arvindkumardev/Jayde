@@ -55,6 +55,8 @@ import ProfileUpdate from "../containers/ProfileUpdate";
 import Confirmation from "../containers/Confirmation";
 import SmartContract from "../containers/SmartContract";
 import AuditTrail from "../containers/AuditTrail";
+import SmartContractDetail from "../containers/SmartContractDetail";
+import OwnedContracts from "../containers/OwnedContracts";
 import { resolveConfig } from "prettier";
 
 
@@ -302,6 +304,18 @@ const AppStack = (props) => {
           <Stack.Screen
             name={NavigationRouteNames.AUDIT_TRAIL}
             component={AuditTrail}
+            options={CommonHeaderStyle}
+          />
+          {/* Smart Contract Detail Screen number: 73*/}
+          <Stack.Screen
+            name={NavigationRouteNames.SMARTCONTRACT_DETAIL}
+            component={SmartContractDetail}
+            options={CommonHeaderStyle}
+          />
+           {/* Owned Contracts Screen number: 71*/}
+           <Stack.Screen
+            name={NavigationRouteNames.OWNED_CONTRACTS}
+            component={OwnedContracts}
             options={CommonHeaderStyle}
           />
           </>;

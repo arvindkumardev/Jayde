@@ -1,0 +1,25 @@
+[{
+    "date": "07/03/2021",
+    "productdetail": "JYD/N/21/019",
+    "type": "Pulp board",
+    "weight": "92 Kg",
+    "status": "Completed",
+  },  {
+    "date": "05/03/2021",
+    "productdetail": "JYD/N/20/123",
+    "type": "Duplex",
+    "weight": "100 Kg",
+    "status": "Accepted",
+  },  {
+    "date": "25/02/2021",
+    "productdetail": "JYD/N/13/145",
+    "type": "Duplex",
+    "weight": "10 Kg",
+    "status": "Scheduled",
+  }, {
+    "date": "19/02/2021",
+    "productdetail": "JYD/N/86/799",
+    "type": "SWOR",
+    "weight": "20 Kg",
+    "status": "Accepted",
+  }]

@@ -77,6 +77,8 @@ const NavigationRouteNames = {
   PROVISIONAL_PRICING:"ProvisionalPricing",
   SMART_CONTRACT:"SmartContract",
   AUDIT_TRAIL:"AuditTrail",
+  SMARTCONTRACT_DETAIL:"SmartContractDetail",
+  OWNED_CONTRACTS:"OwnedContracts",
 };
 
 export default NavigationRouteNames;
