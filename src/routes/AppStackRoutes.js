@@ -49,6 +49,7 @@ import NewWorkOrder from "../containers/Aggregator/NewWorkOrder";
 import Workordersummary from "../containers/Aggregator/Workordersummary";
 import CompletedOrder from "../containers/Aggregator/CompletedOrder";
 import PaymentDetails from "../containers/Recycler/PaymentDetails";
+import NewWorkOrderList from "../containers/Recycler/NewWorkOrderList";
 import UpdateProfile from "../containers/UpdateProfile";
 import BusinessDetail from "../containers/BusinessDetail";
 import ProfileUpdate from "../containers/ProfileUpdate";
@@ -57,6 +58,7 @@ import SmartContract from "../containers/SmartContract";
 import AuditTrail from "../containers/AuditTrail";
 import SmartContractDetail from "../containers/SmartContractDetail";
 import OwnedContracts from "../containers/OwnedContracts";
+import AddSubUser from "../containers/AddSubUser";
 import { resolveConfig } from "prettier";
 
 
@@ -199,6 +201,18 @@ const AppStack = (props) => {
           <Stack.Screen
             name={NavigationRouteNames.AUDIT_TRAIL}
             component={AuditTrail}
+            options={CommonHeaderStyle}
+          />
+           {/* Smart Contract Detail Screen number: 73*/}
+           <Stack.Screen
+            name={NavigationRouteNames.SMARTCONTRACT_DETAIL}
+            component={SmartContractDetail}
+            options={CommonHeaderStyle}
+          />
+           {/* Owned Contracts Screen number: 71*/}
+           <Stack.Screen
+            name={NavigationRouteNames.OWNED_CONTRACTS}
+            component={OwnedContracts}
             options={CommonHeaderStyle}
           />
         </>;
@@ -405,6 +419,24 @@ const AppStack = (props) => {
             component={AuditTrail}
             options={CommonHeaderStyle}
           />
+           {/* Smart Contract Detail Screen number: 73*/}
+           <Stack.Screen
+            name={NavigationRouteNames.SMARTCONTRACT_DETAIL}
+            component={SmartContractDetail}
+            options={CommonHeaderStyle}
+          />
+           {/* Owned Contracts Screen number: 71*/}
+           <Stack.Screen
+            name={NavigationRouteNames.OWNED_CONTRACTS}
+            component={OwnedContracts}
+            options={CommonHeaderStyle}
+          />
+           {/* New Work Order List Screen number: 21*/}
+           <Stack.Screen
+            name={NavigationRouteNames.NEWWORK_ORDERLIST}
+            component={NewWorkOrderList}
+            options={CommonHeaderStyle}
+          />
       </>;
       case USER_ROLE.ADMIN:
         return <>
@@ -503,6 +535,12 @@ const AppStack = (props) => {
            <Stack.Screen
             name={NavigationRouteNames.PROVISIONAL_PRICING}
             component={ProvisionalPricing}
+            options={CommonHeaderStyle}
+          />
+          {/* Sub User Screen number: 81*/}
+          <Stack.Screen
+            name={NavigationRouteNames.ADD_SUBUSER}
+            component={AddSubUser}
             options={CommonHeaderStyle}
           />
         </>;

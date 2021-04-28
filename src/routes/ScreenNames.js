@@ -67,6 +67,7 @@ const NavigationRouteNames = {
   COMPLETED_ORDER:"CompletedOrder",
 
   PAYMENT_DETAILS:"PaymentDetails",
+  NEWWORK_ORDERLIST:"NewWorkOrderList",
 
   UPDATE_PROFILE:"UpdateProfile",
   BUSINESS_DETAIL:"BusinessDetail",
@@ -79,6 +80,7 @@ const NavigationRouteNames = {
   AUDIT_TRAIL:"AuditTrail",
   SMARTCONTRACT_DETAIL:"SmartContractDetail",
   OWNED_CONTRACTS:"OwnedContracts",
+  ADD_SUBUSER:"AddSubUser",
 };
 
 export default NavigationRouteNames;
