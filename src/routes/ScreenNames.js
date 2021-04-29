@@ -36,6 +36,7 @@ const NavigationRouteNames = {
   CALL_REQUEST: "CallRequest",
   WORKORDER_DETAILS:"WorkOrderDetails",
   PAYMENT:"Payment",
+  PICKUPDETAILS_CONFIRMATION:"PickupDetailsConfirmation",
 
   NEW_ORDER: "OrderType",
   ASSIGN_ORDER: "OrderAssign",
@@ -43,6 +44,7 @@ const NavigationRouteNames = {
   LOGIN_WITH_EMAIL: "LoginWithEmail",
   HOME_SCREEN: "HomeScreen",
   NEW_ORDER_REQUEST:"NewOrder",
+  ADD_SUBCATEGORY:"AddSubCategory",
 
   VIEW_NEW_ORDER:"ViewNewOrder",
   CONFIRMATION:"Confirmation",
@@ -83,6 +85,7 @@ const NavigationRouteNames = {
   SMARTCONTRACT_DETAIL:"SmartContractDetail",
   OWNED_CONTRACTS:"OwnedContracts",
   ADD_SUBUSER:"AddSubUser",
+  PASSWORD_RESET:"PasswordReset",
 };
 
 export default NavigationRouteNames;

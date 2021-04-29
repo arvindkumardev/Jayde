@@ -25,9 +25,11 @@ const styles = StyleSheet.create({
   confirmBtn: {
     borderRadius: 10,
     backgroundColor: '#ABC270',
-    paddingVertical: 11,
-    width: 80,
-    height: 40,
+    width: 58,
+    height: 27,
+  },
+  activebutton: {
+    marginTop: 5,
   },
   lftimga: {
     width: 16, 

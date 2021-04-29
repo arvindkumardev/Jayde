@@ -22,9 +22,8 @@ const PickupDetails = () => {
   }, [navigation]);
 
   const handleConfirm = () => {
-    navigation.navigate(NavigationRouteNames.CONFIRMATION);
+    navigation.navigate(NavigationRouteNames.PICKUPDETAILS_CONFIRMATION);
   }
-  // CONFIRMATION
 
   return (
       <KeyboardAwareScrollView style={Styles.mainContainer}>

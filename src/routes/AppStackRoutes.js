@@ -20,6 +20,7 @@ import AddressConfirm from "../containers/Seller/AddressConfirm/index";
 import PickupDetails from "../containers/Seller/PickupDetails/index";
 import CallRequest from "../containers/Seller/CallRequest/index";
 import OrderType from "../containers/Seller/OrderType/index";
+import PickupDetailsConfirmation from "../containers/Seller/PickupDetailsConfirmation";
 import Dashboard from "../containers/Dashboard/index";
 import PaymentVerification from "../containers/PaymentVerification";
 import ViewNewOrder from "../containers/ViewNewOrder";
@@ -39,6 +40,7 @@ import DownloadReport from "../containers/Admin/DownloadReport";
 import ManageEPR from "../containers/Admin/ManageEPR";
 import SubCategoryDetails from "../containers/Admin/SubCategoryDetails";
 import ProvisionalPricing from "../containers/Admin/ProvisionalPricing";
+import AddSubCategory from "../containers/Seller/AddSubCategory";
 import OrderFailed from "../containers/Seller/OrderFailed";
 import WorkOrderDetails from "../containers/Seller/WorkOrderDetails";
 import Payment from "../containers/Seller/Payment";
@@ -61,6 +63,7 @@ import AuditTrail from "../containers/AuditTrail";
 import SmartContractDetail from "../containers/SmartContractDetail";
 import OwnedContracts from "../containers/OwnedContracts";
 import AddSubUser from "../containers/AddSubUser";
+import PasswordReset from "../containers/PasswordReset";
 import { resolveConfig } from "prettier";
 
 
@@ -229,6 +232,18 @@ const AppStack = (props) => {
             component={Payment}
             options={NoHeaderScreen}
           />
+          {/* Pickup Details Confirmation Screen*/}
+          <Stack.Screen
+            name={NavigationRouteNames.PICKUPDETAILS_CONFIRMATION}
+            component={PickupDetailsConfirmation}
+            options={CommonHeaderStyle}
+          />
+          {/* Pickup Details Confirmation Screen*/}
+          <Stack.Screen
+            name={NavigationRouteNames.ADD_SUBCATEGORY}
+            component={AddSubCategory}
+            options={CommonHeaderStyle}
+          />
         </>;
         case USER_ROLE.AGGRATOR:
           return <>
@@ -356,6 +371,12 @@ const AppStack = (props) => {
           <Stack.Screen
             name={NavigationRouteNames.ADD_SUBUSER}
             component={AddSubUser}
+            options={CommonHeaderStyle}
+          />
+          {/* New Work Order List Screen number: 21*/}
+          <Stack.Screen
+            name={NavigationRouteNames.NEWWORK_ORDERLIST}
+            component={NewWorkOrderList}
             options={CommonHeaderStyle}
           />
           </>;
@@ -519,7 +540,7 @@ const AppStack = (props) => {
            <Stack.Screen
             name={NavigationRouteNames.ENABLEDISABLE_USER}
             component={EnableDisableUser}
-            options={NoTitleHeader}
+            options={NoHeaderScreen}
           />
            {/* Update Profile Screen number: 50 */}
            <Stack.Screen
@@ -568,6 +589,12 @@ const AppStack = (props) => {
             name={NavigationRouteNames.PROVISIONAL_PRICING}
             component={ProvisionalPricing}
             options={CommonHeaderStyle}
+          />
+          {/* Password Reset Screen number: 53*/}
+          <Stack.Screen
+            name={NavigationRouteNames.PASSWORD_RESET}
+            component={PasswordReset}
+            options={NoHeaderScreen}
           />
         </>;
       default:

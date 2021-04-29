@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState, useLayoutEffect} from 'react';
 import * as Alert from 'react-native';
 import {KeyboardAvoidingView, Platform, TouchableOpacity, View, Text, Image, TextInput, FlatList, ScrollView, ActivityIndicator} from 'react-native';
 import  DropDownPicker from "react-native-dropdown-picker";
@@ -35,7 +35,6 @@ function Users() {
             let listData = arraydata;
             let data1 = listData.concat(data.data[0].users);
             setarraydata(data1);
-            // setDataSource([...dataSource, setarraydata(data.data[0].users)]);
             setLoading(false);
             setarraydata(data.data[0].users)
           }
@@ -48,11 +47,18 @@ function Users() {
     triggerLogin();
   }, navigation);
 
+  useLayoutEffect(() => {
+    const title='Jayde Users';
+   navigation.setOptions({
+    title,
+  });
+  }, []);
+
    
    const [arraydata,setarraydata]=useState([])
   
    const screenNavigate = () => {
-    navigation.navigate(NavigationRouteNames.HOMESCREEN);
+    navigation.navigate(NavigationRouteNames.ENABLEDISABLE_USER);
   }
 
   const renderFooter = () => {
@@ -65,11 +71,6 @@ function Users() {
           //On Click of button load more data
           style={Styles.confirmBtnn}>
           <Text style={Styles.confirm}>Load More</Text>
-          {/* {loading ? (
-            <ActivityIndicator
-              color="white"
-              style={{marginLeft: 8}} />
-          ) : null} */}
         </TouchableOpacity>
       </View>
     );
@@ -77,7 +78,7 @@ function Users() {
 
   const _RenderItem = (index, item) => {
     return (
-      
+      <TouchableOpacity onPress={() => {screenNavigate()}}>  
        <View style={Styles.boxView}>
         
         
@@ -85,16 +86,15 @@ function Users() {
       <View style={Styles.flx2}>
       <Text style={[AppStyles.f13, AppStyles.txtSecandaryRegular, AppStyle.mt20]}>{item.email}</Text>
       </View>
-      <View style={[style.flexpointthree, AppStyle.mt10, AppStyle.mr24,]}>
+      <View style={[style.flexpointthree, AppStyle.mt20, AppStyles.ml24]}>
       <TouchableOpacity style={Styles.confirmBtn}>
-      <Text style={[AppStyles.txtWhiteRegular, AppStyles.f15, AppStyles.textalig]}>Inactive</Text>
+      <Text style={[AppStyles.txtWhiteRegular, AppStyles.f11, AppStyles.textalig, Styles.activebutton]}>Active</Text>
       </TouchableOpacity>
       </View>
       </View> 
 
       <Text style={[AppStyles.f15, AppStyle.ml24,]}>{item.business_name}</Text>
       <Text style={[AppStyles.f15, AppStyle.ml24,]}>{item.name}</Text>
-      {/* <Text style={[AppStyles.f15, AppStyle.ml24,]}>{item.password}</Text> */}
       
 
       <View style={[style.flexDir, AppStyle.mt14]}>
@@ -111,10 +111,8 @@ function Users() {
           </View>
       </View>
 
-      
-
-
        </View>
+       </TouchableOpacity>  
         )
       }
 
@@ -122,25 +120,6 @@ function Users() {
   return (
     <View style={Styles.mainView}>
        <ScrollView>
-       <View style={[style.flexDir, AppStyle.mt30,]}>
-        <View style={Styles.flx1}>
-        <TouchableOpacity onPress={() => {screenNavigate()}}>  
-                    <View>  
-                    <Image style={Styles.lftimg} source={require('../../../assets/Images/AdminNewOrder/Group10055.png')}  />   
-                    </View>  
-                </TouchableOpacity>  
-        </View>
-        <View style={Styles.flx2}>
-        <TouchableOpacity>  
-                    <View>  
-                        <Text style={[AppStyles.f20, AppStyles.txtBlackBold]}>Jayde Users</Text>  
-                    </View>  
-                </TouchableOpacity>  
-        </View>
-          </View> 
-
-          
-
 
        <FlatList
         data={arraydata}

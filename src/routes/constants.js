@@ -167,7 +167,7 @@ const DRAWER_MENU = {
         name: 'Work Orders',
         color: Colors.mango,
         iconName: 'folder',
-        screenName: ''
+        screenName: NavigationRouteNames.NEWWORK_ORDERLIST
     },
     {
         name: 'Smart Contracts',
