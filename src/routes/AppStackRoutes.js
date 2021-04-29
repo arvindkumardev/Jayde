@@ -41,6 +41,7 @@ import SubCategoryDetails from "../containers/Admin/SubCategoryDetails";
 import ProvisionalPricing from "../containers/Admin/ProvisionalPricing";
 import OrderFailed from "../containers/Seller/OrderFailed";
 import WorkOrderDetails from "../containers/Seller/WorkOrderDetails";
+import Payment from "../containers/Seller/Payment";
 import OrderConfirmation from "../containers/Aggregator/OrderConfirmation";
 import WarehouseDetails from "../containers/Aggregator/WarehouseDetails";
 import ScheduledOrder from "../containers/Aggregator/ScheduledOrder";
@@ -48,6 +49,7 @@ import Inventory from "../containers/Aggregator/Inventory";
 import NewWorkOrder from "../containers/Aggregator/NewWorkOrder";
 import Workordersummary from "../containers/Aggregator/Workordersummary";
 import CompletedOrder from "../containers/Aggregator/CompletedOrder";
+import WarehouseOrderConfirmation from "../containers/Aggregator/WarehouseOrderConfirmation";
 import PaymentDetails from "../containers/Recycler/PaymentDetails";
 import NewWorkOrderList from "../containers/Recycler/NewWorkOrderList";
 import UpdateProfile from "../containers/UpdateProfile";
@@ -215,6 +217,18 @@ const AppStack = (props) => {
             component={OwnedContracts}
             options={CommonHeaderStyle}
           />
+          {/* Sub User Screen number: 81*/}
+          <Stack.Screen
+            name={NavigationRouteNames.ADD_SUBUSER}
+            component={AddSubUser}
+            options={CommonHeaderStyle}
+          />
+           {/* Payment Screen*/}
+           <Stack.Screen
+            name={NavigationRouteNames.PAYMENT}
+            component={Payment}
+            options={NoHeaderScreen}
+          />
         </>;
         case USER_ROLE.AGGRATOR:
           return <>
@@ -332,6 +346,18 @@ const AppStack = (props) => {
             component={OwnedContracts}
             options={CommonHeaderStyle}
           />
+           {/* Warehouse Order Confirmation Screen*/}
+           <Stack.Screen
+            name={NavigationRouteNames.WAREHOUSEORDER_CONFIRMATION}
+            component={WarehouseOrderConfirmation}
+            options={CommonHeaderStyle}
+          />
+          {/* Sub User Screen number: 81*/}
+          <Stack.Screen
+            name={NavigationRouteNames.ADD_SUBUSER}
+            component={AddSubUser}
+            options={CommonHeaderStyle}
+          />
           </>;
     case USER_ROLE.RECYCLER:
       return <>
@@ -437,6 +463,12 @@ const AppStack = (props) => {
             component={NewWorkOrderList}
             options={CommonHeaderStyle}
           />
+          {/* Sub User Screen number: 81*/}
+          <Stack.Screen
+            name={NavigationRouteNames.ADD_SUBUSER}
+            component={AddSubUser}
+            options={CommonHeaderStyle}
+          />
       </>;
       case USER_ROLE.ADMIN:
         return <>
@@ -535,12 +567,6 @@ const AppStack = (props) => {
            <Stack.Screen
             name={NavigationRouteNames.PROVISIONAL_PRICING}
             component={ProvisionalPricing}
-            options={CommonHeaderStyle}
-          />
-          {/* Sub User Screen number: 81*/}
-          <Stack.Screen
-            name={NavigationRouteNames.ADD_SUBUSER}
-            component={AddSubUser}
             options={CommonHeaderStyle}
           />
         </>;

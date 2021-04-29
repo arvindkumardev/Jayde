@@ -35,6 +35,7 @@ const NavigationRouteNames = {
   PICKUP_DETAILS: "PickupDetails",
   CALL_REQUEST: "CallRequest",
   WORKORDER_DETAILS:"WorkOrderDetails",
+  PAYMENT:"Payment",
 
   NEW_ORDER: "OrderType",
   ASSIGN_ORDER: "OrderAssign",
@@ -65,6 +66,7 @@ const NavigationRouteNames = {
   NEW_WORKORDER:"NewWorkOrder",
   WORKORDER_SUMMARY:"Workordersummary",
   COMPLETED_ORDER:"CompletedOrder",
+  WAREHOUSEORDER_CONFIRMATION:"WarehouseOrderConfirmation",
 
   PAYMENT_DETAILS:"PaymentDetails",
   NEWWORK_ORDERLIST:"NewWorkOrderList",

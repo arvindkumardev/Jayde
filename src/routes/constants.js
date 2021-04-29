@@ -49,7 +49,7 @@ const DRAWER_MENU = {
           name: 'Users',
           color: Colors.mango,
           iconName: 'users',
-          screenName: ''
+          screenName: NavigationRouteNames.ADD_SUBUSER
       },
       {
           name: 'Contact Jayde',
@@ -161,7 +161,7 @@ const DRAWER_MENU = {
         name: 'Users',
         color: Colors.mango,
         iconName: 'users',
-        screenName: ''
+        screenName: NavigationRouteNames.ADD_SUBUSER
     },
     {
         name: 'Work Orders',
@@ -211,7 +211,7 @@ const DRAWER_MENU = {
         name: 'Users',
         color: Colors.mango,
         iconName: 'users',
-        screenName: ''
+        screenName: NavigationRouteNames.ADD_SUBUSER
     },
     {
         name: 'Smart Contracts',
