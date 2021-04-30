@@ -34,12 +34,6 @@ const DRAWER_MENU = {
           screenName: ''
       },
       {
-          name: 'Payments',
-          color: Colors.mango,
-          iconName: 'credit-card-alt',
-          screenName: ''
-      },
-      {
           name: 'Profile',
           color: Colors.mango,
           iconName: 'user',
@@ -81,7 +75,7 @@ const DRAWER_MENU = {
         name: 'Download Report',
         color: Colors.mango,
         iconName: 'download',
-        screenName: NavigationRouteNames.DOWNLOAD_REPORT
+        screenName: ''
     },
     {
         name: 'Manage Orders',
@@ -117,13 +111,13 @@ const DRAWER_MENU = {
         name: 'Manage Jayde Users',
         color: Colors.mango,
         iconName: 'snowflake-o',
-        screenName: ''
+        screenName: NavigationRouteNames.USERS
     },
     {
         name: 'Users',
         color: Colors.mango,
         iconName: 'users',
-        screenName: NavigationRouteNames.USERS
+        screenName: NavigationRouteNames.ADD_SUBUSER
     },
     {
         name: 'Logout',

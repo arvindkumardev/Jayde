@@ -61,6 +61,7 @@ import Confirmation from "../containers/Confirmation";
 import SmartContract from "../containers/SmartContract";
 import AuditTrail from "../containers/AuditTrail";
 import SmartContractDetail from "../containers/SmartContractDetail";
+import SmartContractViewItem from "../containers/SmartContractViewItem";
 import OwnedContracts from "../containers/OwnedContracts";
 import AddSubUser from "../containers/AddSubUser";
 import PasswordReset from "../containers/PasswordReset";
@@ -242,6 +243,12 @@ const AppStack = (props) => {
           <Stack.Screen
             name={NavigationRouteNames.ADD_SUBCATEGORY}
             component={AddSubCategory}
+            options={CommonHeaderStyle}
+          />
+          {/* Smart Contract View Item Screen*/}
+          <Stack.Screen
+            name={NavigationRouteNames.SMARTCONTRACT_VIEWITEM}
+            component={SmartContractViewItem}
             options={CommonHeaderStyle}
           />
         </>;
@@ -595,6 +602,12 @@ const AppStack = (props) => {
             name={NavigationRouteNames.PASSWORD_RESET}
             component={PasswordReset}
             options={NoHeaderScreen}
+          />
+           {/* Sub User Screen number: 81*/}
+           <Stack.Screen
+            name={NavigationRouteNames.ADD_SUBUSER}
+            component={AddSubUser}
+            options={CommonHeaderStyle}
           />
         </>;
       default:

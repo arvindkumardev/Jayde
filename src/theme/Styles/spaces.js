@@ -126,6 +126,9 @@ const spaces = StyleSheet.create({
     mt15:{
         marginTop: 15,
     },
+    mt25:{
+        marginTop: 25,
+    },
     mt30:{
         marginTop: 30
     },

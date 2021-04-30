@@ -14,7 +14,7 @@ function SmartContractDetail() {
    const route = useRoute();
   
    const screenNavigate = () => {
-    navigation.navigate(NavigationRouteNames.HOMESCREEN);
+    navigation.navigate(NavigationRouteNames.SMARTCONTRACT_VIEWITEM);
   }
 
   useLayoutEffect(() => {
@@ -101,7 +101,7 @@ function SmartContractDetail() {
              </View>
              <View style={[Styles.btnContainer, AppStyles.flexpointthree]}>
               <TouchableOpacity
-                  style={[Styles.confirmbtn, AppStyles.mb20, AppStyles.ml20]}>
+                  style={[Styles.confirmbtn, AppStyles.mb20, AppStyles.ml20]} onPress={() => screenNavigate()}>
                   <Text style={[AppStyles.txtWhiteRegular, AppStyles.f9, AppStyles.textalig, AppStyles.mt5]}>VIEW</Text>
                 </TouchableOpacity>
               </View>
@@ -121,7 +121,7 @@ function SmartContractDetail() {
              </View>
              <View style={[Styles.btnContainer, AppStyles.flexpointthree]}>
               <TouchableOpacity
-                  style={[Styles.confirmbtn, AppStyles.mb20, AppStyles.ml20]}>
+                  style={[Styles.confirmbtn, AppStyles.mb20, AppStyles.ml20]} onPress={() => screenNavigate()}>
                   <Text style={[AppStyles.txtWhiteRegular, AppStyles.f9, AppStyles.textalig, AppStyles.mt5]}>VIEW</Text>
                 </TouchableOpacity>
               </View>
@@ -136,7 +136,7 @@ function SmartContractDetail() {
              </View>
              <View style={[Styles.btnContainer, AppStyles.flexpointthree]}>
               <TouchableOpacity
-                  style={[Styles.confirmbtn, AppStyles.mb20, AppStyles.ml20]}>
+                  style={[Styles.confirmbtn, AppStyles.mb20, AppStyles.ml20]} onPress={() => screenNavigate()}>
                   <Text style={[AppStyles.txtWhiteRegular, AppStyles.f9, AppStyles.textalig, AppStyles.mt5]}>VIEW</Text>
                 </TouchableOpacity>
               </View>
@@ -151,7 +151,7 @@ function SmartContractDetail() {
              </View>
              <View style={[Styles.btnContainer, AppStyles.flexpointthree]}>
               <TouchableOpacity
-                  style={[Styles.confirmbtn, AppStyles.mb20, AppStyles.ml20]}>
+                  style={[Styles.confirmbtn, AppStyles.mb20, AppStyles.ml20]} onPress={() => screenNavigate()}>
                   <Text style={[AppStyles.txtWhiteRegular, AppStyles.f9, AppStyles.textalig, AppStyles.mt5]}>VIEW</Text>
                 </TouchableOpacity>
               </View>
@@ -166,7 +166,7 @@ function SmartContractDetail() {
              </View>
              <View style={[Styles.btnContainer, AppStyles.flexpointthree]}>
               <TouchableOpacity
-                  style={[Styles.confirmbtn, AppStyles.mb20, AppStyles.ml20]}>
+                  style={[Styles.confirmbtn, AppStyles.mb20, AppStyles.ml20]} onPress={() => screenNavigate()}>
                   <Text style={[AppStyles.txtWhiteRegular, AppStyles.f9, AppStyles.textalig, AppStyles.mt5]}>VIEW</Text>
                 </TouchableOpacity>
               </View>
@@ -181,7 +181,7 @@ function SmartContractDetail() {
              </View>
              <View style={[Styles.btnContainer, AppStyles.flexpointthree]}>
               <TouchableOpacity
-                  style={[Styles.confirmbtn, AppStyles.mb20, AppStyles.ml20]}>
+                  style={[Styles.confirmbtn, AppStyles.mb20, AppStyles.ml20]} onPress={() => screenNavigate()}>
                   <Text style={[AppStyles.txtWhiteRegular, AppStyles.f9, AppStyles.textalig, AppStyles.mt5]}>VIEW</Text>
                 </TouchableOpacity>
               </View>
@@ -211,7 +211,7 @@ function SmartContractDetail() {
              </View>
              <View style={[Styles.btnContainer, AppStyles.flexpointthree]}>
               <TouchableOpacity
-                  style={[Styles.confirmbtn, AppStyles.mb20, AppStyles.ml20]}>
+                  style={[Styles.confirmbtn, AppStyles.mb20, AppStyles.ml20]} onPress={() => screenNavigate()}>
                   <Text style={[AppStyles.txtWhiteRegular, AppStyles.f9, AppStyles.textalig, AppStyles.mt5]}>VIEW</Text>
                 </TouchableOpacity>
               </View>
@@ -226,7 +226,7 @@ function SmartContractDetail() {
              </View>
              <View style={[Styles.btnContainer, AppStyles.flexpointthree]}>
               <TouchableOpacity
-                  style={[Styles.confirmbtn, AppStyles.mb20, AppStyles.ml20]}>
+                  style={[Styles.confirmbtn, AppStyles.mb20, AppStyles.ml20]} onPress={() => screenNavigate()}>
                   <Text style={[AppStyles.txtWhiteRegular, AppStyles.f9, AppStyles.textalig, AppStyles.mt5]}>VIEW</Text>
                 </TouchableOpacity>
               </View>
@@ -241,7 +241,7 @@ function SmartContractDetail() {
              </View>
              <View style={[Styles.btnContainer, AppStyles.flexpointthree]}>
               <TouchableOpacity
-                  style={[Styles.confirmbtn, AppStyles.mb20, AppStyles.ml20]}>
+                  style={[Styles.confirmbtn, AppStyles.mb20, AppStyles.ml20]} onPress={() => screenNavigate()}>
                   <Text style={[AppStyles.txtWhiteRegular, AppStyles.f9, AppStyles.textalig, AppStyles.mt5]}>VIEW</Text>
                 </TouchableOpacity>
               </View>
@@ -256,7 +256,7 @@ function SmartContractDetail() {
              </View>
              <View style={[Styles.btnContainer, AppStyles.flexpointthree]}>
               <TouchableOpacity
-                  style={[Styles.confirmbtn, AppStyles.mb20, AppStyles.ml20]}>
+                  style={[Styles.confirmbtn, AppStyles.mb20, AppStyles.ml20]} onPress={() => screenNavigate()}>
                   <Text style={[AppStyles.txtWhiteRegular, AppStyles.f9, AppStyles.textalig, AppStyles.mt5]}>VIEW</Text>
                 </TouchableOpacity>
               </View>
@@ -271,7 +271,7 @@ function SmartContractDetail() {
              </View>
              <View style={[Styles.btnContainer, AppStyles.flexpointthree]}>
               <TouchableOpacity
-                  style={[Styles.confirmbtn, AppStyles.mb20, AppStyles.ml20]}>
+                  style={[Styles.confirmbtn, AppStyles.mb20, AppStyles.ml20]} onPress={() => screenNavigate()}>
                   <Text style={[AppStyles.txtWhiteRegular, AppStyles.f9, AppStyles.textalig, AppStyles.mt5]}>VIEW</Text>
                 </TouchableOpacity>
               </View>
@@ -286,7 +286,7 @@ function SmartContractDetail() {
              </View>
              <View style={[Styles.btnContainer, AppStyles.flexpointthree]}>
               <TouchableOpacity
-                  style={[Styles.confirmbtn, AppStyles.mb20, AppStyles.ml20]}>
+                  style={[Styles.confirmbtn, AppStyles.mb20, AppStyles.ml20]} onPress={() => screenNavigate()}>
                   <Text style={[AppStyles.txtWhiteRegular, AppStyles.f9, AppStyles.textalig, AppStyles.mt5]}>VIEW</Text>
                 </TouchableOpacity>
               </View>
@@ -301,7 +301,7 @@ function SmartContractDetail() {
              </View>
              <View style={[Styles.btnContainer, AppStyles.flexpointthree]}>
               <TouchableOpacity
-                  style={[Styles.confirmbtn, AppStyles.mb20, AppStyles.ml20]}>
+                  style={[Styles.confirmbtn, AppStyles.mb20, AppStyles.ml20]} onPress={() => screenNavigate()}>
                   <Text style={[AppStyles.txtWhiteRegular, AppStyles.f9, AppStyles.textalig, AppStyles.mt5]}>VIEW</Text>
                 </TouchableOpacity>
               </View>

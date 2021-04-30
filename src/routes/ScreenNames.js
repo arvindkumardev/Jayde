@@ -86,6 +86,7 @@ const NavigationRouteNames = {
   OWNED_CONTRACTS:"OwnedContracts",
   ADD_SUBUSER:"AddSubUser",
   PASSWORD_RESET:"PasswordReset",
+  SMARTCONTRACT_VIEWITEM:"SmartContractViewItem",
 };
 
 export default NavigationRouteNames;
