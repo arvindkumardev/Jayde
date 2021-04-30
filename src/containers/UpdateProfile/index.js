@@ -18,7 +18,11 @@ function UpdateProfile() {
    const route = useRoute();
   
    const screenNavigate = () => {
-    navigation.navigate(NavigationRouteNames.HOMESCREEN);
+    navigation.navigate(NavigationRouteNames.BUSINESS_DETAIL);
+  }
+
+  const updateProfile = () => {
+    navigation.navigate(NavigationRouteNames.PROFILE_UPDATE);
   }
 
   
@@ -40,13 +44,13 @@ function UpdateProfile() {
        <View style={[Styles.btnContainer, AppStyles.flexDir]}>
          <View style={AppStyles.flex1}>
          <TouchableOpacity
-           style={[Styles.aggregatebtn]}>
+           style={[Styles.aggregatebtn]} onPress={() => screenNavigate()}>
            <Text style={[AppStyles.txtPrimaryRegular, AppStyles.f17, AppStyles.textalig, AppStyles.mt10]}>UPDATE BUSINESS</Text>
          </TouchableOpacity>
         </View>
         <View style={AppStyles.flex1}>
        <TouchableOpacity
-           style={[Styles.confirmbtn, AppStyles.mb20]}>
+           style={[Styles.confirmbtn, AppStyles.mb20]} onPress={() => updateProfile()}>
            <Text style={[AppStyles.txtWhiteRegular, AppStyles.f17, AppStyles.textalig, AppStyles.mt10]}>UPDATE PROFILE</Text>
          </TouchableOpacity>
          </View>

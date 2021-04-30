@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 import React, { useContext, useEffect, useState } from 'react';
-import { FlatList, View, Text, TouchableOpacity, Image,  } from 'react-native';
+import { FlatList, View, Text, TouchableOpacity, Image, ScrollView} from 'react-native';
 import FAIcon from "react-native-vector-icons/FontAwesome";
 import { Colors, AppStyles } from '../../theme';
 import NavigationRouteNames from "../../routes/ScreenNames";
@@ -55,6 +55,7 @@ const DrawerSideBar = (props) => {
         )
     }
     return (
+        <ScrollView>
         <View>
             <View style={Styles.userSectionContainer}>
                 <View style={[AppStyles.ml10, AppStyles.mr10]}>
@@ -72,6 +73,7 @@ const DrawerSideBar = (props) => {
                 renderItem={onRenderMenu}
             />
         </View>
+        </ScrollView>
     )
 }
 

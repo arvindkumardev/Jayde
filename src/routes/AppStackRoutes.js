@@ -251,6 +251,24 @@ const AppStack = (props) => {
             component={SmartContractViewItem}
             options={CommonHeaderStyle}
           />
+           {/* Update Profile Screen number: 50 */}
+           <Stack.Screen
+            name={NavigationRouteNames.UPDATE_PROFILE}
+            component={UpdateProfile}
+            options={NoTitleHeader}
+          />
+           {/* Business Detail Screen number: 51 */}
+           <Stack.Screen
+            name={NavigationRouteNames.BUSINESS_DETAIL}
+            component={BusinessDetail}
+            options={CommonHeaderStyle}
+          />
+          {/* Profile Update Screen number: 52 */}
+          <Stack.Screen
+            name={NavigationRouteNames.PROFILE_UPDATE}
+            component={ProfileUpdate}
+            options={CommonHeaderStyle}
+          />
         </>;
         case USER_ROLE.AGGRATOR:
           return <>
@@ -386,6 +404,30 @@ const AppStack = (props) => {
             component={NewWorkOrderList}
             options={CommonHeaderStyle}
           />
+            {/* Update Profile Screen number: 50 */}
+            <Stack.Screen
+            name={NavigationRouteNames.UPDATE_PROFILE}
+            component={UpdateProfile}
+            options={NoTitleHeader}
+          />
+           {/* Business Detail Screen number: 51 */}
+           <Stack.Screen
+            name={NavigationRouteNames.BUSINESS_DETAIL}
+            component={BusinessDetail}
+            options={CommonHeaderStyle}
+          />
+          {/* Profile Update Screen number: 52 */}
+          <Stack.Screen
+            name={NavigationRouteNames.PROFILE_UPDATE}
+            component={ProfileUpdate}
+            options={CommonHeaderStyle}
+          />
+          {/* Smart Contract View Item Screen*/}
+          <Stack.Screen
+            name={NavigationRouteNames.SMARTCONTRACT_VIEWITEM}
+            component={SmartContractViewItem}
+            options={CommonHeaderStyle}
+          />
           </>;
     case USER_ROLE.RECYCLER:
       return <>
@@ -495,6 +537,30 @@ const AppStack = (props) => {
           <Stack.Screen
             name={NavigationRouteNames.ADD_SUBUSER}
             component={AddSubUser}
+            options={CommonHeaderStyle}
+          />
+            {/* Update Profile Screen number: 50 */}
+            <Stack.Screen
+            name={NavigationRouteNames.UPDATE_PROFILE}
+            component={UpdateProfile}
+            options={NoTitleHeader}
+          />
+           {/* Business Detail Screen number: 51 */}
+           <Stack.Screen
+            name={NavigationRouteNames.BUSINESS_DETAIL}
+            component={BusinessDetail}
+            options={CommonHeaderStyle}
+          />
+          {/* Profile Update Screen number: 52 */}
+          <Stack.Screen
+            name={NavigationRouteNames.PROFILE_UPDATE}
+            component={ProfileUpdate}
+            options={CommonHeaderStyle}
+          />
+          {/* Smart Contract View Item Screen*/}
+          <Stack.Screen
+            name={NavigationRouteNames.SMARTCONTRACT_VIEWITEM}
+            component={SmartContractViewItem}
             options={CommonHeaderStyle}
           />
       </>;

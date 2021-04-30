@@ -37,7 +37,7 @@ const DRAWER_MENU = {
           name: 'Profile',
           color: Colors.mango,
           iconName: 'user',
-          screenName: ''
+          screenName: NavigationRouteNames.UPDATE_PROFILE
       },
       {
           name: 'Users',
@@ -49,7 +49,7 @@ const DRAWER_MENU = {
           name: 'Contact Jayde',
           color: Colors.mango,
           iconName: 'phone-square',
-          screenName: ''
+          screenName: NavigationRouteNames.CALL_REQUEST
       },
       {
         name: 'Smart Contracts',
@@ -105,7 +105,7 @@ const DRAWER_MENU = {
         name: 'Profile',
         color: Colors.mango,
         iconName: 'user',
-        screenName: ''
+        screenName: NavigationRouteNames.UPDATE_PROFILE
     },
     {
         name: 'Manage Jayde Users',
@@ -143,7 +143,7 @@ const DRAWER_MENU = {
         name: 'Profile',
         color: Colors.mango,
         iconName: 'user',
-        screenName: ''
+        screenName: NavigationRouteNames.UPDATE_PROFILE
     },
     {
         name: 'Inventory',
@@ -193,7 +193,7 @@ const DRAWER_MENU = {
         name: 'Profile',
         color: Colors.mango,
         iconName: 'user',
-        screenName: ''
+        screenName: NavigationRouteNames.UPDATE_PROFILE
     },
     {
         name: 'Inventory',

@@ -85,7 +85,7 @@ const CallRequest = () => {
         </TouchableOpacity>
       </View>
       <TouchableOpacity
-        style={[AppStyles.mt20, AppStyles.br10, AppStyles.btnPrimary, AppStyles.pv10, AppStyles.alignCenter]} onPress={() => {handleSchedulePickup()}}>
+        style={[AppStyles.mt20, AppStyles.br10, AppStyles.btnPrimary, AppStyles.pv10, AppStyles.alignCenter, AppStyles.mb20]} onPress={() => {handleSchedulePickup()}}>
         <Text style={[AppStyles.f18, AppStyles.txtWhiteRegular]}>CONFIRM</Text>
       </TouchableOpacity>
     </KeyboardAwareScrollView>

@@ -12,9 +12,22 @@ function SmartContractDetail() {
 
    const navigation = useNavigation();
    const route = useRoute();
+   const [waste, setWaste] = useState('Plastic');
+   const [invoice, setInvoice] = useState('XYZ/09/1234');
+   const [vehicle, setVehicle] = useState('HR51AS8787');
+   const [kanta, setKanta] = useState('65907543251');
+   const [logistics, setLogistics] = useState('HTGT89797');
+   const [waybill, setWaybill] = useState('JUHY976454');
+   const [recycle, setRecycle] = useState('22/06/2020');
+   const [recvehicle, setRecvehicle] = useState('DL 3 CAD7876');
+   const [reckanta, setReckanta] = useState('XYZ/09/1234');
+   const [recwaybill, setRecwaybill] = useState('65907543251');
+   const [reclogistics, setReclogistics] = useState('JUHY976454');
+   const [recpayment, setRecpayment] = useState('Cash');
+   const [waybillno, setWaybillno] = useState('JUHY976454');
   
-   const screenNavigate = () => {
-    navigation.navigate(NavigationRouteNames.SMARTCONTRACT_VIEWITEM);
+   const screenNavigate = (value,label) => {
+    navigation.navigate(NavigationRouteNames.SMARTCONTRACT_VIEWITEM, {btnValue:value, btnLabel:label});
   }
 
   useLayoutEffect(() => {
@@ -97,11 +110,11 @@ function SmartContractDetail() {
             <View style={AppStyles.flexDir}>
               <View style={AppStyles.flexpointseven}>
           <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f13, AppStyles.mt15]}>Waste details</Text>
-          <Text style={[AppStyles.txtBlackRegular, Styles.text]}>Plastic</Text>
+          <Text style={[AppStyles.txtBlackRegular, Styles.text]}>{waste}</Text>
              </View>
              <View style={[Styles.btnContainer, AppStyles.flexpointthree]}>
               <TouchableOpacity
-                  style={[Styles.confirmbtn, AppStyles.mb20, AppStyles.ml20]} onPress={() => screenNavigate()}>
+                  style={[Styles.confirmbtn, AppStyles.mb20, AppStyles.ml20]} onPress={() => screenNavigate(waste,"Waste Details")}>
                   <Text style={[AppStyles.txtWhiteRegular, AppStyles.f9, AppStyles.textalig, AppStyles.mt5]}>VIEW</Text>
                 </TouchableOpacity>
               </View>
@@ -117,11 +130,11 @@ function SmartContractDetail() {
             <View style={AppStyles.flexDir}>
               <View style={AppStyles.flexpointseven}>
           <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f13, AppStyles.mt15]}>Invoice number</Text>
-          <Text style={[AppStyles.txtBlackRegular, Styles.text]}>XYZ/09/1234</Text>
+          <Text style={[AppStyles.txtBlackRegular, Styles.text]}>{invoice}</Text>
              </View>
              <View style={[Styles.btnContainer, AppStyles.flexpointthree]}>
               <TouchableOpacity
-                  style={[Styles.confirmbtn, AppStyles.mb20, AppStyles.ml20]} onPress={() => screenNavigate()}>
+                  style={[Styles.confirmbtn, AppStyles.mb20, AppStyles.ml20]} onPress={() => screenNavigate(invoice,"Invoice Number")}>
                   <Text style={[AppStyles.txtWhiteRegular, AppStyles.f9, AppStyles.textalig, AppStyles.mt5]}>VIEW</Text>
                 </TouchableOpacity>
               </View>
@@ -132,11 +145,11 @@ function SmartContractDetail() {
             <View style={AppStyles.flexDir}>
               <View style={AppStyles.flexpointseven}>
           <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f13, AppStyles.mt15]}>Vehicle number</Text>
-          <Text style={[AppStyles.txtBlackRegular, Styles.text]}>HR51AS8787</Text>
+          <Text style={[AppStyles.txtBlackRegular, Styles.text]}>{vehicle}</Text>
              </View>
              <View style={[Styles.btnContainer, AppStyles.flexpointthree]}>
               <TouchableOpacity
-                  style={[Styles.confirmbtn, AppStyles.mb20, AppStyles.ml20]} onPress={() => screenNavigate()}>
+                  style={[Styles.confirmbtn, AppStyles.mb20, AppStyles.ml20]} onPress={() => screenNavigate(vehicle,"Vehicle Number")}>
                   <Text style={[AppStyles.txtWhiteRegular, AppStyles.f9, AppStyles.textalig, AppStyles.mt5]}>VIEW</Text>
                 </TouchableOpacity>
               </View>
@@ -147,11 +160,11 @@ function SmartContractDetail() {
             <View style={AppStyles.flexDir}>
               <View style={AppStyles.flexpointseven}>
           <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f13, AppStyles.mt15]}>Kanta slip number</Text>
-          <Text style={[AppStyles.txtBlackRegular, Styles.text]}>65907543251</Text>
+          <Text style={[AppStyles.txtBlackRegular, Styles.text]}>{kanta}</Text>
              </View>
              <View style={[Styles.btnContainer, AppStyles.flexpointthree]}>
               <TouchableOpacity
-                  style={[Styles.confirmbtn, AppStyles.mb20, AppStyles.ml20]} onPress={() => screenNavigate()}>
+                  style={[Styles.confirmbtn, AppStyles.mb20, AppStyles.ml20]} onPress={() => screenNavigate(kanta,"Kanta Slip Number")}>
                   <Text style={[AppStyles.txtWhiteRegular, AppStyles.f9, AppStyles.textalig, AppStyles.mt5]}>VIEW</Text>
                 </TouchableOpacity>
               </View>
@@ -162,11 +175,11 @@ function SmartContractDetail() {
             <View style={AppStyles.flexDir}>
               <View style={AppStyles.flexpointseven}>
           <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f13, AppStyles.mt15]}>Logistics bill number</Text>
-          <Text style={[AppStyles.txtBlackRegular, Styles.text]}>HTGT89797</Text>
+          <Text style={[AppStyles.txtBlackRegular, Styles.text]}>{logistics}</Text>
              </View>
              <View style={[Styles.btnContainer, AppStyles.flexpointthree]}>
               <TouchableOpacity
-                  style={[Styles.confirmbtn, AppStyles.mb20, AppStyles.ml20]} onPress={() => screenNavigate()}>
+                  style={[Styles.confirmbtn, AppStyles.mb20, AppStyles.ml20]} onPress={() => screenNavigate(logistics,"Logistics Bill Number")}>
                   <Text style={[AppStyles.txtWhiteRegular, AppStyles.f9, AppStyles.textalig, AppStyles.mt5]}>VIEW</Text>
                 </TouchableOpacity>
               </View>
@@ -177,11 +190,11 @@ function SmartContractDetail() {
             <View style={AppStyles.flexDir}>
               <View style={AppStyles.flexpointseven}>
           <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f13, AppStyles.mt15]}>Waybill number</Text>
-          <Text style={[AppStyles.txtBlackRegular, Styles.text]}>JUHY976454</Text>
+          <Text style={[AppStyles.txtBlackRegular, Styles.text]}>{waybill}</Text>
              </View>
              <View style={[Styles.btnContainer, AppStyles.flexpointthree]}>
               <TouchableOpacity
-                  style={[Styles.confirmbtn, AppStyles.mb20, AppStyles.ml20]} onPress={() => screenNavigate()}>
+                  style={[Styles.confirmbtn, AppStyles.mb20, AppStyles.ml20]} onPress={() => screenNavigate(waybill,"Waybill Number")}>
                   <Text style={[AppStyles.txtWhiteRegular, AppStyles.f9, AppStyles.textalig, AppStyles.mt5]}>VIEW</Text>
                 </TouchableOpacity>
               </View>
@@ -207,11 +220,11 @@ function SmartContractDetail() {
             <View style={AppStyles.flexDir}>
               <View style={AppStyles.flexpointseven}>
           <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f13, AppStyles.mt15]}>Date of Recycling</Text>
-          <Text style={[AppStyles.txtBlackRegular, Styles.text]}>22/06/2020</Text>
+          <Text style={[AppStyles.txtBlackRegular, Styles.text]}>{recycle}</Text>
              </View>
              <View style={[Styles.btnContainer, AppStyles.flexpointthree]}>
               <TouchableOpacity
-                  style={[Styles.confirmbtn, AppStyles.mb20, AppStyles.ml20]} onPress={() => screenNavigate()}>
+                  style={[Styles.confirmbtn, AppStyles.mb20, AppStyles.ml20]} onPress={() => screenNavigate(recycle,"Date of Recycling")}>
                   <Text style={[AppStyles.txtWhiteRegular, AppStyles.f9, AppStyles.textalig, AppStyles.mt5]}>VIEW</Text>
                 </TouchableOpacity>
               </View>
@@ -222,11 +235,11 @@ function SmartContractDetail() {
             <View style={AppStyles.flexDir}>
               <View style={AppStyles.flexpointseven}>
           <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f13, AppStyles.mt15]}>Recycler Vehicle number</Text>
-          <Text style={[AppStyles.txtBlackRegular, Styles.text]}>DL 3 CAD7876</Text>
+          <Text style={[AppStyles.txtBlackRegular, Styles.text]}>{recvehicle}</Text>
              </View>
              <View style={[Styles.btnContainer, AppStyles.flexpointthree]}>
               <TouchableOpacity
-                  style={[Styles.confirmbtn, AppStyles.mb20, AppStyles.ml20]} onPress={() => screenNavigate()}>
+                  style={[Styles.confirmbtn, AppStyles.mb20, AppStyles.ml20]} onPress={() => screenNavigate(recvehicle,"Recycler Vehicle Number")}>
                   <Text style={[AppStyles.txtWhiteRegular, AppStyles.f9, AppStyles.textalig, AppStyles.mt5]}>VIEW</Text>
                 </TouchableOpacity>
               </View>
@@ -237,11 +250,11 @@ function SmartContractDetail() {
             <View style={AppStyles.flexDir}>
               <View style={AppStyles.flexpointseven}>
           <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f13, AppStyles.mt15]}>Recycler Kanta slip number</Text>
-          <Text style={[AppStyles.txtBlackRegular, Styles.text]}>XYZ/09/1234</Text>
+          <Text style={[AppStyles.txtBlackRegular, Styles.text]}>{reckanta}</Text>
              </View>
              <View style={[Styles.btnContainer, AppStyles.flexpointthree]}>
               <TouchableOpacity
-                  style={[Styles.confirmbtn, AppStyles.mb20, AppStyles.ml20]} onPress={() => screenNavigate()}>
+                  style={[Styles.confirmbtn, AppStyles.mb20, AppStyles.ml20]} onPress={() => screenNavigate(reckanta,"Recycler Kanta Slip Number")}>
                   <Text style={[AppStyles.txtWhiteRegular, AppStyles.f9, AppStyles.textalig, AppStyles.mt5]}>VIEW</Text>
                 </TouchableOpacity>
               </View>
@@ -252,11 +265,11 @@ function SmartContractDetail() {
             <View style={AppStyles.flexDir}>
               <View style={AppStyles.flexpointseven}>
           <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f13, AppStyles.mt15]}>Recycler way bill number</Text>
-          <Text style={[AppStyles.txtBlackRegular, Styles.text]}>65907543251</Text>
+          <Text style={[AppStyles.txtBlackRegular, Styles.text]}>{recwaybill}</Text>
              </View>
              <View style={[Styles.btnContainer, AppStyles.flexpointthree]}>
               <TouchableOpacity
-                  style={[Styles.confirmbtn, AppStyles.mb20, AppStyles.ml20]} onPress={() => screenNavigate()}>
+                  style={[Styles.confirmbtn, AppStyles.mb20, AppStyles.ml20]} onPress={() => screenNavigate(recwaybill,"Recycler Way Bill Number")}>
                   <Text style={[AppStyles.txtWhiteRegular, AppStyles.f9, AppStyles.textalig, AppStyles.mt5]}>VIEW</Text>
                 </TouchableOpacity>
               </View>
@@ -267,11 +280,11 @@ function SmartContractDetail() {
             <View style={AppStyles.flexDir}>
               <View style={AppStyles.flexpointseven}>
           <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f13, AppStyles.mt15]}>Logistics  bill number</Text>
-          <Text style={[AppStyles.txtBlackRegular, Styles.text]}>JUHY976454</Text>
+          <Text style={[AppStyles.txtBlackRegular, Styles.text]}>{reclogistics}</Text>
              </View>
              <View style={[Styles.btnContainer, AppStyles.flexpointthree]}>
               <TouchableOpacity
-                  style={[Styles.confirmbtn, AppStyles.mb20, AppStyles.ml20]} onPress={() => screenNavigate()}>
+                  style={[Styles.confirmbtn, AppStyles.mb20, AppStyles.ml20]} onPress={() => screenNavigate(reclogistics,"Logistics  Bill Number")}>
                   <Text style={[AppStyles.txtWhiteRegular, AppStyles.f9, AppStyles.textalig, AppStyles.mt5]}>VIEW</Text>
                 </TouchableOpacity>
               </View>
@@ -282,11 +295,11 @@ function SmartContractDetail() {
             <View style={AppStyles.flexDir}>
               <View style={AppStyles.flexpointseven}>
           <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f13, AppStyles.mt15]}>Bank entry for payment</Text>
-          <Text style={[AppStyles.txtBlackRegular, Styles.text]}>Cash</Text>
+          <Text style={[AppStyles.txtBlackRegular, Styles.text]}>{recpayment}</Text>
              </View>
              <View style={[Styles.btnContainer, AppStyles.flexpointthree]}>
               <TouchableOpacity
-                  style={[Styles.confirmbtn, AppStyles.mb20, AppStyles.ml20]} onPress={() => screenNavigate()}>
+                  style={[Styles.confirmbtn, AppStyles.mb20, AppStyles.ml20]} onPress={() => screenNavigate(recpayment,"Bank Entry For Payment")}>
                   <Text style={[AppStyles.txtWhiteRegular, AppStyles.f9, AppStyles.textalig, AppStyles.mt5]}>VIEW</Text>
                 </TouchableOpacity>
               </View>
@@ -297,11 +310,11 @@ function SmartContractDetail() {
             <View style={AppStyles.flexDir}>
               <View style={AppStyles.flexpointseven}>
           <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f13, AppStyles.mt15]}>Waybill number</Text>
-          <Text style={[AppStyles.txtBlackRegular, Styles.text]}>JUHY976454</Text>
+          <Text style={[AppStyles.txtBlackRegular, Styles.text]}>{waybillno}</Text>
              </View>
              <View style={[Styles.btnContainer, AppStyles.flexpointthree]}>
               <TouchableOpacity
-                  style={[Styles.confirmbtn, AppStyles.mb20, AppStyles.ml20]} onPress={() => screenNavigate()}>
+                  style={[Styles.confirmbtn, AppStyles.mb20, AppStyles.ml20]} onPress={() => screenNavigate(waybillno,"Waybill number")}>
                   <Text style={[AppStyles.txtWhiteRegular, AppStyles.f9, AppStyles.textalig, AppStyles.mt5]}>VIEW</Text>
                 </TouchableOpacity>
               </View>

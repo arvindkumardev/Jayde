@@ -3,7 +3,7 @@ const CommonIcons = {
   maximise: require('../../assets/common/maximise.png'),
   minimize: require('../../assets/common/minimise.png'),
   // unCheckedIcon: require('../../assets/common/unChecked.png'),
-  unCheckedIcon: require('../../assets/common/unCheck.png'),
+  unCheckedIcon: require('../../assets/common/unchec.png'),
   notification: require('../../assets/common/notification.png'),
   attachment :require('../../assets/common/Attachment.png'),
   popupSuccess :require('../../assets/common/popupSuccess.png')

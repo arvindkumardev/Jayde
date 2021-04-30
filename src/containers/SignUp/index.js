@@ -208,13 +208,12 @@ function SignUp() {
                 showArrow={true}
                 items={[
                     // {label: 'USA', value: 'usa', hidden: true},
-                    {label: 'Select one', value: '0'},
-                    {label: 'Admin', value: 'admin'},
                     {label: 'Seller', value: 'seller'},
                     {label: 'Aggregator', value: 'aggregator'},
                     {label: 'Recycler', value: 'recycler'},
+                    {label: 'EPR Partner', value: 'epr partner'},
                 ]}
-                defaultValue={"0"}
+                defaultValue={"seller"}
                 globalTextStyle={commonStyles.dropDownText}
                 containerStyle={{height: 45}}
                 style={{backgroundColor: '#e4e4e4'}}

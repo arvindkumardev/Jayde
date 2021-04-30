@@ -12,6 +12,8 @@ function SmartContractViewItem() {
 
    const navigation = useNavigation();
    const route = useRoute();
+   const [value, setValue] = useState('');
+   const [label, setLabel] = useState('');
   
    const screenNavigate = () => {
     navigation.navigate(NavigationRouteNames.HOMESCREEN);
@@ -19,6 +21,9 @@ function SmartContractViewItem() {
 
   useLayoutEffect(() => {
     const title='View Item';
+    const {btnValue,btnLabel} = route.params;
+    setValue(btnValue);
+    setLabel(btnLabel);
    navigation.setOptions({
     title,
   });
@@ -35,8 +40,8 @@ function SmartContractViewItem() {
              <Text style={[AppStyles.txtmangoTwoRegular, AppStyles.f15,]}>04</Text>
              </View>
              <View style={[AppStyles.flexpointeight,]}>
-               <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f11, AppStyles.mt10]}>Invoice Number</Text>
-               <Text style={[AppStyles.txtBlackRegular, AppStyles.f15,]}>XYZ/09/1234</Text>
+               <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f11, AppStyles.mt10]}>{label}</Text>
+               <Text style={[AppStyles.txtBlackRegular, AppStyles.f15,]}>{value}</Text>
              </View>
              <View style={[AppStyles.flexpointone, AppStyles.mt25, AppStyles.mr14]}>
              <Image source={require('../../assets/Images/AddSubCategory/check-circle.png')} />
