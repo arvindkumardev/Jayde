@@ -16,7 +16,7 @@ const Colors = {
   paleGrey: '#eef1f6',
   squash: '#f5a623',
   warmGreyTwo: '#979797',
-  green: '#0dbf22',
+  green: '#abc270',
   redOne: '#de0000',
   amber: '#eab115',
   grayOne: '#bababa',
@@ -36,5 +36,6 @@ const Colors = {
   mango: '#F7A435',
   lightOlive: '#ABC270',
   grayBackground: '#f5f5f5',
+  mangoTwo: '#f8a230',
 };
 export default Colors;

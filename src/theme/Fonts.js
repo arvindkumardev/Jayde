@@ -1,7 +1,7 @@
 const Fonts = {
-  regular: 'ProximaNova-Regular',
-  mediumBold: 'ProximaNova-SemiBold',
-  bold: 'ProximaNova-Bold',
+  regular: 'Poppins-Regular',
+  mediumBold: 'Poppins-Bold',
+  bold: 'Poppins-SemiBold',
 };
 
 export default Fonts;

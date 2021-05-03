@@ -1,0 +1,21 @@
+[{
+    "company": "JD Pvt Ltd",
+    "productname": "E-Waste",
+    "type": "E-Waste type 4",
+    "price": "₹25",
+  },  {
+    "company": "JD Pvt Ltd",
+    "productname": "Plastic",
+    "type": "Plastic type 4",
+    "price": "₹200",
+  },  {
+    "company": "Sri Raja Rajeshwari",
+    "productname": "Paper",
+    "type": "Kraft",
+    "price": "₹08",
+  }, {
+    "company": "JD Pvt Ltd",
+    "productname": "Paper",
+    "type": "Kraft",
+    "price": "₹10",
+  }]

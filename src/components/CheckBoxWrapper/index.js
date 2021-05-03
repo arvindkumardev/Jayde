@@ -16,8 +16,8 @@ const CheckBoxWrapper = (props) => {
 
   return (
     <IconButtonWrapper
-      iconHeight={RfH(24)}
-      iconWidth={RfW(24)}
+      iconHeight={RfH(44)}
+      iconWidth={RfW(44)}
       iconImage={isChecked ? checkedIcon : unCheckedIcon}
       submitFunction={() => checkBoxHandler(checkBoxName)}
     />
@@ -34,7 +34,7 @@ CheckBoxWrapper.propTypes = {
 
 CheckBoxWrapper.defaultProps = {
   isChecked: false,
-  checkedIcon: Images.blueCheck,
+  checkedIcon: Images.orangeCheck,
   unCheckedIcon: Images.unCheckedIcon,
 };
 export default CheckBoxWrapper;

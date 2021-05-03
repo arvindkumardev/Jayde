@@ -17,7 +17,6 @@ import useAxios from 'axios-hooks';
 import styles from './styles';
 import { ENDPOINT, LOGIN_URL } from '../../utils/urls';
 import commonStyles from '../../theme/commonStyles';
-import { userLogin } from "../../services/middleware/user";
 import axios from "axios";
 
 
@@ -41,7 +40,6 @@ function SignUp() {
   
   const triggerLogin = async (username, password, org) => {
     try{
-      const response = await userLogin({email: username, password: password});
       console.log(response);
       setLoader(false);
       moveToHome()
@@ -139,32 +137,12 @@ function SignUp() {
               justifyContent: 'center',
               paddingBottom: RfH(40),
             }}>
-           
-           <View style={{flexDirection: 'row', marginTop: 30,}}>
-        <View style={{flex: 1,}}>
-        <TouchableOpacity>  
-                    <View>  
-                    <Image style={{width: 24, height: 24, marginLeft: 24,}} source={require('../../assets/Images/signupImage/Left_Arrow_Icon.png')}  />   
-                        
-                    </View>  
-                </TouchableOpacity>  
-        </View>
-        <View style={{flex: 1,}}>
-        <TouchableOpacity>  
-                    <View style={{alignItems: 'flex-end',}}>  
-                        <Text style={{fontSize: 16, color: '#fff', marginRight: 20,}}>{title4}</Text>  
-                    </View>  
-                </TouchableOpacity>  
-        </View>
-          </View> 
-
-        
             
            <View style={{alignItems: 'center', marginTop: 40,}}>
                  <Image style={{width: 160, height: 55}} source={require('../../assets/Images/signupImage/JaydeLogo01.png')}  />    
               </View> 
 
-              <View style={{alignItems: 'center', marginTop: 60,}}>
+              <View style={{alignItems: 'center', marginTop: 20,}}>
               <Text style={{color: '#fff', marginBottom: 20, fontSize : 40, lineHeight: 48, fontWeight: 'bold',}}>{title}{JSON.stringify(emLoginData)}</Text>
               </View>
             <View style={styles.formContainer}>
@@ -230,13 +208,12 @@ function SignUp() {
                 showArrow={true}
                 items={[
                     // {label: 'USA', value: 'usa', hidden: true},
-                    {label: 'Select one', value: '0'},
-                    {label: 'Admin', value: 'admin'},
                     {label: 'Seller', value: 'seller'},
                     {label: 'Aggregator', value: 'aggregator'},
                     {label: 'Recycler', value: 'recycler'},
+                    {label: 'EPR Partner', value: 'epr partner'},
                 ]}
-                defaultValue={"0"}
+                defaultValue={"seller"}
                 globalTextStyle={commonStyles.dropDownText}
                 containerStyle={{height: 45}}
                 style={{backgroundColor: '#e4e4e4'}}
