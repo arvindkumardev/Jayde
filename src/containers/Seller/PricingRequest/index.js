@@ -2,6 +2,8 @@ import React, { useState, useLayoutEffect, useEffect, useContext } from 'react';
 import { View, Text, TouchableOpacity, TextInput } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import * as Yup from "yup";
+import { useFormik } from "formik";
 import FAIcon from 'react-native-vector-icons/FontAwesome';
 import { AppStyles, Colors } from '../../../theme';
 import NavigationRouteNames from '../../../routes/ScreenNames';
@@ -10,8 +12,11 @@ import { UploadDocument } from '../../../components/index';
 import { getSubCategories, getUnits, createQuote } from './middleware';
 import UserContext from '../../../appContainer/context/user.context';
 import MIcon from 'react-native-vector-icons/MaterialCommunityIcons';
+import CustomText from '../../../components/CustomText';
+import {alertBox, RfH, RfW} from '../../../utils/helpers';
 
-const PricingRequest = () => {
+
+function PricingRequest() {
   const navigation = useNavigation();
   const { setLoader } = useContext(UserContext);
   const route = useRoute();
@@ -23,12 +28,17 @@ const PricingRequest = () => {
   const [{ data: quoteData, loading, error }, onSubmitQuote] = createQuote();
 
   const [categoryId, setCategoryId] = useState(0);
-  const [subCategoryId, setSubCategoryId] = useState('');
-  const [volume, setVolume] = useState('');
-  const [location, setLocation] = useState('');
-  const [unit, setUnit] = useState('');
+  // const [subCategoryId, setSubCategoryId] = useState('');
+  // const [volume, setVolume] = useState('');
+  // const [location, setLocation] = useState('');
+  // const [unit, setUnit] = useState('');
   const [titleName, setTitleName] = useState('');
   const [quotestatus, setquotestatus] = useState("");
+  const [clickConfirm, setClickConfirm] = useState(false);
+  const [subCategoryName, setSubCategoryName] = useState('');
+  const [unitName, setUnitName] = useState('');
+
+
 
   useEffect(() => {
     // console.log("update",subData);
@@ -61,7 +71,9 @@ const PricingRequest = () => {
 
   const handleGetQuote = () => {
     // console.log("abc",unit);
-    navigation.navigate(NavigationRouteNames.PRICE_CONFIRM, { title: titleName, status:quotestatus, Location: location, Unit: unit, Volume: volume,});
+    navigation.navigate(NavigationRouteNames.PRICE_CONFIRM, { title: titleName,
+       status:quotestatus, Location: requestForm.values.location, Unit: unitName,
+        Volume: requestForm.values.volume, subCategoryName : subCategoryName});
   };
 
   useLayoutEffect(() => {
@@ -76,8 +88,9 @@ const PricingRequest = () => {
     });
   }, []);
 
-  const handleConfirm = () => {
-    onSubmitQuote({
+  const handleConfirm = async (subCategoryId, volume, unit, location) => {   
+   
+    const {data} = await onSubmitQuote({
       data: {
         primeId: 0,
         category_id: categoryId,
@@ -88,12 +101,68 @@ const PricingRequest = () => {
         uploaded_files: '',
       },
     });
+    console.log(data)
+    if(data.status){
+      handleGetQuote()
+    } else {
+      alert(data.message)
+    }
+  
   };
+
+  const validationSchema = Yup.object().shape({
+    category: Yup.string().required("Please select Item"),
+    volume: Yup.string().required("Please provide volume"),
+    unit: Yup.string().required("Please select unit"),
+    location: Yup.string().required("Please provide location"),
+  });
+
+  const requestForm = useFormik({
+    validateOnChange: true,
+    validateOnBlur: true,
+    initialValues: {
+      category : '',
+      volume: "",
+      unit : '',
+      location : ''
+    },
+    validationSchema,
+    onSubmit: () => handleConfirm(
+      requestForm.values.category,
+      requestForm.values.volume, 
+      requestForm.values.unit,
+      requestForm.values.location
+    )
+  });   
+
+  const handelSubmitQuote = async () => {
+    setClickConfirm(true)
+    await requestForm.submitForm();
+  }
+
+  const onChangeCategory = (id) => {
+     var item = subCategories.filter(v => v.value == id)    
+    if(item.length > 0){
+      setSubCategoryName(item[0].label)
+    }
+    requestForm.setFieldValue('category', id)
+  }
+
+  const onChangeUnit = (id) => {
+    var item = unitPickerData.filter(v => v.value == id)  
+    console.log(item)  
+   if(item.length > 0){
+     setUnitName(item[0].label)
+   }
+   requestForm.setFieldValue('unit', id)
+ }
 
   return (
     <KeyboardAwareScrollView
+      removeClippedSubviews = {true}
       style={[AppStyles.ph20, AppStyles.pv15, { backgroundColor: '#fff' }]}
-      contentContainerStyle={AppStyles.flex1SpaceBetween}>
+      contentContainerStyle={AppStyles.flex1SpaceBetween}
+      >
       <View>
         <View style={AppStyles.alignCenter}>
           <Text style={[AppStyles.txtBlackBold, AppStyles.f18]}>Get Quote</Text>
@@ -103,10 +172,19 @@ const PricingRequest = () => {
           <DropDown
             items={subCategories}
             itemStyle={{ color: '#000' }}
-            onValueChange={(val) => setSubCategoryId(val)}
-            selectedValue={subCategoryId}
+            onValueChange = {onChangeCategory}
+            //onValueChange={(val) => requestForm.setFieldValue('category', val)}            
+            selectedValue={requestForm.values.category}
             containerStyle={{ borderRadius: 10, backgroundColor: Colors.grayTwo, paddingLeft: 10 }}
           />
+          {clickConfirm && requestForm.errors.category? (
+              <CustomText
+                fontSize={15}
+                color={Colors.red}
+                styling={{marginTop: RfH(10)}}>
+                {requestForm.errors.category}
+              </CustomText>
+                ) : null}
         </View>
         <View style={[AppStyles.mt20]}>
           <View>
@@ -116,20 +194,40 @@ const PricingRequest = () => {
             <View style={{ flex: 2, paddingRight: 10 }}>
               <TextInput
                 placeholder="Enter volume"
-                value={volume}
-                onChangeText={(txt) => setVolume(txt)}
-                style={{ backgroundColor: Colors.grayTwo, borderRadius: 10, paddingLeft: 10 }}
+                value={requestForm.values.volume}
+                keyboardType = {'numeric'}
+                onChangeText={(txt) => requestForm.setFieldValue("volume", txt)}
+                style={{ backgroundColor: Colors.grayTwo, borderRadius: 10, paddingLeft: 10 }}              
               />
+              {clickConfirm && requestForm.errors.volume ? (
+                <CustomText
+                  fontSize={15}
+                  color={Colors.red}
+                  styling={{marginTop: RfH(10)}}>
+                  {requestForm.errors.volume}
+                </CustomText>
+                ) : null}
+             
             </View>
             <View style={{ flex: 1 }}>
               <DropDown
                 items={unitPickerData}
                 placeholderText="Units"
                 itemStyle={{ color: '#000' }}
-                onValueChange={(val) => setUnit(val)}
-                selectedValue={unit}
+                onValueChange = {onChangeUnit}
+                //onValueChange={(val) => requestForm.setFieldValue('unit', val)}
+                selectedValue={requestForm.values.unit}
                 containerStyle={{ borderRadius: 10, backgroundColor: Colors.grayTwo, paddingLeft: 10 }}
               />
+
+               {clickConfirm && requestForm.errors.unit ? (
+                <CustomText
+                  fontSize={15}
+                  color={Colors.red}
+                  styling={{marginTop: RfH(10)}}>
+                  {requestForm.errors.unit}
+                </CustomText>
+                ) : null}
             </View>
           </View>
         </View>
@@ -139,11 +237,19 @@ const PricingRequest = () => {
           </View>
           <View>
             <TextInput
-              value={location}
+              value={requestForm.values.location}
               placeholder="Enter location"
-              onChangeText={(txt) => setLocation(txt)}
+              onChangeText={(txt) => requestForm.setFieldValue('location', txt)}
               style={{ backgroundColor: Colors.grayTwo, borderRadius: 10, paddingLeft: 10 }}
             />
+             {clickConfirm && requestForm.errors.location ? (
+              <CustomText
+                fontSize={15}
+                color={Colors.red}
+                styling={{marginTop: RfH(10)}}>
+                {requestForm.errors.location}
+              </CustomText>
+                ) : null}
           </View>
         </View>
         <View style={[AppStyles.mt20]}>
@@ -168,7 +274,7 @@ const PricingRequest = () => {
         <TouchableOpacity
           style={[AppStyles.btnPrimary, AppStyles.alignCenter, AppStyles.pv10, AppStyles.br10]}
           // onPress={(handleConfirm)}>
-            onPress={() => {(handleConfirm(), handleGetQuote())}}>
+            onPress={() => {(handelSubmitQuote())}}>
           <Text style={[AppStyles.txtWhiteRegular, AppStyles.f18]}>CONFIRM</Text>
         </TouchableOpacity>
       </View>

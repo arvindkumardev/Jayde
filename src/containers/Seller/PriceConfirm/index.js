@@ -15,6 +15,7 @@ const PriceConfirm = () => {
   const [location, setLocation] = useState('');
   const [unit, setUnit] = useState('');
   const [volume, setVolume] = useState('');
+  const [subCategoryName, setSubCategoryName] = useState('')
 
   useLayoutEffect(() => {
     const { title } = route.params;
@@ -22,11 +23,13 @@ const PriceConfirm = () => {
     const { Location } = route.params;
     const { Unit } = route.params;
     const { Volume } = route.params;
-    console.log("status",status);
+    const {subCategoryName} = route.params;
+    console.log("status",status, subCategoryName);
     setSchedulePick(status);
     setLocation(Location);
     setUnit(Unit);
     setVolume(Volume);
+    setSubCategoryName(subCategoryName)
     navigation.setOptions({
       title,
     });
@@ -55,7 +58,7 @@ const PriceConfirm = () => {
               <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f16]}>Subcategory</Text>
             </View>
             <View style={AppStyles.flexpointfour}>
-              <Text style={[AppStyles.txtBlackRegular, AppStyles.f16]}>Type 2</Text>
+              <Text style={[AppStyles.txtBlackRegular, AppStyles.f16]}>{subCategoryName}</Text>
             </View>
           </View>
           <View style={AppStyles.flexRowSpaceBetween}>
