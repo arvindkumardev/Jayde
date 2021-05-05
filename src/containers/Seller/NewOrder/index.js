@@ -1,4 +1,4 @@
-import React, { useLayoutEffect } from 'react';
+import React, { useLayoutEffect, useState } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import Styles from './styles';
@@ -6,11 +6,12 @@ import { AppStyles } from '../../../theme';
 import NavigationRouteNames from '../../../routes/ScreenNames';
 
 const NewOrder = () => {
+  const [categoryId, setCategoryId] = useState('')
   const navigation = useNavigation();
   const route = useRoute();
 
   const handleGetQuote = (btnstatus) => {
-    navigation.navigate(NavigationRouteNames.PRICE_REQUEST, { title: 'Paper Waste', status:btnstatus });
+    navigation.navigate(NavigationRouteNames.PRICE_REQUEST, { title: 'Paper Waste', status:btnstatus, categoryId: categoryId  });
   };
 
   const handleSchedulePickup = () => {
@@ -23,6 +24,11 @@ const NewOrder = () => {
   //     title,
   //   });
   // }, []);
+
+  useLayoutEffect(() =>{
+    const { categoryId } = route.params;
+    setCategoryId(categoryId)
+  },[])
 
   return (
     <View style={Styles.screenContainer}>
