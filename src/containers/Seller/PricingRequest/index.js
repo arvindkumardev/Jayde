@@ -13,13 +13,13 @@ import { getSubCategories, getUnits, createQuote } from './middleware';
 import UserContext from '../../../appContainer/context/user.context';
 import MIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import CustomText from '../../../components/CustomText';
-import {alertBox, RfH, RfW} from '../../../utils/helpers';
+import {alertBox, RfH, RfW, isValidVolume} from '../../../utils/helpers';
 
 
 function PricingRequest() {
   const navigation = useNavigation();
   const { setLoader } = useContext(UserContext);
-  const route = useRoute();
+  const route = useRoute();``
   const [imageUpload, setImageUpload] = useState(false);
   const [subCategories, setSubCategoryes] = useState([]);
   const [unitPickerData, setUnitData] = useState([]);
@@ -37,7 +37,7 @@ function PricingRequest() {
   const [clickConfirm, setClickConfirm] = useState(false);
   const [subCategoryName, setSubCategoryName] = useState('');
   const [unitName, setUnitName] = useState('');
-
+  const [fileName, setFileName] = useState('')
 
 
   useEffect(() => {
@@ -89,7 +89,6 @@ function PricingRequest() {
   }, []);
 
   const handleConfirm = async (subCategoryId, volume, unit, location) => {   
-   
     const {data} = await onSubmitQuote({
       data: {
         primeId: 0,
@@ -98,7 +97,7 @@ function PricingRequest() {
         qty: volume,
         unit,
         location,
-        uploaded_files: '',
+        uploaded_files: fileName,
       },
     });
     console.log(data)
@@ -106,13 +105,17 @@ function PricingRequest() {
       handleGetQuote()
     } else {
       alert(data.message)
-    }
-  
+    }  
   };
 
   const validationSchema = Yup.object().shape({
+    volume: Yup.string().test(
+      "volume",
+      "Please provide valid volume",
+      (value) => isValidVolume(value),
+    ),
     category: Yup.string().required("Please select Item"),
-    volume: Yup.string().required("Please provide volume"),
+    //volume: Yup.string().required("Please provide volume"),
     unit: Yup.string().required("Please select unit"),
     location: Yup.string().required("Please provide location"),
   });
@@ -122,7 +125,7 @@ function PricingRequest() {
     validateOnBlur: true,
     initialValues: {
       category : '',
-      volume: "",
+      volume: 0,
       unit : '',
       location : ''
     },
@@ -136,24 +139,23 @@ function PricingRequest() {
   });   
 
   const handelSubmitQuote = async () => {
-    setClickConfirm(true)
-    await requestForm.submitForm();
+  setClickConfirm(true)
+   await requestForm.submitForm();
   }
 
   const onChangeCategory = (id) => {
-     var item = subCategories.filter(v => v.value == id)    
-    if(item.length > 0){
-      setSubCategoryName(item[0].label)
-    }
-    requestForm.setFieldValue('category', id)
+     var index = subCategories.findIndex(v => v.value == id)    
+      if(index != -1){
+        setSubCategoryName(subCategories[index].label)
+      }
+     requestForm.setFieldValue('category', id)
   }
 
   const onChangeUnit = (id) => {
-    var item = unitPickerData.filter(v => v.value == id)  
-    console.log(item)  
-   if(item.length > 0){
-     setUnitName(item[0].label)
-   }
+    var pos = unitPickerData.findIndex(v => v.value == id) 
+    if(pos != -1){
+      setUnitName(unitPickerData[pos].label)      
+    }
    requestForm.setFieldValue('unit', id)
  }
 
@@ -172,8 +174,7 @@ function PricingRequest() {
           <DropDown
             items={subCategories}
             itemStyle={{ color: '#000' }}
-            onValueChange = {onChangeCategory}
-            //onValueChange={(val) => requestForm.setFieldValue('category', val)}            
+            onValueChange = {onChangeCategory}                      
             selectedValue={requestForm.values.category}
             containerStyle={{ borderRadius: 10, backgroundColor: Colors.grayTwo, paddingLeft: 10 }}
           />
@@ -214,8 +215,7 @@ function PricingRequest() {
                 items={unitPickerData}
                 placeholderText="Units"
                 itemStyle={{ color: '#000' }}
-                onValueChange = {onChangeUnit}
-                //onValueChange={(val) => requestForm.setFieldValue('unit', val)}
+                onValueChange = {onChangeUnit}               
                 selectedValue={requestForm.values.unit}
                 containerStyle={{ borderRadius: 10, backgroundColor: Colors.grayTwo, paddingLeft: 10 }}
               />
@@ -261,12 +261,14 @@ function PricingRequest() {
               onPress={() => setImageUpload(!imageUpload)}
               style={[AppStyles.pv10, { backgroundColor: Colors.grayTwo }, AppStyles.alignCenter, AppStyles.inputIcon,]}>
               {/* <FAIcon name="photo" size={25} /> */}
-              <Text style={AppStyles.txtSecandaryRegular}>Attach File</Text>
+              <Text style={[AppStyles.txtSecandaryRegular, {color: fileName == '' ? Colors.warmGrey : Colors.green}]}>{fileName == '' ?'Attach File': 'File Attached' }</Text>
               <MIcon name="attachment" size={25} color={Colors.grayThree} />
               {/* <Text style={Styles.txtFileUpload}>Select file</Text>
             <MIcon name="attachment" size={25} color={Colors.grayThree} /> */}
             </TouchableOpacity>
-            <UploadDocument handleClose={() => setImageUpload(false)} isVisible={imageUpload} />
+            <UploadDocument handleClose={() => setImageUpload(false)} 
+            isVisible={imageUpload}
+            fileName = {setFileName} />
           </View>
         </View>
       </View>

@@ -114,9 +114,7 @@ const PriceConfirm = () => {
            style={[AppStyles.mt20, AppStyles.br10, AppStyles.btnPrimary, AppStyles.pv10, AppStyles.alignCenter]}>
            <Text style={[AppStyles.txtWhiteRegular, AppStyles.f17]}>REJECT</Text>
          </TouchableOpacity>
-       </View>   }
-       
-     
+       </View>   }      
     </View>
   );
 };

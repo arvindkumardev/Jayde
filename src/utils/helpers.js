@@ -130,6 +130,16 @@ export const isValidUserName = (str) => {
   }
 };
 
+export const isValidVolume = (val) => {
+  if (isEmpty(val)) {
+    return false;
+  } else if (val < 1) {
+    return false;
+  } else {
+    return true
+  }
+};
+
 export const getImageSource = (imagePath) =>
   isNumber(imagePath) ? imagePath : {uri: imagePath};
 

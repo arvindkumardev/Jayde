@@ -1,4 +1,5 @@
-import {Modal, Platform, SafeAreaView, ScrollView, Text, TouchableOpacity, TouchableWithoutFeedback, View} from 'react-native';
+import {Modal, Platform, SafeAreaView, ScrollView, Text, TouchableOpacity,
+     TouchableWithoutFeedback, View, ActivityIndicator} from 'react-native';
 import React, { useState} from 'react';
 import {RfH, RfW} from '../../utils/helpers';
 import {styles} from './styles';
@@ -9,30 +10,35 @@ import {Images} from '../../theme';
 import {isEmpty, map} from 'lodash';
 import ImagePicker from 'react-native-image-crop-picker';
 import uuid from 'react-uuid';
+import { uploadImage } from './middleware';
+import { Colors } from '../../theme';
 
 const RNFS = require('react-native-fs');
 const CAMERA = 1;
 const GALLERY = 2;
 const FILE = 3;
 
-
-
 function UploadDocument(props) {
-    const { isVisible, handleClose, isPhotoPickerVisible, isFilePickerVisible, handleUpload, snapCount } = props;
+    const { isVisible, handleClose, isPhotoPickerVisible, isFilePickerVisible, handleUpload, snapCount, fileName } = props;
     const [imageSet, updateImageSet] = useState([]);
     const [isPickerVisible, setPickerVisibility] = useState(true);
     const [isPreviewVisible, setPreviewVisibility] = useState(false);
     const [recentImage, setRecentImage] = useState({});
-    const [selectedOption, setOption] = useState('');    
- 
+    const [selectedOption, setOption] = useState(''); 
+    const [progress, setProgress] = useState(false)
+
+    const [{ data: imageData, loading, error }, onUploadImage] = uploadImage();
+
     const closeWindow = () => {
         handleClose();
         setPickerVisibility(true);
         setPreviewVisibility(false);
+        setProgress(false)
         updateImageSet([]);
-    };
+    };    
 
-    const submitDoc = () => {
+    const submitDoc = async () => {
+        setProgress(true)
         const formData = new FormData();
         imageSet.map(item => (
             formData.append('file', {
@@ -40,10 +46,19 @@ function UploadDocument(props) {
                 type: item.mime,
                 uri: item.path,
             })
-        ));       
-        closeWindow();
-    };
+        ));     
+      
+        const {data} = await onUploadImage({
+               data: formData
+        });
 
+        if(!isEmpty(data)){      
+          fileName(data.filename)
+        } else {
+            alert('Something went wrong, Please try again?')
+        }
+        closeWindow();        
+    };
 
     const createTempFile = (base64) => {
         const path = RNFS.DocumentDirectoryPath + '/temp.pdf';
@@ -61,8 +76,6 @@ function UploadDocument(props) {
     };
 
   
-
-
     const handleDelete = () => {
         const temp = imageSet.filter(item => item.path !== recentImage.path);
         updateImageSet(temp);
@@ -118,10 +131,14 @@ function UploadDocument(props) {
             mediaType:'photo'
         }).then(images => {
             console.log('gallery image-', images);
-            const temp = images.map(item => ({ path: item.path, fileName: uuid()+'.jpg', mime: item.mime }));
-            updateImageSet([...imageSet, ...temp]);
+           // const temp = images.map(item => ({ path: item.path, fileName: uuid()+'.jpg', mime: item.mime }));
+           // updateImageSet([...imageSet, ...temp]);
+           // setPreviewVisibility(true);
+            //setRecentImage(temp[0]);
+            const tempImageName = uuid()+'.jpg';
+            updateImageSet([...imageSet, { path: images.path, fileName: tempImageName, mime: images.mime }]);
             setPreviewVisibility(true);
-            setRecentImage(temp[0]);
+            setRecentImage({ path: images.path, fileName: tempImageName, mime: images.mime });
         }).catch(err => {
             // alertBox('Required permission missing',
             //     'Please grant permission to access photo gallery', {
@@ -232,7 +249,6 @@ function UploadDocument(props) {
     const filePicker = () => {
         return (
             <TouchableWithoutFeedback onPress={handleClose}>
-
                 <View style={styles.mainModal}>
                     <SafeAreaView>
                         <View style={styles.bottomContainer}>
@@ -303,8 +319,8 @@ function UploadDocument(props) {
                             showsHorizontalScrollIndicator={false}
                             decelerationRate="fast"
                         >
-                            {!isEmpty(imageSet) && map(imageSet, (item) =>
-                                (<View style={styles.thumbView}>
+                            {!isEmpty(imageSet) && map(imageSet, (item, index) =>
+                                (<View style={styles.thumbView} key ={index}>
                                     <IconButtonWrapper
                                         iconImage={item.path}
                                         iconWidth={RfW(75)}
@@ -329,25 +345,26 @@ function UploadDocument(props) {
                     </View>
                 </SafeAreaView>
                 <View style={{ zIndex: 9999, flex: 1, justifyContent: 'center', paddingVertical:RfH(10) }}>
-                    <TouchableOpacity
+                   {!progress ? <TouchableOpacity
                         style={styles.registrationContainer}
                         activeOpacity={0.5}
                         onPress={submitDoc}
                     >
                         <Text style={styles.registrationText}>Submit documents</Text>
                     </TouchableOpacity>
+                    :
+                    <ActivityIndicator size="large" color={Colors.mango} />
+                   }
                 </View>
             </View>
         );
     };
-
 
     return (
         <View>
             <Modal animationType="slide" transparent={true}
                 visible={isVisible} onRequestClose={handleClose}>
                 {isPickerVisible && filePicker()}
-
                 {isPreviewVisible && preview()}
             </Modal>
         </View>
