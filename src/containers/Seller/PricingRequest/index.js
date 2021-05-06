@@ -139,8 +139,8 @@ function PricingRequest() {
   });   
 
   const handelSubmitQuote = async () => {
-  setClickConfirm(true)
-   await requestForm.submitForm();
+    setClickConfirm(true)
+    await requestForm.submitForm();
   }
 
   const onChangeCategory = (id) => {
@@ -275,8 +275,9 @@ function PricingRequest() {
       <View>
         <TouchableOpacity
           style={[AppStyles.btnPrimary, AppStyles.alignCenter, AppStyles.pv10, AppStyles.br10]}
-          // onPress={(handleConfirm)}>
-            onPress={() => {(handelSubmitQuote())}}>
+           //onPress={() => { handleGetQuote()}}
+           onPress={() => {(handelSubmitQuote())}}
+            >
           <Text style={[AppStyles.txtWhiteRegular, AppStyles.f18]}>CONFIRM</Text>
         </TouchableOpacity>
       </View>

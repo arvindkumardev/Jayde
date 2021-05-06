@@ -11,7 +11,7 @@ const styles = StyleSheet.create({
     },
     mapView:{
       width:600,
-      height: 500
+      height: 450
     },
     mapContainer:{
       flex: 3

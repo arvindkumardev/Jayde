@@ -10,11 +10,14 @@ import Styles from './styles';
 import NavigationRouteNames from '../../../routes/ScreenNames';
 import { Colors, AppStyles } from '../../../theme';
 import { UploadDocument } from '../../../components/index';
+import CustomText from '../../../components/CustomText';
+import {alertBox, RfH, RfW, isValidVolume} from '../../../utils/helpers';
 
 const CallRequest = () => {
   const navigation = useNavigation();
   const route = useRoute();
   const [imageUpload, setImageUpload] = useState(false);
+  const [clickConfirm, setClickConfirm] = useState(false);
 
   const handleSchedulePickup = () => {
     navigation.navigate(NavigationRouteNames.CALLBACK_CONFIRMATION);
@@ -26,7 +29,40 @@ const CallRequest = () => {
     });
   }, [navigation]);
 
-  const handleConfirm = () => {};
+  const validationSchema = Yup.object().shape({
+    // contactNumber: Yup.string().test(
+    //   "contactNumber",
+    //   "Please provide valid contact number",
+    //   (value) => isValidVolume(value),
+    // ),
+    contactNumber: Yup.string().required("Please provide valid contact number"),  
+    contactPerson: Yup.string().required("Please provide contact person"),   
+  });
+
+  const requestForm = useFormik({
+    validateOnChange: true,
+    validateOnBlur: true,
+    initialValues: {
+      contactNumber : '',
+      contactPerson: ''
+    },
+    validationSchema,
+    onSubmit: () => handleSubmit(
+      requestForm.values.contactPerson,
+      requestForm.values.contactNumber,
+    )
+  });   
+
+  const handleConfirm  = async () => {
+    setClickConfirm(true)
+    await requestForm.submitForm();
+  };
+
+  const handleSubmit = (contactPerson, contactNumber) => {
+   
+  }
+
+
   return (
     <KeyboardAwareScrollView style={Styles.mainContainer}>
       <View style={[AppStyles.w100, AppStyles.alignCenter, AppStyles.mt20]}>
@@ -44,7 +80,17 @@ const CallRequest = () => {
               AppStyles.mb10,
               AppStyles.pl20,
             ]}
+            value={requestForm.values.contactPerson}           
+            onChangeText={(txt) => requestForm.setFieldValue("contactPerson", txt)}
           />
+          {clickConfirm && requestForm.errors.contactPerson ? (
+                <CustomText
+                  fontSize={15}
+                  color={Colors.red}
+                  styling={{marginTop: RfH(10)}}>
+                  {requestForm.errors.contactPerson}
+                </CustomText>
+                ) : null}
         </View>
         <View>
           <Text style={[[AppStyles.txtBlackRegular, AppStyles.f16, AppStyles.mb10]]}>Contact number</Text>
@@ -57,7 +103,18 @@ const CallRequest = () => {
               AppStyles.mb10,
               AppStyles.pl20,
             ]}
+            value={requestForm.values.contactNumber}
+            keyboardType = {'number-pad'}
+            onChangeText={(txt) => requestForm.setFieldValue("contactNumber", txt)}
           />
+          {clickConfirm && requestForm.errors.contactNumber ? (
+                <CustomText
+                  fontSize={15}
+                  color={Colors.red}
+                  styling={{marginTop: RfH(10)}}>
+                  {requestForm.errors.contactNumber}
+                </CustomText>
+                ) : null}
         </View>
         <View>
           <Text style={[AppStyles.txtBlackRegular, AppStyles.f16, AppStyles.mb10]}>Upload File</Text>
@@ -65,7 +122,8 @@ const CallRequest = () => {
             <Text style={Styles.txtFileUpload}>Select file</Text>
             <MIcon name="attachment" size={25} color={Colors.grayThree} />
           </TouchableOpacity>
-          <UploadDocument handleClose={() => setImageUpload(false)} isVisible={imageUpload} />
+          <UploadDocument handleClose={() => setImageUpload(false)} 
+          isVisible={imageUpload} />
         </View>
       </View>
       <View style={[AppStyles.mv20]}>
@@ -88,7 +146,8 @@ const CallRequest = () => {
         </TouchableOpacity>
       </View>
       <TouchableOpacity
-        style={[AppStyles.mt20, AppStyles.br10, AppStyles.btnPrimary, AppStyles.pv10, AppStyles.alignCenter, AppStyles.mb20]} onPress={() => {handleSchedulePickup()}}>
+        style={[AppStyles.mt20, AppStyles.br10, AppStyles.btnPrimary, AppStyles.pv10, AppStyles.alignCenter, AppStyles.mb20]}
+         onPress={() => {handleConfirm()}}>
         <Text style={[AppStyles.f18, AppStyles.txtWhiteRegular]}>CONFIRM</Text>
       </TouchableOpacity>
     </KeyboardAwareScrollView>

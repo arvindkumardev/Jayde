@@ -33,7 +33,9 @@ function OrderType() {
     navigation.navigate(NavigationRouteNames.NEW_ORDER_REQUEST, { title, categoryId: category });
   };
   const _renderItem = (index, item) => (
-    <TouchableOpacity onPress={() => handleNavigate(item.category_name, item.id)} style={Styles.itemContainer}>
+    <TouchableOpacity 
+    key = {index}
+    onPress={() => handleNavigate(item.category_name, item.id)} style={Styles.itemContainer}>
       <View>
         <Image style={Styles.itemImageSize} source={ORDER_IMAGE[item.category_name]} />
       </View>
@@ -48,7 +50,9 @@ function OrderType() {
         <Text style={[AppStyles.f17, AppStyles.txtBlackRegular]}>Choose a Category</Text>
       </View>
       <View style={AppStyles.mt20}>
-        <FlatList data={categories} renderItem={({ index, item }) => _renderItem(index, item)} />
+        <FlatList data={categories}         
+        keyExtractor={(_, index) => `${index}1`}
+        renderItem={({ index, item }) => _renderItem(index, item)} />
       </View>
     </ScrollView>
   );

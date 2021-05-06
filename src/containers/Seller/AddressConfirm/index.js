@@ -9,7 +9,7 @@ import Styles from "./styles";
 import NavigationRouteNames from '../../../routes/ScreenNames';
 import { Colors, AppStyles } from '../../../theme';
 
-const PriceConfirm = () => {
+const AddressConfirm = () => {
   const navigation = useNavigation();
   const route = useRoute();
 
@@ -19,9 +19,14 @@ const PriceConfirm = () => {
     });
   }, [navigation]);
 
-  const handleConfirm = () => {
+  const handelTimeSlot = () => {
     navigation.navigate(NavigationRouteNames.PICKUP_DATE);
   };
+
+  const handelNewAddress = () => {
+    navigation.navigate(NavigationRouteNames.PICKUP_DETAILS);
+  };
+
   return (
     <View style={[AppStyles.flex1SpaceBetween, AppStyles.pb20, style.whitebackgrnd,]}>
       <View style={[AppStyles.mt20, AppStyles.w100]}>
@@ -71,7 +76,9 @@ const PriceConfirm = () => {
           </View>
           <View style={[Styles.addressBox, style.btnSecandary, AppStyles.mt20,]}>
             <View style={[AppStyles.mt20, AppStyles.ml20,]}>
-          <TouchableOpacity style={[AppStyles.flexRowAlignCenter]}>
+          <TouchableOpacity 
+            onPress={handelNewAddress}
+            style={[AppStyles.flexRowAlignCenter]}>
             <FAIcon name={'plus'} size={20} color={Colors.mango} />
             <Text style={[AppStyles.ml10, AppStyles.txtBlackBold, AppStyles.f16]}>Add New Address</Text>
           </TouchableOpacity>
@@ -79,7 +86,9 @@ const PriceConfirm = () => {
           </View>
           <View style={[Styles.addressBox, style.btnSecandary, AppStyles.mt20,]}>
             <View style={[AppStyles.mt20, AppStyles.ml20,]}>
-          <TouchableOpacity style={[AppStyles.flexRowAlignCenter]}>
+          <TouchableOpacity 
+           onPress={handelTimeSlot}
+           style={[AppStyles.flexRowAlignCenter]}>
             <FAIcon name={'plus'} size={20} color={Colors.mango} />
             <Text style={[AppStyles.ml10, AppStyles.txtBlackBold, AppStyles.f16]}>Add Time Slot</Text>
           </TouchableOpacity>
@@ -97,7 +106,7 @@ const PriceConfirm = () => {
         <View>
           <TouchableOpacity
             style={[AppStyles.br10, AppStyles.btnPrimary, AppStyles.pv10, AppStyles.alignCenter, AppStyles.ph40]}
-            onPress={handleConfirm}>
+           >
             <Text style={[AppStyles.txtWhiteRegular, AppStyles.f18]}>CONFIRM</Text>
           </TouchableOpacity>
         </View>
@@ -106,4 +115,4 @@ const PriceConfirm = () => {
   );
 };
 
-export default PriceConfirm;
+export default AddressConfirm;

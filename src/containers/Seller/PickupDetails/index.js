@@ -9,6 +9,7 @@ import { Dimensions } from 'react-native';
 import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
 import { mapStyle } from "./mapStyle";
 import { Colors, Fonts, AppStyles } from '../../../theme';
+import style from "../../../theme/Styles/container";
 
 
 const PickupDetails = () => {
@@ -17,7 +18,7 @@ const PickupDetails = () => {
 
   useLayoutEffect(() => {
     navigation.setOptions({
-      title: <Text style={[AppStyles.txtBlackBold, AppStyles.f18]}>New Order</Text>,
+      title: <Text style={[AppStyles.txtBlackBold, AppStyles.f18]}>Add Address</Text>,
     });
   }, [navigation]);
 
@@ -26,7 +27,7 @@ const PickupDetails = () => {
   }
 
   return (
-      <KeyboardAwareScrollView style={Styles.mainContainer}>
+      <KeyboardAwareScrollView style={[Styles.mainContainer,  style.whitebackgrnd]}>
 
         <View style={Styles.mapContainer}>
           <MapView
