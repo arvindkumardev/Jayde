@@ -16,7 +16,7 @@ function AdminNewOrderList() {
   }
 
   useLayoutEffect(() => {
-    const title='New Work Orders';
+    const title='New Orders';
    navigation.setOptions({
     title,
   });
