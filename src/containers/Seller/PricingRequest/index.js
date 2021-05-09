@@ -276,7 +276,7 @@ function PricingRequest() {
         <TouchableOpacity
           style={[AppStyles.btnPrimary, AppStyles.alignCenter, AppStyles.pv10, AppStyles.br10]}
            //onPress={() => { handleGetQuote()}}
-           onPress={() => {(handelSubmitQuote())}}
+           onPress={() => {handelSubmitQuote()}}
             >
           <Text style={[AppStyles.txtWhiteRegular, AppStyles.f18]}>CONFIRM</Text>
         </TouchableOpacity>

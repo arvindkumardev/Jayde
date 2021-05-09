@@ -21,6 +21,12 @@ const styles = StyleSheet.create({
     height: 27,
     marginLeft: 20,
   },
+  InactiveBtn: {
+    borderRadius: 10,
+    backgroundColor: 'grey',
+    width: 58,
+    height: 27,
+  },
   lftimga: {
     width: 16, 
     height: 16, 

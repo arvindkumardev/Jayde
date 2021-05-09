@@ -28,6 +28,12 @@ const styles = StyleSheet.create({
     width: 58,
     height: 27,
   },
+  InactiveBtn: {
+    borderRadius: 10,
+    backgroundColor: 'grey',
+    width: 58,
+    height: 27,
+  },
   activebutton: {
     marginTop: 5,
   },

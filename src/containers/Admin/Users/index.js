@@ -2,8 +2,7 @@ import React, {useContext, useEffect, useState, useLayoutEffect} from 'react';
 import * as Alert from 'react-native';
 import {KeyboardAvoidingView, Platform, TouchableOpacity, View, Text, Image, TextInput, FlatList, ScrollView, ActivityIndicator} from 'react-native';
 import  DropDownPicker from "react-native-dropdown-picker";
-import axios from "axios";
-import useAxios from 'axios-hooks';
+
 import Styles from "./styles";
 import NavigationRouteNames from '../../../routes/ScreenNames';
 import {useNavigation} from '@react-navigation/core';
@@ -11,84 +10,118 @@ import {useRoute} from '@react-navigation/native';
 import AppStyles from "../../../theme/Styles/texts";
 import AppStyle from "../../../theme/Styles/spaces";
 import style from "../../../theme/Styles/container";
-import styles from '../../../components/CustomImage/style';
 import { users } from "../../../services/middleware/user";
+import Colors from '../../../theme/Colors';
+import UserContext from '../../../appContainer/context/user.context';
 
 function Users() {
    const navigation = useNavigation();
    const route = useRoute();
 
-  const [loading, setLoading] = useState(true);
+  const { setLoader } = useContext(UserContext);
+
   const [dataSource, setDataSource] = useState([]);
   const [offset, setOffset] = useState(1);
 
-   const [
-    { data: emLoginData, loading: emLoginLoading, error: emLoginError },
-    emLogin,
-  ] = users(offset);
+  const [loadMore, setLoadMore] = useState(false);
+  const [allLoaded, setAllLoaded] = useState(false);
 
-  const triggerLogin = async () => {
-    try{
+  const [totalCount, setTotalCount] = useState(5)
+  const [perPage, setPerPage] = useState(5)
+
+  const [arraydata, setarraydata]=useState([])
+
+   const [
+    { data, loading, error: emLoginError }, emLogin] = users(offset);
+
+  const triggerUser = async () => {
+    try {
             const { data } = await emLogin({ data: {} });
-            console.log("Response from login ", data.data[0].users)
-            setOffset(offset + 1);
-            let listData = arraydata;
-            let data1 = listData.concat(data.data[0].users);
-            setarraydata(data1);
-            setLoading(false);
-            setarraydata(data.data[0].users)
-          }
-          catch(e){
+            console.log("Response :", data.data[0].users)        
+              setPerPage(data.data[0].links.per_page)
+              setTotalCount(data.data[0].links.total_count)
+              setarraydata(data.data[0].users)          
+              setLoader(false)                
+        }
+        catch(e){
             console.log("Response error", e);
+        }
+  };
+
+  const triggerLoadMore = async () => {
+    try {
+            const { data } = await emLogin({ data: {} });                     
+            let listData = arraydata;          
+            let data1 = listData.concat(data.data[0].users);
+            setLoadMore(false);
+            setarraydata([...data1]);                       
           }
-         };
+        catch(e){
+            console.log("Response error", e);
+        }
+  };
 
    useEffect(()=>{
-    triggerLogin();
-  }, navigation);
+    setLoader(true)
+    triggerUser();
+  },[]);
 
   useLayoutEffect(() => {
     const title='Jayde Users';
-   navigation.setOptions({
-    title,
-  });
+    navigation.setOptions({title});
   }, []);
 
    
-   const [arraydata,setarraydata]=useState([])
-  
-   const screenNavigate = () => {
-    navigation.navigate(NavigationRouteNames.ENABLEDISABLE_USER);
+  const getActionType = (index) => {
+    let tempData = [...arraydata]   
+    tempData[index].status == '1' ?  tempData[index].status = '0' :  tempData[index].status = '1'
+    setarraydata(tempData)
+   console.log(index)
   }
 
+  const screenNavigate = (rowItem, index ) => {
+    navigation.navigate(NavigationRouteNames.ENABLEDISABLE_USER, {Item: rowItem, index: index, getActionType : getActionType});
+  }
+
+  const loadMoreResults = async info => {
+    console.log(totalCount)
+
+    if (loadMore)
+       return
+
+    if(offset > totalCount) 
+      return
+    
+    setLoadMore(true);
+    setOffset(offset + perPage);
+    triggerLoadMore();
+ }
+
   const renderFooter = () => {
-    return (
-      //Footer View with Load More button
-      <View style={styles.footer}>
-        <TouchableOpacity
-          activeOpacity={0.9}
-          onPress={triggerLogin}
-          //On Click of button load more data
-          style={Styles.confirmBtnn}>
-          <Text style={Styles.confirm}>Load More</Text>
-        </TouchableOpacity>
-      </View>
+    return (    
+        <View style={[style.alignCenter, style.justifyCon]}>
+            <ActivityIndicator
+                animating={true}
+                size='large'
+                color={Colors.mangoTwo} />
+        </View>
     );
   };
 
   const _RenderItem = (index, item) => {
     return (
-      <TouchableOpacity onPress={() => {screenNavigate()}}>  
-       <View style={Styles.boxView}>
+      <TouchableOpacity
+        key = {index}
+        onPress={() => {screenNavigate(item, index)}}>  
+       <View style={Styles.boxView}>       
         
-        
-        <View style={[style.flexDir, AppStyle.ml24,]}>
+      <View style={[style.flexDir, AppStyle.ml24,]}>
       <View style={Styles.flx2}>
       <Text style={[AppStyles.f13, AppStyles.txtSecandaryRegular, AppStyle.mt20]}>{item.email}</Text>
       </View>
       <View style={[style.flexpointthree, AppStyle.mt20, AppStyles.ml24]}>
-      <TouchableOpacity style={Styles.confirmBtn}>
-      <Text style={[AppStyles.txtWhiteRegular, AppStyles.f11, AppStyles.textalig, Styles.activebutton]}>Active</Text>
+      <TouchableOpacity style={item.status == 1 ? Styles.confirmBtn : Styles.InactiveBtn}>
+      <Text style={[AppStyles.txtWhiteRegular, AppStyles.f11, AppStyles.textalig, Styles.activebutton]}>{item.status == 1 ? 'Active' : 'Inactive'}</Text>
       </TouchableOpacity>
       </View>
       </View> 
@@ -119,24 +152,22 @@ function Users() {
   
   return (
     <View style={Styles.mainView}>
-       <ScrollView>
-
        <FlatList
         data={arraydata}
         renderItem={({ index, item }) =>
           _RenderItem(index, item) 
         }
-        ListFooterComponent={renderFooter}
-      />
-
-
-
-
-          </ScrollView> 
-        
-      
-    </View>
-    
+        extraData = {useState}
+        removeClippedSubviews={Platform.OS === 'android' && true}
+        numColumns={1}
+        keyExtractor={(_, index) => `${index}1`}
+        ListFooterComponent={loadMore && renderFooter}
+        onEndReachedThreshold={0.2}
+        onEndReached={info => {
+          loadMoreResults(info);
+        }}
+      />      
+    </View>    
   );
 }
 export default Users;
