@@ -76,7 +76,6 @@ function Users() {
     let tempData = [...arraydata]   
     tempData[index].status == '1' ?  tempData[index].status = '0' :  tempData[index].status = '1'
     setarraydata(tempData)
-   console.log(index)
   }
 
   const screenNavigate = (rowItem, index ) => {

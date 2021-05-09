@@ -65,6 +65,7 @@ import SmartContractViewItem from "../containers/SmartContractViewItem";
 import OwnedContracts from "../containers/OwnedContracts";
 import AddSubUser from "../containers/AddSubUser";
 import PasswordReset from "../containers/PasswordReset";
+import AdminNewOrderList from "../containers/Admin/AdminNewOrderList"
 import { resolveConfig } from "prettier";
 
 
@@ -564,7 +565,8 @@ const AppStack = (props) => {
             options={CommonHeaderStyle}
           />
       </>;
-      case USER_ROLE.ADMIN:
+     
+     case USER_ROLE.ADMIN:
         return <>
          {/* Dashboard SCREEN */}
          <Stack.Screen
@@ -604,6 +606,14 @@ const AppStack = (props) => {
             name={NavigationRouteNames.PICKUP_DETAILS}
             component={PickupDetails}
           />
+
+          {/* New Work Order List Screen number: 21*/}
+          <Stack.Screen
+            name={NavigationRouteNames.ADMIN_NEW_ORDER_LIST}
+            component={AdminNewOrderList}
+            options={CommonHeaderStyle}
+          />
+
           {/* Call request screen number: 70 */}
           <Stack.Screen
             name={NavigationRouteNames.CALL_REQUEST}

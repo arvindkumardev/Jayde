@@ -75,13 +75,13 @@ const DRAWER_MENU = {
         name: 'Download Report',
         color: Colors.mango,
         iconName: 'download',
-        screenName: ''
+        screenName:  NavigationRouteNames.DOWNLOAD_REPORT
     },
     {
         name: 'Manage Orders',
         color: Colors.mango,
         iconName: 'edit',
-        screenName: ''
+        screenName: NavigationRouteNames.ADMIN_NEW_ORDER_LIST
     },
     {
         name: 'Manage EPR',
