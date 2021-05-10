@@ -8,7 +8,10 @@ const IMAGE_UPLOAD = `/api/mobile/imageUpload`;
 const ENABLE_USER = `/api/mobile/admin/activateUser`
 const DISABLE_USER = `/api/mobile/admin/deactivateUser`
 const ADMIN_NEW_ORDER = `/api/mobile/admin/newOrders/`;
+const ACCEPT_ORDER = `/api/mobile/admin/confirmOrder`
+const REJECT_ORDER = `/api/mobile/admin/rejectOrder`
+
 
 
 export { LOGIN_URL, GET_SUB_CATEGORY, GET_UNITS, CREATE_QUOTE, USERS, GET_CATEGORIES,
-     IMAGE_UPLOAD, ENABLE_USER, DISABLE_USER, ADMIN_NEW_ORDER };
+     IMAGE_UPLOAD, ENABLE_USER, DISABLE_USER, ADMIN_NEW_ORDER, ACCEPT_ORDER, REJECT_ORDER };

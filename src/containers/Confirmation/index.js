@@ -88,8 +88,9 @@ function Confirmation() {
       </View>
       </View> 
 
-<View style={[style.flex1, Styles.tbut]}>
-              <TouchableOpacity style={[AppStyle.mt30, AppStyle.pv11, AppStyles.aligncen, style.br13,  style.btnPrimary]} onPress={() => {screenNavigate()}}>
+      <View style={[style.flex1, Styles.tbut]}>
+              <TouchableOpacity style={[AppStyle.mt30, AppStyle.pv11, AppStyles.aligncen, style.br13,  style.btnPrimary]} 
+              onPress={() => {screenNavigate()}}>
                   <Text style={[AppStyles.f18, style.whitecolor]}>GO TO HOME</Text>
               </TouchableOpacity>
              </View>

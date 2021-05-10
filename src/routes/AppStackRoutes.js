@@ -635,6 +635,14 @@ const AppStack = (props) => {
             component={Confirmation}
             options={NoHeaderScreen}
           />
+
+           {/* Failed Screen */}
+           <Stack.Screen
+            name={NavigationRouteNames.ORDER_FAILED}
+            component={OrderFailed}
+            options={NoHeaderScreen}
+          />
+
           {/* Call request screen number: 70 */}
           <Stack.Screen
             name={NavigationRouteNames.CALL_REQUEST}

@@ -1,4 +1,6 @@
-import { LOGIN_URL, GET_UNITS, NEW_ORDERS, USERS, ENABLE_USER, DISABLE_USER, ADMIN_NEW_ORDER } from "../../utils/urls";
+import { LOGIN_URL, GET_UNITS, NEW_ORDERS, USERS,
+   ENABLE_USER, DISABLE_USER, ADMIN_NEW_ORDER,
+  ACCEPT_ORDER, REJECT_ORDER } from "../../utils/urls";
 import useAxios from "axios-hooks";
  
 const newOrder = () => {
@@ -57,5 +59,26 @@ const disableUserByAdmin = () => {
 }
 
 
+const acceptOrder = () => {
+  return useAxios(
+    {
+      url: ACCEPT_ORDER,
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+    },
+    { manual: true }
+  );
+}
 
-export { newOrder, users,enableUserByAdmin, disableUserByAdmin, adminNewOrder };
+const rejectOrder = () => {
+  return useAxios(
+    {
+      url: REJECT_ORDER,
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+    },
+    { manual: true }
+  );
+}
+
+export { newOrder, users,enableUserByAdmin, disableUserByAdmin, adminNewOrder, acceptOrder, rejectOrder };

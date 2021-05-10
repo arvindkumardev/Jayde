@@ -33,16 +33,16 @@ function AdminNewOrder() {
   }, [])
 
 
-  const backToList = useCallback(() => {
+  const backToOrderList = () => {
     navigation.goBack()
-  }, []);
+  };
 
   const handelReject = () => {
-    navigation.navigate(NavigationRouteNames.CONFIRMATION, {Value: item, backToList: backToList})
+    navigation.navigate(NavigationRouteNames.ORDER_FAILED, {Value: item, backToList: backToOrderList})
   }
 
   const handelAccept = () => {
-    navigation.navigate(NavigationRouteNames.CONFIRMATION, {Value: item, backToList : backToList})
+    navigation.navigate(NavigationRouteNames.ORDER_ASSIGN, {Value: item, backToList : backToOrderList})
   }
 
   return (

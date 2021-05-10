@@ -13,12 +13,25 @@ import {useRoute} from '@react-navigation/native';
 
 function OrderFailed() {
 
-   const navigation = useNavigation();
-   const route = useRoute();
-  
-   const screenNavigate = () => {
-    navigation.navigate(NavigationRouteNames.HOMESCREEN);
-  }
+  const [item, setItem] = useState({});
+
+  const navigation = useNavigation();
+  const route = useRoute();
+ 
+  const screenNavigate = () => {
+   route.params.backToList()
+   navigation.goBack()
+ }
+
+ useEffect(() => {
+   const { Value } = route.params;  
+   setItem(Value)    
+ }, [])
+
+  //  const screenNavigate = () => {
+  //   navigation.navigate(NavigationRouteNames.HOMESCREEN);
+  // }
+
   
   return (
     <View style={Styles.topView}>
@@ -41,7 +54,7 @@ function OrderFailed() {
       <Text style={[AppStyles.f15, AppStyle.mt20, AppStyles.txtSecandaryRegular]}>Category</Text>
       </View>
       <View style={[style.flex1, AppStyles.alignfend]}>
-      <Text style={[AppStyles.f15, AppStyles.txtBlackRegular, AppStyle.mt20, AppStyle.mr30]}>Paper</Text>
+      <Text style={[AppStyles.f15, AppStyles.txtBlackRegular, AppStyle.mt20, AppStyle.mr30]}>{item.category_name}</Text>
       </View>
       </View> 
 
@@ -50,7 +63,7 @@ function OrderFailed() {
       <Text style={[AppStyles.f15, AppStyle.mt10, AppStyles.txtSecandaryRegular]}>Sub Category</Text>
       </View>
       <View style={[style.flex1, AppStyles.alignfend]}>
-      <Text style={[AppStyles.f15, AppStyles.txtBlackRegular, AppStyle.mt10, AppStyle.mr30]}>Type 2</Text>
+      <Text style={[AppStyles.f15, AppStyles.txtBlackRegular, AppStyle.mt10, AppStyle.mr30]}>{item.sub_category_name}</Text>
       </View>
       </View> 
 
@@ -59,7 +72,7 @@ function OrderFailed() {
       <Text style={[AppStyles.f15, AppStyle.mt10, AppStyles.txtSecandaryRegular]}>Volume</Text>
       </View>
       <View style={[style.flex1, AppStyles.alignfend]}>
-      <Text style={[AppStyles.f15, AppStyles.txtBlackRegular, AppStyle.mt10, AppStyle.mr30]}>2 Tons</Text>
+      <Text style={[AppStyles.f15, AppStyles.txtBlackRegular, AppStyle.mt10, AppStyle.mr30]}>{item.qty} {item.unit_name}</Text>
       </View>
       </View> 
 
@@ -68,7 +81,7 @@ function OrderFailed() {
       <Text style={[AppStyles.f15, AppStyle.mt10, AppStyles.txtSecandaryRegular]}>Location</Text>
       </View>
       <View style={[style.flex1, AppStyles.alignfend]}>
-      <Text style={[AppStyles.f15, AppStyles.txtBlackRegular, AppStyle.mt10, AppStyle.mr30]}>Hyderabad</Text>
+      <Text style={[AppStyles.f15, AppStyles.txtBlackRegular, AppStyle.mt10, AppStyle.mr30]}>{item.location}</Text>
       </View>
       </View> 
 
@@ -77,13 +90,14 @@ function OrderFailed() {
       <Text style={[AppStyles.f15, AppStyle.mt10, AppStyles.txtSecandaryRegular]}>Prov. Price</Text>
       </View>
       <View style={[style.flex1, AppStyles.alignfend]}>
-      <Text style={[AppStyles.f15, AppStyles.txtBlackRegular, AppStyle.mt10, AppStyle.mr30]}>₹ 25,864</Text>
+      <Text style={[AppStyles.f15, AppStyles.txtBlackRegular, AppStyle.mt10, AppStyle.mr30]}>₹ {item.price}</Text>
       </View>
       </View> 
 
             <View>
             <View style={AppStyles.aligncen}>
-              <TouchableOpacity style={Styles.homebtn}>
+              <TouchableOpacity style={Styles.homebtn}
+                onPress={() => {screenNavigate()}}>
                   <Text style={[AppStyles.f17, style.warmgreycolor, AppStyles.textalig, AppStyle.mt10]}>HOME</Text>
               </TouchableOpacity>
              </View>

@@ -10,6 +10,7 @@ import {useNavigation} from '@react-navigation/core';
 import {useRoute} from '@react-navigation/native';
 
 function OrderAssign() {
+  const [item, setItem] = useState({});
   
   const [arraydata,setarraydata]=useState([
     {
@@ -47,6 +48,8 @@ function OrderAssign() {
 }
 
   useEffect(() => {
+    const { Value } = route.params;  
+    setItem(Value) 
     _AggreFunc()
   }, []);
 
@@ -72,7 +75,7 @@ function OrderAssign() {
           </View> 
           
         <View style={Styles.refView}>
-          <Text style={Styles.refText}>Ref No- JYD/SC/2020/0067</Text>
+          <Text style={Styles.refText}>Ref No- {item.order_no}</Text>
         </View>
         
         <View style={Styles.boxView}>
@@ -82,7 +85,7 @@ function OrderAssign() {
       <Text style={Styles.boxtxtt}>Waste type</Text>
       </View>
       <View style={Styles.boxTxtView}>
-      <Text style={Styles.boxTextt1}>Plastic</Text>
+      <Text style={Styles.boxTextt1}>{item.category_name}</Text>
       </View>
       </View> 
 
@@ -91,7 +94,7 @@ function OrderAssign() {
       <Text style={Styles.boxtxtt}>Waste Sub Category</Text>
       </View>
       <View style={Styles.boxTxtView}>
-      <Text style={Styles.boxTextt1}>Type 1</Text>
+      <Text style={Styles.boxTextt1}>{item.sub_category_name}</Text>
       </View>
       </View> 
 
@@ -100,7 +103,7 @@ function OrderAssign() {
       <Text style={Styles.boxtxtt}>Volume</Text>
       </View>
       <View style={Styles.boxTxtView}>
-      <Text style={Styles.boxTextt1}>3 Tons</Text>
+      <Text style={Styles.boxTextt1}>{item.qty} {item.unit_name}</Text>
       </View>
       </View> 
 
@@ -109,7 +112,7 @@ function OrderAssign() {
       <Text style={Styles.boxtxtt}>Purchase Date</Text>
       </View>
       <View style={Styles.boxTxtView}>
-      <Text style={Styles.boxTextt1}>26/07/2020</Text>
+      <Text style={Styles.boxTextt1}>{moment(item.pickup_date).format('DD/MM/YYYY')}</Text>
       </View>
       </View> 
 
@@ -118,11 +121,9 @@ function OrderAssign() {
       <Text style={Styles.boxtxtt}>Purchase Amount</Text>
       </View>
       <View style={Styles.boxTxtView}>
-      <Text style={Styles.boxTextt1}>₹ 25,864</Text>
+      <Text style={Styles.boxTextt1}>₹ {item.price}</Text>
       </View>
       </View> 
-
-
        </View>
       
 
