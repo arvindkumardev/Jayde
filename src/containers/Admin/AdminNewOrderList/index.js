@@ -1,13 +1,21 @@
 import React, {useContext, useEffect, useState, useLayoutEffect} from 'react';
-import {View, Text, Image, FlatList, ScrollView, TouchableOpacity} from 'react-native';
+import {View, Text, Image, FlatList, ScrollView, TouchableOpacity, ActivityIndicator} from 'react-native';
 import Styles from "./styles";
 import NavigationRouteNames from '../../../routes/ScreenNames';
 import {useNavigation} from '@react-navigation/core';
 import {useRoute} from '@react-navigation/native';
 import { AppStyles } from '../../../theme';
 import { adminNewOrder } from "../../../services/middleware/user";
-import Colors from '../../../theme/Colors';
 import UserContext from '../../../appContainer/context/user.context';
+import moment from 'moment';
+import FooterLoader from "../../../appContainer/footerLoader";
+
+const ORDER_IMAGE = {
+  'E-Waste': require('../../../assets/Images/NewOrderList/Group_10091.png'),
+   Paper: require('../../../assets/Images/NewOrderList/Group_10089.png'),
+   Plastic: require('../../../assets/Images/NewOrderList/Group_10090.png'),
+  'Mix Waste': require('../../../assets/Images/NewOrderList/Group_10088.png'),
+};
 
 function AdminNewOrderList() {
    const navigation = useNavigation();
@@ -35,7 +43,9 @@ function AdminNewOrderList() {
               setPerPage(data.data[0].links.per_page)
               setTotalCount(data.data[0].links.total_count)
               setarraydata(data.data[0].newOrders)          
-              setLoader(false)                
+              setLoader(false)     
+              setOffset(offset + perPage);
+              triggerLoadMore();           
         }
         catch(e){
             console.log("Response error", e);
@@ -78,17 +88,6 @@ function AdminNewOrderList() {
     triggerLoadMore();
  }
 
-  const renderFooter = () => {
-    return (    
-        <View style={[style.alignCenter, style.justifyCon]}>
-            <ActivityIndicator
-                animating={true}
-                size='large'
-                color={Colors.mangoTwo} />
-        </View>
-    );
-  };
-
   const _RenderItem = (index, item) => {
     return (
       <TouchableOpacity 
@@ -96,23 +95,26 @@ function AdminNewOrderList() {
       onPress={() => screenNavigate()}>
        <View>
         
-       <View style={[AppStyles.flexDir, AppStyles.mt20]}>
+       <View style={[AppStyles.flexDir, AppStyles.mt20,]}>
          <View style={[AppStyles.flexpointtwo, AppStyles.ml14]}>
          {item.type == "Paper" ? 
           <View>
-          <Image source={require('../../../assets/Images/Recycler/NewWorkOrderList/Paper.png')}  /> 
+          <Image source={ORDER_IMAGE[item.category_name]}  /> 
           </View> : 
           <View>
-          <Image source={require('../../../assets/Images/Recycler/NewWorkOrderList/Plastic.png')}  /> 
+          <Image source={ORDER_IMAGE[item.category_name]}  /> 
           </View>  }
          </View>
          <View style={[AppStyles.flexpointsix, AppStyles.ml16]}>
          <Text style={[AppStyles.txtBlackRegular, AppStyles.f17,]}>{item.order_no}</Text>
-         <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f15,]}>{item.company}</Text>
-         <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f11,]}>{item.pickup_date}</Text>
+         <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f15,]}>{item.qty} {item.unit_name}</Text>
+         <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f11,]}>{moment(item.pickup_date).format('DD-MM-YY')}</Text>
          </View>
-         <View style={[AppStyles.flexpointtwo,]}>
-      <Text style={[AppStyles.txtBlackRegular, AppStyles.f15,]}>{item.price}</Text>
+         <View style={[AppStyles.flexpointtwo]}>
+         <TouchableOpacity style={Styles.confirmBtn}>
+          <Text style={[AppStyles.txtWhiteRegular, AppStyles.f11,
+           AppStyles.textalig]}>{item.is_confirmed  == 2 ? 'Assign' : 'View'}</Text>
+        </TouchableOpacity>
          </View>
        </View>
 
@@ -124,8 +126,8 @@ function AdminNewOrderList() {
   
   return (
     <View style = {Styles.mainView}>      
-
        <FlatList
+       style = {{flex:1}}
         data={arraydata}
         renderItem={({ index, item }) =>
           _RenderItem(index, item) 
@@ -134,8 +136,8 @@ function AdminNewOrderList() {
         removeClippedSubviews={Platform.OS === 'android' && true}
         numColumns={1}
         keyExtractor={(_, index) => `${index}1`}
-        ListFooterComponent={loadMore && renderFooter}
-        onEndReachedThreshold={0.2}
+        ListFooterComponent={<FooterLoader Loading = {loadMore}></FooterLoader>}
+        onEndReachedThreshold={0.5}
         onEndReached={info => {
           loadMoreResults(info);
         }}

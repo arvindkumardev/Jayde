@@ -27,11 +27,13 @@ const styles = StyleSheet.create({
     backgroundColor: '#ABC270',
     width: 58,
     height: 27,
+    justifyContent: 'center'
   },
   InactiveBtn: {
     borderRadius: 10,
     backgroundColor: 'grey',
     width: 58,
+    justifyContent: 'center',
     height: 27,
   },
   activebutton: {
