@@ -137,7 +137,7 @@ const DRAWER_MENU = {
         name: 'Order Summary',
         color: Colors.mango,
         iconName: 'wpforms',
-        screenName: ''
+        screenName: NavigationRouteNames.VIEW_NEW_ORDER
     },
     {
         name: 'Profile',
