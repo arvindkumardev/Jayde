@@ -429,6 +429,12 @@ const AppStack = (props) => {
             component={SmartContractViewItem}
             options={CommonHeaderStyle}
           />
+          {/* View New Order Screen*/}
+          <Stack.Screen
+            name={NavigationRouteNames.VIEW_NEW_ORDER}
+            component={ViewNewOrder}
+            options={CommonHeaderStyle}
+          />
           </>;
     case USER_ROLE.RECYCLER:
       return <>

@@ -1,10 +1,11 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState, useLayoutEffect} from 'react';
 import * as Alert from 'react-native';
-import {KeyboardAvoidingView, Platform, TouchableOpacity, View, Text, Image, TextInput, FlatList, ScrollView} from 'react-native';
+import {Platform, TouchableOpacity, View, Text, ScrollView} from 'react-native';
 import Styles from "./styles";
 import NavigationRouteNames from '../../routes/ScreenNames';
 import {useNavigation} from '@react-navigation/core';
 import {useRoute} from '@react-navigation/native';
+import { AppStyles } from '../../theme';
 
 function ViewNewOrder() {
   const navigation = useNavigation();
@@ -13,105 +14,95 @@ function ViewNewOrder() {
    const screenNavigate = () => {
     navigation.navigate(NavigationRouteNames.ASSIGN_ORDER);
   }
+
+  useLayoutEffect(() => {
+    const title='Order Summary';
+   navigation.setOptions({
+    title,
+  });
+  }, []);
  
   
   return (
     <View style={Styles.mainVu}>
        <ScrollView>
-       <View style={Styles.topflex}>
-        <View style={Styles.flx1}>
-        <TouchableOpacity>  
-                    <View>  
-                    <Image style={Styles.topleftarr} source={require('../../assets/Images/AdminNewOrder/Group10055.png')}  />   
-                        
-                    </View>  
-                </TouchableOpacity>  
+
+      <View style={AppStyles.aligncen}>
+       <Text style={[AppStyles.txtBlackBold, AppStyles.f17, AppStyles.mt30,]}>Ref No- JYD/SC/2020/0067</Text>
+      </View>
+
+      <View style={Styles.boxView}>
+
+      <View style={[AppStyles.flexDir, AppStyles.mt20,]}>
+      <View style={AppStyles.flexpointsix}>
+        <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f15, AppStyles.ml20]}>Waste type</Text>
         </View>
-        <View style={Styles.flx2}>
-        <TouchableOpacity>  
-                    <View>  
-                        <Text style={Styles.topcon}>New Order</Text>  
-                    </View>  
-                </TouchableOpacity>  
+        <View style={[AppStyles.flexpointfour, AppStyles.alignfend]}>
+        <Text style={[AppStyles.txtBlackRegular, AppStyles.f15, AppStyles.mr20]}>Plastic</Text>
         </View>
-          </View> 
-          
-        <View style={Styles.refView}>
-          <Text style={Styles.refTxt}>Ref No- JYD/SC/2020/0067</Text>
         </View>
+
+        <View style={AppStyles.flexDir}>
+      <View style={AppStyles.flexpointsix}>
+        <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f15, AppStyles.mt10, AppStyles.ml20]}>Waste sub category</Text>
+        </View>
+        <View style={[AppStyles.flexpointfour, AppStyles.alignfend]}>
+        <Text style={[AppStyles.txtBlackRegular, AppStyles.f15, AppStyles.mt10, AppStyles.mr20]}>Type 1</Text>
+        </View>
+        </View>
+
+        <View style={AppStyles.flexDir}>
+      <View style={AppStyles.flexpointsix}>
+        <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f15, AppStyles.mt10, AppStyles.ml20]}>Volume</Text>
+        </View>
+        <View style={[AppStyles.flexpointfour, AppStyles.alignfend]}>
+        <Text style={[AppStyles.txtBlackRegular, AppStyles.f15, AppStyles.mt10, AppStyles.mr20]}>3 Tons</Text>
+        </View>
+        </View>
+
+        <View style={AppStyles.flexDir}>
+      <View style={AppStyles.flexpointsix}>
+        <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f15, AppStyles.mt10, AppStyles.ml20]}>Purchase Date</Text>
+        </View>
+        <View style={[AppStyles.flexpointfour, AppStyles.alignfend]}>
+        <Text style={[AppStyles.txtBlackRegular, AppStyles.f15, AppStyles.mt10, AppStyles.mr20]}>26/07/2020</Text>
+        </View>
+        </View>
+
+        <View style={AppStyles.flexDir}>
+      <View style={AppStyles.flexpointsix}>
+        <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f15, AppStyles.mt10, AppStyles.ml20]}>Purchase Amount</Text>
+        </View>
+        <View style={[AppStyles.flexpointfour, AppStyles.alignfend]}>
+        <Text style={[AppStyles.txtBlackRegular, AppStyles.f15, AppStyles.mt10, AppStyles.mr20]}>₹ 25,864</Text>
+        </View>
+        </View>
+
+        <View style={AppStyles.flexDir}>
+      <View style={AppStyles.flexpointsix}>
+        <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f15, AppStyles.mt10, AppStyles.ml20]}>Pickup Address</Text>
+        </View>
+        <View style={[AppStyles.flexpointfour, AppStyles.alignfend]}>
+        <Text style={[AppStyles.txtBlackRegular, AppStyles.f11, AppStyles.mt10, AppStyles.mr20]}>1812, building No 2, Banjara Hills. Hyderabad (TN)</Text>
+        </View>
+        </View> 
+      </View>
         
-        <View style={Styles.bxVu}>
-        
-        <View style={Styles.wstView}>
-      <View style={Styles.flexx}>
-      <Text style={Styles.wstitle1}>Waste type</Text>
-      </View>
-      <View style={Styles.boxcont}>
-      <Text style={Styles.wstitle2}>Plastic</Text>
-      </View>
-      </View> 
 
-      <View style={Styles.bxcon1}>
-      <View style={Styles.flexx}>
-      <Text style={Styles.wstitle1}>Waste Sub Category</Text>
-      </View>
-      <View style={Styles.boxcont}>
-      <Text style={Styles.wstitle2}>Type 1</Text>
-      </View>
-      </View> 
-
-      <View style={Styles.bxcon1}>
-      <View style={Styles.flexx}>
-      <Text style={Styles.wstitle1}>Volume</Text>
-      </View>
-      <View style={Styles.boxcont}>
-      <Text style={Styles.wstitle2}>3 Tons</Text>
-      </View>
-      </View> 
-
-      <View style={Styles.bxcon1}>
-      <View style={Styles.flexx}>
-      <Text style={Styles.wstitle1}>Purchase Date</Text>
-      </View>
-      <View style={Styles.boxcont}>
-      <Text style={Styles.wstitle2}>26/07/2020</Text>
-      </View>
-      </View> 
-
-      <View style={Styles.bxcon1}>
-      <View style={Styles.flexx}>
-      <Text style={Styles.wstitle1}>Purchase Amount</Text>
-      </View>
-      <View style={Styles.boxcont}>
-      <Text style={Styles.wstitle2}>₹ 25,864</Text>
-      </View>
-      </View> 
-
-      <View style={Styles.bxcon1}>
-      <View style={Styles.flexx}>
-      <Text style={Styles.wstitle1}>Pickup Address</Text>
-      </View>
-      <View style={Styles.boxcont}>
-      <Text style={Styles.wstitle2}>1812, buildind No 2, Banjara Hills. Hyderabad (TN)</Text>
-      </View>
-      </View> 
-
+      <View style={[Styles.btnContainer, AppStyles.flexDir]}>
+        <View style={AppStyles.flex1}>
+        <TouchableOpacity
+          style={[Styles.aggregatebtn]} onPress={() => screenNavigate()}>
+          <Text style={[AppStyles.txtPrimaryRegular, AppStyles.f17, AppStyles.textalig, AppStyles.mt10]}>REJECT</Text>
+        </TouchableOpacity>
        </View>
-        
-
-       <View style={Styles.btnView}>
-        <View style={Styles.btnRjtView}>
-              <TouchableOpacity style={Styles.rjttouch} onPress={() => {screenNavigate()}}>
-                  <Text style={Styles.rjttext}>REJECT</Text>
-              </TouchableOpacity>
-             </View>
-        
-             <View style={Styles.acceptView}>
-              <TouchableOpacity style={Styles.acptouch} onPress={() => {screenNavigate()}}>
-                  <Text style={Styles.acceptext}>ACCEPT</Text>
-              </TouchableOpacity>
-             </View>
+       <View style={AppStyles.flex1}>
+      <TouchableOpacity
+          style={[Styles.confirmbtn, AppStyles.mb20]} onPress={() => screenNavigate()}>
+          <Text style={[AppStyles.txtWhiteRegular, AppStyles.f17, AppStyles.textalig, AppStyles.mt10]}>ACCEPT</Text>
+        </TouchableOpacity>
         </View>
+      </View>
 
         
 
