@@ -11,8 +11,8 @@ import AppStyles from "../../../theme/Styles/texts";
 import AppStyle from "../../../theme/Styles/spaces";
 import style from "../../../theme/Styles/container";
 import { users } from "../../../services/middleware/user";
-import Colors from '../../../theme/Colors';
 import UserContext from '../../../appContainer/context/user.context';
+import FooterLoader from "../../../appContainer/footerLoader";
 
 function Users() {
    const navigation = useNavigation();
@@ -20,19 +20,14 @@ function Users() {
 
   const { setLoader } = useContext(UserContext);
 
-  const [dataSource, setDataSource] = useState([]);
   const [offset, setOffset] = useState(1);
-
   const [loadMore, setLoadMore] = useState(false);
-  const [allLoaded, setAllLoaded] = useState(false);
-
   const [totalCount, setTotalCount] = useState(5)
   const [perPage, setPerPage] = useState(5)
 
   const [arraydata, setarraydata]=useState([])
 
-   const [
-    { data, loading, error: emLoginError }, emLogin] = users(offset);
+   const [{ data, loading, error: emLoginError }, emLogin] = users(offset);
 
   const triggerUser = async () => {
     try {
@@ -96,17 +91,6 @@ function Users() {
     triggerLoadMore();
  }
 
-  const renderFooter = () => {
-    return (    
-        <View style={[style.alignCenter, style.justifyCon]}>
-            <ActivityIndicator
-                animating={true}
-                size='large'
-                color={Colors.mangoTwo} />
-        </View>
-    );
-  };
-
   const _RenderItem = (index, item) => {
     return (
       <TouchableOpacity
@@ -120,7 +104,7 @@ function Users() {
       </View>
       <View style={[style.flexpointthree, AppStyle.mt20, AppStyles.ml24]}>
       <TouchableOpacity style={item.status == 1 ? Styles.confirmBtn : Styles.InactiveBtn}>
-      <Text style={[AppStyles.txtWhiteRegular, AppStyles.f11, AppStyles.textalig, Styles.activebutton]}>{item.status == 1 ? 'Active' : 'Inactive'}</Text>
+      <Text style={[AppStyles.txtWhiteRegular, AppStyles.f11, AppStyles.textalig]}>{item.status == 1 ? 'Active' : 'Inactive'}</Text>
       </TouchableOpacity>
       </View>
       </View> 
@@ -160,7 +144,7 @@ function Users() {
         removeClippedSubviews={Platform.OS === 'android' && true}
         numColumns={1}
         keyExtractor={(_, index) => `${index}1`}
-        ListFooterComponent={loadMore && renderFooter}
+        ListFooterComponent={<FooterLoader Loading = {loadMore}></FooterLoader>}
         onEndReachedThreshold={0.2}
         onEndReached={info => {
           loadMoreResults(info);
