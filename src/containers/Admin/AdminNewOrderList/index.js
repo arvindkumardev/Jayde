@@ -6,6 +6,7 @@ import {useNavigation} from '@react-navigation/core';
 import {useRoute} from '@react-navigation/native';
 import { AppStyles } from '../../../theme';
 import { adminNewOrder } from "../../../services/middleware/user";
+
 import UserContext from '../../../appContainer/context/user.context';
 import moment from 'moment';
 import FooterLoader from "../../../appContainer/footerLoader";
@@ -32,8 +33,8 @@ function AdminNewOrderList() {
 
   const [{ data, loading, error }, onAdminNewOrder] = adminNewOrder(offset);
   
-   const screenNavigate = () => {
-    navigation.navigate(NavigationRouteNames.SMARTCONTRACT_DETAIL);
+   const screenNavigate = (item) => {
+    navigation.navigate(NavigationRouteNames.ADMIN_NEW_ORDER, {Item : item});
   }
 
   const triggerNewOrder = async () => {
@@ -92,7 +93,7 @@ function AdminNewOrderList() {
     return (
       <TouchableOpacity 
       key = {index}
-      onPress={() => screenNavigate()}>
+      onPress={() => screenNavigate(item)}>
        <View>
         
        <View style={[AppStyles.flexDir, AppStyles.mt20,]}>
@@ -108,10 +109,12 @@ function AdminNewOrderList() {
          <View style={[AppStyles.flexpointsix, AppStyles.ml16]}>
          <Text style={[AppStyles.txtBlackRegular, AppStyles.f17,]}>{item.order_no}</Text>
          <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f15,]}>{item.qty} {item.unit_name}</Text>
-         <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f11,]}>{moment(item.pickup_date).format('DD-MM-YY')}</Text>
+         <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f11,]}>{moment(item.pickup_date).format('DD-MM-YY')} {item.time_slot}</Text>
          </View>
          <View style={[AppStyles.flexpointtwo]}>
-         <TouchableOpacity style={Styles.confirmBtn}>
+         <TouchableOpacity 
+         onPress = {() => screenNavigate(item)}
+         style={Styles.confirmBtn}>
           <Text style={[AppStyles.txtWhiteRegular, AppStyles.f11,
            AppStyles.textalig]}>{item.is_confirmed  == 2 ? 'Assign' : 'View'}</Text>
         </TouchableOpacity>
