@@ -137,7 +137,7 @@ const DRAWER_MENU = {
         name: 'Order Summary',
         color: Colors.mango,
         iconName: 'wpforms',
-        screenName: NavigationRouteNames.VIEW_NEW_ORDER
+        screenName: NavigationRouteNames.ORDERS,
     },
     {
         name: 'Profile',
@@ -281,14 +281,14 @@ const USERS_ROLE_MENU = {
       menu1image: require("../assets/Images/Dashboard/Group_9551.png"),
       iconName: 'pencil',
       color: Colors.mango,
-      screenName: "",
+      screenName: NavigationRouteNames.ORDERS,
     },
     {
       menuName: "Open Scheduled Order",
       menu1image: require("../assets/Images/Dashboard/Group_9551.png"),
       iconName: 'folder-open',
       color: Colors.mango,
-      screenName: "",
+      screenName: NavigationRouteNames.SCHEDULE_ORDER,
     },
     {
       menuName: "View Completed Order",
