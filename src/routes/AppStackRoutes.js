@@ -66,6 +66,7 @@ import OwnedContracts from "../containers/OwnedContracts";
 import AddSubUser from "../containers/AddSubUser";
 import PasswordReset from "../containers/PasswordReset";
 import AdminNewOrderList from "../containers/Admin/AdminNewOrderList"
+import AdminNewOrder from "../containers/AdminNewOrder"
 import { resolveConfig } from "prettier";
 
 
@@ -619,7 +620,12 @@ const AppStack = (props) => {
             component={AdminNewOrderList}
             options={CommonHeaderStyle}
           />
-
+          {/* View Order Screen number: 20*/}
+          <Stack.Screen
+            name={NavigationRouteNames.ADMIN_NEW_ORDER}
+            component={AdminNewOrder}
+            options={CommonHeaderStyle}
+          />
           {/* Call request screen number: 70 */}
           <Stack.Screen
             name={NavigationRouteNames.CALL_REQUEST}
