@@ -20,19 +20,14 @@ function Users() {
 
   const { setLoader } = useContext(UserContext);
 
-  const [dataSource, setDataSource] = useState([]);
   const [offset, setOffset] = useState(1);
-
   const [loadMore, setLoadMore] = useState(false);
-  const [allLoaded, setAllLoaded] = useState(false);
-
   const [totalCount, setTotalCount] = useState(5)
   const [perPage, setPerPage] = useState(5)
 
   const [arraydata, setarraydata]=useState([])
 
-   const [
-    { data, loading, error: emLoginError }, emLogin] = users(offset);
+   const [{ data, loading, error: emLoginError }, emLogin] = users(offset);
 
   const triggerUser = async () => {
     try {
