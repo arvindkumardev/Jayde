@@ -1,23 +1,32 @@
-import React, {useContext, useEffect, useState} from 'react';
-import * as Alert from 'react-native';
-import {KeyboardAvoidingView, Platform, TouchableOpacity, View, Text, Image, TextInput, FlatList, ScrollView} from 'react-native';
+import React, {useContext, useLayoutEffect, useEffect, useState} from 'react';
+import {KeyboardAvoidingView, Platform, TouchableOpacity, View, Text,
+   Image, TextInput, FlatList,Alert, ScrollView} from 'react-native';
 import  DropDownPicker from "react-native-dropdown-picker";
-import axios from "axios";
-import useAxios from 'axios-hooks';
+import DropDown from '../../../components/Picker/index';
+
 import Styles from "./styles";
+import { AppStyles, Colors } from '../../../theme';
+
 import NavigationRouteNames from '../../../routes/ScreenNames';
 import {useNavigation} from '@react-navigation/core';
 import {useRoute} from '@react-navigation/native';
+import moment from 'moment';
+import UserContext from '../../../appContainer/context/user.context';
+import { getAggregators, getRecyclers } from "../../../services/middleware/user";
 
 function OrderAssign() {
   const [item, setItem] = useState({});
+  const { setLoader } = useContext(UserContext);
+
+  const [aggregators, setAggregator] = useState([])
+  const [recyclers, setRecyclers] = useState([])
   
-  const [arraydata,setarraydata]=useState([
-    {
-         name: 'Waste type',
-         type: 'Plastic',
-      }
-  ])
+  const [{ data: aggregatorsData }, onGetAggregators] = getAggregators();
+  const [{ data: recyclersData }, onGetRecyclers] = getRecyclers();
+
+  const [arrayData, setArrayData] = useState([])
+
+  const [selectedID, setSelectedID] = useState([0])
 
    const navigation = useNavigation();
    const route = useRoute();
@@ -26,104 +35,119 @@ function OrderAssign() {
     navigation.navigate(NavigationRouteNames.CONFIRMATION);
   }
 
-   const _AggreFunc = async () => {
-      const URL = "http://ec2-52-91-165-234.compute-1.amazonaws.com/api/admin/aggregators"
-    axios.get(URL, ).then(function (response) { 
-            console.log(response)
-            setarraydata(response.data);
-            console.log("arraydata",arraydata)
-            alert(JSON.stringify(response))
-        }).catch(function (error) {
-            console.log(JSON.stringify(error), "hello");
-            setLoading(false)
-            if (error.response.data.errors) {
-                Alert.alert("Error", Object.values(error.response.data.errors)[0][0])
-
-            }
-            else {
-                Alert.alert("Error", error.response.data.message)
-            }
-            
-        });
-}
+  useEffect(() => {
+    if (aggregatorsData) {
+      console.log('AGG', aggregatorsData)
+      const pickerData = aggregatorsData.map((item) => ({ label: item.name, value: item.id }));
+      setAggregator(pickerData);
+    }
+  }, [aggregatorsData]);
 
   useEffect(() => {
+    if (recyclersData) {
+      console.log('recyclersData', recyclersData)
+      const pickerData = recyclersData.map((item) => ({ label: item.name, value: item.id }));
+      setRecyclers(pickerData);
+    }
+  }, [recyclersData]);
+
+  useLayoutEffect(() => {
     const { Value } = route.params;  
     setItem(Value) 
-    _AggreFunc()
+
+    onGetAggregators();
+    onGetRecyclers();
   }, []);
 
+const handelGetAggregators = async () => {
+ setLoader(true)
+ const {data} = await onGetAggregators({data:{}})
+ setLoader(false)
+
+}
+
+const handelGetRecyclers = async () => {
+ setLoader(true)
+  const {data} = await onGetRecyclers({data:{}})
+  setLoader(false)
+}
+
+  const handelDropDown = (index) => {
+    if(index == 0){
+      return
+    }
+
+    if(index == 1){
+      aggregators.length == 0 ?  handelGetAggregators() : setArrayData(aggregators)
+    }
+
+    if(index == 2){
+      recyclers.length == 0 ? handelGetRecyclers() : setArrayData(recyclers)
+    }
+    
+  }
+
+  const onChangeAggregator = (id) => {
+    console.log(id)
+    setSelectedID(id)
+  }
   
   return (
     <View style={Styles.mainView}>
-       <ScrollView>
-       <View style={Styles.leftArrwView}>
-        <View style={Styles.flx1}>
-        <TouchableOpacity>  
-                    <View>  
-                    <Image style={Styles.lftimg} source={require('../../../assets/Images/AdminNewOrder/Group10055.png')}  />   
-                    </View>  
-                </TouchableOpacity>  
-        </View>
-        <View style={Styles.flx2}>
-        <TouchableOpacity>  
-                    <View>  
-                        <Text style={Styles.topTitle}>Order Assign</Text>  
-                    </View>  
-                </TouchableOpacity>  
-        </View>
-          </View> 
+       <ScrollView  style={Styles.mainView}
+       removeClippedSubviews = {Platform.OS == 'android' && true}>
+       <View style={Styles.mainView}>
           
-        <View style={Styles.refView}>
-          <Text style={Styles.refText}>Ref No- {item.order_no}</Text>
+          <View style={Styles.refView}>
+            <Text style={Styles.refText}>Ref No- {item.order_no}</Text>
+          </View>
+        
+          <View style={Styles.boxView}>
+        
+          <View style={Styles.boxText}>
+        <View style={Styles.flx}>
+        <Text style={Styles.boxtxtt}>Waste type</Text>
         </View>
-        
-        <View style={Styles.boxView}>
-        
-        <View style={Styles.boxText}>
-      <View style={Styles.flx}>
-      <Text style={Styles.boxtxtt}>Waste type</Text>
-      </View>
-      <View style={Styles.boxTxtView}>
-      <Text style={Styles.boxTextt1}>{item.category_name}</Text>
-      </View>
-      </View> 
+        <View style={Styles.boxTxtView}>
+        <Text style={Styles.boxTextt1}>{item.category_name}</Text>
+        </View>
+        </View> 
 
-      <View style={Styles.boxText}>
-      <View style={Styles.flx}>
-      <Text style={Styles.boxtxtt}>Waste Sub Category</Text>
-      </View>
-      <View style={Styles.boxTxtView}>
-      <Text style={Styles.boxTextt1}>{item.sub_category_name}</Text>
-      </View>
-      </View> 
+          <View style={Styles.boxText}>
+        <View style={Styles.flx}>
+        <Text style={Styles.boxtxtt}>Waste Sub Category</Text>
+        </View>
+        <View style={Styles.boxTxtView}>
+        <Text style={Styles.boxTextt1}>{item.sub_category_name}</Text>
+        </View>
+        </View> 
 
-      <View style={Styles.boxText}>
-      <View style={Styles.flx}>
-      <Text style={Styles.boxtxtt}>Volume</Text>
-      </View>
-      <View style={Styles.boxTxtView}>
-      <Text style={Styles.boxTextt1}>{item.qty} {item.unit_name}</Text>
-      </View>
-      </View> 
+          <View style={Styles.boxText}>
+        <View style={Styles.flx}>
+        <Text style={Styles.boxtxtt}>Volume</Text>
+        </View>
+        <View style={Styles.boxTxtView}>
+        <Text style={Styles.boxTextt1}>{item.qty} {item.unit_name}</Text>
+        </View>
+        </View> 
 
-      <View style={Styles.boxText}>
-      <View style={Styles.flx}>
-      <Text style={Styles.boxtxtt}>Purchase Date</Text>
-      </View>
-      <View style={Styles.boxTxtView}>
-      <Text style={Styles.boxTextt1}>{moment(item.pickup_date).format('DD/MM/YYYY')}</Text>
-      </View>
-      </View> 
+          <View style={Styles.boxText}>
+        <View style={Styles.flx}>
+        <Text style={Styles.boxtxtt}>Purchase Date</Text>
+        </View>
+        <View style={Styles.boxTxtView}>
+        <Text style={Styles.boxTextt1}>{moment(item.pickup_date).format('DD/MM/YYYY')}</Text>
+        </View>
+        </View> 
 
-      <View style={Styles.boxText}>
-      <View style={Styles.flx}>
-      <Text style={Styles.boxtxtt}>Purchase Amount</Text>
-      </View>
-      <View style={Styles.boxTxtView}>
-      <Text style={Styles.boxTextt1}>₹ {item.price}</Text>
-      </View>
-      </View> 
+          <View style={Styles.boxText}>
+            <View style={Styles.flx}>
+            <Text style={Styles.boxtxtt}>Purchase Amount</Text>
+            </View>
+            <View style={Styles.boxTxtView}>
+            <Text style={Styles.boxTextt1}>₹ {item.price}</Text>
+            </View>
+          </View> 
        </View>
       
 
@@ -143,28 +167,20 @@ function OrderAssign() {
                     justifyContent: 'flex-start',
                 }}
                 dropDownStyle={{backgroundColor: '#fafafa'}}
-                onChangeItem={item => console.log(item)}
+                onChangeItem={(item, index) => handelDropDown(index)}
               />
             </View>
 
             <View style={Styles.slctAggre}>
               <Text>Select Aggregator</Text>
-              <DropDownPicker
-                showArrow={true}
-                items={[
-                    {label: 'Select one', value: '0'},
-                    {label: 'Aggregator', value: 'aggregator'},
-                    {label: 'Earthbox ventures pvt. ltd.', value: 'earthbox ventures pvt. ltd.'},
-                ]}
-                defaultValue={"0"}
-                containerStyle={{height: 45}}
-                style={{backgroundColor: '#e4e4e4', marginTop: 5,}}
-                itemStyle={{
-                    justifyContent: 'flex-start',
-                }}
-                dropDownStyle={{backgroundColor: '#fafafa'}}
-                onChangeItem={item => console.log(item)}
-              />
+              <DropDown
+                placeholderText="Select one"
+                items={arrayData}
+                itemStyle={{ color: '#000' }}
+                onValueChange = {onChangeAggregator}                      
+                selectedValue={selectedID}
+                containerStyle={{ borderRadius: 5,backgroundColor: '#e4e4e4', marginTop: 5, paddingLeft: 10, height: 45 }}
+          />
             </View>
       
         <View style={Styles.confirmView}>
@@ -174,7 +190,7 @@ function OrderAssign() {
              </View>
 
         
-
+    </View>
           </ScrollView> 
         
       

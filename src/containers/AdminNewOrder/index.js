@@ -1,155 +1,157 @@
-import React, {useContext, useEffect,useCallback, useLayoutEffect, useState} from 'react';
+import React, {useContext, useEffect, useState, useLayoutEffect} from 'react';
 import * as Alert from 'react-native';
-import {KeyboardAvoidingView, Platform, TouchableOpacity, View, Text, ScrollView} from 'react-native';
+import {Platform, TouchableOpacity, View, Text, ScrollView} from 'react-native';
+import Styles from "./styles";
+import NavigationRouteNames from '../../routes/ScreenNames';
 import {useNavigation} from '@react-navigation/core';
 import {useRoute} from '@react-navigation/native';
-import NavigationRouteNames from '../../routes/ScreenNames';
-
-import UserContext from '../../appContainer/context/user.context';
+import { AppStyles } from '../../theme';
 import moment from 'moment';
+import { acceptOrder, rejectOrder } from "../../services/middleware/user";
+import UserContext from '../../appContainer/context/user.context';
 
-function AdminNewOrder() {
-
+function ViewNewOrder() {
   const navigation = useNavigation();
-   const route = useRoute();
-   const { setLoader } = useContext(UserContext);
-   const [item, setItem] = useState({});
+  const route = useRoute();
+  const [item, setItem] = useState({});
+  const { setLoader } = useContext(UserContext);
 
+  const [{ data: acceptData }, onAcceptOrder] = acceptOrder();
+  const [{ data: rejectData }, onRejectOrder] = rejectOrder();
 
-   const [title1,setTitle1]=useState('Waste type');
-   const [title2,setTitle2]=useState('Waste Sub Category');
-   const [title3,setTitle3]=useState('Volume');
-   const [title4,setTitle4]=useState('Pick Up Date');
-   const [title7,setTitle7]=useState('Pick Up Time');
-
-   const [title5,setTitle5]=useState('Purchase Amount');
-   const [title6,setTitle6]=useState('Pickup Address');
-  
-   useLayoutEffect(() => {
-    const title='New Orders';
-    navigation.setOptions({title});
+  useLayoutEffect(() => {
     const { Item } = route.params;  
     setItem(Item)    
-  }, [])
 
-
+    const title='New Order';
+   navigation.setOptions({
+    title,
+  });
+  }, []);
+ 
   const backToOrderList = () => {
+    route.params.getActionType()
     navigation.goBack()
   };
 
-  const handelReject = () => {
-    navigation.navigate(NavigationRouteNames.ORDER_FAILED, {Value: item, backToList: backToOrderList})
+  const handelReject = async () => {
+    setLoader(true);
+    const {data} = await onRejectOrder({
+      data: {orderId: item.orderId},
+    });
+    console.log(data)
+    if(data.status){
+      navigation.navigate(NavigationRouteNames.ORDER_FAILED, {Value: item, backToList: backToOrderList})
+    } else {
+      alert(data.message)
+    }  
+    setLoader(false);
   }
 
-  const handelAccept = () => {
+  const handelAccept = async () => {
     navigation.navigate(NavigationRouteNames.ORDER_ASSIGN, {Value: item, backToList : backToOrderList})
+    return
+    setLoader(true);
+    const {data} = await onAcceptOrder({
+      data: {orderId: item.orderId},
+    });
+    console.log(data)
+    if(data.status){
+      navigation.navigate(NavigationRouteNames.ORDER_ASSIGN, {Value: item, backToList : backToOrderList})
+    } else {
+      alert(data.message)
+    }  
+    setLoader(false);
   }
 
   return (
-    <View style={{flex: 1, backgroundColor: '#ffffff',}}>
+    <View style={Styles.mainVu}>
        <ScrollView>
-       
-        <View style={{alignItems: 'center',  marginTop: 35,}}>
-          <Text style={{marginLeft: 24, fontSize: 17, color: '#121212', fontWeight: "bold",}}>Ref No- {item.order_no}</Text>
+
+      <View style={AppStyles.aligncen}>
+       <Text style={[AppStyles.txtBlackBold, AppStyles.f17, AppStyles.mt30,]}>Ref No- {item.order_no}</Text>
+      </View>
+
+      <View style={Styles.boxView}>
+
+      <View style={[AppStyles.flexDir, AppStyles.mt20,]}>
+      <View style={AppStyles.flexpointsix}>
+        <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f15, AppStyles.ml20]}>Waste type</Text>
         </View>
-        
-        <View style={{width: 310, height: 285, backgroundColor: '#f5f5f5', borderRadius: 20, marginLeft: 24, marginTop: 35, marginRight: 24,}}>
-        
-          <View style={{flexDirection: 'row', marginLeft: 24,}}>
-            <View style={{flex: 1, }}>
-            <Text style={{fontSize: 15, color: '#121212', marginTop: 20, fontFamily: 'ProximaNova-Regular',}}>{title1}</Text>
-            </View>
-            <View style={{flex: 1, alignItems: 'flex-end',}}>
-              <Text style={{fontSize: 15, color: '#121212', marginTop: 20, fontFamily: 'ProximaNova-Regular', marginRight: 30,}}>{item.category_name}</Text>
-            </View>
-          </View> 
-
-          <View style={{flexDirection: 'row', marginLeft: 24,}}>
-            <View style={{flex: 1, }}>
-            <Text style={{fontSize: 15, color: '#121212', marginTop: 20, fontFamily: 'ProximaNova-Regular',}}>{title2}</Text>
-            </View>
-            <View style={{flex: 1, alignItems: 'flex-end',}}>
-            <Text style={{fontSize: 15, color: '#121212', marginTop: 20, fontFamily: 'ProximaNova-Regular', marginRight: 30,}}>{item.sub_category_name}</Text>
-            </View>
-          </View> 
-
-          <View style={{flexDirection: 'row', marginLeft: 24,}}>
-            <View style={{flex: 1, }}>
-            <Text style={{fontSize: 15, color: '#121212', marginTop: 20, fontFamily: 'ProximaNova-Regular',}}>{title3}</Text>
-            </View>
-            <View style={{flex: 1, alignItems: 'flex-end',}}>
-            <Text style={{fontSize: 15, color: '#121212', marginTop: 20, fontFamily: 'ProximaNova-Regular', marginRight: 30,}}>{item.qty} {item.unit_name}</Text>
-            </View>
-          </View> 
-
-          <View style={{flexDirection: 'row', marginLeft: 24,}}>
-            <View style={{flex: 1, }}>
-            <Text style={{fontSize: 15, color: '#121212', marginTop: 20, fontFamily: 'ProximaNova-Regular',}}>{title4}</Text>
-            </View>
-            <View style={{flex: 1, alignItems: 'flex-end',}}>
-            <Text style={{fontSize: 15, color: '#121212', marginTop: 20, fontFamily: 'ProximaNova-Regular', marginRight: 30}}>{moment(item.pickup_date).format('DD/MM/YYYY')}</Text>
-            </View>
-          </View> 
-
-          <View style={{flexDirection: 'row', marginLeft: 24,}}>
-            <View style={{flex: 1, }}>
-            <Text style={{fontSize: 15, color: '#121212', marginTop: 20, fontFamily: 'ProximaNova-Regular',}}>{title7}</Text>
-            </View>
-            <View style={{flex: 1, alignItems: 'flex-end',}}>
-            <Text style={{fontSize: 15, color: '#121212', marginTop: 20, fontFamily: 'ProximaNova-Regular', marginRight: 30}}>{item.time_slot}</Text>
-            </View>
-          </View>
-
-          <View style={{flexDirection: 'row', marginLeft: 24,}}>
-            <View style={{flex: 1, }}>
-            <Text style={{fontSize: 15, color: '#121212', marginTop: 20, fontFamily: 'ProximaNova-Regular',}}>{title5}</Text>
-            </View>
-            <View style={{flex: 1, alignItems: 'flex-end',}}>
-            <Text style={{fontSize: 15, color: '#121212', marginTop: 20, fontFamily: 'ProximaNova-Regular', marginRight: 30,}}>₹ {item.price}</Text>
-            </View>
-          </View> 
-
-          <View style={{flexDirection: 'row', marginLeft: 24,}}>
-            <View style={{flex: 1, }}>
-            <Text style={{fontSize: 15, color: '#121212', marginTop: 20, fontFamily: 'ProximaNova-Regular',}}>{title6}</Text>
-            </View>
-            <View style={{flex: 1, alignItems: 'flex-end',}}>
-            <Text style={{fontSize: 15, color: '#121212', marginTop: 20, fontFamily: 'ProximaNova-Regular', marginRight: 30,}}>{title6}</Text>
-            </View>
-      </View> 
-
-       </View>
-        
-
-       {item.is_confirmed  == 2 && <View style={{flexDirection: 'row', marginTop: 70,}}>
-          <View style={{flex: 1, marginTop: 10, marginLeft: 24,}}>
-                <TouchableOpacity style={{marginTop:20,
-                  borderRadius: 10,
-                  backgroundColor: '#fff',
-                  paddingVertical: 10,
-                  alignItems:'center',borderColor: 'orange', borderWidth: 1,}}
-                  onPress={() => {handelReject()}}>
-                    <Text style={{fontSize: 18, color: 'orange'}}>REJECT</Text>
-                </TouchableOpacity>
-          </View>
-        
-          <View style={{flex: 1, marginTop: 10, marginRight: 24, marginLeft: 7,}}>
-             <TouchableOpacity style={{marginTop:20,
-                 borderRadius: 13,
-                 backgroundColor: 'orange',
-                 paddingVertical: 11,
-                 alignItems:'center'}} 
-                 onPress={() => {handelAccept()}}>
-                 <Text style={{fontSize: 18, color: '#ffffff'}}>ACCEPT</Text>
-             </TouchableOpacity>
-          </View>
+        <View style={[AppStyles.flexpointfour, AppStyles.alignfend]}>
+        <Text style={[AppStyles.txtBlackRegular, AppStyles.f15, AppStyles.mr20]}>{item.category_name}</Text>
         </View>
-       }       
+        </View>
 
-    </ScrollView> 
+        <View style={AppStyles.flexDir}>
+      <View style={AppStyles.flexpointsix}>
+        <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f15, AppStyles.mt10, AppStyles.ml20]}>Waste sub category</Text>
+        </View>
+        <View style={[AppStyles.flexpointfour, AppStyles.alignfend]}>
+        <Text style={[AppStyles.txtBlackRegular, AppStyles.f15, AppStyles.mt10, AppStyles.mr20]}>{item.sub_category_name}</Text>
+        </View>
+        </View>
+
+        <View style={AppStyles.flexDir}>
+      <View style={AppStyles.flexpointsix}>
+        <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f15, AppStyles.mt10, AppStyles.ml20]}>Volume</Text>
+        </View>
+        <View style={[AppStyles.flexpointfour, AppStyles.alignfend]}>
+        <Text style={[AppStyles.txtBlackRegular, AppStyles.f15, AppStyles.mt10, AppStyles.mr20]}>{item.qty} {item.unit_name}</Text>
+        </View>
+        </View>
+
+        <View style={AppStyles.flexDir}>
+      <View style={AppStyles.flexpointsix}>
+        <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f15, AppStyles.mt10, AppStyles.ml20]}>Purchase Date</Text>
+        </View>
+        <View style={[AppStyles.flexpointfour, AppStyles.alignfend]}>
+        <Text style={[AppStyles.txtBlackRegular, AppStyles.f15, AppStyles.mt10, AppStyles.mr20]}>{moment(item.pickup_date).format('DD/MM/YYYY')}</Text>
+        </View>
+        </View>
+
+        <View style={AppStyles.flexDir}>
+      <View style={AppStyles.flexpointsix}>
+        <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f15, AppStyles.mt10, AppStyles.ml20]}>Purchase Amount</Text>
+        </View>
+        <View style={[AppStyles.flexpointfour, AppStyles.alignfend]}>
+        <Text style={[AppStyles.txtBlackRegular, AppStyles.f15, AppStyles.mt10, AppStyles.mr20]}>₹ {item.price}</Text>
+        </View>
+        </View>
+
+        <View style={AppStyles.flexDir}>
+      <View style={AppStyles.flexpointsix}>
+        <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f15, AppStyles.mt10, AppStyles.ml20]}>Pickup Address</Text>
+        </View>
+        <View style={[AppStyles.flexpointfour, AppStyles.alignfend]}>
+        <Text style={[AppStyles.txtBlackRegular, AppStyles.f11, AppStyles.mt10, AppStyles.mr20]}>1812, building No 2, Banjara Hills. Hyderabad (TN)</Text>
+        </View>
+        </View> 
+      </View>
+        
+
+      {item.is_confirmed  == 2 && <View style={[Styles.btnContainer, AppStyles.flexDir]}>
+          <View style={AppStyles.flex1}>
+          <TouchableOpacity
+            style={[Styles.aggregatebtn]} 
+            onPress={() => {handelReject()}}>
+            <Text style={[AppStyles.txtPrimaryRegular, AppStyles.f17, AppStyles.textalig, AppStyles.mt10]}>REJECT</Text>
+          </TouchableOpacity>
+        </View>
+          <View style={AppStyles.flex1}>
+      <TouchableOpacity
+          style={[Styles.confirmbtn, AppStyles.mb20]} 
+          onPress={() => {handelAccept()}}>
+
+          <Text style={[AppStyles.txtWhiteRegular, AppStyles.f17, AppStyles.textalig, AppStyles.mt10]}>ACCEPT</Text>
+        </TouchableOpacity>
+        </View>
+        </View>
+      }
+  </ScrollView> 
         
       
     </View>
   );
 }
-export default AdminNewOrder;
+export default ViewNewOrder;

@@ -88,8 +88,7 @@ const NavigationRouteNames = {
   PASSWORD_RESET:"PasswordReset",
   SMARTCONTRACT_VIEWITEM:"SmartContractViewItem",
   ADMIN_NEW_ORDER_LIST : "AdminNewOrderList",
-  ADMIN_NEW_ORDER : "AdminNewOrder",
-
+  ADMIN_NEW_ORDER : "AdminNewOrder"
 };
 
 export default NavigationRouteNames;

@@ -1,6 +1,6 @@
 import { LOGIN_URL, GET_UNITS, NEW_ORDERS, USERS,
    ENABLE_USER, DISABLE_USER, ADMIN_NEW_ORDER,
-  ACCEPT_ORDER, REJECT_ORDER } from "../../utils/urls";
+  ACCEPT_ORDER, REJECT_ORDER, GET_AGGREGATORS, GET_RECYCLERS } from "../../utils/urls";
 import useAxios from "axios-hooks";
  
 const newOrder = () => {
@@ -19,7 +19,7 @@ const newOrder = () => {
     {
       url: USERS+pageNumber,
       method: 'GET',
-      headers: { 'content-type': 'application/json', 'Authorization' : 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2MTY3NjI4MDUsImV4cCI6MTYxNzM2NzYwNSwiZGF0YSI6eyJ1c2VyX2lkIjoiODIiLCJuYW1lIjoiVGVzdFVzZXIiLCJlbWFpbCI6InJhdmkrMUByaGF0ZWNobm9sb2d5LmNvbSIsImJ1c2luZXNzX3R5cGUiOiJzZWxsZXIiLCJzdGF0dXMiOiIxIiwidHlwZSI6Im93bmVyIiwiYWRtaW5faWQiOm51bGx9fQ.HnCj-TS3WLLpamKpFqakP-Tik4L8g8f0UE-VWElmuWk' },
+      headers: { 'content-type': 'application/json'},
     },
     { manual: true }
  )
@@ -30,7 +30,7 @@ const adminNewOrder = (pageNumber) => {
     {
       url: ADMIN_NEW_ORDER+pageNumber,
       method: 'GET',
-      headers: { 'content-type': 'application/json', 'Authorization' : 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2MTY3NjI4MDUsImV4cCI6MTYxNzM2NzYwNSwiZGF0YSI6eyJ1c2VyX2lkIjoiODIiLCJuYW1lIjoiVGVzdFVzZXIiLCJlbWFpbCI6InJhdmkrMUByaGF0ZWNobm9sb2d5LmNvbSIsImJ1c2luZXNzX3R5cGUiOiJzZWxsZXIiLCJzdGF0dXMiOiIxIiwidHlwZSI6Im93bmVyIiwiYWRtaW5faWQiOm51bGx9fQ.HnCj-TS3WLLpamKpFqakP-Tik4L8g8f0UE-VWElmuWk' },
+      headers: { 'content-type': 'application/json'}
     },
     { manual: true }
  )
@@ -81,4 +81,28 @@ const rejectOrder = () => {
   );
 }
 
-export { newOrder, users,enableUserByAdmin, disableUserByAdmin, adminNewOrder, acceptOrder, rejectOrder };
+const getAggregators = () => {
+  return useAxios(
+    {
+      url: GET_AGGREGATORS,
+      method: 'GET',
+      headers: { 'content-type': 'application/json' },
+    },
+    { manual: true }
+  );
+};
+
+const getRecyclers = () => {
+  return useAxios(
+    {
+      url: GET_RECYCLERS,
+      method: 'GET',
+      headers: { 'content-type': 'application/json' },
+    },
+    { manual: true }
+  );
+};
+
+
+export { newOrder, users,enableUserByAdmin, disableUserByAdmin, adminNewOrder,
+   acceptOrder, rejectOrder, getAggregators, getRecyclers };

@@ -67,9 +67,7 @@ import AddSubUser from "../containers/AddSubUser";
 import PasswordReset from "../containers/PasswordReset";
 import AdminNewOrderList from "../containers/Admin/AdminNewOrderList"
 import AdminNewOrder from "../containers/AdminNewOrder"
-
 import { resolveConfig } from "prettier";
-
 
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -621,14 +619,21 @@ const AppStack = (props) => {
             component={AdminNewOrderList}
             options={CommonHeaderStyle}
           />
-
-           {/* View Order Screen number: 20*/}
-           <Stack.Screen
+          {/* View Order Screen number: 20*/}
+          <Stack.Screen
             name={NavigationRouteNames.ADMIN_NEW_ORDER}
             component={AdminNewOrder}
             options={CommonHeaderStyle}
           />
 
+          {/* View Order Screen number: 20*/}
+          <Stack.Screen
+            name={NavigationRouteNames.ASSIGN_ORDER}
+            component={OrderAssign}
+            options={CommonHeaderStyle}
+          />
+          
+          
           {/* Confirmation Screen */}
           <Stack.Screen
             name={NavigationRouteNames.CONFIRMATION}
@@ -642,7 +647,8 @@ const AppStack = (props) => {
             component={OrderFailed}
             options={NoHeaderScreen}
           />
-
+          
+          
           {/* Call request screen number: 70 */}
           <Stack.Screen
             name={NavigationRouteNames.CALL_REQUEST}

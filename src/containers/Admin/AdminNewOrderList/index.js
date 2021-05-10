@@ -34,9 +34,13 @@ function AdminNewOrderList() {
   const [{ data, loading, error }, onAdminNewOrder] = adminNewOrder(offset);
   
    const screenNavigate = (item) => {
-    navigation.navigate(NavigationRouteNames.ADMIN_NEW_ORDER, {Item : item});
+    navigation.navigate(NavigationRouteNames.ADMIN_NEW_ORDER, {Item : item, getActionType : getActionType});
   }
 
+  const getActionType = async () => {
+    setarraydata([])
+    triggerNewOrder()
+  }
   const triggerNewOrder = async () => {
     try {
             const { data } = await onAdminNewOrder({ data: {} });
