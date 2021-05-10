@@ -67,6 +67,7 @@ import AddSubUser from "../containers/AddSubUser";
 import PasswordReset from "../containers/PasswordReset";
 import AdminNewOrderList from "../containers/Admin/AdminNewOrderList"
 import AdminNewOrder from "../containers/AdminNewOrder"
+import Orders from "../containers/Aggregator/Orders"
 import { resolveConfig } from "prettier";
 
 
@@ -434,6 +435,12 @@ const AppStack = (props) => {
           <Stack.Screen
             name={NavigationRouteNames.VIEW_NEW_ORDER}
             component={ViewNewOrder}
+            options={CommonHeaderStyle}
+          />
+           {/* Order Screen number: 21*/}
+           <Stack.Screen
+            name={NavigationRouteNames.ORDERS}
+            component={Orders}
             options={CommonHeaderStyle}
           />
           </>;
