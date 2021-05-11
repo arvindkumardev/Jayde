@@ -22,6 +22,12 @@ const DRAWER_MENU = {
           screenName: NavigationRouteNames.HOME_SCREEN
       },
       {
+        name: 'Profile',
+        color: Colors.mango,
+        iconName: 'user',
+        screenName: NavigationRouteNames.UPDATE_PROFILE
+      },
+      {
           name: 'New Order',
           color: Colors.mango,
           iconName: 'folder-open',
@@ -32,12 +38,6 @@ const DRAWER_MENU = {
           color: Colors.mango,
           iconName: 'folder',
           screenName: ''
-      },
-      {
-          name: 'Profile',
-          color: Colors.mango,
-          iconName: 'user',
-          screenName: NavigationRouteNames.UPDATE_PROFILE
       },
       {
           name: 'Users',
@@ -72,6 +72,12 @@ const DRAWER_MENU = {
         screenName: NavigationRouteNames.HOME_SCREEN
     },
     {
+      name: 'Profile',
+      color: Colors.mango,
+      iconName: 'user',
+      screenName: NavigationRouteNames.UPDATE_PROFILE
+    },
+    {
         name: 'Download Report',
         color: Colors.mango,
         iconName: 'download',
@@ -102,12 +108,6 @@ const DRAWER_MENU = {
         screenName: NavigationRouteNames.PROVISIONAL_PRICING
     },
     {
-        name: 'Profile',
-        color: Colors.mango,
-        iconName: 'user',
-        screenName: NavigationRouteNames.UPDATE_PROFILE
-    },
-    {
         name: 'Manage Jayde Users',
         color: Colors.mango,
         iconName: 'snowflake-o',
@@ -134,16 +134,16 @@ const DRAWER_MENU = {
         screenName: NavigationRouteNames.HOME_SCREEN
     },
     {
+      name: 'Profile',
+      color: Colors.mango,
+      iconName: 'user',
+      screenName: NavigationRouteNames.UPDATE_PROFILE
+    },
+    {
         name: 'Order Summary',
         color: Colors.mango,
         iconName: 'wpforms',
         screenName: NavigationRouteNames.ORDERS,
-    },
-    {
-        name: 'Profile',
-        color: Colors.mango,
-        iconName: 'user',
-        screenName: NavigationRouteNames.UPDATE_PROFILE
     },
     {
         name: 'Inventory',
@@ -184,16 +184,16 @@ const DRAWER_MENU = {
         screenName: NavigationRouteNames.HOME_SCREEN
     },
     {
+      name: 'Profile',
+      color: Colors.mango,
+      iconName: 'user',
+      screenName: NavigationRouteNames.UPDATE_PROFILE
+    },
+    {
         name: 'Work Orders',
         color: Colors.mango,
         iconName: 'folder',
         screenName: NavigationRouteNames.NEWWORK_ORDERLIST
-    },
-    {
-        name: 'Profile',
-        color: Colors.mango,
-        iconName: 'user',
-        screenName: NavigationRouteNames.UPDATE_PROFILE
     },
     {
         name: 'Inventory',
@@ -228,15 +228,15 @@ const DRAWER_MENU = {
         screenName: NavigationRouteNames.HOME_SCREEN
     },
     {
+      name: 'Profile',
+      color: Colors.mango,
+      iconName: 'users',
+      screenName: ''
+    },
+    {
         name: 'Order Summary',
         color: Colors.mango,
         iconName: 'download',
-        screenName: ''
-    },
-    {
-        name: 'Profile',
-        color: Colors.mango,
-        iconName: 'users',
         screenName: ''
     },
     {
@@ -268,12 +268,19 @@ const USERS_ROLE_MENU = {
   ],
   admin: [
     {
-      menuName: "Logout",
+      menuName: "New Order",
       menu1image: require("../assets/Images/Dashboard/Group_9551.png"),
-      menu2image: require("../assets/Images/Dashboard/Project.png"),
+      iconName: 'pencil',
       color: Colors.mango,
-      screenName: "Logout",
+      screenName: "",
     },
+    {
+      menuName: "Schedule Order",
+      menu1image: require("../assets/Images/Dashboard/Group_9551.png"),
+      iconName: 'pencil',
+      color: Colors.mango,
+      screenName: "",
+    }
   ],
   aggregate: [
     {

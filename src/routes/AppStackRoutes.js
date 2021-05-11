@@ -2,7 +2,7 @@
 /* eslint-disable import/no-duplicates */
 /* eslint-disable prettier/prettier */
 import React, { useContext, useEffect } from "react";
-import { TouchableOpacity } from "react-native";
+import { TouchableOpacity, Text } from "react-native";
 import { DrawerActions } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createDrawerNavigator } from "@react-navigation/drawer";
@@ -122,11 +122,19 @@ const AppStack = (props) => {
     switch (role) {
       case USER_ROLE.SELLER:
         return <>
-          {/* Dashboard SCREEN */}
-          <Stack.Screen
+        {/* Dashboard SCREEN */}
+        <Stack.Screen
             name={NavigationRouteNames.HOME_SCREEN}
             component={DrawerStack}
-            options={DrawerMenu}
+            options={({ navigation }) =>({
+            title: null,
+            headerStyle: { borderBottomWidth: 0, elevation: 0 },
+            headerLeft: () => <TouchableOpacity onPress={() => {
+              navigation.dispatch(DrawerActions.toggleDrawer());
+            }} style={{ marginLeft: 10 }}><FAIcon name="navicon" size={25} /></TouchableOpacity>,
+            headerRight: () => <Text style={{marginRight: 10, fontSize: 20, fontFamily: 'Poppins-SemiBold', textTransform: 'capitalize',}}>{role}</Text>,
+            })
+            }
           />
           {/* Screen - 19 */}
           <Stack.Screen
@@ -276,12 +284,19 @@ const AppStack = (props) => {
         </>;
         case USER_ROLE.AGGRATOR:
           return <>
-            {/* Dashboard SCREEN */}
-            <Stack.Screen
-              name={NavigationRouteNames.HOME_SCREEN}
-              component={DrawerStack}
-              options={DrawerMenu}
-            />
+           <Stack.Screen
+            name={NavigationRouteNames.HOME_SCREEN}
+            component={DrawerStack}
+            options={({ navigation }) =>({
+            title: null,
+            headerStyle: { borderBottomWidth: 0, elevation: 0 },
+            headerLeft: () => <TouchableOpacity onPress={() => {
+              navigation.dispatch(DrawerActions.toggleDrawer());
+            }} style={{ marginLeft: 10 }}><FAIcon name="navicon" size={25} /></TouchableOpacity>,
+            headerRight: () => <Text style={{marginRight: 10, fontSize: 20, fontFamily: 'Poppins-SemiBold', textTransform: 'capitalize',}}>{role}</Text>,
+            })
+            }
+          />
             {/* Screen - 19 */}
             <Stack.Screen
               name={NavigationRouteNames.CONFIRM_ADDRESS}
@@ -448,12 +463,19 @@ const AppStack = (props) => {
           </>;
     case USER_ROLE.RECYCLER:
       return <>
-        {/* Dashboard SCREEN */}
-        <Stack.Screen
-          name={NavigationRouteNames.HOME_SCREEN}
-          component={DrawerStack}
-          options={DrawerMenu}
-        />
+       <Stack.Screen
+            name={NavigationRouteNames.HOME_SCREEN}
+            component={DrawerStack}
+            options={({ navigation }) =>({
+            title: null,
+            headerStyle: { borderBottomWidth: 0, elevation: 0 },
+            headerLeft: () => <TouchableOpacity onPress={() => {
+              navigation.dispatch(DrawerActions.toggleDrawer());
+            }} style={{ marginLeft: 10 }}><FAIcon name="navicon" size={25} /></TouchableOpacity>,
+            headerRight: () => <Text style={{marginRight: 10, fontSize: 20, fontFamily: 'Poppins-SemiBold', textTransform: 'capitalize',}}>{role}</Text>,
+            })
+            }
+          />
         {/* Screen - 19 */}
         <Stack.Screen
           name={NavigationRouteNames.CONFIRM_ADDRESS}
@@ -584,18 +606,20 @@ const AppStack = (props) => {
      
      case USER_ROLE.ADMIN:
         return <>
-         {/* Dashboard SCREEN */}
-         <Stack.Screen
-          name={NavigationRouteNames.HOME_SCREEN}
-          component={DrawerStack}
-          options={DrawerMenu}
-        />
-          {/* Dashboard SCREEN */}
-          {/* <Stack.Screen
+        {/* Dashboard SCREEN */}
+        <Stack.Screen
             name={NavigationRouteNames.HOME_SCREEN}
-            component={HomeScreen}
-            options={NoHeaderScreen}
-          /> */}
+            component={DrawerStack}
+            options={({ navigation }) =>({
+            title: null,
+            headerStyle: { borderBottomWidth: 0, elevation: 0 },
+            headerLeft: () => <TouchableOpacity onPress={() => {
+              navigation.dispatch(DrawerActions.toggleDrawer());
+            }} style={{ marginLeft: 10 }}><FAIcon name="navicon" size={25} /></TouchableOpacity>,
+            headerRight: () => <Text style={{marginRight: 10, fontSize: 20, fontFamily: 'Poppins-SemiBold', textTransform: 'capitalize',}}>{role}</Text>,
+            })
+            }
+          />
           {/* Screen - 19 */}
           <Stack.Screen
             name={NavigationRouteNames.CONFIRM_ADDRESS}
