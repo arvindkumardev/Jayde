@@ -19,20 +19,20 @@
         >
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyAxWqajOk389yrsAlh6BywYTR-rTqkwT9k"/>
+            android:value="AIzaSyBGluo2-LxarAw4DqSC-hYiGsVZ55NkkVw"/>
         
         <!-- You will also only need to add this uses-library tag -->
         <uses-library android:name="org.apache.http.legacy" android:required="false"/>
-        <activity
-            android:name=".SplashActivity"
-            android:theme="@style/SplashTheme"
-            android:label="@string/app_name"
-             android:screenOrientation="portrait">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+<!--        <activity-->
+<!--            android:name=".SplashActivity"-->
+<!--            android:theme="@style/SplashTheme"-->
+<!--            android:label="@string/app_name"-->
+<!--             android:screenOrientation="portrait">-->
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.MAIN" />-->
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+<!--            </intent-filter>-->
+<!--        </activity>-->
 
 
         <activity
@@ -42,8 +42,11 @@
             android:label="@string/app_name"
             android:launchMode="singleTask"
             android:windowSoftInputMode="adjustResize"
-             android:screenOrientation="portrait">
-
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
 
         <activity android:name="com.facebook.react.devsupport.DevSettingsActivity"
