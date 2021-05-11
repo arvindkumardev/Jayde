@@ -1,12 +1,12 @@
 /* eslint-disable global-require */
 /* eslint-disable no-underscore-dangle */
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { TouchableOpacity, View, Text, Image, FlatList, ScrollView } from 'react-native';
 import FAIcon from 'react-native-vector-icons/FontAwesome';
 import MCIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { AppStyles, Colors } from '../../theme/index';
-import { removeData } from '../../utils/helpers';
+import { removeData, getGreeting, getSaveData } from '../../utils/helpers';
 import { LOCAL_STORAGE_DATA_KEY } from '../../utils/constants';
 import UserContext from '../../appContainer/context/user.context';
 import { USERS_ROLE_MENU, STATUS_ICON } from '../../routes/constants';
@@ -42,6 +42,17 @@ const STATIC_DATA = [
 function HomeScreen() {
   const navigation = useNavigation();
   const { userRole, setLogin } = useContext(UserContext);
+  const [name,setName] = useState("");
+
+  useEffect(() => {
+    async function getUserName () {
+        const username = await getSaveData (LOCAL_STORAGE_DATA_KEY.USER_NAME);       
+        setName(username)
+    }
+    getUserName();
+  }, []);
+ 
+
 
   const handleUserLogout = async () => {
     await removeData(LOCAL_STORAGE_DATA_KEY.JWT_TOKEN);
@@ -97,8 +108,8 @@ function HomeScreen() {
     <ScrollView style={{ backgroundColor: Colors.white }}>
       <View style={AppStyles.flexRowSpaceBetween}>
         <View style={[AppStyles.mt30, AppStyles.ml30]}>
-          <Text style={[AppStyles.txtBlackBold, AppStyles.f18]}>Good Morning</Text>
-          <Text style={[AppStyles.txtBlackBold, AppStyles.f35]}>Prem Kumar</Text>
+          <Text style={[AppStyles.txtBlackBold, AppStyles.f18]}>{getGreeting()}</Text>
+          <Text style={[AppStyles.txtBlackBold, AppStyles.f35]}>{name}</Text>
           <Text>{userRole}</Text>
         </View>
         <View>

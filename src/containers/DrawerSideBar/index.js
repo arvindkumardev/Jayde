@@ -22,11 +22,9 @@ const DrawerSideBar = (props) => {
    
     useEffect(() => {
         async function getUserName () {
-            const username = await getSaveData (LOCAL_STORAGE_DATA_KEY.USER_NAME);
-            // console.log("username",username);
+            const username = await getSaveData (LOCAL_STORAGE_DATA_KEY.USER_NAME);          
             setName(username)
-        }
-        console.log('getUser')
+        }     
         getUserName();
     }, []);
      

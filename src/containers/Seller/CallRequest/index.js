@@ -12,12 +12,14 @@ import { Colors, AppStyles } from '../../../theme';
 import { UploadDocument } from '../../../components/index';
 import CustomText from '../../../components/CustomText';
 import {alertBox, RfH, RfW, isValidVolume} from '../../../utils/helpers';
+import moment from 'moment';
 
 const CallRequest = () => {
   const navigation = useNavigation();
   const route = useRoute();
   const [imageUpload, setImageUpload] = useState(false);
   const [clickConfirm, setClickConfirm] = useState(false);
+  const [timeSlotIndex, setTimeSlotIndex] = useState(0)
 
   const handleSchedulePickup = () => {
     navigation.navigate(NavigationRouteNames.CALLBACK_CONFIRMATION);
@@ -27,6 +29,7 @@ const CallRequest = () => {
     navigation.setOptions({
       title: <Text style={[AppStyles.txtBlackBold, AppStyles.f18]}>Call Back Request</Text>,
     });
+
   }, [navigation]);
 
   const validationSchema = Yup.object().shape({
@@ -62,6 +65,15 @@ const CallRequest = () => {
    
   }
 
+  const getDayAfter = () => {
+    let dayAfter = moment(new Date()).add(1, 'days').format('DD-MM-YYYY')
+    return dayAfter
+  }
+
+  const getAfterDay = () => {
+    let afterDay = moment(new Date()).add(2, 'days').format('DD-MM-YYYY')
+    return afterDay
+  }
 
   return (
     <KeyboardAwareScrollView style={Styles.mainContainer}>
@@ -128,27 +140,36 @@ const CallRequest = () => {
       </View>
       <View style={[AppStyles.mv20]}>
         <Text style={[AppStyles.txtBlackRegular, AppStyles.f16]}>Preferred time slot</Text>
-        <TouchableOpacity style={[AppStyles.pv15, AppStyles.ph20, AppStyles.flexRowSpaceBetween]}>
-          <Text style={AppStyles.txtBlackRegular}>09-03-2021</Text>
-          <Text style={AppStyles.txtBlackRegular}>11:00 am - 1:00 PM</Text>
+        <TouchableOpacity
+          onPress = {() => setTimeSlotIndex(0)} 
+          style={[AppStyles.pv15, AppStyles.ph20, AppStyles.flexRowSpaceBetween, timeSlotIndex == 0 &&  Styles.active]}>
+            <Text style={AppStyles.txtBlackRegular}>{getDayAfter()}</Text>
+            <Text style={AppStyles.txtBlackRegular}>11:00 am - 1:00 PM</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={[AppStyles.pv15, AppStyles.ph20, AppStyles.flexRowSpaceBetween]}>
-          <Text style={AppStyles.txtBlackRegular}>09-03-2021</Text>
-          <Text style={AppStyles.txtBlackRegular}>3:00 pm - 5:00 pm</Text>
+        <TouchableOpacity 
+          onPress = {() => setTimeSlotIndex(1)}
+          style={[AppStyles.pv15, AppStyles.ph20, AppStyles.flexRowSpaceBetween, timeSlotIndex == 1 &&  Styles.active]}>
+            <Text style={AppStyles.txtBlackRegular}>{getDayAfter()}</Text>
+            <Text style={AppStyles.txtBlackRegular}>3:00 pm - 5:00 pm</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={[AppStyles.pv15, AppStyles.ph20, AppStyles.flexRowSpaceBetween, Styles.active]}>
-          <Text style={AppStyles.txtBlackRegular}>10-03-2021</Text>
-          <Text style={AppStyles.txtBlackRegular}>11:00 am - 1:00 PM</Text>
+        <TouchableOpacity 
+          onPress = {() => setTimeSlotIndex(2)}
+          style={[AppStyles.pv15, AppStyles.ph20, AppStyles.flexRowSpaceBetween, timeSlotIndex == 2 &&  Styles.active]}>
+            <Text style={AppStyles.txtBlackRegular}>{getAfterDay()}</Text>
+            <Text style={AppStyles.txtBlackRegular}>11:00 am - 1:00 PM</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={[AppStyles.pv15, AppStyles.ph20, AppStyles.flexRowSpaceBetween]}>
-          <Text style={AppStyles.txtBlackRegular}>10-03-2021</Text>
-          <Text style={AppStyles.txtBlackRegular}>3:00 pm - 5:00 pm</Text>
+        <TouchableOpacity 
+          onPress = {() => setTimeSlotIndex(3)}
+          style={[AppStyles.pv15, AppStyles.ph20, AppStyles.flexRowSpaceBetween, timeSlotIndex == 3 &&  Styles.active]}>
+            <Text style={AppStyles.txtBlackRegular}>{getAfterDay()}</Text>
+            <Text style={AppStyles.txtBlackRegular}>3:00 pm - 5:00 pm</Text>
         </TouchableOpacity>
       </View>
-      <TouchableOpacity
-        style={[AppStyles.mt20, AppStyles.br10, AppStyles.btnPrimary, AppStyles.pv10, AppStyles.alignCenter, AppStyles.mb20]}
-         onPress={() => {handleConfirm()}}>
-        <Text style={[AppStyles.f18, AppStyles.txtWhiteRegular]}>CONFIRM</Text>
+      
+      <TouchableOpacity      
+          style={[AppStyles.mt20, AppStyles.br10, AppStyles.btnPrimary, AppStyles.pv10, AppStyles.alignCenter, AppStyles.mb20]}
+          onPress={() => {handleConfirm()}}>
+          <Text style={[AppStyles.f18, AppStyles.txtWhiteRegular]}>CONFIRM</Text>
       </TouchableOpacity>
     </KeyboardAwareScrollView>
   );
