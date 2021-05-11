@@ -98,20 +98,22 @@ const DrawerStack = () => {
 
 const AppStack = (props) => {
   const { isLogin, userRole, setLogin, setUserRole } = useContext(UserContext);
-  const getToken = async () => {
-    const token = await getSaveData(LOCAL_STORAGE_DATA_KEY.JWT_TOKEN);
-    const role = await getSaveData(LOCAL_STORAGE_DATA_KEY.USER_ROLE);
-    if (token) {
-      setLogin(true);
-      setUserRole(role);
-    }
-    setTimeout( () => {
-      SplashScreen.hide();
-    }, 2500);
-  };
 
-  useEffect(async () => {
-    await getToken();
+  useEffect(() => {
+    async function getToken() {
+      const token = await getSaveData(LOCAL_STORAGE_DATA_KEY.JWT_TOKEN);
+      const role = await getSaveData(LOCAL_STORAGE_DATA_KEY.USER_ROLE);
+      if (token) {
+        setLogin(true);
+        setUserRole(role);
+      }
+      setTimeout( () => {
+        SplashScreen.hide();
+      }, 2500);
+    };
+
+    getToken();
+
   }, []);
 
   const role = userRole || props.userRole;
@@ -286,6 +288,7 @@ const AppStack = (props) => {
               component={AddressConfirm}
               options={CommonHeaderStyle}
             />
+            
             {/* Screen - 15 */}
             <Stack.Screen
               name={NavigationRouteNames.PRICE_REQUEST}
