@@ -110,7 +110,6 @@ function HomeScreen() {
         <View style={[AppStyles.mt30, AppStyles.ml30]}>
           <Text style={[AppStyles.txtBlackBold, AppStyles.f18]}>{getGreeting()}</Text>
           <Text style={[AppStyles.txtBlackBold, AppStyles.f35]}>{name}</Text>
-          <Text>{userRole}</Text>
         </View>
         <View>
           <View style={{ alignItems: 'flex-end', marginTop: 10, marginRight: 10 }}>
