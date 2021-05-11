@@ -112,7 +112,7 @@ function AdminNewOrderList() {
          </View>
          <View style={[AppStyles.flexpointsix, AppStyles.ml16]}>
          <Text style={[AppStyles.txtBlackRegular, AppStyles.f17,]}>{item.order_no}</Text>
-         <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f15,]}>{item.qty} {item.unit_name}</Text>
+         <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f15,]}>{item.qty} {item.unit_name} {item.category_name}</Text>
          <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f11,]}>{moment(item.pickup_date).format('DD-MM-YY')} {item.time_slot}</Text>
          </View>
          <View style={[AppStyles.flexpointtwo]}>

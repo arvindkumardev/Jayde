@@ -1,6 +1,7 @@
 import { LOGIN_URL, GET_UNITS, NEW_ORDERS, USERS,
    ENABLE_USER, DISABLE_USER, ADMIN_NEW_ORDER,
-  ACCEPT_ORDER, REJECT_ORDER, GET_AGGREGATORS, GET_RECYCLERS } from "../../utils/urls";
+  ACCEPT_ORDER, REJECT_ORDER, GET_AGGREGATORS,
+   GET_RECYCLERS, ASSIGN_AGGREGATOR } from "../../utils/urls";
 import useAxios from "axios-hooks";
  
 const newOrder = () => {
@@ -103,6 +104,17 @@ const getRecyclers = () => {
   );
 };
 
+const assignAggregator = () => {
+  return useAxios(
+    {
+      url: ASSIGN_AGGREGATOR,
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+    },
+    { manual: true }
+  );
+}
+
 
 export { newOrder, users,enableUserByAdmin, disableUserByAdmin, adminNewOrder,
-   acceptOrder, rejectOrder, getAggregators, getRecyclers };
+   acceptOrder, rejectOrder, getAggregators, getRecyclers, assignAggregator };
