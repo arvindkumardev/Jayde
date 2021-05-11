@@ -12,7 +12,8 @@ const ACCEPT_ORDER = `/api/mobile/admin/confirmOrder`
 const REJECT_ORDER = `/api/mobile/admin/rejectOrder`
 const GET_AGGREGATORS = `api/mobile/aggregators`
 const GET_RECYCLERS = `/api/mobile/recyclers`
+const ASSIGN_AGGREGATOR = `api/mobile/admin/assignAggregator`
 
 export { LOGIN_URL, GET_SUB_CATEGORY, GET_UNITS, CREATE_QUOTE, USERS, GET_CATEGORIES,
      IMAGE_UPLOAD, ENABLE_USER, DISABLE_USER, ADMIN_NEW_ORDER, ACCEPT_ORDER, REJECT_ORDER,
-     GET_AGGREGATORS, GET_RECYCLERS };
+     GET_AGGREGATORS, GET_RECYCLERS, ASSIGN_AGGREGATOR };

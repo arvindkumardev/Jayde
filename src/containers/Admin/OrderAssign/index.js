@@ -6,13 +6,18 @@ import DropDown from '../../../components/Picker/index';
 
 import Styles from "./styles";
 import { AppStyles, Colors } from '../../../theme';
+import {alertBox, RfH, RfW, isValidVolume} from '../../../utils/helpers';
+import CustomText from '../../../components/CustomText';
+
+import * as Yup from "yup";
+import { useFormik } from "formik";
 
 import NavigationRouteNames from '../../../routes/ScreenNames';
 import {useNavigation} from '@react-navigation/core';
 import {useRoute} from '@react-navigation/native';
 import moment from 'moment';
 import UserContext from '../../../appContainer/context/user.context';
-import { getAggregators, getRecyclers } from "../../../services/middleware/user";
+import { getAggregators, getRecyclers, assignAggregator } from "../../../services/middleware/user";
 
 function OrderAssign() {
   const [item, setItem] = useState({});
@@ -23,16 +28,17 @@ function OrderAssign() {
   
   const [{ data: aggregatorsData }, onGetAggregators] = getAggregators();
   const [{ data: recyclersData }, onGetRecyclers] = getRecyclers();
+  const [{ data: Aggregator, loading, error }, onAssignAggregator] = assignAggregator();
 
   const [arrayData, setArrayData] = useState([])
-
-  const [selectedID, setSelectedID] = useState([0])
+  const [clickConfirm, setClickConfirm] = useState(false);
+  const [type, setType] = useState(1)
 
    const navigation = useNavigation();
    const route = useRoute();
   
    const screenNavigate = () => {
-    navigation.navigate(NavigationRouteNames.CONFIRMATION);
+    navigation.navigate(NavigationRouteNames.CONFIRMATION, {Value: item});
   }
 
   useEffect(() => {
@@ -78,10 +84,12 @@ const handelGetRecyclers = async () => {
     }
 
     if(index == 1){
+      setType(1)
       aggregators.length == 0 ?  handelGetAggregators() : setArrayData(aggregators)
     }
 
     if(index == 2){
+      setType(2)
       recyclers.length == 0 ? handelGetRecyclers() : setArrayData(recyclers)
     }
     
@@ -89,9 +97,50 @@ const handelGetRecyclers = async () => {
 
   const onChangeAggregator = (id) => {
     console.log(id)
-    setSelectedID(id)
+    requestForm.setFieldValue('selectedID', id)
   }
   
+  const validationSchema = Yup.object().shape({
+    selectedID: Yup.string().required("Please select Item"),
+  });
+
+  const requestForm = useFormik({
+    validateOnChange: true,
+    validateOnBlur: true,
+    initialValues: {
+      selectedID : '',
+    },
+    validationSchema,
+    onSubmit: () => handleConfirm(
+      requestForm.values.selectedID,
+    )
+  }); 
+
+  const handleConfirm = async (aggregatorID) => {   
+    const {data} = await onAssignAggregator({
+      data: {
+        "orderId" : item.orderId,
+        "vendor"  : type == 1 ? aggregatorID : '',
+        "recycler": type == 2 ? aggregatorID : ''
+      },
+    });
+    console.log(data)
+    if(data.status){
+      screenNavigate()
+    } else {
+      alert(data.message)
+    }  
+  };
+
+  const handelSubmit = async () => {
+    setClickConfirm(true)
+    await requestForm.submitForm();
+  }
+
+  useEffect(() => {
+    setLoader(loading);
+  }, [Aggregator, loading]);
+
   return (
     <View style={Styles.mainView}>
        <ScrollView  style={Styles.mainView}
@@ -178,13 +227,21 @@ const handelGetRecyclers = async () => {
                 items={arrayData}
                 itemStyle={{ color: '#000' }}
                 onValueChange = {onChangeAggregator}                      
-                selectedValue={selectedID}
+                selectedValue={requestForm.values.selectedID}
                 containerStyle={{ borderRadius: 5,backgroundColor: '#e4e4e4', marginTop: 5, paddingLeft: 10, height: 45 }}
-          />
+              />
+               {clickConfirm && requestForm.errors.selectedID? 
+              <CustomText
+                fontSize={15}
+                color={Colors.red}
+                styling={{marginTop: RfH(10)}}>
+                {requestForm.errors.selectedID}
+              </CustomText>
+                 : null}
             </View>
       
-        <View style={Styles.confirmView}>
-              <TouchableOpacity style={Styles.confirmBtn} onPress={() => {screenNavigate()}}>
+              <View style={Styles.confirmView}>
+              <TouchableOpacity style={Styles.confirmBtn} onPress={() => {handelSubmit()}}>
                   <Text style={Styles.confirm}>CONFIRM</Text>
               </TouchableOpacity>
              </View>

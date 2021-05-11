@@ -18,8 +18,8 @@ function Confirmation() {
    const route = useRoute();
   
    const screenNavigate = () => {
-    route.params.backToList()
-    navigation.goBack()
+    navigation.popToTop()
+    navigation.navigate(NavigationRouteNames.ADMIN_NEW_ORDER_LIST)
   }
 
   useEffect(() => {

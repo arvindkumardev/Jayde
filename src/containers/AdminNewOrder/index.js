@@ -49,8 +49,6 @@ function ViewNewOrder() {
   }
 
   const handelAccept = async () => {
-    navigation.navigate(NavigationRouteNames.ORDER_ASSIGN, {Value: item, backToList : backToOrderList})
-    return
     setLoader(true);
     const {data} = await onAcceptOrder({
       data: {orderId: item.orderId},

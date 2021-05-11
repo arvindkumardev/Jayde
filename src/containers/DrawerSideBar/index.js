@@ -19,20 +19,23 @@ const DrawerSideBar = (props) => {
     const { navigation } = props;
     const { userRole, setLogin, setUserObj } = useContext(UserContext);
     //console.log("userdata",JSON.stringyfy(setUserObj))
-    const getusername = async() => {const username = await 
-        getSaveData (LOCAL_STORAGE_DATA_KEY.USER_NAME);
-        // console.log("username",username);
-    setName(username)}
-        useEffect(async () => {
-            await getusername();
-          }, []);
+   
+    useEffect(() => {
+        async function getUserName () {
+            const username = await getSaveData (LOCAL_STORAGE_DATA_KEY.USER_NAME);
+            // console.log("username",username);
+            setName(username)
+        }
+        console.log('getUser')
+        getUserName();
+    }, []);
      
 
     const handleUserLogout = async () => {
         await removeData(LOCAL_STORAGE_DATA_KEY.JWT_TOKEN);
         await removeData(LOCAL_STORAGE_DATA_KEY.USER_ROLE);
         // await removeData(LOCAL_STORAGE_DATA_KEY.USER_NAME);
-        setLogin(false);
+        setLogin(false); // Error Here
       };
     const onNavigation = (screenName) => {
         if(screenName === 'logout'){
