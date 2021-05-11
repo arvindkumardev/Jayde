@@ -18,9 +18,10 @@ const styles = StyleSheet.create({
   confirmBtn: {
     borderRadius: 10,
     backgroundColor: Colors.mangoTwo,
-    width: 58,
-    height: 27,
-    justifyContent: 'center'
+    width: 54,
+    height: 23,
+    justifyContent: 'center',
+    marginLeft: 5,
   }
 });
 export default styles;

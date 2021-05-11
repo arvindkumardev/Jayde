@@ -110,18 +110,27 @@ function AdminNewOrderList() {
           <Image source={ORDER_IMAGE[item.category_name]}  /> 
           </View>  }
          </View>
-         <View style={[AppStyles.flexpointsix, AppStyles.ml16]}>
+         <View style={[AppStyles.flexpointfive, AppStyles.ml16]}>
          <Text style={[AppStyles.txtBlackRegular, AppStyles.f17,]}>{item.order_no}</Text>
-         <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f15,]}>{item.qty} {item.unit_name}</Text>
-         <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f11,]}>{moment(item.pickup_date).format('DD-MM-YY')} {item.time_slot}</Text>
+         <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f15,]}>{item.qty} {item.unit_name} {item.category_name}</Text>
+         <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f11,]}>{moment(item.pickup_date).format('DD-MMM-YY')}</Text>
          </View>
-         <View style={[AppStyles.flexpointtwo]}>
+         <View style={[AppStyles.flexpointthree, AppStyles.ml35]}>
          <TouchableOpacity 
          onPress = {() => screenNavigate(item)}
          style={Styles.confirmBtn}>
           <Text style={[AppStyles.txtWhiteRegular, AppStyles.f11,
-           AppStyles.textalig]}>{item.is_confirmed  == 2 ? 'Assign' : 'View'}</Text>
+           AppStyles.textalig,]}>{item.is_confirmed  == 2 ? 'ASSIGN' : 'VIEW'}</Text>
         </TouchableOpacity>
+        {item.qty == "34" ? 
+        <View style={AppStyles.mr20}>
+        <Image style={[AppStyles.ml24, AppStyles.mt10]} source={require('../../../assets/Images/Dashboard/Group_9995.png')}  /> 
+        <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f11, AppStyles.ml5]}>Completed</Text>
+        </View> : 
+        <View>
+        <Image style={[AppStyles.ml24, AppStyles.mt10]} source={require('../../../assets/Images/AddSubUser/pending.png')}  /> 
+        <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f11, AppStyles.ml10]}>Pending</Text>
+        </View> }
          </View>
        </View>
 
