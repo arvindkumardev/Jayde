@@ -16,8 +16,8 @@ const DropDown = (props) => {
       <View style={[Styles.androidPickerContainer, containerStyle]}>
         <Picker
           mode={mode}
-          itemStyle={itemStyle}
-          // style={containerStyle}
+          //itemStyle={itemStyle}
+          //style={itemStyle}
           onValueChange={onValueChange}
           selectedValue={selectedValue}>
           <Item label={placeholderText} value="" />

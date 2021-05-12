@@ -5,7 +5,7 @@ import FAIcon from "react-native-vector-icons/FontAwesome";
 import Styles from "./styles";
 import NavigationRouteNames from '../../../routes/ScreenNames';
 import { Fonts, Colors, AppStyles } from '../../../theme';
-
+import {getSubCategoryName, getLocation, getQuantity, getUnitName, getEstimatedPrice}  from '../../../utils/Global'
 
 
 const PriceConfirm = () => {
@@ -20,16 +20,7 @@ const PriceConfirm = () => {
   useLayoutEffect(() => {
     const { title } = route.params;
     const { status } = route.params;
-    const { Location } = route.params;
-    const { Unit } = route.params;
-    const { Volume } = route.params;
-    const {subCategoryName} = route.params;
-    console.log("status",status, subCategoryName);
     setSchedulePick(status);
-    setLocation(Location);
-    setUnit(Unit);
-    setVolume(Volume);
-    setSubCategoryName(subCategoryName)
     navigation.setOptions({
       title,
     });
@@ -58,7 +49,7 @@ const PriceConfirm = () => {
               <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f16]}>Subcategory</Text>
             </View>
             <View style={AppStyles.flexpointfour}>
-              <Text style={[AppStyles.txtBlackRegular, AppStyles.f16]}>{subCategoryName}</Text>
+              <Text style={[AppStyles.txtBlackRegular, AppStyles.f16]}>{getSubCategoryName()}</Text>
             </View>
           </View>
           <View style={AppStyles.flexRowSpaceBetween}>
@@ -66,7 +57,7 @@ const PriceConfirm = () => {
               <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f16]}>Location</Text>
             </View>
             <View style={AppStyles.flexpointfour}>
-              <Text style={[AppStyles.txtBlackRegular, AppStyles.f16]}>{location}</Text>
+              <Text style={[AppStyles.txtBlackRegular, AppStyles.f16]}>{getLocation()}</Text>
             </View>
           </View>
           <View style={AppStyles.flexRowSpaceBetween}>
@@ -74,7 +65,7 @@ const PriceConfirm = () => {
               <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f16]}>Volume</Text>
             </View>
             <View style={AppStyles.flexpointfour}>
-              <Text style={[AppStyles.txtBlackRegular, AppStyles.f16]}>{volume} {unit}</Text>
+              <Text style={[AppStyles.txtBlackRegular, AppStyles.f16]}>{getQuantity()} {getUnitName()}</Text>
             </View>
           </View>
           <View style={Styles.totalPriceContainer}>
@@ -83,7 +74,7 @@ const PriceConfirm = () => {
             </View>
             <View style={AppStyles.flexpointfour}>
               <Text style={[AppStyles.txtBlackBold, AppStyles.f16, Styles.estPrice]}>
-                <FAIcon size={14} name="rupee" /> 6000
+                <FAIcon size={14} name="rupee" /> {getEstimatedPrice()}
               </Text>
             </View>
           </View>

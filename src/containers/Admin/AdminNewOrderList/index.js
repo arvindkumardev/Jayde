@@ -1,3 +1,4 @@
+
 import React, {useContext, useEffect, useState, useLayoutEffect} from 'react';
 import {View, Text, Image, FlatList, ScrollView, TouchableOpacity, ActivityIndicator} from 'react-native';
 import Styles from "./styles";
@@ -11,11 +12,19 @@ import UserContext from '../../../appContainer/context/user.context';
 import moment from 'moment';
 import FooterLoader from "../../../appContainer/footerLoader";
 
+//Image
+import EWasteImg from  '../../../assets/Images/NewOrderList/Group_10091.png'
+import PaperImg from  '../../../assets/Images/NewOrderList/Group_10089.png'
+import PlasticImg from '../../../assets/Images/NewOrderList/Group_10090.png'
+import MixWasterImg from '../../../assets/Images/NewOrderList/Group_10088.png'
+import PendingImg from '../../../assets/Images/AddSubUser/pending.png'
+import CompletedImg from '../../../assets/Images/Dashboard/Group_9995.png'
+
 const ORDER_IMAGE = {
-  'E-Waste': require('../../../assets/Images/NewOrderList/Group_10091.png'),
-   Paper: require('../../../assets/Images/NewOrderList/Group_10089.png'),
-   Plastic: require('../../../assets/Images/NewOrderList/Group_10090.png'),
-  'Mix Waste': require('../../../assets/Images/NewOrderList/Group_10088.png'),
+  'E-Waste':EWasteImg,
+   Paper: PaperImg,
+   Plastic: PlasticImg,
+  'Mix Waste':MixWasterImg,
 };
 
 function AdminNewOrderList() {
@@ -34,7 +43,11 @@ function AdminNewOrderList() {
   const [{ data, loading, error }, onAdminNewOrder] = adminNewOrder(offset);
   
    const screenNavigate = (item) => {
-    navigation.navigate(NavigationRouteNames.ADMIN_NEW_ORDER, {Item : item, getActionType : getActionType});
+    {item.is_confirmed  == 3 ?
+    navigation.navigate(NavigationRouteNames.ORDER_ASSIGN, {Value : item, getActionType : getActionType})
+    : 
+    navigation.navigate(NavigationRouteNames.ADMIN_NEW_ORDER, {Item : item, getActionType : getActionType})
+    }
   }
 
   const getActionType = async () => {
@@ -122,15 +135,18 @@ function AdminNewOrderList() {
           <Text style={[AppStyles.txtWhiteRegular, AppStyles.f11,
            AppStyles.textalig,]}>{item.is_confirmed  == 2 ? 'ASSIGN' : 'VIEW'}</Text>
         </TouchableOpacity>
-        {item.qty == "34" ? 
-        <View style={AppStyles.mr20}>
-        <Image style={[AppStyles.ml24, AppStyles.mt10]} source={require('../../../assets/Images/Dashboard/Group_9995.png')}  /> 
-        <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f11, AppStyles.ml5]}>Completed</Text>
-        </View> : 
-        <View>
-        <Image style={[AppStyles.ml24, AppStyles.mt10]} source={require('../../../assets/Images/AddSubUser/pending.png')}  /> 
-        <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f11, AppStyles.ml10]}>Pending</Text>
-        </View> }
+        {item.is_confirmed  == 4 ? 
+          <View style={AppStyles.mr20}>
+            <Image style={[AppStyles.ml24, AppStyles.mt10]} 
+            source={CompletedImg}  /> 
+            <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f11, AppStyles.ml5]}>Completed</Text>
+          </View> : item.is_confirmed  == 3 && 
+          <View>
+            <Image style={[AppStyles.ml24, AppStyles.mt10]} 
+            source={PendingImg}  /> 
+            <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f11, AppStyles.ml10]}>Pending</Text>
+          </View> 
+          }
          </View>
        </View>
 

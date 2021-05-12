@@ -14,6 +14,7 @@ import UserContext from '../../../appContainer/context/user.context';
 import MIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import CustomText from '../../../components/CustomText';
 import {alertBox, RfH, RfW, isValidVolume} from '../../../utils/helpers';
+import {setSubCategory, setSubCategoryId, setLocation, setQuantity, setImageName, setUnit, setUnitId} from '../../../utils/Global'
 
 
 function PricingRequest() {
@@ -89,6 +90,16 @@ function PricingRequest() {
   }, []);
 
   const handleConfirm = async (subCategoryId, volume, unit, location) => {   
+
+     // Save Global
+     setImageName(fileName);
+     setLocation(location);
+     setUnit(unitName);
+     setUnitId(unit);
+     setSubCategory(subCategoryName);
+     setSubCategoryId(subCategoryId);
+     setQuantity(volume);
+
     const {data} = await onSubmitQuote({
       data: {
         primeId: 0,
@@ -100,6 +111,9 @@ function PricingRequest() {
         uploaded_files: fileName,
       },
     });
+
+
+    
     console.log(data)
     if(data.status){
       handleGetQuote()

@@ -29,7 +29,7 @@ function ViewNewOrder() {
   });
   }, []);
  
-  const backToOrderList = () => {
+  const getActionType = () => {
     route.params.getActionType()
     navigation.goBack()
   };
@@ -41,7 +41,7 @@ function ViewNewOrder() {
     });
     console.log(data)
     if(data.status){
-      navigation.navigate(NavigationRouteNames.ORDER_FAILED, {Value: item, backToList: backToOrderList})
+      navigation.navigate(NavigationRouteNames.ORDER_FAILED, {Value: item, getActionType: getActionType})
     } else {
       alert(data.message)
     }  
@@ -55,7 +55,7 @@ function ViewNewOrder() {
     });
     console.log(data)
     if(data.status){
-      navigation.navigate(NavigationRouteNames.ORDER_ASSIGN, {Value: item, backToList : backToOrderList})
+      navigation.navigate(NavigationRouteNames.ORDER_ASSIGN, {Value: item})
     } else {
       alert(data.message)
     }  
@@ -100,13 +100,13 @@ function ViewNewOrder() {
         </View>
 
         <View style={AppStyles.flexDir}>
-      <View style={AppStyles.flexpointsix}>
+      {/* <View style={AppStyles.flexpointsix}>
         <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f15, AppStyles.mt10, AppStyles.ml20]}>Purchase Date</Text>
         </View>
         <View style={[AppStyles.flexpointfour, AppStyles.alignfend]}>
         <Text style={[AppStyles.txtBlackRegular, AppStyles.f15, AppStyles.mt10, AppStyles.mr20]}>{moment(item.pickup_date).format('DD/MM/YYYY')}</Text>
-        </View>
-        </View>
+        </View>*/}
+      </View> 
 
         <View style={AppStyles.flexDir}>
       <View style={AppStyles.flexpointsix}>
@@ -118,11 +118,13 @@ function ViewNewOrder() {
         </View>
 
         <View style={AppStyles.flexDir}>
-      <View style={AppStyles.flexpointsix}>
-        <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f15, AppStyles.mt10, AppStyles.ml20]}>Pickup Address</Text>
+        <View style={AppStyles.flexpointsix}>
+        <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f15, AppStyles.mt10, AppStyles.ml20]}>Pick Up Schedule</Text>
         </View>
         <View style={[AppStyles.flexpointfour, AppStyles.alignfend]}>
-        <Text style={[AppStyles.txtBlackRegular, AppStyles.f11, AppStyles.mt10, AppStyles.mr20]}>1812, building No 2, Banjara Hills. Hyderabad (TN)</Text>
+          <Text style={[AppStyles.txtBlackRegular, AppStyles.f11, AppStyles.mt10, AppStyles.mr20]}>{moment(item.pickup_date).format('DD-MMM-YYYY')}</Text>
+          <Text style={[AppStyles.txtBlackRegular, AppStyles.f11, AppStyles.mt10, AppStyles.mr20]}>{item.time_slot}</Text>
+        
         </View>
         </View> 
       </View>

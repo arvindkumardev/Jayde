@@ -5,6 +5,7 @@ import FAIcon from 'react-native-vector-icons/FontAwesome';
 import Checkbox from '@react-native-community/checkbox';
 import style from "../../../theme/Styles/container";
 import Styles from "./styles";
+import {getSubCategoryName, getLocation, getQuantity, getUnitName, getCategoryName}  from '../../../utils/Global'
 
 import NavigationRouteNames from '../../../routes/ScreenNames';
 import { Colors, AppStyles } from '../../../theme';
@@ -33,13 +34,13 @@ const AddressConfirm = () => {
         <View style={[AppStyles.w100, AppStyles.ph20, AppStyles.txtPrimaryBold]}>
           <View style={[Styles.paperBox, style.btnSecandary,]}>
             <View style={[AppStyles.mt20, AppStyles.ml20,]}>
-          <Text style={[AppStyles.txtBlackBold, AppStyles.f16, AppStyles.mb10]}>Paper</Text>
+          <Text style={[AppStyles.txtBlackBold, AppStyles.f16, AppStyles.mb10]}>{getCategoryName()}</Text>
           <View style={AppStyles.flexRowSpaceBetween}>
             <View style={AppStyles.flexpointseven}>
               <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f16]}>Subcategory</Text>
             </View>
             <View style={AppStyles.flexpointthree}>
-              <Text style={[AppStyles.txtBlackRegular, AppStyles.f16]}>Type 2</Text>
+              <Text style={[AppStyles.txtBlackRegular, AppStyles.f16]}>{getSubCategoryName()}</Text>
             </View>
           </View>
           <View style={AppStyles.flexRowSpaceBetween}>
@@ -47,7 +48,7 @@ const AddressConfirm = () => {
               <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f16]}>Volume</Text>
             </View>
             <View style={AppStyles.flexpointthree}>
-              <Text style={[AppStyles.txtBlackRegular, AppStyles.f16]}>5 Tons</Text>
+              <Text style={[AppStyles.txtBlackRegular, AppStyles.f16]}>{getQuantity()} {getUnitName()}</Text>
             </View>
           </View>
           </View>

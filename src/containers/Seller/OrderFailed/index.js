@@ -10,6 +10,7 @@ import NavigationRouteNames from '../../../routes/ScreenNames';
 import {useNavigation} from '@react-navigation/core';
 import {useRoute} from '@react-navigation/native';
 
+import FailedImg from '../../../assets/Images/OrderFailed/orderfailed.png'
 
 function OrderFailed() {
 
@@ -19,7 +20,7 @@ function OrderFailed() {
   const route = useRoute();
  
   const screenNavigate = () => {
-   route.params.backToList()
+   route.params.getActionType()
    navigation.goBack()
  }
 
@@ -39,7 +40,7 @@ function OrderFailed() {
        
         
         <View style={Styles.boxContent}>
-          <Image style={Styles.boxImage} source={require('../../../assets/Images/OrderFailed/orderfailed.png')}  /> 
+          <Image style={Styles.boxImage} source={FailedImg}  /> 
           <Text style={[AppStyles.txtBlackBold, AppStyles.f20, AppStyles.spacing1]}>ORDER FAILED</Text>
 
           <View style={[style.w85, style.borderwidth1, AppStyle.mt20, Styles.bdrclr]}></View>

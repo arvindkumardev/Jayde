@@ -1,12 +1,11 @@
 import React, {useContext, useLayoutEffect, useEffect, useState} from 'react';
-import {KeyboardAvoidingView, Platform, TouchableOpacity, View, Text,
-   Image, TextInput, FlatList,Alert, ScrollView} from 'react-native';
+import {KeyboardAvoidingView, Platform, TouchableOpacity, View, Text, ScrollView} from 'react-native';
 import  DropDownPicker from "react-native-dropdown-picker";
 import DropDown from '../../../components/Picker/index';
 
 import Styles from "./styles";
 import { AppStyles, Colors } from '../../../theme';
-import {alertBox, RfH, RfW, isValidVolume} from '../../../utils/helpers';
+import {alertBox, RfH, RfW} from '../../../utils/helpers';
 import CustomText from '../../../components/CustomText';
 
 import * as Yup from "yup";
@@ -19,31 +18,36 @@ import moment from 'moment';
 import UserContext from '../../../appContainer/context/user.context';
 import { getAggregators, getRecyclers, assignAggregator } from "../../../services/middleware/user";
 
+const typeData = [
+  {label: 'Aggregator', value: '1'},
+  {label: 'Recycler', value: '2'}]
+
 function OrderAssign() {
   const [item, setItem] = useState({});
   const { setLoader } = useContext(UserContext);
 
   const [aggregators, setAggregator] = useState([])
   const [recyclers, setRecyclers] = useState([])
-  
-  const [{ data: aggregatorsData }, onGetAggregators] = getAggregators();
-  const [{ data: recyclersData }, onGetRecyclers] = getRecyclers();
-  const [{ data: Aggregator, loading, error }, onAssignAggregator] = assignAggregator();
 
   const [arrayData, setArrayData] = useState([])
   const [clickConfirm, setClickConfirm] = useState(false);
-  const [type, setType] = useState(1)
+  const [aggregatorVendorName, setAggregatorVendorName] = useState('')
+
+  // ---------------------- Start Api Section ---------------------
+  const [{ data: aggregatorsData }, onGetAggregators] = getAggregators();
+  const [{ data: recyclersData }, onGetRecyclers] = getRecyclers();
+  const [{ data: Aggregator, loading, error }, onAssignAggregator] = assignAggregator();
+  // ---------------------- End Api Section ---------------------
 
    const navigation = useNavigation();
    const route = useRoute();
   
    const screenNavigate = () => {
-    navigation.navigate(NavigationRouteNames.CONFIRMATION, {Value: item});
+    navigation.navigate(NavigationRouteNames.CONFIRMATION, {Value: item, businessSubType: aggregatorVendorName });
   }
 
   useEffect(() => {
     if (aggregatorsData) {
-      console.log('AGG', aggregatorsData)
       const pickerData = aggregatorsData.map((item) => ({ label: item.name, value: item.id }));
       setAggregator(pickerData);
     }
@@ -51,7 +55,6 @@ function OrderAssign() {
 
   useEffect(() => {
     if (recyclersData) {
-      console.log('recyclersData', recyclersData)
       const pickerData = recyclersData.map((item) => ({ label: item.name, value: item.id }));
       setRecyclers(pickerData);
     }
@@ -69,27 +72,27 @@ const handelGetAggregators = async () => {
  setLoader(true)
  const {data} = await onGetAggregators({data:{}})
  setLoader(false)
-
 }
 
 const handelGetRecyclers = async () => {
- setLoader(true)
+  setLoader(true)
   const {data} = await onGetRecyclers({data:{}})
   setLoader(false)
 }
 
-  const handelDropDown = (index) => {
+  const handelBusinessType = (index) => {
+    console.log(index)
+    requestForm.setFieldValue('businessType', index)
+
     if(index == 0){
       return
     }
 
-    if(index == 1){
-      setType(1)
+    if(index == 1){     
       aggregators.length == 0 ?  handelGetAggregators() : setArrayData(aggregators)
     }
 
-    if(index == 2){
-      setType(2)
+    if(index == 2){    
       recyclers.length == 0 ? handelGetRecyclers() : setArrayData(recyclers)
     }
     
@@ -97,10 +100,22 @@ const handelGetRecyclers = async () => {
 
   const onChangeAggregator = (id) => {
     console.log(id)
+    if(requestForm.values.businessType == 1 ){
+      var index = aggregators.findIndex(v => v.value == id)    
+      if(index != -1){
+        setAggregatorVendorName(aggregators[index].label)
+      }
+    } else if(requestForm.values.businessType == 2 ){
+      var index = recyclers.findIndex(v => v.value == id)    
+      if(index != -1){
+        setAggregatorVendorName(recyclers[index].label)
+      }
+    } 
     requestForm.setFieldValue('selectedID', id)
   }
   
   const validationSchema = Yup.object().shape({
+    businessType: Yup.string().required("Please select Type"),
     selectedID: Yup.string().required("Please select Item"),
   });
 
@@ -108,6 +123,7 @@ const handelGetRecyclers = async () => {
     validateOnChange: true,
     validateOnBlur: true,
     initialValues: {
+      businessType: '',
       selectedID : '',
     },
     validationSchema,
@@ -120,8 +136,8 @@ const handelGetRecyclers = async () => {
     const {data} = await onAssignAggregator({
       data: {
         "orderId" : item.orderId,
-        "vendor"  : type == 1 ? aggregatorID : '',
-        "recycler": type == 2 ? aggregatorID : ''
+        "vendor"  : requestForm.values.businessType == 1 ? aggregatorID : '',
+        "recycler": requestForm.values.businessType == 2 ? aggregatorID : ''
       },
     });
     console.log(data)
@@ -200,24 +216,24 @@ const handelGetRecyclers = async () => {
        </View>
       
 
-             <View style={Styles.businessType}>
-              <Text>Select business type</Text>
-              <DropDownPicker
-                showArrow={true}
-                items={[
-                    {label: 'Select one', value: '0'},
-                    {label: 'Aggregator', value: 'aggregator'},
-                    {label: 'Recycler', value: 'recycler'},
-                ]}
-                defaultValue={"0"}
-                containerStyle={{height: 45}}
-                style={{backgroundColor: '#e4e4e4', marginTop: 5,}}
-                itemStyle={{
-                    justifyContent: 'flex-start',
-                }}
-                dropDownStyle={{backgroundColor: '#fafafa'}}
-                onChangeItem={(item, index) => handelDropDown(index)}
+           <View style={Styles.businessType}>
+              <Text>Select business type</Text>              
+              <DropDown
+                placeholderText="Select one"
+                items={typeData}
+                itemStyle={{ color: '#000' }}
+                onValueChange = {handelBusinessType}                      
+                selectedValue={requestForm.values.businessType}
+                containerStyle={{ borderRadius: 10, backgroundColor: Colors.grayTwo, paddingLeft: 10 }}
               />
+               {clickConfirm && requestForm.errors.businessType? 
+              <CustomText
+                fontSize={15}
+                color={Colors.red}
+                styling={{marginTop: RfH(10)}}>
+                {(requestForm.errors.businessType).toString()}
+              </CustomText>
+                 : null}
             </View>
 
             <View style={Styles.slctAggre}>
@@ -228,14 +244,14 @@ const handelGetRecyclers = async () => {
                 itemStyle={{ color: '#000' }}
                 onValueChange = {onChangeAggregator}                      
                 selectedValue={requestForm.values.selectedID}
-                containerStyle={{ borderRadius: 5,backgroundColor: '#e4e4e4', marginTop: 5, paddingLeft: 10, height: 45 }}
+                containerStyle={{ borderRadius: 10, backgroundColor: Colors.grayTwo, paddingLeft: 10 }}
               />
-               {clickConfirm && requestForm.errors.selectedID? 
+               {clickConfirm && requestForm.values.selectedID == '' ? 
               <CustomText
                 fontSize={15}
                 color={Colors.red}
                 styling={{marginTop: RfH(10)}}>
-                {requestForm.errors.selectedID}
+                {(requestForm.errors.selectedID).toString()}
               </CustomText>
                  : null}
             </View>
@@ -245,13 +261,9 @@ const handelGetRecyclers = async () => {
                   <Text style={Styles.confirm}>CONFIRM</Text>
               </TouchableOpacity>
              </View>
-
-        
     </View>
-          </ScrollView> 
-        
-      
-    </View>
+  </ScrollView>  
+</View>
   );
 }
 export default OrderAssign;

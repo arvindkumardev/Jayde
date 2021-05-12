@@ -15,7 +15,8 @@ function CallBackConfirmation() {
    const route = useRoute();
   
    const screenNavigate = () => {
-    navigation.navigate(NavigationRouteNames.CALL_REQUEST);
+    navigation.popToTop()
+    //navigation.navigate(NavigationRouteNames.CALL_REQUEST);
   }
   
   

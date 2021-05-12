@@ -7,13 +7,21 @@ import { AppStyles, Colors } from '../../../theme';
 import { getCategories } from './middleware';
 import UserContext from '../../../appContainer/context/user.context';
 import Styles from './styles';
+import {setCategory} from '../../../utils/Global'
+
+//Image
+import EWasteImg from '../../../assets/Images/NewOrderList/Group_10091.png'
+import PaperImg from  '../../../assets/Images/NewOrderList/Group_10089.png'
+import PlasticImg from '../../../assets/Images/NewOrderList/Group_10090.png'
+import MixWasterImg from '../../../assets/Images/NewOrderList/Group_10088.png'
 
 const ORDER_IMAGE = {
-  'E-Waste': require('../../../assets/Images/NewOrderList/Group_10091.png'),
-  Paper: require('../../../assets/Images/NewOrderList/Group_10089.png'),
-  Plastic: require('../../../assets/Images/NewOrderList/Group_10090.png'),
-  'Mix Waste': require('../../../assets/Images/NewOrderList/Group_10088.png'),
+  'E-Waste':EWasteImg,
+   Paper: PaperImg,
+   Plastic: PlasticImg,
+  'Mix Waste':MixWasterImg,
 };
+
 function OrderType() {
   const navigation = useNavigation();
   const { setLoader } = useContext(UserContext);
@@ -30,6 +38,7 @@ function OrderType() {
   }, [data, loading]);
 
   const handleNavigate = (title, category) => {
+    setCategory(title)
     navigation.navigate(NavigationRouteNames.NEW_ORDER_REQUEST, { title, categoryId: category });
   };
   const _renderItem = (index, item) => (

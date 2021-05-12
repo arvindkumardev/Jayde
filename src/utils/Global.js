@@ -1,15 +1,32 @@
 export const GlobalData = {
-    subCategoryName: '',
+    CategoryName: '',
+    subCategoryName: 'axz',
     subCategoryId: 0,
 
     unitID: 0,
-    unitName: ''
+    unitName: 'aaaa',
+
+    location : 'uyuyu',
+    Volume:10,
+    uploadImageName: '',
+    EstimatedPrice: 2000
+}
+
+/**
+ * function to set and get Category Name.
+ */
+ export function setCategory(value) {
+    GlobalData.CategoryName = value;
+}
+
+export function getCategoryName() {
+    return GlobalData.CategoryName;
 }
 
 /**
  * function to set and get Sub Category Name.
  */
- export function setSubCategoryName(value) {
+ export function setSubCategory(value) {
     GlobalData.subCategoryName = value;
 }
 
@@ -21,11 +38,11 @@ export function getSubCategoryName() {
  * function to set and get Sub Category ID.
  */
 export function setSubCategoryId(value) {
-    GlobalData.subCategoryName = value;
+    GlobalData.subCategoryId = value;
 }
 
 export function getSubCategoryId() {
-    return GlobalData.subCategoryName;
+    return GlobalData.subCategoryId;
 }
 
 /**
@@ -42,7 +59,7 @@ export function getUnitId() {
 /**
  * function to set and get Unit Name.
  */
- export function setUnitName(value) {
+ export function setUnit(value) {
     GlobalData.unitName = value;
 }
 
@@ -50,3 +67,47 @@ export function getUnitName() {
     return GlobalData.unitName;
 }
 
+/**
+ * function to set and get Location.
+ */
+ export function setLocation(value) {
+    GlobalData.location = value;
+}
+
+export function getLocation() {
+    return GlobalData.location;
+}
+
+/**
+ * function to set and get Quantity.
+ */
+ export function setQuantity(value) {
+    GlobalData.Volume = value;
+}
+
+export function getQuantity() {
+    return GlobalData.Volume;
+}
+
+/**
+ * function to set and get Upload Image Name
+ */
+ export function setImageName(value) {
+    GlobalData.uploadImageName = value;
+}
+
+export function getImageName() {
+    return GlobalData.uploadImageName;
+}
+
+
+/**
+ * function to set and get Estimated Price
+ */
+ export function setEstimatedPrice(value) {
+    GlobalData.EstimatedPrice = value;
+}
+
+export function getEstimatedPrice() {
+    return GlobalData.EstimatedPrice;
+}
