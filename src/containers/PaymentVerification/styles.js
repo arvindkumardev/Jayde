@@ -198,6 +198,13 @@ const styles = StyleSheet.create({
     fontFamily: Fonts.bold,
     fontSize: 20
   },
+  inputIcon:{
+    flexDirection:'row',
+    alignItems:'center',
+    justifyContent:'space-between',
+    paddingHorizontal: 20,
+    paddingVertical: 10,
+  },
 });
 
 export default styles;

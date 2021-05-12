@@ -81,7 +81,7 @@ function Orders() {
          onPress = {() => screenNavigate(item)}
          style={Styles.confirmBtn}>
           <Text style={[AppStyles.txtWhiteRegular, AppStyles.f11,
-           AppStyles.textalig,]}>ACCEPT</Text>
+           AppStyles.textalig,]}>{item.is_confirmed  == 2 ? 'VIEW' : 'ACCEPT'}</Text>
         </TouchableOpacity>
       <Image style={[AppStyles.ml20, AppStyles.mt5,]} source={require('../../../assets/Images/AddSubUser/pending.png')}  /> 
       <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f11, AppStyles.ml5]}>Pending</Text>

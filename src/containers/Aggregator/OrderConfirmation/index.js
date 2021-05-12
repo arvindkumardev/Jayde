@@ -11,6 +11,8 @@ import {useNavigation} from '@react-navigation/core';
 import {useRoute} from '@react-navigation/native';
 import { AppStyles } from '../../../theme';
 import moment from 'moment';
+import { confirmSchedule } from './middleware';
+import UserContext from '../../../appContainer/context/user.context';
 
 
 function OrderConfirmation() {
@@ -18,9 +20,10 @@ function OrderConfirmation() {
    const navigation = useNavigation();
    const route = useRoute();
    const [item, setItem] = useState({});
-  
-   const screenNavigate = () => {
-    navigation.navigate(NavigationRouteNames.PAYMENT_VERIFICATION);
+   const [{ data: quoteData, loading, error }, onSubmitQuote] = confirmSchedule();
+
+  const screenNavigate = () => {
+    navigation.navigate(NavigationRouteNames.PAYMENT_VERIFICATION, {Item : item});
   }
 
   useLayoutEffect(() => {
@@ -31,6 +34,22 @@ function OrderConfirmation() {
     title,
   });
   }, []);
+
+  const handleConfirm = async (item) => {   
+
+   const {data} = await onSubmitQuote({
+     data: {
+       assignedId: item.assigned_id,
+     },
+   });
+   
+   console.log(data)
+   if(data.status){
+    screenNavigate()
+   } else {
+     alert(data.message)
+   }  
+ };
   
   return (
     <View style={Styles.topView}>
@@ -108,7 +127,7 @@ function OrderConfirmation() {
 
        <View style={Styles.btnContainer}>
        <TouchableOpacity
-           style={Styles.confirmbtn} onPress = {() => screenNavigate()}>
+           style={Styles.confirmbtn} onPress = {() => handleConfirm(item)}>
            <Text style={[Appstyles.txtWhiteRegular, Appstyles.f17, Appstyles.textalig, AppStyle.mt10]}>CONFIRM SCHEDULE</Text>
          </TouchableOpacity>
          <TouchableOpacity

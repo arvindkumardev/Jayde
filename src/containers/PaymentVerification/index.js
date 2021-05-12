@@ -16,9 +16,9 @@ import style from "../../theme/Styles/container";
 import CustomText from '../../components/CustomText';
 import {CheckBoxWrapper, CustomTextInput, GradientButton,} from '../../components';
 import Checkbox from "@react-native-community/checkbox";
-
-
-
+import moment from 'moment';
+import MIcon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { UploadDocument } from '../../components/index';
 
 
 const PaymentVerification = () => {
@@ -45,6 +45,8 @@ const PaymentVerification = () => {
   const [base64Image, setBase64Image] = useState("");
   const [subCategories, setSubCategories] = useState([]);
   const [slipNumber,setSlipNumber] = useState("");
+  const [item, setItem] = useState({});
+  const [imageUpload, setImageUpload] = useState(false);
   
 
   const onShowCamera = () => {
@@ -89,6 +91,8 @@ const PaymentVerification = () => {
   };
 
   useLayoutEffect(() => {
+    const { Item } = route.params;  
+    setItem(Item)   
     const title='Order Details';
    navigation.setOptions({
     title,
@@ -152,7 +156,7 @@ const PaymentVerification = () => {
     <KeyboardAwareScrollView style={{ flex: 1, paddingHorizontal: RfW(20), backgroundColor: '#ffffff', }}>
 
        <View style={Appstyles.aligncen}>
-       <Text style={[Appstyles.txtBlackBold, Appstyles.f17, AppStyle.mt30,]}>Ref No- JYD/SC/2020/0067</Text>
+       <Text style={[Appstyles.txtBlackBold, Appstyles.f17, AppStyle.mt30,]}>Ref No- {item.order_no}</Text>
        </View>
        <View style={Styles.boxView}>
 
@@ -161,7 +165,7 @@ const PaymentVerification = () => {
            <Text style={[Appstyles.txtSecandaryRegular, Appstyles.f15, AppStyle.mt10, AppStyle.ml20]}>Waste type</Text>
            </View>
            <View style={[style.flexpointfour, Appstyles.alignfend]}>
-           <Text style={[Appstyles.txtBlackRegular, Appstyles.f15, AppStyle.mt10, AppStyle.mr20]}>Plastic</Text>
+           <Text style={[Appstyles.txtBlackRegular, Appstyles.f15, AppStyle.mt10, AppStyle.mr20]}>{item.category_name}</Text>
            </View>
            </View>
 
@@ -170,7 +174,7 @@ const PaymentVerification = () => {
            <Text style={[Appstyles.txtSecandaryRegular, Appstyles.f15, AppStyle.mt10, AppStyle.ml20]}>Waste sub category</Text>
            </View>
            <View style={[style.flexpointfour, Appstyles.alignfend]}>
-           <Text style={[Appstyles.txtBlackRegular, Appstyles.f15, AppStyle.mt10, AppStyle.mr20]}>Type 1</Text>
+           <Text style={[Appstyles.txtBlackRegular, Appstyles.f15, AppStyle.mt10, AppStyle.mr20]}>{item.sub_category_name}</Text>
            </View>
            </View>
 
@@ -179,7 +183,7 @@ const PaymentVerification = () => {
            <Text style={[Appstyles.txtSecandaryRegular, Appstyles.f15, AppStyle.mt10, AppStyle.ml20]}>Volume</Text>
            </View>
            <View style={[style.flexpointfour, Appstyles.alignfend]}>
-           <Text style={[Appstyles.txtBlackRegular, Appstyles.f15, AppStyle.mt10, AppStyle.mr20]}>3 Tons</Text>
+           <Text style={[Appstyles.txtBlackRegular, Appstyles.f15, AppStyle.mt10, AppStyle.mr20]}>{item.qty} {item.unit_name}</Text>
            </View>
            </View>
 
@@ -188,7 +192,7 @@ const PaymentVerification = () => {
            <Text style={[Appstyles.txtSecandaryRegular, Appstyles.f15, AppStyle.mt10, AppStyle.ml20]}>Purchase Date</Text>
            </View>
            <View style={[style.flexpointfour, Appstyles.alignfend]}>
-           <Text style={[Appstyles.txtBlackRegular, Appstyles.f15, AppStyle.mt10, AppStyle.mr20]}>26/07/2020</Text>
+           <Text style={[Appstyles.txtBlackRegular, Appstyles.f15, AppStyle.mt10, AppStyle.mr20]}>{moment(item.pickup_date).format('DD-MMM-YY')}</Text>
            </View>
            </View>
 
@@ -197,7 +201,7 @@ const PaymentVerification = () => {
            <Text style={[Appstyles.txtSecandaryRegular, Appstyles.f15, AppStyle.mt10, AppStyle.ml20]}>Purchase amount</Text>
            </View>
            <View style={[style.flexpointfour, Appstyles.alignfend]}>
-           <Text style={[Appstyles.txtBlackRegular, Appstyles.f15, AppStyle.mt10, AppStyle.mr20]}>₹ 25,864</Text>
+           <Text style={[Appstyles.txtBlackRegular, Appstyles.f15, AppStyle.mt10, AppStyle.mr20]}>₹ {item.price}</Text>
            </View>
            </View>
 
@@ -318,10 +322,14 @@ const PaymentVerification = () => {
                   <View style={[style.flex1, AppStyles.ml10]}>
                   <Text style={Styles.inputLabelText}>Upload Documents</Text>
                   <View style={Styles.viewVolumeInputContainerK}>
-                    <TextInput
-                      placeholder={"Upload file"}
-                      style={[Styles.inputText,]}
-                    />
+                  <View style={AppStyles.flexpointfive}>
+                    <TouchableOpacity style={[Styles.inputText, Styles.inputIcon, AppStyles.br10]} onPress={() => setImageUpload(!imageUpload)}>
+                    <Text style={Styles.txtFileUpload}>Upload file</Text>
+                    <MIcon name="attachment" size={25} color={Colors.grayThree} />
+                    </TouchableOpacity>
+                    <UploadDocument handleClose={() => setImageUpload(false)} 
+                    isVisible={imageUpload} />
+                    </View>
                   </View> 
                   </View>
                   </View>
@@ -397,10 +405,12 @@ const PaymentVerification = () => {
         <View style={[style.flex1, AppStyles.ml10]}>
         <Text style={Styles.inputLabelText}>Upload Documents</Text>
         <View style={Styles.viewVolumeInputContainerK}>
-          <TextInput
-            placeholder={"Upload file"}
-            style={[Styles.inputText, Styles.locationTxt]}
-          />
+        <TouchableOpacity style={[Styles.inputText, Styles.inputIcon, AppStyles.br10]} onPress={() => setImageUpload(!imageUpload)}>
+                    <Text style={Styles.txtFileUpload}>Upload file</Text>
+                    <MIcon name="attachment" size={25} color={Colors.grayThree} />
+                    </TouchableOpacity>
+                    <UploadDocument handleClose={() => setImageUpload(false)} 
+                    isVisible={imageUpload} />
         </View> 
         </View>
         </View>
@@ -579,10 +589,12 @@ const PaymentVerification = () => {
                   <View style={[style.flex1, AppStyle.ml10]}>
                   <Text style={Styles.inputLabelText}>Upload Documents</Text>
                   <View style={Styles.viewVolumeInputContainerDate}>
-                    <TextInput
-                      placeholder={"Upload file"}
-                      style={[Styles.inputText, Styles.locationTxtStyle]}
-                    />
+                  <TouchableOpacity style={[Styles.inputText, Styles.inputIcon, AppStyles.br10]} onPress={() => setImageUpload(!imageUpload)}>
+                    <Text style={Styles.txtFileUpload}>Upload file</Text>
+                    <MIcon name="attachment" size={25} color={Colors.grayThree} />
+                    </TouchableOpacity>
+                    <UploadDocument handleClose={() => setImageUpload(false)} 
+                    isVisible={imageUpload} />
                   </View> 
                   </View>
                   </View>
