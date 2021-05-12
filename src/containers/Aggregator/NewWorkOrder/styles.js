@@ -27,5 +27,13 @@ const styles = StyleSheet.create({
     marginTop: 30,
     marginBottom: 20,
   },
+  inputIcon:{
+    flexDirection:'row',
+    alignItems:'center',
+    justifyContent:'space-between',
+    paddingHorizontal: 20,
+    paddingVertical: 10,
+    backgroundColor:Colors.grayBackground,
+  },
 });
 export default styles;
