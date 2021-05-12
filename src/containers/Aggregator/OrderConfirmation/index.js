@@ -10,18 +10,22 @@ import NavigationRouteNames from '../../../routes/ScreenNames';
 import {useNavigation} from '@react-navigation/core';
 import {useRoute} from '@react-navigation/native';
 import { AppStyles } from '../../../theme';
+import moment from 'moment';
 
 
 function OrderConfirmation() {
 
    const navigation = useNavigation();
    const route = useRoute();
+   const [item, setItem] = useState({});
   
    const screenNavigate = () => {
-    navigation.navigate(NavigationRouteNames.HOMESCREEN);
+    navigation.navigate(NavigationRouteNames.PAYMENT_VERIFICATION);
   }
 
   useLayoutEffect(() => {
+    const { Item } = route.params;  
+    setItem(Item)   
     const title='New Order';
    navigation.setOptions({
     title,
@@ -34,7 +38,7 @@ function OrderConfirmation() {
        
         
        <View style={Appstyles.aligncen}>
-       <Text style={[Appstyles.txtBlackBold, Appstyles.f17, AppStyle.mt30,]}>Ref No- JYD/SC/2020/0067</Text>
+       <Text style={[Appstyles.txtBlackBold, Appstyles.f17, AppStyle.mt30,]}>Ref No- {item.order_no}</Text>
        </View>
        <View style={Styles.boxView}>
 
@@ -43,7 +47,7 @@ function OrderConfirmation() {
            <Text style={[Appstyles.txtSecandaryRegular, Appstyles.f15, AppStyle.ml20]}>Waste type</Text>
            </View>
            <View style={[style.flexpointfour, Appstyles.alignfend]}>
-           <Text style={[Appstyles.txtBlackRegular, Appstyles.f15, AppStyle.mr20]}>Plastic</Text>
+           <Text style={[Appstyles.txtBlackRegular, Appstyles.f15, AppStyle.mr20]}>{item.category_name}</Text>
            </View>
            </View>
 
@@ -52,7 +56,7 @@ function OrderConfirmation() {
            <Text style={[Appstyles.txtSecandaryRegular, Appstyles.f15, AppStyle.mt10, AppStyle.ml20]}>Waste sub category</Text>
            </View>
            <View style={[style.flexpointfour, Appstyles.alignfend]}>
-           <Text style={[Appstyles.txtBlackRegular, Appstyles.f15, AppStyle.mt10, AppStyle.mr20]}>Type 1</Text>
+           <Text style={[Appstyles.txtBlackRegular, Appstyles.f15, AppStyle.mt10, AppStyle.mr20]}>{item.sub_category_name}</Text>
            </View>
            </View>
 
@@ -61,7 +65,7 @@ function OrderConfirmation() {
            <Text style={[Appstyles.txtSecandaryRegular, Appstyles.f15, AppStyle.mt10, AppStyle.ml20]}>Volume</Text>
            </View>
            <View style={[style.flexpointfour, Appstyles.alignfend]}>
-           <Text style={[Appstyles.txtBlackRegular, Appstyles.f15, AppStyle.mt10, AppStyle.mr20]}>3 Tons</Text>
+           <Text style={[Appstyles.txtBlackRegular, Appstyles.f15, AppStyle.mt10, AppStyle.mr20]}>{item.qty} {item.unit_name}</Text>
            </View>
            </View>
 
@@ -70,7 +74,7 @@ function OrderConfirmation() {
            <Text style={[Appstyles.txtSecandaryRegular, Appstyles.f15, AppStyle.mt10, AppStyle.ml20]}>Purchase Date</Text>
            </View>
            <View style={[style.flexpointfour, Appstyles.alignfend]}>
-           <Text style={[Appstyles.txtBlackRegular, Appstyles.f15, AppStyle.mt10, AppStyle.mr20]}>26/07/2020</Text>
+           <Text style={[Appstyles.txtBlackRegular, Appstyles.f15, AppStyle.mt10, AppStyle.mr20]}>{moment(item.pickup_date).format('DD-MMM-YY')}</Text>
            </View>
            </View>
 
@@ -79,7 +83,7 @@ function OrderConfirmation() {
            <Text style={[Appstyles.txtSecandaryRegular, Appstyles.f15, AppStyle.mt10, AppStyle.ml20]}>Pickup Time</Text>
            </View>
            <View style={[style.flex1, Appstyles.alignfend]}>
-           <Text style={[Appstyles.txtBlackRegular, Appstyles.f15, AppStyle.mt10, AppStyle.mr20]}>11:00 am - 1:00 pm</Text>
+           <Text style={[Appstyles.txtBlackRegular, Appstyles.f15, AppStyle.mt10, AppStyle.mr20]}>{item.time_slot}</Text>
            </View>
            </View>
 
@@ -88,7 +92,7 @@ function OrderConfirmation() {
            <Text style={[Appstyles.txtSecandaryRegular, Appstyles.f15, AppStyle.mt10, AppStyle.ml20]}>Provisional Pricing</Text>
            </View>
            <View style={[style.flexpointfour, Appstyles.alignfend]}>
-           <Text style={[Appstyles.txtBlackRegular, Appstyles.f15, AppStyle.mt10, AppStyle.mr20]}>₹ 25,864</Text>
+           <Text style={[Appstyles.txtBlackRegular, Appstyles.f15, AppStyle.mt10, AppStyle.mr20]}>₹ {item.price}</Text>
            </View>
            </View>
 
@@ -104,7 +108,7 @@ function OrderConfirmation() {
 
        <View style={Styles.btnContainer}>
        <TouchableOpacity
-           style={Styles.confirmbtn}>
+           style={Styles.confirmbtn} onPress = {() => screenNavigate()}>
            <Text style={[Appstyles.txtWhiteRegular, Appstyles.f17, Appstyles.textalig, AppStyle.mt10]}>CONFIRM SCHEDULE</Text>
          </TouchableOpacity>
          <TouchableOpacity

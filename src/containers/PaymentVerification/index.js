@@ -88,8 +88,15 @@ const PaymentVerification = () => {
     setBase64Image("");
   };
 
+  useLayoutEffect(() => {
+    const title='Order Details';
+   navigation.setOptions({
+    title,
+  });
+  }, []);
+
   const handleConfirm = () => {
-    navigation.navigate(NavigationRouteNames.HOME_SCREEN);
+    navigation.navigate(NavigationRouteNames.CONFIRMATION);
   };
 
   const selectedCheckbox = (rememberMe) => {
@@ -143,21 +150,13 @@ const PaymentVerification = () => {
   }
   return (
     <KeyboardAwareScrollView style={{ flex: 1, paddingHorizontal: RfW(20), backgroundColor: '#ffffff', }}>
-      <View style={[style.flexDir, AppStyle.mt20,]}>
-        <View style={style.flexpointthree}>
-        <Image style={Styles.lftimg} source={require('../../assets/Images/AdminNewOrder/Group10055.png')}  />
-          </View>
-        <View style={style.flexpointseven}>
-          <Text style={[Appstyles.txtBlackBold, Appstyles.f20,]}>Order Details</Text>
-          </View>
-        </View>
 
        <View style={Appstyles.aligncen}>
        <Text style={[Appstyles.txtBlackBold, Appstyles.f17, AppStyle.mt30,]}>Ref No- JYD/SC/2020/0067</Text>
        </View>
        <View style={Styles.boxView}>
 
-         <View style={[style.flexDir, AppStyle.mt20,]}>
+         <View style={[style.flexDir, AppStyle.mt10,]}>
          <View style={style.flexpointsix}>
            <Text style={[Appstyles.txtSecandaryRegular, Appstyles.f15, AppStyle.mt10, AppStyle.ml20]}>Waste type</Text>
            </View>

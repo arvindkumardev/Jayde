@@ -95,7 +95,7 @@ const styles = StyleSheet.create({
   },
   boxView: {
     width: 310, 
-    height: 235, 
+    height: 255, 
     backgroundColor: '#f5f5f5', 
     borderRadius: 10, 
     marginTop: 25, 

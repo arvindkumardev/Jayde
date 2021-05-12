@@ -460,6 +460,18 @@ const AppStack = (props) => {
             component={Orders}
             options={CommonHeaderStyle}
           />
+          {/* Order Screen number: 21*/}
+          <Stack.Screen
+            name={NavigationRouteNames.PAYMENT_VERIFICATION}
+            component={PaymentVerification}
+            options={CommonHeaderStyle}
+          />
+          {/* Confirmation Screen */}
+          <Stack.Screen
+            name={NavigationRouteNames.CONFIRMATION}
+            component={Confirmation}
+            options={CommonHeaderStyle}
+          />
           </>;
     case USER_ROLE.RECYCLER:
       return <>
