@@ -284,47 +284,40 @@ const USERS_ROLE_MENU = {
   ],
   aggregate: [
     {
-      menuName: "View New Order",
+      menuName: "New Order",
       menu1image: require("../assets/Images/Dashboard/Group_9551.png"),
       iconName: 'pencil',
       color: Colors.mango,
       screenName: NavigationRouteNames.ORDERS,
     },
     {
-      menuName: "Open Scheduled Order",
+      menuName: "Scheduled Order",
       menu1image: require("../assets/Images/Dashboard/Group_9551.png"),
       iconName: 'folder-open',
       color: Colors.mango,
-      screenName: NavigationRouteNames.SCHEDULE_ORDER,
+      screenName: "",
     },
     {
-      menuName: "View Completed Order",
+      menuName: "Completed Work Order",
       menu1image: require("../assets/Images/Dashboard/Group_9551.png"),
       iconName: 'check-circle',
       color: Colors.green,
       screenName: "",
-    },
-    {
-      menuName: "Logout",
-      menu1image: require("../assets/Images/Dashboard/Group_9551.png"),
-      menu2image: require("../assets/Images/Dashboard/Project.png"),
-      color: Colors.mango,
-      screenName: "Logout",
-    },
+    }
   ],
   recycler: [{
-    menuName: "Logout",
+    menuName: "Work Order",
     menu1image: require("../assets/Images/Dashboard/Group_9551.png"),
-    menu2image: require("../assets/Images/Dashboard/Project.png"),
+    iconName: 'pencil',
     color: Colors.mango,
-    screenName: "Logout",
+    screenName: "",
   }],
   EPR: [{
-    menuName: "Logout",
+    menuName: "New Order",
     menu1image: require("../assets/Images/Dashboard/Group_9551.png"),
-    menu2image: require("../assets/Images/Dashboard/Project.png"),
+    iconName: 'pencil',
     color: Colors.mango,
-    screenName: "Logout",
+    screenName: "",
   }],
 };
 

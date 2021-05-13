@@ -9,7 +9,7 @@ const styles = StyleSheet.create({
   },
   boxView: {
     width: 320, 
-    height: 296, 
+    height: 234, 
     backgroundColor: '#f5f5f5', 
     borderRadius: 10, 
     marginTop: 35, 

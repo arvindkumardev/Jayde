@@ -89,7 +89,8 @@ const NavigationRouteNames = {
   SMARTCONTRACT_VIEWITEM:"SmartContractViewItem",
   ADMIN_NEW_ORDER_LIST : "AdminNewOrderList",
   ADMIN_NEW_ORDER : "AdminNewOrder",
-  ORDERS : "Orders"
+  ORDERS : "Orders",
+  REJECT_ORDER: "RejectOrder",
 };
 
 export default NavigationRouteNames;

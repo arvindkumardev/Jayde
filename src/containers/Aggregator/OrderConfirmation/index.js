@@ -13,6 +13,7 @@ import { AppStyles } from '../../../theme';
 import moment from 'moment';
 import { confirmSchedule } from './middleware';
 import UserContext from '../../../appContainer/context/user.context';
+import FAIcon from 'react-native-vector-icons/FontAwesome';
 
 
 function OrderConfirmation() {
@@ -21,6 +22,10 @@ function OrderConfirmation() {
    const route = useRoute();
    const [item, setItem] = useState({});
    const [{ data: quoteData, loading, error }, onSubmitQuote] = confirmSchedule();
+
+   const rejectOrder = () => {
+    navigation.navigate(NavigationRouteNames.REJECT_ORDER);
+  }
 
   const screenNavigate = () => {
     navigation.navigate(NavigationRouteNames.PAYMENT_VERIFICATION, {Item : item});
@@ -111,18 +116,10 @@ function OrderConfirmation() {
            <Text style={[Appstyles.txtSecandaryRegular, Appstyles.f15, AppStyle.mt10, AppStyle.ml20]}>Provisional Pricing</Text>
            </View>
            <View style={[style.flexpointfour, Appstyles.alignfend]}>
-           <Text style={[Appstyles.txtBlackRegular, Appstyles.f15, AppStyle.mt10, AppStyle.mr20]}>₹ {item.price}</Text>
+           <Text style={[Appstyles.txtBlackRegular, Appstyles.f15, AppStyle.mt10, AppStyle.mr20]}><FAIcon size={14} name="rupee" /> {item.price}</Text>
            </View>
            </View>
 
-           <View style={style.flexDir}>
-         <View style={style.flexpointsix}>
-           <Text style={[Appstyles.txtSecandaryRegular, Appstyles.f15, AppStyle.mt10, AppStyle.ml20]}>Pickup Address</Text>
-           </View>
-           <View style={[style.flexpointfour, Appstyles.alignfend]}>
-           <Text style={[Appstyles.txtBlackRegular, Appstyles.f11, AppStyle.mt10, AppStyle.mr20]}>1812, building No 2, Banjara Hills. Hyderabad (TN)</Text>
-           </View>
-           </View>
        </View>
 
        <View style={Styles.btnContainer}>
@@ -135,7 +132,7 @@ function OrderConfirmation() {
            <Text style={[Appstyles.txtPrimaryRegular, Appstyles.f17, Appstyles.textalig, AppStyle.mt10]}>PROPOSE NEW TIME</Text>
          </TouchableOpacity>
          <TouchableOpacity
-           style={[Styles.proposebtn, AppStyle.mb20]}>
+           style={[Styles.proposebtn, AppStyle.mb20]} onPress = {() => rejectOrder()}>
            <Text style={[Appstyles.txtPrimaryRegular, Appstyles.f17, Appstyles.textalig, AppStyle.mt10]}>REJECT</Text>
          </TouchableOpacity>
        </View>

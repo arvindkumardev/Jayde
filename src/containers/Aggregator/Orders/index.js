@@ -34,11 +34,6 @@ function Orders() {
           triggerLogin();
         }, navigation);
 
-
-  //  const screenNavigate = () => {
-  //   navigation.navigate(NavigationRouteNames.ORDER_CONFIRMATION);
-  // }
-
   const screenNavigate = (item) => {
     navigation.navigate(NavigationRouteNames.ORDER_CONFIRMATION, {Item : item, getActionType : getActionType});
   }
@@ -65,16 +60,22 @@ function Orders() {
          {item.category_name == "Plastic" ? 
           <View>
           <Image source={require('../../../assets/Images/Recycler/NewWorkOrderList/Plastic.png')}  /> 
-          </View> : 
+          </View> : item.category_name == "Paper" ? 
           <View>
           <Image source={require('../../../assets/Images/Recycler/NewWorkOrderList/Paper.png')}  /> 
-          </View>  }
+          </View>  : item.category_name == "Mix Waste" ? 
+          <View>
+          <Image source={require('../../../assets/Images/Recycler/NewWorkOrderList/Mix-Waste.png')}  /> 
+          </View>  : 
+          <View>
+          <Image source={require('../../../assets/Images/Recycler/NewWorkOrderList/E-Waste.png')}  /> 
+          </View> }
+
          </View>
          <View style={[AppStyles.flexpointsix, AppStyles.ml16]}>
          <Text style={[AppStyles.txtBlackRegular, AppStyles.f17,]}>{item.order_no}</Text>
          <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f15,]}>{item.qty}  {item.unit_name}  {item.category_name}</Text>
          <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f11,]}>{moment(item.pickup_date).format('DD-MMM-YY')}</Text>
-         {/* <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f11,]}>{moment(item.pickup_date).format('DD-MMM-YY')}</Text> */}
          </View>
          <View style={[AppStyles.flexpointtwo, AppStyles.mt5]}>
          <TouchableOpacity 
