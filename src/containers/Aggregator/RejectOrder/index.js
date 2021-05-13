@@ -6,22 +6,47 @@ import { AppStyles } from '../../../theme';
 import NavigationRouteNames from '../../../routes/ScreenNames';
 import {useNavigation} from '@react-navigation/core';
 import {useRoute} from '@react-navigation/native';
+import { aggreRejectorder } from './middleware';
+import UserContext from '../../../appContainer/context/user.context';
 
 function RejectOrder() {
 
   const navigation = useNavigation();
   const route = useRoute();
+  const [item, setItem] = useState({});
+  const [{ data: quoteData, loading, error }, onSubmitQuote] = aggreRejectorder();
+  const [reason, setReason] = useState('');
 
    const screenNavigate = () => {
-    navigation.navigate(NavigationRouteNames.HOMESCREEN);
+    navigation.navigate(NavigationRouteNames.ORDER_CONFIRMATION);
   }
 
-  useLayoutEffect(() => {
+  useLayoutEffect(() => { 
+    const { Item } = route.params;  
+    setItem(Item)   
     const title='Reject Order';
    navigation.setOptions({
     title,
   });
   }, []);
+
+  const handleConfirm = async (item) => {   
+
+    const {data} = await onSubmitQuote({
+      data: {
+        orderId: item.orderId,
+        // reason: reason,
+      },
+    });
+    
+    console.log(data)
+    if(data.status){
+      alert(data.message)
+    //  screenNavigate()
+    } else {
+      alert(data.message)
+    }  
+  };
 
   
   return (
@@ -42,6 +67,8 @@ function RejectOrder() {
           <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f13, AppStyles.mb10, AppStyles.ml24]}>Please give reason for cancellation</Text>
           <TextInput
                 placeholder=""
+                value={reason}
+                onChangeText={(txt) => setReason(txt)}
                 style={Styles.canceltextinput}
                 multiline={true}
               />
@@ -56,7 +83,7 @@ function RejectOrder() {
              </View>
 
              <View style={AppStyles.aligncen}>
-              <TouchableOpacity style={Styles.confirmbtn}>
+              <TouchableOpacity style={Styles.confirmbtn} onPress = {() => handleConfirm(item)}>
                   <Text style={[AppStyles.f17, AppStyles.whitecolor, AppStyles.textalig, AppStyles.mt10]}>CONFIRM</Text>
               </TouchableOpacity>
              </View>

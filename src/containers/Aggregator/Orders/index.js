@@ -52,7 +52,7 @@ function Orders() {
 
   const _RenderItem = (index, item) => {
     return (
-      <TouchableOpacity onPress={() => screenNavigate()}>
+      <TouchableOpacity onPress={() => screenNavigate(item)}>
        <View>
         
        <View style={[AppStyles.flexDir, AppStyles.mt20]}>

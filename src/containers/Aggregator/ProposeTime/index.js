@@ -9,58 +9,26 @@ import CustomText from '../../../components/CustomText';
 import NavigationRouteNames from '../../../routes/ScreenNames';
 import {useNavigation} from '@react-navigation/core';
 import {useRoute} from '@react-navigation/native';
-import { AppStyles } from '../../../theme';
+import { AppStyles, Colors } from '../../../theme';
 import moment from 'moment';
-import { confirmSchedule } from './middleware';
-import UserContext from '../../../appContainer/context/user.context';
 import FAIcon from 'react-native-vector-icons/FontAwesome';
+import DropDown from '../../../components/Picker/index';
 
 
-function OrderConfirmation() {
+function ProposeTime() {
 
    const navigation = useNavigation();
    const route = useRoute();
-   const [item, setItem] = useState({});
-   const [{ data: quoteData, loading, error }, onSubmitQuote] = confirmSchedule();
+   const [time, setTime] = useState('');
+   const [unit, setUnit] = useState('');
+   const [unitPickerData, setUnitData] = useState([]);
 
-   const rejectOrder = () => {
-    navigation.navigate(NavigationRouteNames.REJECT_ORDER, {Item : item});
-  }
-
-  const proposeTime = () => {
-    navigation.navigate(NavigationRouteNames.PROPOSE_TIME);
-  }
-
-  const screenNavigate = () => {
-    navigation.navigate(NavigationRouteNames.PAYMENT_VERIFICATION, {Item : item});
-  }
-
-  useLayoutEffect(() => {
-    const { Item } = route.params;  
-    setItem(Item)   
-    const title='New Order';
+  useLayoutEffect(() => {   
+    const title='Re-Schedule Order';
    navigation.setOptions({
     title,
   });
   }, []);
-
-  const handleConfirm = async (item) => {   
-
-   const {data} = await onSubmitQuote({
-     data: {
-       assignedId: item.assigned_id,
-       scheduleDate: item.pickup_date,
-       timeslot: item.time_slot,
-     },
-   });
-   
-   console.log(data)
-   if(data.status){
-    screenNavigate()
-   } else {
-     alert(data.message)
-   }  
- };
   
   return (
     <View style={Styles.topView}>
@@ -68,7 +36,7 @@ function OrderConfirmation() {
        
         
        <View style={Appstyles.aligncen}>
-       <Text style={[Appstyles.txtBlackBold, Appstyles.f17, AppStyle.mt30,]}>Ref No- {item.order_no}</Text>
+       <Text style={[Appstyles.txtBlackBold, Appstyles.f17, AppStyle.mt30,]}>Ref No- JYD/SC/2020/0067</Text>
        </View>
        <View style={Styles.boxView}>
 
@@ -77,7 +45,7 @@ function OrderConfirmation() {
            <Text style={[Appstyles.txtSecandaryRegular, Appstyles.f15, AppStyle.ml20]}>Waste type</Text>
            </View>
            <View style={[style.flexpointfour, Appstyles.alignfend]}>
-           <Text style={[Appstyles.txtBlackRegular, Appstyles.f15, AppStyle.mr20]}>{item.category_name}</Text>
+           <Text style={[Appstyles.txtBlackRegular, Appstyles.f15, AppStyle.mr20]}>Plastic</Text>
            </View>
            </View>
 
@@ -86,7 +54,7 @@ function OrderConfirmation() {
            <Text style={[Appstyles.txtSecandaryRegular, Appstyles.f15, AppStyle.mt10, AppStyle.ml20]}>Waste sub category</Text>
            </View>
            <View style={[style.flexpointfour, Appstyles.alignfend]}>
-           <Text style={[Appstyles.txtBlackRegular, Appstyles.f15, AppStyle.mt10, AppStyle.mr20]}>{item.sub_category_name}</Text>
+           <Text style={[Appstyles.txtBlackRegular, Appstyles.f15, AppStyle.mt10, AppStyle.mr20]}>Type 1</Text>
            </View>
            </View>
 
@@ -95,7 +63,7 @@ function OrderConfirmation() {
            <Text style={[Appstyles.txtSecandaryRegular, Appstyles.f15, AppStyle.mt10, AppStyle.ml20]}>Volume</Text>
            </View>
            <View style={[style.flexpointfour, Appstyles.alignfend]}>
-           <Text style={[Appstyles.txtBlackRegular, Appstyles.f15, AppStyle.mt10, AppStyle.mr20]}>{item.qty} {item.unit_name}</Text>
+           <Text style={[Appstyles.txtBlackRegular, Appstyles.f15, AppStyle.mt10, AppStyle.mr20]}>3 Tons</Text>
            </View>
            </View>
 
@@ -104,7 +72,7 @@ function OrderConfirmation() {
            <Text style={[Appstyles.txtSecandaryRegular, Appstyles.f15, AppStyle.mt10, AppStyle.ml20]}>Purchase Date</Text>
            </View>
            <View style={[style.flexpointfour, Appstyles.alignfend]}>
-           <Text style={[Appstyles.txtBlackRegular, Appstyles.f15, AppStyle.mt10, AppStyle.mr20]}>{moment(item.pickup_date).format('DD-MMM-YY')}</Text>
+           <Text style={[Appstyles.txtBlackRegular, Appstyles.f15, AppStyle.mt10, AppStyle.mr20]}>26/07/2020</Text>
            </View>
            </View>
 
@@ -113,7 +81,7 @@ function OrderConfirmation() {
            <Text style={[Appstyles.txtSecandaryRegular, Appstyles.f15, AppStyle.mt10, AppStyle.ml20]}>Pickup Time</Text>
            </View>
            <View style={[style.flex1, Appstyles.alignfend]}>
-           <Text style={[Appstyles.txtBlackRegular, Appstyles.f15, AppStyle.mt10, AppStyle.mr20]}>{item.time_slot}</Text>
+           <Text style={[Appstyles.txtBlackRegular, Appstyles.f15, AppStyle.mt10, AppStyle.mr20]}>11:00 am - 1:00 pm</Text>
            </View>
            </View>
 
@@ -122,24 +90,58 @@ function OrderConfirmation() {
            <Text style={[Appstyles.txtSecandaryRegular, Appstyles.f15, AppStyle.mt10, AppStyle.ml20]}>Provisional Pricing</Text>
            </View>
            <View style={[style.flexpointfour, Appstyles.alignfend]}>
-           <Text style={[Appstyles.txtBlackRegular, Appstyles.f15, AppStyle.mt10, AppStyle.mr20]}><FAIcon size={14} name="rupee" /> {item.price}</Text>
+           <Text style={[Appstyles.txtBlackRegular, Appstyles.f15, AppStyle.mt10, AppStyle.mr20]}><FAIcon size={14} name="rupee" /> 25,864</Text>
            </View>
            </View>
 
        </View>
 
+       <View style={[AppStyles.ml20, AppStyles.mr20]}>
+        <View>
+           <Text style={[[AppStyles.txtBlackRegular, AppStyles.f16, AppStyles.mb5, AppStyles.mt10]]}>Date</Text>
+           <TextInput
+             placeholder="dd/mm/yyyy"
+             style={[
+               AppStyles.txtSecandaryRegular,
+               AppStyles.btnSecandary,
+               AppStyles.br10,
+               AppStyles.mb10,
+               AppStyles.pl20,
+             ]}
+           />
+         </View>
+         
+        <View style={[AppStyles.mt20]}>
+           <View>
+             <Text style={[AppStyles.txtBlackRegular, AppStyles.f16, AppStyles.mb5]}>Time</Text>
+           </View>
+           <View style={{ flexDirection: 'row' }}>
+             <View style={{ flex: 2, paddingRight: 10 }}>
+               <TextInput
+                 placeholder="00:00 - 00:00"
+                 value={time}
+                 onChangeText={(txt) => setTime(txt)}
+                 style={{ backgroundColor: Colors.grayTwo, borderRadius: 10, paddingLeft: 10 }}
+               />
+             </View>
+             <View style={{ flex: 1 }}>
+               <DropDown
+                 items={unitPickerData}
+                 placeholderText="am"
+                 itemStyle={{ color: '#707070' }}
+                 onValueChange={(val) => setUnit(val)}
+                 selectedValue={unit}
+                 containerStyle={{ borderRadius: 10, backgroundColor: Colors.grayTwo, paddingLeft: 10 }}
+               />
+             </View>
+           </View>
+         </View>
+       </View>
+
        <View style={Styles.btnContainer}>
        <TouchableOpacity
-           style={Styles.confirmbtn} onPress = {() => handleConfirm(item)}>
-           <Text style={[Appstyles.txtWhiteRegular, Appstyles.f17, Appstyles.textalig, AppStyle.mt10]}>CONFIRM SCHEDULE</Text>
-         </TouchableOpacity>
-         <TouchableOpacity
-           style={[Styles.proposebtn]} onPress = {() => proposeTime()}>
-           <Text style={[Appstyles.txtPrimaryRegular, Appstyles.f17, Appstyles.textalig, AppStyle.mt10]}>PROPOSE NEW TIME</Text>
-         </TouchableOpacity>
-         <TouchableOpacity
-           style={[Styles.proposebtn, AppStyle.mb20]} onPress = {() => rejectOrder(item)}>
-           <Text style={[Appstyles.txtPrimaryRegular, Appstyles.f17, Appstyles.textalig, AppStyle.mt10]}>REJECT</Text>
+           style={Styles.confirmbtn}>
+           <Text style={[Appstyles.txtWhiteRegular, Appstyles.f17, Appstyles.textalig, AppStyle.mt10]}>CONFIRM</Text>
          </TouchableOpacity>
        </View>
 
@@ -149,4 +151,4 @@ function OrderConfirmation() {
     </View>
   );
 }
-export default OrderConfirmation;
+export default ProposeTime;
