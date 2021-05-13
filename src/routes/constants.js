@@ -31,7 +31,9 @@ const DRAWER_MENU = {
           name: 'New Order',
           color: Colors.mango,
           iconName: 'folder-open',
-          screenName: NavigationRouteNames.NEW_ORDER
+          //screenName: NavigationRouteNames.NEW_ORDER
+          screenName: NavigationRouteNames.CONFIRM_ADDRESS
+
       },
       {
           name: 'My Orders',
@@ -88,6 +90,7 @@ const DRAWER_MENU = {
         color: Colors.mango,
         iconName: 'edit',
         screenName: NavigationRouteNames.ADMIN_NEW_ORDER_LIST
+
     },
     {
         name: 'Manage EPR',

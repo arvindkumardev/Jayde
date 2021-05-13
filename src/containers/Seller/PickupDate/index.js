@@ -11,17 +11,18 @@ import DropDown from '../../../components/Picker/index';
 import ToggleSwitch from 'toggle-switch-react-native'
 import {Calendar, CalendarList, Agenda} from 'react-native-calendars';
 import moment from 'moment';
+import {getQuoteData}  from '../../../utils/Global'
 
 
 const PickupDate = () => {
   const navigation = useNavigation();
   const route = useRoute();
-  const [volume, setVolume] = useState('');
-  const [location, setLocation] = useState('');
-  const [unit, setUnit] = useState('');
+  const [date, setDate] = useState('');
+  const [timeSlot, setTimeSlot] = useState('');
+ 
   const [unitPickerData, setUnitData] = useState([]);
-  const [isEnabled, setIsEnabled] = useState(true);
-  const [timeSlotIndex, setTimeSlotIndex] = useState(0)
+  const [isEnabled, setIsEnabled] = useState(false);
+  const [timeSlotIndex, setTimeSlotIndex] = useState()
   const [currentDate, setCurrentDate] = useState(moment(new Date()).format('YYYY-MM-DD'))
   const handleSchedulePickup = () => {
     navigation.navigate(NavigationRouteNames.PICKUP_DETAILS);
@@ -35,7 +36,22 @@ const PickupDate = () => {
 
   
   const handleConfirm = () => {
-    navigation.navigate(NavigationRouteNames.PICKUP_DETAILS);
+    if(timeSlotIndex === ''){
+      alert('Please select Prefered time slot')
+    } else {
+        let param = {
+          date: timeSlotIndex > 1 ? getAfterDay () : getDayAfter(),
+          time: timeSlotIndex == 0 ? '11:00 am - 1:00 PM' 
+          : timeSlotIndex == 1 ? '3:00 pm - 5:00 pm'
+          : timeSlotIndex == 2 ? '11:00 am - 1:00 PM'
+          : '3:00 pm - 5:00 pm'
+        }
+        route.params.getTimeSlot(param)
+        navigation.goBack()
+    }
+    //navigation.navigate(NavigationRouteNames.PICKUP_DETAILS);
+
+
   };
 
   const getDayAfter = () => {
@@ -55,7 +71,7 @@ const PickupDate = () => {
           theme={{todayTextColor: '#F7A435', arrowColor: '#F7A435', textMonthFontFamily: 'Poppins-SemiBold'}}
           // Collection of dates that have to be marked. Default = {}
           markedDates={{
-             '2021-05-11' : {selected: true, marked: true, selectedColor: 'blue'},
+            '2021-05-11' : {selected: true, marked: true, selectedColor: 'blue'},
             '2012-05-17': {marked: true},
             '2012-05-18': {marked: true, dotColor: 'red', activeOpacity: 0},
             '2012-05-19': {disabled: true, disableTouchEvent: true},
@@ -154,7 +170,7 @@ const PickupDate = () => {
         <View style={AppStyles.flex1}>
           <Text style={[AppStyles.f12, AppStyles.txtPrimaryBold]}>ESTIMATED PRICE</Text>
           <Text style={AppStyles.txtBlackBold}>
-            <FAIcon size={15} name="rupee" /> 26,864
+            <FAIcon size={15} name="rupee" /> {getQuoteData().price}
           </Text>
         </View>
         <View style={AppStyles.flex1}>

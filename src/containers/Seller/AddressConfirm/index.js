@@ -1,18 +1,40 @@
-import React, { useLayoutEffect } from 'react';
+/* eslint-disable prettier/prettier */
+/* eslint-disable no-underscore-dangle */
+/* eslint-disable global-require */
+
+
+import React, { useLayoutEffect, useContext, useEffect, useState } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import FAIcon from 'react-native-vector-icons/FontAwesome';
 import Checkbox from '@react-native-community/checkbox';
 import style from "../../../theme/Styles/container";
 import Styles from "./styles";
-import {getSubCategoryName, getLocation, getQuantity, getUnitName, getCategoryName}  from '../../../utils/Global'
+import {getQuoteData}  from '../../../utils/Global'
 
 import NavigationRouteNames from '../../../routes/ScreenNames';
 import { Colors, AppStyles } from '../../../theme';
 
+import {addSchedule } from './../PricingRequest/middleware';
+import UserContext from '../../../appContainer/context/user.context';
+
 const AddressConfirm = () => {
   const navigation = useNavigation();
   const route = useRoute();
+  const { setLoader } = useContext(UserContext);
+
+  const [addressData, setAddress] = useState('')
+  const [timeSlot, setTimeSlot] = useState('')
+
+  const [{ data: scheduleData, loading, error }, onAddSchedule] = addSchedule();
+
+  const { Address, Landmark, PinCode, City } = addressData
+  const {date, time} = timeSlot
+
+  useEffect(() => {
+    setLoader(loading);
+  }, [scheduleData, loading]);
+
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -21,12 +43,46 @@ const AddressConfirm = () => {
   }, [navigation]);
 
   const handelTimeSlot = () => {
-    navigation.navigate(NavigationRouteNames.PICKUP_DATE);
+    navigation.navigate(NavigationRouteNames.PICKUP_DATE, {getTimeSlot :getTimeSlot});
   };
 
+  const getTimeSlot = (item) => {
+    console.log(item)
+    setTimeSlot(item)
+  }
   const handelNewAddress = () => {
-    navigation.navigate(NavigationRouteNames.PICKUP_DETAILS);
+    navigation.navigate(NavigationRouteNames.PICKUP_DETAILS, {getReturnAddress: getReturnAddress});
   };
+
+  const getReturnAddress = (item) => {
+    console.log(item)
+    setAddress(item)
+  }
+  
+  const _addSchedule = async () => { 
+     const {data} = await onAddSchedule({
+       data: {
+        "address": "H.No. 212, Block D-23, Dwarka",
+        "landmark": "Near Transformor",
+        "city": "New Delhi",
+        "pinCode":"110002",
+        "contact": "TestName",
+        "mobile": "9324234234",
+        "scheduleDate": "2021-05-14",
+        "scheduleTime": "",
+        "timeSlot": "11:00 AM  1:00 PM",
+        "orderIds": 1234,
+        "aggregator":"Earthbox"
+       },
+     });
+
+     console.log(data)
+     if(data.status){
+      alert(data.message)
+     } else {
+       alert(data.message)
+     }  
+   };
 
   return (
     <View style={[AppStyles.flex1SpaceBetween, AppStyles.pb20, style.whitebackgrnd,]}>
@@ -34,13 +90,13 @@ const AddressConfirm = () => {
         <View style={[AppStyles.w100, AppStyles.ph20, AppStyles.txtPrimaryBold]}>
           <View style={[Styles.paperBox, style.btnSecandary,]}>
             <View style={[AppStyles.mt20, AppStyles.ml20,]}>
-          <Text style={[AppStyles.txtBlackBold, AppStyles.f16, AppStyles.mb10]}>{getCategoryName()}</Text>
+          <Text style={[AppStyles.txtBlackBold, AppStyles.f16, AppStyles.mb10]}>{getQuoteData().category_name}</Text>
           <View style={AppStyles.flexRowSpaceBetween}>
             <View style={AppStyles.flexpointseven}>
               <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f16]}>Subcategory</Text>
             </View>
             <View style={AppStyles.flexpointthree}>
-              <Text style={[AppStyles.txtBlackRegular, AppStyles.f16]}>{getSubCategoryName()}</Text>
+              <Text style={[AppStyles.txtBlackRegular, AppStyles.f16]}>{getQuoteData().sub_category_name}</Text>
             </View>
           </View>
           <View style={AppStyles.flexRowSpaceBetween}>
@@ -48,64 +104,92 @@ const AddressConfirm = () => {
               <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f16]}>Volume</Text>
             </View>
             <View style={AppStyles.flexpointthree}>
-              <Text style={[AppStyles.txtBlackRegular, AppStyles.f16]}>{getQuantity()} {getUnitName()}</Text>
+              <Text style={[AppStyles.txtBlackRegular, AppStyles.f16]}>{getQuoteData().qty} {getQuoteData().unit_name}</Text>
             </View>
           </View>
           </View>
           </View>
           <View style={[AppStyles.mt20]}>
+          
+          {addressData === '' ?         
+          
+            <View style={[Styles.addressBox, style.btnSecandary, AppStyles.mt20,]}>
+              <View style={[AppStyles.mt20, AppStyles.ml20,]}>
+                <TouchableOpacity 
+                    onPress={handelNewAddress}
+                    style={[AppStyles.flexRowAlignCenter]}>
+                  <FAIcon name={'plus'} size={20} color={Colors.mango} />
+                  <Text style={[AppStyles.ml10, AppStyles.txtBlackBold, AppStyles.f16]}>Add New Address</Text>
+                  </TouchableOpacity>
+              </View>
+            </View>
+            :
+          <View style={[AppStyles.mt20]}>
           <View style={[Styles.deliveryBox, style.btnSecandary,]}>
             <View style={[AppStyles.mt20, AppStyles.ml20,]}>
             <View style={AppStyles.flexRowSpaceBetween}>
-              <Text style={[AppStyles.txtBlackBold, AppStyles.mb10, AppStyles.f16]}>Delivery Address</Text>
-              <View style={[AppStyles.mr10]}>
-              <Checkbox
-                disabled={false}
-                value={true}
-                tintColors={{ true: Colors.mango, false: '#777' }}
-                onValueChange={(newValue) => console.log(newValue)}
-              />
-              </View>
+              <Text style={[AppStyles.txtBlackBold, AppStyles.mb10, AppStyles.f17]}>Delivery Address</Text>
+              <TouchableOpacity 
+                onPress={handelNewAddress} 
+                style={[AppStyles.mr20]}>
+              <Text style={[AppStyles.txtmangoTwoRegular, AppStyles.f11]}>Edit</Text>
+              </TouchableOpacity>
             </View>
             <View>
-              <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f16]}>1812, Building no. 2</Text>
-              <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f16]}>Bajranga Hills</Text>
-              <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f16]}>Hyderabad (TN)</Text>
+            <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f16]}>{Address}</Text>
+              <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f16]}>{Landmark}</Text>
+              <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f16]}>{City} {PinCode}</Text>
             </View>
           </View>
           </View>
           </View>
+
+            }
+         
+          </View>
+
+          {timeSlot === '' ?
           <View style={[Styles.addressBox, style.btnSecandary, AppStyles.mt20,]}>
             <View style={[AppStyles.mt20, AppStyles.ml20,]}>
-          <TouchableOpacity 
-            onPress={handelNewAddress}
-            style={[AppStyles.flexRowAlignCenter]}>
-            <FAIcon name={'plus'} size={20} color={Colors.mango} />
-            <Text style={[AppStyles.ml10, AppStyles.txtBlackBold, AppStyles.f16]}>Add New Address</Text>
-          </TouchableOpacity>
+                <TouchableOpacity 
+                  onPress={handelTimeSlot}
+                  style={[AppStyles.flexRowAlignCenter]}>
+                  <FAIcon name={'plus'} size={20} color={Colors.mango} />
+                  <Text style={[AppStyles.ml10, AppStyles.txtBlackBold, AppStyles.f16]}>Add Time Slot</Text>
+                </TouchableOpacity>
+            </View>
           </View>
-          </View>
-          <View style={[Styles.addressBox, style.btnSecandary, AppStyles.mt20,]}>
+          :
+          <View style={[AppStyles.mt20]}>
+          <View style={[Styles.dateBox, style.btnSecandary,]}>
             <View style={[AppStyles.mt20, AppStyles.ml20,]}>
-          <TouchableOpacity 
-           onPress={handelTimeSlot}
-           style={[AppStyles.flexRowAlignCenter]}>
-            <FAIcon name={'plus'} size={20} color={Colors.mango} />
-            <Text style={[AppStyles.ml10, AppStyles.txtBlackBold, AppStyles.f16]}>Add Time Slot</Text>
-          </TouchableOpacity>
+            <View style={AppStyles.flexRowSpaceBetween}>
+              <Text style={[AppStyles.txtBlackBold, AppStyles.mb10, AppStyles.f17]}>Date & Time</Text>
+              <TouchableOpacity 
+                onPress={handelTimeSlot} 
+              style={[AppStyles.mr20]}>
+              <Text style={[AppStyles.txtmangoTwoRegular, AppStyles.f11]}>Edit</Text>
+              </TouchableOpacity>
+            </View>
+            <View>
+              <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f15]}>{date}</Text>
+              <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f15]}>{time}</Text>
+            </View>
           </View>
           </View>
+          </View>
+          }
         </View>
       </View>
       <View style={[AppStyles.flexRowSpaceBetween, AppStyles.w100, AppStyles.ph20, AppStyles.alignCenter]}>
         <View style={AppStyles.ph10}>
           <Text style={[AppStyles.f12, AppStyles.txtPrimaryBold]}>ESTIMATED PRICE</Text>
           <Text style={AppStyles.txtBlackRegular}>
-            <FAIcon size={14} name="rupee" /> 6000
-          </Text>
+            <FAIcon size={14} name="rupee" /> {getQuoteData().price}</Text>
         </View>
         <View>
           <TouchableOpacity
+          onPress = {() => _addSchedule()}
             style={[AppStyles.br10, AppStyles.btnPrimary, AppStyles.pv10, AppStyles.alignCenter, AppStyles.ph40]}
            >
             <Text style={[AppStyles.txtWhiteRegular, AppStyles.f18]}>CONFIRM</Text>

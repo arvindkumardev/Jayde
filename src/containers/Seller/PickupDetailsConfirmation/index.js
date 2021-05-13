@@ -43,6 +43,7 @@ const PickupDetailsConfirmation = () => {
           </View>
           </View>
 
+         
           <View style={[AppStyles.mt20]}>
           <View style={[Styles.dateBox, style.btnSecandary,]}>
             <View style={[AppStyles.mt20, AppStyles.ml20,]}>

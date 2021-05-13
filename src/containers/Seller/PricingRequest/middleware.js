@@ -1,5 +1,5 @@
 import useAxios from 'axios-hooks';
-import { GET_SUB_CATEGORY, GET_UNITS, CREATE_QUOTE } from '../../../utils/urls';
+import { GET_SUB_CATEGORY, GET_UNITS, CREATE_QUOTE, ADD_SCHEDULE } from '../../../utils/urls';
 
 const getSubCategories = () => {
   return useAxios(
@@ -34,4 +34,16 @@ const getUnits = () => {
   );
 };
 
-export { getSubCategories, getUnits, createQuote };
+const addSchedule = () => {
+  return useAxios(
+    {
+      url: ADD_SCHEDULE,
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+    },
+    { manual: true }
+  );
+}
+
+
+export { getSubCategories, getUnits, createQuote, addSchedule };

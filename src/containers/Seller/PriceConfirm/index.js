@@ -5,7 +5,7 @@ import FAIcon from "react-native-vector-icons/FontAwesome";
 import Styles from "./styles";
 import NavigationRouteNames from '../../../routes/ScreenNames';
 import { Fonts, Colors, AppStyles } from '../../../theme';
-import {getSubCategoryName, getLocation, getQuantity, getUnitName, getEstimatedPrice}  from '../../../utils/Global'
+import {getQuoteData}  from '../../../utils/Global'
 
 
 const PriceConfirm = () => {
@@ -49,7 +49,7 @@ const PriceConfirm = () => {
               <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f16]}>Subcategory</Text>
             </View>
             <View style={AppStyles.flexpointfour}>
-              <Text style={[AppStyles.txtBlackRegular, AppStyles.f16]}>{getSubCategoryName()}</Text>
+              <Text style={[AppStyles.txtBlackRegular, AppStyles.f16]}>{getQuoteData().sub_category_name}</Text>
             </View>
           </View>
           <View style={AppStyles.flexRowSpaceBetween}>
@@ -57,7 +57,7 @@ const PriceConfirm = () => {
               <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f16]}>Location</Text>
             </View>
             <View style={AppStyles.flexpointfour}>
-              <Text style={[AppStyles.txtBlackRegular, AppStyles.f16]}>{getLocation()}</Text>
+              <Text style={[AppStyles.txtBlackRegular, AppStyles.f16]}>{getQuoteData().location}</Text>
             </View>
           </View>
           <View style={AppStyles.flexRowSpaceBetween}>
@@ -65,7 +65,7 @@ const PriceConfirm = () => {
               <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f16]}>Volume</Text>
             </View>
             <View style={AppStyles.flexpointfour}>
-              <Text style={[AppStyles.txtBlackRegular, AppStyles.f16]}>{getQuantity()} {getUnitName()}</Text>
+              <Text style={[AppStyles.txtBlackRegular, AppStyles.f16]}>{getQuoteData().qty} {getQuoteData().unit_name}</Text>
             </View>
           </View>
           <View style={Styles.totalPriceContainer}>
@@ -74,7 +74,7 @@ const PriceConfirm = () => {
             </View>
             <View style={AppStyles.flexpointfour}>
               <Text style={[AppStyles.txtBlackBold, AppStyles.f16, Styles.estPrice]}>
-                <FAIcon size={14} name="rupee" /> {getEstimatedPrice()}
+                <FAIcon size={14} name="rupee" /> {getQuoteData().price}
               </Text>
             </View>
           </View>

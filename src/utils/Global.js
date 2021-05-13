@@ -1,15 +1,21 @@
+/* eslint-disable prettier/prettier */
+/* eslint-disable no-underscore-dangle */
+/* eslint-disable global-require */
+
 export const GlobalData = {
     CategoryName: '',
-    subCategoryName: 'axz',
+    
+    subCategoryName: '',
     subCategoryId: 0,
 
     unitID: 0,
-    unitName: 'aaaa',
+    unitName: '',
 
-    location : 'uyuyu',
+    location : '',
     Volume:10,
     uploadImageName: '',
-    EstimatedPrice: 2000
+    EstimatedPrice: 2000,
+    quoteDetails : ''
 }
 
 /**
@@ -110,4 +116,16 @@ export function getImageName() {
 
 export function getEstimatedPrice() {
     return GlobalData.EstimatedPrice;
+}
+
+
+/**
+ * function to set and get Estimated Price
+ */
+ export function setQuoteData(value) {
+    GlobalData.quoteDetails = value;
+}
+
+export function getQuoteData() {
+    return GlobalData.quoteDetails;
 }

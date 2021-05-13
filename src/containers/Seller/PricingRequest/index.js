@@ -14,7 +14,7 @@ import UserContext from '../../../appContainer/context/user.context';
 import MIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import CustomText from '../../../components/CustomText';
 import {alertBox, RfH, RfW, isValidVolume} from '../../../utils/helpers';
-import {setSubCategory, setSubCategoryId, setLocation, setQuantity, setImageName, setUnit, setUnitId} from '../../../utils/Global'
+import {setQuoteData, setImageName} from '../../../utils/Global'
 
 
 function PricingRequest() {
@@ -29,10 +29,6 @@ function PricingRequest() {
   const [{ data: quoteData, loading, error }, onSubmitQuote] = createQuote();
 
   const [categoryId, setCategoryId] = useState(0);
-  // const [subCategoryId, setSubCategoryId] = useState('');
-  // const [volume, setVolume] = useState('');
-  // const [location, setLocation] = useState('');
-  // const [unit, setUnit] = useState('');
   const [titleName, setTitleName] = useState('');
   const [quotestatus, setquotestatus] = useState("");
   const [clickConfirm, setClickConfirm] = useState(false);
@@ -91,15 +87,6 @@ function PricingRequest() {
 
   const handleConfirm = async (subCategoryId, volume, unit, location) => {   
 
-     // Save Global
-     setImageName(fileName);
-     setLocation(location);
-     setUnit(unitName);
-     setUnitId(unit);
-     setSubCategory(subCategoryName);
-     setSubCategoryId(subCategoryId);
-     setQuantity(volume);
-
     const {data} = await onSubmitQuote({
       data: {
         primeId: 0,
@@ -112,9 +99,11 @@ function PricingRequest() {
       },
     });
 
+    // Save Global
+    setImageName(fileName);
+    setQuoteData(data.data.quoteDetails)
 
-    
-    console.log(data)
+    console.log(data.data.quoteDetails)
     if(data.status){
       handleGetQuote()
     } else {
@@ -187,7 +176,7 @@ function PricingRequest() {
           <Text style={[AppStyles.txtBlackRegular, AppStyles.f16, AppStyles.mb10]}>Please choose a sub category</Text>
           <DropDown
             items={subCategories}
-            itemStyle={{ color: '#000' }}
+            //itemStyle={{ color: '#000' }}
             onValueChange = {onChangeCategory}                      
             selectedValue={requestForm.values.category}
             containerStyle={{ borderRadius: 10, backgroundColor: Colors.grayTwo, paddingLeft: 10 }}
@@ -228,7 +217,7 @@ function PricingRequest() {
               <DropDown
                 items={unitPickerData}
                 placeholderText="Units"
-                itemStyle={{ color: '#000' }}
+                //itemStyle={{ color: '#000' }}
                 onValueChange = {onChangeUnit}               
                 selectedValue={requestForm.values.unit}
                 containerStyle={{ borderRadius: 10, backgroundColor: Colors.grayTwo, paddingLeft: 10 }}

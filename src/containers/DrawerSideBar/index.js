@@ -1,4 +1,6 @@
 /* eslint-disable prettier/prettier */
+/* eslint-disable no-underscore-dangle */
+/* eslint-disable global-require */
 import React, { useContext, useEffect, useState } from 'react';
 import { FlatList, View, Text, TouchableOpacity, Image, ScrollView} from 'react-native';
 import FAIcon from "react-native-vector-icons/FontAwesome";
