@@ -8,8 +8,8 @@ import { View, Text, TouchableOpacity } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import FAIcon from 'react-native-vector-icons/FontAwesome';
 import Checkbox from '@react-native-community/checkbox';
-import style from "../../../theme/Styles/container";
-import Styles from "./styles";
+import style from '../../../theme/Styles/container';
+import Styles from './styles';
 import {getQuoteData}  from '../../../utils/Global'
 
 import NavigationRouteNames from '../../../routes/ScreenNames';
@@ -17,6 +17,8 @@ import { Colors, AppStyles } from '../../../theme';
 
 import {addSchedule } from './../PricingRequest/middleware';
 import UserContext from '../../../appContainer/context/user.context';
+import { removeData, getGreeting, getSaveData } from '../../../utils/helpers';
+import { LOCAL_STORAGE_DATA_KEY } from '../../../utils/constants';
 
 const AddressConfirm = () => {
   const navigation = useNavigation();
@@ -25,6 +27,7 @@ const AddressConfirm = () => {
 
   const [addressData, setAddress] = useState('')
   const [timeSlot, setTimeSlot] = useState('')
+  const [btnConfirm, setBtnConfirm]  = useState(false)
 
   const [{ data: scheduleData, loading, error }, onAddSchedule] = addSchedule();
 
@@ -32,9 +35,23 @@ const AddressConfirm = () => {
   const {date, time} = timeSlot
 
   useEffect(() => {
+    async function getUserAddress () {
+      const userAddress = await getSaveData (LOCAL_STORAGE_DATA_KEY.USER_ADDRESS);       
+        if(userAddress){      
+          setAddress(JSON.parse(userAddress))
+          console.log(userAddress)  
+        }
+    }
+    getUserAddress();
+  }, []);
+
+  useEffect(() => {
     setLoader(loading);
   }, [scheduleData, loading]);
 
+  useEffect(() => {
+    addressData !== '' && timeSlot !=='' ?   setBtnConfirm(true): setBtnConfirm(true)
+  },[addressData, timeSlot])
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -62,17 +79,17 @@ const AddressConfirm = () => {
   const _addSchedule = async () => { 
      const {data} = await onAddSchedule({
        data: {
-        "address": "H.No. 212, Block D-23, Dwarka",
-        "landmark": "Near Transformor",
-        "city": "New Delhi",
-        "pinCode":"110002",
-        "contact": "TestName",
-        "mobile": "9324234234",
-        "scheduleDate": "2021-05-14",
-        "scheduleTime": "",
-        "timeSlot": "11:00 AM  1:00 PM",
-        "orderIds": 1234,
-        "aggregator":"Earthbox"
+        'address': 'H.No. 212, Block D-23, Dwarka',
+        'landmark': 'Near Transformor',
+        'city': 'New Delhi',
+        'pinCode':'110002',
+        'contact': 'TestName',
+        'mobile': '9324234234',
+        'scheduleDate': '2021-05-14',
+        'scheduleTime': '',
+        'timeSlot': '11:00 AM  1:00 PM',
+        'orderIds': 1234,
+        'aggregator':'Earthbox'
        },
      });
 
@@ -185,12 +202,13 @@ const AddressConfirm = () => {
         <View style={AppStyles.ph10}>
           <Text style={[AppStyles.f12, AppStyles.txtPrimaryBold]}>ESTIMATED PRICE</Text>
           <Text style={AppStyles.txtBlackRegular}>
-            <FAIcon size={14} name="rupee" /> {getQuoteData().price}</Text>
+            <FAIcon size={14} name='rupee' /> {getQuoteData().price}</Text>
         </View>
         <View>
           <TouchableOpacity
+          disabled = {btnConfirm ? false : true}
           onPress = {() => _addSchedule()}
-            style={[AppStyles.br10, AppStyles.btnPrimary, AppStyles.pv10, AppStyles.alignCenter, AppStyles.ph40]}
+            style={[AppStyles.br10, btnConfirm ? AppStyles.btnPrimary: AppStyles.btnSecandary, AppStyles.pv10, AppStyles.alignCenter, AppStyles.ph40]}
            >
             <Text style={[AppStyles.txtWhiteRegular, AppStyles.f18]}>CONFIRM</Text>
           </TouchableOpacity>

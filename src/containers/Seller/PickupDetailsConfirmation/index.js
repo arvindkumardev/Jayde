@@ -3,7 +3,7 @@ import { View, Text, TouchableOpacity } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import FAIcon from 'react-native-vector-icons/FontAwesome';
 import style from "../../../theme/Styles/container";
-import Styles from "./styles";
+import Styles from './styles';
 
 import NavigationRouteNames from '../../../routes/ScreenNames';
 import { Colors, AppStyles } from '../../../theme';
