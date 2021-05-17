@@ -20,6 +20,9 @@ import AddressConfirm from "../containers/Seller/AddressConfirm/index";
 import PickupDetails from "../containers/Seller/PickupDetails/index";
 import CallRequest from "../containers/Seller/CallRequest/index";
 import OrderType from "../containers/Seller/OrderType/index";
+import SellerMyOrder from "../containers/Seller/MyOrder/index";
+import SellerOrderDetail from "../containers/Seller/MyOrderDetail/index";
+
 import PickupDetailsConfirmation from "../containers/Seller/PickupDetailsConfirmation";
 import Dashboard from "../containers/Dashboard/index";
 import PaymentVerification from "../containers/PaymentVerification";
@@ -157,12 +160,28 @@ const AppStack = (props) => {
             component={PriceConfirm}
             options={CommonHeaderStyle}
           />
+
           <Stack.Screen
             component={OrderType}
             name={NavigationRouteNames.NEW_ORDER}
             initialParams={{ title: "Paper Waste" }}
             options={NoTitleHeader}
           />
+
+           {/* Order List Screen number: 21*/}
+           <Stack.Screen
+            name={NavigationRouteNames.SELLER_MY_ORDER}
+            component={SellerMyOrder}
+            options={CommonHeaderStyle}
+          />
+
+            {/* View Order Screen number: 20*/}
+            <Stack.Screen
+            name={NavigationRouteNames.SELLER_ORDER_DETAIL}
+            component={SellerOrderDetail}
+            options={CommonHeaderStyle}
+          />
+
           {/* Screen - 16 */}
           <Stack.Screen
             name={NavigationRouteNames.NEW_ORDER_REQUEST}

@@ -1,6 +1,8 @@
 import React, {useContext, useEffect, useState, useLayoutEffect} from 'react';
 import * as Alert from 'react-native';
 import {Platform, TouchableOpacity, View, Text, ScrollView} from 'react-native';
+import FAIcon from 'react-native-vector-icons/FontAwesome';
+
 import Styles from "./styles";
 import NavigationRouteNames from '../../routes/ScreenNames';
 import {useNavigation} from '@react-navigation/core';
@@ -113,7 +115,10 @@ function ViewNewOrder() {
         <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f15, AppStyles.mt10, AppStyles.ml20]}>Purchase Amount</Text>
         </View>
         <View style={[AppStyles.flexpointfour, AppStyles.alignfend]}>
-        <Text style={[AppStyles.txtBlackRegular, AppStyles.f15, AppStyles.mt10, AppStyles.mr20]}>₹ {item.price}</Text>
+        <View style = {[AppStyles.flexRowAlignCenter, AppStyles.mt10, AppStyles.mr20]}>
+              <FAIcon size={14} name='rupee'></FAIcon>
+              <Text style={[AppStyles.txtBlackRegular, AppStyles.f15, AppStyles.ml5 ]}>{item.price}</Text> 
+            </View>
         </View>
         </View>
 

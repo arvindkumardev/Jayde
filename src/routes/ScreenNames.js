@@ -39,6 +39,9 @@ const NavigationRouteNames = {
   PICKUPDETAILS_CONFIRMATION:"PickupDetailsConfirmation",
 
   NEW_ORDER: "OrderType",
+  SELLER_MY_ORDER: 'SellerMyOrder',
+  SELLER_ORDER_DETAIL: 'SellerOrderDetail',
+
   ASSIGN_ORDER: "OrderAssign",
   SIGNUP: "SignUp",
   LOGIN_WITH_EMAIL: "LoginWithEmail",

@@ -19,7 +19,7 @@ const GALLERY = 2;
 const FILE = 3;
 
 function UploadDocument(props) {
-    const { isVisible, handleClose, isPhotoPickerVisible, isFilePickerVisible, handleUpload, snapCount, fileName } = props;
+    const { isVisible, handleClose, isPhotoPickerVisible, isFilePickerVisible, handleUpload, snapCount, ImageData } = props;
     const [imageSet, updateImageSet] = useState([]);
     const [isPickerVisible, setPickerVisibility] = useState(true);
     const [isPreviewVisible, setPreviewVisibility] = useState(false);
@@ -53,7 +53,7 @@ function UploadDocument(props) {
         });
 
         if(!isEmpty(data)){      
-          fileName(data.filename)
+            ImageData(data)
         } else {
             alert('Something went wrong, Please try again?')
         }

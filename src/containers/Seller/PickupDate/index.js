@@ -153,7 +153,7 @@ const PickupDate = () => {
       {isEnabled == true ? 
        <View>
         <View>
-           <Text style={[[AppStyles.txtBlackRegular, AppStyles.f16, AppStyles.mb5, AppStyles.mt10]]}>Date</Text>
+           <Text style={[[AppStyles.txtBlackRegular, AppStyles.f16, AppStyles.mb5, AppStyles.mt10]]}>Pick Date</Text>
            <TouchableOpacity
             onPress = {() => showDatepicker()}
             style={[AppStyles.flexRowAlignCenter, AppStyles.btnSecandary,AppStyles.br10,AppStyles.mb10, {padding:10}]}>
@@ -172,7 +172,7 @@ const PickupDate = () => {
          </View>
         <View style={[AppStyles.mt10]}>
            <View>
-             <Text style={[AppStyles.txtBlackRegular, AppStyles.f16, AppStyles.mb5]}>Time</Text>
+             <Text style={[AppStyles.txtBlackRegular, AppStyles.f16, AppStyles.mb5]}>Pick Time Slot</Text>
            </View>
            <View style={{ flexDirection: 'row' }}>
              <View style={[AppStyles.flex1, AppStyles.pr10 ]}>

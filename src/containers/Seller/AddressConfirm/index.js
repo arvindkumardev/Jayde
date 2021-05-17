@@ -15,10 +15,11 @@ import {getQuoteData}  from '../../../utils/Global'
 import NavigationRouteNames from '../../../routes/ScreenNames';
 import { Colors, AppStyles } from '../../../theme';
 
-import {addSchedule } from './../PricingRequest/middleware';
+import {addSchedule} from './../PricingRequest/middleware';
 import UserContext from '../../../appContainer/context/user.context';
 import { removeData, getGreeting, getSaveData } from '../../../utils/helpers';
 import { LOCAL_STORAGE_DATA_KEY } from '../../../utils/constants';
+import moment from 'moment';
 
 const AddressConfirm = () => {
   const navigation = useNavigation();
@@ -26,32 +27,39 @@ const AddressConfirm = () => {
   const { setLoader } = useContext(UserContext);
 
   const [addressData, setAddress] = useState('')
+  const [userName, setUserName] = useState('')
+
   const [timeSlot, setTimeSlot] = useState('')
   const [btnConfirm, setBtnConfirm]  = useState(false)
 
-  const [{ data: scheduleData, loading, error }, onAddSchedule] = addSchedule();
+  const [{ data:scheduleData, loading, error }, onAddSchedule] = addSchedule(getQuoteData().category_name);
 
   const { Address, Landmark, PinCode, City } = addressData
   const {date, time} = timeSlot
 
   useEffect(() => {
     async function getUserAddress () {
-      const userAddress = await getSaveData (LOCAL_STORAGE_DATA_KEY.USER_ADDRESS);       
+      const userAddress = await getSaveData (LOCAL_STORAGE_DATA_KEY.USER_ADDRESS);     
         if(userAddress){      
-          setAddress(JSON.parse(userAddress))
-          console.log(userAddress)  
+          setAddress(JSON.parse(userAddress))  
+        }
+
+      const userName = await getSaveData (LOCAL_STORAGE_DATA_KEY.USER_NAME);     
+        if(userName){      
+          console.log(userName)
+          setUserName(userName)  
         }
     }
     getUserAddress();
   }, []);
 
   useEffect(() => {
-    setLoader(loading);
-  }, [scheduleData, loading]);
+    addressData !== '' && timeSlot !=='' ?   setBtnConfirm(true): setBtnConfirm(false)
+  },[addressData, timeSlot])
 
   useEffect(() => {
-    addressData !== '' && timeSlot !=='' ?   setBtnConfirm(true): setBtnConfirm(true)
-  },[addressData, timeSlot])
+    setLoader(loading)
+  }, [scheduleData, loading])
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -77,29 +85,33 @@ const AddressConfirm = () => {
   }
   
   const _addSchedule = async () => { 
-     const {data} = await onAddSchedule({
-       data: {
-        'address': 'H.No. 212, Block D-23, Dwarka',
-        'landmark': 'Near Transformor',
-        'city': 'New Delhi',
-        'pinCode':'110002',
-        'contact': 'TestName',
-        'mobile': '9324234234',
-        'scheduleDate': '2021-05-14',
-        'scheduleTime': '',
-        'timeSlot': '11:00 AM  1:00 PM',
-        'orderIds': 1234,
-        'aggregator':'Earthbox'
-       },
-     });
-
-     console.log(data)
-     if(data.status){
-      alert(data.message)
-     } else {
-       alert(data.message)
-     }  
+        let param = {
+          'address': Address,
+          'landmark': Landmark,
+          'city': City,
+          'pinCode': PinCode,
+          'contact': '',
+          'mobile': '',
+          'scheduleDate': moment(date).format('YYYY-MM-DD'),
+          'scheduleTime': '',
+          'timeSlot': time,
+          'orderIds': getQuoteData().orderId,
+          'aggregator':''
+        }
+        const {data} = await onAddSchedule({data: param})
+        console.log(data)
+        if(data.status){
+          handleConfirm()
+        } else {
+          alert(data.message)
+        }  
+      
    };
+
+   const handleConfirm = () => {
+    navigation.navigate(NavigationRouteNames.CONFIRMATION,
+      {Value: getQuoteData(), businessSubType: getQuoteData().category_name, whereFrom : NavigationRouteNames.CONFIRM_ADDRESS});
+  };
 
   return (
     <View style={[AppStyles.flex1SpaceBetween, AppStyles.pb20, style.whitebackgrnd,]}>
@@ -160,11 +172,8 @@ const AddressConfirm = () => {
           </View>
           </View>
           </View>
-
-            }
-         
+            }         
           </View>
-
           {timeSlot === '' ?
           <View style={[Styles.addressBox, style.btnSecandary, AppStyles.mt20,]}>
             <View style={[AppStyles.mt20, AppStyles.ml20,]}>
@@ -210,7 +219,7 @@ const AddressConfirm = () => {
           onPress = {() => _addSchedule()}
             style={[AppStyles.br10, btnConfirm ? AppStyles.btnPrimary: AppStyles.btnSecandary, AppStyles.pv10, AppStyles.alignCenter, AppStyles.ph40]}
            >
-            <Text style={[AppStyles.txtWhiteRegular, AppStyles.f18]}>CONFIRM</Text>
+            <Text style={[AppStyles.txtWhiteRegular, AppStyles.f18, {color: btnConfirm ? Colors.white : Colors.black} ]}>CONFIRM</Text>
           </TouchableOpacity>
         </View>
       </View>

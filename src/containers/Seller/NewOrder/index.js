@@ -11,7 +11,7 @@ const NewOrder = () => {
   const route = useRoute();
 
   const handleGetQuote = (btnstatus) => {
-    navigation.navigate(NavigationRouteNames.PRICE_REQUEST, { title: 'Paper Waste', 
+    navigation.navigate(NavigationRouteNames.PRICE_REQUEST, { title: route.params.title, 
     status:btnstatus,
     categoryId: categoryId  });
   };

@@ -39,7 +39,7 @@ const DRAWER_MENU = {
           name: 'My Orders',
           color: Colors.mango,
           iconName: 'folder',
-          screenName: ''
+          screenName: NavigationRouteNames.SELLER_MY_ORDER
       },
       {
           name: 'Users',
@@ -266,7 +266,7 @@ const USERS_ROLE_MENU = {
       menu1image: require("../assets/Images/Dashboard/Group_9551.png"),
       iconName: 'pencil',
       color: Colors.mango,
-      screenName: "",
+      screenName: NavigationRouteNames.SELLER_MY_ORDER,
     }
   ],
   admin: [

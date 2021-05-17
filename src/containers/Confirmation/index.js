@@ -20,7 +20,11 @@ function Confirmation() {
   
    const screenNavigate = () => {
     navigation.popToTop()
-    navigation.navigate(NavigationRouteNames.ADMIN_NEW_ORDER_LIST)
+    if(route.params.whereFrom === NavigationRouteNames.CONFIRM_ADDRESS){
+      navigation.navigate(NavigationRouteNames.SELLER_MY_ORDER)
+    } else if(route.params.whereFrom === NavigationRouteNames.ORDER_ASSIGN){
+      navigation.navigate(NavigationRouteNames.ADMIN_NEW_ORDER_LIST)
+    }   
   }
 
   useEffect(() => {

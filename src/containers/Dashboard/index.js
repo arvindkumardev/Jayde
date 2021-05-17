@@ -6,11 +6,26 @@ import { TouchableOpacity, View, Text, Image, FlatList, ScrollView } from 'react
 import FAIcon from 'react-native-vector-icons/FontAwesome';
 import MCIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { AppStyles, Colors } from '../../theme/index';
-import { removeData, getGreeting, getSaveData } from '../../utils/helpers';
+import { removeData, getGreeting, getSaveData, formatDisplayDate } from '../../utils/helpers';
 import { LOCAL_STORAGE_DATA_KEY } from '../../utils/constants';
 import UserContext from '../../appContainer/context/user.context';
 import { USERS_ROLE_MENU, STATUS_ICON } from '../../routes/constants';
 import Styles from './styles';
+import { getOrderList } from "./middleware";
+
+//Image
+import EWasteImg from  './../../assets/Images/NewOrderList/Group_10091.png'
+import PaperImg from  './../../assets/Images/NewOrderList/Group_10089.png'
+import PlasticImg from './../../assets/Images/NewOrderList/Group_10090.png'
+import MixWasterImg from './../../assets/Images/NewOrderList/Group_10088.png'
+
+
+const ORDER_IMAGE = {
+  'E-Waste':EWasteImg,
+   Paper: PaperImg,
+   Plastic: PlasticImg,
+  'Mix Waste':MixWasterImg,
+};
 
 const STATIC_DATA = [
   {
@@ -41,8 +56,12 @@ const STATIC_DATA = [
 
 function HomeScreen() {
   const navigation = useNavigation();
-  const { userRole, setLogin } = useContext(UserContext);
+  const { userRole, setLogin, setLoader } = useContext(UserContext);
+
   const [name,setName] = useState("");
+  const [homeOrder, setHomeOrder] = useState([]);
+  const [{ data, loading, error }, onOrderList] = getOrderList(userRole);
+
 
   useEffect(() => {
     async function getUserName () {
@@ -52,7 +71,25 @@ function HomeScreen() {
     getUserName();
   }, []);
  
+  useEffect(()=>{
+    setLoader(loading)
+    getHomeOrder();
+  },[]);
 
+  const getHomeOrder = async () => {
+    try {
+          const { data } = await onOrderList({ data: {} });         
+          if(userRole === 'seller'){
+            setHomeOrder(data.data[0].orderDetails) 
+          } else{
+            setHomeOrder(data.data[0].newOrders) 
+          }
+          setLoader(loading)            
+        }
+        catch(e){
+            console.log("Response error", e);
+        }
+  };
 
   const handleUserLogout = async () => {
     await removeData(LOCAL_STORAGE_DATA_KEY.JWT_TOKEN);
@@ -71,15 +108,16 @@ function HomeScreen() {
     return (
       <TouchableOpacity key={index} style={Styles.dataItemContainer}>
         <View style={Styles.dataImage}>
-          <Image style={Styles.dataItemImage} source={item.image} />
+        <Image source={ORDER_IMAGE[item.category_name]}  /> 
         </View>
         <View style={[Styles.dataItemContent, AppStyles.ml10]}>
-          <Text style={[AppStyles.txtBlackRegular, AppStyles.f17]}>{item.orderid}</Text>
-          <Text style={[AppStyles.txtBlackRegular, AppStyles.f15]}>{item.name}</Text>
-          <Text style={[AppStyles.txtBlackRegular, AppStyles.f12]}>{item.date}</Text>
+          <Text style={[AppStyles.txtBlackRegular, AppStyles.f17]}>{item.order_no}</Text>
+          <Text style={[AppStyles.txtBlackRegular, AppStyles.f15]}>{item.qty} {item.unit_name} {item.category_name}</Text>
+          <Text style={[AppStyles.txtBlackRegular, AppStyles.f12]}>{formatDisplayDate(item.pickup_date)}</Text>
         </View>
         <View style={Styles.statusIcon}>
-          <FAIcon name={STATUS_ICON[item.status].iconName} color={STATUS_ICON[item.status].color} size={20} />
+          <FAIcon name={STATUS_ICON[item.is_confirmed === '3' ? 'Pending' : item.is_confirmed === '4' ? 'Completed' : 'In Transit'].iconName} 
+          color={STATUS_ICON[item.is_confirmed === '3' ? 'Pending' : item.is_confirmed === '4' ? 'Completed' : 'In Transit'].color} size={20} />
           <Text style={[AppStyles.txtBlackRegular]}>{item.status}</Text>
         </View>
       </TouchableOpacity>
@@ -130,7 +168,13 @@ function HomeScreen() {
       <View style={[AppStyles.pl30, AppStyles.mt20]}>
         <Text style={[AppStyles.txtBlackBold, AppStyles.f20]}>Current Orders</Text>
       </View>
-      <FlatList data={STATIC_DATA} renderItem={({ index, item }) => _renderData(index, item)} />
+      
+      <FlatList data={homeOrder}
+       renderItem={({ index, item }) => _renderData(index, item)}
+       extraData = {useState}
+       removeClippedSubviews={Platform.OS === 'android' && true}
+       numColumns={1}
+       keyExtractor={(_, index) => `${index}1`} />
     </ScrollView>
   );
 }

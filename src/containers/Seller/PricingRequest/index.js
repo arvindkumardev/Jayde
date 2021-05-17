@@ -20,13 +20,14 @@ import {setQuoteData, setImageName} from '../../../utils/Global'
 function PricingRequest() {
   const navigation = useNavigation();
   const { setLoader } = useContext(UserContext);
-  const route = useRoute();``
+  const route = useRoute();
+  const [category, setCategory] = useState('')
   const [imageUpload, setImageUpload] = useState(false);
   const [subCategories, setSubCategoryes] = useState([]);
   const [unitPickerData, setUnitData] = useState([]);
   const [{ data: subData }, onGetSubCategories] = getSubCategories();
   const [{ data: unitsData }, onGetUnits] = getUnits();
-  const [{ data: quoteData, loading, error }, onSubmitQuote] = createQuote();
+  const [{ data: quoteData, loading, error }, onSubmitQuote] = createQuote(category);
 
   const [categoryId, setCategoryId] = useState(0);
   const [titleName, setTitleName] = useState('');
@@ -34,7 +35,7 @@ function PricingRequest() {
   const [clickConfirm, setClickConfirm] = useState(false);
   const [subCategoryName, setSubCategoryName] = useState('');
   const [unitName, setUnitName] = useState('');
-  const [fileName, setFileName] = useState('')
+  const [imgData, setImageData] = useState([])
 
 
   useEffect(() => {
@@ -52,22 +53,14 @@ function PricingRequest() {
     }
   }, [unitsData]);
 
-  // useEffect(() => {
-  //   setLoader(quoteProgress);
-  // }, [quoteProgress]);
-  // const handleGetQuote = () => {
-  //   navigation.navigate(NavigationRouteNames.PRICE_CONFIRM);
-  // };
-
+ 
   useEffect(() => {
     setLoader(loading);
     if (quoteData && quoteData.status) {
-      // alert('Quote');
     }
   }, [quoteData, loading]);
 
   const handleGetQuote = () => {
-    // console.log("abc",unit);
     navigation.navigate(NavigationRouteNames.PRICE_CONFIRM, { title: titleName,
        status:quotestatus, Location: requestForm.values.location, Unit: unitName,
         Volume: requestForm.values.volume, subCategoryName : subCategoryName});
@@ -77,6 +70,7 @@ function PricingRequest() {
     const { title, categoryId } = route.params;
     const { status } = route.params;
     setquotestatus(status);
+    setCategory(title)
     onGetSubCategories({ data: { id: categoryId } });
     onGetUnits();
     setCategoryId(categoryId);
@@ -87,6 +81,9 @@ function PricingRequest() {
 
   const handleConfirm = async (subCategoryId, volume, unit, location) => {   
 
+    if(imgData.length === 0)
+    return
+
     const {data} = await onSubmitQuote({
       data: {
         primeId: 0,
@@ -95,15 +92,15 @@ function PricingRequest() {
         qty: volume,
         unit,
         location,
-        uploaded_files: fileName,
+        uploaded_files: imgData,
       },
     });
-
+    console.log(data.data.quoteDetails)
     // Save Global
-    setImageName(fileName);
+    setImageName(imgData);
     setQuoteData(data.data.quoteDetails)
 
-    console.log(data.data.quoteDetails)
+    
     if(data.status){
       handleGetQuote()
     } else {
@@ -117,8 +114,7 @@ function PricingRequest() {
       "Please provide valid volume",
       (value) => isValidVolume(value),
     ),
-    category: Yup.string().required("Please select Item"),
-    //volume: Yup.string().required("Please provide volume"),
+    category: Yup.string().required("Please select Item"),   
     unit: Yup.string().required("Please select unit"),
     location: Yup.string().required("Please provide location"),
   });
@@ -162,6 +158,14 @@ function PricingRequest() {
    requestForm.setFieldValue('unit', id)
  }
 
+ const ImageData = (data) => {
+   if(data){
+    let listData = imgData;          
+    let data1 = listData.concat(data);
+    setImageData([...data1]); 
+   }
+ }
+
   return (
     <KeyboardAwareScrollView
       removeClippedSubviews = {true}
@@ -172,7 +176,7 @@ function PricingRequest() {
         <View style={AppStyles.alignCenter}>
           <Text style={[AppStyles.txtBlackBold, AppStyles.f18]}>Get Quote</Text>
         </View>
-        <View style={[AppStyles.mt20]}>
+        <View style={[AppStyles.mt15]}>
           <Text style={[AppStyles.txtBlackRegular, AppStyles.f16, AppStyles.mb10]}>Please choose a sub category</Text>
           <DropDown
             items={subCategories}
@@ -190,7 +194,7 @@ function PricingRequest() {
               </CustomText>
                 ) : null}
         </View>
-        <View style={[AppStyles.mt20]}>
+        <View style={[AppStyles.mt15]}>
           <View>
             <Text style={[AppStyles.txtBlackRegular, AppStyles.f16, AppStyles.mb10]}>Volume</Text>
           </View>
@@ -234,7 +238,7 @@ function PricingRequest() {
             </View>
           </View>
         </View>
-        <View style={[AppStyles.mt20]}>
+        <View style={[AppStyles.mt15]}>
           <View>
             <Text style={[AppStyles.txtBlackRegular, AppStyles.f16, AppStyles.mb10]}>Add Location</Text>
           </View>
@@ -255,7 +259,7 @@ function PricingRequest() {
                 ) : null}
           </View>
         </View>
-        <View style={[AppStyles.mt20]}>
+        <View style={[AppStyles.mt15]}>
           <View>
             <Text style={[AppStyles.txtBlackRegular, AppStyles.f16, AppStyles.mb10]}>Add Picture</Text>
           </View>
@@ -264,14 +268,20 @@ function PricingRequest() {
               onPress={() => setImageUpload(!imageUpload)}
               style={[AppStyles.pv10, { backgroundColor: Colors.grayTwo }, AppStyles.alignCenter, AppStyles.inputIcon,]}>
               {/* <FAIcon name="photo" size={25} /> */}
-              <Text style={[AppStyles.txtSecandaryRegular, {color: fileName == '' ? Colors.warmGrey : Colors.green}]}>{fileName == '' ?'Attach File': 'File Attached' }</Text>
-              <MIcon name="attachment" size={25} color={Colors.grayThree} />
-              {/* <Text style={Styles.txtFileUpload}>Select file</Text>
-            <MIcon name="attachment" size={25} color={Colors.grayThree} /> */}
+              <Text style={[AppStyles.txtSecandaryRegular, {color: imgData.length > 0 ?  Colors.green : Colors.warmGrey}]}>{imgData.length > 0 ? 'File Attached' : 'Attach File' }</Text>
+              <MIcon name="attachment" size={25} color={Colors.grayThree} />            
             </TouchableOpacity>
+            {clickConfirm && imgData.length === 0 ? (
+              <CustomText
+                fontSize={15}
+                color={Colors.red}
+                styling={{marginTop: RfH(10)}}>
+                Upload Picture
+              </CustomText>
+                ) : null}
             <UploadDocument handleClose={() => setImageUpload(false)} 
             isVisible={imageUpload}
-            fileName = {setFileName} />
+            ImageData = {ImageData} />
           </View>
         </View>
       </View>

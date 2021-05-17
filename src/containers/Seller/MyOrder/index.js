@@ -1,12 +1,12 @@
 
 import React, {useContext, useEffect, useState, useLayoutEffect} from 'react';
-import {View, Text, Image, FlatList, ScrollView, TouchableOpacity, ActivityIndicator} from 'react-native';
-import Styles from "./styles";
+import {View, Text, Image, FlatList, TouchableOpacity, ActivityIndicator} from 'react-native';
+import Styles from "./../MyOrder/styles";
 import NavigationRouteNames from '../../../routes/ScreenNames';
 import {useNavigation} from '@react-navigation/core';
 import {useRoute} from '@react-navigation/native';
 import { AppStyles } from '../../../theme';
-import { adminNewOrder } from "../../../services/middleware/user";
+import { MyOrder } from "./../PricingRequest/middleware";
 
 import UserContext from '../../../appContainer/context/user.context';
 import moment from 'moment';
@@ -27,12 +27,12 @@ const ORDER_IMAGE = {
   'Mix Waste':MixWasterImg,
 };
 
-function AdminNewOrderList() {
+function SellerMyOrder() {
    const navigation = useNavigation();
    const route = useRoute();
 
   const { setLoader } = useContext(UserContext);
-  const [arraydata, setarraydata]=useState([])
+  const [orderList, setOrderList] = useState([])
 
   const [offset, setOffset] = useState(1);
   const [loadMore, setLoadMore] = useState(false);
@@ -40,30 +40,25 @@ function AdminNewOrderList() {
   const [totalCount, setTotalCount] = useState(5)
   const [perPage, setPerPage] = useState(5)
 
-  const [{ data, loading, error }, onAdminNewOrder] = adminNewOrder(offset);
+  const [{ data, loading, error }, onMyOrder] = MyOrder(offset);
   
    const screenNavigate = (item) => {
-    {item.is_confirmed  == 3 ?
-    navigation.navigate(NavigationRouteNames.ORDER_ASSIGN, {Value : item, getActionType : getActionType})
-    : 
-    navigation.navigate(NavigationRouteNames.ADMIN_NEW_ORDER, {Item : item, getActionType : getActionType})
-    }
+     navigation.navigate(NavigationRouteNames.SELLER_ORDER_DETAIL, {Item : item, getActionType : getActionType})
   }
 
   const getActionType = async () => {
-    setarraydata([])
+    setOrderList([])
     triggerNewOrder()
   }
   const triggerNewOrder = async () => {
     try {
-            const { data } = await onAdminNewOrder({ data: {} });
-            console.log("Response :", data.data[0].newOrders)        
-              setPerPage(data.data[0].links.per_page)
-              setTotalCount(data.data[0].links.total_count)
-              setarraydata(data.data[0].newOrders)          
-              setLoader(false)     
-              setOffset(offset + perPage);
-              triggerLoadMore();           
+            const { data } = await onMyOrder({ data: {} });
+            console.log("Response :", data.data[0].orderDetails)        
+            setPerPage(data.data[0].links.per_page)
+            setTotalCount(data.data[0].links.total_count)
+            setOrderList(data.data[0].orderDetails)          
+            setLoader(false)     
+            setOffset(offset + perPage);                     
         }
         catch(e){
             console.log("Response error", e);
@@ -72,11 +67,11 @@ function AdminNewOrderList() {
 
   const triggerLoadMore = async () => {
     try {
-            const { data } = await onAdminNewOrder({ data: {} });                     
-            let listData = arraydata;          
-            let data1 = listData.concat(data.data[0].newOrders);
+            const { data } = await onMyOrder({ data: {} });                     
+            let listData = orderList;          
+            let data1 = listData.concat(data.data[0].orderDetails);
             setLoadMore(false);
-            setarraydata([...data1]);                       
+            setOrderList([...data1]);                       
           }
         catch(e){
             console.log("Response error", e);
@@ -90,7 +85,7 @@ function AdminNewOrderList() {
 
 
   useLayoutEffect(() => {
-   const title='New Orders';
+   const title='My Orders';
    navigation.setOptions({title});}, []);
 
    const loadMoreResults = async info => {
@@ -115,6 +110,7 @@ function AdminNewOrderList() {
         
        <View style={[AppStyles.flexDir, AppStyles.mt20,]}>
          <View style={[AppStyles.flexpointtwo, AppStyles.ml14]}>
+
           <View>
           <Image source={ORDER_IMAGE[item.category_name]}  /> 
           </View> 
@@ -155,8 +151,9 @@ function AdminNewOrderList() {
   return (
     <View style = {Styles.mainView}>      
        <FlatList
-       style = {{flex:1}}
-        data={arraydata}
+        style = {AppStyles.flex1}
+        data={orderList}
+        showsVerticalScrollIndicator = {false}
         renderItem={({ index, item }) =>
           _RenderItem(index, item) 
         }
@@ -173,4 +170,4 @@ function AdminNewOrderList() {
     </View>
   );
 }
-export default AdminNewOrderList;
+export default SellerMyOrder;

@@ -43,7 +43,8 @@ function OrderAssign() {
    const route = useRoute();
   
    const screenNavigate = () => {
-    navigation.navigate(NavigationRouteNames.CONFIRMATION, {Value: item, businessSubType: aggregatorVendorName });
+    navigation.navigate(NavigationRouteNames.CONFIRMATION,
+       {Value: item, businessSubType: aggregatorVendorName,  whereFrom : NavigationRouteNames.ORDER_ASSIGN });
   }
 
   useEffect(() => {

@@ -6,6 +6,8 @@ import DeviceInfo from 'react-native-device-info';
 import {Colors, Images} from '../theme';
 import aes from 'aes-js';
 import NavigationRouteNames from '../routes/ScreenNames';
+import moment from 'moment';
+
 
 export const storeData = async (key, value) => {
   try {
@@ -277,3 +279,7 @@ export const getMainModuleScreenName =(module)=>{
   //     return '';
   // }
 };
+
+export const formatDisplayDate = (value) => {
+  return moment(value).format('DD-MMM-YYYY')
+} 

@@ -262,7 +262,7 @@ const getAddress = (lat, lang) => {
       'PinCode' : pincode,
       'Landmark' : landMark
     }
-    await storeData(LOCAL_STORAGE_DATA_KEY.USER_ADDRESS, JSON.stringify(addressData));
+    await storeData(LOCAL_STORAGE_DATA_KEY.USER_ADDRESS, addressData);
     route.params.getReturnAddress(addressData)
     navigation.goBack()
   }
