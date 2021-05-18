@@ -19,7 +19,9 @@ import Checkbox from "@react-native-community/checkbox";
 import moment from 'moment';
 import MIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { UploadDocument } from '../../components/index';
-
+import DateTimePicker from '@react-native-community/datetimepicker';
+import { useFormik } from "formik";
+import * as Yup from "yup";
 
 const PaymentVerification = () => {
   const navigation = useNavigation();
@@ -47,7 +49,127 @@ const PaymentVerification = () => {
   const [slipNumber,setSlipNumber] = useState("");
   const [item, setItem] = useState({});
   const [imageUpload, setImageUpload] = useState(false);
+
+  const [customDate, setCustomDate] = useState(moment(new Date()).add(1, 'days').format('DD-MM-YYYY'));
+  const [fromTime, setFromTime] = useState(moment(new Date()).format('hh:mm A'))
+  const [toTime, setToTime] = useState(moment(new Date()).add(1, 'hours').format('hh:mm A'))
+  const [pickerIndex, setPickerIndex] = useState() 
+
+  const [mode, setMode] = useState('date');
+  const [show, setShow] = useState(false);
+
+  const [isEnabled, setIsEnabled] = useState(false);
+  const [timeSlotIndex, setTimeSlotIndex] = useState('')
+  const [clickConfirm, setClickConfirm] = useState(false);
+  const [clickConfirm1, setClickConfirm1] = useState(false);
+  const [clickConfirm2, setClickConfirm2] = useState(false);
+
+  useEffect(() => {
+    setTimeSlotIndex('')
+  }, [isEnabled])
+
+  const showMode = (currentMode) => {
+    setShow(true);
+    setMode(currentMode);
+  };
+
+  const showDatepicker = () => {  
+    setPickerIndex(0) 
+    showMode('date');
+  };
+
+  const showTimepicker = (index) => {
+    setPickerIndex(index) 
+    showMode('time');
+  };
+
+  const onChange = (event, selectedDate) => {  
+    setShow(false);     
+    if(selectedDate){
+      if(pickerIndex === 0){
+        setCustomDate(moment(selectedDate).format('DD-MM-YYYY'));
+      } else if(pickerIndex === 1) {
+        setFromTime(moment(selectedDate).format('hh:mm A'));
+      } else if(pickerIndex === 2) {
+        setToTime(moment(selectedDate).format('hh:mm A'));
+      }
+      //setShow(Platform.OS === 'ios');   
+    } else {
+    }  
+  };
+
+  const validationSchema = Yup.object().shape({
+    kantaslipno: Yup.string().required("Please Provide Kanta Slip Number"),
+  });
   
+  const requestForm = useFormik({
+    validateOnChange: true,
+    validateOnBlur: true,
+    initialValues: {
+      kantaslipno : '',
+    },
+    validationSchema,
+    onSubmit: () => handleConfirm(
+      requestForm.values.kantaslipno,
+    )
+  }); 
+
+  const validationSchema1 = Yup.object().shape({
+    Proposekantaslipno: Yup.string().required("Please Provide Kanta Slip Numberdfdfdf"),
+  });
+  
+  const requestForm1 = useFormik({
+    validateOnChange: true,
+    validateOnBlur: true,
+    initialValues: {
+      Proposekantaslipno : '',
+    },
+    validationSchema1,
+    onSubmit: () => handleConfirm1(
+      requestForm1.values.Proposekantaslipno,
+    )
+  }); 
+
+  const validationSchema2 = Yup.object().shape({
+    PaymentRequired: Yup.string().required("Please Provide Payment"),
+    PaymentMade: Yup.string().required("Please Provide Payment Details"),
+    PaymentMode: Yup.string().required("Please Provide Payment Mode Details"),
+    PaymentDetails: Yup.string().required("Please Provide Payment Details"),
+  });
+  
+  const requestForm2 = useFormik({
+    validateOnChange: true,
+    validateOnBlur: true,
+    initialValues: {
+      PaymentRequired : '',
+      PaymentMade : '',
+      PaymentMode : '',
+      PaymentDetails : '',
+    },
+    validationSchema2,
+    onSubmit: () => handleConfirm(
+      requestForm2.values.PaymentRequired,
+      requestForm2.values.PaymentMade,
+      requestForm2.values.PaymentMode,
+      requestForm2.values.PaymentDetails,
+    )
+  }); 
+
+  const submitPayment = async () => {
+    setClickConfirm2(true)
+    await requestForm2.submitForm();
+  }
+
+  const submitproposeweight = async () => {
+    // alert("hi");
+    setClickConfirm1(true)
+    await requestForm1.submitForm();
+  }
+
+  const handelSubmitQuote = async () => {
+    setClickConfirm(true)
+    await requestForm.submitForm();
+  }
 
   const onShowCamera = () => {
     console.log(showCamera);
@@ -91,8 +213,8 @@ const PaymentVerification = () => {
   };
 
   useLayoutEffect(() => {
-    const { Item } = route.params;  
-    setItem(Item)   
+     const { Item } = route.params;  
+     setItem(Item)   
     const title='Order Details';
    navigation.setOptions({
     title,
@@ -100,7 +222,11 @@ const PaymentVerification = () => {
   }, []);
 
   const handleConfirm = () => {
-    navigation.navigate(NavigationRouteNames.CONFIRMATION);
+    // navigation.navigate(NavigationRouteNames.CONFIRMATION);
+  };
+
+  const handleConfirm1 = () => {
+    // navigation.navigate(NavigationRouteNames.CONFIRMATION);
   };
 
   const selectedCheckbox = (rememberMe) => {
@@ -270,45 +396,49 @@ const PaymentVerification = () => {
              {shouldShow3 == true ? (
              <View>
 
-{/* <View style={Styles.viewVolume}>
-                <Text style={Styles.inputLabelText}>Enter New Volume</Text>
-                <View style={Styles.viewVolumeInputContainer}>
-                  <TextInput
-                    placeholder={"Enter Volume"}
-                    style={[Styles.inputText, Styles.locationTxt]}
-                  />
-                  <DropDownPicker
-                    items={[
-                      { label: "USA", value: "usa", hidden: true },
-                      { label: "Units", value: "0" },
-                      { label: "France", value: "france" },
-                    ]}
-                    defaultValue={'0'}
-                    globalTextStyle={Styles.dropDownText}
-                    containerStyle={{ height: 45, flex: 2 }}
-                    style={{ backgroundColor: "#e4e4e4" }}
-                    itemStyle={{
-                      justifyContent: "flex-start",
-                    }}
-                    dropDownStyle={{ backgroundColor: "#fafafa" }}
-                    onChangeItem={(item) => console.log(item)}
-                  />
-              </View>
-           </View> */}
-
-                        <View style={{ marginTop: 20 }}>
+                <View style={{ marginTop: 20 }}>
+                  <View>
                   <Text style={Styles.inputLabelText}>Kanta Slip Number</Text>
-                  <TextInput placeholder={"Slip Number"} style={Styles.inputText} />
+                  </View>
+                  {/* <TextInput placeholder={"Slip Number"} style={Styles.inputText} /> */}
+                  <View>
+            <TextInput
+              value={requestForm.values.kantaslipno}
+              placeholder="Slip Number"
+              onChangeText={(txt) => requestForm.setFieldValue('kantaslipno', txt)}
+              style={{ backgroundColor: Colors.grayTwo, borderRadius: 10, paddingLeft: 10 }}
+            />
+             {clickConfirm && requestForm.errors.kantaslipno ? ( 
+              <CustomText
+                fontSize={15}
+                color={Colors.red}
+                styling={{marginTop: RfH(10)}}>
+                {requestForm.errors.kantaslipno}
+                {/* hhfhh */}
+              </CustomText>
+             ) : null} 
+              </View>
                 </View>
 
                 <View style={[style.flexDir,, Styles.viewVolume]}>
                 <View style={style.flex1}>
                   <Text style={Styles.inputLabelText}>Date</Text>
                   <View style={Styles.viewVolumeInputContainerK}>
-                    <TextInput
-                      placeholder={"dd/mm/yyyy"}
-                      style={[Styles.inputText]}
-                    />
+                      <TouchableOpacity
+                  onPress = {() => showDatepicker()}
+                  style={[AppStyles.flexRowAlignCenter, AppStyles.btnSecandary,AppStyles.br10,AppStyles.mb10, {padding:10}]}>
+                <FAIcon size={22} name='calendar-o' color = {Colors.mangoTwo} />
+                <Text style={[[AppStyles.txtBlackRegular, AppStyles.f16, AppStyles.pl20]]}>{customDate}</Text>
+                </TouchableOpacity>
+                {show && ( <DateTimePicker
+                    testID="dateTimePicker"
+                    value={new Date()}
+                    minimumDate = {new Date(moment(new Date()).add(1, 'days').format('YYYY-MM-DD'))}
+                    mode={mode}
+                    is24Hour={false}
+                    display="default"
+                    onChange={onChange}
+                  />)}
                   </View> 
                   </View>
                   <View style={[style.flex1, AppStyles.ml10]}>
@@ -336,9 +466,11 @@ const PaymentVerification = () => {
                       </View>
                       <View style={style.flex1}>
                       <View style={{ marginTop: RfH(10), marginTop: 5, marginBottom: 25 }}>
-                        <TouchableOpacity style={Styles.confirmButton} onPress={() => {setSelected(true)   
-       setRememberMe(!rememberMe)
-       setSlipNumber("")
+                        <TouchableOpacity style={Styles.confirmButton} onPress={() => {
+        setSelected(true)   
+        setRememberMe(!rememberMe)
+        setSlipNumber("")
+       handelSubmitQuote()
       }}>
                           <Text style={Styles.confirmBtnText}>CONFIRM</Text>
                         </TouchableOpacity>
@@ -375,23 +507,47 @@ const PaymentVerification = () => {
            </View>
 
               <View style={{ marginTop: 20 }}>
+                <View>
         <Text style={Styles.inputLabelText}>Kanta Slip Number</Text>
-        <TextInput placeholder={"Slip Number"} style={Styles.inputText} 
-        value={slipNumber}
-        onChangeText={(text) => setSlipNumber(text)} 
-        />
+        </View>
+         <View>
+            <TextInput
+              value={requestForm1.values.Proposekantaslipno}
+              placeholder="Slip Number"
+              onChangeText={(txt) => requestForm1.setFieldValue('Proposekantaslipno', txt)}
+              style={{ backgroundColor: Colors.grayTwo, borderRadius: 10, paddingLeft: 10 }}
+            />
+               {clickConfirm1 && requestForm1.errors.Proposekantaslipno ? (  
+              <CustomText
+                fontSize={15}
+                color={Colors.red}
+                styling={{marginTop: RfH(10)}}>
+                {requestForm1.errors.Proposekantaslipno}
+                {/* hhfhh */}
+              </CustomText>
+               ) : null}    
+              </View>
       </View>
 
       <View style={[style.flexDir,, Styles.viewVolume]}>
       <View style={style.flex1}>
         <Text style={Styles.inputLabelText}>Date</Text>
         <View style={Styles.viewVolumeInputContainerK}>
-          <TextInput
-            placeholder={"dd/mm/yyyy"}
-            style={[Styles.inputText, Styles.locationTxt]}
-            value={""}
-            onChangeText1={""}
-          />
+          <TouchableOpacity
+                  onPress = {() => showDatepicker()}
+                  style={[AppStyles.flexRowAlignCenter, AppStyles.btnSecandary,AppStyles.br10,AppStyles.mb10, {padding:10}]}>
+                <FAIcon size={22} name='calendar-o' color = {Colors.mangoTwo} />
+                <Text style={[[AppStyles.txtBlackRegular, AppStyles.f16, AppStyles.pl20]]}>{customDate}</Text>
+                </TouchableOpacity>
+                {show && ( <DateTimePicker
+                    testID="dateTimePicker"
+                    value={new Date()}
+                    minimumDate = {new Date(moment(new Date()).add(1, 'days').format('YYYY-MM-DD'))}
+                    mode={mode}
+                    is24Hour={false}
+                    display="default"
+                    onChange={onChange}
+                  />)}
         </View> 
         </View>
         <View style={[style.flex1, AppStyles.ml10]}>
@@ -417,9 +573,11 @@ const PaymentVerification = () => {
             </View>
             <View style={style.flex1}>
             <View style={{ marginTop: RfH(10), marginTop: 5, marginBottom: 25 }}>
-              <TouchableOpacity style={Styles.confirmButton} onPress={() => {setSelected(true)   
-       setRememberMe(!rememberMe)
-       setSlipNumber("")
+              <TouchableOpacity style={Styles.confirmButton} onPress={() => {
+        setSelected(true)   
+        setRememberMe(!rememberMe)
+        setSlipNumber("")
+       submitproposeweight()
       }}>
                 <Text style={Styles.confirmBtnText}>CONFIRM</Text>
               </TouchableOpacity>
@@ -470,7 +628,22 @@ const PaymentVerification = () => {
     <Text style={[Appstyles.txtSecandaryRegular, Appstyles.f11,  AppStyle.ml30, AppStyle.mt5]}>enter value</Text>
     </View>
     </View>
-    <TextInput placeholder={"25,864"} style={Styles.inputText} />
+    {/* <TextInput placeholder={"25,864"} style={Styles.inputText} /> */}
+    <TextInput
+              value={requestForm2.values.PaymentMade}
+              placeholder="Slip Number"
+              onChangeText={(txt) => requestForm2.setFieldValue('PaymentMade', txt)}
+              style={{ backgroundColor: Colors.grayTwo, borderRadius: 10, paddingLeft: 10 }}
+            />
+             {clickConfirm2 && requestForm2.errors.PaymentMade ? ( 
+              <CustomText
+                fontSize={15}
+                color={Colors.red}
+                styling={{marginTop: RfH(10)}}>
+                {requestForm2.errors.PaymentMade}
+                {/* hhfhh */}
+              </CustomText>
+             ) : null} 
   </View>
 
   <View style={[AppStyle.mt20,]}>
@@ -519,7 +692,10 @@ const PaymentVerification = () => {
   </View>
   <View style={style.flex1}>
   <View style={{ marginTop: RfH(10), marginTop: 5, marginBottom: 25 }}>
-    <TouchableOpacity style={Styles.confirmButton} onPress={() => setShouldShow6(!shouldShow6)}>
+    <TouchableOpacity style={Styles.confirmButton} onPress={() => {
+      setShouldShow6(!shouldShow6)
+      submitPayment()
+    }}>
       <Text style={Styles.confirmBtnText}>CONFIRM</Text>
     </TouchableOpacity>
   </View>
@@ -572,15 +748,27 @@ const PaymentVerification = () => {
                 <View style={style.flex1}>
                   <Text style={Styles.inputLabelText}>Date</Text>
                   <View style={Styles.viewVolumeInputContainerDate}>
-                    <TextInput
-                      placeholder={"dd/mm/yyyy"}
-                      style={[Styles.inputText, Styles.locationTxtStyle]}
-                    />
+                   
+                      <TouchableOpacity
+                        onPress = {() => showDatepicker()}
+                        style={[AppStyles.flexRowAlignCenter, AppStyles.btnSecandary,AppStyles.br10,AppStyles.mb10, {padding:10}]}>
+                      <FAIcon size={22} name='calendar-o' color = {Colors.mangoTwo} />
+                      <Text style={[[AppStyles.txtBlackRegular, AppStyles.f16, AppStyles.pl20]]}>{customDate}</Text>
+                      </TouchableOpacity>
+                      {show && ( <DateTimePicker
+                          testID="dateTimePicker"
+                          value={new Date()}
+                          minimumDate = {new Date(moment(new Date()).add(1, 'days').format('YYYY-MM-DD'))}
+                          mode={mode}
+                          is24Hour={false}
+                          display="default"
+                          onChange={onChange}
+                        />)}
                   </View> 
                   </View>
                   <View style={[style.flex1, AppStyle.ml10]}>
                   <Text style={Styles.inputLabelText}>Upload Documents</Text>
-                  <View style={Styles.viewVolumeInputContainerDate}>
+                  <View style={Styles.viewVolumeInputContainerK}>
                   <TouchableOpacity style={[Styles.inputText, Styles.inputIcon, AppStyles.br10]} onPress={() => setImageUpload(!imageUpload)}>
                     <Text style={Styles.txtFileUpload}>Upload file</Text>
                     <MIcon name="attachment" size={25} color={Colors.grayThree} />

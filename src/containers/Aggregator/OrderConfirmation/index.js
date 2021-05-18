@@ -11,8 +11,6 @@ import {useNavigation} from '@react-navigation/core';
 import {useRoute} from '@react-navigation/native';
 import { AppStyles } from '../../../theme';
 import moment from 'moment';
-import { confirmSchedule } from './middleware';
-import UserContext from '../../../appContainer/context/user.context';
 import FAIcon from 'react-native-vector-icons/FontAwesome';
 
 
@@ -21,14 +19,13 @@ function OrderConfirmation() {
    const navigation = useNavigation();
    const route = useRoute();
    const [item, setItem] = useState({});
-   const [{ data: quoteData, loading, error }, onSubmitQuote] = confirmSchedule();
 
    const rejectOrder = () => {
     navigation.navigate(NavigationRouteNames.REJECT_ORDER, {Item : item});
   }
 
   const proposeTime = () => {
-    navigation.navigate(NavigationRouteNames.PROPOSE_TIME);
+    navigation.navigate(NavigationRouteNames.PROPOSE_TIME, {Item : item});
   }
 
   const screenNavigate = () => {
@@ -43,24 +40,6 @@ function OrderConfirmation() {
     title,
   });
   }, []);
-
-  const handleConfirm = async (item) => {   
-
-   const {data} = await onSubmitQuote({
-     data: {
-       assignedId: item.assigned_id,
-       scheduleDate: item.pickup_date,
-       timeslot: item.time_slot,
-     },
-   });
-   
-   console.log(data)
-   if(data.status){
-    screenNavigate()
-   } else {
-     alert(data.message)
-   }  
- };
   
   return (
     <View style={Styles.topView}>
@@ -130,11 +109,11 @@ function OrderConfirmation() {
 
        <View style={Styles.btnContainer}>
        <TouchableOpacity
-           style={Styles.confirmbtn} onPress = {() => handleConfirm(item)}>
+           style={Styles.confirmbtn} onPress = {() => screenNavigate(item)}>
            <Text style={[Appstyles.txtWhiteRegular, Appstyles.f17, Appstyles.textalig, AppStyle.mt10]}>CONFIRM SCHEDULE</Text>
          </TouchableOpacity>
          <TouchableOpacity
-           style={[Styles.proposebtn]} onPress = {() => proposeTime()}>
+           style={[Styles.proposebtn]} onPress = {() => proposeTime(item)}>
            <Text style={[Appstyles.txtPrimaryRegular, Appstyles.f17, Appstyles.textalig, AppStyle.mt10]}>PROPOSE NEW TIME</Text>
          </TouchableOpacity>
          <TouchableOpacity

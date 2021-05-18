@@ -13,8 +13,3 @@ const confirmSchedule = () => {
 };
 
 export { confirmSchedule };
-
-
-
-
-

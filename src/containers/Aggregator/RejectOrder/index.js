@@ -18,7 +18,7 @@ function RejectOrder() {
   const [reason, setReason] = useState('');
 
    const screenNavigate = () => {
-    navigation.navigate(NavigationRouteNames.ORDER_CONFIRMATION);
+    navigation.navigate(NavigationRouteNames.ORDERS);
   }
 
   useLayoutEffect(() => { 
@@ -34,15 +34,15 @@ function RejectOrder() {
 
     const {data} = await onSubmitQuote({
       data: {
-        orderId: item.orderId,
-        // reason: reason,
+        assignedId: item.assigned_id,
+        feedback: reason,
       },
     });
     
     console.log(data)
     if(data.status){
       alert(data.message)
-    //  screenNavigate()
+      screenNavigate()
     } else {
       alert(data.message)
     }  
