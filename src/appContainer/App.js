@@ -47,7 +47,7 @@ axios.interceptors.request.use(
 
 axios.interceptors.response.use(
   (data) => {
-    console.log("Response ", data);
+    console.log("Response URL", data.config.url);
     return data;
   },
   (error) => Promise.reject(error),

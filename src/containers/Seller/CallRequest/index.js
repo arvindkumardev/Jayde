@@ -1,8 +1,9 @@
-import React, { useState, useLayoutEffect } from 'react';
+import React, { useState, useLayoutEffect, useEffect, useContext } from 'react';
 import { View, Text, TouchableOpacity, TextInput } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import * as Yup from "yup";
 import { useFormik } from "formik";
+import { requestCallBack } from './../PricingRequest/middleware';
 
 import MIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
@@ -11,8 +12,12 @@ import NavigationRouteNames from '../../../routes/ScreenNames';
 import { Colors, AppStyles } from '../../../theme';
 import { UploadDocument } from '../../../components/index';
 import CustomText from '../../../components/CustomText';
-import {alertBox, RfH, RfW, isValidVolume} from '../../../utils/helpers';
+import {alertBox, RfH, RfW, getSaveData} from '../../../utils/helpers';
+import { LOCAL_STORAGE_DATA_KEY } from '../../../utils/constants';
+
 import moment from 'moment';
+import UserContext from '../../../appContainer/context/user.context';
+import {getQuoteData} from '../../../utils/Global'
 
 const CallRequest = () => {
   const navigation = useNavigation();
@@ -20,10 +25,18 @@ const CallRequest = () => {
   const [imageUpload, setImageUpload] = useState(false);
   const [clickConfirm, setClickConfirm] = useState(false);
   const [timeSlotIndex, setTimeSlotIndex] = useState(0)
+  const { setLoader } = useContext(UserContext);
+  const [imgData, setImageData] = useState([])
 
-  const handleSchedulePickup = () => {
+  const [{ data: callBackData, loading, error }, onRequestCallBack] = requestCallBack();
+
+  const handelCallBackConfirmation = () => {
     navigation.navigate(NavigationRouteNames.CALLBACK_CONFIRMATION);
   };
+
+  useEffect(() => {
+    setLoader(loading)
+  },[callBackData, loading])
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -61,8 +74,33 @@ const CallRequest = () => {
     await requestForm.submitForm();
   };
 
-  const handleSubmit = (contactPerson, contactNumber) => {
-   
+  const handleSubmit = async (contactPerson, contactNumber) => {
+    
+    var param = {          
+      "userId": getQuoteData().user_id,     
+      "contactName": contactPerson,
+      "contactNumber": contactNumber,
+      "fileName" : imgData,
+      "scheduleDate": timeSlotIndex > 1 ? getAfterDay_Formatted () : getDayAfter_Formatted(),
+      "scheduleTime": timeSlotIndex == 0 ? '11:00 AM - 1:00 PM' 
+      : timeSlotIndex == 1 ? '3:00 PM - 5:00 PM'
+      : timeSlotIndex == 2 ? '11:00 AM - 1:00 PM'
+      : '3:00 PM - 5:00 PM'  
+    }
+    console.log(param) 
+
+    if(imgData.length === 0)
+      return
+
+    const {data} = await onRequestCallBack({
+      data: param,
+    });
+    console.log(data)    
+    if(data.status){
+      handelCallBackConfirmation()
+    } else {
+      alert(data.message)
+    }  
   }
 
   const getDayAfter = () => {
@@ -74,6 +112,34 @@ const CallRequest = () => {
     let afterDay = moment(new Date()).add(2, 'days').format('DD-MM-YYYY')
     return afterDay
   }
+
+  const getDayAfter_Formatted = () => {
+    let dayAfter = moment(new Date()).add(1, 'days').format('YYYY-MM-DD')
+    return dayAfter
+  }
+
+  const getAfterDay_Formatted = () => {
+    let afterDay = moment(new Date()).add(2, 'days').format('YYYY-MM-DD')
+    return afterDay
+  }
+
+  const ImageData = (data) => {
+    if(data){
+     let listData = imgData;          
+     let data1 = listData.concat(data);
+     setImageData([...data1]); 
+    }
+  }
+
+  useEffect(() => {
+    async function getUserName () {     
+      const userName = await getSaveData (LOCAL_STORAGE_DATA_KEY.USER_NAME);     
+        if(userName){      
+          requestForm.setFieldValue("contactPerson", userName)
+        }
+    }
+    getUserName();
+  }, []);
 
   return (
     <KeyboardAwareScrollView style={Styles.mainContainer}>
@@ -131,10 +197,22 @@ const CallRequest = () => {
         <View>
           <Text style={[AppStyles.txtBlackRegular, AppStyles.f16, AppStyles.mb10]}>Upload File</Text>
           <TouchableOpacity style={[Styles.inputText, Styles.inputIcon, AppStyles.br10]} onPress={() => setImageUpload(!imageUpload)}>
-            <Text style={Styles.txtFileUpload}>Select file</Text>
+            <Text style={[AppStyles.txtSecandaryRegular, {color: imgData.length > 0 ?  Colors.green : Colors.warmGrey}]}>{imgData.length > 0 ? 'File Attached' : 'Attach File' }</Text>
             <MIcon name="attachment" size={25} color={Colors.grayThree} />
           </TouchableOpacity>
-          <UploadDocument handleClose={() => setImageUpload(false)} 
+
+          {clickConfirm && imgData.length === 0 ? (
+              <CustomText
+                fontSize={15}
+                color={Colors.red}
+                styling={{marginTop: RfH(10)}}>
+                Upload Picture
+              </CustomText>
+                ) : null}
+
+          <UploadDocument 
+          handleClose={() => setImageUpload(false)}
+          ImageData = {ImageData} 
           isVisible={imageUpload} />
         </View>
       </View>
@@ -144,25 +222,25 @@ const CallRequest = () => {
           onPress = {() => setTimeSlotIndex(0)} 
           style={[AppStyles.pv15, AppStyles.ph20, AppStyles.flexRowSpaceBetween, timeSlotIndex == 0 &&  Styles.active]}>
             <Text style={AppStyles.txtBlackRegular}>{getDayAfter()}</Text>
-            <Text style={AppStyles.txtBlackRegular}>11:00 am - 1:00 PM</Text>
+            <Text style={AppStyles.txtBlackRegular}>11:00 AM - 1:00 PM</Text>
         </TouchableOpacity>
         <TouchableOpacity 
           onPress = {() => setTimeSlotIndex(1)}
           style={[AppStyles.pv15, AppStyles.ph20, AppStyles.flexRowSpaceBetween, timeSlotIndex == 1 &&  Styles.active]}>
             <Text style={AppStyles.txtBlackRegular}>{getDayAfter()}</Text>
-            <Text style={AppStyles.txtBlackRegular}>3:00 pm - 5:00 pm</Text>
+            <Text style={AppStyles.txtBlackRegular}>3:00 PM - 5:00 PM</Text>
         </TouchableOpacity>
         <TouchableOpacity 
           onPress = {() => setTimeSlotIndex(2)}
           style={[AppStyles.pv15, AppStyles.ph20, AppStyles.flexRowSpaceBetween, timeSlotIndex == 2 &&  Styles.active]}>
             <Text style={AppStyles.txtBlackRegular}>{getAfterDay()}</Text>
-            <Text style={AppStyles.txtBlackRegular}>11:00 am - 1:00 PM</Text>
+            <Text style={AppStyles.txtBlackRegular}>11:00 AM - 1:00 PM</Text>
         </TouchableOpacity>
         <TouchableOpacity 
           onPress = {() => setTimeSlotIndex(3)}
           style={[AppStyles.pv15, AppStyles.ph20, AppStyles.flexRowSpaceBetween, timeSlotIndex == 3 &&  Styles.active]}>
             <Text style={AppStyles.txtBlackRegular}>{getAfterDay()}</Text>
-            <Text style={AppStyles.txtBlackRegular}>3:00 pm - 5:00 pm</Text>
+            <Text style={AppStyles.txtBlackRegular}>3:00 PM - 5:00 PM</Text>
         </TouchableOpacity>
       </View>
       

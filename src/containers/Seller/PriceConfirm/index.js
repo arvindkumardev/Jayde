@@ -6,16 +6,19 @@ import Styles from "./styles";
 import NavigationRouteNames from '../../../routes/ScreenNames';
 import { Fonts, Colors, AppStyles } from '../../../theme';
 import {getQuoteData}  from '../../../utils/Global'
+import {createQuote, addOrder } from './../PricingRequest/middleware';
+import UserContext from '../../../appContainer/context/user.context';
 
 
 const PriceConfirm = () => {
   const navigation = useNavigation();
   const route = useRoute();
   const [schedulePick, setSchedulePick] = useState("");
-  const [location, setLocation] = useState('');
-  const [unit, setUnit] = useState('');
-  const [volume, setVolume] = useState('');
-  const [subCategoryName, setSubCategoryName] = useState('')
+  const { setLoader } = useContext(UserContext);
+
+  const [{ data: quoteData, loading, error }, onSubmitQuote] = createQuote(getQuoteData().category_name);
+  const [{ data: orderData, loading: orderLoading }, onAddOrder] = addOrder(getQuoteData().category_name);
+
 
   useLayoutEffect(() => {
     const { title } = route.params;
@@ -30,12 +33,64 @@ const PriceConfirm = () => {
     setSchedulePick("1");
   };
 
-  const handleREQUESTCALLBACK = () => {
-    navigation.navigate(NavigationRouteNames.CALL_REQUEST);
+  useEffect(() => {
+    setLoader(loading);
+    if (quoteData && quoteData.status) {
+    }
+  }, [quoteData, loading]);
+
+  useEffect(() => {
+    setLoader(orderLoading);   
+  }, [orderData, orderLoading]);
+
+  const handleREQUESTCALLBACK = async () => {
+    if(route.params.status === '1'){
+        const {data} = await onSubmitQuote({
+          data: {
+            primeId: 0,
+            category_id: getQuoteData().category_id,
+            sub_category_id: getQuoteData().sub_category_id,
+            qty: getQuoteData().qty,
+            unit : getQuoteData().unit,
+            location : getQuoteData().location,
+            uploaded_files: '',
+          },
+        });
+        console.log(data.data)     
+        if(data.status){
+          navigation.navigate(NavigationRouteNames.CALL_REQUEST);
+        } else {
+          alert(data.message)
+        }  
+    } else {
+        navigation.navigate(NavigationRouteNames.CALL_REQUEST);
+    }
   };
-  const handleSchedulePickup = () => {
-    navigation.navigate(NavigationRouteNames.CONFIRM_ADDRESS);
+
+  const handleSchedulePickup = async () => {
+    if(route.params.status === '0'){
+      const {data} = await onAddOrder({
+        data: {
+          primeId: 0,
+          category_id: getQuoteData().category_id,
+          sub_category_id: getQuoteData().sub_category_id,
+          qty: getQuoteData().qty,
+          unit : getQuoteData().unit,
+          location : getQuoteData().location,            
+        },
+      });
+      console.log(data.data)    
+      if(data.status){
+        navigation.navigate(NavigationRouteNames.CONFIRM_ADDRESS);
+      } else {
+        alert(data.message)
+      } 
+    } else{
+      navigation.navigate(NavigationRouteNames.CONFIRM_ADDRESS);
+    }
   };
+
+
 
   return (
     <View style={[Styles.screenContainer,]}>

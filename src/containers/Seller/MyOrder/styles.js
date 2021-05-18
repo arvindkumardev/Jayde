@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
   confirmBtn: {
     borderRadius: 10,
     backgroundColor: Colors.mangoTwo,
-    width: 54,
+    width: 66,
     height: 23,
     justifyContent: 'center',
     marginLeft: 5,
