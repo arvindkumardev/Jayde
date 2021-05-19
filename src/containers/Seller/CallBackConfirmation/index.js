@@ -39,7 +39,9 @@ function CallBackConfirmation() {
       
 
              <View style={[style.flex1, AppStyles.aligncen]}>
-              <TouchableOpacity style={[AppStyle.mt50, Styles.buttonsize, AppStyles.aligncen, style.br10,  style.btnPrimary]} onPress={() => {screenNavigate()}}>
+              <TouchableOpacity 
+              style={[AppStyle.mt50, Styles.buttonsize, AppStyles.aligncen, style.br10,  style.btnPrimary]}
+               onPress={() => {screenNavigate()}}>
                   <Text style={[AppStyles.f17, style.whitecolor, AppStyle.mt10,]}>BACK</Text>
               </TouchableOpacity>
              </View>

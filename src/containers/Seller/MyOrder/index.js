@@ -7,6 +7,7 @@ import {useNavigation} from '@react-navigation/core';
 import {useRoute} from '@react-navigation/native';
 import { AppStyles } from '../../../theme';
 import { MyOrder } from "./../PricingRequest/middleware";
+import Colors from '../../../theme/Colors';
 
 import UserContext from '../../../appContainer/context/user.context';
 import moment from 'moment';
@@ -34,11 +35,13 @@ function SellerMyOrder() {
   const { setLoader } = useContext(UserContext);
   const [orderList, setOrderList] = useState([])
 
-  const [offset, setOffset] = useState(1);
+  const [offset, setOffset] = useState(0);
   const [loadMore, setLoadMore] = useState(false);
 
   const [totalCount, setTotalCount] = useState(5)
-  const [perPage, setPerPage] = useState(5)
+  const [perPage, setPerPage] = useState(0)
+
+  const [refreshPage, setRefreshPage] = useState(false)
 
   const [{ data, loading, error }, onMyOrder] = MyOrder(offset);
   
@@ -46,19 +49,20 @@ function SellerMyOrder() {
      navigation.navigate(NavigationRouteNames.SELLER_ORDER_DETAIL, {Item : item, getActionType : getActionType})
   }
 
-  const getActionType = async () => {
-    setOrderList([])
-    triggerNewOrder()
+  const getActionType = () => {
+    setOffset(0)
+    setPerPage(0)
+    setRefreshPage(true)
   }
   const triggerNewOrder = async () => {
     try {
             const { data } = await onMyOrder({ data: {} });
-            console.log("Response :", data.data[0].orderDetails)        
+            //console.log("Response :", data.data[0].orderDetails)        
             setPerPage(data.data[0].links.per_page)
             setTotalCount(data.data[0].links.total_count)
             setOrderList(data.data[0].orderDetails)          
             setLoader(false)     
-            setOffset(offset + perPage);                     
+            setOffset(offset + data.data[0].links.per_page);                     
         }
         catch(e){
             console.log("Response error", e);
@@ -71,6 +75,7 @@ function SellerMyOrder() {
             let listData = orderList;          
             let data1 = listData.concat(data.data[0].orderDetails);
             setLoadMore(false);
+            //setOrderList( orderList =>  [...orderList, data.data[0].orderDetails])
             setOrderList([...data1]);                       
           }
         catch(e){
@@ -82,6 +87,15 @@ function SellerMyOrder() {
     setLoader(true)
     triggerNewOrder();
   },[]);
+
+  useEffect(() => {   
+    if(refreshPage){
+      setOrderList([])
+      setLoader(true)
+      triggerNewOrder()
+      setRefreshPage(false)
+    }
+  }, [refreshPage])
 
 
   useLayoutEffect(() => {
@@ -101,7 +115,27 @@ function SellerMyOrder() {
     triggerLoadMore();
  }
 
+ const getButtonText = (item) => {
+  
+  if(item.assigned_status== 2){
+		return 'Rescheduled';
+  } else if(item.proposed_weight_confirm == 2){
+	  return 'New Weight Proposed';
+  } else if(item.is_seller_confirmed == 2){
+    return 'Confirm Payment';
+  } else if(item.pickup_confirmed == 1){
+    return 'COMPLETED';
+  } else if(item.is_confirmed == 2){
+    return 'SCHEDULED';
+  } else if(item.is_confirmed == 3){
+    return 'ACCEPTED';
+  } else if(item.is_confirmed == 4){
+    return 'Rejected';
+  }
+ }
+
   const _RenderItem = (index, item) => {
+    var btnText = getButtonText(item)
     return (
       <TouchableOpacity 
       key = {index}
@@ -120,33 +154,26 @@ function SellerMyOrder() {
          <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f15,]}>{item.qty} {item.unit_name} {item.category_name}</Text>
          <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f11,]}>{moment(item.pickup_date).format('DD-MMM-YY')}</Text>
          </View>
-         <View style={[AppStyles.flexpointthree, AppStyles.ml35]}>
-         <TouchableOpacity 
-         onPress = {() => screenNavigate(item)}
-         style={Styles.confirmBtn}>
-          <Text style={[AppStyles.txtWhiteRegular, AppStyles.f11,
-           AppStyles.textalig,]}>{item.is_confirmed  == 2 ? 'ASSIGN' : 'VIEW'}</Text>
-        </TouchableOpacity>
-        {item.is_confirmed  == 4 ? 
-          <View style={AppStyles.mr20}>
-            <Image style={[AppStyles.ml24, AppStyles.mt10]} 
-            source={CompletedImg}  /> 
-            <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f11, AppStyles.ml5]}>Completed</Text>
-          </View> : item.is_confirmed  == 3 && 
-          <View>
-            <Image style={[AppStyles.ml24, AppStyles.mt10]} 
-            source={PendingImg}  /> 
-            <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f11, AppStyles.ml10]}>Pending</Text>
-          </View> 
-          }
+         
+        <View style={[AppStyles.flexpointthree, AppStyles.ml35, AppStyles.mr20, AppStyles.alignCenter, AppStyles.justifyCon]}>
+            <TouchableOpacity 
+            onPress = {() => screenNavigate(item)}
+            style={Styles.confirmBtn}>
+            <Text style={[AppStyles.txtWhiteRegular, AppStyles.f11,
+            AppStyles.textalig,]}>{item.assigned_status  == 2 ? 'Confirm' : 'View Order'}</Text>
+          </TouchableOpacity>         
+            <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f11,
+           AppStyles.ml5, AppStyles.mt10 , AppStyles.textalig,
+           {color : btnText === 'ACCEPTED' ? Colors.warmGrey 
+           : btnText === 'COMPLETED' ? Colors.warmGrey 
+           : btnText === 'SCHEDULED' ? Colors.warmGrey
+           : Colors.red}]}>{btnText}</Text>
          </View>
-       </View>
-
+        </View>
        </View>
        </TouchableOpacity>
         )
       }
-
   
   return (
     <View style = {Styles.mainView}>      

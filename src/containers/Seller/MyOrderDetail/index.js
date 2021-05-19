@@ -9,7 +9,7 @@ import {useNavigation} from '@react-navigation/core';
 import {useRoute} from '@react-navigation/native';
 import { AppStyles } from '../../../theme';
 import moment from 'moment';
-//import { acceptOrder, rejectOrder } from "../../services/middleware/user";
+import { confirmOrder } from "./../PricingRequest/middleware";
 import UserContext from '../../../appContainer/context/user.context';
 
 
@@ -19,51 +19,44 @@ function SellerOrderDetail() {
   const [item, setItem] = useState({});
   const { setLoader } = useContext(UserContext);
 
-  //const [{ data: acceptData }, onAcceptOrder] = acceptOrder();
+  const [{ data: rescheduleData, loading, error }, onConfirmOrder] = confirmOrder(item);
+
+  useEffect(() => {
+    setLoader(loading)
+  }, [loading,rescheduleData])
 
   useLayoutEffect(() => {
     const { Item } = route.params;  
     setItem(Item)    
 
     const title='Order Detail';
-   navigation.setOptions({
-    title,
-  });
-  }, []);
+      navigation.setOptions({
+        title,
+      });
+    }, []);
  
   const getActionType = () => {
     route.params.getActionType()
     navigation.goBack()
   };
 
-  const handelReject = async () => {
-    setLoader(true);
-    const {data} = await onRejectOrder({
-      data: {orderId: item.orderId},
+  const handleConfirm = async () => {  
+    if(item.is_seller_confirmed == 2){
+      return
+    }
+    const {data} = await onConfirmOrder({
+      data: {assignedId: item.assigned_id},
     });
     console.log(data)
     if(data.status){
-      navigation.navigate(NavigationRouteNames.ORDER_FAILED, {Value: item, getActionType: getActionType})
+      getActionType()
     } else {
       alert(data.message)
     }  
     setLoader(false);
   }
 
-  const handelAccept = async () => {
-    setLoader(true);
-    const {data} = await onAcceptOrder({
-      data: {orderId: item.orderId},
-    });
-    console.log(data)
-    if(data.status){
-      navigation.navigate(NavigationRouteNames.ORDER_ASSIGN, {Value: item})
-    } else {
-      alert(data.message)
-    }  
-    setLoader(false);
-  }
-
+ 
   return (
     <View style={Styles.mainVu}>
        <ScrollView>
@@ -73,7 +66,6 @@ function SellerOrderDetail() {
       </View>
 
       <View style={Styles.boxView}>
-
       <View style={[AppStyles.flexDir, AppStyles.mt20,]}>
           <View style={AppStyles.flexpointsix}>
           <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f15, AppStyles.ml20]}>Waste type</Text>
@@ -153,15 +145,33 @@ function SellerOrderDetail() {
       </View>
         
 
-      {item.is_confirmed  == 3 && <View style={[AppStyles.flex1, Styles.btnContainer]}>     
-      <TouchableOpacity
-            style={[AppStyles.br10, AppStyles.btnPrimary, AppStyles.pv10, AppStyles.alignCenter, AppStyles.ph40, AppStyles.mb20,]}
-            //onPress={handleConfirm}
-            >
-            <Text style={[AppStyles.txtWhiteRegular, AppStyles.f18]}>CONFIRM</Text>
-        </TouchableOpacity>
-         
-        </View>
+      {item.assigned_status  == 2 ?
+        <View style={[AppStyles.flex1, Styles.btnContainer]}>     
+          <TouchableOpacity
+              style={[AppStyles.br10, AppStyles.btnPrimary, AppStyles.pv10, AppStyles.alignCenter, AppStyles.ph40, AppStyles.mb20,]}
+              onPress={handleConfirm}
+              >
+              <Text style={[AppStyles.txtWhiteRegular, AppStyles.f18]}>CONFIRM</Text>
+          </TouchableOpacity>         
+        </View>      
+       : item.proposed_weight_confirm == 2 ?
+       <View style={[AppStyles.flex1, Styles.btnContainer]}>     
+          <TouchableOpacity
+              style={[AppStyles.br10, AppStyles.btnPrimary, AppStyles.pv10, AppStyles.alignCenter, AppStyles.ph40, AppStyles.mb20,]}
+              onPress={handleConfirm}
+              >
+              <Text style={[AppStyles.txtWhiteRegular, AppStyles.f18]}>CONFIRM</Text>
+          </TouchableOpacity>         
+        </View>       
+        : item.is_seller_confirmed == 2 &&
+        <View style={[AppStyles.flex1, Styles.btnContainer]}>     
+          <TouchableOpacity
+              style={[AppStyles.br10, AppStyles.btnPrimary, AppStyles.pv10, AppStyles.alignCenter, AppStyles.ph40, AppStyles.mb20,]}
+              onPress={handleConfirm}
+              >
+              <Text style={[AppStyles.txtWhiteRegular, AppStyles.f18]}>CONFIRM</Text>
+          </TouchableOpacity>         
+        </View>      
       }
   </ScrollView> 
         

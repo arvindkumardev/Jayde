@@ -34,7 +34,7 @@ function AdminNewOrderList() {
   const { setLoader } = useContext(UserContext);
   const [arraydata, setarraydata]=useState([])
 
-  const [offset, setOffset] = useState(1);
+  const [offset, setOffset] = useState(0);
   const [loadMore, setLoadMore] = useState(false);
 
   const [totalCount, setTotalCount] = useState(5)

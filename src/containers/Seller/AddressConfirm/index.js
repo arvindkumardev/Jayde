@@ -17,9 +17,8 @@ import { Colors, AppStyles } from '../../../theme';
 
 import {addSchedule} from './../PricingRequest/middleware';
 import UserContext from '../../../appContainer/context/user.context';
-import { removeData, getGreeting, getSaveData } from '../../../utils/helpers';
+import { getSaveData } from '../../../utils/helpers';
 import { LOCAL_STORAGE_DATA_KEY } from '../../../utils/constants';
-import moment from 'moment';
 
 const AddressConfirm = () => {
   const navigation = useNavigation();
@@ -90,22 +89,22 @@ const AddressConfirm = () => {
           'landmark': Landmark,
           'city': City,
           'pinCode': PinCode,
-          'contact': '',
+          'contact': userName,
           'mobile': '',
-          'scheduleDate': moment(date).format('YYYY-MM-DD'),
+          'scheduleDate': date,
           'scheduleTime': '',
           'timeSlot': time,
           'orderIds': getQuoteData().orderId,
           'aggregator':''
         }
+        console.log(param)
         const {data} = await onAddSchedule({data: param})
         console.log(data)
         if(data.status){
           handleConfirm()
         } else {
           alert(data.message)
-        }  
-      
+        }        
    };
 
    const handleConfirm = () => {

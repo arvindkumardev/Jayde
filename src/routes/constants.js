@@ -32,7 +32,7 @@ const DRAWER_MENU = {
           color: Colors.mango,
           iconName: 'folder-open',
           screenName: NavigationRouteNames.NEW_ORDER
-          //screenName: NavigationRouteNames.CONFIRM_ADDRESS
+         // screenName: NavigationRouteNames.CONFIRM_ADDRESS
 
       },
       {

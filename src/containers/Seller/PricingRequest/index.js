@@ -9,13 +9,12 @@ import { AppStyles, Colors } from '../../../theme';
 import NavigationRouteNames from '../../../routes/ScreenNames';
 import DropDown from '../../../components/Picker/index';
 import { UploadDocument } from '../../../components/index';
-import { getSubCategories, getUnits, createQuote } from './middleware';
+import { getSubCategories, getUnits, createQuote, addOrder } from './middleware';
 import UserContext from '../../../appContainer/context/user.context';
 import MIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import CustomText from '../../../components/CustomText';
 import {alertBox, RfH, RfW, isValidVolume} from '../../../utils/helpers';
 import {setQuoteData, setImageName} from '../../../utils/Global'
-
 
 function PricingRequest() {
   const navigation = useNavigation();
@@ -27,7 +26,10 @@ function PricingRequest() {
   const [unitPickerData, setUnitData] = useState([]);
   const [{ data: subData }, onGetSubCategories] = getSubCategories();
   const [{ data: unitsData }, onGetUnits] = getUnits();
+
   const [{ data: quoteData, loading, error }, onSubmitQuote] = createQuote(category);
+  const [{ data: orderData, loading: orderLoading }, onAddOrder] = addOrder(category);
+
 
   const [categoryId, setCategoryId] = useState(0);
   const [titleName, setTitleName] = useState('');
@@ -60,6 +62,10 @@ function PricingRequest() {
     }
   }, [quoteData, loading]);
 
+  useEffect(() => {
+    setLoader(orderLoading);   
+  }, [orderData, orderLoading]);
+
   const handleGetQuote = () => {
     navigation.navigate(NavigationRouteNames.PRICE_CONFIRM, { title: titleName,
        status:quotestatus, Location: requestForm.values.location, Unit: unitName,
@@ -81,31 +87,52 @@ function PricingRequest() {
 
   const handleConfirm = async (subCategoryId, volume, unit, location) => {   
 
-    if(imgData.length === 0)
-    return
+    if(quotestatus === '0') {
+      // if(imgData.length === 0)
+      // return
 
-    const {data} = await onSubmitQuote({
-      data: {
-        primeId: 0,
-        category_id: categoryId,
-        sub_category_id: subCategoryId,
-        qty: volume,
-        unit,
-        location,
-        uploaded_files: imgData,
-      },
-    });
-    console.log(data.data.quoteDetails)
-    // Save Global
-    setImageName(imgData);
-    setQuoteData(data.data.quoteDetails)
-
-    
-    if(data.status){
-      handleGetQuote()
+      const {data} = await onSubmitQuote({
+        data: {
+          primeId: 0,
+          category_id: categoryId,
+          sub_category_id: subCategoryId,
+          qty: volume,
+          unit,
+          location,
+          uploaded_files: imgData,
+        },
+      });
+      console.log(data.data.quoteDetails)
+      // Save Global
+      setImageName(imgData);
+      setQuoteData(data.data.quoteDetails)
+      if(data.status){
+        handleGetQuote()
+      } else {
+        alert(data.message)
+      }  
     } else {
-      alert(data.message)
-    }  
+      const {data} = await onAddOrder({
+        data: {
+          primeId: 0,
+          category_id: categoryId,
+          sub_category_id: subCategoryId,
+          qty: volume,
+          unit,
+          location         
+        },
+      });
+      console.log(data.data)
+      // Save Global
+      setImageName(imgData);
+      setQuoteData(data.data.orderDetails)
+      if(data.status){
+        handleGetQuote()
+      } else {
+        alert(data.message)
+      }  
+    }
+
   };
 
   const validationSchema = Yup.object().shape({
@@ -174,7 +201,7 @@ function PricingRequest() {
       >
       <View>
         <View style={AppStyles.alignCenter}>
-          <Text style={[AppStyles.txtBlackBold, AppStyles.f18]}>Get Quote</Text>
+          <Text style={[AppStyles.txtBlackBold, AppStyles.f18]}>{quotestatus === '0' ? 'Get Quote' : 'Schedule Order'}</Text>
         </View>
         <View style={[AppStyles.mt15]}>
           <Text style={[AppStyles.txtBlackRegular, AppStyles.f16, AppStyles.mb10]}>Please choose a sub category</Text>
@@ -271,7 +298,7 @@ function PricingRequest() {
               <Text style={[AppStyles.txtSecandaryRegular, {color: imgData.length > 0 ?  Colors.green : Colors.warmGrey}]}>{imgData.length > 0 ? 'File Attached' : 'Attach File' }</Text>
               <MIcon name="attachment" size={25} color={Colors.grayThree} />            
             </TouchableOpacity>
-            {clickConfirm && imgData.length === 0 ? (
+            {clickConfirm && imgData.length === 0 && quotestatus === '1' ? (
               <CustomText
                 fontSize={15}
                 color={Colors.red}

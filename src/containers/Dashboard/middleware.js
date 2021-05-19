@@ -12,7 +12,7 @@ const getOrderList = (role) => {
  
     return useAxios(
       {
-        url: USERS_ROLE_MENU[role]+1,
+        url: USERS_ROLE_MENU[role],
         method: 'GET',
         headers: { 'content-type': 'application/json'}
       },
