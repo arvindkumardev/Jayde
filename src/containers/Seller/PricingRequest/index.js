@@ -30,7 +30,6 @@ function PricingRequest() {
   const [{ data: quoteData, loading, error }, onSubmitQuote] = createQuote(category);
   const [{ data: orderData, loading: orderLoading }, onAddOrder] = addOrder(category);
 
-
   const [categoryId, setCategoryId] = useState(0);
   const [titleName, setTitleName] = useState('');
   const [quotestatus, setquotestatus] = useState("");
@@ -40,8 +39,7 @@ function PricingRequest() {
   const [imgData, setImageData] = useState([])
 
 
-  useEffect(() => {
-    // console.log("update",subData);
+  useEffect(() => {   
     if (subData) {
       const pickerData = subData.map((item) => ({ label: item.sub_category_name, value: item.id }));
       setSubCategoryes(pickerData);
@@ -86,11 +84,10 @@ function PricingRequest() {
   }, []);
 
   const handleConfirm = async (subCategoryId, volume, unit, location) => {   
+    if(imgData.length === 0)
+      return
 
-    if(quotestatus === '0') {
-      // if(imgData.length === 0)
-      // return
-
+    if(quotestatus === '0') {  
       const {data} = await onSubmitQuote({
         data: {
           primeId: 0,
@@ -132,7 +129,6 @@ function PricingRequest() {
         alert(data.message)
       }  
     }
-
   };
 
   const validationSchema = Yup.object().shape({
@@ -298,7 +294,7 @@ function PricingRequest() {
               <Text style={[AppStyles.txtSecandaryRegular, {color: imgData.length > 0 ?  Colors.green : Colors.warmGrey}]}>{imgData.length > 0 ? 'File Attached' : 'Attach File' }</Text>
               <MIcon name="attachment" size={25} color={Colors.grayThree} />            
             </TouchableOpacity>
-            {clickConfirm && imgData.length === 0 && quotestatus === '1' ? (
+            {clickConfirm && imgData.length === 0 ? (
               <CustomText
                 fontSize={15}
                 color={Colors.red}

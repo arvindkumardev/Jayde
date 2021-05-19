@@ -68,6 +68,8 @@ const NavigationRouteNames = {
   WAREHOUSE_DETAILS:"WarehouseDetails",
   SCHEDULE_ORDER:"ScheduledOrder",
   INVENTORY:"Inventory",
+  RECYCLER_INVENTORY:"RecyclerInventory",
+  RECYCLER_NEW_WORKORDER:"RecyclerNewWorkOrder",
   NEW_WORKORDER:"NewWorkOrder",
   WORKORDER_SUMMARY:"Workordersummary",
   COMPLETED_ORDER:"CompletedOrder",

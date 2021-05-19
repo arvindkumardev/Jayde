@@ -40,10 +40,7 @@ function SellerOrderDetail() {
     navigation.goBack()
   };
 
-  const handleConfirm = async () => {  
-    if(item.is_seller_confirmed == 2){
-      return
-    }
+  const handleConfirm = async () => { 
     const {data} = await onConfirmOrder({
       data: {assignedId: item.assigned_id},
     });

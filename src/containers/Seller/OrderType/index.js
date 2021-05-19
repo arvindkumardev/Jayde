@@ -4,7 +4,7 @@ import { TouchableOpacity, View, Text, Image, FlatList, ScrollView } from 'react
 import { useNavigation } from '@react-navigation/native';
 import NavigationRouteNames from '../../../routes/ScreenNames';
 import { AppStyles, Colors } from '../../../theme';
-import { getCategories } from './middleware';
+import { getCategories } from './../PricingRequest/middleware';
 import UserContext from '../../../appContainer/context/user.context';
 import Styles from './styles';
 import {setCategory} from '../../../utils/Global'

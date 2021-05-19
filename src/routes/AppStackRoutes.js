@@ -52,6 +52,9 @@ import WarehouseDetails from "../containers/Aggregator/WarehouseDetails";
 import ScheduledOrder from "../containers/Aggregator/ScheduledOrder";
 import Inventory from "../containers/Aggregator/Inventory";
 import NewWorkOrder from "../containers/Aggregator/NewWorkOrder";
+import RecyclerNewWorkOrder from "../containers/Recycler/NewWorkOrder";
+import RecyclerInventory from "../containers/Recycler/Inventory";
+
 import Workordersummary from "../containers/Aggregator/Workordersummary";
 import CompletedOrder from "../containers/Aggregator/CompletedOrder";
 import RejectOrder from "../containers/Aggregator/RejectOrder";
@@ -570,15 +573,15 @@ const AppStack = (props) => {
           options={CommonHeaderStyle}
         />
          {/* Inventory screen number: 40 */}
-         <Stack.Screen
-              name={NavigationRouteNames.INVENTORY}
-              component={Inventory}
+          <Stack.Screen
+              name={NavigationRouteNames.RECYCLER_INVENTORY}
+              component={RecyclerInventory}
               options={CommonHeaderStyle}
-            />
+          />
             {/* New Work Order screen number: 32 */}
             <Stack.Screen
-              name={NavigationRouteNames.NEW_WORKORDER}
-              component={NewWorkOrder}
+              name={NavigationRouteNames.RECYCLER_NEW_WORKORDER}
+              component={RecyclerNewWorkOrder}
               options={CommonHeaderStyle}
             />
              {/* Work Order Summary screen number: 42 */}

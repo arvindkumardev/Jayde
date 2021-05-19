@@ -1,9 +1,21 @@
 import useAxios from 'axios-hooks';
-import { GET_SUB_CATEGORY, GET_UNITS, CREATE_QUOTE_PAPER, CREATE_QUOTE_PLASTIC, CREATE_QUOTE_MIX_WASTER,
+import {GET_CATEGORIES, GET_SUB_CATEGORY, GET_UNITS, CREATE_QUOTE_PAPER, CREATE_QUOTE_PLASTIC, CREATE_QUOTE_MIX_WASTER,
    ADD_SCHEDULE_PAPER, ADD_SCHEDULE_PLASTIC, ADD_SCHEDULE_MIX_WASTE,
    SELLER_MY_ORDER, SELLER_CONFIRM_RESCHEDULE, SELLER_CONFIRM_PROPOSED_WEIGHT, SELLER_CONFIRM_PAYMENT, ADD_ORDER_PAPER, ADD_ORDER_PLASTIC, ADD_ORDER_MIX_WASTER,
    SELLER_REQUEST_CALLBACK } from '../../../utils/urls';
 
+   const getCategories = () => {
+    return useAxios(
+      {
+        url: GET_CATEGORIES,
+        method: 'GET',
+        headers: { 'content-type': 'application/json' },
+      },
+      { manual: true }
+    );
+  };
+
+  
 const getSubCategories = () => {
   return useAxios(
     {
@@ -71,7 +83,6 @@ const addSchedule = (category) => {
 
 
 const MyOrder = (pageNumber) => {  
-  console.log('MiddelWare', pageNumber)
   return useAxios(
     {
       url: SELLER_MY_ORDER+pageNumber,
@@ -94,4 +105,4 @@ const confirmOrder = (item) => {
   );
 }
 
-export { getSubCategories, getUnits, createQuote, addSchedule, MyOrder, confirmOrder, addOrder, requestCallBack };
+export {getCategories, getSubCategories, getUnits, createQuote, addSchedule, MyOrder, confirmOrder, addOrder, requestCallBack };

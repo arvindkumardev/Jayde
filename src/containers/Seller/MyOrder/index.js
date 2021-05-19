@@ -53,6 +53,7 @@ function SellerMyOrder() {
     setOffset(0)
     setPerPage(0)
     setRefreshPage(true)
+    setLoader(true)
   }
   const triggerNewOrder = async () => {
     try {
@@ -90,8 +91,7 @@ function SellerMyOrder() {
 
   useEffect(() => {   
     if(refreshPage){
-      setOrderList([])
-      setLoader(true)
+      setOrderList([])      
       triggerNewOrder()
       setRefreshPage(false)
     }
@@ -102,7 +102,7 @@ function SellerMyOrder() {
    const title='My Orders';
    navigation.setOptions({title});}, []);
 
-   const loadMoreResults = async info => {
+  const loadMoreResults = async info => {
     console.log(totalCount)
     if (loadMore)
        return
@@ -113,7 +113,7 @@ function SellerMyOrder() {
     setLoadMore(true);
     setOffset(offset + perPage);
     triggerLoadMore();
- }
+  }
 
  const getButtonText = (item) => {
   

@@ -39,7 +39,7 @@ const GET_AGGREGATORS = `/api/mobile/aggregators`;
 
 // Recyclers
 const GET_RECYCLERS = `/api/mobile/recyclers`;
-const RECYCLER_NEW_ORDER = `/api/mobile/recycler/newOrders/1`
+const RECYCLER_NEW_ORDER = `/api/mobile/recycler/newOrders/`
 
 export { LOGIN_URL, GET_SUB_CATEGORY, GET_UNITS, CREATE_QUOTE_PAPER, CREATE_QUOTE_PLASTIC, CREATE_QUOTE_MIX_WASTER, USERS, GET_CATEGORIES,
      IMAGE_UPLOAD, ENABLE_USER, DISABLE_USER, ADMIN_NEW_ORDER, ACCEPT_ORDER, REJECT_ORDER,

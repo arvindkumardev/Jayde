@@ -13,7 +13,7 @@ export const GlobalData = {
 
     location : '',
     Volume:10,
-    uploadImageName: '',
+    uploadImageName: [],
     EstimatedPrice: 2000,
     quoteDetails : ''
 }

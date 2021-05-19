@@ -202,7 +202,7 @@ const DRAWER_MENU = {
         name: 'Inventory',
         color: Colors.mango,
         iconName: 'archive',
-        screenName: NavigationRouteNames.INVENTORY 
+        screenName: NavigationRouteNames.RECYCLER_INVENTORY 
     },
     {
         name: 'Users',

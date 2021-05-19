@@ -17,7 +17,7 @@ import { LOCAL_STORAGE_DATA_KEY } from '../../../utils/constants';
 
 import moment from 'moment';
 import UserContext from '../../../appContainer/context/user.context';
-import {getQuoteData} from '../../../utils/Global'
+import {getQuoteData, getImageName} from '../../../utils/Global'
 
 const CallRequest = () => {
   const navigation = useNavigation();
@@ -26,7 +26,7 @@ const CallRequest = () => {
   const [clickConfirm, setClickConfirm] = useState(false);
   const [timeSlotIndex, setTimeSlotIndex] = useState(0)
   const { setLoader } = useContext(UserContext);
-  const [imgData, setImageData] = useState([])
+  const [imgData, setImageData] = useState(getImageName)
 
   const [{ data: callBackData, loading, error }, onRequestCallBack] = requestCallBack();
 
@@ -75,12 +75,11 @@ const CallRequest = () => {
   };
 
   const handleSubmit = async (contactPerson, contactNumber) => {
-    
     var param = {          
       "userId": getQuoteData().user_id,     
       "contactName": contactPerson,
       "contactNumber": contactNumber,
-      "fileName" : imgData,
+      "uploaded_files": imgData,     
       "scheduleDate": timeSlotIndex > 1 ? getAfterDay_Formatted () : getDayAfter_Formatted(),
       "scheduleTime": timeSlotIndex == 0 ? '11:00 AM - 1:00 PM' 
       : timeSlotIndex == 1 ? '3:00 PM - 5:00 PM'

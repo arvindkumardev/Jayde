@@ -10,9 +10,6 @@ import ToggleSwitch from 'toggle-switch-react-native'
 import moment from 'moment';
 import DateTimePicker from '@react-native-community/datetimepicker';
 
-const typeData = [
-  {label: '10:00 AM - 11:00 AM', value: '1'}]
-
 const PickupDate = () => {
   const navigation = useNavigation();
   const route = useRoute();

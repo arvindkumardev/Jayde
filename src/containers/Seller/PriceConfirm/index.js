@@ -5,7 +5,7 @@ import FAIcon from "react-native-vector-icons/FontAwesome";
 import Styles from "./styles";
 import NavigationRouteNames from '../../../routes/ScreenNames';
 import { Fonts, Colors, AppStyles } from '../../../theme';
-import {getQuoteData}  from '../../../utils/Global'
+import {getQuoteData, getImageName}  from '../../../utils/Global'
 import {createQuote, addOrder } from './../PricingRequest/middleware';
 import UserContext from '../../../appContainer/context/user.context';
 
@@ -18,7 +18,6 @@ const PriceConfirm = () => {
 
   const [{ data: quoteData, loading, error }, onSubmitQuote] = createQuote(getQuoteData().category_name);
   const [{ data: orderData, loading: orderLoading }, onAddOrder] = addOrder(getQuoteData().category_name);
-
 
   useLayoutEffect(() => {
     const { title } = route.params;
@@ -44,27 +43,7 @@ const PriceConfirm = () => {
   }, [orderData, orderLoading]);
 
   const handleREQUESTCALLBACK = async () => {
-    if(route.params.status === '1'){
-        const {data} = await onSubmitQuote({
-          data: {
-            primeId: 0,
-            category_id: getQuoteData().category_id,
-            sub_category_id: getQuoteData().sub_category_id,
-            qty: getQuoteData().qty,
-            unit : getQuoteData().unit,
-            location : getQuoteData().location,
-            uploaded_files: '',
-          },
-        });
-        console.log(data.data)     
-        if(data.status){
-          navigation.navigate(NavigationRouteNames.CALL_REQUEST);
-        } else {
-          alert(data.message)
-        }  
-    } else {
-        navigation.navigate(NavigationRouteNames.CALL_REQUEST);
-    }
+    navigation.navigate(NavigationRouteNames.CALL_REQUEST);
   };
 
   const handleSchedulePickup = async () => {
@@ -76,7 +55,8 @@ const PriceConfirm = () => {
           sub_category_id: getQuoteData().sub_category_id,
           qty: getQuoteData().qty,
           unit : getQuoteData().unit,
-          location : getQuoteData().location,            
+          location : getQuoteData().location,
+          uploaded_files: getImageName(),
         },
       });
       console.log(data.data)    
@@ -139,15 +119,14 @@ const PriceConfirm = () => {
       </View>
       {schedulePick == "1" ? 
        <View style={Styles.btnContainer}>
-       <TouchableOpacity
+        <TouchableOpacity
            style={[AppStyles.mt20, AppStyles.br10, AppStyles.borderwidth1, AppStyles.borderColorMango, AppStyles.whitecolor, AppStyles.pv10, AppStyles.alignCenter]}
            onPress={handleREQUESTCALLBACK}>
            <Text style={[AppStyles.txtPrimaryRegular, AppStyles.f17]}>REQUEST CALL BACK</Text>
          </TouchableOpacity>
          <TouchableOpacity
            style={[AppStyles.mt20, AppStyles.br10, AppStyles.btnPrimary, AppStyles.pv10, AppStyles.alignCenter]}
-           onPress={handleSchedulePickup}
-         >
+           onPress={handleSchedulePickup}>
            <Text style={[AppStyles.txtWhiteRegular, AppStyles.f17]}>SCHEDULE PICKUP</Text>
          </TouchableOpacity>
        </View> : <View style={Styles.btnContainer}>
