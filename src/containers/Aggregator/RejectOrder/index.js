@@ -17,6 +17,10 @@ function RejectOrder() {
   const [{ data: quoteData, loading, error }, onSubmitQuote] = aggreRejectorder();
   const [reason, setReason] = useState('');
 
+  const screenNavigateback = () => {
+    navigation.navigate(NavigationRouteNames.ORDER_CONFIRMATION);
+  }
+
    const screenNavigate = () => {
     navigation.navigate(NavigationRouteNames.ORDERS);
   }
@@ -77,7 +81,7 @@ function RejectOrder() {
          <View>
             <View style={AppStyles.aligncen}>
               <TouchableOpacity style={Styles.backbtn}
-                onPress={() => {screenNavigate()}}>
+                onPress={() => {screenNavigateback()}}>
                   <Text style={[AppStyles.f17, AppStyles.warmgreycolor, AppStyles.textalig, AppStyles.mt10]}>BACK</Text>
               </TouchableOpacity>
              </View>

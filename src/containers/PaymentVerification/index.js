@@ -22,6 +22,9 @@ import { UploadDocument } from '../../components/index';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import { weightConfirm, getUnits, weightPropose, paymentConfirm, pickupConfirm, receiptConfirm } from './middleware';
+import UserContext from '../../appContainer/context/user.context';
+import DropDown from '../../components/Picker/index';
 
 const PaymentVerification = () => {
   const navigation = useNavigation();
@@ -49,8 +52,11 @@ const PaymentVerification = () => {
   const [slipNumber,setSlipNumber] = useState("");
   const [item, setItem] = useState({});
   const [imageUpload, setImageUpload] = useState(false);
+  const [unitName, setUnitName] = useState('');
 
   const [customDate, setCustomDate] = useState(moment(new Date()).add(1, 'days').format('DD-MM-YYYY'));
+  const [customDate1, setCustomDate1] = useState(moment(new Date()).add(1, 'days').format('DD-MM-YYYY'));
+  const [customDate2, setCustomDate2] = useState(moment(new Date()).add(1, 'days').format('DD-MM-YYYY'));
   const [fromTime, setFromTime] = useState(moment(new Date()).format('hh:mm A'))
   const [toTime, setToTime] = useState(moment(new Date()).add(1, 'hours').format('hh:mm A'))
   const [pickerIndex, setPickerIndex] = useState() 
@@ -63,6 +69,130 @@ const PaymentVerification = () => {
   const [clickConfirm, setClickConfirm] = useState(false);
   const [clickConfirm1, setClickConfirm1] = useState(false);
   const [clickConfirm2, setClickConfirm2] = useState(false);
+  const [{ data: quoteData, loading, error }, onSubmitQuote] = weightConfirm();
+  const [{ data: proposeData, loading1, error1 }, onSubmitProposeweight] = weightPropose();
+  const [{ data: paymentData, loading2, error2 }, onSubmitPaymentconfirm] = paymentConfirm();
+  const [{ data: pickupData, loading3, error3 }, onSubmitPickupconfirm] = pickupConfirm();
+  const [{ data: receiptData, loading4, error4 }, onSubmitReceiptconfirm] = receiptConfirm();
+  const [unitPickerData, setUnitData] = useState([]);
+  const [{ data: unitsData }, onGetUnits] = getUnits();
+  const [imgData, setImageData] = useState([])
+  const [imgData1, setImageData1] = useState([])
+  const [imgData2, setImageData2] = useState([])
+  const [paymentmode, setPaymentmode] = useState('');
+  const [detail, setDetail] = useState('');
+  const [vehno, setVehno] = useState('');
+
+  const handleConfirmweight = async (item) => {   
+
+    const {data} = await onSubmitQuote({
+      data: {
+        assignedId: item.assigned_id,
+         kanta_slip_number: requestForm.values.kantaslipno,
+         kanta_slip_date:   customDate,
+         uploaded_files: imgData,
+      },
+    });
+    
+    console.log(data)
+    if(data.status){
+       alert(data.message)
+      // screenNavigate()
+    } else {
+       alert(data.message)
+    }  
+  };
+
+  const handleProposemweight = async (item) => {   
+
+    const {data} = await onSubmitProposeweight({
+      data: {
+        assignedId: item.assigned_id,
+        newWeight: requestForm.values.volume,
+        unit: requestForm.values.unit,
+         kanta_slip_number: requestForm1.values.Proposekantaslipno,
+         kanta_slip_date:   customDate1,
+         uploaded_files: imgData1,
+      },
+    });
+    
+    console.log(data)
+    if(data.status){
+       alert(data.message)
+    } else {
+       alert(data.message)
+    }  
+  };
+
+  const handlePaymentconfirm = async (item) => {   
+
+    const {data} = await onSubmitPaymentconfirm({
+      data: {
+         assignedId: item.assigned_id,
+         paymentRequired: item.price,
+         paymentMade: requestForm2.values.PaymentMade,
+         paymentMode: paymentmode,
+         paymentDetails: detail,
+      },
+    });
+    
+    console.log(data)
+    if(data.status){
+      alert(data.message)
+    } else {
+      alert(data.message)
+    }  
+  };
+
+  const handlePickupconfirm = async (item) => {   
+
+    const {data} = await onSubmitPickupconfirm({
+      data: {
+         assignedId: item.assigned_id,
+      },
+    });
+    
+    console.log(data)
+    if(data.status){
+      alert(data.message)
+    } else {
+      alert(data.message)
+    }  
+  };
+
+  const handleReceiptconfirm = async (item) => {   
+
+    const {data} = await onSubmitReceiptconfirm({
+      data: {
+         assignedId: item.assigned_id,
+         vehicleNumber: vehno,
+         pickUpDate: customDate2,
+         uploaded_files: imgData2,
+      },
+    });
+    
+    console.log(data)
+    if(data.status){
+      alert(data.message)
+    } else {
+      alert(data.message)
+    }  
+  };
+
+  const onChangeUnit = (id) => {
+    var pos = unitPickerData.findIndex(v => v.value == id) 
+    if(pos != -1){
+      setUnitName(unitPickerData[pos].label)      
+    }
+   requestForm.setFieldValue('unit', id)
+ }
+
+ useEffect(() => {
+  if (unitsData) {
+    const pickderData = unitsData.map((item) => ({ label: item.unit_name, value: item.id }));
+    setUnitData(pickderData);
+  }
+}, [unitsData]);
 
   useEffect(() => {
     setTimeSlotIndex('')
@@ -94,6 +224,34 @@ const PaymentVerification = () => {
         setToTime(moment(selectedDate).format('hh:mm A'));
       }
       //setShow(Platform.OS === 'ios');   
+    } else {
+    }  
+  };
+
+  const onChange1 = (event, selectedDate) => {  
+    setShow(false);     
+    if(selectedDate){
+      if(pickerIndex === 0){
+        setCustomDate1(moment(selectedDate).format('DD-MM-YYYY'));
+      } else if(pickerIndex === 1) {
+        setFromTime(moment(selectedDate).format('hh:mm A'));
+      } else if(pickerIndex === 2) {
+        setToTime(moment(selectedDate).format('hh:mm A'));
+      } 
+    } else {
+    }  
+  };
+
+  const onChange2 = (event, selectedDate) => {  
+    setShow(false);     
+    if(selectedDate){
+      if(pickerIndex === 0){
+        setCustomDate2(moment(selectedDate).format('DD-MM-YYYY'));
+      } else if(pickerIndex === 1) {
+        setFromTime(moment(selectedDate).format('hh:mm A'));
+      } else if(pickerIndex === 2) {
+        setToTime(moment(selectedDate).format('hh:mm A'));
+      }  
     } else {
     }  
   };
@@ -161,7 +319,6 @@ const PaymentVerification = () => {
   }
 
   const submitproposeweight = async () => {
-    // alert("hi");
     setClickConfirm1(true)
     await requestForm1.submitForm();
   }
@@ -213,9 +370,11 @@ const PaymentVerification = () => {
   };
 
   useLayoutEffect(() => {
-     const { Item } = route.params;  
-     setItem(Item)   
+      const { Item } = route.params;  
+      setItem(Item)   
+      // setPrice(item.price)
     const title='Order Details';
+    onGetUnits();
    navigation.setOptions({
     title,
   });
@@ -278,6 +437,31 @@ const PaymentVerification = () => {
     setShouldShow3(shouldShow3);
     setSelected2(selected2);
   }
+
+  const ImageData = (data) => {
+    if(data){
+     let listData = imgData;          
+     let data1 = listData.concat(data);
+     setImageData([...data1]); 
+    }
+  }
+
+  const ImageData1 = (data) => {
+    if(data){
+     let listData1 = imgData1;          
+     let data2 = listData1.concat(data);
+     setImageData1([...data2]); 
+    }
+  }
+
+  const ImageData2 = (data) => {
+    if(data){
+     let listData2 = imgData2;          
+     let data3 = listData2.concat(data);
+     setImageData2([...data3]); 
+    }
+  }
+
   return (
     <KeyboardAwareScrollView style={{ flex: 1, paddingHorizontal: RfW(20), backgroundColor: '#ffffff', }}>
 
@@ -365,7 +549,6 @@ const PaymentVerification = () => {
     alignItems:'center',
     height: 44,
     width: 154,}} onPress={() => {proposeWeight(true,false)}}>
-                {/* <Text style={[Appstyles.txtSecandaryRegular, Appstyles.f15, AppStyle.mt10,]}>Confirm Weight</Text> */}
                 <Text style={{fontSize: 15, marginTop: 10, 
                 color: shouldShow3 == true ? Colors.white : Colors.warmGrey, }}>Confirm Weight</Text>
               </TouchableOpacity>
@@ -376,7 +559,6 @@ const PaymentVerification = () => {
               <TouchableOpacity style={{  marginTop:20,
     borderRadius: 10,
     backgroundColor: selected2 == true ? Colors.mango : Colors.grayBackground,
-    // backgroundColor:Colors.grayBackground,
     height: 44,
     width: 154,
     alignItems:'center',
@@ -400,7 +582,6 @@ const PaymentVerification = () => {
                   <View>
                   <Text style={Styles.inputLabelText}>Kanta Slip Number</Text>
                   </View>
-                  {/* <TextInput placeholder={"Slip Number"} style={Styles.inputText} /> */}
                   <View>
             <TextInput
               value={requestForm.values.kantaslipno}
@@ -446,11 +627,20 @@ const PaymentVerification = () => {
                   <View style={Styles.viewVolumeInputContainerK}>
                   <View style={AppStyles.flexpointfive}>
                     <TouchableOpacity style={[Styles.inputText, Styles.inputIcon, AppStyles.br10]} onPress={() => setImageUpload(!imageUpload)}>
-                    <Text style={Styles.txtFileUpload}>Upload file</Text>
+                    <Text style={[AppStyles.txtSecandaryRegular, {color: imgData.length > 0 ?  Colors.green : Colors.warmGrey}]}>{imgData.length > 0 ? 'File Attached' : 'Attach File' }</Text>
                     <MIcon name="attachment" size={25} color={Colors.grayThree} />
                     </TouchableOpacity>
+                    {clickConfirm && imgData.length === 0 ? (
+                    <CustomText
+                      fontSize={15}
+                      color={Colors.red}
+                      styling={{marginTop: RfH(10)}}>
+                      Upload Picture
+                    </CustomText>
+                      ) : null}
                     <UploadDocument handleClose={() => setImageUpload(false)} 
-                    isVisible={imageUpload} />
+                    isVisible={imageUpload}
+                    ImageData = {ImageData} />
                     </View>
                   </View> 
                   </View>
@@ -471,6 +661,7 @@ const PaymentVerification = () => {
         setRememberMe(!rememberMe)
         setSlipNumber("")
        handelSubmitQuote()
+       handleConfirmweight(item)
       }}>
                           <Text style={Styles.confirmBtnText}>CONFIRM</Text>
                         </TouchableOpacity>
@@ -482,33 +673,53 @@ const PaymentVerification = () => {
               <View>
                   <View style={Styles.viewVolume}>
                 <Text style={Styles.inputLabelText}>Enter New Volume</Text>
-                <View style={Styles.viewVolumeInputContainer}>
-                  <TextInput
-                    placeholder={"Enter Volume"}
-                    style={[Styles.inputText, Styles.locationTxt]}
-                  />
-                  <DropDownPicker
-                    items={[
-                      { label: "USA", value: "usa", hidden: true },
-                      { label: "Units", value: "0" },
-                      { label: "France", value: "france" },
-                    ]}
-                    defaultValue={'0'}
-                    globalTextStyle={Styles.dropDownText}
-                    containerStyle={{ height: 45, flex: 2 }}
-                    style={{ backgroundColor: "#e4e4e4" }}
-                    itemStyle={{
-                      justifyContent: "flex-start",
-                    }}
-                    dropDownStyle={{ backgroundColor: "#fafafa" }}
-                    onChangeItem={(item) => console.log(item)}
-                  />
+                <View>
+                       <View style={{ flexDirection: 'row' }}>
+            <View style={{ flex: 2, paddingRight: 10 }}>
+              <TextInput
+                placeholder="Enter volume"
+                value={requestForm.values.volume}
+                keyboardType = {'numeric'}
+                onChangeText={(txt) => requestForm.setFieldValue("volume", txt)}
+                style={{ backgroundColor: Colors.grayTwo, borderRadius: 10, paddingLeft: 10 }}              
+              />
+              {clickConfirm && requestForm.errors.volume ? (
+                <CustomText
+                  fontSize={15}
+                  color={Colors.red}
+                  styling={{marginTop: RfH(10)}}>
+                  {requestForm.errors.volume}
+                </CustomText>
+                ) : null}
+             
+            </View>
+            <View style={{ flex: 1 }}>
+              <DropDown
+                items={unitPickerData}
+                placeholderText="Units"
+                //itemStyle={{ color: '#000' }}
+                onValueChange = {onChangeUnit}               
+                selectedValue={requestForm.values.unit}
+                containerStyle={{ borderRadius: 10, backgroundColor: Colors.grayTwo, paddingLeft: 10 }}
+              />
+
+               {clickConfirm && requestForm.errors.unit ? (
+                <CustomText
+                  fontSize={15}
+                  color={Colors.red}
+                  styling={{marginTop: RfH(10)}}>
+                  {requestForm.errors.unit}
+                </CustomText>
+                ) : null}
+            </View>
+          </View>
+
               </View>
            </View>
 
               <View style={{ marginTop: 20 }}>
                 <View>
-        <Text style={Styles.inputLabelText}>Kanta Slip Number</Text>
+        <Text style={[Styles.inputLabelText, AppStyles.mt20]}>Kanta Slip Number</Text>
         </View>
          <View>
             <TextInput
@@ -537,7 +748,7 @@ const PaymentVerification = () => {
                   onPress = {() => showDatepicker()}
                   style={[AppStyles.flexRowAlignCenter, AppStyles.btnSecandary,AppStyles.br10,AppStyles.mb10, {padding:10}]}>
                 <FAIcon size={22} name='calendar-o' color = {Colors.mangoTwo} />
-                <Text style={[[AppStyles.txtBlackRegular, AppStyles.f16, AppStyles.pl20]]}>{customDate}</Text>
+                <Text style={[[AppStyles.txtBlackRegular, AppStyles.f16, AppStyles.pl20]]}>{customDate1}</Text>
                 </TouchableOpacity>
                 {show && ( <DateTimePicker
                     testID="dateTimePicker"
@@ -546,7 +757,7 @@ const PaymentVerification = () => {
                     mode={mode}
                     is24Hour={false}
                     display="default"
-                    onChange={onChange}
+                    onChange={onChange1}
                   />)}
         </View> 
         </View>
@@ -554,11 +765,21 @@ const PaymentVerification = () => {
         <Text style={Styles.inputLabelText}>Upload Documents</Text>
         <View style={Styles.viewVolumeInputContainerK}>
         <TouchableOpacity style={[Styles.inputText, Styles.inputIcon, AppStyles.br10]} onPress={() => setImageUpload(!imageUpload)}>
-                    <Text style={Styles.txtFileUpload}>Upload file</Text>
+                    {/* <Text style={Styles.txtFileUpload}>Upload file</Text> */}
+                    <Text style={[AppStyles.txtSecandaryRegular, {color: imgData1.length > 0 ?  Colors.green : Colors.warmGrey}]}>{imgData1.length > 0 ? 'File Attached' : 'Attach File' }</Text>
                     <MIcon name="attachment" size={25} color={Colors.grayThree} />
                     </TouchableOpacity>
+                    {clickConfirm && imgData1.length === 0 ? (
+                    <CustomText
+                      fontSize={15}
+                      color={Colors.red}
+                      styling={{marginTop: RfH(10)}}>
+                      Upload Picture
+                    </CustomText>
+                      ) : null}
                     <UploadDocument handleClose={() => setImageUpload(false)} 
-                    isVisible={imageUpload} />
+                    isVisible={imageUpload}
+                    ImageData = {ImageData1} />
         </View> 
         </View>
         </View>
@@ -578,6 +799,7 @@ const PaymentVerification = () => {
         setRememberMe(!rememberMe)
         setSlipNumber("")
        submitproposeweight()
+       handleProposemweight(item)
       }}>
                 <Text style={Styles.confirmBtnText}>CONFIRM</Text>
               </TouchableOpacity>
@@ -614,7 +836,7 @@ const PaymentVerification = () => {
                 <View style={[AppStyle.mt20,]}>
     <Text style={[Appstyles.txtBlackRegular, Appstyles.f15, AppStyle.mb6,]}>Payment Required</Text>
     <View style={{flex: 1, flexDirection: 'row'}}>
-    <TextInput placeholder={"25,864"} style={Styles.inputTextf} />
+    <TextInput placeholder={"25,864"} editable={false} value={item.price} style={[Styles.inputTextf, Styles.Requiredprice]} />
     <FAIcon style={Styles.rupee} size={15} name="rupee" />
     </View>
     </View>
@@ -648,7 +870,7 @@ const PaymentVerification = () => {
 
   <View style={[AppStyle.mt20,]}>
     <Text style={[Appstyles.txtBlackRegular, Appstyles.f15, AppStyle.mb6,]}>Payment Mode</Text>
-    <TextInput placeholder={"Cash"} style={Styles.inputText} />
+    <TextInput placeholder={"Cash"} value={paymentmode} onChangeText={(txt) => setPaymentmode(txt)} style={Styles.inputText} />
   </View>
 
   <View style={[AppStyle.mt20,]}>
@@ -660,7 +882,7 @@ const PaymentVerification = () => {
     <Text style={[Appstyles.txtSecandaryRegular, Appstyles.f11, AppStyle.mt5, AppStyle.ml20,]}>Transaction number</Text>
     </View>
     </View>
-    <TextInput placeholder={"1235567778"} style={Styles.inputText} />
+    <TextInput placeholder={"1235567778"} value={detail} onChangeText={(txt) => setDetail(txt)} style={Styles.inputText} />
   </View>
 
   <View>
@@ -695,6 +917,7 @@ const PaymentVerification = () => {
     <TouchableOpacity style={Styles.confirmButton} onPress={() => {
       setShouldShow6(!shouldShow6)
       submitPayment()
+      handlePaymentconfirm(item)
     }}>
       <Text style={Styles.confirmBtnText}>CONFIRM</Text>
     </TouchableOpacity>
@@ -710,6 +933,7 @@ const PaymentVerification = () => {
              <View>
               <TouchableOpacity style={Styles.confirmButtonnabcd} onPress={() => {setSelected1(true)   
        setRememberMe1(!rememberMe1)
+       handlePickupconfirm(item)
       }}>
                 <Text style={[Appstyles.txtSecandaryRegular, Appstyles.f17, AppStyle.mt10,]}>Confirm Pickup</Text>
               </TouchableOpacity>
@@ -717,7 +941,7 @@ const PaymentVerification = () => {
             ) : null}
             {/* End Confirm Pickup */}
 
-                  <View style={[style.flexDir, AppStyle.mt20,]}>
+                  <View style={[style.flexDir, AppStyle.mt20]}>
       <TouchableOpacity style={[style.flexpointsix]} onPress={() => dataSubmit1()}>
         <Text style={[Appstyles.txtBlackRegular, Appstyles.f15,]}>Has the material reached your warehouse</Text>
       </TouchableOpacity>
@@ -741,19 +965,19 @@ const PaymentVerification = () => {
              <View>
                         <View style={{ marginTop: 20 }}>
                   <Text style={Styles.inputLabelText}>Vehicle Number</Text>
-                  <TextInput placeholder={"Enter Vehicle Number"} style={Styles.inputText} />
+                  <TextInput placeholder={"Enter Vehicle Number"} value={vehno} onChangeText={(txt) => setVehno(txt)} style={Styles.inputText} />
                 </View>
 
                 <View style={[style.flexDir, Styles.viewVolume]}>
                 <View style={style.flex1}>
                   <Text style={Styles.inputLabelText}>Date</Text>
-                  <View style={Styles.viewVolumeInputContainerDate}>
+                  <View style={Styles.viewVolumeInputContainerK}>
                    
                       <TouchableOpacity
                         onPress = {() => showDatepicker()}
                         style={[AppStyles.flexRowAlignCenter, AppStyles.btnSecandary,AppStyles.br10,AppStyles.mb10, {padding:10}]}>
                       <FAIcon size={22} name='calendar-o' color = {Colors.mangoTwo} />
-                      <Text style={[[AppStyles.txtBlackRegular, AppStyles.f16, AppStyles.pl20]]}>{customDate}</Text>
+                      <Text style={[[AppStyles.txtBlackRegular, AppStyles.f16, AppStyles.pl20]]}>{customDate2}</Text>
                       </TouchableOpacity>
                       {show && ( <DateTimePicker
                           testID="dateTimePicker"
@@ -762,7 +986,7 @@ const PaymentVerification = () => {
                           mode={mode}
                           is24Hour={false}
                           display="default"
-                          onChange={onChange}
+                          onChange={onChange2}
                         />)}
                   </View> 
                   </View>
@@ -770,11 +994,21 @@ const PaymentVerification = () => {
                   <Text style={Styles.inputLabelText}>Upload Documents</Text>
                   <View style={Styles.viewVolumeInputContainerK}>
                   <TouchableOpacity style={[Styles.inputText, Styles.inputIcon, AppStyles.br10]} onPress={() => setImageUpload(!imageUpload)}>
-                    <Text style={Styles.txtFileUpload}>Upload file</Text>
+                    {/* <Text style={Styles.txtFileUpload}>Upload file</Text> */}
+                    <Text style={[AppStyles.txtSecandaryRegular, {color: imgData2.length > 0 ?  Colors.green : Colors.warmGrey}]}>{imgData2.length > 0 ? 'File Attached' : 'Attach File' }</Text>
                     <MIcon name="attachment" size={25} color={Colors.grayThree} />
                     </TouchableOpacity>
+                    {clickConfirm && imgData2.length === 0 ? (
+                    <CustomText
+                      fontSize={15}
+                      color={Colors.red}
+                      styling={{marginTop: RfH(10)}}>
+                      Upload Picture
+                    </CustomText>
+                      ) : null}
                     <UploadDocument handleClose={() => setImageUpload(false)} 
-                    isVisible={imageUpload} />
+                    isVisible={imageUpload}
+                    ImageData = {ImageData2} />
                   </View> 
                   </View>
                   </View>
@@ -789,7 +1023,9 @@ const PaymentVerification = () => {
                       </View>
                       <View style={style.flex1}>
                       <View style={{ marginTop: RfH(10), marginTop: 5, marginBottom: 25 }}>
-                        <TouchableOpacity style={Styles.confirmButton} onPress={() => setShouldShow5(!shouldShow5)}>
+                        <TouchableOpacity style={Styles.confirmButton} onPress={() => {
+                          setShouldShow5(!shouldShow5)
+                          handleReceiptconfirm(item)}}>
                           <Text style={Styles.confirmBtnText}>CONFIRM</Text>
                         </TouchableOpacity>
                       </View>
@@ -800,7 +1036,7 @@ const PaymentVerification = () => {
              {/* End material reached your warehouse */}
 
              {/* Start Confirm Receipt */}
-             {!shouldShow5 ? (
+             {/* {!shouldShow5 ? (
              <View>
               <TouchableOpacity style={Styles.confirmButtonnabcd} onPress={() => {setSelected3(true)   
        setRememberMe4(!rememberMe4)
@@ -808,12 +1044,12 @@ const PaymentVerification = () => {
                 <Text style={[Appstyles.txtSecandaryRegular, Appstyles.f17, AppStyle.mt10,]}>Confirm Receipt</Text>
               </TouchableOpacity>
             </View>
-            ) : null}
+            ) : null} */}
             {/* End Confirm Receipt */}
 
       
      
-      <View style={style.flexDir}>
+      {/* <View style={style.flexDir}>
       <View style={style.flex1}>
       <View style={{ marginTop: RfH(10), marginTop: 5, marginBottom: 25 }}>
         <TouchableOpacity style={Styles.confirmButtonn} onPress={handleConfirm}>
@@ -828,7 +1064,7 @@ const PaymentVerification = () => {
         </TouchableOpacity>
       </View>
       </View>
-      </View>
+      </View> */}
     </KeyboardAwareScrollView>
   );
 };

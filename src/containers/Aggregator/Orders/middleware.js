@@ -1,10 +1,10 @@
 import useAxios from 'axios-hooks';
 import { AGGREGATOR_NEWORDER } from '../../../utils/urls';
 
-const aggregatorNeworder = () => {
+const aggregatorNeworder = (pageNumber) => {
   return useAxios(
     {
-      url: AGGREGATOR_NEWORDER,
+      url: AGGREGATOR_NEWORDER+pageNumber,
       method: 'GET',
       headers: { 'content-type': 'application/json' },
     },
