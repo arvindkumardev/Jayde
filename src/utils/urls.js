@@ -27,6 +27,11 @@ const AGGREGATOR_NEWORDER = `/api/mobile/aggregator/newOrders/`;
 const CONFIRM_SCHEDULE = `/api/mobile/aggregator/reScheduleConfirm`;
 const AGGREGATOR_REJECTORDER = `/api/mobile/aggregator/reject`;
 const GET_AGGREGATORS = `/api/mobile/aggregators`;
+const CONFIRM_WEIGHT = `/api/mobile/aggregator/confirmWeight`;
+const PROPOSE_WEIGHT = `/api/mobile/aggregator/proposeWeight`;
+const CONFIRM_PAYMENT = `/api/mobile/aggregator/confirmPayment`;
+const CONFIRM_PICKUP =  `/api/mobile/aggregator/confirmPickup`;
+const CONFIRM_RECEIPT = `/api/mobile/aggregator/confirmReceipt`;
 
 // Recyclers
 const GET_RECYCLERS = `/api/mobile/recyclers`;
@@ -35,4 +40,5 @@ const RECYCLER_NEW_ORDER = `/api/mobile/recycler/newOrders/1`
 export { LOGIN_URL, GET_SUB_CATEGORY, GET_UNITS, CREATE_QUOTE_PAPER, CREATE_QUOTE_PLASTIC, CREATE_QUOTE_MIX_WASTER, USERS, GET_CATEGORIES,
      IMAGE_UPLOAD, ENABLE_USER, DISABLE_USER, ADMIN_NEW_ORDER, ACCEPT_ORDER, REJECT_ORDER,
      GET_AGGREGATORS, GET_RECYCLERS, ASSIGN_AGGREGATOR, AGGREGATOR_NEWORDER,
-     ADD_SCHEDULE_PAPER, ADD_SCHEDULE_PLASTIC, ADD_SCHEDULE_MIX_WASTE, SELLER_MY_ORDER, RECYCLER_NEW_ORDER };
+     ADD_SCHEDULE_PAPER, ADD_SCHEDULE_PLASTIC, ADD_SCHEDULE_MIX_WASTE, SELLER_MY_ORDER, RECYCLER_NEW_ORDER, CONFIRM_SCHEDULE, AGGREGATOR_REJECTORDER, 
+     CONFIRM_WEIGHT, PROPOSE_WEIGHT, CONFIRM_PAYMENT, CONFIRM_PICKUP, CONFIRM_RECEIPT };

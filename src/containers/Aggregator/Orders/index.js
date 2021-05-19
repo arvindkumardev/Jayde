@@ -9,38 +9,66 @@ import arraydata from '../../../utils/arraydata.json';
 import { aggregatorNeworder } from './middleware';
 import UserContext from '../../../appContainer/context/user.context';
 import moment from 'moment';
+import FooterLoader from "../../../appContainer/footerLoader";
 
 function Orders() {
    const navigation = useNavigation();
    const route = useRoute();
 
    const { setLoader } = useContext(UserContext);
-   const [{ data, loading, error: emLoginError }, emLogin] = aggregatorNeworder();
+   
    const [arraydata,setarraydata]=useState([]);
+   const [offset, setOffset] = useState(1);
+  const [loadMore, setLoadMore] = useState(false);
+
+  const [totalCount, setTotalCount] = useState(15)
+  const [perPage, setPerPage] = useState(15)
+
+  const [{ data, loading, error: emLoginError }, emLogin] = aggregatorNeworder(offset);
+
+  const getActionType = async () => {
+    setarraydata([])
+    triggerLogin()
+  }
 
    const triggerLogin = async () => {
     try{
             const { data } = await emLogin({ data: {} });
             console.log("Response from login ", data.data[0].newOrders)
-            setarraydata(data.data[0].newOrders)
+             setarraydata(data.data[0].newOrders)
+            setPerPage(data.data[0].links.per_page)
+            setTotalCount(data.data[0].links.total_count)
+            setLoader(false)   
+            setarraydata(data.data[0].newOrders)            
+            setOffset(offset + perPage);
+            triggerLoadMore();
           }
           catch(e){
             console.log("Response error", e);
           }
          };
+
+         const triggerLoadMore = async () => {
+          try {
+                  const { data } = await emLogin({ data: {} });                     
+                  let listData = arraydata;          
+                  let data1 = listData.concat(data.data[0].newOrders);
+                  setLoadMore(false);
+                  setarraydata([...data1]);                       
+                }
+              catch(e){
+                  console.log("Response error", e);
+              }
+        };
   
          useEffect(()=>{
-          setLoader(data, loading);
-          triggerLogin();
-        }, navigation);
+          //  setLoader(data, loading);
+           setLoader(true)
+           triggerLogin();
+        }, []);
 
   const screenNavigate = (item) => {
     navigation.navigate(NavigationRouteNames.ORDER_CONFIRMATION, {Item : item, getActionType : getActionType});
-  }
-
-  const getActionType = async () => {
-    setarraydata([])
-    triggerLogin()
   }
 
   useLayoutEffect(() => {
@@ -49,6 +77,19 @@ function Orders() {
     title,
   });
   }, []);
+
+  const loadMoreResults = async info => {
+    console.log(totalCount)
+    if (loadMore)
+       return
+
+    if(offset > totalCount) 
+      return
+    
+    setLoadMore(true);
+    setOffset(offset + perPage);
+    triggerLoadMore();
+ }
 
   const _RenderItem = (index, item) => {
     return (
@@ -100,10 +141,20 @@ function Orders() {
        <ScrollView>
 
        <FlatList
+        style = {{flex:1}}
         data={arraydata}
         renderItem={({ index, item }) =>
           _RenderItem(index, item) 
         }
+        extraData = {useState}
+        removeClippedSubviews={Platform.OS === 'android' && true}
+        numColumns={1}
+        keyExtractor={(_, index) => `${index}1`}
+        ListFooterComponent={<FooterLoader Loading = {loadMore}></FooterLoader>}
+        onEndReachedThreshold={0.5}
+        onEndReached={info => {
+          loadMoreResults(info);
+        }}
       />
 
           </ScrollView> 

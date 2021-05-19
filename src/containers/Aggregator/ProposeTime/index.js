@@ -179,7 +179,7 @@ function ProposeTime() {
        </View>
        <View style={[AppStyles.ml20, AppStyles.mr20]}>
         <View>
-           <Text style={[[AppStyles.txtBlackRegular, AppStyles.f16, AppStyles.mb5, AppStyles.mt10]]}>Date</Text>
+           <Text style={[[AppStyles.txtBlackRegular, AppStyles.f16, AppStyles.mb5, AppStyles.mt10]]}>Pick Date</Text>
            <TouchableOpacity
             onPress = {() => showDatepicker()}
             style={[AppStyles.flexRowAlignCenter, AppStyles.btnSecandary,AppStyles.br10,AppStyles.mb10, {padding:10}]}>
@@ -199,7 +199,7 @@ function ProposeTime() {
          
         <View style={[AppStyles.mt20]}>
            <View>
-             <Text style={[AppStyles.txtBlackRegular, AppStyles.f16, AppStyles.mb5]}>Time</Text>
+             <Text style={[AppStyles.txtBlackRegular, AppStyles.f16, AppStyles.mb5]}>Pick Time Slot</Text>
            </View>
            <View style={{ flexDirection: 'row' }}>
              <View style={{ flex: 1, paddingRight: 10 }}>
