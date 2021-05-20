@@ -72,6 +72,8 @@ import SmartContractDetail from "../containers/SmartContractDetail";
 import SmartContractViewItem from "../containers/SmartContractViewItem";
 import OwnedContracts from "../containers/OwnedContracts";
 import AddSubUser from "../containers/AddSubUser";
+import AddUser from "../containers/AddUser";
+
 import PasswordReset from "../containers/PasswordReset";
 import AdminNewOrderList from "../containers/Admin/AdminNewOrderList"
 import AdminNewOrder from "../containers/AdminNewOrder"
@@ -263,6 +265,14 @@ const AppStack = (props) => {
             component={AddSubUser}
             options={CommonHeaderStyle}
           />
+
+           {/* Sub User Screen number: 82*/}
+           <Stack.Screen
+            name={NavigationRouteNames.ADD_USER}
+            component={AddUser}
+            options={CommonHeaderStyle}
+          />
+
            {/* Payment Screen*/}
            <Stack.Screen
             name={NavigationRouteNames.PAYMENT}
@@ -442,6 +452,14 @@ const AppStack = (props) => {
             component={AddSubUser}
             options={CommonHeaderStyle}
           />
+
+           {/* Sub User Screen number: 82*/}
+           <Stack.Screen
+            name={NavigationRouteNames.ADD_USER}
+            component={AddUser}
+            options={CommonHeaderStyle}
+          />
+
           {/* New Work Order List Screen number: 21*/}
           <Stack.Screen
             name={NavigationRouteNames.NEWWORK_ORDERLIST}
@@ -626,6 +644,14 @@ const AppStack = (props) => {
             component={AddSubUser}
             options={CommonHeaderStyle}
           />
+
+           {/* Sub User Screen number: 82*/}
+           <Stack.Screen
+            name={NavigationRouteNames.ADD_USER}
+            component={AddUser}
+            options={CommonHeaderStyle}
+          />
+
             {/* Update Profile Screen number: 50 */}
             <Stack.Screen
             name={NavigationRouteNames.UPDATE_PROFILE}
@@ -802,6 +828,14 @@ const AppStack = (props) => {
             component={AddSubUser}
             options={CommonHeaderStyle}
           />
+          
+           {/* Sub User Screen number: 82*/}
+           <Stack.Screen
+            name={NavigationRouteNames.ADD_USER}
+            component={AddUser}
+            options={CommonHeaderStyle}
+          />
+
         </>;
       default:
         return <>

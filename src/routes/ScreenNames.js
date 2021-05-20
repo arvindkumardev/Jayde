@@ -97,6 +97,7 @@ const NavigationRouteNames = {
   ORDERS : "Orders",
   REJECT_ORDER: "RejectOrder",
   PROPOSE_TIME: "ProposeTime",
+  ADD_USER : 'AddUser'
 };
 
 export default NavigationRouteNames;

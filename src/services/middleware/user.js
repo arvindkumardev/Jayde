@@ -1,6 +1,6 @@
-import { LOGIN_URL, GET_UNITS, NEW_ORDERS, USERS,
+import {ADD_SUB_USER, SUB_USER, NEW_ORDERS, USERS,
    ENABLE_USER, DISABLE_USER, ADMIN_NEW_ORDER,
-  ACCEPT_ORDER, REJECT_ORDER, GET_AGGREGATORS,
+   ACCEPT_ORDER, REJECT_ORDER, GET_AGGREGATORS,
    GET_RECYCLERS, ASSIGN_AGGREGATOR } from "../../utils/urls";
 import useAxios from "axios-hooks";
  
@@ -15,10 +15,32 @@ const newOrder = () => {
   )
  };
 
+ const subUser = (pageNumber) => {  
+  return useAxios(
+    {
+      url: SUB_USER + pageNumber,
+      method: 'GET',
+      headers: { 'content-type': 'application/json'},
+    },
+    { manual: true }
+ )
+};
+
+const addSubUser = () => {
+  return useAxios(
+    {
+      url: ADD_SUB_USER,
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+    },
+    { manual: true }
+  );
+}
+
  const users = (pageNumber) => {  
   return useAxios(
     {
-      url: USERS+pageNumber,
+      url: USERS + pageNumber,
       method: 'GET',
       headers: { 'content-type': 'application/json'},
     },
@@ -116,5 +138,5 @@ const assignAggregator = () => {
 }
 
 
-export { newOrder, users,enableUserByAdmin, disableUserByAdmin, adminNewOrder,
+export { newOrder, users, subUser, addSubUser, enableUserByAdmin, disableUserByAdmin, adminNewOrder,
    acceptOrder, rejectOrder, getAggregators, getRecyclers, assignAggregator };

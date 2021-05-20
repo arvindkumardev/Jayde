@@ -44,7 +44,7 @@ CustomText.propTypes = {
   fontFamily: PropTypes.string,
   children: PropTypes.any,
   numberOfLines: PropTypes.number,
-  textTransform:PropTypes.number,
+  textTransform:PropTypes.any, //  before number
 };
 CustomText.defaultProps = {
   fontSize: 12,
