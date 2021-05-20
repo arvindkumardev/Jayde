@@ -1,7 +1,6 @@
 import React, {useContext, useEffect, useState, useLayoutEffect} from 'react';
-import {KeyboardAvoidingView, Platform, TouchableOpacity, View, Text, Image, TextInput, FlatList, ScrollView} from 'react-native';
+import {Platform, TouchableOpacity, View, Text, Image, FlatList} from 'react-native';
 import Styles from "./styles";
-import CustomText from '../../../components/CustomText';
 import NavigationRouteNames from '../../../routes/ScreenNames';
 import {useNavigation} from '@react-navigation/core';
 import {useRoute} from '@react-navigation/native';
@@ -63,12 +62,13 @@ function RecyclerInventory() {
     const inventory = async () => {
       try {
               const { data } = await onInventory({ data: {} });
+              setLoader(false) 
               console.log("Response :", data.data[0].newOrders)        
               setPerPage(data.data[0].links.per_page)
               setTotalCount(data.data[0].links.total_count)
               setInventoryList(data.data[0].newOrders)          
-              setLoader(false)     
-              setOffset(offset + data.data[0].links.per_page);                     
+                 
+             // setOffset(offset + data.data[0].links.per_page);                     
           }
           catch(e){
               console.log("Response error", e);
@@ -94,6 +94,10 @@ function RecyclerInventory() {
       //inventory();
     },[]);
   
+    useEffect(()=>{     
+      inventoryLoadMore();
+    },[offset]);
+
     useEffect(() => {   
       if(refreshPage){
         setInventoryList([])      
@@ -107,12 +111,12 @@ function RecyclerInventory() {
       if (loadMore)
          return
   
-      if(offset > totalCount) 
+      if(offset+ perPage > totalCount) 
         return
       
       setLoadMore(true);
       setOffset(offset + perPage);
-      inventoryLoadMore();
+      
     }
 
     const _RenderItem = (index, item) => {
@@ -167,7 +171,7 @@ function RecyclerInventory() {
           }}
         />         
          :
-         <View style={[Styles.topView, AppStyles.alignCenter, AppStyles.justifyCon]}>  
+         ! loading && <View style={[Styles.topView, AppStyles.alignCenter, AppStyles.justifyCon]}>  
           <Text style = { AppStyles.txtBlackRegular, AppStyles.f16 }>No Record Found</Text>  
          </View>
          }  

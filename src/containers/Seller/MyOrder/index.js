@@ -58,12 +58,11 @@ function SellerMyOrder() {
   const triggerNewOrder = async () => {
     try {
             const { data } = await onMyOrder({ data: {} });
-            //console.log("Response :", data.data[0].orderDetails)        
+            setLoader(false)         
             setPerPage(data.data[0].links.per_page)
             setTotalCount(data.data[0].links.total_count)
-            setOrderList(data.data[0].orderDetails)          
-            setLoader(false)     
-            setOffset(offset + data.data[0].links.per_page);                     
+            setOrderList(data.data[0].orderDetails)         
+            //setOffset(offset + data.data[0].links.per_page);                     
         }
         catch(e){
             console.log("Response error", e);
@@ -87,6 +86,7 @@ function SellerMyOrder() {
    useEffect(()=>{
     setLoader(true)
     triggerNewOrder();
+    
   },[]);
 
   useEffect(() => {   
@@ -97,6 +97,9 @@ function SellerMyOrder() {
     }
   }, [refreshPage])
 
+  useEffect(() => {
+    triggerLoadMore();
+  }, [offset])
 
   useLayoutEffect(() => {
    const title='My Orders';
@@ -107,12 +110,11 @@ function SellerMyOrder() {
     if (loadMore)
        return
 
-    if(offset > totalCount) 
+    if(offset + perPage > totalCount) 
       return
     
     setLoadMore(true);
-    setOffset(offset + perPage);
-    triggerLoadMore();
+    setOffset(offset + perPage);    
   }
 
  const getButtonText = (item) => {

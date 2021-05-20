@@ -32,11 +32,12 @@ function Users() {
   const triggerUser = async () => {
     try {
             const { data } = await emLogin({ data: {} });
+            setLoader(false)                
+
             console.log("Response :", data.data[0].users)        
               setPerPage(data.data[0].links.per_page)
               setTotalCount(data.data[0].links.total_count)
               setarraydata(data.data[0].users)          
-              setLoader(false)                
         }
         catch(e){
             console.log("Response error", e);
@@ -61,6 +62,10 @@ function Users() {
     triggerUser();
   },[]);
 
+  useEffect(() => {
+    triggerLoadMore();
+  }, [offset])
+
   useLayoutEffect(() => {
     const title='Jayde Users';
     navigation.setOptions({title});
@@ -78,8 +83,7 @@ function Users() {
   }
 
   const loadMoreResults = async info => {
-    console.log(totalCount)
-
+   
     if (loadMore)
        return
 
@@ -88,7 +92,6 @@ function Users() {
     
     setLoadMore(true);
     setOffset(offset + perPage);
-    triggerLoadMore();
  }
 
   const _RenderItem = (index, item) => {

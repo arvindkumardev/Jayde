@@ -32,10 +32,11 @@ function AdminNewOrderList() {
    const route = useRoute();
 
   const { setLoader } = useContext(UserContext);
-  const [arraydata, setarraydata]=useState([])
+  const [adminOrderList, setAdminOrderList]=useState([])
 
   const [offset, setOffset] = useState(0);
   const [loadMore, setLoadMore] = useState(false);
+  const [refreshPage, setRefreshPage] = useState(false)
 
   const [totalCount, setTotalCount] = useState(5)
   const [perPage, setPerPage] = useState(5)
@@ -50,20 +51,24 @@ function AdminNewOrderList() {
     }
   }
 
-  const getActionType = async () => {
-    setarraydata([])
-    triggerNewOrder()
+  const getActionType = async () => {   
+    setOffset(0)
+    setPerPage(0)
+    setRefreshPage(true)
+    setLoader(true)
   }
+
   const triggerNewOrder = async () => {
     try {
             const { data } = await onAdminNewOrder({ data: {} });
-            console.log("Response :", data.data[0].newOrders)        
+            console.log("Response :", data.data[0].newOrders)   
+              setLoader(false)        
               setPerPage(data.data[0].links.per_page)
               setTotalCount(data.data[0].links.total_count)
-              setarraydata(data.data[0].newOrders)          
-              setLoader(false)     
-              setOffset(offset + perPage);
-              triggerLoadMore();           
+              setAdminOrderList(data.data[0].newOrders)         
+
+              //setOffset(offset + perPage);
+              //triggerLoadMore();           
         }
         catch(e){
             console.log("Response error", e);
@@ -73,21 +78,33 @@ function AdminNewOrderList() {
   const triggerLoadMore = async () => {
     try {
             const { data } = await onAdminNewOrder({ data: {} });                     
-            let listData = arraydata;          
+            let listData = adminOrderList;          
             let data1 = listData.concat(data.data[0].newOrders);
             setLoadMore(false);
-            setarraydata([...data1]);                       
+            setAdminOrderList([...data1]);                       
           }
         catch(e){
             console.log("Response error", e);
         }
   };
 
+  useEffect(() => {   
+    if(refreshPage){
+      setAdminOrderList([])      
+      triggerNewOrder()
+      setRefreshPage(false)
+    }
+  }, [refreshPage])
+
+
    useEffect(()=>{
     setLoader(true)
     triggerNewOrder();
   },[]);
 
+  useEffect(() => {
+    triggerLoadMore();
+  }, [offset])
 
   useLayoutEffect(() => {
    const title='New Orders';
@@ -98,12 +115,11 @@ function AdminNewOrderList() {
     if (loadMore)
        return
 
-    if(offset > totalCount) 
+    if(offset+ perPage > totalCount) 
       return
     
     setLoadMore(true);
-    setOffset(offset + perPage);
-    triggerLoadMore();
+    setOffset(offset + perPage);   
  }
 
   const _RenderItem = (index, item) => {
@@ -154,9 +170,9 @@ function AdminNewOrderList() {
   
   return (
     <View style = {Styles.mainView}>      
-       <FlatList
+      <FlatList
        style = {{flex:1}}
-        data={arraydata}
+        data={adminOrderList}
         renderItem={({ index, item }) =>
           _RenderItem(index, item) 
         }

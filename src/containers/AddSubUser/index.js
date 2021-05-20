@@ -51,19 +51,19 @@ function AddSubUser() {
   const getSubUser = async () => {
     try {
          const { data } = await onSubUser({ data: {} });
+         setLoader(false)  
          console.log("Response :", data.data[0].subUsers)        
          setPerPage(data.data[0].links.per_page)
          setTotalCount(data.data[0].links.total_count)
-         setSubUserList(data.data[0].subUsers)          
-         setLoader(false)     
-         setOffset(offset + data.data[0].links.per_page);                     
+         setSubUserList(data.data[0].subUsers)         
+        // setOffset(offset + data.data[0].links.per_page);                     
       } catch(e){
             console.log("Response error", e);
       }
   };
 
   const subUserLoadMore = async () => {
-    try {
+    try {           
             const { data } = await onSubUser({ data: {} });                     
             let listData = subUserList;          
             let data1 = listData.concat(data.data[0].subUsers);
@@ -89,17 +89,20 @@ function AddSubUser() {
     }
   }, [refreshPage])
 
+  useEffect(() => {
+    subUserLoadMore();
+  }, [offset])
+
   const loadMoreResults = async info => {
-    console.log(totalCount)
+   
     if (loadMore)
        return
 
-    if(offset > totalCount) 
+    if(offset + perPage > totalCount) 
       return
-    
+  
     setLoadMore(true);
-    setOffset(offset + perPage);
-    subUserLoadMore();
+    setOffset(offset + perPage);    
   }
 
   const _RenderItem = (index, item) => {

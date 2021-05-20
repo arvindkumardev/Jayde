@@ -61,12 +61,13 @@ function NewWorkOrderList() {
   const workOrder = async () => {
     try {
             const { data } = await onMyOrder({ data: {} });
+            setLoader(false)
             //console.log("Response :", data.data[0].orderDetails)        
             setPerPage(data.data[0].links.per_page)
             setTotalCount(data.data[0].links.total_count)
             setOrderList(data.data[0].newOrders)          
-            setLoader(false)     
-            setOffset(offset + data.data[0].links.per_page);                     
+                
+            //setOffset(offset + data.data[0].links.per_page);                     
         }
         catch(e){
             console.log("Response error", e);
@@ -92,6 +93,10 @@ function NewWorkOrderList() {
     workOrder();
   },[]);
 
+  useEffect(()=>{  
+    workOrderLoadMore();
+  },[offset]);
+
   useEffect(() => {   
     if(refreshPage){
       setOrderList([])      
@@ -105,12 +110,12 @@ function NewWorkOrderList() {
     if (loadMore)
        return
 
-    if(offset > totalCount) 
+    if(offset + perPage > totalCount) 
       return
     
     setLoadMore(true);
     setOffset(offset + perPage);
-    workOrderLoadMore();
+    
   }
 
   const _RenderItem = (index, item) => {

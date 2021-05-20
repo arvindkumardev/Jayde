@@ -12,6 +12,7 @@ import { AppStyles, Colors } from '../../../theme';
 import DropDown from '../../../components/Picker/index';
 import MIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import FAIcon from 'react-native-vector-icons/FontAwesome';
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 import { UploadDocument } from '../../../components/index';
 import UserContext from '../../../appContainer/context/user.context';
@@ -100,7 +101,7 @@ function RecyclerNewWorkOrder() {
     setAggregate(status);
     const title='New Work Order';
     navigation.setOptions({title});
-    if(status === '1'){
+    if(status == '1'){
       onGetAggregators();
     } else {
       onGetRecyclers();
@@ -138,19 +139,21 @@ function RecyclerNewWorkOrder() {
       volume: 0,
       unit : '',
       vehicleNo : '',
-      price: ''
+      price: '',
+      priceUnit: ''
     },
     validationSchema,
-    onSubmit: () => handleConfirm(
-    )
+    onSubmit: () => handleConfirm()
   });   
 
+  const handleConfirm = () => {
+
+  }
   const onChangeCategory = (id) => {
     // var index = categories.findIndex(v => v.value == id)    
     //  if(index != -1){
     //    setC(subCategories[index].label)
-    //  }
-   
+    //  }   
     onGetSubCategories({ data: { id: id } });
     requestForm.setFieldValue('category', id)
 
@@ -187,8 +190,9 @@ const handelSave = async () => {
 }
 
   return (
+    <KeyboardAwareScrollView>
     <View style={Styles.topView}>
-       <ScrollView>
+      
        <View style={[AppStyle.ml20, AppStyle.mr20]}>
          <Text style={[Appstyles.txtBlackBold, Appstyles.f17, AppStyle.mt30, Appstyles.textalig]}>Create New Order Here</Text>
          {aggregate == "1" ? 
@@ -202,6 +206,12 @@ const handelSave = async () => {
         selectedValue={requestForm.values.recycler}
         containerStyle={{ borderRadius: 10, backgroundColor: Colors.grayTwo, paddingLeft: 10 }}
       />
+      {clickConfirm && requestForm.errors.recycler && <CustomText
+                fontSize={15}
+                color={Colors.red}
+                styling={{marginTop: RfH(10)}}>
+                {requestForm.errors.recycler}
+              </CustomText> }
     </View>
          :
          <View style={[AppStyles.mt20]}>
@@ -214,6 +224,13 @@ const handelSave = async () => {
             selectedValue={requestForm.values.recycler}
             containerStyle={{ borderRadius: 10, backgroundColor: Colors.grayTwo, paddingLeft: 10 }}
           />
+
+          {clickConfirm && requestForm.errors.recycler && <CustomText
+                fontSize={15}
+                color={Colors.red}
+                styling={{marginTop: RfH(10)}}>
+                {requestForm.errors.recycler}
+              </CustomText> }
         </View> }
 
         <View style={[AppStyles.mt20]}>
@@ -226,10 +243,16 @@ const handelSave = async () => {
             selectedValue={requestForm.values.category}
             containerStyle={{ borderRadius: 10, backgroundColor: Colors.grayTwo, paddingLeft: 10 }}
           />
+          {clickConfirm && requestForm.errors.category && <CustomText
+                fontSize={15}
+                color={Colors.red}
+                styling={{marginTop: RfH(10)}}>
+                {requestForm.errors.category}
+              </CustomText> }
         </View>
 
         <View style={[AppStyles.mt20]}>
-          <Text style={[AppStyles.txtBlackRegular, AppStyles.f16, AppStyles.mb10]}>Company</Text>
+          <Text style={[AppStyles.txtBlackRegular, AppStyles.f16, AppStyles.mb10]}>Sub Category</Text>
           <DropDown
             items={subCategories}
             placeholderText="Pick Sub Category"
@@ -238,6 +261,12 @@ const handelSave = async () => {
             selectedValue={requestForm.values.subCategory}
             containerStyle={{ borderRadius: 10, backgroundColor: Colors.grayTwo, paddingLeft: 10 }}
           />
+          {clickConfirm && requestForm.errors.subCategory && <CustomText
+                fontSize={15}
+                color={Colors.red}
+                styling={{marginTop: RfH(10)}}>
+                {requestForm.errors.subCategory}
+              </CustomText> }
         </View>
 
         <View style={[AppStyles.mt20]}>
@@ -248,8 +277,13 @@ const handelSave = async () => {
                 onChangeText={(txt) => requestForm.setFieldValue('vehicleNo', txt)}
                 style={{ backgroundColor: Colors.grayTwo, borderRadius: 10, paddingLeft: 10 }}
               />
+              {clickConfirm && requestForm.errors.vehicleNo && <CustomText
+                fontSize={15}
+                color={Colors.red}
+                styling={{marginTop: RfH(10)}}>
+                {requestForm.errors.vehicleNo}
+              </CustomText> }
         </View>
-
 
         <View style={[AppStyles.mt20]}>
           <View style={{ flexDirection: 'row' }}>
@@ -284,6 +318,13 @@ const handelSave = async () => {
             
             <MIcon name="attachment" size={25} color={Colors.grayThree} />
           </TouchableOpacity>
+          {clickConfirm && imgData.length == 0 && <CustomText
+                fontSize={15}
+                color={Colors.red}
+                styling={{marginTop: RfH(10)}}>
+                {'Upload Image'}
+              </CustomText> }
+
           <UploadDocument handleClose={() => setImageUpload(false)} 
             isVisible={imageUpload}
             ImageData = {ImageData}  />
@@ -304,6 +345,12 @@ const handelSave = async () => {
                 onChangeText={(txt) => requestForm.setFieldValue('volume', txt)}
                 style={{ backgroundColor: Colors.grayTwo, borderRadius: 10, paddingLeft: 10 }}
               />
+              {clickConfirm && requestForm.errors.volume && <CustomText
+                fontSize={15}
+                color={Colors.red}
+                styling={{marginTop: RfH(10)}}>
+                {requestForm.errors.volume}
+              </CustomText> }
             </View>
             <View style={AppStyles.flexpointfour}>
               <DropDown
@@ -314,6 +361,12 @@ const handelSave = async () => {
                 selectedValue={requestForm.values.unit}
                 containerStyle={{ borderRadius: 10, backgroundColor: Colors.grayTwo, paddingLeft: 10 }}
               />
+              {clickConfirm && requestForm.errors.unit && <CustomText
+                fontSize={15}
+                color={Colors.red}
+                styling={{marginTop: RfH(10)}}>
+                {requestForm.errors.unit}
+              </CustomText> }
             </View>
           </View>
         </View>
@@ -331,16 +384,28 @@ const handelSave = async () => {
                 onChangeText={(txt) => requestForm.setFieldValue('price', txt)}
                 style={{ backgroundColor: Colors.grayTwo, borderRadius: 10, paddingLeft: 10 }}
               />
+              {clickConfirm && requestForm.errors.price && <CustomText
+                fontSize={15}
+                color={Colors.red}
+                styling={{marginTop: RfH(10)}}>
+                {requestForm.errors.price}
+              </CustomText> }
             </View>
             <View style={AppStyles.flexpointfour}>
               <DropDown
                 items={unitPickerData}
-                placeholderText="Per Kg"
+                placeholderText="Select Unit"
                 itemStyle={{ color: '#000' }}
-                onValueChange={(val) => setUnit(val)}
-                selectedValue={unit}
+                onValueChange={(val) => requestForm.setFieldValue('priceUnit', val)}
+                selectedValue={requestForm.values.priceUnit}
                 containerStyle={{ borderRadius: 10, backgroundColor: Colors.grayTwo, paddingLeft: 10 }}
               />
+              {clickConfirm && requestForm.errors.priceUnit && <CustomText
+                fontSize={15}
+                color={Colors.red}
+                styling={{marginTop: RfH(10)}}>
+                {requestForm.errors.priceUnit}
+              </CustomText> }
             </View>
           </View>
         </View>
@@ -352,10 +417,10 @@ const handelSave = async () => {
            style={Styles.confirmbtn} onPress={() => handelSave()}>
            <Text style={[Appstyles.txtWhiteRegular, Appstyles.f17, Appstyles.textalig, AppStyle.mt10]}>SAVE</Text>
          </TouchableOpacity>
-       </View>
-  </ScrollView>        
+       </View>        
       
     </View>
+    </KeyboardAwareScrollView>
   );
 }
 export default RecyclerNewWorkOrder;

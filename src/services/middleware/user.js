@@ -1,7 +1,7 @@
 import {ADD_SUB_USER, SUB_USER, NEW_ORDERS, USERS,
    ENABLE_USER, DISABLE_USER, ADMIN_NEW_ORDER,
    ACCEPT_ORDER, REJECT_ORDER, GET_AGGREGATORS,
-   GET_RECYCLERS, ASSIGN_AGGREGATOR } from "../../utils/urls";
+   GET_RECYCLERS, GET_AGGREGATOR_INVENTORY, ASSIGN_AGGREGATOR } from "../../utils/urls";
 import useAxios from "axios-hooks";
  
 const newOrder = () => {
@@ -126,6 +126,17 @@ const getRecyclers = () => {
   );
 };
 
+const getAggregatorInventory = (pageNumber=1) => {
+   return useAxios(
+     {
+       url: GET_AGGREGATOR_INVENTORY+pageNumber,
+       method: 'GET',
+       headers: { 'content-type': 'application/json' },
+     },
+     { manual: true }
+   );
+}
+
 const assignAggregator = () => {
   return useAxios(
     {
@@ -139,4 +150,4 @@ const assignAggregator = () => {
 
 
 export { newOrder, users, subUser, addSubUser, enableUserByAdmin, disableUserByAdmin, adminNewOrder,
-   acceptOrder, rejectOrder, getAggregators, getRecyclers, assignAggregator };
+   acceptOrder, rejectOrder, getAggregators, getRecyclers, getAggregatorInventory, assignAggregator };
