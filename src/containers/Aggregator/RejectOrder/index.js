@@ -2,40 +2,45 @@ import React, {useContext, useEffect, useState, useLayoutEffect} from 'react';
 import * as Alert from 'react-native';
 import { TouchableOpacity, View, Text, Image, TextInput, ScrollView} from 'react-native';
 import Styles from "./styles";
-import { AppStyles } from '../../../theme';
+import { AppStyles, Colors } from '../../../theme';
 import NavigationRouteNames from '../../../routes/ScreenNames';
 import {useNavigation} from '@react-navigation/core';
 import {useRoute} from '@react-navigation/native';
+import {alertBox, RfH, RfW, isValidVolume} from '../../../utils/helpers';
 import { aggreRejectorder } from './middleware';
 import UserContext from '../../../appContainer/context/user.context';
+import * as yup from "yup";
+import { useFormik } from "formik";
+import CustomText from '../../../components/CustomText';
 
 function RejectOrder() {
 
   const navigation = useNavigation();
   const route = useRoute();
   const [item, setItem] = useState({});
+  // const [reason, setReason] = useState('');
+  const [clickConfirm, setClickConfirm] = useState(false);
+
   const [{ data: quoteData, loading, error }, onSubmitQuote] = aggreRejectorder();
-  const [reason, setReason] = useState('');
 
   const screenNavigateback = () => {
     navigation.navigate(NavigationRouteNames.ORDER_CONFIRMATION);
   }
 
-   const screenNavigate = () => {
-    navigation.navigate(NavigationRouteNames.ORDERS);
-  }
-
   useLayoutEffect(() => { 
     const { Item } = route.params;  
+    // alert(JSON.stringify(Item));
+    // console.log('itemdate', JSON.stringify(item));
     setItem(Item)   
+    // alert(JSON.stringify(Item));
     const title='Reject Order';
    navigation.setOptions({
     title,
   });
   }, []);
 
-  const handleConfirm = async (item) => {   
-
+  const handleConfirm = async (reason) => {   
+    // console.log('itemdate', item.assigned_id);
     const {data} = await onSubmitQuote({
       data: {
         assignedId: item.assigned_id,
@@ -51,6 +56,34 @@ function RejectOrder() {
       alert(data.message)
     }  
   };
+
+  const validationSchema = yup.object().shape({
+    reason: yup
+      .string()
+      // .email("Please enter cancellation reason")
+      .required('Please enter cancellation reason'),
+  })
+
+  const requestForm = useFormik({
+    validateOnChange: true,
+    validateOnBlur: true,
+    initialValues: {
+      reason : '',
+    },
+    validationSchema,
+    onSubmit: () => handleConfirm(
+      requestForm.values.reason,
+    )
+  });
+
+  const handelValidation = async () => {
+    setClickConfirm(true)
+    await requestForm.submitForm();
+  }
+
+  const screenNavigate = () => {
+    navigation.navigate(NavigationRouteNames.ORDERS);
+  }
 
   
   return (
@@ -71,11 +104,20 @@ function RejectOrder() {
           <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f13, AppStyles.mb10, AppStyles.ml24]}>Please give reason for cancellation</Text>
           <TextInput
                 placeholder=""
-                value={reason}
-                onChangeText={(txt) => setReason(txt)}
+                value={requestForm.values.reason}
+                // onChangeText={(txt) => setReason(txt)}
+                onChangeText={(txt) => requestForm.setFieldValue('reason', txt)}
                 style={Styles.canceltextinput}
                 multiline={true}
               />
+              {clickConfirm && requestForm.errors.reason ? (
+              <CustomText
+                fontSize={15}
+                color={Colors.red}
+                styling={{marginTop: RfH(10), marginLeft: 25,}}>
+                {requestForm.errors.reason}
+              </CustomText>
+                ) : null}
         </View>
 
          <View>
@@ -87,7 +129,9 @@ function RejectOrder() {
              </View>
 
              <View style={AppStyles.aligncen}>
-              <TouchableOpacity style={Styles.confirmbtn} onPress = {() => handleConfirm(item)}>
+              <TouchableOpacity style={Styles.confirmbtn} onPress = {() => {
+                // handleConfirm(item)
+                handelValidation(item)}}>
                   <Text style={[AppStyles.f17, AppStyles.whitecolor, AppStyles.textalig, AppStyles.mt10]}>CONFIRM</Text>
               </TouchableOpacity>
              </View>

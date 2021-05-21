@@ -21,7 +21,7 @@ import MIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { UploadDocument } from '../../components/index';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { useFormik } from "formik";
-import * as Yup from "yup";
+import * as yup from "yup";
 import { weightConfirm, getUnits, weightPropose, paymentConfirm, pickupConfirm, receiptConfirm } from './middleware';
 import UserContext from '../../appContainer/context/user.context';
 import DropDown from '../../components/Picker/index';
@@ -63,6 +63,7 @@ const PaymentVerification = () => {
 
   const [mode, setMode] = useState('date');
   const [show, setShow] = useState(false);
+  const [payment, setPayment] = useState(true);
 
   const [isEnabled, setIsEnabled] = useState(false);
   const [timeSlotIndex, setTimeSlotIndex] = useState('')
@@ -83,12 +84,12 @@ const PaymentVerification = () => {
   const [detail, setDetail] = useState('');
   const [vehno, setVehno] = useState('');
 
-  const handleConfirmweight = async (item) => {   
+  const handleConfirmweight = async (kantaslipno) => {   
 
     const {data} = await onSubmitQuote({
       data: {
         assignedId: item.assigned_id,
-         kanta_slip_number: requestForm.values.kantaslipno,
+         kanta_slip_number: kantaslipno,
          kanta_slip_date:   customDate,
          uploaded_files: imgData,
       },
@@ -103,14 +104,14 @@ const PaymentVerification = () => {
     }  
   };
 
-  const handleProposemweight = async (item) => {   
+  const handleProposemweight = async (Proposekantaslipno) => {   
 
     const {data} = await onSubmitProposeweight({
       data: {
         assignedId: item.assigned_id,
         newWeight: requestForm.values.volume,
         unit: requestForm.values.unit,
-         kanta_slip_number: requestForm1.values.Proposekantaslipno,
+         kanta_slip_number: Proposekantaslipno,
          kanta_slip_date:   customDate1,
          uploaded_files: imgData1,
       },
@@ -124,13 +125,14 @@ const PaymentVerification = () => {
     }  
   };
 
-  const handlePaymentconfirm = async (item) => {   
-
+  const handlePaymentconfirm = async (paymentmade) => {   
+    // console.log(paymentmade);
+    // return
     const {data} = await onSubmitPaymentconfirm({
       data: {
          assignedId: item.assigned_id,
          paymentRequired: item.price,
-         paymentMade: requestForm2.values.PaymentMade,
+         paymentMade: paymentmade,
          paymentMode: paymentmode,
          paymentDetails: detail,
       },
@@ -256,8 +258,8 @@ const PaymentVerification = () => {
     }  
   };
 
-  const validationSchema = Yup.object().shape({
-    kantaslipno: Yup.string().required("Please Provide Kanta Slip Number"),
+  const validationSchema = yup.object().shape({
+    kantaslipno: yup.string().required("Please Provide Kanta Slip Number"),
   });
   
   const requestForm = useFormik({
@@ -267,13 +269,18 @@ const PaymentVerification = () => {
       kantaslipno : '',
     },
     validationSchema,
-    onSubmit: () => handleConfirm(
+    onSubmit: () => handleConfirmweight(
       requestForm.values.kantaslipno,
     )
   }); 
 
-  const validationSchema1 = Yup.object().shape({
-    Proposekantaslipno: Yup.string().required("Please Provide Kanta Slip Numberdfdfdf"),
+  const handelSubmitQuote = async () => {
+    setClickConfirm(true)
+    await requestForm.submitForm();
+  }
+
+  const validationSchema1 = yup.object().shape({
+    Proposekantaslipno: yup.string().required("Please Provide Kanta Slip Number"),
   });
   
   const requestForm1 = useFormik({
@@ -283,50 +290,51 @@ const PaymentVerification = () => {
       Proposekantaslipno : '',
     },
     validationSchema1,
-    onSubmit: () => handleConfirm1(
+    onSubmit: () => handleProposemweight(
       requestForm1.values.Proposekantaslipno,
     )
   }); 
-
-  const validationSchema2 = Yup.object().shape({
-    PaymentRequired: Yup.string().required("Please Provide Payment"),
-    PaymentMade: Yup.string().required("Please Provide Payment Details"),
-    PaymentMode: Yup.string().required("Please Provide Payment Mode Details"),
-    PaymentDetails: Yup.string().required("Please Provide Payment Details"),
-  });
-  
-  const requestForm2 = useFormik({
-    validateOnChange: true,
-    validateOnBlur: true,
-    initialValues: {
-      PaymentRequired : '',
-      PaymentMade : '',
-      PaymentMode : '',
-      PaymentDetails : '',
-    },
-    validationSchema2,
-    onSubmit: () => handleConfirm(
-      requestForm2.values.PaymentRequired,
-      requestForm2.values.PaymentMade,
-      requestForm2.values.PaymentMode,
-      requestForm2.values.PaymentDetails,
-    )
-  }); 
-
-  const submitPayment = async () => {
-    setClickConfirm2(true)
-    await requestForm2.submitForm();
-  }
 
   const submitproposeweight = async () => {
     setClickConfirm1(true)
     await requestForm1.submitForm();
   }
 
-  const handelSubmitQuote = async () => {
-    setClickConfirm(true)
-    await requestForm.submitForm();
+  const validationSchema2 = yup.object().shape({
+    // PaymentRequired: yup.string().required("Please Provide Payment"),
+     paymentmade: yup
+     .string()
+    //  .min(1, 'Invalid Name').required('Required'),
+    // .min(1, 'Invalid Name')
+      .required('Please Provide Payment Details'),
+    // PaymentMode: yup.string().required("Please Provide Payment Mode Details"),
+    // PaymentDetails: yup.string().required("Please Provide Payment Details"),
+  })
+  
+  const requestForm2 = useFormik({
+    validateOnChange: true,
+    validateOnBlur: true,
+    initialValues: {
+      // PaymentRequired : '',
+        paymentmade : '',
+      // PaymentMode : '',
+      // PaymentDetails : '',
+    },
+    validationSchema2,
+    onSubmit: () => handlePaymentconfirm(
+      // requestForm2.values.PaymentRequired,
+      requestForm2.values.paymentmade,
+      // requestForm2.values.PaymentMode,
+      // requestForm2.values.PaymentDetails,
+    )
+  }); 
+
+  const handlesubmitPayment = async () => {
+    setClickConfirm2(true)
+    await requestForm2.submitForm();
   }
+
+  
 
   const onShowCamera = () => {
     console.log(showCamera);
@@ -657,11 +665,11 @@ const PaymentVerification = () => {
                       <View style={style.flex1}>
                       <View style={{ marginTop: RfH(10), marginTop: 5, marginBottom: 25 }}>
                         <TouchableOpacity style={Styles.confirmButton} onPress={() => {
+        handelSubmitQuote(item)
         setSelected(true)   
         setRememberMe(!rememberMe)
         setSlipNumber("")
-       handelSubmitQuote()
-       handleConfirmweight(item)
+      //  handleConfirmweight(item)
       }}>
                           <Text style={Styles.confirmBtnText}>CONFIRM</Text>
                         </TouchableOpacity>
@@ -798,8 +806,9 @@ const PaymentVerification = () => {
         setSelected(true)   
         setRememberMe(!rememberMe)
         setSlipNumber("")
-       submitproposeweight()
-       handleProposemweight(item)
+      //  submitproposeweight()
+      //  handleProposemweight(item)
+      submitproposeweight(item)
       }}>
                 <Text style={Styles.confirmBtnText}>CONFIRM</Text>
               </TouchableOpacity>
@@ -852,17 +861,17 @@ const PaymentVerification = () => {
     </View>
     {/* <TextInput placeholder={"25,864"} style={Styles.inputText} /> */}
     <TextInput
-              value={requestForm2.values.PaymentMade}
               placeholder="Slip Number"
-              onChangeText={(txt) => requestForm2.setFieldValue('PaymentMade', txt)}
+              value={requestForm2.values.paymentmade}
+              onChangeText={(txt) => requestForm2.setFieldValue('paymentmade', txt)}
               style={{ backgroundColor: Colors.grayTwo, borderRadius: 10, paddingLeft: 10 }}
             />
-             {clickConfirm2 && requestForm2.errors.PaymentMade ? ( 
+             {clickConfirm2 && requestForm2.errors.paymentmade ? ( 
               <CustomText
                 fontSize={15}
                 color={Colors.red}
                 styling={{marginTop: RfH(10)}}>
-                {requestForm2.errors.PaymentMade}
+                {requestForm2.errors.paymentmade}
                 {/* hhfhh */}
               </CustomText>
              ) : null} 
@@ -904,10 +913,13 @@ const PaymentVerification = () => {
             </View>
           </View>
 
+         {/* { payment == true ?  */}
           <View style={style.flexDir}>
   <View style={style.flex1}>
   <View style={{ marginTop: RfH(10), marginTop: 5, marginBottom: 25 }}>
-    <TouchableOpacity style={Styles.confirmButtonn} onPress={() => setSelected1(true)}>
+    <TouchableOpacity style={Styles.confirmButtonn} onPress={() => {setSelected1(true) 
+      // setPayment(false) 
+      }}>
       <Text style={Styles.confirmBtnTextt}>CANCEL</Text>
     </TouchableOpacity>
   </View>
@@ -916,14 +928,16 @@ const PaymentVerification = () => {
   <View style={{ marginTop: RfH(10), marginTop: 5, marginBottom: 25 }}>
     <TouchableOpacity style={Styles.confirmButton} onPress={() => {
       setShouldShow6(!shouldShow6)
-      submitPayment()
-      handlePaymentconfirm(item)
+      // submitPayment()
+      // handlePaymentconfirm(item)
+      handlesubmitPayment(item)
     }}>
       <Text style={Styles.confirmBtnText}>CONFIRM</Text>
     </TouchableOpacity>
   </View>
   </View>
   </View>
+  {/* : null} */}
               </View>
                    ) : null} 
                   {/* End Material pickup confirmation */}

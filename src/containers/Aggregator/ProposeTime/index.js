@@ -5,7 +5,6 @@ import Styles from "./styles";
 import Appstyles from "../../../theme/Styles/texts";
 import AppStyle from "../../../theme/Styles/spaces";
 import style from "../../../theme/Styles/container";
-import CustomText from '../../../components/CustomText';
 import NavigationRouteNames from '../../../routes/ScreenNames';
 import {useNavigation} from '@react-navigation/core';
 import {useRoute} from '@react-navigation/native';
@@ -16,6 +15,10 @@ import DropDown from '../../../components/Picker/index';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { confirmSchedule } from './middleware';
 import UserContext from '../../../appContainer/context/user.context';
+import {alertBox, RfH, RfW, isValidVolume} from '../../../utils/helpers';
+import * as yup from "yup";
+import { useFormik } from "formik";
+import CustomText from '../../../components/CustomText';
 
 const typeData = [
   {label: '10:00 AM - 11:00 AM', value: '1'}]
@@ -28,6 +31,7 @@ function ProposeTime() {
    const [unit, setUnit] = useState('');
    const [unitPickerData, setUnitData] = useState([]);
    const [item, setItem] = useState({});
+   const [clickConfirm, setClickConfirm] = useState(false);
 
   const [customDate, setCustomDate] = useState(moment(new Date()).add(1, 'days').format('DD-MM-YYYY'));
   const [fromTime, setFromTime] = useState(moment(new Date()).format('hh:mm A'))
@@ -96,13 +100,12 @@ function ProposeTime() {
     setShow(false);     
     if(selectedDate){
       if(pickerIndex === 0){
-        setCustomDate(moment(selectedDate).format('DD-MM-YYYY'));
+         setCustomDate(moment(selectedDate).format('DD-MM-YYYY'));
       } else if(pickerIndex === 1) {
         setFromTime(moment(selectedDate).format('hh:mm A'));
       } else if(pickerIndex === 2) {
         setToTime(moment(selectedDate).format('hh:mm A'));
       }
-      //setShow(Platform.OS === 'ios');   
     } else {
     }  
   };
@@ -226,7 +229,10 @@ function ProposeTime() {
 
        <View style={Styles.btnContainer}>
        <TouchableOpacity
-           style={Styles.confirmbtn} onPress = {() => handleConfirm(item)}>
+           style={Styles.confirmbtn} onPress = {() => {
+            handleConfirm(item)
+          // handelValidation(item)
+           }}>
            <Text style={[Appstyles.txtWhiteRegular, Appstyles.f17, Appstyles.textalig, AppStyle.mt10]}>CONFIRM</Text>
          </TouchableOpacity>
        </View>

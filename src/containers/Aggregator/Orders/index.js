@@ -113,20 +113,23 @@ function Orders() {
           </View> }
 
          </View>
-         <View style={[AppStyles.flexpointsix, AppStyles.ml16]}>
+         <View style={[AppStyles.flexpointfive, AppStyles.ml16]}>
          <Text style={[AppStyles.txtBlackRegular, AppStyles.f17,]}>{item.order_no}</Text>
          <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f15,]}>{item.qty}  {item.unit_name}  {item.category_name}</Text>
          <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f11,]}>{moment(item.pickup_date).format('DD-MMM-YY')}</Text>
          </View>
-         <View style={[AppStyles.flexpointtwo, AppStyles.mt5]}>
+         <View style={[AppStyles.flexpointthree, AppStyles.mt5, AppStyles.mr20, AppStyles.alignfend]}>
          <TouchableOpacity 
          onPress = {() => screenNavigate(item)}
          style={Styles.confirmBtn}>
           <Text style={[AppStyles.txtWhiteRegular, AppStyles.f11,
            AppStyles.textalig,]}>{item.is_confirmed  == 2 ? 'VIEW' : 'ACCEPT'}</Text>
         </TouchableOpacity>
-      <Image style={[AppStyles.ml20, AppStyles.mt5,]} source={require('../../../assets/Images/AddSubUser/pending.png')}  /> 
-      <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f11, AppStyles.ml5]}>Pending</Text>
+        {item.is_confirmed  == 2 ?
+       <View><Image style={[AppStyles.ml20, AppStyles.mt5]} source={require('../../../assets/Images/Dashboard/Group_9995.png')}  /> 
+       <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f11]}>Completed</Text></View> :
+        <View><View><Image style={[AppStyles.ml10, AppStyles.mt5]} source={require('../../../assets/Images/AddSubUser/pending.png')}  /></View> 
+       <View><Text style={[AppStyles.txtSecandaryRegular, AppStyles.f11, AppStyles.mr5]}>Pending</Text></View></View> }
          </View>
        </View>
 
