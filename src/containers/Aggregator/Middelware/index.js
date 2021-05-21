@@ -1,7 +1,7 @@
 import useAxios from 'axios-hooks';
 import {
   AGGREGATOR_NEWORDER, AGGREGATOR_CREATE_ORDER, AGGREGATOR_WORK_ORDER_LIST,
-  AGGREGATOR_SCHEDULE_ORDER_LIST, AGGREGATOR_COMPLETED_ORDER_LIST
+  AGGREGATOR_SCHEDULE_ORDER_LIST, AGGREGATOR_COMPLETED_ORDER_LIST, AGGREGATOR_REJECTORDER, CONFIRM_SCHEDULE
 } from '../../../utils/urls';
 
 
@@ -60,4 +60,26 @@ const createWorkOrder = () => {
   );
 };
 
-export { aggregatorNewOrder, createWorkOrder, getWorkOrderList, aggregatorGetCompletedOrder, aggregatorGetScheduleOrder };
+const aggreRejectorder = () => {
+  return useAxios(
+    {
+      url: AGGREGATOR_REJECTORDER,
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+    },
+    { manual: true }
+  );
+};
+
+const confirmSchedule = () => {
+  return useAxios(
+    {
+      url: CONFIRM_SCHEDULE,
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+    },
+    { manual: true }
+  );
+};
+
+export { aggregatorNewOrder, createWorkOrder, getWorkOrderList, aggregatorGetCompletedOrder, aggregatorGetScheduleOrder, aggreRejectorder, confirmSchedule };

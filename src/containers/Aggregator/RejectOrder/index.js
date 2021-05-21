@@ -7,7 +7,7 @@ import NavigationRouteNames from '../../../routes/ScreenNames';
 import {useNavigation} from '@react-navigation/core';
 import {useRoute} from '@react-navigation/native';
 import {alertBox, RfH, RfW, isValidVolume} from '../../../utils/helpers';
-import { aggreRejectorder } from './middleware';
+import { aggreRejectorder } from '../Middelware';
 import UserContext from '../../../appContainer/context/user.context';
 import * as yup from "yup";
 import { useFormik } from "formik";

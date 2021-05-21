@@ -52,6 +52,8 @@ const PaymentVerification = () => {
   const [slipNumber,setSlipNumber] = useState("");
   const [item, setItem] = useState({});
   const [imageUpload, setImageUpload] = useState(false);
+  const [imageUpload1, setImageUpload1] = useState(false);
+  const [warehouseimageUpload, setWarehouseimageUpload] = useState(false);
   const [unitName, setUnitName] = useState('');
 
   const [customDate, setCustomDate] = useState(moment(new Date()).add(1, 'days').format('DD-MM-YYYY'));
@@ -64,12 +66,18 @@ const PaymentVerification = () => {
   const [mode, setMode] = useState('date');
   const [show, setShow] = useState(false);
   const [payment, setPayment] = useState(true);
+  const [conweight, setConweight] = useState(true);
+  const [proposeweight, setProposeweight] = useState(true);
+  const [conpayment, setConpayment] = useState(true);
+  const [reachedwarehouse, setReachedwarehouse] = useState(true);
+  const [checkcondition, setCheckcondition] = useState(false);
 
   const [isEnabled, setIsEnabled] = useState(false);
   const [timeSlotIndex, setTimeSlotIndex] = useState('')
   const [clickConfirm, setClickConfirm] = useState(false);
   const [clickConfirm1, setClickConfirm1] = useState(false);
   const [clickConfirm2, setClickConfirm2] = useState(false);
+  const [clickConfirm3, setClickConfirm3] = useState(false);
   const [{ data: quoteData, loading, error }, onSubmitQuote] = weightConfirm();
   const [{ data: proposeData, loading1, error1 }, onSubmitProposeweight] = weightPropose();
   const [{ data: paymentData, loading2, error2 }, onSubmitPaymentconfirm] = paymentConfirm();
@@ -85,7 +93,8 @@ const PaymentVerification = () => {
   const [vehno, setVehno] = useState('');
 
   const handleConfirmweight = async (kantaslipno) => {   
-
+    if(imgData.length === 0)
+    return
     const {data} = await onSubmitQuote({
       data: {
         assignedId: item.assigned_id,
@@ -97,6 +106,9 @@ const PaymentVerification = () => {
     
     console.log(data)
     if(data.status){
+      setSelected(false)   
+      setConweight(false)
+      setRememberMe(!rememberMe)
        alert(data.message)
       // screenNavigate()
     } else {
@@ -104,13 +116,15 @@ const PaymentVerification = () => {
     }  
   };
 
-  const handleProposemweight = async (Proposekantaslipno) => {   
+  const handleProposemweight = async (volume, unit, Proposekantaslipno) => {   
+    if(imgData1.length === 0)
+    return
 
     const {data} = await onSubmitProposeweight({
       data: {
         assignedId: item.assigned_id,
-        newWeight: requestForm.values.volume,
-        unit: requestForm.values.unit,
+        newWeight: volume,
+        unit: unit,
          kanta_slip_number: Proposekantaslipno,
          kanta_slip_date:   customDate1,
          uploaded_files: imgData1,
@@ -119,13 +133,16 @@ const PaymentVerification = () => {
     
     console.log(data)
     if(data.status){
+      setSelected(false)  
+      setProposeweight(false)
+      setRememberMe(!rememberMe)
        alert(data.message)
     } else {
        alert(data.message)
     }  
   };
 
-  const handlePaymentconfirm = async (paymentmade) => {   
+  const handlePaymentconfirm = async (paymentmade, paymentmode, paymentdetails) => {   
     // console.log(paymentmade);
     // return
     const {data} = await onSubmitPaymentconfirm({
@@ -134,12 +151,15 @@ const PaymentVerification = () => {
          paymentRequired: item.price,
          paymentMade: paymentmade,
          paymentMode: paymentmode,
-         paymentDetails: detail,
+         paymentDetails: paymentdetails,
       },
     });
     
     console.log(data)
     if(data.status){
+      setConpayment(false)
+      setShouldShow6(!shouldShow6)
+      // setRememberMe1(!rememberMe1)
       alert(data.message)
     } else {
       alert(data.message)
@@ -156,18 +176,21 @@ const PaymentVerification = () => {
     
     console.log(data)
     if(data.status){
+      setRememberMe1(!rememberMe1)
       alert(data.message)
     } else {
       alert(data.message)
     }  
   };
 
-  const handleReceiptconfirm = async (item) => {   
+  const handleReceiptconfirm = async (vehicleno) => {   
+    if(imgData2.length === 0)
+    return
 
     const {data} = await onSubmitReceiptconfirm({
       data: {
          assignedId: item.assigned_id,
-         vehicleNumber: vehno,
+         vehicleNumber: vehicleno,
          pickUpDate: customDate2,
          uploaded_files: imgData2,
       },
@@ -175,6 +198,9 @@ const PaymentVerification = () => {
     
     console.log(data)
     if(data.status){
+      setSelected1(true)   
+      setReachedwarehouse(false)
+      setRememberMe4(!rememberMe4)
       alert(data.message)
     } else {
       alert(data.message)
@@ -186,7 +212,7 @@ const PaymentVerification = () => {
     if(pos != -1){
       setUnitName(unitPickerData[pos].label)      
     }
-   requestForm.setFieldValue('unit', id)
+   requestForm1.setFieldValue('unit', id)
  }
 
  useEffect(() => {
@@ -274,23 +300,30 @@ const PaymentVerification = () => {
     )
   }); 
 
-  const handelSubmitQuote = async () => {
+  const handelWeightConfirm = async () => {
     setClickConfirm(true)
     await requestForm.submitForm();
   }
 
   const validationSchema1 = yup.object().shape({
+    volume : yup.string().required("Please enter volume"),
+    unit: yup.string().required("Please select unit"),
     Proposekantaslipno: yup.string().required("Please Provide Kanta Slip Number"),
   });
+  
   
   const requestForm1 = useFormik({
     validateOnChange: true,
     validateOnBlur: true,
     initialValues: {
+      volume : '',
+      unit : '',
       Proposekantaslipno : '',
     },
-    validationSchema1,
+    validationSchema : validationSchema1,
     onSubmit: () => handleProposemweight(
+      requestForm1.values.volume,
+      requestForm1.values.unit,
       requestForm1.values.Proposekantaslipno,
     )
   }); 
@@ -301,31 +334,26 @@ const PaymentVerification = () => {
   }
 
   const validationSchema2 = yup.object().shape({
-    // PaymentRequired: yup.string().required("Please Provide Payment"),
      paymentmade: yup
      .string()
-    //  .min(1, 'Invalid Name').required('Required'),
-    // .min(1, 'Invalid Name')
       .required('Please Provide Payment Details'),
-    // PaymentMode: yup.string().required("Please Provide Payment Mode Details"),
-    // PaymentDetails: yup.string().required("Please Provide Payment Details"),
+     paymentmode: yup.string().required("Please Provide Payment Mode Details"),
+     paymentdetails: yup.string().required("Please Provide Payment Details"),
   })
   
   const requestForm2 = useFormik({
     validateOnChange: true,
     validateOnBlur: true,
     initialValues: {
-      // PaymentRequired : '',
         paymentmade : '',
-      // PaymentMode : '',
-      // PaymentDetails : '',
+        paymentmode : '',
+        paymentdetails : '',
     },
-    validationSchema2,
+    validationSchema : validationSchema2,
     onSubmit: () => handlePaymentconfirm(
-      // requestForm2.values.PaymentRequired,
       requestForm2.values.paymentmade,
-      // requestForm2.values.PaymentMode,
-      // requestForm2.values.PaymentDetails,
+      requestForm2.values.paymentmode,
+      requestForm2.values.paymentdetails,
     )
   }); 
 
@@ -333,6 +361,27 @@ const PaymentVerification = () => {
     setClickConfirm2(true)
     await requestForm2.submitForm();
   }
+
+  const validationSchema3 = yup.object().shape({
+    vehicleno: yup.string().required('Please Provide Payment Details'),
+ })
+ 
+ const requestForm3 = useFormik({
+   validateOnChange: true,
+   validateOnBlur: true,
+   initialValues: {
+       vehicleno : '',
+   },
+   validationSchema : validationSchema3,
+   onSubmit: () => handleReceiptconfirm(
+     requestForm3.values.vehicleno,
+   )
+ }); 
+
+ const handlesubmitReceipt = async () => {
+   setClickConfirm3(true)
+   await requestForm3.submitForm();
+ }
 
   
 
@@ -437,7 +486,8 @@ const PaymentVerification = () => {
       setShouldShow4(!shouldShow4)
     }
     else {
-      alert("Please Fill The Material Pick-up confirmation First");
+      // alert("Please Fill The Material Pick-up confirmation First");
+      alert("Please Confirm Pickup First");
     }
   }
 
@@ -547,6 +597,9 @@ const PaymentVerification = () => {
 
         // start view
         <View>
+          {conweight == true ? 
+          <View>
+            {proposeweight == true ? 
          <View style={style.flexDir}>
             <View style={style.flex1}>
             <View>
@@ -577,6 +630,9 @@ const PaymentVerification = () => {
             </View>
             </View>
           </View>
+          : null }
+          </View>
+          : null }
       </View>
    
         // End View
@@ -585,7 +641,8 @@ const PaymentVerification = () => {
              {/* Start Confirm Weight */}
              {shouldShow3 == true ? (
              <View>
-
+               {conweight == true ? 
+                 <View>
                 <View style={{ marginTop: 20 }}>
                   <View>
                   <Text style={Styles.inputLabelText}>Kanta Slip Number</Text>
@@ -603,7 +660,7 @@ const PaymentVerification = () => {
                 color={Colors.red}
                 styling={{marginTop: RfH(10)}}>
                 {requestForm.errors.kantaslipno}
-                {/* hhfhh */}
+               
               </CustomText>
              ) : null} 
               </View>
@@ -645,7 +702,7 @@ const PaymentVerification = () => {
                       styling={{marginTop: RfH(10)}}>
                       Upload Picture
                     </CustomText>
-                      ) : null}
+                     ) : null} 
                     <UploadDocument handleClose={() => setImageUpload(false)} 
                     isVisible={imageUpload}
                     ImageData = {ImageData} />
@@ -655,21 +712,24 @@ const PaymentVerification = () => {
                   </View>
 
                   <View style={style.flexDir}>
-                      <View style={style.flex1}>
+                      <View style={style.flex1, AppStyles.mt20}>
                       <View style={{ marginTop: RfH(10), marginTop: 5, marginBottom: 25 }}>
-                        <TouchableOpacity style={Styles.confirmButtonn} onPress={handleConfirm}>
+                        <TouchableOpacity style={Styles.confirmButtonn} 
+                        // onPress={handleConfirm}
+                        onPress={() => {proposeWeight(false, true)}}>
                           <Text style={Styles.confirmBtnTextt}>CANCEL</Text>
                         </TouchableOpacity>
                       </View>
                       </View>
-                      <View style={style.flex1}>
+                      <View style={style.flex1, AppStyles.mt20}>
                       <View style={{ marginTop: RfH(10), marginTop: 5, marginBottom: 25 }}>
                         <TouchableOpacity style={Styles.confirmButton} onPress={() => {
-        handelSubmitQuote(item)
-        setSelected(true)   
-        setRememberMe(!rememberMe)
+        handelWeightConfirm(item)
+        //  setSelected(true)   
+        //  setRememberMe(!rememberMe)
         setSlipNumber("")
       //  handleConfirmweight(item)
+      
       }}>
                           <Text style={Styles.confirmBtnText}>CONFIRM</Text>
                         </TouchableOpacity>
@@ -677,8 +737,12 @@ const PaymentVerification = () => {
                       </View>
                   </View>
              </View>  
+             : null }
+             </View> 
              ) : null || selected2 == true ? ( 
               <View>
+                {proposeweight == true ? 
+                <View>
                   <View style={Styles.viewVolume}>
                 <Text style={Styles.inputLabelText}>Enter New Volume</Text>
                 <View>
@@ -686,17 +750,17 @@ const PaymentVerification = () => {
             <View style={{ flex: 2, paddingRight: 10 }}>
               <TextInput
                 placeholder="Enter volume"
-                value={requestForm.values.volume}
+                value={requestForm1.values.volume}
                 keyboardType = {'numeric'}
-                onChangeText={(txt) => requestForm.setFieldValue("volume", txt)}
+                onChangeText={(txt) => requestForm1.setFieldValue("volume", txt)}
                 style={{ backgroundColor: Colors.grayTwo, borderRadius: 10, paddingLeft: 10 }}              
               />
-              {clickConfirm && requestForm.errors.volume ? (
+              {clickConfirm1 && requestForm1.errors.volume ? (
                 <CustomText
                   fontSize={15}
                   color={Colors.red}
-                  styling={{marginTop: RfH(10)}}>
-                  {requestForm.errors.volume}
+                  styling={{marginTop: RfH(5)}}>
+                  {requestForm1.errors.volume}
                 </CustomText>
                 ) : null}
              
@@ -707,16 +771,16 @@ const PaymentVerification = () => {
                 placeholderText="Units"
                 //itemStyle={{ color: '#000' }}
                 onValueChange = {onChangeUnit}               
-                selectedValue={requestForm.values.unit}
+                selectedValue={requestForm1.values.unit}
                 containerStyle={{ borderRadius: 10, backgroundColor: Colors.grayTwo, paddingLeft: 10 }}
               />
 
-               {clickConfirm && requestForm.errors.unit ? (
+               {clickConfirm1 && requestForm1.errors.unit ? (
                 <CustomText
                   fontSize={15}
                   color={Colors.red}
-                  styling={{marginTop: RfH(10)}}>
-                  {requestForm.errors.unit}
+                  styling={{marginTop: RfH(5)}}>
+                  {requestForm1.errors.unit}
                 </CustomText>
                 ) : null}
             </View>
@@ -740,7 +804,7 @@ const PaymentVerification = () => {
               <CustomText
                 fontSize={15}
                 color={Colors.red}
-                styling={{marginTop: RfH(10)}}>
+                styling={{marginTop: RfH(5)}}>
                 {requestForm1.errors.Proposekantaslipno}
                 {/* hhfhh */}
               </CustomText>
@@ -772,43 +836,46 @@ const PaymentVerification = () => {
         <View style={[style.flex1, AppStyles.ml10]}>
         <Text style={Styles.inputLabelText}>Upload Documents</Text>
         <View style={Styles.viewVolumeInputContainerK}>
-        <TouchableOpacity style={[Styles.inputText, Styles.inputIcon, AppStyles.br10]} onPress={() => setImageUpload(!imageUpload)}>
+        <TouchableOpacity style={[Styles.inputText, Styles.inputIcon, AppStyles.br10]} onPress={() => setImageUpload1(!imageUpload1)}>
                     {/* <Text style={Styles.txtFileUpload}>Upload file</Text> */}
                     <Text style={[AppStyles.txtSecandaryRegular, {color: imgData1.length > 0 ?  Colors.green : Colors.warmGrey}]}>{imgData1.length > 0 ? 'File Attached' : 'Attach File' }</Text>
                     <MIcon name="attachment" size={25} color={Colors.grayThree} />
                     </TouchableOpacity>
-                    {clickConfirm && imgData1.length === 0 ? (
+                    {clickConfirm1 && imgData1.length === 0 ? (
                     <CustomText
                       fontSize={15}
                       color={Colors.red}
-                      styling={{marginTop: RfH(10)}}>
+                      styling={{marginTop: RfH(5)}}>
                       Upload Picture
                     </CustomText>
-                      ) : null}
-                    <UploadDocument handleClose={() => setImageUpload(false)} 
-                    isVisible={imageUpload}
+                      ) : null} 
+                    <UploadDocument handleClose={() => setImageUpload1(false)} 
+                    isVisible={imageUpload1}
                     ImageData = {ImageData1} />
         </View> 
         </View>
         </View>
 
         <View style={style.flexDir}>
-            <View style={style.flex1}>
+            <View style={style.flex1, AppStyles.mt20}>
             <View style={{ marginTop: RfH(10), marginTop: 5, marginBottom: 25 }}>
-              <TouchableOpacity style={Styles.confirmButtonn} onPress={handleConfirm}>
+              <TouchableOpacity style={Styles.confirmButtonn} 
+              // onPress={handleConfirm}>
+              onPress={() => {proposeWeight(true,false)}}>
                 <Text style={Styles.confirmBtnTextt}>CANCEL</Text>
               </TouchableOpacity>
             </View>
             </View>
-            <View style={style.flex1}>
+            <View style={style.flex1, AppStyles.mt20}>
             <View style={{ marginTop: RfH(10), marginTop: 5, marginBottom: 25 }}>
               <TouchableOpacity style={Styles.confirmButton} onPress={() => {
-        setSelected(true)   
-        setRememberMe(!rememberMe)
+        // setSelected(true)   
+        // setRememberMe(!rememberMe)
         setSlipNumber("")
       //  submitproposeweight()
       //  handleProposemweight(item)
       submitproposeweight(item)
+      
       }}>
                 <Text style={Styles.confirmBtnText}>CONFIRM</Text>
               </TouchableOpacity>
@@ -816,6 +883,8 @@ const PaymentVerification = () => {
             </View>
         </View>
    </View>  
+   : null }
+   </View>
              ) : null  } 
              {/* End Confirm Weight */}
 
@@ -842,6 +911,8 @@ const PaymentVerification = () => {
                   </View>
                   {!shouldShow1 ? (
                 <View>
+                  {conpayment == true ? 
+                  <View>
                 <View style={[AppStyle.mt20,]}>
     <Text style={[Appstyles.txtBlackRegular, Appstyles.f15, AppStyle.mb6,]}>Payment Required</Text>
     <View style={{flex: 1, flexDirection: 'row'}}>
@@ -879,7 +950,19 @@ const PaymentVerification = () => {
 
   <View style={[AppStyle.mt20,]}>
     <Text style={[Appstyles.txtBlackRegular, Appstyles.f15, AppStyle.mb6,]}>Payment Mode</Text>
-    <TextInput placeholder={"Cash"} value={paymentmode} onChangeText={(txt) => setPaymentmode(txt)} style={Styles.inputText} />
+    <TextInput placeholder={"Cash"} 
+    value={requestForm2.values.paymentmode} 
+    onChangeText={(txt) => requestForm2.setFieldValue('paymentmode', txt)} 
+    style={Styles.inputText} />
+    {clickConfirm2 && requestForm2.errors.paymentmode ? ( 
+              <CustomText
+                fontSize={15}
+                color={Colors.red}
+                styling={{marginTop: RfH(10)}}>
+                {requestForm2.errors.paymentmode}
+                {/* hhfhh */}
+              </CustomText>
+             ) : null} 
   </View>
 
   <View style={[AppStyle.mt20,]}>
@@ -891,17 +974,32 @@ const PaymentVerification = () => {
     <Text style={[Appstyles.txtSecandaryRegular, Appstyles.f11, AppStyle.mt5, AppStyle.ml20,]}>Transaction number</Text>
     </View>
     </View>
-    <TextInput placeholder={"1235567778"} value={detail} onChangeText={(txt) => setDetail(txt)} style={Styles.inputText} />
+    <TextInput placeholder={"1235567778"} 
+    value={requestForm2.values.paymentdetails} 
+    onChangeText={(txt) => requestForm2.setFieldValue('paymentdetails', txt)} 
+    style={Styles.inputText} />
+    {clickConfirm2 && requestForm2.errors.paymentdetails ? ( 
+              <CustomText
+                fontSize={15}
+                color={Colors.red}
+                styling={{marginTop: RfH(10)}}>
+                {requestForm2.errors.paymentdetails}
+                {/* hhfhh */}
+              </CustomText>
+             ) : null} 
   </View>
 
   <View>
             <View style={[style.flexDir, style.alignCenter, AppStyle.mt20]}>
             <Checkbox
                         disabled={false}
-                        value={true}
+                        value={checkcondition}
                         tintColors={{ true: Colors.mango, false: '#777' }}
-                        onValueChange={(newValue) => console.log(newValue)}
-                    />
+                        onValueChange={(newValue) => 
+                          // console.log(newValue)
+                          setCheckcondition((newValue) => !newValue)
+                        }
+                    />   
                <View style={{marginLeft: RfW(10)}}>
                 <CustomText
                   color={Colors.warmGrey}
@@ -909,7 +1007,7 @@ const PaymentVerification = () => {
                   styling={{paddingVertical: RfH(4)}}>
                   I agree to the terms and conditions
                 </CustomText>
-              </View> 
+              </View>     
             </View>
           </View>
 
@@ -919,6 +1017,7 @@ const PaymentVerification = () => {
   <View style={{ marginTop: RfH(10), marginTop: 5, marginBottom: 25 }}>
     <TouchableOpacity style={Styles.confirmButtonn} onPress={() => {setSelected1(true) 
       // setPayment(false) 
+      dataSubmit()
       }}>
       <Text style={Styles.confirmBtnTextt}>CANCEL</Text>
     </TouchableOpacity>
@@ -927,10 +1026,11 @@ const PaymentVerification = () => {
   <View style={style.flex1}>
   <View style={{ marginTop: RfH(10), marginTop: 5, marginBottom: 25 }}>
     <TouchableOpacity style={Styles.confirmButton} onPress={() => {
-      setShouldShow6(!shouldShow6)
+      // setShouldShow6(!shouldShow6)
       // submitPayment()
       // handlePaymentconfirm(item)
       handlesubmitPayment(item)
+      
     }}>
       <Text style={Styles.confirmBtnText}>CONFIRM</Text>
     </TouchableOpacity>
@@ -939,14 +1039,17 @@ const PaymentVerification = () => {
   </View>
   {/* : null} */}
               </View>
+              : null }
+              </View>
                    ) : null} 
                   {/* End Material pickup confirmation */}
 
                    {/* Start Confirm Pickup */}
              {!shouldShow6 ? (
              <View>
-              <TouchableOpacity style={Styles.confirmButtonnabcd} onPress={() => {setSelected1(true)   
-       setRememberMe1(!rememberMe1)
+              <TouchableOpacity style={Styles.confirmButtonnabcd} onPress={() => {
+                // setSelected1(true)   
+      //  setRememberMe1(!rememberMe1)
        handlePickupconfirm(item)
       }}>
                 <Text style={[Appstyles.txtSecandaryRegular, Appstyles.f17, AppStyle.mt10,]}>Confirm Pickup</Text>
@@ -977,9 +1080,22 @@ const PaymentVerification = () => {
                    {/* Start material reached your warehouse */}
              {!shouldShow4 ? (
              <View>
+               {reachedwarehouse == true ? 
+               <View>
                         <View style={{ marginTop: 20 }}>
                   <Text style={Styles.inputLabelText}>Vehicle Number</Text>
-                  <TextInput placeholder={"Enter Vehicle Number"} value={vehno} onChangeText={(txt) => setVehno(txt)} style={Styles.inputText} />
+                  <TextInput placeholder={"Enter Vehicle Number"} 
+                  value={requestForm3.values.vehicleno} 
+                  onChangeText={(txt) => requestForm3.setFieldValue('vehicleno', txt)} 
+                  style={Styles.inputText} />
+                  {clickConfirm3 && requestForm3.errors.vehicleno ? (
+              <CustomText
+                fontSize={15}
+                color={Colors.red}
+                styling={{marginTop: RfH(10)}}>
+                {requestForm3.errors.vehicleno}
+              </CustomText>
+                ) : null}
                 </View>
 
                 <View style={[style.flexDir, Styles.viewVolume]}>
@@ -1007,44 +1123,50 @@ const PaymentVerification = () => {
                   <View style={[style.flex1, AppStyle.ml10]}>
                   <Text style={Styles.inputLabelText}>Upload Documents</Text>
                   <View style={Styles.viewVolumeInputContainerK}>
-                  <TouchableOpacity style={[Styles.inputText, Styles.inputIcon, AppStyles.br10]} onPress={() => setImageUpload(!imageUpload)}>
+                  <TouchableOpacity style={[Styles.inputText, Styles.inputIcon, AppStyles.br10]} onPress={() => setWarehouseimageUpload(!warehouseimageUpload)}>
                     {/* <Text style={Styles.txtFileUpload}>Upload file</Text> */}
                     <Text style={[AppStyles.txtSecandaryRegular, {color: imgData2.length > 0 ?  Colors.green : Colors.warmGrey}]}>{imgData2.length > 0 ? 'File Attached' : 'Attach File' }</Text>
                     <MIcon name="attachment" size={25} color={Colors.grayThree} />
                     </TouchableOpacity>
-                    {clickConfirm && imgData2.length === 0 ? (
+                    {clickConfirm2 && imgData2.length === 0 ? (
                     <CustomText
                       fontSize={15}
                       color={Colors.red}
-                      styling={{marginTop: RfH(10)}}>
+                      styling={{marginTop: RfH(5)}}>
                       Upload Picture
                     </CustomText>
                       ) : null}
-                    <UploadDocument handleClose={() => setImageUpload(false)} 
-                    isVisible={imageUpload}
+                    <UploadDocument handleClose={() => setWarehouseimageUpload(false)} 
+                    isVisible={warehouseimageUpload}
                     ImageData = {ImageData2} />
                   </View> 
                   </View>
                   </View>
 
                   <View style={style.flexDir}>
-                      <View style={style.flex1}>
+                      <View style={style.flex1, AppStyles.mt20}>
                       <View style={{ marginTop: RfH(10), marginTop: 5, marginBottom: 25 }}>
-                        <TouchableOpacity style={Styles.confirmButtonn} onPress={handleConfirm}>
+                        <TouchableOpacity style={Styles.confirmButtonn} onPress={() => 
+                          // handleConfirm()
+                          dataSubmit1() }>
+                        {/* onPress={() => dataSubmit1()} */}
                           <Text style={Styles.confirmBtnTextt}>CANCEL</Text>
                         </TouchableOpacity>
                       </View>
                       </View>
-                      <View style={style.flex1}>
+                      <View style={style.flex1, AppStyles.mt20}>
                       <View style={{ marginTop: RfH(10), marginTop: 5, marginBottom: 25 }}>
                         <TouchableOpacity style={Styles.confirmButton} onPress={() => {
                           setShouldShow5(!shouldShow5)
-                          handleReceiptconfirm(item)}}>
+                          // handleReceiptconfirm(item)
+                          handlesubmitReceipt(item)}}>
                           <Text style={Styles.confirmBtnText}>CONFIRM</Text>
                         </TouchableOpacity>
                       </View>
                       </View>
                   </View>
+                  </View>
+                  : null }
              </View>  
              ) : null}
              {/* End material reached your warehouse */}

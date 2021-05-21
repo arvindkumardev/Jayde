@@ -13,7 +13,7 @@ import moment from 'moment';
 import FAIcon from 'react-native-vector-icons/FontAwesome';
 import DropDown from '../../../components/Picker/index';
 import DateTimePicker from '@react-native-community/datetimepicker';
-import { confirmSchedule } from './middleware';
+import { confirmSchedule } from '../Middelware';
 import UserContext from '../../../appContainer/context/user.context';
 import {alertBox, RfH, RfW, isValidVolume} from '../../../utils/helpers';
 import * as yup from "yup";
