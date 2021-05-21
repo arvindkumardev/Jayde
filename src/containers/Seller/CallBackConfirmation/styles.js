@@ -1,36 +1,36 @@
-import {StyleSheet} from 'react-native';
-import {RfH, RfW} from '../../../utils/helpers';
-import {Colors} from '../../../theme';
+import { StyleSheet } from 'react-native';
+import { RfH, RfW } from '../../../utils/helpers';
+import { Colors } from '../../../theme';
 
 const styles = StyleSheet.create({
   topView: {
     flex: 1,
     backgroundColor: '#707070',
   },
-   bdrclr: {
-     borderColor: 'orange',
-   },
+  bdrclr: {
+    borderColor: 'orange',
+  },
   boxContent: {
-    flex: 1, 
-    width: 310, 
-    height: 380, 
-    backgroundColor: '#ffffff', 
-    alignItems: 'center', 
-    borderRadius: 10, 
-    marginLeft: 24, 
+    flex: 1,
+    width: 310,
+    height: 380,
+    backgroundColor: '#ffffff',
+    alignItems: 'center',
+    borderRadius: 10,
+    marginLeft: 24,
     marginTop: 32,
   },
   bxVu: {
-    width: 310, 
-    height: 285, 
-    borderRadius: 20, 
-    marginLeft: 24, 
-    marginTop: 5, 
+    width: 310,
+    height: 285,
+    borderRadius: 20,
+    marginLeft: 24,
+    marginTop: 5,
     marginRight: 24,
   },
   buttonsize: {
-     height: 44,
-     width: 160,
+    height: 44,
+    width: 160,
   },
 });
 export default styles;

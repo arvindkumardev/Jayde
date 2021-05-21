@@ -13,8 +13,8 @@ import { getSubCategories, getUnits, createQuote, addOrder } from './middleware'
 import UserContext from '../../../appContainer/context/user.context';
 import MIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import CustomText from '../../../components/CustomText';
-import {alertBox, RfH, RfW, isValidVolume} from '../../../utils/helpers';
-import {setQuoteData, setImageName} from '../../../utils/Global'
+import { alertBox, RfH, RfW, isValidVolume } from '../../../utils/helpers';
+import { setQuoteData, setImageName } from '../../../utils/Global'
 
 function PricingRequest() {
   const navigation = useNavigation();
@@ -39,7 +39,7 @@ function PricingRequest() {
   const [imgData, setImageData] = useState([])
 
 
-  useEffect(() => {   
+  useEffect(() => {
     if (subData) {
       const pickerData = subData.map((item) => ({ label: item.sub_category_name, value: item.id }));
       setSubCategoryes(pickerData);
@@ -53,7 +53,7 @@ function PricingRequest() {
     }
   }, [unitsData]);
 
- 
+
   useEffect(() => {
     setLoader(loading);
     if (quoteData && quoteData.status) {
@@ -61,13 +61,15 @@ function PricingRequest() {
   }, [quoteData, loading]);
 
   useEffect(() => {
-    setLoader(orderLoading);   
+    setLoader(orderLoading);
   }, [orderData, orderLoading]);
 
   const handleGetQuote = () => {
-    navigation.navigate(NavigationRouteNames.PRICE_CONFIRM, { title: titleName,
-       status:quotestatus, Location: requestForm.values.location, Unit: unitName,
-        Volume: requestForm.values.volume, subCategoryName : subCategoryName});
+    navigation.navigate(NavigationRouteNames.PRICE_CONFIRM, {
+      title: titleName,
+      status: quotestatus, Location: requestForm.values.location, Unit: unitName,
+      Volume: requestForm.values.volume, subCategoryName: subCategoryName
+    });
   };
 
   useLayoutEffect(() => {
@@ -83,12 +85,12 @@ function PricingRequest() {
     });
   }, []);
 
-  const handleConfirm = async (subCategoryId, volume, unit, location) => {   
-    if(imgData.length === 0)
+  const handleConfirm = async (subCategoryId, volume, unit, location) => {
+    if (imgData.length === 0)
       return
 
-    if(quotestatus === '0') {  
-      const {data} = await onSubmitQuote({
+    if (quotestatus === '0') {
+      const { data } = await onSubmitQuote({
         data: {
           primeId: 0,
           category_id: categoryId,
@@ -103,31 +105,31 @@ function PricingRequest() {
       // Save Global
       setImageName(imgData);
       setQuoteData(data.data.quoteDetails)
-      if(data.status){
+      if (data.status) {
         handleGetQuote()
       } else {
         alert(data.message)
-      }  
+      }
     } else {
-      const {data} = await onAddOrder({
+      const { data } = await onAddOrder({
         data: {
           primeId: 0,
           category_id: categoryId,
           sub_category_id: subCategoryId,
           qty: volume,
           unit,
-          location         
+          location
         },
       });
       console.log(data.data)
       // Save Global
       setImageName(imgData);
       setQuoteData(data.data.orderDetails)
-      if(data.status){
+      if (data.status) {
         handleGetQuote()
       } else {
         alert(data.message)
-      }  
+      }
     }
   };
 
@@ -137,7 +139,7 @@ function PricingRequest() {
       "Please provide valid volume",
       (value) => isValidVolume(value),
     ),
-    category: Yup.string().required("Please select Item"),   
+    category: Yup.string().required("Please select Item"),
     unit: Yup.string().required("Please select unit"),
     location: Yup.string().required("Please provide location"),
   });
@@ -146,19 +148,19 @@ function PricingRequest() {
     validateOnChange: true,
     validateOnBlur: true,
     initialValues: {
-      category : '',
+      category: '',
       volume: 0,
-      unit : '',
-      location : ''
+      unit: '',
+      location: ''
     },
     validationSchema,
     onSubmit: () => handleConfirm(
       requestForm.values.category,
-      requestForm.values.volume, 
+      requestForm.values.volume,
       requestForm.values.unit,
       requestForm.values.location
     )
-  });   
+  });
 
   const handelSubmitQuote = async () => {
     setClickConfirm(true)
@@ -166,35 +168,35 @@ function PricingRequest() {
   }
 
   const onChangeCategory = (id) => {
-     var index = subCategories.findIndex(v => v.value == id)    
-      if(index != -1){
-        setSubCategoryName(subCategories[index].label)
-      }
-     requestForm.setFieldValue('category', id)
+    var index = subCategories.findIndex(v => v.value == id)
+    if (index != -1) {
+      setSubCategoryName(subCategories[index].label)
+    }
+    requestForm.setFieldValue('category', id)
   }
 
   const onChangeUnit = (id) => {
-    var pos = unitPickerData.findIndex(v => v.value == id) 
-    if(pos != -1){
-      setUnitName(unitPickerData[pos].label)      
+    var pos = unitPickerData.findIndex(v => v.value == id)
+    if (pos != -1) {
+      setUnitName(unitPickerData[pos].label)
     }
-   requestForm.setFieldValue('unit', id)
- }
+    requestForm.setFieldValue('unit', id)
+  }
 
- const ImageData = (data) => {
-   if(data){
-    let listData = imgData;          
-    let data1 = listData.concat(data);
-    setImageData([...data1]); 
-   }
- }
+  const ImageData = (data) => {
+    if (data) {
+      let listData = imgData;
+      let data1 = listData.concat(data);
+      setImageData([...data1]);
+    }
+  }
 
   return (
     <KeyboardAwareScrollView
-      removeClippedSubviews = {true}
+      removeClippedSubviews={true}
       style={[AppStyles.ph20, AppStyles.pv15, { backgroundColor: '#fff' }]}
       contentContainerStyle={AppStyles.flex1SpaceBetween}
-      >
+    >
       <View>
         <View style={AppStyles.alignCenter}>
           <Text style={[AppStyles.txtBlackBold, AppStyles.f18]}>{quotestatus === '0' ? 'Get Quote' : 'Schedule Order'}</Text>
@@ -204,18 +206,18 @@ function PricingRequest() {
           <DropDown
             items={subCategories}
             //itemStyle={{ color: '#000' }}
-            onValueChange = {onChangeCategory}                      
+            onValueChange={onChangeCategory}
             selectedValue={requestForm.values.category}
             containerStyle={{ borderRadius: 10, backgroundColor: Colors.grayTwo, paddingLeft: 10 }}
           />
-          {clickConfirm && requestForm.errors.category? (
-              <CustomText
-                fontSize={15}
-                color={Colors.red}
-                styling={{marginTop: RfH(10)}}>
-                {requestForm.errors.category}
-              </CustomText>
-                ) : null}
+          {clickConfirm && requestForm.errors.category ? (
+            <CustomText
+              fontSize={15}
+              color={Colors.red}
+              styling={{ marginTop: RfH(10) }}>
+              {requestForm.errors.category}
+            </CustomText>
+          ) : null}
         </View>
         <View style={[AppStyles.mt15]}>
           <View>
@@ -226,38 +228,38 @@ function PricingRequest() {
               <TextInput
                 placeholder="Enter volume"
                 value={requestForm.values.volume}
-                keyboardType = {'numeric'}
+                keyboardType={'numeric'}
                 onChangeText={(txt) => requestForm.setFieldValue("volume", txt)}
-                style={{ backgroundColor: Colors.grayTwo, borderRadius: 10, paddingLeft: 10 }}              
+                style={{ backgroundColor: Colors.grayTwo, borderRadius: 10, paddingLeft: 10 }}
               />
               {clickConfirm && requestForm.errors.volume ? (
                 <CustomText
                   fontSize={15}
                   color={Colors.red}
-                  styling={{marginTop: RfH(10)}}>
+                  styling={{ marginTop: RfH(10) }}>
                   {requestForm.errors.volume}
                 </CustomText>
-                ) : null}
-             
+              ) : null}
+
             </View>
             <View style={{ flex: 1 }}>
               <DropDown
                 items={unitPickerData}
                 placeholderText="Units"
                 //itemStyle={{ color: '#000' }}
-                onValueChange = {onChangeUnit}               
+                onValueChange={onChangeUnit}
                 selectedValue={requestForm.values.unit}
                 containerStyle={{ borderRadius: 10, backgroundColor: Colors.grayTwo, paddingLeft: 10 }}
               />
 
-               {clickConfirm && requestForm.errors.unit ? (
+              {clickConfirm && requestForm.errors.unit ? (
                 <CustomText
                   fontSize={15}
                   color={Colors.red}
-                  styling={{marginTop: RfH(10)}}>
+                  styling={{ marginTop: RfH(10) }}>
                   {requestForm.errors.unit}
                 </CustomText>
-                ) : null}
+              ) : null}
             </View>
           </View>
         </View>
@@ -272,14 +274,14 @@ function PricingRequest() {
               onChangeText={(txt) => requestForm.setFieldValue('location', txt)}
               style={{ backgroundColor: Colors.grayTwo, borderRadius: 10, paddingLeft: 10 }}
             />
-             {clickConfirm && requestForm.errors.location ? (
+            {clickConfirm && requestForm.errors.location ? (
               <CustomText
                 fontSize={15}
                 color={Colors.red}
-                styling={{marginTop: RfH(10)}}>
+                styling={{ marginTop: RfH(10) }}>
                 {requestForm.errors.location}
               </CustomText>
-                ) : null}
+            ) : null}
           </View>
         </View>
         <View style={[AppStyles.mt15]}>
@@ -291,29 +293,29 @@ function PricingRequest() {
               onPress={() => setImageUpload(!imageUpload)}
               style={[AppStyles.pv10, { backgroundColor: Colors.grayTwo }, AppStyles.alignCenter, AppStyles.inputIcon,]}>
               {/* <FAIcon name="photo" size={25} /> */}
-              <Text style={[AppStyles.txtSecandaryRegular, {color: imgData.length > 0 ?  Colors.green : Colors.warmGrey}]}>{imgData.length > 0 ? 'File Attached' : 'Attach File' }</Text>
-              <MIcon name="attachment" size={25} color={Colors.grayThree} />            
+              <Text style={[AppStyles.txtSecandaryRegular, { color: imgData.length > 0 ? Colors.green : Colors.warmGrey }]}>{imgData.length > 0 ? 'File Attached' : 'Attach File'}</Text>
+              <MIcon name="attachment" size={25} color={Colors.grayThree} />
             </TouchableOpacity>
             {clickConfirm && imgData.length === 0 ? (
               <CustomText
                 fontSize={15}
                 color={Colors.red}
-                styling={{marginTop: RfH(10)}}>
+                styling={{ marginTop: RfH(10) }}>
                 Upload Picture
               </CustomText>
-                ) : null}
-            <UploadDocument handleClose={() => setImageUpload(false)} 
-            isVisible={imageUpload}
-            ImageData = {ImageData} />
+            ) : null}
+            <UploadDocument handleClose={() => setImageUpload(false)}
+              isVisible={imageUpload}
+              ImageData={ImageData} />
           </View>
         </View>
       </View>
       <View>
         <TouchableOpacity
           style={[AppStyles.btnPrimary, AppStyles.alignCenter, AppStyles.pv10, AppStyles.br10]}
-           //onPress={() => { handleGetQuote()}}
-           onPress={() => {handelSubmitQuote()}}
-            >
+          //onPress={() => { handleGetQuote()}}
+          onPress={() => { handelSubmitQuote() }}
+        >
           <Text style={[AppStyles.txtWhiteRegular, AppStyles.f18]}>CONFIRM</Text>
         </TouchableOpacity>
       </View>

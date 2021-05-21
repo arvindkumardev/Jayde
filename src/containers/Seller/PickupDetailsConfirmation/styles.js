@@ -4,13 +4,13 @@ import Fonts from "../../../theme/Fonts";
 import { Colors } from '../../../theme';
 
 const styles = StyleSheet.create({
-    btnPrimary:{
-        borderRadius: 10,
-        backgroundColor:Colors.mango,
-        paddingVertical: 10,
-        alignItems:'center',
-        paddingHorizontal: 40
-    },
+  btnPrimary: {
+    borderRadius: 10,
+    backgroundColor: Colors.mango,
+    paddingVertical: 10,
+    alignItems: 'center',
+    paddingHorizontal: 40
+  },
   deliveryBox: {
     width: 321,
     height: 145,

@@ -1,6 +1,6 @@
-import {StyleSheet} from 'react-native';
-import {RfH, RfW} from '../../../utils/helpers';
-import {Colors} from '../../../theme';
+import { StyleSheet } from 'react-native';
+import { RfH, RfW } from '../../../utils/helpers';
+import { Colors } from '../../../theme';
 
 const styles = StyleSheet.create({
   topView: {
@@ -11,7 +11,7 @@ const styles = StyleSheet.create({
     borderColor: '#f5f5f5',
     borderWidth: 4,
   },
-  btnContainer:{
+  btnContainer: {
     marginTop: 20,
     marginLeft: 20,
   },
@@ -30,8 +30,8 @@ const styles = StyleSheet.create({
     borderWidth: 1,
   },
   productImage: {
-     width: 46,
-     height: 46,
+    width: 46,
+    height: 46,
   },
 });
 export default styles;

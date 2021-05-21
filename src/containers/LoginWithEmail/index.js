@@ -17,7 +17,7 @@ import {
   TouchableOpacity,
   Dimensions
 } from "react-native";
-import {isEmpty, isNumber} from 'lodash';
+import { isEmpty, isNumber } from 'lodash';
 import * as Yup from "yup";
 import { useFormik } from "formik";
 import Colors from "../../theme/Colors";
@@ -55,7 +55,7 @@ function LoginWithEmail() {
   const [selectCompany, setSelectCompany] = useState({});
   const [hidePassword, setHidePassword] = useState(false);
 
-  const [{data, loading, error}, emLogin] = userLogin();
+  const [{ data, loading, error }, emLogin] = userLogin();
 
 
   const triggerLogin = async (username, password) => {
@@ -66,6 +66,8 @@ function LoginWithEmail() {
         await storeData(LOCAL_STORAGE_DATA_KEY.JWT_TOKEN, data.data.token);
         await storeData(LOCAL_STORAGE_DATA_KEY.USER_ROLE, data.data.business_type);
         await storeData(LOCAL_STORAGE_DATA_KEY.USER_NAME, data.data.name);
+        await storeData(LOCAL_STORAGE_DATA_KEY.USER_PHONE, data.data.phone);
+
         console.log(data);
         await setUserRole(data.data.business_type);
         await setUserObj(data.data);
@@ -78,9 +80,9 @@ function LoginWithEmail() {
     }
   };
 
-  useEffect(()=>{
+  useEffect(() => {
     setLoader(loading)
-  },[loading])
+  }, [loading])
 
   const validationSchema = Yup.object().shape({
     username: Yup.string().test(
@@ -112,70 +114,70 @@ function LoginWithEmail() {
   };
 
   return (
-      <ScrollView contentContainerStyle={{backgroundColor:Colors.mango, justifyContent:'space-between', height: Dimensions.get('window').height}}>
-            <View>
-              <View style={[AppStyles.alignCenter, AppStyles.mt40]}>
-                <Image style={{ width: 160, height: 55 }}
-                  source={require("../../assets/Images/LoginWithEmail/JaydeLogo01.png")}
-                />
-              </View>
-              <View style={[AppStyles.alignCenter, AppStyles.mt40]}>
-                <Text style={[AppStyles.txtWhiteBold, AppStyles.f40, AppStyles.pv10]}>
-                  Hello!
+    <ScrollView contentContainerStyle={{ backgroundColor: Colors.mango, justifyContent: 'space-between', height: Dimensions.get('window').height }}>
+      <View>
+        <View style={[AppStyles.alignCenter, AppStyles.mt40]}>
+          <Image style={{ width: 160, height: 55 }}
+            source={require("../../assets/Images/LoginWithEmail/JaydeLogo01.png")}
+          />
+        </View>
+        <View style={[AppStyles.alignCenter, AppStyles.mt40]}>
+          <Text style={[AppStyles.txtWhiteBold, AppStyles.f40, AppStyles.pv10]}>
+            Hello!
                 </Text>
-              </View>
-              <View style={styles.formContainer}>
-                <View style={AppStyles.pv20}>
-                  <CustomTextInput
-                    label={"Email"}
-                    inputLabelStyle={commonStyles.inputLabelStyle}
-                    placeholder={"Email"}
-                    value={loginForm.values.username}
-                    onChangeHandler={(value) =>
-                      loginForm.setFieldValue("username", value)
-                    }
-                    returnKeyType={"next"}
-                    onSubmitEditing={() => onSubmitEditing("password")}
-                    error={clickLogin && loginForm.errors.username}
-                  />
-                  <CustomTextInput
-                    label={"Password"}
-                    inputLabelStyle={commonStyles.inputLabelStyle}
-                    placeholder={"Password"}
-                    secureTextEntry={!hidePassword}
-                    showPasswordField={hidePassword}
-                    handleShowPassword={(value) => setHidePassword(value)}
-                    icon={hidePassword ? Images.openEye : Images.closeEye}
-                    value={loginForm.values.password}
-                    onChangeHandler={(value) =>
-                      loginForm.setFieldValue("password", value)
-                    }
-                    showClearButton={false}
-                    keyboardType={"default"}
-                    refKey={"password"}
-                    error={clickLogin && loginForm.errors.password}
-                  />
-                </View>
-                <View style={{ marginTop: RfH(21) }}>
-                  <TouchableOpacity onPress={handleLogin} style={styles.loginButton}>
-                    <Text style={[AppStyles.txtWhiteBold, AppStyles.f18]}>Confirm</Text>
-                    <FAIcon name="long-arrow-right" color={'#fff'} style={AppStyles.ml10} size={20}/>
-                  </TouchableOpacity>
-                </View>
-              </View>
-              <TouchableOpacity style={{alignSelf:'flex-end', marginRight: 40, marginTop: 20}}>
-                <Text style={[AppStyles.txtWhiteRegular, AppStyles.f15]}>Forgot password?</Text>
-              </TouchableOpacity>
-              </View>
-              <View style={{width:'100%', alignItems:'center', alignSelf:'flex-end', marginBottom: 20}}>
-                <View style={{flexDirection:'row' }}>
-                  <Text style={[AppStyles.txtWhiteRegular, AppStyles.f15]}>Don't have an account?</Text>
-                  <TouchableOpacity onPress={() => navigation.navigate(NavigationRouteNames.SIGNUP)}>
-                    <Text style={[AppStyles.txtWhiteRegular, AppStyles.f15]}> Create one</Text>
-                  </TouchableOpacity>
-                </View>
-              </View>
-      </ScrollView>
+        </View>
+        <View style={styles.formContainer}>
+          <View style={AppStyles.pv20}>
+            <CustomTextInput
+              label={"Email"}
+              inputLabelStyle={commonStyles.inputLabelStyle}
+              placeholder={"Email"}
+              value={loginForm.values.username}
+              onChangeHandler={(value) =>
+                loginForm.setFieldValue("username", value)
+              }
+              returnKeyType={"next"}
+              onSubmitEditing={() => onSubmitEditing("password")}
+              error={clickLogin && loginForm.errors.username}
+            />
+            <CustomTextInput
+              label={"Password"}
+              inputLabelStyle={commonStyles.inputLabelStyle}
+              placeholder={"Password"}
+              secureTextEntry={!hidePassword}
+              showPasswordField={hidePassword}
+              handleShowPassword={(value) => setHidePassword(value)}
+              icon={hidePassword ? Images.openEye : Images.closeEye}
+              value={loginForm.values.password}
+              onChangeHandler={(value) =>
+                loginForm.setFieldValue("password", value)
+              }
+              showClearButton={false}
+              keyboardType={"default"}
+              refKey={"password"}
+              error={clickLogin && loginForm.errors.password}
+            />
+          </View>
+          <View style={{ marginTop: RfH(21) }}>
+            <TouchableOpacity onPress={handleLogin} style={styles.loginButton}>
+              <Text style={[AppStyles.txtWhiteBold, AppStyles.f18]}>Confirm</Text>
+              <FAIcon name="long-arrow-right" color={'#fff'} style={AppStyles.ml10} size={20} />
+            </TouchableOpacity>
+          </View>
+        </View>
+        <TouchableOpacity style={{ alignSelf: 'flex-end', marginRight: 40, marginTop: 20 }}>
+          <Text style={[AppStyles.txtWhiteRegular, AppStyles.f15]}>Forgot password?</Text>
+        </TouchableOpacity>
+      </View>
+      <View style={{ width: '100%', alignItems: 'center', alignSelf: 'flex-end', marginBottom: 20 }}>
+        <View style={{ flexDirection: 'row' }}>
+          <Text style={[AppStyles.txtWhiteRegular, AppStyles.f15]}>Don't have an account?</Text>
+          <TouchableOpacity onPress={() => navigation.navigate(NavigationRouteNames.SIGNUP)}>
+            <Text style={[AppStyles.txtWhiteRegular, AppStyles.f15]}> Create one</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+    </ScrollView>
   );
 }
 

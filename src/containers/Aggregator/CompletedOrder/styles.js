@@ -1,6 +1,6 @@
-import {StyleSheet} from 'react-native';
-import {RfH, RfW} from '../../../utils/helpers';
-import {Colors} from '../../../theme';
+import { StyleSheet } from 'react-native';
+import { RfH, RfW } from '../../../utils/helpers';
+import { Colors } from '../../../theme';
 
 const styles = StyleSheet.create({
   topView: {
@@ -12,7 +12,7 @@ const styles = StyleSheet.create({
     borderWidth: 4,
     marginTop: 20,
   },
-  btnContainer:{
+  btnContainer: {
     marginTop: 20,
     marginLeft: 20,
   },

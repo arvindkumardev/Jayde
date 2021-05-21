@@ -1,16 +1,16 @@
-import {StyleSheet} from 'react-native';
-import {RfH, RfW} from '../../../utils/helpers';
-import {Colors} from '../../../theme';
+import { StyleSheet } from 'react-native';
+import { RfH, RfW } from '../../../utils/helpers';
+import { Colors } from '../../../theme';
 import Fonts from '../../../theme/Fonts';
 
 const styles = StyleSheet.create({
   boxView: {
-    width: 327, 
-    height: 205, 
-    backgroundColor: '#ffffff', 
-    borderRadius: 10, 
-    marginLeft: 18, 
-    marginTop: 25, 
+    width: 327,
+    height: 205,
+    backgroundColor: '#ffffff',
+    borderRadius: 10,
+    marginLeft: 18,
+    marginTop: 25,
     marginRight: 18,
     marginBottom: 60,
   },
@@ -28,8 +28,8 @@ const styles = StyleSheet.create({
     height: 27,
   },
   lftimga: {
-    width: 16, 
-    height: 16, 
+    width: 16,
+    height: 16,
     marginLeft: 24,
   },
   txtLightOliveRegular: {

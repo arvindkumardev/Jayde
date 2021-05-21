@@ -10,6 +10,12 @@ const spaces = StyleSheet.create({
     ph40:{
         paddingHorizontal: 40
     },
+    pv4:{
+        paddingVertical: 4,
+    },
+    pv5:{
+        paddingVertical: 5,
+    },
     pv10:{
         paddingVertical: 10,
     },

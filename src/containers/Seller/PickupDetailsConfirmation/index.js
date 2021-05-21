@@ -26,39 +26,39 @@ const PickupDetailsConfirmation = () => {
       <View style={[AppStyles.mt20, AppStyles.w100]}>
         <View style={[AppStyles.w100, AppStyles.ph20, AppStyles.txtPrimaryBold]}>
           <View style={[AppStyles.mt20]}>
-          <View style={[Styles.deliveryBox, style.btnSecandary,]}>
-            <View style={[AppStyles.mt20, AppStyles.ml20,]}>
-            <View style={AppStyles.flexRowSpaceBetween}>
-              <Text style={[AppStyles.txtBlackBold, AppStyles.mb10, AppStyles.f17]}>Delivery Address</Text>
-              <View style={[AppStyles.mr20]}>
-              <Text style={[AppStyles.txtmangoTwoRegular, AppStyles.f11]}>Edit</Text>
+            <View style={[Styles.deliveryBox, style.btnSecandary,]}>
+              <View style={[AppStyles.mt20, AppStyles.ml20,]}>
+                <View style={AppStyles.flexRowSpaceBetween}>
+                  <Text style={[AppStyles.txtBlackBold, AppStyles.mb10, AppStyles.f17]}>Delivery Address</Text>
+                  <View style={[AppStyles.mr20]}>
+                    <Text style={[AppStyles.txtmangoTwoRegular, AppStyles.f11]}>Edit</Text>
+                  </View>
+                </View>
+                <View>
+                  <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f15]}>1812, Building no. 2</Text>
+                  <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f15]}>Bajranga Hills</Text>
+                  <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f15]}>Hyderabad (TN)</Text>
+                </View>
               </View>
             </View>
-            <View>
-              <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f15]}>1812, Building no. 2</Text>
-              <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f15]}>Bajranga Hills</Text>
-              <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f15]}>Hyderabad (TN)</Text>
-            </View>
-          </View>
-          </View>
           </View>
 
-         
+
           <View style={[AppStyles.mt20]}>
-          <View style={[Styles.dateBox, style.btnSecandary,]}>
-            <View style={[AppStyles.mt20, AppStyles.ml20,]}>
-            <View style={AppStyles.flexRowSpaceBetween}>
-              <Text style={[AppStyles.txtBlackBold, AppStyles.mb10, AppStyles.f17]}>Date & Time</Text>
-              <View style={[AppStyles.mr20]}>
-              <Text style={[AppStyles.txtmangoTwoRegular, AppStyles.f11]}>Edit</Text>
+            <View style={[Styles.dateBox, style.btnSecandary,]}>
+              <View style={[AppStyles.mt20, AppStyles.ml20,]}>
+                <View style={AppStyles.flexRowSpaceBetween}>
+                  <Text style={[AppStyles.txtBlackBold, AppStyles.mb10, AppStyles.f17]}>Date & Time</Text>
+                  <View style={[AppStyles.mr20]}>
+                    <Text style={[AppStyles.txtmangoTwoRegular, AppStyles.f11]}>Edit</Text>
+                  </View>
+                </View>
+                <View>
+                  <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f15]}>6 feb' 2021</Text>
+                  <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f15]}>10:00 am - 12:00 noon</Text>
+                </View>
               </View>
             </View>
-            <View>
-              <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f15]}>6 feb' 2021</Text>
-              <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f15]}>10:00 am - 12:00 noon</Text>
-            </View>
-          </View>
-          </View>
           </View>
 
         </View>

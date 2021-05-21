@@ -11,9 +11,11 @@ const NewOrder = () => {
   const route = useRoute();
 
   const handleGetQuote = (btnstatus) => {
-    navigation.navigate(NavigationRouteNames.PRICE_REQUEST, { title: route.params.title, 
-    status:btnstatus,
-    categoryId: categoryId  });
+    navigation.navigate(NavigationRouteNames.PRICE_REQUEST, {
+      title: route.params.title,
+      status: btnstatus,
+      categoryId: categoryId
+    });
   };
 
   const handleSchedulePickup = () => {
@@ -27,10 +29,10 @@ const NewOrder = () => {
   //   });
   // }, []);
 
-  useLayoutEffect(() =>{
+  useLayoutEffect(() => {
     const { categoryId } = route.params;
     setCategoryId(categoryId)
-  },[])
+  }, [])
 
   return (
     <View style={Styles.screenContainer}>
@@ -38,12 +40,12 @@ const NewOrder = () => {
       <View style={[AppStyles.w100, AppStyles.ph20]}>
         <TouchableOpacity
           style={[AppStyles.mt20, AppStyles.br10, AppStyles.btnPrimary, AppStyles.pv10, AppStyles.alignCenter]}
-          onPress={() => {handleGetQuote("0")}}>
+          onPress={() => { handleGetQuote("0") }}>
           <Text style={[AppStyles.txtWhiteRegular, AppStyles.f18]}>GET QUOTE</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={[AppStyles.mt20, AppStyles.br10, AppStyles.btnSecandary, AppStyles.pv10, AppStyles.alignCenter]}
-          onPress={() => {handleGetQuote("1")}}>
+          onPress={() => { handleGetQuote("1") }}>
           <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f18]}>SCHEDULE PICKUP</Text>
         </TouchableOpacity>
       </View>

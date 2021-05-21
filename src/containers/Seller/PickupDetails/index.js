@@ -3,8 +3,10 @@
 /* eslint-disable global-require */
 
 import React, { useContext, useEffect, useState, useLayoutEffect } from 'react';
-import { View, Text, TouchableOpacity, TextInput,  PermissionsAndroid,
-  Platform } from 'react-native';
+import {
+  View, Text, TouchableOpacity, TextInput, PermissionsAndroid,
+  Platform
+} from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import Styles from "./styles";
 import NavigationRouteNames from '../../../routes/ScreenNames';
@@ -21,7 +23,7 @@ import style from "../../../theme/Styles/container";
 
 import CustomText from '../../../components/CustomText';
 
-import {RfH, RfW, storeData} from '../../../utils/helpers';
+import { RfH, RfW, storeData } from '../../../utils/helpers';
 import { LOCAL_STORAGE_DATA_KEY } from "../../../utils/constants";
 import UserContext from '../../../appContainer/context/user.context';
 
@@ -47,17 +49,18 @@ const PickupDetails = () => {
     latitude: LATITUDE,
     longitude: LONGITUDE,
     latitudeDelta: LATITUDE_DELTA,
-    longitudeDelta: LONGITUDE_DELTA})
+    longitudeDelta: LONGITUDE_DELTA
+  })
 
-    const [clickConfirm, setClickConfirm] = useState('')
-    const [searchValue, setSearchValue] = useState('')
-    const { setLoader } = useContext(UserContext);
+  const [clickConfirm, setClickConfirm] = useState('')
+  const [searchValue, setSearchValue] = useState('')
+  const { setLoader } = useContext(UserContext);
 
-    const [Lat, setLat] = useState(0)
-    const [Lang, setLang] = useState(0)
-    const [landMark, setLandMak] = useState('')
-    const [ locationStatus,setLocationStatus] = useState('');
-    const [initialState, setInitialState] = useState(false)
+  const [Lat, setLat] = useState(0)
+  const [Lang, setLang] = useState(0)
+  const [landMark, setLandMak] = useState('')
+  const [locationStatus, setLocationStatus] = useState('');
+  const [initialState, setInitialState] = useState(false)
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -68,9 +71,9 @@ const PickupDetails = () => {
   useEffect(() => {
     const requestLocationPermission = async () => {
       if (Platform.OS === 'ios') {
-       
+
         getOneTimeLocation();
-       // subscribeLocationLocation();
+        // subscribeLocationLocation();
       } else {
         try {
           const granted = await PermissionsAndroid.request(
@@ -82,7 +85,7 @@ const PickupDetails = () => {
           );
           if (granted === PermissionsAndroid.RESULTS.GRANTED) {
             checkGPS()
-          } else {          
+          } else {
             setLocationStatus('Permission Denied');
           }
         } catch (err) {
@@ -90,9 +93,9 @@ const PickupDetails = () => {
         }
       }
     };
-   
+
     requestLocationPermission();
-    Geocoder.init("AIzaSyBGluo2-LxarAw4DqSC-hYiGsVZ55NkkVw", {language : "en"}); // set the language
+    Geocoder.init("AIzaSyBGluo2-LxarAw4DqSC-hYiGsVZ55NkkVw", { language: "en" }); // set the language
     // return () => {
     //   //Geolocation.clearWatch(watchID);
     // };
@@ -107,14 +110,14 @@ const PickupDetails = () => {
         setLocationStatus('You are Here');
         const currentLongitude = position.coords.longitude
         const currentLatitude = position.coords.latitude
-        setLang(currentLongitude);       
+        setLang(currentLongitude);
         setLat(currentLatitude);
         setRegion({
-            latitude: position.coords.latitude,
-            longitude: position.coords.longitude,
-            latitudeDelta: LATITUDE_DELTA,
-            longitudeDelta: LONGITUDE_DELTA,
-            accuracy: position.coords.accuracy
+          latitude: position.coords.latitude,
+          longitude: position.coords.longitude,
+          latitudeDelta: LATITUDE_DELTA,
+          longitudeDelta: LONGITUDE_DELTA,
+          accuracy: position.coords.accuracy
         })
         console.log(currentLatitude, currentLongitude)
         getAddress(currentLatitude, currentLongitude)
@@ -134,7 +137,7 @@ const PickupDetails = () => {
     watchID = Geolocation.watchPosition(
       (position) => {
         //Will give you the location on location change
-        
+
         setLocationStatus('You are Here');
         console.log(position);
 
@@ -143,7 +146,7 @@ const PickupDetails = () => {
           JSON.stringify(position.coords.longitude);
 
         //getting the Latitude from the location json
-        const currentLatitude = 
+        const currentLatitude =
           JSON.stringify(position.coords.latitude);
 
         //Setting Longitude state
@@ -164,43 +167,43 @@ const PickupDetails = () => {
 
   const checkGPS = () => {
     if (Platform.OS === 'android') {
-        RNAndroidLocationEnabler.promptForEnableLocationIfNeeded({ interval: 10000, fastInterval: 5000 })
-            .then(data => {
-              getOneTimeLocation();
-            }).catch(err => {
-                navigation.pop();
-            });
+      RNAndroidLocationEnabler.promptForEnableLocationIfNeeded({ interval: 10000, fastInterval: 5000 })
+        .then(data => {
+          getOneTimeLocation();
+        }).catch(err => {
+          navigation.pop();
+        });
     }
-}
+  }
 
-const getAddress = (lat, lang) => {
-  Geocoder.from(lat, lang)
-		.then(json => {
-        		//var addressComponent = json.results[0].formatted_address
-        		var landMark = json.results[0].address_components[0].long_name
-        		var city = json.results[0].address_components[2].long_name
+  const getAddress = (lat, lang) => {
+    Geocoder.from(lat, lang)
+      .then(json => {
+        //var addressComponent = json.results[0].formatted_address
+        var landMark = json.results[0].address_components[0].long_name
+        var city = json.results[0].address_components[2].long_name
 
-            // Address
-            let Address =  json.results[1].formatted_address
-            requestForm.setFieldValue('address', Address)
-              
-            //LandMark
-            setLandMak(landMark)
+        // Address
+        let Address = json.results[1].formatted_address
+        requestForm.setFieldValue('address', Address)
 
-            //City
-            requestForm.setFieldValue('city', city)
+        //LandMark
+        setLandMak(landMark)
 
-            //PinCode
-            let index = json.results[0].address_components.length - 1
-        		var pincode = json.results[0].address_components[index].long_name
-            requestForm.setFieldValue('pincode', pincode)
-		})
-		.catch(error => console.warn(error));
-}
+        //City
+        requestForm.setFieldValue('city', city)
+
+        //PinCode
+        let index = json.results[0].address_components.length - 1
+        var pincode = json.results[0].address_components[index].long_name
+        requestForm.setFieldValue('pincode', pincode)
+      })
+      .catch(error => console.warn(error));
+  }
 
   const onRegionChange = region => {
-    console.log(region.latitude)   
-    if(initialState) {
+    console.log(region.latitude)
+    if (initialState) {
       setRegion(region)
       getAddress(region.latitude, region.longitude)
     } else {
@@ -210,26 +213,26 @@ const getAddress = (lat, lang) => {
 
   const _handelSearch = () => {
     console.log(searchValue)
-  
+
     if (searchValue.length > 0) {
 
       Geocoder.from(searchValue.trim())
-      .then(json => {
-        var location = json.results[0].geometry.location;
-        const { lat, lng } = json.results[0].geometry.location;
-        
-        let params = {
-          latitude: lat,
-          longitude: lng,
-          latitudeDelta: LATITUDE_DELTA,
-          longitudeDelta: LONGITUDE_DELTA
-        }    
+        .then(json => {
+          var location = json.results[0].geometry.location;
+          const { lat, lng } = json.results[0].geometry.location;
 
-      setRegion(params)
-      getAddress(lat, lng)
-      console.log("Near Loc", lat, lng);
-      console.log(location);
-      }).catch(error => console.warn(error));
+          let params = {
+            latitude: lat,
+            longitude: lng,
+            latitudeDelta: LATITUDE_DELTA,
+            longitudeDelta: LONGITUDE_DELTA
+          }
+
+          setRegion(params)
+          getAddress(lat, lng)
+          console.log("Near Loc", lat, lng);
+          console.log(location);
+        }).catch(error => console.warn(error));
     }
   }
 
@@ -243,24 +246,24 @@ const getAddress = (lat, lang) => {
     validateOnChange: true,
     validateOnBlur: true,
     initialValues: {
-      address : '',
+      address: '',
       city: '',
-      pincode : '',
+      pincode: '',
     },
     validationSchema,
     onSubmit: () => handleConfirm(
       requestForm.values.address,
-      requestForm.values.city, 
+      requestForm.values.city,
       requestForm.values.pincode
     )
-  });  
+  });
 
-  const handleConfirm = async (address, city, pincode) => {  
+  const handleConfirm = async (address, city, pincode) => {
     let addressData = {
       'Address': address,
-      'City' : city,
-      'PinCode' : pincode,
-      'Landmark' : landMark
+      'City': city,
+      'PinCode': pincode,
+      'Landmark': landMark
     }
     await storeData(LOCAL_STORAGE_DATA_KEY.USER_ADDRESS, addressData);
     route.params.getReturnAddress(addressData)
@@ -274,143 +277,145 @@ const getAddress = (lat, lang) => {
   }
 
   return (
-      <KeyboardAwareScrollView 
-        style={[Styles.mainContainer,
-        style.whitebackgrnd]}>   
+    <KeyboardAwareScrollView
+      style={[Styles.mainContainer,
+      style.whitebackgrnd]}>
 
-        <Search
-          placeholder="Enter Near By Location"
-          backgroundColor = {Colors.mangoTwo}
-          inputHeight = {40}          
-          blurOnSubmit = {true}
-          keyboardDismissOnSubmit = {true}
-          onChangeText={value => setSearchValue(value)}
-          onSearch = {_handelSearch}
-          
-        />
+      <Search
+        placeholder="Enter Near By Location"
+        backgroundColor={Colors.mangoTwo}
+        inputHeight={40}
+        blurOnSubmit={true}
+        keyboardDismissOnSubmit={true}
+        onChangeText={value => setSearchValue(value)}
+        onSearch={_handelSearch}
 
-        <View>
-         <View
-          style={[Styles.labelPosition, { backgroundColor: 'rgba(0,0,0,0.7)', 
-          height: 30, borderRadius: 3, borderColor: Colors.mangoTwo, borderWidth: 1, zIndex: 999 }]}>
-          <Text style={[AppStyles.txtBlackRegular,{ color: '#FFFFFF', padding: 6, fontWeight: "400", textAlign: 'center' }]}>Move the map to the exact location</Text>
-          </View>
-          <MaterialCommunityIcons name='map-marker-radius' size={45} 
-          color={'#F00000'} 
-          style={[Styles.markerFixed,
-           { zIndex: 999 }]}></MaterialCommunityIcons>
-                
+      />
 
-          <MapView
-            provider={PROVIDER_GOOGLE}
-            customMapStyle={mapStyle}
-            style={Styles.mapView}
-            maxZoomLevel={19}
-            minZoomLevel={12}
-            showsCompass={true}
-            showsBuildings={true}
-            showsUserLocation={true}
-            showsTraffic={true}
-            zoomEnabled={false}           
-            loadingEnabled={true}
-            dragging={true}
-            scrollWheelZoom={false}
-            onRegionChangeComplete={onRegionChange}
-            region={region}
-          />
+      <View>
+        <View
+          style={[Styles.labelPosition, {
+            backgroundColor: 'rgba(0,0,0,0.7)',
+            height: 30, borderRadius: 3, borderColor: Colors.mangoTwo, borderWidth: 1, zIndex: 999
+          }]}>
+          <Text style={[AppStyles.txtBlackRegular, { color: '#FFFFFF', padding: 6, fontWeight: "400", textAlign: 'center' }]}>Move the map to the exact location</Text>
         </View>
-        <View style={Styles.userInputContainer}>
+        <MaterialCommunityIcons name='map-marker-radius' size={45}
+          color={'#F00000'}
+          style={[Styles.markerFixed,
+          { zIndex: 999 }]}></MaterialCommunityIcons>
+
+
+        <MapView
+          provider={PROVIDER_GOOGLE}
+          customMapStyle={mapStyle}
+          style={Styles.mapView}
+          maxZoomLevel={19}
+          minZoomLevel={12}
+          showsCompass={true}
+          showsBuildings={true}
+          showsUserLocation={true}
+          showsTraffic={true}
+          zoomEnabled={false}
+          loadingEnabled={true}
+          dragging={true}
+          scrollWheelZoom={false}
+          onRegionChangeComplete={onRegionChange}
+          region={region}
+        />
+      </View>
+      <View style={Styles.userInputContainer}>
 
         <View style={[AppStyles.mt10]}>
           <View>
             <Text style={[AppStyles.txtBlackRegular, AppStyles.f16, AppStyles.mb5]}>Address<Text style={[Styles.starText]}>*</Text></Text>
           </View>
-         
-            <View style={{ flex: 1 }}>
-              <TextInput
-                placeholder="Enter address"
-                value={requestForm.values.address}
-                keyboardType = {'default'}
-                onChangeText={(txt) =>  requestForm.setFieldValue('address', txt)}
-                style={Styles.inputBox}              
-              />
-              {clickConfirm ?
-                <CustomText
-                  fontSize={15}
-                  color={Colors.red}
-                  styling={{marginTop: RfH(5)}}>{requestForm.errors.address}</CustomText>
-                : null}
-            </View>
-         
+
+          <View style={{ flex: 1 }}>
+            <TextInput
+              placeholder="Enter address"
+              value={requestForm.values.address}
+              keyboardType={'default'}
+              onChangeText={(txt) => requestForm.setFieldValue('address', txt)}
+              style={Styles.inputBox}
+            />
+            {clickConfirm ?
+              <CustomText
+                fontSize={15}
+                color={Colors.red}
+                styling={{ marginTop: RfH(5) }}>{requestForm.errors.address}</CustomText>
+              : null}
           </View>
-          
-          <View style={[AppStyles.mt10]}>
+
+        </View>
+
+        <View style={[AppStyles.mt10]}>
           <View>
             <Text style={[AppStyles.txtBlackRegular, AppStyles.f16, AppStyles.mb5]}>Landmark</Text>
-          </View>         
-            <View style={{ flex: 1 }}>
-              <TextInput
-                placeholder="Landmark"
-                value={landMark}
-                keyboardType = {'default'}
-                onChangeText={(txt) => setLandMak(txt)}
-                style={Styles.inputBox}              
-              />              
-           
           </View>
-          </View>
+          <View style={{ flex: 1 }}>
+            <TextInput
+              placeholder="Landmark"
+              value={landMark}
+              keyboardType={'default'}
+              onChangeText={(txt) => setLandMak(txt)}
+              style={Styles.inputBox}
+            />
 
-          <View style={{flexDirection: 'row' }}>
-
-          <View style={[AppStyles.mt10,{ flex: 1, paddingRight:10 }]}>
-          <View>
-            <Text style={[AppStyles.txtBlackRegular, AppStyles.f16, AppStyles.mb5]}>City<Text style={[Styles.starText]}>*</Text></Text>
           </View>
-          <View style={{ flexDirection: 'row' }}>
-            <View style={{ flex: 1 }}>
-              <TextInput
-                placeholder="City"
-                value={requestForm.values.city}
-                keyboardType = {'default'}
-                onChangeText={(txt) => requestForm.setFieldValue('city', txt)}
-                style={Styles.inputBox}              
-              />
-              {clickConfirm ?
-                <CustomText
-                  fontSize={15}
-                  color={Colors.red}
-                  styling={{marginTop: RfH(5)}}>{requestForm.errors.city}</CustomText>
-                : null}
+        </View>
+
+        <View style={{ flexDirection: 'row' }}>
+
+          <View style={[AppStyles.mt10, { flex: 1, paddingRight: 10 }]}>
+            <View>
+              <Text style={[AppStyles.txtBlackRegular, AppStyles.f16, AppStyles.mb5]}>City<Text style={[Styles.starText]}>*</Text></Text>
+            </View>
+            <View style={{ flexDirection: 'row' }}>
+              <View style={{ flex: 1 }}>
+                <TextInput
+                  placeholder="City"
+                  value={requestForm.values.city}
+                  keyboardType={'default'}
+                  onChangeText={(txt) => requestForm.setFieldValue('city', txt)}
+                  style={Styles.inputBox}
+                />
+                {clickConfirm ?
+                  <CustomText
+                    fontSize={15}
+                    color={Colors.red}
+                    styling={{ marginTop: RfH(5) }}>{requestForm.errors.city}</CustomText>
+                  : null}
+              </View>
             </View>
           </View>
-          </View>
 
-          <View style={[AppStyles.mt10,{ flex: 1, paddingLeft:10 }]}>
-          <View>
-            <Text style={[AppStyles.txtBlackRegular, AppStyles.f16, AppStyles.mb5]}>Pin Code<Text style={[Styles.starText]}>*</Text></Text>
-          </View>
-          <View style={{ flexDirection: 'row' }}>
-            <View style={{ flex: 1 }}>
-              <TextInput
-                placeholder="Pin Code"
-                value={requestForm.values.pincode}
-                keyboardType = {'default'}
-                onChangeText={(txt) => requestForm.setFieldValue('pincode', txt)}
-                style={Styles.inputBox}              
-              />
-              {clickConfirm ?
-                <CustomText
-                  fontSize={15}
-                  color={Colors.red}
-                  styling={{marginTop: RfH(5)}}>{requestForm.errors.pincode}</CustomText>
-                : null}
+          <View style={[AppStyles.mt10, { flex: 1, paddingLeft: 10 }]}>
+            <View>
+              <Text style={[AppStyles.txtBlackRegular, AppStyles.f16, AppStyles.mb5]}>Pin Code<Text style={[Styles.starText]}>*</Text></Text>
+            </View>
+            <View style={{ flexDirection: 'row' }}>
+              <View style={{ flex: 1 }}>
+                <TextInput
+                  placeholder="Pin Code"
+                  value={requestForm.values.pincode}
+                  keyboardType={'default'}
+                  onChangeText={(txt) => requestForm.setFieldValue('pincode', txt)}
+                  style={Styles.inputBox}
+                />
+                {clickConfirm ?
+                  <CustomText
+                    fontSize={15}
+                    color={Colors.red}
+                    styling={{ marginTop: RfH(5) }}>{requestForm.errors.pincode}</CustomText>
+                  : null}
+              </View>
             </View>
           </View>
-          </View>
 
-          </View>
-        
-          {/* <View style={Styles.inputContainer}>
+        </View>
+
+        {/* <View style={Styles.inputContainer}>
             <TextInput style={[AppStyles.txtSecandaryRegular, AppStyles.f16]} placeholder={"Select pickup location"}/>
           </View>
           <View style={[Styles.inputContainer, AppStyles.flexRowAlignCenter]}>
@@ -420,18 +425,18 @@ const getAddress = (lat, lang) => {
               <Text style={[AppStyles.txtPrimaryRegular, AppStyles.f16]}>CHANGE</Text>
             </TouchableOpacity>
           </View> */}
-        
-          <TouchableOpacity style={[AppStyles.mt20, AppStyles.br10, AppStyles.btnPrimary,
-             AppStyles.pv10,  AppStyles.alignCenter, AppStyles.justifyCon]}
-             onPress={() => addressConfirm()}>
-              <Text style={[AppStyles.txtWhiteRegular, AppStyles.f18]}>CONFIRM LOCATION</Text>
-            </TouchableOpacity>
 
-            <View style = {{height:20}}></View>
-          </View>
+        <TouchableOpacity style={[AppStyles.mt20, AppStyles.br10, AppStyles.btnPrimary,
+        AppStyles.pv10, AppStyles.alignCenter, AppStyles.justifyCon]}
+          onPress={() => addressConfirm()}>
+          <Text style={[AppStyles.txtWhiteRegular, AppStyles.f18]}>CONFIRM LOCATION</Text>
+        </TouchableOpacity>
+
+        <View style={{ height: 20 }}></View>
+      </View>
 
 
-       
+
     </KeyboardAwareScrollView>
   );
 };

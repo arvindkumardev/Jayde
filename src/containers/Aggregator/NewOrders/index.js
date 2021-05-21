@@ -1,23 +1,22 @@
 import React, { useContext, useEffect, useState, useLayoutEffect } from 'react';
-import { Platform, TouchableOpacity, View, Text, Image, TextInput, FlatList } from 'react-native';
+import { View, Text, Image, FlatList, TouchableOpacity } from 'react-native';
 import Styles from "./styles";
 import NavigationRouteNames from '../../../routes/ScreenNames';
 import { useNavigation } from '@react-navigation/core';
 import { useRoute } from '@react-navigation/native';
-import { AppStyles, Colors } from '../../../theme';
-import { CheckBoxWrapper } from '../../../components';
-import { aggregatorGetCompletedOrder } from '../Middelware';
+import { AppStyles } from '../../../theme';
+import { aggregatorNewOrder } from '../Middelware';
 import UserContext from '../../../appContainer/context/user.context';
 import moment from 'moment';
 import FooterLoader from "../../../appContainer/footerLoader";
 
+//Image
 import EWasteImg from './../../../assets/Images/NewOrderList/Group_10091.png'
 import PaperImg from './../../../assets/Images/NewOrderList/Group_10089.png'
 import PlasticImg from './../../../assets/Images/NewOrderList/Group_10090.png'
 import MixWasterImg from './../../../assets/Images/NewOrderList/Group_10088.png'
 import PendingImg from '../../../assets/Images/AddSubUser/pending.png'
 import CompletedImg from '../../../assets/Images/Dashboard/Group_9995.png'
-import FAIcon from 'react-native-vector-icons/FontAwesome';
 
 const ORDER_IMAGE = {
   'E-Waste': EWasteImg,
@@ -26,9 +25,10 @@ const ORDER_IMAGE = {
   'Mix Waste': MixWasterImg,
 };
 
-function CompletedOrder() {
+function AggregatorNewOrder() {
   const navigation = useNavigation();
   const route = useRoute();
+
   const { setLoader } = useContext(UserContext);
 
   const [orderList, setOrderList] = useState([]);
@@ -38,29 +38,24 @@ function CompletedOrder() {
   const [totalCount, setTotalCount] = useState(15)
   const [perPage, setPerPage] = useState(15)
 
-  const [{ data, loading, error }, onGetOrder] = aggregatorGetCompletedOrder(offset);
-
-
-  useLayoutEffect(() => {
-    const title = 'Completed Orders';
-    navigation.setOptions({
-      title,
-    });
-  }, []);
+  const [{ data, loading, error }, onGetOrder] = aggregatorNewOrder(offset);
 
   const getActionType = async () => {
     setOrderList([])
-    getOrderList()
+    triggerLogin()
   }
 
-  const getOrderList = async () => {
+  const triggerLogin = async () => {
     try {
       const { data } = await onGetOrder({ data: {} });
       setLoader(false)
-      console.log("Response from login ", data.data[0].completeOrders)
+      console.log("Response from login ", data.data[0].newOrders)
+      setOrderList(data.data[0].newOrders)
       setPerPage(data.data[0].links.per_page)
       setTotalCount(data.data[0].links.total_count)
-      setOrderList(data.data[0].completeOrders)
+      setOrderList(data.data[0].newOrders)
+      // setOffset(offset + perPage);
+      // triggerLoadMore();
     } catch (e) {
       console.log("Response error", e);
     }
@@ -70,7 +65,7 @@ function CompletedOrder() {
     try {
       const { data } = await onGetOrder({ data: {} });
       let listData = orderList;
-      let data1 = listData.concat(data.data[0].completeOrders);
+      let data1 = listData.concat(data.data[0].newOrders);
       setLoadMore(false);
       setOrderList([...data1]);
     } catch (e) {
@@ -80,7 +75,7 @@ function CompletedOrder() {
 
   useEffect(() => {
     setLoader(true)
-    getOrderList();
+    triggerLogin();
   }, []);
 
   useEffect(() => {
@@ -90,6 +85,11 @@ function CompletedOrder() {
   const screenNavigate = (item) => {
     navigation.navigate(NavigationRouteNames.ORDER_CONFIRMATION, { Item: item, getActionType: getActionType });
   }
+
+  useLayoutEffect(() => {
+    const title = 'New Orders';
+    navigation.setOptions({ title });
+  }, []);
 
   const loadMoreResults = async info => {
     console.log(totalCount)
@@ -106,58 +106,35 @@ function CompletedOrder() {
 
   const _RenderItem = (index, item) => {
     return (
-      <TouchableOpacity key={index}>
+      <TouchableOpacity onPress={() => screenNavigate(item)}>
         <View style={[AppStyles.flexDir, AppStyles.mt20]}>
-          <View style={[AppStyles.ml24, AppStyles.flexpointeight]}>
-            <Text style={[AppStyles.txtBlackRegular, AppStyles.f15]}>{'JYD/N/21/0968'}</Text>
-            <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f13]}>{item.business_name}</Text>
+          <View style={[AppStyles.flexpointtwo, AppStyles.ml14]}>
+            <Image source={ORDER_IMAGE[item.category_name]} />
           </View>
-          <View style={[AppStyles.flexpointtwo,]}>
-            <View style={[AppStyles.mr10]}>
-              <CheckBoxWrapper
-                //  style={{width: 40, height: 40}}
-                isChecked={true}
-              // checkBoxHandler={() =>
-              //   setRememberMe((rememberMe) => !rememberMe)
-              // }
-              />
-              <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f9, AppStyles.mr10]}>ghg</Text>
-            </View>
+
+          <View style={[AppStyles.flexpointsix, AppStyles.ml16]}>
+            <Text style={[AppStyles.txtBlackRegular, AppStyles.f17,]}>{item.order_no}</Text>
+            <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f15,]}>{item.qty}  {item.unit_name}  {item.category_name}</Text>
+            <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f11,]}>{moment(item.pickup_date).format('DD-MMM-YY')}</Text>
+          </View>
+
+          <View style={[AppStyles.flexpointtwo, AppStyles.mt5]}>
+            <TouchableOpacity
+              onPress={() => screenNavigate(item)}
+              style={Styles.confirmBtn}>
+              <Text style={[AppStyles.txtWhiteRegular, AppStyles.f11, AppStyles.textalig,]}>{item.is_confirmed == 2 ? 'VIEW' : 'ACCEPT'}</Text>
+            </TouchableOpacity>
+            <Image style={[AppStyles.ml20, AppStyles.mt5,]} source={PendingImg} />
+            <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f11, AppStyles.ml5]}>Pending</Text>
           </View>
         </View>
-
-        <View style={[AppStyles.flexDir, AppStyles.mt20]}>
-          <View style={[AppStyles.flexpointtwo, AppStyles.ml20]}>
-            <Image source={require('../../../assets/Images/Aggregator/Inventory/Group10150.png')} />
-          </View>
-          <View style={[AppStyles.flexpointsix, AppStyles.ml10]}>
-            <Text style={[AppStyles.txtBlackRegular, AppStyles.f15]}>{item.category_name}</Text>
-            <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f13]}>{item.sub_category_name}</Text>
-            <View style={AppStyles.flexDir}>
-              <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f11]}>{item.work_qty} {item.unit_name} | </Text>
-              <View style={[AppStyles.flexRowAlignCenter, AppStyles.ml0]}>
-                <FAIcon size={10} name='rupee' color={Colors.warmGrey}></FAIcon>
-                <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f11, AppStyles.ml5]}>{item.work_price} / {item.price_unit}</Text>
-              </View>
-            </View>
-
-          </View>
-          <View style={AppStyles.flexpointtwo}>
-            <View style={[AppStyles.flexRowAlignCenter, AppStyles.mt10, AppStyles.mr20]}>
-              <FAIcon size={14} name='rupee'></FAIcon>
-              <Text style={[AppStyles.txtBlackRegular, AppStyles.f15, AppStyles.ml5]}>{item.work_sub_total}</Text>
-            </View>
-          </View>
-        </View>
-
-        <View style={[AppStyles.w100, Styles.bdrclr]}></View>
       </TouchableOpacity>
     )
   }
 
 
   return (
-    <View style={Styles.topView}>
+    <View style={Styles.mainView}>
       {orderList.length > 0 ? <FlatList
         style={{ flex: 1 }}
         data={orderList}
@@ -175,7 +152,7 @@ function CompletedOrder() {
         }}
       />
         :
-        !loading && <View style={[Styles.topView, AppStyles.alignCenter, AppStyles.justifyCon]}>
+        !loading && <View style={[Styles.mainView, AppStyles.alignCenter, AppStyles.justifyCon]}>
           <Text style={AppStyles.txtBlackRegular, AppStyles.f16}>No Record Found</Text>
         </View>
       }
@@ -183,4 +160,4 @@ function CompletedOrder() {
     </View>
   );
 }
-export default CompletedOrder;
+export default AggregatorNewOrder;

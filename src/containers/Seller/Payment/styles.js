@@ -1,13 +1,13 @@
-import {StyleSheet} from 'react-native';
+import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
   boxView: {
-    width: 327, 
-    height: 233, 
-    backgroundColor: '#ffffff', 
-    borderRadius: 10, 
-    marginLeft: 18, 
-    marginTop: 25, 
+    width: 327,
+    height: 233,
+    backgroundColor: '#ffffff',
+    borderRadius: 10,
+    marginLeft: 18,
+    marginTop: 25,
     marginRight: 18,
     marginBottom: 60,
   },

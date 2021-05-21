@@ -6,75 +6,75 @@ import Fonts from "../../../theme/Fonts";
 import { Colors } from '../../../theme';
 
 const styles = StyleSheet.create({
-  locationTxt:{
+  locationTxt: {
     flex: 3,
     height: 45,
     marginRight: 15
   },
-  imagePickerContainer:{
+  imagePickerContainer: {
     marginTop: 15,
     height: 50
   },
-  imageContainer:{
-    alignItems:'center',
-    flexDirection:'row',
-    justifyContent:'space-around',
+  imageContainer: {
+    alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'space-around',
     marginTop: 40
   },
-  uploadImage:{
+  uploadImage: {
     width: 200,
     height: 100
   },
-  removeBtn:{
+  removeBtn: {
     paddingVertical: 8,
     paddingHorizontal: 10,
-    backgroundColor:'red',
+    backgroundColor: 'red',
     borderRadius: 10
   },
-  cameraPreview:{
+  cameraPreview: {
     flex: 1,
     justifyContent: 'flex-end',
     alignItems: 'center',
   },
-  headerContainer:{
-    alignItems:'center',
+  headerContainer: {
+    alignItems: 'center',
     marginBottom: 20,
     paddingTop: 30
   },
-  confirmButton:{
-    marginTop:20,
+  confirmButton: {
+    marginTop: 20,
     borderRadius: 10,
-    backgroundColor:Colors.mango,
+    backgroundColor: Colors.mango,
     paddingVertical: 15,
-    alignItems:'center'
+    alignItems: 'center'
   },
-  confirmBtnText:{
+  confirmBtnText: {
     fontSize: 18,
     fontFamily:
-    Fonts.regular,
+      Fonts.regular,
     color: Colors.white
   },
-  iconButton:{
+  iconButton: {
     borderRadius: 10,
     paddingHorizontal: 45,
     paddingVertical: 25,
-    backgroundColor:'#ccc',
-    flexDirection:'row',
-    alignItems:'center'
+    backgroundColor: '#ccc',
+    flexDirection: 'row',
+    alignItems: 'center'
   },
-  headerText:{
+  headerText: {
     fontFamily: Fonts.bold,
     fontSize: 20
   },
-  viewVolume:{
+  viewVolume: {
     marginTop: 15,
     height: 60,
     width: '100%'
   },
-  viewVolumeInputContainer:{
+  viewVolumeInputContainer: {
     flex: 1,
-    flexDirection:'row',
-    justifyContent:'space-between'
+    flexDirection: 'row',
+    justifyContent: 'space-between'
   },
   listHeaderContainer: {
     paddingHorizontal: RfW(22),
@@ -84,8 +84,8 @@ const styles = StyleSheet.create({
     fontFamily: Fonts.regular,
     fontSize: 16
   },
-  inputText:{
-    backgroundColor:'#e4e4e4',
+  inputText: {
+    backgroundColor: '#e4e4e4',
     borderRadius: 10,
     paddingLeft: 15,
     fontFamily: Fonts.regular
@@ -93,7 +93,7 @@ const styles = StyleSheet.create({
   inputLabelText: {
     marginBottom: 5,
     fontFamily:
-    Fonts.regular,
+      Fonts.regular,
     fontSize: 16
   },
 });

@@ -23,123 +23,123 @@ const OrderDetails = () => {
     navigation.navigate(NavigationRouteNames.NEW_ORDER_REQUEST);
   };
 
-  const [rememberMe,setRememberMe]=useState(false);
+  const [rememberMe, setRememberMe] = useState(false);
 
   return (
     <KeyboardAwareScrollView style={{ flex: 1, paddingHorizontal: RfW(20), backgroundColor: '#ffffff', }}>
       <View style={[style.flexDir, AppStyle.mt20,]}>
         <View style={style.flexpointthree}>
-        <Image style={Styles.lftimg} source={require('../../../assets/Images/AdminNewOrder/Group10055.png')}  />
-          </View>
+          <Image style={Styles.lftimg} source={require('../../../assets/Images/AdminNewOrder/Group10055.png')} />
+        </View>
         <View style={style.flexpointseven}>
           <Text style={[Appstyles.txtBlackBold, Appstyles.f20,]}>Order Details</Text>
+        </View>
+      </View>
+
+      <View style={Appstyles.aligncen}>
+        <Text style={[Appstyles.txtBlackBold, Appstyles.f17, AppStyle.mt30,]}>Ref No- JYD/SC/2020/0067</Text>
+      </View>
+      <View style={Styles.boxView}>
+
+        <View style={[style.flexDir, AppStyle.mt20,]}>
+          <View style={style.flexpointsix}>
+            <Text style={[Appstyles.txtSecandaryRegular, Appstyles.f15, AppStyle.mt10, AppStyle.ml20]}>Waste Type</Text>
+          </View>
+          <View style={[style.flexpointfour, Appstyles.alignfend]}>
+            <Text style={[Appstyles.txtBlackRegular, Appstyles.f15, AppStyle.mt10, AppStyle.mr20]}>Plastic</Text>
           </View>
         </View>
 
-       <View style={Appstyles.aligncen}>
-       <Text style={[Appstyles.txtBlackBold, Appstyles.f17, AppStyle.mt30,]}>Ref No- JYD/SC/2020/0067</Text>
-       </View>
-       <View style={Styles.boxView}>
-
-         <View style={[style.flexDir, AppStyle.mt20,]}>
-         <View style={style.flexpointsix}>
-           <Text style={[Appstyles.txtSecandaryRegular, Appstyles.f15, AppStyle.mt10, AppStyle.ml20]}>Waste Type</Text>
-           </View>
-           <View style={[style.flexpointfour, Appstyles.alignfend]}>
-           <Text style={[Appstyles.txtBlackRegular, Appstyles.f15, AppStyle.mt10, AppStyle.mr20]}>Plastic</Text>
-           </View>
-           </View>
-
-           <View style={style.flexDir}>
-         <View style={style.flexpointsix}>
-           <Text style={[Appstyles.txtSecandaryRegular, Appstyles.f15, AppStyle.mt10, AppStyle.ml20]}>Waste Sub Category</Text>
-           </View>
-           <View style={[style.flexpointfour, Appstyles.alignfend]}>
-           <Text style={[Appstyles.txtBlackRegular, Appstyles.f15, AppStyle.mt10, AppStyle.mr20]}>Type 1</Text>
-           </View>
-           </View>
-
-           <View style={style.flexDir}>
-         <View style={style.flexpointsix}>
-           <Text style={[Appstyles.txtSecandaryRegular, Appstyles.f15, AppStyle.mt10, AppStyle.ml20]}>Volume</Text>
-           </View>
-           <View style={[style.flexpointfour, Appstyles.alignfend]}>
-           <Text style={[Appstyles.txtBlackRegular, Appstyles.f15, AppStyle.mt10, AppStyle.mr20]}>3 Tons</Text>
-           </View>
-           </View>
-
-           <View style={style.flexDir}>
-         <View style={style.flexpointsix}>
-           <Text style={[Appstyles.txtSecandaryRegular, Appstyles.f15, AppStyle.mt10, AppStyle.ml20]}>Purchase Date</Text>
-           </View>
-           <View style={[style.flexpointfour, Appstyles.alignfend]}>
-           <Text style={[Appstyles.txtBlackRegular, Appstyles.f15, AppStyle.mt10, AppStyle.mr20]}>26/07/2020</Text>
-           </View>
-           </View>
-
-           <View style={style.flexDir}>
-         <View style={style.flexpointsix}>
-           <Text style={[Appstyles.txtSecandaryRegular, Appstyles.f15, AppStyle.mt10, AppStyle.ml20]}>Provisional Pricing</Text>
-           </View>
-           <View style={[style.flexpointfour, Appstyles.alignfend]}>
-           <Text style={[Appstyles.txtBlackRegular, Appstyles.f15, AppStyle.mt10, AppStyle.mr20]}>₹ 25,864</Text>
-           </View>
-           </View>
-
-           <View style={style.flexDir}>
-         <View style={style.flexpointsix}>
-           <Text style={[Appstyles.txtSecandaryRegular, Appstyles.f15, AppStyle.mt10, AppStyle.ml20]}>Payment Made</Text>
-           </View>
-           <View style={[style.flexpointfour, Appstyles.alignfend]}>
-           <Text style={[Appstyles.txtBlackRegular, Appstyles.f15, AppStyle.mt10, AppStyle.mr20]}>₹ 25,864</Text>
-           </View>
-           </View>
-
-           <View style={style.flexDir}>
-         <View style={style.flexpointsix}>
-           <Text style={[Appstyles.txtSecandaryRegular, Appstyles.f15, AppStyle.mt10, AppStyle.ml20]}>Payment Mode</Text>
-           </View>
-           <View style={[style.flexpointfour, Appstyles.alignfend]}>
-           <Text style={[Appstyles.txtBlackRegular, Appstyles.f15, AppStyle.mt10, AppStyle.mr20]}>Cash</Text>
-           </View>
-           </View>
-
-           
-           <View style={style.flexDir}>
-         <View style={style.flexpointsix}>
-           <Text style={[Appstyles.txtSecandaryRegular, Appstyles.f15, AppStyle.mt10, AppStyle.ml20]}>Payment Details</Text>
-           </View>
-           <View style={[style.flexpointfour, Appstyles.alignfend]}>
-           <Text style={[Appstyles.txtBlackRegular, Appstyles.f15, AppStyle.mt10, AppStyle.mr20]}>1235567778</Text>
-           </View>
-           </View>
-
-       </View>
-
-       <View>
-         <Text style={[Appstyles.txtSecandaryBold, Appstyles.f11, Styles.mt22, AppStyle.mr10]}>Please note that the provisional pricing is subject to verify-cation by the authorized by Jayde pickup agent</Text>
-         </View>
-
-         <View>
-            <View style={[style.flexDir, style.alignCenter, AppStyle.mt20]}>
-            	  <Checkbox
-                        disabled={false}
-                        value={!rememberMe}
-                        tintColors={{ true: Colors.mango, false: Colors.mango, }}
-                        onValueChange={(rememberMe) => setRememberMe(!rememberMe)}
-                    />
-               <View style={{marginLeft: RfW(10)}}>
-                <CustomText
-                  color={Colors.warmGrey}
-                  fontSize={15}
-                  styling={{paddingVertical: RfH(4)}}>
-                  I agree to the terms and conditions
-                </CustomText>
-              </View> 
-            </View>
+        <View style={style.flexDir}>
+          <View style={style.flexpointsix}>
+            <Text style={[Appstyles.txtSecandaryRegular, Appstyles.f15, AppStyle.mt10, AppStyle.ml20]}>Waste Sub Category</Text>
           </View>
+          <View style={[style.flexpointfour, Appstyles.alignfend]}>
+            <Text style={[Appstyles.txtBlackRegular, Appstyles.f15, AppStyle.mt10, AppStyle.mr20]}>Type 1</Text>
+          </View>
+        </View>
 
-      
+        <View style={style.flexDir}>
+          <View style={style.flexpointsix}>
+            <Text style={[Appstyles.txtSecandaryRegular, Appstyles.f15, AppStyle.mt10, AppStyle.ml20]}>Volume</Text>
+          </View>
+          <View style={[style.flexpointfour, Appstyles.alignfend]}>
+            <Text style={[Appstyles.txtBlackRegular, Appstyles.f15, AppStyle.mt10, AppStyle.mr20]}>3 Tons</Text>
+          </View>
+        </View>
+
+        <View style={style.flexDir}>
+          <View style={style.flexpointsix}>
+            <Text style={[Appstyles.txtSecandaryRegular, Appstyles.f15, AppStyle.mt10, AppStyle.ml20]}>Purchase Date</Text>
+          </View>
+          <View style={[style.flexpointfour, Appstyles.alignfend]}>
+            <Text style={[Appstyles.txtBlackRegular, Appstyles.f15, AppStyle.mt10, AppStyle.mr20]}>26/07/2020</Text>
+          </View>
+        </View>
+
+        <View style={style.flexDir}>
+          <View style={style.flexpointsix}>
+            <Text style={[Appstyles.txtSecandaryRegular, Appstyles.f15, AppStyle.mt10, AppStyle.ml20]}>Provisional Pricing</Text>
+          </View>
+          <View style={[style.flexpointfour, Appstyles.alignfend]}>
+            <Text style={[Appstyles.txtBlackRegular, Appstyles.f15, AppStyle.mt10, AppStyle.mr20]}>₹ 25,864</Text>
+          </View>
+        </View>
+
+        <View style={style.flexDir}>
+          <View style={style.flexpointsix}>
+            <Text style={[Appstyles.txtSecandaryRegular, Appstyles.f15, AppStyle.mt10, AppStyle.ml20]}>Payment Made</Text>
+          </View>
+          <View style={[style.flexpointfour, Appstyles.alignfend]}>
+            <Text style={[Appstyles.txtBlackRegular, Appstyles.f15, AppStyle.mt10, AppStyle.mr20]}>₹ 25,864</Text>
+          </View>
+        </View>
+
+        <View style={style.flexDir}>
+          <View style={style.flexpointsix}>
+            <Text style={[Appstyles.txtSecandaryRegular, Appstyles.f15, AppStyle.mt10, AppStyle.ml20]}>Payment Mode</Text>
+          </View>
+          <View style={[style.flexpointfour, Appstyles.alignfend]}>
+            <Text style={[Appstyles.txtBlackRegular, Appstyles.f15, AppStyle.mt10, AppStyle.mr20]}>Cash</Text>
+          </View>
+        </View>
+
+
+        <View style={style.flexDir}>
+          <View style={style.flexpointsix}>
+            <Text style={[Appstyles.txtSecandaryRegular, Appstyles.f15, AppStyle.mt10, AppStyle.ml20]}>Payment Details</Text>
+          </View>
+          <View style={[style.flexpointfour, Appstyles.alignfend]}>
+            <Text style={[Appstyles.txtBlackRegular, Appstyles.f15, AppStyle.mt10, AppStyle.mr20]}>1235567778</Text>
+          </View>
+        </View>
+
+      </View>
+
+      <View>
+        <Text style={[Appstyles.txtSecandaryBold, Appstyles.f11, Styles.mt22, AppStyle.mr10]}>Please note that the provisional pricing is subject to verify-cation by the authorized by Jayde pickup agent</Text>
+      </View>
+
+      <View>
+        <View style={[style.flexDir, style.alignCenter, AppStyle.mt20]}>
+          <Checkbox
+            disabled={false}
+            value={!rememberMe}
+            tintColors={{ true: Colors.mango, false: Colors.mango, }}
+            onValueChange={(rememberMe) => setRememberMe(!rememberMe)}
+          />
+          <View style={{ marginLeft: RfW(10) }}>
+            <CustomText
+              color={Colors.warmGrey}
+              fontSize={15}
+              styling={{ paddingVertical: RfH(4) }}>
+              I agree to the terms and conditions
+                </CustomText>
+          </View>
+        </View>
+      </View>
+
+
       <View style={{ marginTop: RfH(10), marginTop: 25, marginBottom: 25 }}>
         <TouchableOpacity style={Styles.confirmButton}>
           <Text style={Styles.confirmBtnText}>CONFIRM</Text>

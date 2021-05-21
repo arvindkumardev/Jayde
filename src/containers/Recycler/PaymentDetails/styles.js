@@ -1,6 +1,6 @@
-import {StyleSheet} from 'react-native';
-import {RfH, RfW} from '../../../utils/helpers';
-import {Colors} from '../../../theme';
+import { StyleSheet } from 'react-native';
+import { RfH, RfW } from '../../../utils/helpers';
+import { Colors } from '../../../theme';
 import Fonts from "../../../theme/Fonts";
 
 const styles = StyleSheet.create({
@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
     borderWidth: 4,
     marginTop: 20,
   },
-  btnContainer:{
+  btnContainer: {
     marginTop: 20,
     marginLeft: 24,
     marginRight: 24,
@@ -32,17 +32,17 @@ const styles = StyleSheet.create({
     borderColor: '#F7A435',
     borderWidth: 1,
   },
-  inputText:{
-    backgroundColor:'#e4e4e4',
+  inputText: {
+    backgroundColor: '#e4e4e4',
     borderRadius: 10,
     paddingLeft: 15,
     fontFamily: Fonts.regular,
   },
   rupee: {
-    position: 'absolute', 
-    alignItems: 'flex-end', 
-    marginLeft: 280, 
-    marginTop: 15, 
+    position: 'absolute',
+    alignItems: 'flex-end',
+    marginLeft: 280,
+    marginTop: 15,
     fontSize: 15,
   },
 });

@@ -1,6 +1,6 @@
-import {StyleSheet} from 'react-native';
-import {RfH, RfW} from '../../../utils/helpers';
-import {Colors} from '../../../theme';
+import { StyleSheet } from 'react-native';
+import { RfH, RfW } from '../../../utils/helpers';
+import { Colors } from '../../../theme';
 
 const styles = StyleSheet.create({
   mainView: {
@@ -14,12 +14,12 @@ const styles = StyleSheet.create({
     flex: .7,
   },
   boxView: {
-    width: 310, 
-    height: 144, 
-    backgroundColor: '#ffffff', 
-    borderRadius: 20, 
-    marginLeft: 24, 
-    marginTop: 25, 
+    width: 310,
+    height: 144,
+    backgroundColor: '#ffffff',
+    borderRadius: 20,
+    marginLeft: 24,
+    marginTop: 25,
     marginRight: 24,
   },
   confirmBtn: {
@@ -40,25 +40,25 @@ const styles = StyleSheet.create({
     marginTop: 5,
   },
   lftimga: {
-    width: 16, 
-    height: 16, 
+    width: 16,
+    height: 16,
     marginLeft: 24,
   },
   lftimg: {
-    width: 24, 
-    height: 34, 
+    width: 24,
+    height: 34,
     marginLeft: 34,
   },
   confirm: {
-    fontSize: 18, 
+    fontSize: 18,
     color: '#ffffff',
   },
   confirmBtnn: {
-    marginTop:20,
+    marginTop: 20,
     borderRadius: 13,
     backgroundColor: '#ABC270',
     paddingVertical: 11,
-    alignItems:'center',
+    alignItems: 'center',
   },
 });
 export default styles;

@@ -7,7 +7,7 @@ import { useRoute } from '@react-navigation/native';
 import { AppStyles } from '../../../theme';
 import UserContext from '../../../appContainer/context/user.context';
 import FooterLoader from "../../../appContainer/footerLoader";
-import { getWorkOrder } from '../Middelware';
+import { getWorkOrderList } from '../Middelware';
 import moment from 'moment';
 
 //Image
@@ -24,7 +24,7 @@ const ORDER_IMAGE = {
   'Mix Waste': MixWasterImg,
 };
 
-function RecyclerWorkOrderList() {
+function AggregatorWorkOrderList() {
   const navigation = useNavigation();
   const route = useRoute();
 
@@ -39,7 +39,7 @@ function RecyclerWorkOrderList() {
 
   const [refreshPage, setRefreshPage] = useState(false)
 
-  const [{ data, loading, error }, onMyOrder] = getWorkOrder(offset);
+  const [{ data, loading, error }, onWorkOrder] = getWorkOrderList(offset);
 
   const screenNavigate = () => {
     navigation.navigate(NavigationRouteNames.SMARTCONTRACT_DETAIL);
@@ -60,9 +60,9 @@ function RecyclerWorkOrderList() {
   }
   const workOrder = async () => {
     try {
-      const { data } = await onMyOrder({ data: {} });
+      const { data } = await onWorkOrder({ data: {} });
       setLoader(false)
-      //console.log("Response :", data.data[0].orderDetails)        
+      console.log("Response :", data.data[0])
       setPerPage(data.data[0].links.per_page)
       setTotalCount(data.data[0].links.total_count)
       setOrderList(data.data[0].newOrders)
@@ -76,7 +76,7 @@ function RecyclerWorkOrderList() {
 
   const workOrderLoadMore = async () => {
     try {
-      const { data } = await onMyOrder({ data: {} });
+      const { data } = await onWorkOrder({ data: {} });
       let listData = workOrderList;
       let data1 = listData.concat(data.data[0].newOrders);
       setLoadMore(false);
@@ -173,4 +173,4 @@ function RecyclerWorkOrderList() {
     </View>
   );
 }
-export default RecyclerWorkOrderList;
+export default AggregatorWorkOrderList;

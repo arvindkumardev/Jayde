@@ -1,5 +1,5 @@
 import { ENDPOINT } from "../utils/index";
-export const STANDARD_SCREEN_DIMENSIONS = {height: 812, width: 375};
+export const STANDARD_SCREEN_DIMENSIONS = { height: 812, width: 375 };
 export const LOCAL_STORAGE_DATA_KEY = {
   TUTORIAL_SHOWN: 'TUTORIAL_SHOWN',
   IS_BIOMETRIC_ENABLE: 'IS_BIOMETRIC_ENABLE',
@@ -8,7 +8,9 @@ export const LOCAL_STORAGE_DATA_KEY = {
   JWT_TOKEN: 'JWT_TOKEN',
   USER_ROLE: 'USER_ROLE',
   USER_NAME: 'USER_NAME',
-  USER_ADDRESS: 'USER_ADDRESS'
+  USER_ADDRESS: 'USER_ADDRESS',
+  USER_PHONE: 'USER_PHONE'
+
 };
 export const BASE_URL = ENDPOINT;
 

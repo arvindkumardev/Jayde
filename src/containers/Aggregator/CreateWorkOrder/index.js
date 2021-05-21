@@ -13,24 +13,27 @@ import DropDown from '../../../components/Picker/index';
 import MIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import FAIcon from 'react-native-vector-icons/FontAwesome';
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import DateTimePicker from '@react-native-community/datetimepicker';
 
 import { UploadDocument } from '../../../components/index';
 import UserContext from '../../../appContainer/context/user.context';
 import { alertBox, RfH, RfW, isValidVolume } from '../../../utils/helpers';
 import moment from 'moment';
-import DateTimePicker from '@react-native-community/datetimepicker';
 import * as Yup from "yup";
 import { useFormik } from "formik";
 
 import { getAggregators, getRecyclers } from "../../../services/middleware/user";
 import { getCategories, getSubCategories, getUnits } from '../../Seller/PricingRequest/middleware'
-function RecyclerNewWorkOrder() {
+import { createWorkOrder } from '../Middelware'
+
+function NewWorkOrder() {
 
   const navigation = useNavigation();
   const route = useRoute();
 
+  const [item, setItem] = useState('');
   const [unit, setUnit] = useState('');
-  const [aggregate, setAggregate] = useState("");
+  const [viewType, setViewType] = useState("");
   const [imageUpload, setImageUpload] = useState(false);
 
   const { setLoader } = useContext(UserContext);
@@ -47,19 +50,20 @@ function RecyclerNewWorkOrder() {
   const [date, setDate] = useState(moment(new Date()).format('YYYY-MM-DD'));
   const [imgData, setImageData] = useState([])
 
-
   // ---------------------- Start Api Section ---------------------
   const [{ data: aggregatorsData }, onGetAggregators] = getAggregators();
   const [{ data: recyclersData }, onGetRecyclers] = getRecyclers();
   const [{ data: categoryData }, onGetCategories] = getCategories();
   const [{ data: subCategoryData }, onGetSubCategories] = getSubCategories();
   const [{ data: unitsData }, onGetUnits] = getUnits();
+  const [{ data: workOrderData, loading, error }, onCreateWorkOrder] = createWorkOrder()
 
   const screenNavigate = () => {
     navigation.navigate(NavigationRouteNames.WORKORDER_SUMMARY);
   }
 
   useEffect(() => {
+    console.log('Aggregator', aggregatorsData)
     if (aggregatorsData) {
       const pickerData = aggregatorsData.map((item) => ({ label: item.name, value: item.id }));
       setAggregator(pickerData);
@@ -96,19 +100,22 @@ function RecyclerNewWorkOrder() {
     }
   }, [categoryData]);
 
+  useEffect(() => {
+    setLoader(loading);
+  }, [workOrderData, loading]);
+
   useLayoutEffect(() => {
     const { status } = route.params;
-    setAggregate(status);
+    const { item } = route.params;
+    console.log(item)
+    setItem(item)
+    setViewType(status);
     const title = 'New Work Order';
     navigation.setOptions({ title });
-    if (status == '1') {
-      onGetAggregators();
-    } else {
-      onGetRecyclers();
-    }
+
+    status == '1' ? onGetAggregators() : onGetRecyclers()
     onGetCategories();
     onGetUnits();
-
   }, []);
 
   const validationSchema = Yup.object().shape({
@@ -117,9 +124,7 @@ function RecyclerNewWorkOrder() {
       "Please provide valid volume",
       (value) => isValidVolume(value),
     ),
-    recycler: Yup.string().required("Please select Item"),
-    category: Yup.string().required("Please select category"),
-    subCategory: Yup.string().required("Please select sub-category"),
+    assignTo: Yup.string().required("Please select Item"),    
     unit: Yup.string().required("Please select unit"),
     vehicleNo: Yup.string().required("Please provide vehicle No"),
     price: Yup.string().test(
@@ -133,9 +138,7 @@ function RecyclerNewWorkOrder() {
     validateOnChange: true,
     validateOnBlur: true,
     initialValues: {
-      recycler: '',
-      category: '',
-      subCategory: '',
+      assignTo: '',     
       volume: 0,
       unit: '',
       vehicleNo: '',
@@ -146,8 +149,41 @@ function RecyclerNewWorkOrder() {
     onSubmit: () => handleConfirm()
   });
 
-  const handleConfirm = () => {
+  const handleConfirm = async () => {
+    let param = {
+      //"reloadForm": viewType == '1' ? requestForm.values.assignTo : '',
+      "recycler": requestForm.values.assignTo,
+      "category": item.inventory_category_id,
+      "subcategory": item.inventory_sub_category_id,
+      "qty": requestForm.values.volume,
+      "unit": requestForm.values.unit,
+      "location": "",
+      "ewasteSubcategory": "",
+      "ewastesubcategory_name": "",
+      "price": requestForm.values.price,
+      "priceUnit": requestForm.values.priceUnit,
+      "inventoryId": item.inventory_id,
+      "vehicleImage": imgData,
+      "vehicleNumber": requestForm.values.vehicleNo,
+      "date": date
+    }
 
+    console.log(param)
+
+    if (imgData.length == 0)
+      return
+
+    const { data } = await onCreateWorkOrder({
+      data: param
+    });
+
+    console.log(data)
+
+    if (data.status) {
+
+    } else {
+      alert(data.message)
+    }
   }
   const onChangeCategory = (id) => {
     // var index = categories.findIndex(v => v.value == id)    
@@ -195,22 +231,22 @@ function RecyclerNewWorkOrder() {
 
         <View style={[AppStyle.ml20, AppStyle.mr20]}>
           <Text style={[Appstyles.txtBlackBold, Appstyles.f17, AppStyle.mt30, Appstyles.textalig]}>Create New Order Here</Text>
-          {aggregate == "1" ?
+          {viewType == "1" ?
             <View style={[AppStyles.mt20]}>
               <Text style={[AppStyles.txtBlackRegular, AppStyles.f16, AppStyles.mb10]}>Aggregator</Text>
               <DropDown
                 items={aggregators}
                 placeholderText="Select Aggregator"
                 itemStyle={{ color: '#000' }}
-                onValueChange={(val) => requestForm.setFieldValue('recycler', val)}
-                selectedValue={requestForm.values.recycler}
-                containerStyle={{ borderRadius: 10, backgroundColor: Colors.grayTwo, paddingLeft: 10 }}
+                onValueChange={(val) => requestForm.setFieldValue('assignTo', val)}
+                selectedValue={requestForm.values.assignTo}
+                containerStyle={{ borderRadius: 10, backgroundColor: Colors.grayBackground, paddingLeft: 10 }}
               />
-              {clickConfirm && requestForm.errors.recycler && <CustomText
+              {clickConfirm && requestForm.errors.assignTo && <CustomText
                 fontSize={15}
                 color={Colors.red}
                 styling={{ marginTop: RfH(10) }}>
-                {requestForm.errors.recycler}
+                {requestForm.errors.assignTo}
               </CustomText>}
             </View>
             :
@@ -218,55 +254,33 @@ function RecyclerNewWorkOrder() {
               <Text style={[AppStyles.txtBlackRegular, AppStyles.f16, AppStyles.mb10]}>Recycler</Text>
               <DropDown
                 items={recyclers}
-                placeholderText="Select recycler"
+                placeholderText="Select Recycler"
                 itemStyle={{ color: '#000' }}
-                onValueChange={(val) => requestForm.setFieldValue('recycler', val)}
-                selectedValue={requestForm.values.recycler}
-                containerStyle={{ borderRadius: 10, backgroundColor: Colors.grayTwo, paddingLeft: 10 }}
+                onValueChange={(val) => requestForm.setFieldValue('assignTo', val)}
+                selectedValue={requestForm.values.assignTo}
+                containerStyle={{ borderRadius: 10, backgroundColor: Colors.grayBackground, paddingLeft: 10 }}
               />
 
-              {clickConfirm && requestForm.errors.recycler && <CustomText
+              {clickConfirm && requestForm.errors.assignTo && <CustomText
                 fontSize={15}
                 color={Colors.red}
                 styling={{ marginTop: RfH(10) }}>
-                {requestForm.errors.recycler}
+                {requestForm.errors.assignTo}
               </CustomText>}
             </View>}
 
           <View style={[AppStyles.mt20]}>
-            <Text style={[AppStyles.txtBlackRegular, AppStyles.f16, AppStyles.mb10]}>Category</Text>
-            <DropDown
-              items={categories}
-              placeholderText="Pick Category"
-              itemStyle={{ color: '#000' }}
-              onValueChange={onChangeCategory}
-              selectedValue={requestForm.values.category}
-              containerStyle={{ borderRadius: 10, backgroundColor: Colors.grayTwo, paddingLeft: 10 }}
-            />
-            {clickConfirm && requestForm.errors.category && <CustomText
-              fontSize={15}
-              color={Colors.red}
-              styling={{ marginTop: RfH(10) }}>
-              {requestForm.errors.category}
-            </CustomText>}
+            <Text style={[AppStyles.txtBlackRegular, AppStyles.f16, AppStyles.mb10]}>Category</Text>            
+            <View style={[Styles.inputIcon, AppStyles.br10]}>              
+              <Text style={[[AppStyles.txtBlackRegular, AppStyles.f16, AppStyles.pv4]]}>{item.category_name}</Text>
+            </View>
           </View>
 
           <View style={[AppStyles.mt20]}>
             <Text style={[AppStyles.txtBlackRegular, AppStyles.f16, AppStyles.mb10]}>Sub Category</Text>
-            <DropDown
-              items={subCategories}
-              placeholderText="Pick Sub Category"
-              itemStyle={{ color: '#000' }}
-              onValueChange={(val) => requestForm.setFieldValue('subCategory', val)}
-              selectedValue={requestForm.values.subCategory}
-              containerStyle={{ borderRadius: 10, backgroundColor: Colors.grayTwo, paddingLeft: 10 }}
-            />
-            {clickConfirm && requestForm.errors.subCategory && <CustomText
-              fontSize={15}
-              color={Colors.red}
-              styling={{ marginTop: RfH(10) }}>
-              {requestForm.errors.subCategory}
-            </CustomText>}
+            <View style={[Styles.inputIcon, AppStyles.br10]}>              
+              <Text style={[[AppStyles.txtBlackRegular, AppStyles.f16, AppStyles.pv4]]}>{item.sub_category_name}</Text>
+            </View>
           </View>
 
           <View style={[AppStyles.mt20]}>
@@ -275,7 +289,7 @@ function RecyclerNewWorkOrder() {
               placeholder="Enter Vehicle Number"
               value={requestForm.values.vehicleNo}
               onChangeText={(txt) => requestForm.setFieldValue('vehicleNo', txt)}
-              style={{ backgroundColor: Colors.grayTwo, borderRadius: 10, paddingLeft: 10 }}
+              style={{ backgroundColor: Colors.grayBackground, borderRadius: 10, paddingLeft: 10 }}
             />
             {clickConfirm && requestForm.errors.vehicleNo && <CustomText
               fontSize={15}
@@ -343,7 +357,7 @@ function RecyclerNewWorkOrder() {
                   value={requestForm.values.volume}
                   keyboardType={'number-pad'}
                   onChangeText={(txt) => requestForm.setFieldValue('volume', txt)}
-                  style={{ backgroundColor: Colors.grayTwo, borderRadius: 10, paddingLeft: 10 }}
+                  style={{ backgroundColor: Colors.grayBackground, borderRadius: 10, paddingLeft: 10 }}
                 />
                 {clickConfirm && requestForm.errors.volume && <CustomText
                   fontSize={15}
@@ -359,7 +373,7 @@ function RecyclerNewWorkOrder() {
                   itemStyle={{ color: '#000' }}
                   onValueChange={(val) => requestForm.setFieldValue('unit', val)}
                   selectedValue={requestForm.values.unit}
-                  containerStyle={{ borderRadius: 10, backgroundColor: Colors.grayTwo, paddingLeft: 10 }}
+                  containerStyle={{ borderRadius: 10, backgroundColor: Colors.grayBackground, paddingLeft: 10 }}
                 />
                 {clickConfirm && requestForm.errors.unit && <CustomText
                   fontSize={15}
@@ -382,7 +396,7 @@ function RecyclerNewWorkOrder() {
                   value={requestForm.values.price}
                   keyboardType={'number-pad'}
                   onChangeText={(txt) => requestForm.setFieldValue('price', txt)}
-                  style={{ backgroundColor: Colors.grayTwo, borderRadius: 10, paddingLeft: 10 }}
+                  style={{ backgroundColor: Colors.grayBackground, borderRadius: 10, paddingLeft: 10 }}
                 />
                 {clickConfirm && requestForm.errors.price && <CustomText
                   fontSize={15}
@@ -398,7 +412,7 @@ function RecyclerNewWorkOrder() {
                   itemStyle={{ color: '#000' }}
                   onValueChange={(val) => requestForm.setFieldValue('priceUnit', val)}
                   selectedValue={requestForm.values.priceUnit}
-                  containerStyle={{ borderRadius: 10, backgroundColor: Colors.grayTwo, paddingLeft: 10 }}
+                  containerStyle={{ borderRadius: 10, backgroundColor: Colors.grayBackground, paddingLeft: 10 }}
                 />
                 {clickConfirm && requestForm.errors.priceUnit && <CustomText
                   fontSize={15}
@@ -423,4 +437,4 @@ function RecyclerNewWorkOrder() {
     </KeyboardAwareScrollView>
   );
 }
-export default RecyclerNewWorkOrder;
+export default NewWorkOrder;

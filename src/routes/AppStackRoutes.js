@@ -50,10 +50,13 @@ import Payment from "../containers/Seller/Payment";
 import OrderConfirmation from "../containers/Aggregator/OrderConfirmation";
 import WarehouseDetails from "../containers/Aggregator/WarehouseDetails";
 import ScheduledOrder from "../containers/Aggregator/ScheduledOrder";
+import AggregatorScheduleOrderList from '../containers/Aggregator/ScheduleOrderList'
 import Inventory from "../containers/Aggregator/Inventory";
-import NewWorkOrder from "../containers/Aggregator/NewWorkOrder";
+import NewWorkOrder from "../containers/Aggregator/CreateWorkOrder";
+import AggregatorWorkOrderList from './../containers/Aggregator/NewWorkOrderList'
 import RecyclerNewWorkOrder from "../containers/Recycler/NewWorkOrder";
 import RecyclerInventory from "../containers/Recycler/Inventory";
+import RecyclerWorkOrderList from "../containers/Recycler/NewWorkOrderList";
 
 import Workordersummary from "../containers/Aggregator/Workordersummary";
 import CompletedOrder from "../containers/Aggregator/CompletedOrder";
@@ -61,7 +64,7 @@ import RejectOrder from "../containers/Aggregator/RejectOrder";
 import ProposeTime from "../containers/Aggregator/ProposeTime";
 import WarehouseOrderConfirmation from "../containers/Aggregator/WarehouseOrderConfirmation";
 import PaymentDetails from "../containers/Recycler/PaymentDetails";
-import NewWorkOrderList from "../containers/Recycler/NewWorkOrderList";
+
 import UpdateProfile from "../containers/UpdateProfile";
 import BusinessDetail from "../containers/BusinessDetail";
 import ProfileUpdate from "../containers/ProfileUpdate";
@@ -77,14 +80,14 @@ import AddUser from "../containers/AddUser";
 import PasswordReset from "../containers/PasswordReset";
 import AdminNewOrderList from "../containers/Admin/AdminNewOrderList"
 import AdminNewOrder from "../containers/AdminNewOrder"
-import Orders from "../containers/Aggregator/Orders"
+import AggregatorNewOrder from "../containers/Aggregator/NewOrders"
 import { resolveConfig } from "prettier";
 
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
 
 const NoHeaderScreen = { headerShown: false };
-const NoTitleHeader = {title: null, headerStyle: { borderBottomWidth: 0, elevation: 0 }};
+const NoTitleHeader = { title: null, headerStyle: { borderBottomWidth: 0, elevation: 0 } };
 const CommonHeaderStyle = { headerTitleStyle: [AppStyles.txtBlackBold, AppStyles.f18, AppStyles.ml10,], headerStyle: { borderBottomWidth: 0, elevation: 0 } };
 const DrawerMenu = ({ navigation }) => ({
   title: null,
@@ -117,7 +120,7 @@ const AppStack = (props) => {
         setLogin(true);
         setUserRole(role);
       }
-      setTimeout( () => {
+      setTimeout(() => {
         SplashScreen.hide();
       }, 2500);
     };
@@ -132,17 +135,17 @@ const AppStack = (props) => {
     switch (role) {
       case USER_ROLE.SELLER:
         return <>
-        {/* Dashboard SCREEN */}
-        <Stack.Screen
+          {/* Dashboard SCREEN */}
+          <Stack.Screen
             name={NavigationRouteNames.HOME_SCREEN}
             component={DrawerStack}
-            options={({ navigation }) =>({
-            title: null,
-            headerStyle: { borderBottomWidth: 0, elevation: 0 },
-            headerLeft: () => <TouchableOpacity onPress={() => {
-              navigation.dispatch(DrawerActions.toggleDrawer());
-            }} style={{ marginLeft: 10 }}><FAIcon name="navicon" size={25} /></TouchableOpacity>,
-            headerRight: () => <Text style={{marginRight: 10, fontSize: 20, fontFamily: 'Poppins-SemiBold', textTransform: 'capitalize',}}>{role}</Text>,
+            options={({ navigation }) => ({
+              title: null,
+              headerStyle: { borderBottomWidth: 0, elevation: 0 },
+              headerLeft: () => <TouchableOpacity onPress={() => {
+                navigation.dispatch(DrawerActions.toggleDrawer());
+              }} style={{ marginLeft: 10 }}><FAIcon name="navicon" size={25} /></TouchableOpacity>,
+              headerRight: () => <Text style={{ marginRight: 10, fontSize: 20, fontFamily: 'Poppins-SemiBold', textTransform: 'capitalize', }}>{role}</Text>,
             })
             }
           />
@@ -173,15 +176,15 @@ const AppStack = (props) => {
             options={NoTitleHeader}
           />
 
-           {/* Order List Screen number: 21*/}
-           <Stack.Screen
+          {/* Order List Screen number: 21*/}
+          <Stack.Screen
             name={NavigationRouteNames.SELLER_MY_ORDER}
             component={SellerMyOrder}
             options={CommonHeaderStyle}
           />
 
-            {/* View Order Screen number: 20*/}
-            <Stack.Screen
+          {/* View Order Screen number: 20*/}
+          <Stack.Screen
             name={NavigationRouteNames.SELLER_ORDER_DETAIL}
             component={SellerOrderDetail}
             options={CommonHeaderStyle}
@@ -205,8 +208,8 @@ const AppStack = (props) => {
             component={CallRequest}
             options={CommonHeaderStyle}
           />
-           {/* Call back confirmation */}
-           <Stack.Screen
+          {/* Call back confirmation */}
+          <Stack.Screen
             name={NavigationRouteNames.CALLBACK_CONFIRMATION}
             component={CallBackConfirmation}
             options={NoTitleHeader}
@@ -217,14 +220,14 @@ const AppStack = (props) => {
             component={PickupDate}
             options={NoTitleHeader}
           />
-           {/* Pickup Date Time Slot Screen */}
-           <Stack.Screen
+          {/* Pickup Date Time Slot Screen */}
+          <Stack.Screen
             name={NavigationRouteNames.ORDER_FAILED}
             component={OrderFailed}
             options={NoTitleHeader}
           />
-           {/* Work Order Details Screen number: 31 */}
-           <Stack.Screen
+          {/* Work Order Details Screen number: 31 */}
+          <Stack.Screen
             name={NavigationRouteNames.WORKORDER_DETAILS}
             component={WorkOrderDetails}
             options={CommonHeaderStyle}
@@ -247,14 +250,14 @@ const AppStack = (props) => {
             component={AuditTrail}
             options={CommonHeaderStyle}
           />
-           {/* Smart Contract Detail Screen number: 73*/}
-           <Stack.Screen
+          {/* Smart Contract Detail Screen number: 73*/}
+          <Stack.Screen
             name={NavigationRouteNames.SMARTCONTRACT_DETAIL}
             component={SmartContractDetail}
             options={CommonHeaderStyle}
           />
-           {/* Owned Contracts Screen number: 71*/}
-           <Stack.Screen
+          {/* Owned Contracts Screen number: 71*/}
+          <Stack.Screen
             name={NavigationRouteNames.OWNED_CONTRACTS}
             component={OwnedContracts}
             options={CommonHeaderStyle}
@@ -266,15 +269,15 @@ const AppStack = (props) => {
             options={CommonHeaderStyle}
           />
 
-           {/* Sub User Screen number: 82*/}
-           <Stack.Screen
+          {/* Sub User Screen number: 82*/}
+          <Stack.Screen
             name={NavigationRouteNames.ADD_USER}
             component={AddUser}
             options={CommonHeaderStyle}
           />
 
-           {/* Payment Screen*/}
-           <Stack.Screen
+          {/* Payment Screen*/}
+          <Stack.Screen
             name={NavigationRouteNames.PAYMENT}
             component={Payment}
             options={NoHeaderScreen}
@@ -297,14 +300,14 @@ const AppStack = (props) => {
             component={SmartContractViewItem}
             options={CommonHeaderStyle}
           />
-           {/* Update Profile Screen number: 50 */}
-           <Stack.Screen
+          {/* Update Profile Screen number: 50 */}
+          <Stack.Screen
             name={NavigationRouteNames.UPDATE_PROFILE}
             component={UpdateProfile}
             options={NoTitleHeader}
           />
-           {/* Business Detail Screen number: 51 */}
-           <Stack.Screen
+          {/* Business Detail Screen number: 51 */}
+          <Stack.Screen
             name={NavigationRouteNames.BUSINESS_DETAIL}
             component={BusinessDetail}
             options={CommonHeaderStyle}
@@ -316,107 +319,115 @@ const AppStack = (props) => {
             options={CommonHeaderStyle}
           />
         </>;
-        case USER_ROLE.AGGRATOR:
-          return <>
-           <Stack.Screen
+      case USER_ROLE.AGGRATOR:
+        return <>
+          <Stack.Screen
             name={NavigationRouteNames.HOME_SCREEN}
             component={DrawerStack}
-            options={({ navigation }) =>({
-            title: null,
-            headerStyle: { borderBottomWidth: 0, elevation: 0 },
-            headerLeft: () => <TouchableOpacity onPress={() => {
-              navigation.dispatch(DrawerActions.toggleDrawer());
-            }} style={{ marginLeft: 10 }}><FAIcon name="navicon" size={25} /></TouchableOpacity>,
-            headerRight: () => <Text style={{marginRight: 10, fontSize: 20, fontFamily: 'Poppins-SemiBold', textTransform: 'capitalize',}}>{role}</Text>,
+            options={({ navigation }) => ({
+              title: null,
+              headerStyle: { borderBottomWidth: 0, elevation: 0 },
+              headerLeft: () => <TouchableOpacity onPress={() => {
+                navigation.dispatch(DrawerActions.toggleDrawer());
+              }} style={{ marginLeft: 10 }}><FAIcon name="navicon" size={25} /></TouchableOpacity>,
+              headerRight: () => <Text style={{ marginRight: 10, fontSize: 20, fontFamily: 'Poppins-SemiBold', textTransform: 'capitalize', }}>{role}</Text>,
             })
             }
           />
-            {/* Screen - 19 */}
-            <Stack.Screen
-              name={NavigationRouteNames.CONFIRM_ADDRESS}
-              component={AddressConfirm}
-              options={CommonHeaderStyle}
-            />
-            
-            {/* Screen - 15 */}
-            <Stack.Screen
-              name={NavigationRouteNames.PRICE_REQUEST}
-              component={PricingRequest}
-              initialParams={{ title: "Paper Waste" }}
-              options={CommonHeaderStyle}
-            />
-            {/* Screen - 17 */}
-            <Stack.Screen
-              name={NavigationRouteNames.PRICE_CONFIRM}
-              component={PriceConfirm}
-              options={CommonHeaderStyle}
-            />
-            <Stack.Screen
-              component={OrderType}
-              name={NavigationRouteNames.NEW_ORDER}
-              options={NoHeaderScreen}
-            />
-            {/* Screen - 16 */}
-            <Stack.Screen
-              name={NavigationRouteNames.NEW_ORDER_REQUEST}
-              component={NewOrder}
-              options={CommonHeaderStyle}
-            />
-            {/* Screen - 18 */}
-            <Stack.Screen
-              name={NavigationRouteNames.PICKUP_DETAILS}
-              component={PickupDetails}
-              options={CommonHeaderStyle}
-            />
-            {/* Call request screen number: 70 */}
-            <Stack.Screen
-              name={NavigationRouteNames.CALL_REQUEST}
-              component={CallRequest}
-              options={CommonHeaderStyle}
-            />
-             {/* Schedule Order screen number: 25 */}
-             <Stack.Screen
-              name={NavigationRouteNames.SCHEDULE_ORDER}
-              component={ScheduledOrder}
-              options={CommonHeaderStyle}
-            />
-              {/* Inventory screen number: 40 */}
-              <Stack.Screen
-              name={NavigationRouteNames.INVENTORY}
-              component={Inventory}
-              options={CommonHeaderStyle}
-            />
-              {/* Order CONFIRMATION screen number: 27 */}
-              <Stack.Screen
-              name={NavigationRouteNames.ORDER_CONFIRMATION}
-              component={OrderConfirmation}
-              options={CommonHeaderStyle}
-            />
-             {/* Warehouse Details screen number: 32 */}
-             <Stack.Screen
-              name={NavigationRouteNames.WAREHOUSE_DETAILS}
-              component={WarehouseDetails}
-              options={CommonHeaderStyle}
-            />
-            {/* New Work Order screen number: 32 */}
-            <Stack.Screen
-              name={NavigationRouteNames.NEW_WORKORDER}
-              component={NewWorkOrder}
-              options={CommonHeaderStyle}
-            />
-            {/* Work Order Summary screen number: 42 */}
-            <Stack.Screen
-              name={NavigationRouteNames.WORKORDER_SUMMARY}
-              component={Workordersummary}
-              options={CommonHeaderStyle}
-            />
-            {/* Completed Order screen number: 45 */}
-            <Stack.Screen
-              name={NavigationRouteNames.COMPLETED_ORDER}
-              component={CompletedOrder}
-              options={CommonHeaderStyle}
-            />
-             {/* Smart Contract Screen number: 70*/}
+          {/* Screen - 19 */}
+          <Stack.Screen
+            name={NavigationRouteNames.CONFIRM_ADDRESS}
+            component={AddressConfirm}
+            options={CommonHeaderStyle}
+          />
+
+          {/* Screen - 15 */}
+          <Stack.Screen
+            name={NavigationRouteNames.PRICE_REQUEST}
+            component={PricingRequest}
+            initialParams={{ title: "Paper Waste" }}
+            options={CommonHeaderStyle}
+          />
+          {/* Screen - 17 */}
+          <Stack.Screen
+            name={NavigationRouteNames.PRICE_CONFIRM}
+            component={PriceConfirm}
+            options={CommonHeaderStyle}
+          />
+          <Stack.Screen
+            component={OrderType}
+            name={NavigationRouteNames.NEW_ORDER}
+            options={NoHeaderScreen}
+          />
+          {/* Screen - 16 */}
+          <Stack.Screen
+            name={NavigationRouteNames.NEW_ORDER_REQUEST}
+            component={NewOrder}
+            options={CommonHeaderStyle}
+          />
+          {/* Screen - 18 */}
+          <Stack.Screen
+            name={NavigationRouteNames.PICKUP_DETAILS}
+            component={PickupDetails}
+            options={CommonHeaderStyle}
+          />
+          {/* Call request screen number: 70 */}
+          <Stack.Screen
+            name={NavigationRouteNames.CALL_REQUEST}
+            component={CallRequest}
+            options={CommonHeaderStyle}
+          />
+          {/* Schedule Order screen number: 25 */}
+          <Stack.Screen
+            name={NavigationRouteNames.SCHEDULE_ORDER}
+            component={ScheduledOrder}
+            options={CommonHeaderStyle}
+          />
+          {/* Inventory screen number: 40 */}
+          <Stack.Screen
+            name={NavigationRouteNames.INVENTORY}
+            component={Inventory}
+            options={CommonHeaderStyle}
+          />
+          {/* Order CONFIRMATION screen number: 27 */}
+          <Stack.Screen
+            name={NavigationRouteNames.ORDER_CONFIRMATION}
+            component={OrderConfirmation}
+            options={CommonHeaderStyle}
+          />
+          {/* Warehouse Details screen number: 32 */}
+          <Stack.Screen
+            name={NavigationRouteNames.WAREHOUSE_DETAILS}
+            component={WarehouseDetails}
+            options={CommonHeaderStyle}
+          />
+          {/* New Work Order screen number: 32 */}
+          <Stack.Screen
+            name={NavigationRouteNames.NEW_WORKORDER}
+            component={NewWorkOrder}
+            options={CommonHeaderStyle}
+          />
+          {/* Work Order Summary screen number: 42 */}
+          <Stack.Screen
+            name={NavigationRouteNames.WORKORDER_SUMMARY}
+            component={Workordersummary}
+            options={CommonHeaderStyle}
+          />
+
+          {/* Schedule Order screen number: 21 */}
+          <Stack.Screen
+            name={NavigationRouteNames.AGGREGATOR_SCHEDULE_ORDER_LIST}
+            component={AggregatorScheduleOrderList}
+            options={CommonHeaderStyle}
+          />
+
+          {/* Completed Order screen number: 45 */}
+          <Stack.Screen
+            name={NavigationRouteNames.COMPLETED_ORDER}
+            component={CompletedOrder}
+            options={CommonHeaderStyle}
+          />
+          {/* Smart Contract Screen number: 70*/}
           <Stack.Screen
             name={NavigationRouteNames.SMART_CONTRACT}
             component={SmartContract}
@@ -434,14 +445,14 @@ const AppStack = (props) => {
             component={SmartContractDetail}
             options={CommonHeaderStyle}
           />
-           {/* Owned Contracts Screen number: 71*/}
-           <Stack.Screen
+          {/* Owned Contracts Screen number: 71*/}
+          <Stack.Screen
             name={NavigationRouteNames.OWNED_CONTRACTS}
             component={OwnedContracts}
             options={CommonHeaderStyle}
           />
-           {/* Warehouse Order Confirmation Screen*/}
-           <Stack.Screen
+          {/* Warehouse Order Confirmation Screen*/}
+          <Stack.Screen
             name={NavigationRouteNames.WAREHOUSEORDER_CONFIRMATION}
             component={WarehouseOrderConfirmation}
             options={CommonHeaderStyle}
@@ -453,8 +464,8 @@ const AppStack = (props) => {
             options={CommonHeaderStyle}
           />
 
-           {/* Sub User Screen number: 82*/}
-           <Stack.Screen
+          {/* Sub User Screen number: 82*/}
+          <Stack.Screen
             name={NavigationRouteNames.ADD_USER}
             component={AddUser}
             options={CommonHeaderStyle}
@@ -462,18 +473,18 @@ const AppStack = (props) => {
 
           {/* New Work Order List Screen number: 21*/}
           <Stack.Screen
-            name={NavigationRouteNames.NEWWORK_ORDERLIST}
-            component={NewWorkOrderList}
+            name={NavigationRouteNames.AGGREGATOR_WORK_ORDER_LIST}
+            component={AggregatorWorkOrderList}
             options={CommonHeaderStyle}
           />
-            {/* Update Profile Screen number: 50 */}
-            <Stack.Screen
+          {/* Update Profile Screen number: 50 */}
+          <Stack.Screen
             name={NavigationRouteNames.UPDATE_PROFILE}
             component={UpdateProfile}
             options={NoTitleHeader}
           />
-           {/* Business Detail Screen number: 51 */}
-           <Stack.Screen
+          {/* Business Detail Screen number: 51 */}
+          <Stack.Screen
             name={NavigationRouteNames.BUSINESS_DETAIL}
             component={BusinessDetail}
             options={CommonHeaderStyle}
@@ -496,10 +507,10 @@ const AppStack = (props) => {
             component={ViewNewOrder}
             options={CommonHeaderStyle}
           />
-           {/* Order Screen number: 21*/}
-           <Stack.Screen
-            name={NavigationRouteNames.ORDERS}
-            component={Orders}
+          {/* Order Screen number: 21*/}
+          <Stack.Screen
+            name={NavigationRouteNames.AGGREGATOR_NEW_ORDERS}
+            component={AggregatorNewOrder}
             options={CommonHeaderStyle}
           />
           {/* Order Screen number: 21*/}
@@ -526,89 +537,89 @@ const AppStack = (props) => {
             component={ProposeTime}
             options={CommonHeaderStyle}
           />
-          </>;
-    case USER_ROLE.RECYCLER:
-      return <>
-       <Stack.Screen
+        </>;
+      case USER_ROLE.RECYCLER:
+        return <>
+          <Stack.Screen
             name={NavigationRouteNames.HOME_SCREEN}
             component={DrawerStack}
-            options={({ navigation }) =>({
-            title: null,
-            headerStyle: { borderBottomWidth: 0, elevation: 0 },
-            headerLeft: () => <TouchableOpacity onPress={() => {
-              navigation.dispatch(DrawerActions.toggleDrawer());
-            }} style={{ marginLeft: 10 }}><FAIcon name="navicon" size={25} /></TouchableOpacity>,
-            headerRight: () => <Text style={{marginRight: 10, fontSize: 20, fontFamily: 'Poppins-SemiBold', textTransform: 'capitalize',}}>{role}</Text>,
+            options={({ navigation }) => ({
+              title: null,
+              headerStyle: { borderBottomWidth: 0, elevation: 0 },
+              headerLeft: () => <TouchableOpacity onPress={() => {
+                navigation.dispatch(DrawerActions.toggleDrawer());
+              }} style={{ marginLeft: 10 }}><FAIcon name="navicon" size={25} /></TouchableOpacity>,
+              headerRight: () => <Text style={{ marginRight: 10, fontSize: 20, fontFamily: 'Poppins-SemiBold', textTransform: 'capitalize', }}>{role}</Text>,
             })
             }
           />
-        {/* Screen - 19 */}
-        <Stack.Screen
-          name={NavigationRouteNames.CONFIRM_ADDRESS}
-          component={AddressConfirm}
-          options={CommonHeaderStyle}
-        />
-        {/* Screen - 15 */}
-        <Stack.Screen
-          name={NavigationRouteNames.PRICE_REQUEST}
-          component={PricingRequest}
-          initialParams={{ title: "Paper Waste" }}
-          options={CommonHeaderStyle}
-        />
-        {/* Screen - 17 */}
-        <Stack.Screen
-          name={NavigationRouteNames.PRICE_CONFIRM}
-          component={PriceConfirm}
-          options={CommonHeaderStyle}
-        />
-        <Stack.Screen
-          component={OrderType}
-          name={NavigationRouteNames.NEW_ORDER}
-          options={NoHeaderScreen}
-        />
-        {/* Screen - 16 */}
-        <Stack.Screen
-          name={NavigationRouteNames.NEW_ORDER_REQUEST}
-          component={NewOrder}
-          options={CommonHeaderStyle}
-        />
-        {/* Screen - 18 */}
-        <Stack.Screen
-          name={NavigationRouteNames.PICKUP_DETAILS}
-          component={PickupDetails}
-          options={CommonHeaderStyle}
-        />
-        {/* Call request screen number: 70 */}
-        <Stack.Screen
-          name={NavigationRouteNames.CALL_REQUEST}
-          component={CallRequest}
-          options={CommonHeaderStyle}
-        />
-         {/* Payment Details screen number: 44 */}
-         <Stack.Screen
-          name={NavigationRouteNames.PAYMENT_DETAILS}
-          component={PaymentDetails}
-          options={CommonHeaderStyle}
-        />
-         {/* Inventory screen number: 40 */}
+          {/* Screen - 19 */}
           <Stack.Screen
-              name={NavigationRouteNames.RECYCLER_INVENTORY}
-              component={RecyclerInventory}
-              options={CommonHeaderStyle}
+            name={NavigationRouteNames.CONFIRM_ADDRESS}
+            component={AddressConfirm}
+            options={CommonHeaderStyle}
           />
-            {/* New Work Order screen number: 32 */}
-            <Stack.Screen
-              name={NavigationRouteNames.RECYCLER_NEW_WORKORDER}
-              component={RecyclerNewWorkOrder}
-              options={CommonHeaderStyle}
-            />
-             {/* Work Order Summary screen number: 42 */}
-             <Stack.Screen
-              name={NavigationRouteNames.WORKORDER_SUMMARY}
-              component={Workordersummary}
-              options={CommonHeaderStyle}
-            />
-             {/* Smart Contract Screen number: 70*/}
+          {/* Screen - 15 */}
+          <Stack.Screen
+            name={NavigationRouteNames.PRICE_REQUEST}
+            component={PricingRequest}
+            initialParams={{ title: "Paper Waste" }}
+            options={CommonHeaderStyle}
+          />
+          {/* Screen - 17 */}
+          <Stack.Screen
+            name={NavigationRouteNames.PRICE_CONFIRM}
+            component={PriceConfirm}
+            options={CommonHeaderStyle}
+          />
+          <Stack.Screen
+            component={OrderType}
+            name={NavigationRouteNames.NEW_ORDER}
+            options={NoHeaderScreen}
+          />
+          {/* Screen - 16 */}
+          <Stack.Screen
+            name={NavigationRouteNames.NEW_ORDER_REQUEST}
+            component={NewOrder}
+            options={CommonHeaderStyle}
+          />
+          {/* Screen - 18 */}
+          <Stack.Screen
+            name={NavigationRouteNames.PICKUP_DETAILS}
+            component={PickupDetails}
+            options={CommonHeaderStyle}
+          />
+          {/* Call request screen number: 70 */}
+          <Stack.Screen
+            name={NavigationRouteNames.CALL_REQUEST}
+            component={CallRequest}
+            options={CommonHeaderStyle}
+          />
+          {/* Payment Details screen number: 44 */}
+          <Stack.Screen
+            name={NavigationRouteNames.PAYMENT_DETAILS}
+            component={PaymentDetails}
+            options={CommonHeaderStyle}
+          />
+          {/* Inventory screen number: 40 */}
+          <Stack.Screen
+            name={NavigationRouteNames.RECYCLER_INVENTORY}
+            component={RecyclerInventory}
+            options={CommonHeaderStyle}
+          />
+          {/* New Work Order screen number: 32 */}
+          <Stack.Screen
+            name={NavigationRouteNames.RECYCLER_NEW_WORKORDER}
+            component={RecyclerNewWorkOrder}
+            options={CommonHeaderStyle}
+          />
+          {/* Work Order Summary screen number: 42 */}
+          <Stack.Screen
+            name={NavigationRouteNames.WORKORDER_SUMMARY}
+            component={Workordersummary}
+            options={CommonHeaderStyle}
+          />
+          {/* Smart Contract Screen number: 70*/}
           <Stack.Screen
             name={NavigationRouteNames.SMART_CONTRACT}
             component={SmartContract}
@@ -620,22 +631,22 @@ const AppStack = (props) => {
             component={AuditTrail}
             options={CommonHeaderStyle}
           />
-           {/* Smart Contract Detail Screen number: 73*/}
-           <Stack.Screen
+          {/* Smart Contract Detail Screen number: 73*/}
+          <Stack.Screen
             name={NavigationRouteNames.SMARTCONTRACT_DETAIL}
             component={SmartContractDetail}
             options={CommonHeaderStyle}
           />
-           {/* Owned Contracts Screen number: 71*/}
-           <Stack.Screen
+          {/* Owned Contracts Screen number: 71*/}
+          <Stack.Screen
             name={NavigationRouteNames.OWNED_CONTRACTS}
             component={OwnedContracts}
             options={CommonHeaderStyle}
           />
-           {/* New Work Order List Screen number: 21*/}
-           <Stack.Screen
-            name={NavigationRouteNames.NEWWORK_ORDERLIST}
-            component={NewWorkOrderList}
+          {/* New Work Order List Screen number: 21*/}
+          <Stack.Screen
+            name={NavigationRouteNames.RECYCLER_WORKORDER_LIST}
+            component={RecyclerWorkOrderList}
             options={CommonHeaderStyle}
           />
           {/* Sub User Screen number: 81*/}
@@ -645,21 +656,21 @@ const AppStack = (props) => {
             options={CommonHeaderStyle}
           />
 
-           {/* Sub User Screen number: 82*/}
-           <Stack.Screen
+          {/* Sub User Screen number: 82*/}
+          <Stack.Screen
             name={NavigationRouteNames.ADD_USER}
             component={AddUser}
             options={CommonHeaderStyle}
           />
 
-            {/* Update Profile Screen number: 50 */}
-            <Stack.Screen
+          {/* Update Profile Screen number: 50 */}
+          <Stack.Screen
             name={NavigationRouteNames.UPDATE_PROFILE}
             component={UpdateProfile}
             options={NoTitleHeader}
           />
-           {/* Business Detail Screen number: 51 */}
-           <Stack.Screen
+          {/* Business Detail Screen number: 51 */}
+          <Stack.Screen
             name={NavigationRouteNames.BUSINESS_DETAIL}
             component={BusinessDetail}
             options={CommonHeaderStyle}
@@ -676,21 +687,21 @@ const AppStack = (props) => {
             component={SmartContractViewItem}
             options={CommonHeaderStyle}
           />
-      </>;
-     
-     case USER_ROLE.ADMIN:
+        </>;
+
+      case USER_ROLE.ADMIN:
         return <>
-        {/* Dashboard SCREEN */}
-        <Stack.Screen
+          {/* Dashboard SCREEN */}
+          <Stack.Screen
             name={NavigationRouteNames.HOME_SCREEN}
             component={DrawerStack}
-            options={({ navigation }) =>({
-            title: null,
-            headerStyle: { borderBottomWidth: 0, elevation: 0 },
-            headerLeft: () => <TouchableOpacity onPress={() => {
-              navigation.dispatch(DrawerActions.toggleDrawer());
-            }} style={{ marginLeft: 10 }}><FAIcon name="navicon" size={25} /></TouchableOpacity>,
-            headerRight: () => <Text style={{marginRight: 10, fontSize: 20, fontFamily: 'Poppins-SemiBold', textTransform: 'capitalize',}}>{role}</Text>,
+            options={({ navigation }) => ({
+              title: null,
+              headerStyle: { borderBottomWidth: 0, elevation: 0 },
+              headerLeft: () => <TouchableOpacity onPress={() => {
+                navigation.dispatch(DrawerActions.toggleDrawer());
+              }} style={{ marginLeft: 10 }}><FAIcon name="navicon" size={25} /></TouchableOpacity>,
+              headerRight: () => <Text style={{ marginRight: 10, fontSize: 20, fontFamily: 'Poppins-SemiBold', textTransform: 'capitalize', }}>{role}</Text>,
             })
             }
           />
@@ -740,8 +751,8 @@ const AppStack = (props) => {
             component={OrderAssign}
             options={CommonHeaderStyle}
           />
-          
-          
+
+
           {/* Confirmation Screen */}
           <Stack.Screen
             name={NavigationRouteNames.CONFIRMATION}
@@ -749,27 +760,27 @@ const AppStack = (props) => {
             options={NoHeaderScreen}
           />
 
-           {/* Failed Screen */}
-           <Stack.Screen
+          {/* Failed Screen */}
+          <Stack.Screen
             name={NavigationRouteNames.ORDER_FAILED}
             component={OrderFailed}
             options={NoHeaderScreen}
           />
-          
-          
+
+
           {/* Call request screen number: 70 */}
           <Stack.Screen
             name={NavigationRouteNames.CALL_REQUEST}
             component={CallRequest}
           />
-           {/* User Popup Screen */}
-           <Stack.Screen
+          {/* User Popup Screen */}
+          <Stack.Screen
             name={NavigationRouteNames.ENABLEDISABLE_USER}
             component={EnableDisableUser}
             options={NoHeaderScreen}
           />
-           {/* Update Profile Screen number: 50 */}
-           <Stack.Screen
+          {/* Update Profile Screen number: 50 */}
+          <Stack.Screen
             name={NavigationRouteNames.UPDATE_PROFILE}
             component={UpdateProfile}
             options={NoTitleHeader}
@@ -792,26 +803,26 @@ const AppStack = (props) => {
             component={Users}
             options={CommonHeaderStyle}
           />
-           {/* Download Report Screen number: 91*/}
-           <Stack.Screen
+          {/* Download Report Screen number: 91*/}
+          <Stack.Screen
             name={NavigationRouteNames.DOWNLOAD_REPORT}
             component={DownloadReport}
             options={CommonHeaderStyle}
           />
-           {/* ManageEPR Screen number: 92*/}
-           <Stack.Screen
+          {/* ManageEPR Screen number: 92*/}
+          <Stack.Screen
             name={NavigationRouteNames.MANAGE_EPR}
             component={ManageEPR}
             options={CommonHeaderStyle}
           />
-           {/* Sub Category Details Screen number: 93*/}
-           <Stack.Screen
+          {/* Sub Category Details Screen number: 93*/}
+          <Stack.Screen
             name={NavigationRouteNames.SUBCATEGORY_DETAILS}
             component={SubCategoryDetails}
             options={CommonHeaderStyle}
           />
-           {/* Provisional Pricing Screen number: 94*/}
-           <Stack.Screen
+          {/* Provisional Pricing Screen number: 94*/}
+          <Stack.Screen
             name={NavigationRouteNames.PROVISIONAL_PRICING}
             component={ProvisionalPricing}
             options={CommonHeaderStyle}
@@ -822,15 +833,15 @@ const AppStack = (props) => {
             component={PasswordReset}
             options={NoHeaderScreen}
           />
-           {/* Sub User Screen number: 81*/}
-           <Stack.Screen
+          {/* Sub User Screen number: 81*/}
+          <Stack.Screen
             name={NavigationRouteNames.ADD_SUBUSER}
             component={AddSubUser}
             options={CommonHeaderStyle}
           />
-          
-           {/* Sub User Screen number: 82*/}
-           <Stack.Screen
+
+          {/* Sub User Screen number: 82*/}
+          <Stack.Screen
             name={NavigationRouteNames.ADD_USER}
             component={AddUser}
             options={CommonHeaderStyle}

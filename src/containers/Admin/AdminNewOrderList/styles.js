@@ -1,4 +1,4 @@
-import {StyleSheet} from 'react-native';
+import { StyleSheet } from 'react-native';
 import Colors from '../../../theme/Colors';
 
 
@@ -8,12 +8,12 @@ const styles = StyleSheet.create({
     backgroundColor: '#ffffff',
   },
   boxView: {
-    width: 320, 
-    height: 144, 
-    backgroundColor: '#ffffff', 
-    borderRadius: 20, 
-    marginLeft: 20, 
-    marginTop: 25, 
+    width: 320,
+    height: 144,
+    backgroundColor: '#ffffff',
+    borderRadius: 20,
+    marginLeft: 20,
+    marginTop: 25,
   },
   confirmBtn: {
     borderRadius: 10,

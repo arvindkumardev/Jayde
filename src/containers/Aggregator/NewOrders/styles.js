@@ -1,6 +1,6 @@
-import {StyleSheet} from 'react-native';
-import {RfH, RfW} from '../../../utils/helpers';
-import {Colors} from '../../../theme';
+import { StyleSheet } from 'react-native';
+import { RfH, RfW } from '../../../utils/helpers';
+import { Colors } from '../../../theme';
 
 const styles = StyleSheet.create({
   mainView: {
@@ -8,26 +8,26 @@ const styles = StyleSheet.create({
     backgroundColor: '#ffffff',
   },
   boxView: {
-    width: 320, 
-    height: 144, 
-    backgroundColor: '#ffffff', 
-    borderRadius: 20, 
-    marginLeft: 20, 
-    marginTop: 25, 
+    width: 320,
+    height: 144,
+    backgroundColor: '#ffffff',
+    borderRadius: 20,
+    marginLeft: 20,
+    marginTop: 25,
   },
   lftimga: {
-    width: 16, 
-    height: 16, 
+    width: 16,
+    height: 16,
     marginLeft: 17,
   },
   scheduleimage: {
-    width: 15, 
-    height: 13, 
+    width: 15,
+    height: 13,
     marginLeft: 10,
   },
   pendingimage: {
-    width: 15, 
-    height: 18, 
+    width: 15,
+    height: 18,
     marginLeft: 5,
   },
   bdrclr: {
