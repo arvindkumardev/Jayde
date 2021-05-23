@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState, useLayoutEffect } from 'react';
 import * as Alert from 'react-native';
-import { KeyboardAvoidingView, Platform, TouchableOpacity, View, Text, Image, TextInput, FlatList, ScrollView } from 'react-native';
+import { TouchableOpacity, View, Text, Image, TextInput, FlatList, ScrollView } from 'react-native';
 import Styles from "./styles";
 import Appstyles from "../../../theme/Styles/texts";
 import AppStyle from "../../../theme/Styles/spaces";
@@ -23,7 +23,7 @@ import * as Yup from "yup";
 import { useFormik } from "formik";
 
 import { getAggregators, getRecyclers } from "../../../services/middleware/user";
-import { getCategories, getSubCategories, getUnits } from '../../Seller/PricingRequest/middleware'
+import { getUnits } from '../../Seller/PricingRequest/middleware'
 import { createWorkOrder } from '../Middelware'
 
 function NewWorkOrder() {
@@ -32,19 +32,15 @@ function NewWorkOrder() {
   const route = useRoute();
 
   const [item, setItem] = useState('');
-  const [unit, setUnit] = useState('');
-  const [viewType, setViewType] = useState("");
+  const [viewType, setViewType] = useState(1);
   const [imageUpload, setImageUpload] = useState(false);
 
   const { setLoader } = useContext(UserContext);
 
   const [aggregators, setAggregator] = useState([])
   const [recyclers, setRecyclers] = useState([])
-  const [categories, setCategories] = useState([]);
-  const [subCategories, setSubCategories] = useState([]);
   const [unitPickerData, setUnitData] = useState([]);
 
-  const [arrayData, setArrayData] = useState([])
   const [clickConfirm, setClickConfirm] = useState(false);
   const [show, setShow] = useState(false);
   const [date, setDate] = useState(moment(new Date()).format('YYYY-MM-DD'));
@@ -53,10 +49,8 @@ function NewWorkOrder() {
   // ---------------------- Start Api Section ---------------------
   const [{ data: aggregatorsData }, onGetAggregators] = getAggregators();
   const [{ data: recyclersData }, onGetRecyclers] = getRecyclers();
-  const [{ data: categoryData }, onGetCategories] = getCategories();
-  const [{ data: subCategoryData }, onGetSubCategories] = getSubCategories();
   const [{ data: unitsData }, onGetUnits] = getUnits();
-  const [{ data: workOrderData, loading, error }, onCreateWorkOrder] = createWorkOrder()
+  const [{ data: workOrderData, loading, error }, onCreateWorkOrder] = createWorkOrder(viewType)
 
   const screenNavigate = () => {
     navigation.navigate(NavigationRouteNames.WORKORDER_SUMMARY);
@@ -78,27 +72,11 @@ function NewWorkOrder() {
   }, [recyclersData]);
 
   useEffect(() => {
-    console.log(subCategoryData)
-    if (subCategoryData) {
-      const pickerData = subCategoryData.map((item) => ({ label: item.sub_category_name, value: item.id }));
-      setSubCategories(pickerData);
-    }
-  }, [subCategoryData]);
-
-  useEffect(() => {
     if (unitsData) {
       const pickderData = unitsData.map((item) => ({ label: item.unit_name, value: item.id }));
       setUnitData(pickderData);
     }
   }, [unitsData]);
-
-
-  useEffect(() => {
-    if (categoryData) {
-      const pickderData = categoryData.map((item) => ({ label: item.category_name, value: item.id }));
-      setCategories(pickderData);
-    }
-  }, [categoryData]);
 
   useEffect(() => {
     setLoader(loading);
@@ -107,14 +85,13 @@ function NewWorkOrder() {
   useLayoutEffect(() => {
     const { status } = route.params;
     const { item } = route.params;
-    console.log(item)
+    // console.log(item)
     setItem(item)
     setViewType(status);
     const title = 'New Work Order';
     navigation.setOptions({ title });
 
-    status == '1' ? onGetAggregators() : onGetRecyclers()
-    onGetCategories();
+    status == 1 ? onGetAggregators() : onGetRecyclers()
     onGetUnits();
   }, []);
 
@@ -124,7 +101,7 @@ function NewWorkOrder() {
       "Please provide valid volume",
       (value) => isValidVolume(value),
     ),
-    assignTo: Yup.string().required("Please select Item"),    
+    assignTo: Yup.string().required("Please select Item"),
     unit: Yup.string().required("Please select unit"),
     vehicleNo: Yup.string().required("Please provide vehicle No"),
     price: Yup.string().test(
@@ -138,7 +115,7 @@ function NewWorkOrder() {
     validateOnChange: true,
     validateOnBlur: true,
     initialValues: {
-      assignTo: '',     
+      assignTo: '',
       volume: 0,
       unit: '',
       vehicleNo: '',
@@ -151,13 +128,12 @@ function NewWorkOrder() {
 
   const handleConfirm = async () => {
     let param = {
-      //"reloadForm": viewType == '1' ? requestForm.values.assignTo : '',
-      "recycler": requestForm.values.assignTo,
+      "aggregator": viewType == 1 ? requestForm.values.assignTo : '',
+      "recycler": viewType == 0 ? requestForm.values.assignTo : '',
       "category": item.inventory_category_id,
       "subcategory": item.inventory_sub_category_id,
       "qty": requestForm.values.volume,
       "unit": requestForm.values.unit,
-      "location": "",
       "ewasteSubcategory": "",
       "ewastesubcategory_name": "",
       "price": requestForm.values.price,
@@ -167,7 +143,6 @@ function NewWorkOrder() {
       "vehicleNumber": requestForm.values.vehicleNo,
       "date": date
     }
-
     console.log(param)
 
     if (imgData.length == 0)
@@ -184,23 +159,6 @@ function NewWorkOrder() {
     } else {
       alert(data.message)
     }
-  }
-  const onChangeCategory = (id) => {
-    // var index = categories.findIndex(v => v.value == id)    
-    //  if(index != -1){
-    //    setC(subCategories[index].label)
-    //  }   
-    onGetSubCategories({ data: { id: id } });
-    requestForm.setFieldValue('category', id)
-
-  }
-
-  const onChangeUnit = (id) => {
-    var pos = unitPickerData.findIndex(v => v.value == id)
-    if (pos != -1) {
-      setUnitName(unitPickerData[pos].label)
-    }
-    requestForm.setFieldValue('unit', id)
   }
 
   const onChange = (event, selectedDate) => {
@@ -231,7 +189,7 @@ function NewWorkOrder() {
 
         <View style={[AppStyle.ml20, AppStyle.mr20]}>
           <Text style={[Appstyles.txtBlackBold, Appstyles.f17, AppStyle.mt30, Appstyles.textalig]}>Create New Order Here</Text>
-          {viewType == "1" ?
+          {viewType == 1 ?
             <View style={[AppStyles.mt20]}>
               <Text style={[AppStyles.txtBlackRegular, AppStyles.f16, AppStyles.mb10]}>Aggregator</Text>
               <DropDown
@@ -270,15 +228,15 @@ function NewWorkOrder() {
             </View>}
 
           <View style={[AppStyles.mt20]}>
-            <Text style={[AppStyles.txtBlackRegular, AppStyles.f16, AppStyles.mb10]}>Category</Text>            
-            <View style={[Styles.inputIcon, AppStyles.br10]}>              
+            <Text style={[AppStyles.txtBlackRegular, AppStyles.f16, AppStyles.mb10]}>Category</Text>
+            <View style={[Styles.inputIcon, AppStyles.br10]}>
               <Text style={[[AppStyles.txtBlackRegular, AppStyles.f16, AppStyles.pv4]]}>{item.category_name}</Text>
             </View>
           </View>
 
           <View style={[AppStyles.mt20]}>
             <Text style={[AppStyles.txtBlackRegular, AppStyles.f16, AppStyles.mb10]}>Sub Category</Text>
-            <View style={[Styles.inputIcon, AppStyles.br10]}>              
+            <View style={[Styles.inputIcon, AppStyles.br10]}>
               <Text style={[[AppStyles.txtBlackRegular, AppStyles.f16, AppStyles.pv4]]}>{item.sub_category_name}</Text>
             </View>
           </View>

@@ -1,6 +1,6 @@
 import useAxios from 'axios-hooks';
 import {
-  AGGREGATOR_NEWORDER, AGGREGATOR_CREATE_ORDER, AGGREGATOR_WORK_ORDER_LIST,
+  AGGREGATOR_NEWORDER, AGGREGATOR_SWO_TO_AGGREGATOR, AGGREGATOR_SWO_TO_RECYCLER, AGGREGATOR_WORK_ORDER_LIST,
   AGGREGATOR_SCHEDULE_ORDER_LIST, AGGREGATOR_COMPLETED_ORDER_LIST, AGGREGATOR_REJECTORDER, CONFIRM_SCHEDULE
 } from '../../../utils/urls';
 
@@ -49,10 +49,11 @@ const aggregatorGetScheduleOrder = (pageNumber) => {
   );
 };
 
-const createWorkOrder = () => {
+const createWorkOrder = (status) => {
+  console.log(status)
   return useAxios(
     {
-      url: AGGREGATOR_CREATE_ORDER,
+      url: status == 1 ? AGGREGATOR_SWO_TO_AGGREGATOR : AGGREGATOR_SWO_TO_RECYCLER,
       method: 'POST',
       headers: { 'content-type': 'application/json' },
     },

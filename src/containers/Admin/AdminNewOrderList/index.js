@@ -1,7 +1,6 @@
 
 import React, { useContext, useEffect, useState, useLayoutEffect } from 'react';
 import { View, Text, Image, FlatList, ScrollView, TouchableOpacity, ActivityIndicator } from 'react-native';
-import Styles from "./styles";
 import NavigationRouteNames from '../../../routes/ScreenNames';
 import { useNavigation } from '@react-navigation/core';
 import { useRoute } from '@react-navigation/native';
@@ -11,6 +10,7 @@ import { adminNewOrder } from "../../../services/middleware/user";
 import UserContext from '../../../appContainer/context/user.context';
 import moment from 'moment';
 import FooterLoader from "../../../appContainer/footerLoader";
+import EmptyView from '../../../appContainer/EmptyView'
 
 //Image
 import EWasteImg from '../../../assets/Images/NewOrderList/Group_10091.png'
@@ -45,7 +45,7 @@ function AdminNewOrderList() {
 
   const screenNavigate = (item) => {
     {
-      item.is_confirmed == 3 ?
+      item.is_confirmed == 2 ?
       navigation.navigate(NavigationRouteNames.ORDER_ASSIGN, { Value: item, getActionType: getActionType })
       :
       navigation.navigate(NavigationRouteNames.ADMIN_NEW_ORDER, { Item: item, getActionType: getActionType })
@@ -145,7 +145,7 @@ function AdminNewOrderList() {
             <View style={[AppStyles.flexpointthree, AppStyles.ml35]}>
               <TouchableOpacity
                 onPress={() => screenNavigate(item)}
-                style={Styles.confirmBtn}>
+                style={AppStyles.confirmBtnSmall}>
                 <Text style={[AppStyles.txtWhiteRegular, AppStyles.f11,
                 AppStyles.textalig,]}>{item.is_confirmed == 2 ? 'ASSIGN' : 'VIEW'}</Text>
               </TouchableOpacity>
@@ -171,7 +171,7 @@ function AdminNewOrderList() {
 
 
   return (
-    <View style={Styles.mainView}>
+    <View style={AppStyles.topView}>
       {adminOrderList.length > 0 ? <FlatList
         style={{ flex: 1 }}
         data={adminOrderList}
@@ -189,9 +189,7 @@ function AdminNewOrderList() {
         }}
       />
         :
-        !loading && <View style={[Styles.mainView, AppStyles.alignCenter, AppStyles.justifyCon]}>
-          <Text style={AppStyles.txtBlackRegular, AppStyles.f16}>No Record Found</Text>
-        </View>
+        !loading && <EmptyView onBack = {() => navigation.pop()}></EmptyView>
       }
     </View>
   );

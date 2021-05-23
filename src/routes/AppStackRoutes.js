@@ -529,7 +529,7 @@ const AppStack = (props) => {
           <Stack.Screen
             name={NavigationRouteNames.REJECT_ORDER}
             component={RejectOrder}
-            options={CommonHeaderStyle}
+            options={NoHeaderScreen}
           />
           {/* Propose Time Screen */}
           <Stack.Screen

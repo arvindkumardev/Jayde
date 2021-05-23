@@ -65,7 +65,7 @@ function ViewNewOrder() {
   }
 
   return (
-    <View style={Styles.mainVu}>
+    <View style={AppStyles.topView}>
       <ScrollView>
 
         <View style={AppStyles.aligncen}>
@@ -135,7 +135,7 @@ function ViewNewOrder() {
         </View>
 
 
-        {item.is_confirmed == 2 && <View style={[Styles.btnContainer, AppStyles.flexDir]}>
+        {item.is_confirmed == 2  && <View style={[Styles.btnContainer, AppStyles.flexDir]}>
           <View style={AppStyles.flex1}>
             <TouchableOpacity
               style={[Styles.aggregatebtn]}

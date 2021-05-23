@@ -7,6 +7,8 @@ import { useRoute } from '@react-navigation/native';
 import { AppStyles } from '../../../theme';
 import UserContext from '../../../appContainer/context/user.context';
 import FooterLoader from "../../../appContainer/footerLoader";
+import EmptyView from '../../../appContainer/EmptyView'
+
 import { getWorkOrderList } from '../Middelware';
 import moment from 'moment';
 
@@ -166,9 +168,7 @@ function AggregatorWorkOrderList() {
         }}
       />
         :
-        !loading && <View style={[Styles.mainView, AppStyles.alignCenter, AppStyles.justifyCon]}>
-          <Text style={AppStyles.txtBlackRegular, AppStyles.f16}>No Record Found</Text>
-        </View>
+        !loading && <EmptyView onBack = {() => navigation.pop()}></EmptyView>
       }
     </View>
   );

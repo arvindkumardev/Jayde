@@ -40,7 +40,7 @@ const PickupDate = () => {
       if (isEnabled) {
         let param = {
           date: customDate,
-          time: `${fromTime} - ${toTime}`
+          time: `${fromTime} ${toTime}`
         }
         route.params.getTimeSlot(param)
         navigation.goBack()
@@ -50,10 +50,10 @@ const PickupDate = () => {
     } else {
       let param = {
         date: timeSlotIndex > 1 ? getAfterDay_Formatted() : getDayAfter_Formatted(),
-        time: timeSlotIndex == 0 ? '11:00 AM - 1:00 PM'
-          : timeSlotIndex == 1 ? '3:00 PM - 5:00 PM'
-            : timeSlotIndex == 2 ? '11:00 AM - 1:00 PM'
-              : '3:00 PM - 5:00 PM'
+        time: timeSlotIndex == 0 ? '11:00 AM 1:00 PM'
+          : timeSlotIndex == 1 ? '3:00 PM 5:00 PM'
+            : timeSlotIndex == 2 ? '11:00 AM 1:00 PM'
+              : '3:00 PM 5:00 PM'
       }
       route.params.getTimeSlot(param)
       navigation.goBack()

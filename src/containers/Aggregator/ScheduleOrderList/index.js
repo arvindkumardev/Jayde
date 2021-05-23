@@ -9,6 +9,7 @@ import { aggregatorGetScheduleOrder } from '../Middelware';
 import UserContext from '../../../appContainer/context/user.context';
 import moment from 'moment';
 import FooterLoader from "../../../appContainer/footerLoader";
+import EmptyView from '../../../appContainer/EmptyView'
 
 //Image
 import EWasteImg from './../../../assets/Images/NewOrderList/Group_10091.png'
@@ -151,9 +152,7 @@ function AggregatorScheduleOrderList() {
         }}
       />
         :
-        !loading && <View style={[Styles.mainView, AppStyles.alignCenter, AppStyles.justifyCon]}>
-          <Text style={AppStyles.txtBlackRegular, AppStyles.f16}>No Record Found</Text>
-        </View>
+        !loading && <EmptyView onBack = {() => navigation.pop()}></EmptyView>
       }
 
     </View>

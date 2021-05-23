@@ -1,5 +1,4 @@
 import { StyleSheet } from 'react-native';
-import { color } from 'react-native-reanimated';
 import Colors from '../Colors';
 import Fonts from '../Fonts';
 
@@ -120,6 +119,7 @@ const container = StyleSheet.create({
     paddingVertical: 10,
     backgroundColor:Colors.grayBackground,
   },
+  
 });
 
 export default container;

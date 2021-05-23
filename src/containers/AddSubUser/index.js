@@ -1,12 +1,13 @@
 import React, {useContext, useEffect, useState, useLayoutEffect} from 'react';
 import {View, Text, Image, FlatList, TouchableOpacity} from 'react-native';
-import Styles from "./styles";
 import NavigationRouteNames from '../../routes/ScreenNames';
 import {useNavigation} from '@react-navigation/core';
 import {useRoute} from '@react-navigation/native';
 import { AppStyles, Colors } from '../../theme';
 import UserContext from '../../appContainer/context/user.context';
 import FooterLoader from "../../appContainer/footerLoader";
+import EmptyView from '../../appContainer/EmptyView'
+
 import {subUser} from '../../services/middleware/user';
 import FAIcon from 'react-native-vector-icons/FontAwesome';
 
@@ -124,14 +125,14 @@ function AddSubUser() {
               <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f11, AppStyles.mt5]}>{item.status === '1' ? 'Active' : 'Block'}</Text>           
           </View>
           </View>
-          <View style={[Styles.bdrclr]}></View>
+          <View style={[AppStyles.bdrclr]}></View>
         </View>     
         )
       }
 
   
   return (
-    <View style={Styles.mainView}>      
+    <View style={AppStyles.topView}>      
          {subUserList.length > 0 ? <FlatList
           data={subUserList}
           renderItem={({ index, item }) =>
@@ -149,9 +150,7 @@ function AddSubUser() {
           }}
         />         
          :
-         ! loading && <View style={[Styles.mainView, AppStyles.alignCenter, AppStyles.justifyCon]}>  
-          <Text style = { AppStyles.txtBlackRegular, AppStyles.f16 }>No Record Found</Text>  
-         </View>
+         !loading && <EmptyView onBack = {() => navigation.pop()}></EmptyView>
          }  
       </View>
   );

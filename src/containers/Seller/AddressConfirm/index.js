@@ -96,9 +96,8 @@ const AddressConfirm = () => {
       'city': City,
       'pinCode': PinCode,
       'contact': userName,
-      'mobile': '',
+      'mobile': userPhone,
       'scheduleDate': date,
-      'scheduleTime': '',
       'timeSlot': time,
       'orderIds': getQuoteData().orderId,
       'aggregator': ''

@@ -1,18 +1,16 @@
 import React, { useContext, useEffect, useState, useLayoutEffect } from 'react';
 import * as Alert from 'react-native';
-import { KeyboardAvoidingView, Platform, TouchableOpacity, View, Text, Image, TextInput, FlatList, ScrollView, ActivityIndicator } from 'react-native';
-import DropDownPicker from "react-native-dropdown-picker";
+import { Platform, TouchableOpacity, View, Text, Image, TextInput, FlatList, ScrollView, ActivityIndicator } from 'react-native';
 
 import Styles from "./styles";
 import NavigationRouteNames from '../../../routes/ScreenNames';
 import { useNavigation } from '@react-navigation/core';
 import { useRoute } from '@react-navigation/native';
-import AppStyles from "../../../theme/Styles/texts";
-import AppStyle from "../../../theme/Styles/spaces";
-import style from "../../../theme/Styles/container";
+import { AppStyles } from '../../../theme';
 import { users } from "../../../services/middleware/user";
 import UserContext from '../../../appContainer/context/user.context';
 import FooterLoader from "../../../appContainer/footerLoader";
+import EmptyView from '../../../appContainer/EmptyView'
 
 function Users() {
   const navigation = useNavigation();
@@ -100,32 +98,32 @@ function Users() {
         onPress={() => { screenNavigate(item, index) }}>
         <View style={Styles.boxView}>
 
-          <View style={[style.flexDir, AppStyle.ml24,]}>
-            <View style={Styles.flx2}>
-              <Text style={[AppStyles.f13, AppStyles.txtSecandaryRegular, AppStyle.mt20]}>{item.email}</Text>
+          <View style={[AppStyles.flexDir, AppStyles.ml24,]}>
+            <View style={AppStyles.flexpointseven}>
+              <Text style={[AppStyles.f13, AppStyles.txtSecandaryRegular, AppStyles.mt20]}>{item.email}</Text>
             </View>
-            <View style={[style.flexpointthree, AppStyle.mt20, AppStyles.ml24]}>
+            <View style={[AppStyles.flexpointthree, AppStyles.mt20, AppStyles.ml24]}>
               <TouchableOpacity style={item.status == 1 ? Styles.confirmBtn : Styles.InactiveBtn}>
                 <Text style={[AppStyles.txtWhiteRegular, AppStyles.f11, AppStyles.textalig]}>{item.status == 1 ? 'Active' : 'Inactive'}</Text>
               </TouchableOpacity>
             </View>
           </View>
 
-          <Text style={[AppStyles.f15, AppStyle.ml24,]}>{item.business_name}</Text>
-          <Text style={[AppStyles.f15, AppStyle.ml24,]}>{item.name}</Text>
+          <Text style={[AppStyles.f15, AppStyles.ml24,]}>{item.business_name}</Text>
+          <Text style={[AppStyles.f15, AppStyles.ml24,]}>{item.name}</Text>
 
 
-          <View style={[style.flexDir, AppStyle.mt14]}>
-            <View style={[style.flexpointone]}>
+          <View style={[AppStyles.flexDir, AppStyles.mt14]}>
+            <View style={[AppStyles.flexpointone]}>
               <Image style={Styles.lftimga} source={require('../../../assets/Images/Users/noun_Recycle_3673532.png')} />
             </View>
-            <View style={[style.flexpointthree]}>
-              <Text style={[AppStyle.ml24, AppStyles.txtSecandaryRegular, AppStyles.f13]}>{item.business_type}</Text>
+            <View style={[AppStyles.flexpointthree]}>
+              <Text style={[AppStyles.ml24, AppStyles.txtSecandaryRegular, AppStyles.f13]}>{item.business_type}</Text>
             </View>
             <View style={{ height: '100%', width: 1, borderLeftColor: '000', borderBottomWidth: 20, }}>
             </View>
             <View>
-              <Text style={[AppStyle.ml20, AppStyles.txtSecandaryRegular, AppStyles.f13]}>{item.type}</Text>
+              <Text style={[AppStyles.ml20, AppStyles.txtSecandaryRegular, AppStyles.f13]}>{item.type}</Text>
             </View>
           </View>
 
@@ -136,7 +134,7 @@ function Users() {
 
 
   return (
-    <View style={Styles.mainView}>
+    <View style={AppStyles.topView}>
       {userList.length > 0 ? <FlatList
         data={userList}
         renderItem={({ index, item }) =>
@@ -153,9 +151,7 @@ function Users() {
         }}
       />
         :
-        !loading && <View style={[Styles.mainView, AppStyles.alignCenter, AppStyles.justifyCon]}>
-          <Text style={AppStyles.txtBlackRegular, AppStyles.f16}>No Record Found</Text>
-        </View>
+        !loading && <EmptyView onBack = {() => navigation.pop()}></EmptyView>
       }
     </View>
   );

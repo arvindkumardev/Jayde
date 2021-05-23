@@ -1,245 +1,216 @@
-import React, {useContext, useEffect, useState, useLayoutEffect} from 'react';
-import * as Alert from 'react-native';
-import {KeyboardAvoidingView, Platform, TouchableOpacity, View, Text, Image, TextInput, FlatList, ScrollView} from 'react-native';
+import React, { useContext, useEffect, useState, useLayoutEffect } from 'react';
+import { TouchableOpacity, View, Text, Image, TextInput, FlatList, ScrollView } from 'react-native';
 import Styles from "./styles";
-import Appstyles from "../../../theme/Styles/texts";
-import AppStyle from "../../../theme/Styles/spaces";
-import style from "../../../theme/Styles/container";
 import NavigationRouteNames from '../../../routes/ScreenNames';
-import {useNavigation} from '@react-navigation/core';
-import {useRoute} from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/core';
+import { useRoute } from '@react-navigation/native';
 import { AppStyles, Colors } from '../../../theme';
 import moment from 'moment';
 import FAIcon from 'react-native-vector-icons/FontAwesome';
-import DropDown from '../../../components/Picker/index';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { confirmSchedule } from '../Middelware';
 import UserContext from '../../../appContainer/context/user.context';
-import {alertBox, RfH, RfW, isValidVolume} from '../../../utils/helpers';
-import * as yup from "yup";
-import { useFormik } from "formik";
-import CustomText from '../../../components/CustomText';
-
-const typeData = [
-  {label: '10:00 AM - 11:00 AM', value: '1'}]
 
 function ProposeTime() {
 
-   const navigation = useNavigation();
-   const route = useRoute();
-   const [time, setTime] = useState('');
-   const [unit, setUnit] = useState('');
-   const [unitPickerData, setUnitData] = useState([]);
-   const [item, setItem] = useState({});
-   const [clickConfirm, setClickConfirm] = useState(false);
+  const navigation = useNavigation();
+  const route = useRoute();
+
+  const [item, setItem] = useState({});
+  const { setLoader } = useContext(UserContext);
 
   const [customDate, setCustomDate] = useState(moment(new Date()).add(1, 'days').format('DD-MM-YYYY'));
   const [fromTime, setFromTime] = useState(moment(new Date()).format('hh:mm A'))
   const [toTime, setToTime] = useState(moment(new Date()).add(1, 'hours').format('hh:mm A'))
-  const [pickerIndex, setPickerIndex] = useState() 
+  const [pickerIndex, setPickerIndex] = useState()
 
   const [mode, setMode] = useState('date');
   const [show, setShow] = useState(false);
 
-  const [isEnabled, setIsEnabled] = useState(false);
-  const [timeSlotIndex, setTimeSlotIndex] = useState('')
-  const [{ data: quoteData, loading, error }, onSubmitQuote] = confirmSchedule();
+  const [{ data, loading, error }, onConfirmSchedule] = confirmSchedule();
 
-  const handleConfirm = async (item) => {   
-
-    const {data} = await onSubmitQuote({
+  const handleConfirm = async () => {
+    setLoader(true)
+    const { data } = await onConfirmSchedule({
       data: {
         assignedId: item.assigned_id,
         scheduleDate: customDate,
-        timeslot: fromTime + toTime,
+        timeslot: `${fromTime} ${toTime}`
       },
     });
-    
+
     console.log(data)
-    if(data.status){
-      alert(data.message)
-     screenNavigate()
+    if (data.status) {
+      screenNavigate()
     } else {
       alert(data.message)
-    }  
+    }
+    setLoader(false)
   };
 
-  useLayoutEffect(() => {   
-    const { Item } = route.params;  
-    setItem(Item) 
-    const title='Re-Schedule Order';
-   navigation.setOptions({
-    title,
-  });
+  useLayoutEffect(() => {
+    const { Item } = route.params;
+    setItem(Item)
+    const title = 'Re-Schedule Order';
+    navigation.setOptions({ title });
   }, []);
 
   const screenNavigate = () => {
-    navigation.navigate(NavigationRouteNames.ORDERS);
+    navigation.pop()
+    navigation.navigate(NavigationRouteNames.AGGREGATOR_SCHEDULE_ORDER_LIST);
   }
-
-  useEffect(() => {
-    setTimeSlotIndex('')
-  }, [isEnabled])
 
   const showMode = (currentMode) => {
     setShow(true);
     setMode(currentMode);
   };
 
-  const showDatepicker = () => {  
-    setPickerIndex(0) 
+  const showDatepicker = () => {
+    setPickerIndex(0)
     showMode('date');
   };
 
   const showTimepicker = (index) => {
-    setPickerIndex(index) 
+    setPickerIndex(index)
     showMode('time');
   };
 
-  const onChange = (event, selectedDate) => {  
-    setShow(false);     
-    if(selectedDate){
-      if(pickerIndex === 0){
-         setCustomDate(moment(selectedDate).format('DD-MM-YYYY'));
-      } else if(pickerIndex === 1) {
+  const onChange = (event, selectedDate) => {
+    setShow(false);
+    if (selectedDate) {
+      if (pickerIndex === 0) {
+        setCustomDate(moment(selectedDate).format('DD-MM-YYYY'));
+      } else if (pickerIndex === 1) {
         setFromTime(moment(selectedDate).format('hh:mm A'));
-      } else if(pickerIndex === 2) {
+      } else if (pickerIndex === 2) {
         setToTime(moment(selectedDate).format('hh:mm A'));
       }
     } else {
-    }  
+    }
   };
 
-  
   return (
-    <View style={Styles.topView}>
-       <ScrollView>
-       
-        
-       <View style={Appstyles.aligncen}>
-       <Text style={[Appstyles.txtBlackBold, Appstyles.f17, AppStyle.mt30,]}>Ref No- {item.order_no}</Text>
-       </View>
-       <View style={Styles.boxView}>
+    <View style={AppStyles.topView}>
+      <ScrollView>
+        <View style={AppStyles.aligncen}>
+          <Text style={[AppStyles.txtBlackBold, AppStyles.f17, AppStyles.mt30,]}>Ref No- {item.order_no}</Text>
+        </View>
+        <View style={Styles.boxView}>
+          <View style={[AppStyles.flexDir, AppStyles.mt20,]}>
+            <View style={AppStyles.flexpointsix}>
+              <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f15, AppStyles.ml20]}>Waste type</Text>
+            </View>
+            <View style={[AppStyles.flexpointfour, AppStyles.alignfend]}>
+              <Text style={[AppStyles.txtBlackRegular, AppStyles.f15, AppStyles.mr20]}>{item.category_name}</Text>
+            </View>
+          </View>
 
-         <View style={[style.flexDir, AppStyle.mt20,]}>
-         <View style={style.flexpointsix}>
-           <Text style={[Appstyles.txtSecandaryRegular, Appstyles.f15, AppStyle.ml20]}>Waste type</Text>
-           </View>
-           <View style={[style.flexpointfour, Appstyles.alignfend]}>
-           <Text style={[Appstyles.txtBlackRegular, Appstyles.f15, AppStyle.mr20]}>{item.category_name}</Text>
-           </View>
-           </View>
+          <View style={AppStyles.flexDir}>
+            <View style={AppStyles.flexpointsix}>
+              <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f15, AppStyles.mt10, AppStyles.ml20]}>Waste sub category</Text>
+            </View>
+            <View style={[AppStyles.flexpointfour, AppStyles.alignfend]}>
+              <Text style={[AppStyles.txtBlackRegular, AppStyles.f15, AppStyles.mt10, AppStyles.mr20]}>{item.sub_category_name}</Text>
+            </View>
+          </View>
 
-           <View style={style.flexDir}>
-         <View style={style.flexpointsix}>
-           <Text style={[Appstyles.txtSecandaryRegular, Appstyles.f15, AppStyle.mt10, AppStyle.ml20]}>Waste sub category</Text>
-           </View>
-           <View style={[style.flexpointfour, Appstyles.alignfend]}>
-           <Text style={[Appstyles.txtBlackRegular, Appstyles.f15, AppStyle.mt10, AppStyle.mr20]}>{item.sub_category_name}</Text>
-           </View>
-           </View>
+          <View style={AppStyles.flexDir}>
+            <View style={AppStyles.flexpointsix}>
+              <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f15, AppStyles.mt10, AppStyles.ml20]}>Volume</Text>
+            </View>
+            <View style={[AppStyles.flexpointfour, AppStyles.alignfend]}>
+              <Text style={[AppStyles.txtBlackRegular, AppStyles.f15, AppStyles.mt10, AppStyles.mr20]}>{item.qty} {item.unit_name}</Text>
+            </View>
+          </View>
 
-           <View style={style.flexDir}>
-         <View style={style.flexpointsix}>
-           <Text style={[Appstyles.txtSecandaryRegular, Appstyles.f15, AppStyle.mt10, AppStyle.ml20]}>Volume</Text>
-           </View>
-           <View style={[style.flexpointfour, Appstyles.alignfend]}>
-           <Text style={[Appstyles.txtBlackRegular, Appstyles.f15, AppStyle.mt10, AppStyle.mr20]}>{item.qty} {item.unit_name}</Text>
-           </View>
-           </View>
+          <View style={AppStyles.flexDir}>
+            <View style={AppStyles.flexpointsix}>
+              <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f15, AppStyles.mt10, AppStyles.ml20]}>Purchase Date</Text>
+            </View>
+            <View style={[AppStyles.flexpointfour, AppStyles.alignfend]}>
+              <Text style={[AppStyles.txtBlackRegular, AppStyles.f15, AppStyles.mt10, AppStyles.mr20]}>{moment(item.pickup_date).format('DD-MMM-YY')}</Text>
+            </View>
+          </View>
 
-           <View style={style.flexDir}>
-         <View style={style.flexpointsix}>
-           <Text style={[Appstyles.txtSecandaryRegular, Appstyles.f15, AppStyle.mt10, AppStyle.ml20]}>Purchase Date</Text>
-           </View>
-           <View style={[style.flexpointfour, Appstyles.alignfend]}>
-           <Text style={[Appstyles.txtBlackRegular, Appstyles.f15, AppStyle.mt10, AppStyle.mr20]}>{moment(item.pickup_date).format('DD-MMM-YY')}</Text>
-           </View>
-           </View>
+          <View style={AppStyles.flexDir}>
+            <View style={AppStyles.flex1}>
+              <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f15, AppStyles.mt10, AppStyles.ml20]}>Pickup Time</Text>
+            </View>
+            <View style={[AppStyles.flex1, AppStyles.alignfend]}>
+              <Text style={[AppStyles.txtBlackRegular, AppStyles.f15, AppStyles.mt10, AppStyles.mr20]}>{item.time_slot}</Text>
+            </View>
+          </View>
 
-           <View style={style.flexDir}>
-         <View style={style.flex1}>
-           <Text style={[Appstyles.txtSecandaryRegular, Appstyles.f15, AppStyle.mt10, AppStyle.ml20]}>Pickup Time</Text>
-           </View>
-           <View style={[style.flex1, Appstyles.alignfend]}>
-           <Text style={[Appstyles.txtBlackRegular, Appstyles.f15, AppStyle.mt10, AppStyle.mr20]}>{item.time_slot}</Text>
-           </View>
-           </View>
+          <View style={AppStyles.flexDir}>
+            <View style={AppStyles.flexpointsix}>
+              <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f15, AppStyles.mt10, AppStyles.ml20]}>Provisional Pricing</Text>
+            </View>
+            <View style={[AppStyles.flexpointfour, AppStyles.alignfend]}>
+              <Text style={[AppStyles.txtBlackRegular, AppStyles.f15, AppStyles.mt10, AppStyles.mr20]}><FAIcon size={14} name="rupee" /> {item.price}</Text>
+            </View>
+          </View>
 
-           <View style={style.flexDir}>
-         <View style={style.flexpointsix}>
-           <Text style={[Appstyles.txtSecandaryRegular, Appstyles.f15, AppStyle.mt10, AppStyle.ml20]}>Provisional Pricing</Text>
-           </View>
-           <View style={[style.flexpointfour, Appstyles.alignfend]}>
-           <Text style={[Appstyles.txtBlackRegular, Appstyles.f15, AppStyle.mt10, AppStyle.mr20]}><FAIcon size={14} name="rupee" /> {item.price}</Text>
-           </View>
-           </View>
+        </View>
 
-       </View>
-       
-       <View style={[AppStyles.mt30, AppStyles.ml30, AppStyles.mr30]}>
-       <Text style={[AppStyles.txtBlackBold, AppStyles.f17, AppStyles.textalig]}>Please Choose Preferred Time Slot for Pick Up</Text>
-       </View>
-       <View style={[AppStyles.ml20, AppStyles.mr20]}>
-        <View>
-           <Text style={[[AppStyles.txtBlackRegular, AppStyles.f16, AppStyles.mb5, AppStyles.mt10]]}>Pick Date</Text>
-           <TouchableOpacity
-            onPress = {() => showDatepicker()}
-            style={[AppStyles.flexRowAlignCenter, AppStyles.btnSecandary,AppStyles.br10,AppStyles.mb10, {padding:10}]}>
-           <FAIcon size={22} name='calendar-o' color = {Colors.mangoTwo} />
-           <Text style={[[AppStyles.txtBlackRegular, AppStyles.f16, AppStyles.pl20]]}>{customDate}</Text>
-           </TouchableOpacity>
-           {show && ( <DateTimePicker
+        <View style={[AppStyles.mt30, AppStyles.ml30, AppStyles.mr30]}>
+          <Text style={[AppStyles.txtBlackBold, AppStyles.f17, AppStyles.textalig]}>Please Choose Preferred Time Slot for Pick Up</Text>
+        </View>
+        <View style={[AppStyles.ml20, AppStyles.mr20]}>
+          <View>
+            <Text style={[[AppStyles.txtBlackRegular, AppStyles.f16, AppStyles.mb5, AppStyles.mt10]]}>Pick Date</Text>
+            <TouchableOpacity
+              onPress={() => showDatepicker()}
+              style={[AppStyles.flexRowAlignCenter, AppStyles.btnSecandary, AppStyles.br10, AppStyles.mb10, { padding: 10 }]}>
+              <FAIcon size={22} name='calendar-o' color={Colors.mangoTwo} />
+              <Text style={[[AppStyles.txtBlackRegular, AppStyles.f16, AppStyles.pl20]]}>{customDate}</Text>
+            </TouchableOpacity>
+            {show && (<DateTimePicker
               testID="dateTimePicker"
               value={new Date()}
-              minimumDate = {new Date(moment(new Date()).add(1, 'days').format('YYYY-MM-DD'))}
+              minimumDate={new Date(moment(new Date()).add(1, 'days').format('YYYY-MM-DD'))}
               mode={mode}
               is24Hour={false}
               display="default"
               onChange={onChange}
             />)}
-         </View>
-         
-        <View style={[AppStyles.mt20]}>
-           <View>
-             <Text style={[AppStyles.txtBlackRegular, AppStyles.f16, AppStyles.mb5]}>Pick Time Slot</Text>
-           </View>
-           <View style={{ flexDirection: 'row' }}>
-             <View style={{ flex: 1, paddingRight: 10 }}>
-               <Text style={[AppStyles.txtBlackRegular, AppStyles.f16, AppStyles.mb5]}>From</Text>
-               <TouchableOpacity
-              onPress = {() => showTimepicker(1)}
-              style={[AppStyles.flexRowAlignCenter, AppStyles.btnSecandary,AppStyles.br10,AppStyles.mb10, {padding:10}]}>
-               <FAIcon size={22} name='clock-o' color = {Colors.mangoTwo} />
-           <Text style={[[AppStyles.txtBlackRegular, AppStyles.f16, AppStyles.pl20 ]]}>{fromTime}</Text>
-           </TouchableOpacity>
-             </View>
-             <View style={{ flex: 1 }}>
-               <Text style={[AppStyles.txtBlackRegular, AppStyles.f16, AppStyles.mb5]}>To</Text>
-             <TouchableOpacity
-              onPress = {() => showTimepicker(2)}
-              style={[AppStyles.flexRowAlignCenter, AppStyles.btnSecandary,AppStyles.br10,AppStyles.mb10, {padding:10}]}>
-               <FAIcon size={22} name='clock-o' color = {Colors.mangoTwo} />
-           <Text style={[[AppStyles.txtBlackRegular, AppStyles.f16, AppStyles.pl20 ]]}>{toTime}</Text>
-           </TouchableOpacity>
-             </View>
-           </View>
-         </View>
-       </View>
+          </View>
 
-       <View style={Styles.btnContainer}>
-       <TouchableOpacity
-           style={Styles.confirmbtn} onPress = {() => {
-            handleConfirm(item)
-          // handelValidation(item)
-           }}>
-           <Text style={[Appstyles.txtWhiteRegular, Appstyles.f17, Appstyles.textalig, AppStyle.mt10]}>CONFIRM</Text>
-         </TouchableOpacity>
-       </View>
+          <View style={[AppStyles.mt20]}>
+            <View>
+              <Text style={[AppStyles.txtBlackRegular, AppStyles.f16, AppStyles.mb5]}>Pick Time Slot</Text>
+            </View>
+            <View style={{ flexDirection: 'row' }}>
+              <View style={{ flex: 1, paddingRight: 10 }}>
+                <Text style={[AppStyles.txtBlackRegular, AppStyles.f16, AppStyles.mb5]}>From</Text>
+                <TouchableOpacity
+                  onPress={() => showTimepicker(1)}
+                  style={[AppStyles.flexRowAlignCenter, AppStyles.btnSecandary, AppStyles.br10, AppStyles.mb10, { padding: 10 }]}>
+                  <FAIcon size={22} name='clock-o' color={Colors.mangoTwo} />
+                  <Text style={[[AppStyles.txtBlackRegular, AppStyles.f16, AppStyles.pl20]]}>{fromTime}</Text>
+                </TouchableOpacity>
+              </View>
+              <View style={{ flex: 1 }}>
+                <Text style={[AppStyles.txtBlackRegular, AppStyles.f16, AppStyles.mb5]}>To</Text>
+                <TouchableOpacity
+                  onPress={() => showTimepicker(2)}
+                  style={[AppStyles.flexRowAlignCenter, AppStyles.btnSecandary, AppStyles.br10, AppStyles.mb10, { padding: 10 }]}>
+                  <FAIcon size={22} name='clock-o' color={Colors.mangoTwo} />
+                  <Text style={[[AppStyles.txtBlackRegular, AppStyles.f16, AppStyles.pl20]]}>{toTime}</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          </View>
+        </View>
 
-          </ScrollView> 
-        
-      
+        <View style={Styles.btnContainer}>
+          <TouchableOpacity
+            style={Styles.confirmbtn} onPress={() => {
+              handleConfirm()
+            }}>
+            <Text style={[AppStyles.txtWhiteRegular, AppStyles.f17, AppStyles.textalig, AppStyles.mt10]}>CONFIRM</Text>
+          </TouchableOpacity>
+        </View>
+      </ScrollView>
     </View>
   );
 }

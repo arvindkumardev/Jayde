@@ -1,8 +1,6 @@
 import React, {useContext, useEffect, useState, useLayoutEffect,useRef} from 'react';
 import {TouchableOpacity, View, Text, Image, TextInput, FlatList, ScrollView} from 'react-native';
-import Styles from "./styles";
 import CustomText from '../../components/CustomText';
-import NavigationRouteNames from '../../routes/ScreenNames';
 import {useNavigation} from '@react-navigation/core';
 import {useRoute} from '@react-navigation/native';
 import { AppStyles, Colors } from '../../theme';
@@ -42,7 +40,6 @@ function AddUser() {
       email: Yup.string().email('Invalid Email').required('Required'),
       phone: Yup.string().min(10, 'Invalid Phone').required('Required'),
       password: Yup.string().min(3, 'Too Short!').required('Required'),
-     // confPassword : Yup.string().min(3, 'Too Short!').required('Required'),
       confPassword: Yup.string().when("password", {
         is: val => (val && val.length > 0 ? true : false),
         then: Yup.string().oneOf([Yup.ref("password")],"Both password need to be the same")
@@ -87,8 +84,8 @@ function AddUser() {
 
   return (
     <KeyboardAwareScrollView>
-      <View style={Styles.topView}>       
-          <Text style={[AppStyles.txtBlackBold, AppStyles.f17, Styles.title]}>Please register here system sub user</Text>
+      <View style={AppStyles.topView}>       
+          <Text style={[AppStyles.txtBlackBold, AppStyles.f17, AppStyles.title]}>Please register here system sub user</Text>
           <View style={[AppStyles.mt30, AppStyles.ml24, AppStyles.mr24]}>
             <Text style={[AppStyles.txtBlackRegular, AppStyles.f15, AppStyles.mb6,]}>Name</Text>
             <View>
@@ -100,7 +97,7 @@ function AddUser() {
                 onBlur={handleBlur('name')}
                 onChangeText={handleChange('name')}
                 onSubmitEditing={() => refEmail.current?.focus()}  
-                style={Styles.inputText} />
+                style={AppStyles.inputText} />
 
                 {errors.name && <CustomText
                 fontSize={15}
@@ -127,7 +124,7 @@ function AddUser() {
               onBlur={handleBlur('email')}
               onChangeText={handleChange('email')}
               onSubmitEditing={() => refMobile.current?.focus()}             
-              style={Styles.inputText} />
+              style={AppStyles.inputText} />
 
               {errors.email && <CustomText
                 fontSize={15}
@@ -151,7 +148,7 @@ function AddUser() {
               onBlur={handleBlur('phone')}
               onChangeText={handleChange('phone')}
               onSubmitEditing={() => refPassword.current?.focus()}           
-              style={Styles.inputText} />
+              style={AppStyles.inputText} />
 
               {errors.phone && <CustomText
                 fontSize={15}
@@ -177,7 +174,7 @@ function AddUser() {
               onBlur={handleBlur('password')}
               onChangeText={handleChange('password')}
               onSubmitEditing={() => refConfPassword.current?.focus()}  
-              style={Styles.inputText} />
+              style={AppStyles.inputText} />
 
               {errors.password && <CustomText
                 fontSize={15}
@@ -202,7 +199,7 @@ function AddUser() {
               value={values.confPassword}
               onBlur={handleBlur('confPassword')}
               onChangeText={handleChange('confPassword')}
-              style={Styles.inputText} />
+              style={AppStyles.inputText} />
 
                 {errors.confPassword && <CustomText
                 fontSize={15}
@@ -213,11 +210,11 @@ function AddUser() {
 
           </View>
 
-          <View style={[Styles.btnContainer, AppStyles.flexDir]}>
+          <View style={[AppStyles.btnContainer, AppStyles.flexDir]}>
          <View style={AppStyles.flex1}>
          <TouchableOpacity
          onPress = {() => navigation.pop()}
-           style={[Styles.aggregatebtn]}>
+           style={[AppStyles.cancelBtn]}>
            <Text style={[AppStyles.txtPrimaryRegular, AppStyles.f17, AppStyles.textalig, AppStyles.mt10]}>CANCEL</Text>
          </TouchableOpacity>
         </View>
@@ -225,7 +222,7 @@ function AddUser() {
        <TouchableOpacity
           disabled={!isValid}
           onPress={handleSubmit}
-          style={[Styles.confirmbtn, AppStyles.mb20]}>
+          style={[AppStyles.confirmBtn, AppStyles.mb20]}>
            <Text style={[AppStyles.txtWhiteRegular, AppStyles.f17, AppStyles.textalig, AppStyles.mt10]}>SAVE</Text>
          </TouchableOpacity>
          </View>

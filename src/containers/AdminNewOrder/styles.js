@@ -3,10 +3,7 @@ import {RfH, RfW} from '../../utils/helpers';
 import {Colors} from '../../theme';
 
 const styles = StyleSheet.create({
-  mainVu: {
-    flex: 1,
-    backgroundColor: '#ffffff',
-  },
+
   boxView: {
     width: 320, 
     height: 260, 
