@@ -41,9 +41,11 @@ import { userLogin } from "./user";
 import { LOCAL_STORAGE_DATA_KEY } from "../../utils/constants";
 import { AppStyles } from "../../theme";
 import FAIcon from "react-native-vector-icons/FontAwesome";
+import {useRoute} from '@react-navigation/native';
 
 function LoginWithEmail() {
   const navigation = useNavigation();
+  const route = useRoute();
   const [clickLogin, setClickLogin] = useState(false);
   const {
     isLogin,
@@ -113,6 +115,11 @@ function LoginWithEmail() {
     await loginForm.submitForm();
   };
 
+  const forgotPassword = () => {
+    navigation.navigate(NavigationRouteNames.PASSWORD_RESET);
+  }
+  
+
   return (
     <ScrollView contentContainerStyle={{ backgroundColor: Colors.mango, justifyContent: 'space-between', height: Dimensions.get('window').height }}>
       <View>
@@ -165,7 +172,8 @@ function LoginWithEmail() {
             </TouchableOpacity>
           </View>
         </View>
-        <TouchableOpacity style={{ alignSelf: 'flex-end', marginRight: 40, marginTop: 20 }}>
+        <TouchableOpacity style={{ alignSelf: 'flex-end', marginRight: 40, marginTop: 20 }}
+        onPress={() => forgotPassword()}>
           <Text style={[AppStyles.txtWhiteRegular, AppStyles.f15]}>Forgot password?</Text>
         </TouchableOpacity>
       </View>

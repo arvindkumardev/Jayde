@@ -861,6 +861,7 @@ const AppStack = (props) => {
             component={LoginWithEmail}
             options={NoHeaderScreen}
           />
+         
         </>;
     }
   };
@@ -884,6 +885,12 @@ const AppStack = (props) => {
           <Stack.Screen
             name={NavigationRouteNames.LOGIN_WITH_EMAIL}
             component={LoginWithEmail}
+            options={NoHeaderScreen}
+          />
+          {/* Password Reset SCREEN */}
+          <Stack.Screen
+            name={NavigationRouteNames.PASSWORD_RESET}
+            component={PasswordReset}
             options={NoHeaderScreen}
           />
         </>

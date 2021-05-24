@@ -119,6 +119,10 @@ const container = StyleSheet.create({
     paddingVertical: 10,
     backgroundColor:Colors.grayBackground,
   },
+  NoRecordButton: {
+    width: 160,
+    height : 44,
+  },
   
 });
 
