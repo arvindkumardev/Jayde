@@ -80,12 +80,7 @@ const styles = StyleSheet.create({
     color: Colors.mango,
     marginTop: 10,
   },
-  inputText:{
-    backgroundColor:'#e4e4e4',
-    borderRadius: 10,
-    paddingLeft: 15,
-    fontFamily: Fonts.regular
-  },
+
   inputTextf:{
     backgroundColor:'#e4e4e4',
     borderRadius: 10,
@@ -145,7 +140,7 @@ const styles = StyleSheet.create({
     marginRight: 15
   },
   inputText:{
-    backgroundColor:'#e4e4e4',
+    backgroundColor: Colors.grayBackground,
     borderRadius: 10,
     paddingLeft: 15,
     fontFamily: Fonts.regular

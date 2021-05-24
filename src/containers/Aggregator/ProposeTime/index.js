@@ -19,7 +19,7 @@ function ProposeTime() {
   const [item, setItem] = useState({});
   const { setLoader } = useContext(UserContext);
 
-  const [customDate, setCustomDate] = useState(moment(new Date()).add(1, 'days').format('DD-MM-YYYY'));
+  const [customDate, setCustomDate] = useState(moment(new Date()).add(1, 'days').format('YYYY-MM-DD'));
   const [fromTime, setFromTime] = useState(moment(new Date()).format('hh:mm A'))
   const [toTime, setToTime] = useState(moment(new Date()).add(1, 'hours').format('hh:mm A'))
   const [pickerIndex, setPickerIndex] = useState()
@@ -31,12 +31,14 @@ function ProposeTime() {
 
   const handleConfirm = async () => {
     setLoader(true)
+    let param = {
+      assignedId: item.assigned_id,
+      scheduleDate: customDate,
+      timeslot: `${fromTime} ${toTime}`
+    }
+    console.log(param)   
     const { data } = await onConfirmSchedule({
-      data: {
-        assignedId: item.assigned_id,
-        scheduleDate: customDate,
-        timeslot: `${fromTime} ${toTime}`
-      },
+      data: param
     });
 
     console.log(data)
@@ -56,8 +58,8 @@ function ProposeTime() {
   }, []);
 
   const screenNavigate = () => {
-    navigation.pop()
-    navigation.navigate(NavigationRouteNames.AGGREGATOR_SCHEDULE_ORDER_LIST);
+    navigation.popToTop()
+    navigation.navigate(NavigationRouteNames.AGGREGATOR_NEW_ORDERS);
   }
 
   const showMode = (currentMode) => {
@@ -79,7 +81,7 @@ function ProposeTime() {
     setShow(false);
     if (selectedDate) {
       if (pickerIndex === 0) {
-        setCustomDate(moment(selectedDate).format('DD-MM-YYYY'));
+        setCustomDate(moment(selectedDate).format('YYYY-MM-DD'));
       } else if (pickerIndex === 1) {
         setFromTime(moment(selectedDate).format('hh:mm A'));
       } else if (pickerIndex === 2) {
@@ -162,7 +164,7 @@ function ProposeTime() {
               onPress={() => showDatepicker()}
               style={[AppStyles.flexRowAlignCenter, AppStyles.btnSecandary, AppStyles.br10, AppStyles.mb10, { padding: 10 }]}>
               <FAIcon size={22} name='calendar-o' color={Colors.mangoTwo} />
-              <Text style={[[AppStyles.txtBlackRegular, AppStyles.f16, AppStyles.pl20]]}>{customDate}</Text>
+              <Text style={[[AppStyles.txtBlackRegular, AppStyles.f16, AppStyles.pl20]]}>{moment(customDate).format('DD-MMM-YYYY')}</Text>
             </TouchableOpacity>
             {show && (<DateTimePicker
               testID="dateTimePicker"

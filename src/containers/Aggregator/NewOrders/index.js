@@ -43,20 +43,18 @@ function AggregatorNewOrder() {
 
   const getActionType = async () => {
     setOrderList([])
-    triggerLogin()
+    getNewOrder()
   }
 
-  const triggerLogin = async () => {
+  const getNewOrder = async () => {
     try {
       const { data } = await onGetOrder({ data: {} });
       setLoader(false)
-      console.log("Response from login ", data.data[0].newOrders)
+      //console.log("Response from login ", data.data[0].newOrders)
       setOrderList(data.data[0].newOrders)
       setPerPage(data.data[0].links.per_page)
       setTotalCount(data.data[0].links.total_count)
-      setOrderList(data.data[0].newOrders)
-      // setOffset(offset + perPage);
-      // triggerLoadMore();
+      setOrderList(data.data[0].newOrders)     
     } catch (e) {
       console.log("Response error", e);
     }
@@ -76,7 +74,7 @@ function AggregatorNewOrder() {
 
   useEffect(() => {
     setLoader(true)
-    triggerLogin();
+    getNewOrder();
   }, []);
 
   useEffect(() => {
@@ -113,20 +111,20 @@ function AggregatorNewOrder() {
             <Image source={ORDER_IMAGE[item.category_name]} />
           </View>
 
-          <View style={[AppStyles.flexpointsix, AppStyles.ml16]}>
+          <View style={[AppStyles.flexpointfive, AppStyles.ml16]}>
             <Text style={[AppStyles.txtBlackRegular, AppStyles.f17,]}>{item.order_no}</Text>
             <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f15,]}>{item.qty}  {item.unit_name}  {item.category_name}</Text>
             <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f11,]}>{moment(item.pickup_date).format('DD-MMM-YY')}</Text>
           </View>
 
-          <View style={[AppStyles.flexpointtwo, AppStyles.mt5]}>
+          <View style={[AppStyles.flexpointthree, AppStyles.mt5, AppStyles.alignCenter]}>
             <TouchableOpacity
               onPress={() => screenNavigate(item)}
               style={Styles.confirmBtn}>
               <Text style={[AppStyles.txtWhiteRegular, AppStyles.f11, AppStyles.textalig,]}>{item.is_confirmed == 2 ? 'VIEW' : 'ACCEPT'}</Text>
             </TouchableOpacity>
-            <Image style={[AppStyles.ml20, AppStyles.mt5,]} source={PendingImg} />
-            <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f11, AppStyles.ml5]}>Pending</Text>
+            <Image style={AppStyles.mt5} source={PendingImg} />
+            <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f11, AppStyles.ml5, AppStyles.textalig]}>{item.reschedule_confirmed == '1' ? 'Re-schedule Confirmed' : 'Pending'}</Text>
           </View>
         </View>
       </TouchableOpacity>

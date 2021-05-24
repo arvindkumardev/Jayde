@@ -13,7 +13,6 @@ import { AppStyles } from '../../../theme';
 import moment from 'moment';
 import FAIcon from 'react-native-vector-icons/FontAwesome';
 
-
 function OrderConfirmation() {
 
   const navigation = useNavigation();
@@ -36,13 +35,12 @@ function OrderConfirmation() {
     const { Item } = route.params;
     setItem(Item)
     const title = 'New Order';
-    navigation.setOptions({title});
+    navigation.setOptions({ title });
   }, []);
 
   return (
     <View style={Styles.topView}>
       <ScrollView>
-
 
         <View style={Appstyles.aligncen}>
           <Text style={[Appstyles.txtBlackBold, Appstyles.f17, AppStyle.mt30,]}>Ref No- {item.order_no}</Text>
@@ -102,7 +100,6 @@ function OrderConfirmation() {
               <Text style={[Appstyles.txtBlackRegular, Appstyles.f15, AppStyle.mt10, AppStyle.mr20]}><FAIcon size={14} name="rupee" /> {item.price}</Text>
             </View>
           </View>
-
         </View>
 
         <View style={Styles.btnContainer}>

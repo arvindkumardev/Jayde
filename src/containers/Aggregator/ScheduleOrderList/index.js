@@ -38,24 +38,25 @@ function AggregatorScheduleOrderList() {
 
   const [totalCount, setTotalCount] = useState(15)
   const [perPage, setPerPage] = useState(15)
+  const [refreshPage, setRefreshPage] = useState(false)
 
   const [{ data, loading, error }, onGetOrder] = aggregatorGetScheduleOrder(offset);
 
   const getActionType = async () => {
-    setOrderList([])
-    getOrderList()
+    setOffset(0)
+    setPerPage(0)
+    setRefreshPage(true)
+    setLoader(true)
   }
 
   const getOrderList = async () => {
     try {
       const { data } = await onGetOrder({ data: {} });
       setLoader(false)
-      console.log("Response from login ", data.data[0].newOrders)
+      //console.log("Response from login ", data.data[0].newOrders)
       setOrderList(data.data[0].newOrders)
       setPerPage(data.data[0].links.per_page)
       setTotalCount(data.data[0].links.total_count)
-      // setOffset(offset + perPage);
-      // triggerLoadMore();
     } catch (e) {
       console.log("Response error", e);
     }
@@ -78,12 +79,23 @@ function AggregatorScheduleOrderList() {
     getOrderList();
   }, []);
 
+  useEffect(() => {   
+    if(refreshPage){
+      setOrderList([])      
+      getOrderList()
+      setRefreshPage(false)
+    }
+  }, [refreshPage])
+
   useEffect(() => {
     triggerLoadMore();
   }, [offset])
 
   const screenNavigate = (item) => {
-    navigation.navigate(NavigationRouteNames.ORDER_CONFIRMATION, { Item: item, getActionType: getActionType });
+    {
+      item.assigned_status == '1' &&
+      navigation.navigate(NavigationRouteNames.PAYMENT_VERIFICATION, { Item: item, getActionType: getActionType });
+    }
   }
 
   useLayoutEffect(() => {
@@ -104,29 +116,52 @@ function AggregatorScheduleOrderList() {
 
   }
 
+  const getStatusText = (item) => {
+    if (item.is_completed == null) {
+      if (item.proposed_weight_confirm == '1' && item.new_weight !== null) {
+        return 'Proposed Weight Confirmed'
+      }
+
+      if (item.is_seller_confirmed == '3') {
+        return 'Payment Confirmed'
+      }
+
+      if (item.proposed_weight_confirm == '2') {
+        return 'Proposed Weight Sent'
+      }
+      return 'Pending'
+    } else {
+      return 'Completed'
+    }
+  }
   const _RenderItem = (index, item) => {
     return (
       <TouchableOpacity onPress={() => screenNavigate(item)}>
-        <View style={[AppStyles.flexDir, AppStyles.mt20]}>
-          <View style={[AppStyles.flexpointtwo, AppStyles.ml14]}>
+        <View style={[AppStyles.flexDir, AppStyles.mt20, AppStyles.ph10]}>
+          <View style={[AppStyles.flexpointtwo]}>
             <Image source={ORDER_IMAGE[item.category_name]} />
           </View>
 
-          <View style={[AppStyles.flexpointsix, AppStyles.ml16]}>
+          <View style={[AppStyles.flexpointfive, AppStyles.ml16]}>
             <Text style={[AppStyles.txtBlackRegular, AppStyles.f17,]}>{item.order_no}</Text>
             <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f15,]}>{item.qty}  {item.unit_name}  {item.category_name}</Text>
             <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f11,]}>{moment(item.pickup_date).format('DD-MMM-YY')}</Text>
           </View>
 
-          <View style={[AppStyles.flexpointtwo, AppStyles.mt5]}>
+          {item.assigned_status == '1' ? <View style={[AppStyles.flexpointthree, AppStyles.mt5, AppStyles.alignCenter]}>
             <TouchableOpacity
               onPress={() => screenNavigate(item)}
               style={Styles.confirmBtn}>
-              <Text style={[AppStyles.txtWhiteRegular, AppStyles.f11, AppStyles.textalig,]}>{item.is_confirmed == 2 ? 'VIEW' : 'ACCEPT'}</Text>
+              <Text style={[AppStyles.txtWhiteRegular, AppStyles.f11, AppStyles.textalig,]}>VIEW</Text>
             </TouchableOpacity>
-            <Image style={[AppStyles.ml20, AppStyles.mt5,]} source={PendingImg} />
-            <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f11, AppStyles.ml5]}>Pending</Text>
+            <Image style={[AppStyles.mt5]} source={item.is_completed == null ? PendingImg : CompletedImg} />
+            <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f11, AppStyles.ml5, AppStyles.textalig]}>{getStatusText(item)}</Text>
           </View>
+            :
+            <View style={[AppStyles.flexpointthree, AppStyles.mt5, AppStyles.alignCenter]}>
+              <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f11, AppStyles.ml5, AppStyles.textalig]}>Seller Confirmation Pending</Text>
+            </View>
+          }
         </View>
       </TouchableOpacity>
     )
@@ -152,7 +187,7 @@ function AggregatorScheduleOrderList() {
         }}
       />
         :
-        !loading && <EmptyView onBack = {() => navigation.pop()}></EmptyView>
+        !loading && <EmptyView onBack={() => navigation.pop()}></EmptyView>
       }
 
     </View>
