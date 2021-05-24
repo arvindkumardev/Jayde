@@ -427,8 +427,8 @@ const PaymentVerification = () => {
   };
 
   useLayoutEffect(() => {
-      const { Item } = route.params;  
-      setItem(Item)   
+    const { Item } = route.params;  
+    setItem(Item)
       // setPrice(item.price)
     const title='Order Details';
     onGetUnits();
@@ -993,11 +993,11 @@ const PaymentVerification = () => {
             <View style={[style.flexDir, style.alignCenter, AppStyle.mt20]}>
             <Checkbox
                         disabled={false}
-                        value={checkcondition}
+                         value={checkcondition}
                         tintColors={{ true: Colors.mango, false: '#777' }}
                         onValueChange={(newValue) => 
                           // console.log(newValue)
-                          setCheckcondition((newValue) => !newValue)
+                           setCheckcondition((newValue) => !newValue)
                         }
                     />   
                <View style={{marginLeft: RfW(10)}}>
