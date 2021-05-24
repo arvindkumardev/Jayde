@@ -8,6 +8,8 @@ import { AppStyles } from '../../../theme';
 import arraydata from '../../../utils/arraydata2.json';
 import UserContext from '../../../appContainer/context/user.context';
 import FooterLoader from "../../../appContainer/footerLoader";
+import EmptyView from '../../../appContainer/EmptyView'
+
 import {Inventory} from '../Middelware';
 
 //Image
@@ -171,9 +173,7 @@ function RecyclerInventory() {
           }}
         />         
          :
-         ! loading && <View style={[Styles.topView, AppStyles.alignCenter, AppStyles.justifyCon]}>  
-          <Text style = { AppStyles.txtBlackRegular, AppStyles.f16 }>No Record Found</Text>  
-         </View>
+         !loading && <EmptyView onBack = {() => navigation.pop()}></EmptyView>
          }  
       </View>
     );

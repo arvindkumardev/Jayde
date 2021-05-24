@@ -148,30 +148,34 @@ const DRAWER_MENU = {
       iconName: 'pencil',
       screenName: NavigationRouteNames.AGGREGATOR_NEW_ORDERS,
     },
-    {
-      name: 'Work Orders',
-      color: Colors.mango,
-      iconName: 'folder',
-      screenName: NavigationRouteNames.AGGREGATOR_WORK_ORDER_LIST
-    },
+   
     {
       name: 'Scheduled Order',
       color: Colors.mango,
       iconName: 'wpforms',
       screenName: NavigationRouteNames.AGGREGATOR_SCHEDULE_ORDER_LIST
     },
-    {
-      name: 'Completed Order',
-      color: Colors.mango,
-      iconName: 'folder',
-      screenName: NavigationRouteNames.COMPLETED_ORDER
-    },
+  
     {
       name: 'Inventory',
       color: Colors.mango,
       iconName: 'archive',
       screenName: NavigationRouteNames.INVENTORY
     },
+    {
+      name: 'Work Orders',
+      color: Colors.mango,
+      iconName: 'folder',
+      screenName: NavigationRouteNames.AGGREGATOR_WORK_ORDER_LIST
+    },
+
+    {
+      name: 'Completed Order',
+      color: Colors.mango,
+      iconName: 'folder',
+      screenName: NavigationRouteNames.COMPLETED_ORDER
+    },
+    
     {
       name: 'Users',
       color: Colors.mango,
@@ -288,7 +292,7 @@ const USERS_ROLE_MENU = {
       menu1image: require("../assets/Images/Dashboard/Group_9551.png"),
       iconName: 'pencil',
       color: Colors.mango,
-      screenName: "",
+      screenName:  NavigationRouteNames.ADMIN_NEW_ORDER_LIST,
     },
     {
       menuName: "Schedule Order",

@@ -5,7 +5,7 @@ import DropDown from '../../../components/Picker/index';
 
 import Styles from "./styles";
 import { AppStyles, Colors } from '../../../theme';
-import { alertBox, RfH, RfW } from '../../../utils/helpers';
+import { alertBox, RfH, RfW, getSaveData } from '../../../utils/helpers';
 import CustomText from '../../../components/CustomText';
 
 import * as Yup from "yup";
@@ -17,6 +17,7 @@ import { useRoute } from '@react-navigation/native';
 import moment from 'moment';
 import UserContext from '../../../appContainer/context/user.context';
 import { getAggregators, getRecyclers, assignAggregator } from "../../../services/middleware/user";
+import { LOCAL_STORAGE_DATA_KEY } from '../../../utils/constants';
 
 const typeData = [
   { label: 'Aggregator', value: '1' },
@@ -25,6 +26,7 @@ const typeData = [
 function OrderAssign() {
   const [item, setItem] = useState({});
   const { setLoader } = useContext(UserContext);
+  const [userName, setUserName] = useState('')
 
   const [aggregators, setAggregator] = useState([])
   const [recyclers, setRecyclers] = useState([])
@@ -49,6 +51,7 @@ function OrderAssign() {
 
   useEffect(() => {
     if (aggregatorsData) {
+      //let itemData = aggregatorsData.filter(item => item.name != userName);
       const pickerData = aggregatorsData.map((item) => ({ label: item.name, value: item.id }));
       setAggregator(pickerData);
     }
@@ -56,6 +59,7 @@ function OrderAssign() {
 
   useEffect(() => {
     if (recyclersData) {
+      //let itemData = recyclersData.filter(item => item.name != userName);
       const pickerData = recyclersData.map((item) => ({ label: item.name, value: item.id }));
       setRecyclers(pickerData);
     }
@@ -64,10 +68,19 @@ function OrderAssign() {
   useLayoutEffect(() => {
     const { Value } = route.params;
     setItem(Value)
-
     onGetAggregators();
     onGetRecyclers();
   }, []);
+
+  // useEffect(() => {
+  //   async function getUserName() {     
+  //     const userName = await getSaveData(LOCAL_STORAGE_DATA_KEY.USER_NAME);
+  //     if (userName) {
+  //       setUserName(userName)
+  //     }
+  //   }
+  //   getUserName();
+  // }, []);
 
   const handelGetAggregators = async () => {
     setLoader(true)
@@ -159,10 +172,10 @@ function OrderAssign() {
   }, [Aggregator, loading]);
 
   return (
-    <View style={Styles.mainView}>
-      <ScrollView style={Styles.mainView}
+    <View style={AppStyles.topView}>
+      <ScrollView style={AppStyles.topView}
         removeClippedSubviews={Platform.OS == 'android' && true}>
-        <View style={Styles.mainView}>
+        <View style={AppStyles.topView}>
 
           <View style={Styles.refView}>
             <Text style={Styles.refText}>Ref No- {item.order_no}</Text>
@@ -218,7 +231,7 @@ function OrderAssign() {
 
 
           <View style={Styles.businessType}>
-            <Text>Select business type</Text>
+            <Text style = {[AppStyles.txtBlackRegular, AppStyles.mb10]}>Select business type</Text>
             <DropDown
               placeholderText="Select one"
               items={typeData}
@@ -238,7 +251,7 @@ function OrderAssign() {
           </View>
 
           <View style={Styles.slctAggre}>
-            <Text>Select Aggregator</Text>
+            <Text style = {[AppStyles.txtBlackRegular, AppStyles.mb10]}>Select Aggregator</Text>
             <DropDown
               placeholderText="Select one"
               items={arrayData}

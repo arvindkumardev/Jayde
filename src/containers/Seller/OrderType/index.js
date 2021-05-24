@@ -14,6 +14,7 @@ import EWasteImg from '../../../assets/Images/NewOrderList/Group_10091.png'
 import PaperImg from '../../../assets/Images/NewOrderList/Group_10089.png'
 import PlasticImg from '../../../assets/Images/NewOrderList/Group_10090.png'
 import MixWasterImg from '../../../assets/Images/NewOrderList/Group_10088.png'
+import { date } from 'yup';
 
 const ORDER_IMAGE = {
   'E-Waste': EWasteImg,
@@ -34,7 +35,10 @@ function OrderType() {
 
   useEffect(() => {
     setLoader(loading);
-    setCategories(data);
+    if(data){
+    let values = data.filter(item => item.category_name != 'E-Waste')
+    setCategories(values);
+    }
   }, [data, loading]);
 
   const handleNavigate = (title, category) => {

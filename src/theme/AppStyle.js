@@ -1,10 +1,11 @@
 import { StyleSheet } from "react-native";
-import { Spaces, Texts, Container } from "./Styles";
+import { Spaces, Texts, Container, commonCss } from "./Styles";
 
 const appStyles = StyleSheet.create({
     ...Container,
     ...Texts,
-    ...Spaces
+    ...Spaces,
+    ...commonCss
 })
 
 export default appStyles;

@@ -8,6 +8,8 @@ import { useRoute } from '@react-navigation/native';
 import { AppStyles } from '../../../theme';
 import { getAggregatorInventory } from '../../../services/middleware/user';
 import FooterLoader from "../../../appContainer/footerLoader";
+import EmptyView from '../../../appContainer/EmptyView'
+
 import UserContext from '../../../appContainer/context/user.context';
 //Image
 import EWasteImg from './../../../assets/Images/NewOrderList/Group_10091.png'
@@ -154,9 +156,7 @@ function Inventory() {
         }}
       />
         :
-        !loading && <View style={[Styles.topView, AppStyles.alignCenter, AppStyles.justifyCon]}>
-          <Text style={AppStyles.txtBlackRegular, AppStyles.f16}>No Record Found</Text>
-        </View>
+        !loading && <EmptyView onBack = {() => navigation.pop()}></EmptyView>
       }
     </View>
   );

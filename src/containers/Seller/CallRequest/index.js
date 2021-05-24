@@ -81,10 +81,10 @@ const CallRequest = () => {
       "contactNumber": contactNumber,
       "uploaded_files": imgData,
       "scheduleDate": timeSlotIndex > 1 ? getAfterDay_Formatted() : getDayAfter_Formatted(),
-      "scheduleTime": timeSlotIndex == 0 ? '11:00 AM - 1:00 PM'
-        : timeSlotIndex == 1 ? '3:00 PM - 5:00 PM'
-          : timeSlotIndex == 2 ? '11:00 AM - 1:00 PM'
-            : '3:00 PM - 5:00 PM'
+      "scheduleTime": timeSlotIndex == 0 ? '11:00 AM 1:00 PM'
+        : timeSlotIndex == 1 ? '3:00 PM 5:00 PM'
+        : timeSlotIndex == 2 ? '11:00 AM 1:00 PM'
+        : '3:00 PM 5:00 PM'
     }
     console.log(param)
 

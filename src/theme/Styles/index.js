@@ -1,4 +1,6 @@
 import Spaces from "./spaces";
 import Texts from "./texts";
 import Container from "./container";
-export { Spaces, Texts, Container };
+import commonCss from './commonCss';
+
+export { Spaces, Texts, Container, commonCss };

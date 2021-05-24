@@ -168,6 +168,9 @@ const spaces = StyleSheet.create({
     mb20:{
         marginBottom: 20
     },
+    mb30:{
+        marginBottom: 30
+    },
 })
 
 export default spaces;

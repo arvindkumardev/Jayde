@@ -30,10 +30,7 @@ const styles = StyleSheet.create({
     marginRight: 24,
     marginLeft: 24,
   },
-  mainView: {
-    flex: 1,
-    backgroundColor: '#ffffff',
-  },
+
   leftArrwView: {
     flexDirection: 'row',
     marginTop: 30,

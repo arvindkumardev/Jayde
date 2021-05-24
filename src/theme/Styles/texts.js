@@ -6,42 +6,52 @@ const texts = StyleSheet.create({
   txtWhiteRegular: {
     fontFamily: Fonts.regular,
     color: Colors.white,
+    includeFontPadding: false
   },
   txtBlackRegular: {
     fontFamily: Fonts.regular,
     color: Colors.black,
+    includeFontPadding: false
   },
   txtPrimaryRegular: {
     fontFamily: Fonts.regular,
     color: Colors.mango,
+    includeFontPadding: false
   },
   txtmangoTwoRegular: {
     fontFamily: Fonts.regular,
     color: Colors.mangoTwo,
+    includeFontPadding: false
   },
   txtSecandaryRegular: {
     fontFamily: Fonts.regular,
     color: Colors.warmGrey,
+    includeFontPadding: false
   },
   txtWhiteBold: {
     fontFamily: Fonts.bold,
     color: Colors.white,
+    includeFontPadding: false
   },
   txtBlackBold: {
     fontFamily: Fonts.bold,
     color: Colors.black,
+    includeFontPadding: false
   },
   txtPrimaryBold: {
     fontFamily: Fonts.bold,
     color: Colors.mango,
+    includeFontPadding: false
   },
   txtmangoTwoBold: {
     fontFamily: Fonts.bold,
     color: Colors.mangoTwo,
+    includeFontPadding: false
   },
   txtSecandaryBold: {
     fontFamily: Fonts.bold,
     color: Colors.warmGrey,
+    includeFontPadding: false
   },
   f9: {
     fontSize: 9,

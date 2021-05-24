@@ -9,6 +9,7 @@ import styles from '../../components/CustomImage/style';
 import NavigationRouteNames from '../../routes/ScreenNames';
 import {useNavigation} from '@react-navigation/core';
 import {useRoute} from '@react-navigation/native';
+import FAIcon from "react-native-vector-icons/FontAwesome";
 
 import SuccessImg from '../../assets/Images/AccountCreate/Group.png'
 
@@ -89,7 +90,7 @@ function Confirmation() {
           <Text style={[AppStyles.f15, AppStyle.mt20, AppStyles.txtSecandaryRegular]}>Prov. Price</Text>
         </View>
         <View style={[style.flex1, AppStyles.alignfend]}>
-          <Text style={[AppStyles.f15, AppStyles.txtBlackRegular, AppStyle.mt20, AppStyle.mr30]}>₹ {item.price}</Text>
+          <Text style={[AppStyles.f15, AppStyles.txtBlackRegular, AppStyle.mt20, AppStyle.mr30]}><FAIcon size={14} name="rupee" /> {item.price}</Text>
         </View>
       </View> 
 

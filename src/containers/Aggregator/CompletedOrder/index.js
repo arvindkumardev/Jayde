@@ -10,6 +10,7 @@ import { aggregatorGetCompletedOrder } from '../Middelware';
 import UserContext from '../../../appContainer/context/user.context';
 import moment from 'moment';
 import FooterLoader from "../../../appContainer/footerLoader";
+import EmptyView from '../../../appContainer/EmptyView'
 
 import EWasteImg from './../../../assets/Images/NewOrderList/Group_10091.png'
 import PaperImg from './../../../assets/Images/NewOrderList/Group_10089.png'
@@ -175,9 +176,7 @@ function CompletedOrder() {
         }}
       />
         :
-        !loading && <View style={[Styles.topView, AppStyles.alignCenter, AppStyles.justifyCon]}>
-          <Text style={AppStyles.txtBlackRegular, AppStyles.f16}>No Record Found</Text>
-        </View>
+        !loading && <EmptyView onBack = {() => navigation.pop()}></EmptyView>
       }
 
     </View>

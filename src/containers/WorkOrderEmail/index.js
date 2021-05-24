@@ -35,7 +35,7 @@ function WorkOrderEmail() {
            
           <View>
           <Text style={[AppStyles.f11, AppStyles.txtSecandaryRegular, AppStyle.ml24, AppStyle.mr20, AppStyle.mt20,]}>Thankyou for confirming quantity received at the warehouse</Text>
-          <Text style={[AppStyles.f11, AppStyles.txtSecandaryRegular, AppStyle.ml24, AppStyle.mr20, AppStyle.mt20,]}>The same will be communicated to the customerand will be updated in your inventory.</Text>
+          <Text style={[AppStyles.f11, AppStyles.txtSecandaryRegular, AppStyle.ml24, AppStyle.mr20, AppStyle.mt20,]}>The same will be communicated to the customer and will be updated in your inventory.</Text>
           <Text style={[AppStyles.f11, AppStyles.txtSecandaryRegular, AppStyle.ml24, AppStyle.mr20, AppStyle.mt20,]}>For any concern you can send us email at support@jayde.in </Text>
           </View>
         <View style={Styles.bxVu}>

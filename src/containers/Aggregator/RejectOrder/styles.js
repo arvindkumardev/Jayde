@@ -17,7 +17,6 @@ const styles = StyleSheet.create({
    },
   boxContent: {
     width: 320, 
-    height: 650, 
     backgroundColor: '#ffffff',  
     borderRadius: 10, 
     marginLeft: 20, 
@@ -47,7 +46,7 @@ const styles = StyleSheet.create({
     marginTop: 12,
   },
   rejectImg: {
-    marginTop: 30,
+    marginTop: 15,
     resizeMode: 'contain',
   },
   canceltextinput: {
