@@ -181,7 +181,7 @@ function LoginWithEmail() {
         <View style={{ flexDirection: 'row' }}>
           <Text style={[AppStyles.txtWhiteRegular, AppStyles.f15]}>Don't have an account?</Text>
           <TouchableOpacity onPress={() => navigation.navigate(NavigationRouteNames.SIGNUP)}>
-            <Text style={[AppStyles.txtWhiteRegular, AppStyles.f15]}> Create one</Text>
+            <Text style={[AppStyles.txtWhiteRegular, AppStyles.f15, AppStyles.underline]}> Create one</Text>
           </TouchableOpacity>
         </View>
       </View>
