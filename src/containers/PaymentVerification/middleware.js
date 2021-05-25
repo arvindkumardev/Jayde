@@ -1,22 +1,11 @@
 import useAxios from 'axios-hooks';
-import { CONFIRM_WEIGHT, GET_UNITS, PROPOSE_WEIGHT, CONFIRM_PAYMENT, CONFIRM_PICKUP, CONFIRM_RECEIPT } from '../../utils/urls';
+import { CONFIRM_WEIGHT, GET_UNITS, PROPOSE_WEIGHT, CONFIRM_PAYMENT, CONFIRM_PICKUP, CONFIRM_RECEIPT, AGGREGATOR_SCHEDULE_ORDER_DETAIL } from '../../utils/urls';
 
 const weightConfirm = () => {
   return useAxios(
     {
       url: CONFIRM_WEIGHT,
       method: 'POST',
-      headers: { 'content-type': 'application/json' },
-    },
-    { manual: true }
-  );
-};
-
-const getUnits = () => {
-  return useAxios(
-    {
-      url: GET_UNITS,
-      method: 'GET',
       headers: { 'content-type': 'application/json' },
     },
     { manual: true }
@@ -67,7 +56,18 @@ const receiptConfirm = () => {
   );
 };
 
-export { weightConfirm, getUnits, weightPropose, paymentConfirm, pickupConfirm, receiptConfirm };
+const scheduleOrderDetail = () => {
+  return useAxios(
+    {
+      url: AGGREGATOR_SCHEDULE_ORDER_DETAIL,
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+    },
+    { manual: true }
+  );
+};
+
+export { weightConfirm, weightPropose, paymentConfirm, pickupConfirm, receiptConfirm, scheduleOrderDetail };
 
 
 
