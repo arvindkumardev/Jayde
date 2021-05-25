@@ -105,6 +105,9 @@ const texts = StyleSheet.create({
   textalig: {
     textAlign: 'center',
   },
+  underline: {
+    textDecorationLine: 'underline'
+  },
 });
 
 export default texts;
