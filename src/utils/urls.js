@@ -36,7 +36,7 @@ const ACCEPT_ORDER = `/api/mobile/admin/confirmOrder`;
 const REJECT_ORDER = `/api/mobile/admin/rejectOrder`;
 
 // Aggregators
-const GET_AGGREGATOR_INVENTORY = `/api/mobile/aggregator/inventory/`
+const GET_AGGREGATOR_INVENTORY = `/api/mobile/aggregator/inventory/`;
 const ASSIGN_AGGREGATOR = `/api/mobile/admin/assignAggregator`;
 const AGGREGATOR_NEWORDER = `/api/mobile/aggregator/newOrders/`;
 const CONFIRM_SCHEDULE = `/api/mobile/aggregator/reScheduleConfirm`;
@@ -51,7 +51,9 @@ const AGGREGATOR_SWO_TO_AGGREGATOR = `/api/mobile/aggregator/sendWorkOrderToAggr
 const AGGREGATOR_SWO_TO_RECYCLER = `/api/mobile/aggregator/sendWorkOrderToRecycler`;
 const AGGREGATOR_WORK_ORDER_LIST = `/api/mobile/aggregator/workOrder/`;
 const AGGREGATOR_COMPLETED_ORDER_LIST = `/api/mobile/aggregator/completedOrders/`;
-const AGGREGATOR_SCHEDULE_ORDER_LIST = `/api/mobile/aggregator/scheduledOrders/`
+const AGGREGATOR_SCHEDULE_ORDER_LIST = `/api/mobile/aggregator/scheduledOrders/`;
+const AGGREGATOR_SCHEDULE_ORDER_DETAIL = `api/mobile/aggregator/scheduledOrderDetail`;
+const AGGREGATOR_ADD_RECEIPT_DATA = `/api/mobile/aggregator/addReceiptData`;
 
 // Recyclers
 const GET_RECYCLERS = `/api/mobile/recyclers`;
@@ -64,4 +66,4 @@ export {SUB_USER, ADD_SUB_USER, LOGIN_URL, SIGN_UP, PROFILE_UPDATE, FORGOT_PASSW
      CONFIRM_WEIGHT, PROPOSE_WEIGHT, CONFIRM_PAYMENT, CONFIRM_PICKUP, CONFIRM_RECEIPT, 
      SELLER_CONFIRM_RESCHEDULE,SELLER_CONFIRM_PROPOSED_WEIGHT, SELLER_CONFIRM_PAYMENT, ADD_ORDER_PAPER, ADD_ORDER_PLASTIC, ADD_ORDER_MIX_WASTER, SELLER_REQUEST_CALLBACK,
      GET_AGGREGATOR_INVENTORY, AGGREGATOR_SWO_TO_AGGREGATOR, AGGREGATOR_SWO_TO_RECYCLER, AGGREGATOR_WORK_ORDER_LIST,
-     AGGREGATOR_COMPLETED_ORDER_LIST, AGGREGATOR_SCHEDULE_ORDER_LIST };
+     AGGREGATOR_COMPLETED_ORDER_LIST, AGGREGATOR_SCHEDULE_ORDER_LIST, AGGREGATOR_SCHEDULE_ORDER_DETAIL, AGGREGATOR_ADD_RECEIPT_DATA };

@@ -1,154 +1,338 @@
-import React, {useContext, useEffect, useState, useLayoutEffect} from 'react';
+import React, { useContext, useEffect, useState, useLayoutEffect } from 'react';
 import * as Alert from 'react-native';
-import {KeyboardAvoidingView, Platform, TouchableOpacity, View, Text, Image, TextInput, FlatList, ScrollView} from 'react-native';
+import { TouchableOpacity, View, Text, Image, TextInput, FlatList, ScrollView } from 'react-native';
 import Styles from "./styles";
-import Appstyles from "../../../theme/Styles/texts";
-import AppStyle from "../../../theme/Styles/spaces";
 import style from "../../../theme/Styles/container";
-import CustomText from '../../../components/CustomText';
 import NavigationRouteNames from '../../../routes/ScreenNames';
-import {useNavigation} from '@react-navigation/core';
-import {useRoute} from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/core';
+import { useRoute } from '@react-navigation/native';
 import { AppStyles, Colors } from '../../../theme';
 import DropDown from '../../../components/Picker/index';
+import { RfH, RfW, formatDisplayDate } from "../../../utils/helpers";
+import FAIcon from 'react-native-vector-icons/FontAwesome';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { getSubCategories, getUnits } from './../../Seller/PricingRequest/middleware';
+import { addReceiptQuantity } from '../Middelware'
+import UserContext from '../../../appContainer/context/user.context';
 
+const itemObj = {
+  subcategory: '', unit: '', weight: ''
+}
 
 function WarehouseDetails() {
 
-   const navigation = useNavigation();
-   const route = useRoute();
-   const [subCategories, setSubCategoryes] = useState([]);
-   const [subCategoryId, setSubCategoryId] = useState('');
-   const [volume, setVolume] = useState('');
-   const [unitPickerData, setUnitData] = useState([]);
-   const [unit, setUnit] = useState('');
-  
-   const screenNavigate = () => {
-    navigation.navigate(NavigationRouteNames.HOMESCREEN);
+  const navigation = useNavigation();
+  const route = useRoute();
+  const { setLoader } = useContext(UserContext);
+
+  const [item, setItem] = useState({});
+  const [subCategories, setSubCategories] = useState([]);
+  const [unitPickerData, setUnitData] = useState([]);
+
+  //----- 1 ---
+  const [weightOne, setWeightOne] = useState('');
+  const [subCategoryOne, setSubCategoryOne] = useState('');
+  const [unitOne, setUnitOne] = useState('');
+  //----- 2 ---
+  const [weightTwo, setWeightTwo] = useState('');
+  const [subCategoryTwo, setSubCategoryTwo] = useState('');
+  const [unitTwo, setUnitTwo] = useState('');
+  //----- 3 ---
+  const [weightThree, setWeightThree] = useState('');
+  const [subCategoryThree, setSubCategoryThree] = useState('');
+  const [unitThree, setUnitThree] = useState('');
+
+  const [{ data: subData }, onGetSubCategories] = getSubCategories();
+  const [{ data: unitsData }, onGetUnits] = getUnits();
+  const [{ data: addReceiptData, loading, error }, onAddRecept] = addReceiptQuantity();
+
+  const [addMoreCount, setMoreCount] = useState(1);
+
+  const [receiptData, setReceiptData] = useState([
+    {
+      subcategory: '', unit: '', weight: ''
+    }
+  ])
+
+  const setValueWeight = (value, index) => {
+    switch (index) {
+      case 0:
+        setWeightOne(value)
+        break
+      case 1:
+        setWeightTwo(value)
+        break
+      case 2:
+        setWeightThree(value)
+        break
+    }
   }
 
+  const getValueWeight = (index) => {
+    switch (index) {
+      case 0:
+        return weightOne
+      case 1:
+        return weightTwo
+      case 2:
+        return weightThree
+    }
+  }
+
+  const setValueCategory = (value, index) => {
+    switch (index) {
+      case 0:
+        setSubCategoryOne(value)
+        break
+      case 1:
+        setSubCategoryTwo(value)
+        break
+      case 2:
+        setSubCategoryThree(value)
+        break
+    }
+  }
+
+  const getValueCategory = (index) => {
+    switch (index) {
+      case 0:
+        return subCategoryOne
+      case 1:
+        return subCategoryTwo
+      case 2:
+        return subCategoryThree
+    }
+  }
+
+  const setValueUnit = (value, index) => {
+    switch (index) {
+      case 0:
+        setUnitOne(value)
+        break
+      case 1:
+        setUnitTwo(value)
+        break
+      case 2:
+        setUnitThree(value)
+        break
+    }
+  }
+
+  const getValueUnit = (index) => {
+    switch (index) {
+      case 0:
+        return unitOne
+      case 1:
+        return unitTwo
+      case 2:
+        return unitThree
+    }
+  }
+
+
+  useEffect(() => {
+    if (subData) {
+      const pickerData = subData.map((item) => ({ label: item.sub_category_name, value: item.id }));
+      setSubCategories(pickerData);
+    }
+  }, [subData]);
+
+  useEffect(() => {
+    if (unitsData) {
+      const pickderData = unitsData.map((item) => ({ label: item.unit_name, value: item.id }));
+      setUnitData(pickderData);
+    }
+  }, [unitsData]);
+
   useLayoutEffect(() => {
-    const title='Order Warehouse details';
-   navigation.setOptions({
-    title,
-  });
+    const title = 'Order Warehouse details';
+    navigation.setOptions({
+      title,
+    });
+    const { items } = route.params;
+    setItem(items)
+    onGetSubCategories({ data: { id: items.category_id } });
+    onGetUnits();
   }, []);
-  
+
+  useEffect(() => {
+    setLoader(loading);
+
+  }, [addReceiptData, loading]);
+
+
+  const handelAddReceipt = async () => {
+    try {
+      let param = {
+        'assignedId': item.assigned_id,
+        "unitValues": [1, 1],
+        "subcategoryValues": [2, 2],
+        "qtyValues": [10, 20]
+      }
+      console.log(param)
+      return
+
+      const { data } = await onAddRecept({
+        data: param
+      });
+
+      console.log(data)
+
+      if (data.status) {
+
+      } else {
+        alert(data.message)
+      }
+    } catch (e) {
+      console.log("Response error", e);
+    }
+  }
+
+
+  const handelAddMore = () => {
+    setMoreCount(addMoreCount + 1)
+    let listData = receiptData;
+    let newData = listData.concat(itemObj);
+    setReceiptData(newData)
+
+  }
   return (
     <View style={Styles.topView}>
-       <ScrollView>
-       
-        
-       <View style={Appstyles.aligncen}>
-       <Text style={[Appstyles.txtBlackBold, Appstyles.f17, AppStyle.mt30,]}>Ref No- JYD/SC/2020/0067</Text>
-       </View>
-       <View style={Styles.boxView}>
-
-         <View style={[style.flexDir, AppStyle.mt20,]}>
-         <View style={style.flexpointsix}>
-           <Text style={[Appstyles.txtSecandaryRegular, Appstyles.f15, AppStyle.ml20]}>Waste type</Text>
-           </View>
-           <View style={[style.flexpointfour, Appstyles.alignfend]}>
-           <Text style={[Appstyles.txtBlackRegular, Appstyles.f15, AppStyle.mr20]}>Plastic</Text>
-           </View>
-           </View>
-
-           <View style={style.flexDir}>
-         <View style={style.flexpointsix}>
-           <Text style={[Appstyles.txtSecandaryRegular, Appstyles.f15, AppStyle.mt10, AppStyle.ml20]}>Waste sub category</Text>
-           </View>
-           <View style={[style.flexpointfour, Appstyles.alignfend]}>
-           <Text style={[Appstyles.txtBlackRegular, Appstyles.f15, AppStyle.mt10, AppStyle.mr20]}>Type 1</Text>
-           </View>
-           </View>
-
-           <View style={style.flexDir}>
-         <View style={style.flexpointsix}>
-           <Text style={[Appstyles.txtSecandaryRegular, Appstyles.f15, AppStyle.mt10, AppStyle.ml20]}>Volume</Text>
-           </View>
-           <View style={[style.flexpointfour, Appstyles.alignfend]}>
-           <Text style={[Appstyles.txtBlackRegular, Appstyles.f15, AppStyle.mt10, AppStyle.mr20]}>3 Tons</Text>
-           </View>
-           </View>
-
-           <View style={style.flexDir}>
-         <View style={style.flexpointsix}>
-           <Text style={[Appstyles.txtSecandaryRegular, Appstyles.f15, AppStyle.mt10, AppStyle.ml20]}>Purchase Date</Text>
-           </View>
-           <View style={[style.flexpointfour, Appstyles.alignfend]}>
-           <Text style={[Appstyles.txtBlackRegular, Appstyles.f15, AppStyle.mt10, AppStyle.mr20]}>26/07/2020</Text>
-           </View>
-           </View>
-
-           <View style={style.flexDir}>
-         <View style={style.flexpointsix}>
-           <Text style={[Appstyles.txtSecandaryRegular, Appstyles.f15, AppStyle.mt10, AppStyle.ml20]}>Purchase amount</Text>
-           </View>
-           <View style={[style.flexpointfour, Appstyles.alignfend]}>
-           <Text style={[Appstyles.txtBlackRegular, Appstyles.f15, AppStyle.mt10, AppStyle.mr20]}>₹ 25,864</Text>
-           </View>
-           </View>
-
-           <View style={style.flexDir}>
-         <View style={style.flexpointsix}>
-           <Text style={[Appstyles.txtSecandaryRegular, Appstyles.f15, AppStyle.mt10, AppStyle.ml20]}>Pickup Address</Text>
-           </View>
-           <View style={[style.flexpointfour, Appstyles.alignfend]}>
-           <Text style={[Appstyles.txtBlackRegular, Appstyles.f11, AppStyle.mt10, AppStyle.mr20]}>1812, building No 2, Banjara Hills. Hyderabad (TN)</Text>
-           </View>
-           </View>
-       </View>
-
-       <View style={[AppStyle.ml20, AppStyle.mr20]}>
-         <Text style={[Appstyles.txtBlackBold, Appstyles.f17, AppStyle.mt35, Appstyles.textalig]}>Confirm the receipt and quantity</Text>
-       <View style={[AppStyles.mt20]}>
-          <Text style={[AppStyles.txtBlackRegular, AppStyles.f16, AppStyles.mb10]}>Category</Text>
-          <DropDown
-            items={subCategories}
-            placeholderText="Select category"
-            itemStyle={{ color: '#000' }}
-            onValueChange={(val) => setSubCategoryId(val)}
-            selectedValue={subCategoryId}
-            containerStyle={{ borderRadius: 10, backgroundColor: Colors.grayTwo, paddingLeft: 10 }}
-          />
+      <KeyboardAwareScrollView>
+        <View style={AppStyles.aligncen}>
+          <Text style={[AppStyles.txtBlackBold, AppStyles.f17, AppStyles.mt30,]}>Ref No- {item.order_no}</Text>
         </View>
-        <View style={[AppStyles.mt20]}>
-          <View>
-            <Text style={[AppStyles.txtBlackRegular, AppStyles.f16, AppStyles.mb10]}>Enter the Weight</Text>
-          </View>
-          <View style={{ flexDirection: 'row' }}>
-            <View style={{ flex: 2, paddingRight: 10 }}>
-              <TextInput
-                placeholder="Enter volume"
-                value={volume}
-                onChangeText={(txt) => setVolume(txt)}
-                style={{ backgroundColor: Colors.grayTwo, borderRadius: 10, paddingLeft: 10 }}
-              />
+        <View style={Styles.boxView}>
+
+          <View style={[style.flexDir, AppStyles.mt20,]}>
+            <View style={style.flexpointsix}>
+              <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f15, AppStyles.ml20]}>Waste type</Text>
             </View>
-            <View style={{ flex: 1 }}>
+            <View style={[style.flexpointfour, AppStyles.alignfend]}>
+              <Text style={[AppStyles.txtBlackRegular, AppStyles.f15, AppStyles.mr20]}>{item.category_name}</Text>
+            </View>
+          </View>
+
+          <View style={style.flexDir}>
+            <View style={style.flexpointsix}>
+              <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f15, AppStyles.mt10, AppStyles.ml20]}>Waste sub category</Text>
+            </View>
+            <View style={[style.flexpointfour, AppStyles.alignfend]}>
+              <Text style={[AppStyles.txtBlackRegular, AppStyles.f15, AppStyles.mt10, AppStyles.mr20]}>{item.sub_category_name}</Text>
+            </View>
+          </View>
+
+          <View style={style.flexDir}>
+            <View style={style.flexpointsix}>
+              <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f15, AppStyles.mt10, AppStyles.ml20]}>Volume</Text>
+            </View>
+            <View style={[style.flexpointfour, AppStyles.alignfend]}>
+              <Text style={[AppStyles.txtBlackRegular, AppStyles.f15, AppStyles.mt10, AppStyles.mr20]}>{item.qty} {item.unit_name}</Text>
+            </View>
+          </View>
+
+          <View style={style.flexDir}>
+            <View style={style.flexpointsix}>
+              <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f15, AppStyles.mt10, AppStyles.ml20]}>Purchase Date</Text>
+            </View>
+            <View style={[style.flexpointfour, AppStyles.alignfend]}>
+              <Text style={[AppStyles.txtBlackRegular, AppStyles.f15, AppStyles.mt10, AppStyles.mr20]}>{formatDisplayDate(item.pickup_date)}</Text>
+            </View>
+          </View>
+
+          <View style={style.flexDir}>
+            <View style={style.flex1}>
+              <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f15, AppStyles.mt10, AppStyles.ml20]}>Pickup Time</Text>
+            </View>
+            <View style={[style.flex1, AppStyles.alignfend]}>
+              <Text style={[AppStyles.txtBlackRegular, AppStyles.f15, AppStyles.mt10, AppStyles.mr20]}>{item.time_slot}</Text>
+            </View>
+          </View>
+
+          <View style={style.flexDir}>
+            <View style={style.flexpointsix}>
+              <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f15, AppStyles.mt10, AppStyles.ml20]}>Provisional Pricing</Text>
+            </View>
+            <View style={[style.flexpointfour, AppStyles.alignfend]}>
+              <Text style={[AppStyles.txtBlackRegular, AppStyles.f15, AppStyles.mt10, AppStyles.mr20]}><FAIcon size={14} name="rupee" /> {item.price}</Text>
+            </View>
+          </View>
+
+          <View style={style.flexDir}>
+            <View style={style.flexpointsix}>
+              <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f15, AppStyles.mt10, AppStyles.ml20]}>Pickup Address</Text>
+            </View>
+            <View style={[style.flexpointfour, AppStyles.alignfend]}>
+              <Text style={[AppStyles.txtBlackRegular, AppStyles.f11, AppStyles.mt10, AppStyles.mr20]}>{item.landmark} {item.location}</Text>
+            </View>
+          </View>
+        </View>
+
+        {addMoreCount < 3 ? <View style={[{ justifyContent: 'flex-end', alignItems: 'flex-end' }, AppStyles.pv10, AppStyles.ph20]}>
+          <TouchableOpacity
+            onPress={() => handelAddMore()}
+            style={[AppStyles.pv10, AppStyles.ph10, { backgroundColor: Colors.mangoTwo, borderRadius: 5 }, AppStyles.flexDir, AppStyles.alignCenter]}
+            activeOpacity={0.6}>
+            <Text style={[AppStyles.txtWhiteRegular,]}>Add more line  </Text>
+            <FAIcon name='plus-circle' color={Colors.white} size={18}></FAIcon>
+          </TouchableOpacity>
+        </View> : <View style={AppStyles.pv10}></View>}
+
+        <View style={[AppStyles.ml20, AppStyles.mr20]}>
+          <Text style={[AppStyles.txtBlackBold, AppStyles.f17, AppStyles.textalig]}>Confirm the receipt and quantity</Text>
+          {receiptData.map((item, index) => (<View>
+            <View key={index}
+              style={[AppStyles.mt20]}>
+              <Text style={[AppStyles.txtBlackRegular, AppStyles.f16, AppStyles.mb10]}>Category</Text>
               <DropDown
-                items={unitPickerData}
-                placeholderText="Units"
+                items={subCategories}
+                placeholderText="Select category"
                 itemStyle={{ color: '#000' }}
-                onValueChange={(val) => setUnit(val)}
-                selectedValue={unit}
+                onValueChange={(val) => setValueCategory(val, index)}
+                selectedValue={getValueCategory(index)}
                 containerStyle={{ borderRadius: 10, backgroundColor: Colors.grayTwo, paddingLeft: 10 }}
               />
             </View>
-          </View>
-        </View>
+            <View style={[AppStyles.mt20]}>
+              <View>
+                <Text style={[AppStyles.txtBlackRegular, AppStyles.f16, AppStyles.mb10]}>Enter the Weight</Text>
+              </View>
+              <View style={{ flexDirection: 'row' }}>
+                <View style={{ flex: 2, paddingRight: 10 }}>
+                  <TextInput
+                    placeholder="Enter volume"
+                    value={getValueWeight(index)}
+                    onChangeText={(txt) => setValueWeight(txt, index)}
+                    keyboardType='number-pad'
+                    maxLength={50}
+                    returnKeyType='done'
+                    style={{ backgroundColor: Colors.grayTwo, borderRadius: 10, paddingLeft: 10 }}
+                  />
+                </View>
+                <View style={AppStyles.flex1}>
+                  <DropDown
+                    items={unitPickerData}
+                    placeholderText="Units"
+                    itemStyle={{ color: '#000' }}
+                    onValueChange={(val) => setValueUnit(val, index)}
+                    selectedValue={getValueUnit(index)}
+                    containerStyle={{ borderRadius: 10, backgroundColor: Colors.grayTwo, paddingLeft: 10 }}
+                  />
+                </View>
+              </View>
+            </View>
+          </View>))}
         </View>
 
-       <View style={Styles.btnContainer}>
-       <TouchableOpacity
-           style={Styles.confirmbtn}>
-           <Text style={[Appstyles.txtWhiteRegular, Appstyles.f17, Appstyles.textalig, AppStyle.mt10]}>CONFIRM</Text>
-         </TouchableOpacity>
-       </View>
+        <View style={Styles.btnContainer}>
+          <TouchableOpacity
+            onPress={() => handelAddReceipt()}
+            style={Styles.confirmbtn}>
+            <Text style={[AppStyles.txtWhiteRegular, AppStyles.f17, AppStyles.textalig, AppStyles.mt10]}>CONFIRM</Text>
+          </TouchableOpacity>
+        </View>
 
-          </ScrollView> 
-        
-      
+      </KeyboardAwareScrollView>
     </View>
   );
 }

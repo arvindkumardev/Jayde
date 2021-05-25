@@ -1,7 +1,8 @@
 import useAxios from 'axios-hooks';
 import {
   AGGREGATOR_NEWORDER, AGGREGATOR_SWO_TO_AGGREGATOR, AGGREGATOR_SWO_TO_RECYCLER, AGGREGATOR_WORK_ORDER_LIST,
-  AGGREGATOR_SCHEDULE_ORDER_LIST, AGGREGATOR_COMPLETED_ORDER_LIST, AGGREGATOR_REJECTORDER, CONFIRM_SCHEDULE
+  AGGREGATOR_SCHEDULE_ORDER_LIST, AGGREGATOR_COMPLETED_ORDER_LIST, AGGREGATOR_REJECTORDER, CONFIRM_SCHEDULE,
+  AGGREGATOR_ADD_RECEIPT_DATA
 } from '../../../utils/urls';
 
 
@@ -83,4 +84,16 @@ const confirmSchedule = () => {
   );
 };
 
-export { aggregatorNewOrder, createWorkOrder, getWorkOrderList, aggregatorGetCompletedOrder, aggregatorGetScheduleOrder, aggreRejectorder, confirmSchedule };
+const addReceiptQuantity = () => {
+  return useAxios(
+    {
+      url: AGGREGATOR_ADD_RECEIPT_DATA,
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+    },
+    { manual: true }
+  );
+};
+
+export { aggregatorNewOrder, createWorkOrder, getWorkOrderList, aggregatorGetCompletedOrder, 
+  aggregatorGetScheduleOrder, aggreRejectorder, confirmSchedule, addReceiptQuantity };
