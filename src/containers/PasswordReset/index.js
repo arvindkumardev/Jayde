@@ -22,7 +22,7 @@ function PasswordReset() {
   const [{ data, loading, error }, onForgotPassword] = forgotPassword();
 
   const passwordForgot = async (username) => {
-    // console.log("username", username);
+    
     const { data } = await onForgotPassword({
       data: {
         email: username,
@@ -32,7 +32,7 @@ function PasswordReset() {
     console.log(data)
     if (data.status) {
       alert(data.message)
-      // screenNavigate()
+      screenNavigate()
     } else {
       alert(data.message)
     }

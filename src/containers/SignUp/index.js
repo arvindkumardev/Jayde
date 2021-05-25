@@ -19,9 +19,13 @@ import commonStyles from '../../theme/commonStyles';
 import axios from "axios";
 import { AppStyles } from "../../theme";
 import { signUp } from './middleware';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+import Checkbox from "@react-native-community/checkbox";
+import DropDown from '../../components/Picker/index';
 
 //Image
 import leftArrowImg from '../../assets/Images/ForgotPassword/LeftArrowIcon.png'
+import logoImg from '../../assets/Images/signupImage/JaydeLogo01.png'
 
 
 function SignUp() {
@@ -33,6 +37,8 @@ function SignUp() {
   const [selectCompanyModal, setSelectCompanyModal] = useState(false);
   const [needHelpModal, setNeedHelpModal] = useState(false);
   const [hidePassword, setHidePassword] = useState(false);
+  const [value, setValue] = useState(null);
+  const [businesstype, setBusinesstype] = useState();
   const [rememberMe,setRememberMe]=useState(false);
   const [showError, setShowError] = useState(false);
   const [errorObj, setErrorObj] = useState({
@@ -42,7 +48,7 @@ function SignUp() {
   });
   const [{ data, loading, error }, onSignUp] = signUp();
 
-  const confirmSignup = async (name, username, password, phoneno) => {
+  const confirmSignup = async (name, username, password, phoneno, businesstype) => {
 
     const { data } = await onSignUp({
       data: {
@@ -50,13 +56,14 @@ function SignUp() {
         email: username,
         phone: phoneno,
         password: password,
+        businessType: businesstype,
       },
     });
  
     console.log(data)
     if (data.status) {
       alert(data.message)
-      // screenNavigate()
+      screenNavigate()
     } else {
       alert(data.message)
     }
@@ -71,6 +78,8 @@ function SignUp() {
     ),
     password: Yup.string().required("Please provide password"),
     phoneno: Yup.string().required("Please provide phone number"),
+    businesstype: Yup.string().required("Please choose user type"),
+    checkcondition: Yup.bool().oneOf([true], 'Accept Terms & Conditions is required'),
   });
 
   const loginForm = useFormik({
@@ -81,6 +90,8 @@ function SignUp() {
       username: "",
       password: "",
       phoneno: "",
+      businesstype: "",
+      checkcondition: false,
     },
     validationSchema,
     onSubmit: () => confirmSignup(
@@ -88,6 +99,8 @@ function SignUp() {
       loginForm.values.username,
       loginForm.values.password,
       loginForm.values.phoneno,
+      loginForm.values.businesstype,
+      // alert('SUCCESS!! :-)\n\n' + JSON.stringify(fields, null, 4)),
       selectCompany,
     )
   });
@@ -96,6 +109,10 @@ function SignUp() {
     setClickLogin(true);
     await loginForm.submitForm();
   };
+  
+  const onChangeBusinesstype = (value) => {
+    setBusinesstype(value)
+  }
 
   const screenNavigate = () => {
     navigation.navigate(NavigationRouteNames.LOGIN_WITH_EMAIL);
@@ -105,7 +122,7 @@ function SignUp() {
     <View style={{flex: 1,backgroundColor:Colors.mango}}>
       <ScrollView>
 
-        <KeyboardAvoidingView
+        <KeyboardAwareScrollView
           style={{flex: 1}}
           behavior={Platform.select({android: 'height', ios: 'padding'})}
           enabled>
@@ -115,19 +132,20 @@ function SignUp() {
               <View style={[AppStyles.ml20, AppStyles.mt20]}>
               <TouchableOpacity onPress={() => screenNavigate()}>
                   <Image
-                    source={require("../../assets/Images/ForgotPassword/LeftArrowIcon.png")}
+                    source={leftArrowImg}
                   />
                 </TouchableOpacity>
                 </View>
             
            <View style={[AppStyles.mt40, AppStyles.aligncen]}>
-                 <Image style={{width: 160, height: 55}} source={require('../../assets/Images/signupImage/JaydeLogo01.png')}  />    
+                 <Image style={{width: 160, height: 55}} source={logoImg}  />    
               </View> 
 
               <View style={[AppStyles.mt20, AppStyles.aligncen]}>
               <Text 
                style={[AppStyles.mt20, AppStyles.f40, AppStyles.txtWhiteBold, AppStyles.mb20]}>Sign Up!</Text>
               </View>
+      
             <View style={styles.formContainer}>
               <CustomTextInput
                 label={'Name'}
@@ -181,35 +199,41 @@ function SignUp() {
 
             <View style={{marginTop: 15}}>
               <Text style={commonStyles.inputLabelText}>Please choose User Type</Text>
-              <DropDownPicker
-                showArrow={true}
-                items={[
-                    // {label: 'USA', value: 'usa', hidden: true},
-                    {label: 'Seller', value: 'seller'},
-                    {label: 'Aggregator', value: 'aggregator'},
-                    {label: 'Recycler', value: 'recycler'},
-                    {label: 'EPR Partner', value: 'epr partner'},
-                ]}
-                defaultValue={"seller"}
-                globalTextStyle={commonStyles.dropDownText}
-                containerStyle={{height: 45}}
-                style={{backgroundColor: '#e4e4e4'}}
-                itemStyle={{
-                    justifyContent: 'flex-start',
-                }}
-                dropDownStyle={{backgroundColor: '#fafafa'}}
-                onChangeItem={item => console.log(item)}
-              />
+              <DropDown
+                      items={[
+                        {label: 'Seller', value: 'seller'},
+                        {label: 'Aggregate', value: 'aggregate'},
+                        {label: 'Recycler', value: 'recycler'},
+                        {label: 'Epr', value: 'epr'},
+                    ]}
+                      onValueChange=
+                      // {onChangeBusinesstype}
+                       {(onChangeBusinesstype) => loginForm.setFieldValue('businesstype', onChangeBusinesstype) }
+                       selectedValue={loginForm.values.businesstype}
+                      // selectedValue={businesstype}
+                      containerStyle={{ borderRadius: 10, backgroundColor: Colors.grayBackground, paddingLeft: 10 }}
+                    />
+                     {clickLogin && loginForm.errors.businesstype ? ( 
+              <CustomText
+                fontSize={15}
+                color={Colors.red}
+                styling={{marginTop: RfH(10), marginLeft: 5,}}>
+                {loginForm.errors.businesstype}
+              </CustomText>
+               ) : null}
             </View>
-
+         
+              <View>
               <View style={styles.checkBoxContainer}>
                 <View style={[AppStyles.flexDir, AppStyles.aligncen]}>
-                  <CheckBoxWrapper
-                    isChecked={rememberMe}
-                    checkBoxHandler={() =>
-                      setRememberMe((rememberMe) => !rememberMe)
-                    }
-                  />
+                  <Checkbox
+                      disabled={false}
+                      value={loginForm.values.checkcondition}
+                      tintColors={{ true: Colors.mango, false: '#777' }}
+                      onValueChange={(newValue) =>
+                        loginForm.setFieldValue('checkcondition', newValue)
+                      }
+                    />
                    <View style={{marginLeft: RfW(10)}}>
                     <CustomText
                       color={Colors.black}
@@ -218,8 +242,20 @@ function SignUp() {
                       I agree to the Terms and Conditions
                     </CustomText>
                   </View> 
+
                 </View>
+             
               </View>
+              {clickLogin && loginForm.errors.checkcondition ? ( 
+              <CustomText
+                fontSize={15}
+                color={Colors.red}
+                styling={{marginLeft: 5,}}>
+                {loginForm.errors.checkcondition}
+              </CustomText>
+               ) : null}
+               </View>
+             
 
                <View style={{marginTop: RfH(10)}}>
               <TouchableOpacity style={[AppStyles.mt20, AppStyles.br10, AppStyles.btnPrimary, AppStyles.pv15, AppStyles.aligncen]}
@@ -234,7 +270,7 @@ function SignUp() {
 
           
                </View>
-        </KeyboardAvoidingView>
+        </KeyboardAwareScrollView>
       </ScrollView>
     </View>
   );
