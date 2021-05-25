@@ -69,6 +69,7 @@ function LoginWithEmail() {
         await storeData(LOCAL_STORAGE_DATA_KEY.USER_ROLE, data.data.business_type);
         await storeData(LOCAL_STORAGE_DATA_KEY.USER_NAME, data.data.name);
         await storeData(LOCAL_STORAGE_DATA_KEY.USER_PHONE, data.data.phone);
+        await storeData(LOCAL_STORAGE_DATA_KEY.USER_EMAIL, data.data.email);
 
         console.log(data);
         await setUserRole(data.data.business_type);

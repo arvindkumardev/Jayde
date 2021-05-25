@@ -111,10 +111,10 @@ function ProfileUpdate() {
       async function getUserName () {
           const username = await getSaveData (LOCAL_STORAGE_DATA_KEY.USER_NAME);       
           const phoneno = await getSaveData (LOCAL_STORAGE_DATA_KEY.USER_PHONE);  
-          // const email = await getSaveData (LOCAL_STORAGE_DATA_KEY.USER_PHONE);  
-          setName(username)
-          setPhoneno(phoneno)
-          // setEmail(email)
+          const email = await getSaveData (LOCAL_STORAGE_DATA_KEY.USER_EMAIL);  
+          loginForm.setFieldValue('name', username)
+          loginForm.setFieldValue('phoneno', phoneno)
+          loginForm.setFieldValue('username', email)
       }
       getUserName();
     }, []);
