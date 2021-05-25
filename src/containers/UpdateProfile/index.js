@@ -10,12 +10,23 @@ import NavigationRouteNames from '../../routes/ScreenNames';
 import {useNavigation} from '@react-navigation/core';
 import {useRoute} from '@react-navigation/native';
 import { AppStyles } from '../../theme';
+import { removeData, getGreeting, getSaveData, formatDisplayDate } from '../../utils/helpers';
+import { LOCAL_STORAGE_DATA_KEY } from '../../utils/constants';
 
 
 function UpdateProfile() {
 
    const navigation = useNavigation();
    const route = useRoute();
+   const [name,setName] = useState("");
+
+   useEffect(() => {
+    async function getUserName () {
+        const username = await getSaveData (LOCAL_STORAGE_DATA_KEY.USER_NAME);       
+        setName(username)
+    }
+    getUserName();
+  }, []);
   
    const screenNavigate = () => {
     navigation.navigate(NavigationRouteNames.BUSINESS_DETAIL);
@@ -32,7 +43,7 @@ function UpdateProfile() {
        
         
        <View style={Appstyles.aligncen}>
-       <Text style={[Appstyles.txtBlackBold, Appstyles.f17, AppStyle.mt30,]}>Welcome Ram Kumar</Text>
+       <Text style={[Appstyles.txtBlackBold, Appstyles.f17, AppStyle.mt30,]}>Welcome {name}</Text>
        </View>
        <View style={Styles.boxView}>
            <View style={[AppStyles.ml20, AppStyles.mr20]}>
