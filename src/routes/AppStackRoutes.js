@@ -212,7 +212,7 @@ const AppStack = (props) => {
           <Stack.Screen
             name={NavigationRouteNames.CALLBACK_CONFIRMATION}
             component={CallBackConfirmation}
-            options={NoTitleHeader}
+            options={NoHeaderScreen}
           />
           {/* Pickup Date Time Slot Screen */}
           <Stack.Screen
@@ -236,7 +236,7 @@ const AppStack = (props) => {
           <Stack.Screen
             name={NavigationRouteNames.CONFIRMATION}
             component={Confirmation}
-            options={CommonHeaderStyle}
+            options={NoHeaderScreen}
           />
           {/* Smart Contract Screen number: 70*/}
           <Stack.Screen
@@ -533,7 +533,7 @@ const AppStack = (props) => {
           <Stack.Screen
             name={NavigationRouteNames.CONFIRMATION}
             component={Confirmation}
-            options={CommonHeaderStyle}
+            options={NoHeaderScreen}
           />
           {/* Reject Order Screen */}
           <Stack.Screen

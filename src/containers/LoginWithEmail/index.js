@@ -7,30 +7,13 @@
 /* eslint-disable import/order */
 /* eslint-disable prettier/prettier */
 import React, { useContext, useEffect, useState } from "react";
-import {
-  KeyboardAvoidingView,
-  Platform,
-  View,
-  Text,
-  Image,
-  ScrollView,
-  TouchableOpacity,
-  Dimensions
-} from "react-native";
+import {KeyboardAvoidingView,Platform,View,Text,Image,ScrollView,TouchableOpacity,Dimensions} from "react-native";
 import { isEmpty, isNumber } from 'lodash';
 import * as Yup from "yup";
 import { useFormik } from "formik";
 import Colors from "../../theme/Colors";
-import {
-  CustomTextInput,
-  GradientButton,
-} from "../../components";
-import {
-  isValidUserName,
-  RfH,
-  storeData,
-  removeData,
-} from "../../utils/helpers";
+import {CustomTextInput,GradientButton} from "../../components";
+import {isValidUserName,RfH,storeData,removeData} from "../../utils/helpers";
 import Images from "../../theme/Images";
 import NavigationRouteNames from "../../routes/ScreenNames";
 import { useNavigation } from "@react-navigation/core";
@@ -42,6 +25,9 @@ import { LOCAL_STORAGE_DATA_KEY } from "../../utils/constants";
 import { AppStyles } from "../../theme";
 import FAIcon from "react-native-vector-icons/FontAwesome";
 import {useRoute} from '@react-navigation/native';
+import { inputs } from '../../utils/constants';
+
+import logoImg from '../../assets/Images/signupImage/JaydeLogo01.png'
 
 function LoginWithEmail() {
   const navigation = useNavigation();
@@ -120,14 +106,15 @@ function LoginWithEmail() {
     navigation.navigate(NavigationRouteNames.PASSWORD_RESET);
   }
   
+  const onSubmitEditing = (id) => {
+    inputs[id] ? inputs[id].focus() : null;
+  };
 
   return (
     <ScrollView contentContainerStyle={{ backgroundColor: Colors.mango, justifyContent: 'space-between', height: Dimensions.get('window').height }}>
       <View>
         <View style={[AppStyles.alignCenter, AppStyles.mt40]}>
-          <Image style={{ width: 160, height: 55 }}
-            source={require("../../assets/Images/LoginWithEmail/JaydeLogo01.png")}
-          />
+          <Image resizeMode = 'contain' source={logoImg}/>
         </View>
         <View style={[AppStyles.alignCenter, AppStyles.mt40]}>
           <Text style={[AppStyles.txtWhiteBold, AppStyles.f40, AppStyles.pv10]}>

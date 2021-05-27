@@ -51,8 +51,7 @@ const aggregatorGetScheduleOrder = (pageNumber) => {
   );
 };
 
-const createWorkOrder = (status) => {
-  console.log(status)
+const createWorkOrder = (status) => { 
   return useAxios(
     {
       url: status == 1 ? AGGREGATOR_SWO_TO_AGGREGATOR : AGGREGATOR_SWO_TO_RECYCLER,

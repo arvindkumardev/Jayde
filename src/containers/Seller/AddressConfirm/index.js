@@ -10,7 +10,7 @@ import FAIcon from 'react-native-vector-icons/FontAwesome';
 import Checkbox from '@react-native-community/checkbox';
 import style from '../../../theme/Styles/container';
 import Styles from './styles';
-import { getQuoteData } from '../../../utils/Global'
+import { getQuoteData, setImageName } from '../../../utils/Global'
 
 import NavigationRouteNames from '../../../routes/ScreenNames';
 import { Colors, AppStyles } from '../../../theme';
@@ -106,6 +106,7 @@ const AddressConfirm = () => {
     const { data } = await onAddSchedule({ data: param })
     console.log(data)
     if (data.status) {
+      setImageName([])
       handleConfirm()
     } else {
       alert(data.message)

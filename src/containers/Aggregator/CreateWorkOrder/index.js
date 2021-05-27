@@ -69,7 +69,6 @@ function NewWorkOrder() {
   }, []);
 
   useEffect(() => {
-    console.log('Aggregator', aggregatorsData)
     if (aggregatorsData) {
        let itemData = aggregatorsData.filter(item => item.name != userName);
       const pickerData = itemData.map((item) => ({ label: item.name, value: item.id }));
@@ -99,7 +98,6 @@ function NewWorkOrder() {
   useLayoutEffect(() => {
     const { status } = route.params;
     const { item } = route.params;
-    // console.log(item)
     setItem(item)
     setViewType(status);
     const title = 'New Work Order';
@@ -167,7 +165,6 @@ function NewWorkOrder() {
     });
 
     console.log(data)
-
     if (data.status) {
 
     } else {

@@ -79,14 +79,17 @@ const PaymentVerification = () => {
       navigation.popToTop();
       navigation.navigate(NavigationRouteNames.AGGREGATOR_NEW_ORDERS)
     } else {
-      route.params.getActionType()
-      navigation.goBack()
+     // route.params.getActionType()
+      //navigation.goBack()
+      navigation.popToTop();
+      navigation.navigate(NavigationRouteNames.AGGREGATOR_SCHEDULE_ORDER_LIST)
     }
   }
 
   const handleConfirmWeight = async (kantaSlipNo) => {
     if (confirmWeightImgData.length == 0)
       return
+
     setLoader(true)
     const { data } = await onWeightConfirm({
       data: {
@@ -135,6 +138,7 @@ const PaymentVerification = () => {
 
     if (!isTermChecked) {
       alert('Please Accept Terms & Condition.')
+      return
     }
     setLoader(true)
 
@@ -341,12 +345,18 @@ const PaymentVerification = () => {
         setUnitData(pickderData);
         setReceiptData(data.data.receiptData)
         setViewLoaded(true) // Render View
+        setLoader(false)
+
+        //navigation.navigate(NavigationRouteNames.WAREHOUSE_DETAILS, {items:  item});     
+
 
         // ------------------- View Condition -------------------------
         if (itemObj.proposed_weight_confirm === '0' && itemObj.pickup_confirmed === '0') {
           setShowWeightedMainView(true)
         } else if (itemObj.proposed_weight_confirm === '1' && itemObj.pickup_confirmed === '0' && itemObj.is_seller_confirmed == null) {
           setShowPickUpMainView(true)
+        } else if (itemObj.proposed_weight_confirm === '1' && itemObj.pickup_confirmed === '0' && itemObj.is_seller_confirmed == '2') {
+          return
         } else if (itemObj.proposed_weight_confirm === '1' && itemObj.pickup_confirmed === '0' && itemObj.is_seller_confirmed == '3') {
           setShowPickUpConfirmButton(true)
         } else if (itemObj.proposed_weight_confirm === '1' && itemObj.pickup_confirmed === '1' && itemObj.is_completed == '1') {
@@ -356,17 +366,16 @@ const PaymentVerification = () => {
           setShowPickUpMainView(false)
           setShowWareHouseMainView(true)
         }
-
       } else {
         alert(data.message)
       }
-      setLoader(false)
+     
     } catch (e) {
       console.log("Response error", e);
     }
   }
 
-  useEffect(() => {    
+  useEffect(() => {  
     setLoader(true)
     getScheduleDetails()   
   }, [])
@@ -567,13 +576,7 @@ const PaymentVerification = () => {
               </View>
               <View style={AppStyles.flex1, AppStyles.mt20}>
                 <View style={{ marginTop: RfH(10), marginTop: 5, marginBottom: 25 }}>
-                  <TouchableOpacity style={Styles.confirmButton} onPress={() => {
-                    handelWeightConfirm(item)
-                    //  setRememberMe(!rememberMe)
-                    setSlipNumber("")
-                    //  handleConfirmWeight(item)
-
-                  }}>
+                  <TouchableOpacity style={Styles.confirmButton} onPress={() => handelWeightConfirm()}>
                     <Text style={Styles.confirmBtnText}>CONFIRM</Text>
                   </TouchableOpacity>
                 </View>

@@ -1,16 +1,16 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import * as Alert from 'react-native';
-import {KeyboardAvoidingView, Platform, TouchableOpacity, View, Text, Image, TextInput, ScrollView, } from 'react-native';
-import  DropDownPicker from "react-native-dropdown-picker";
+import { KeyboardAvoidingView, Platform, TouchableOpacity, View, Text, Image, TextInput, ScrollView, } from 'react-native';
+import DropDownPicker from "react-native-dropdown-picker";
 import * as Yup from "yup";
-import {useFormik} from 'formik';
+import { useFormik } from 'formik';
 import Colors from '../../theme/Colors';
-import {CheckBoxWrapper, CustomTextInput, GradientButton,} from '../../components';
-import {alertBox, comingSoonAlert, getSaveData, isValidUserName, RfH, RfW, storeData} from '../../utils/helpers';
+import { CheckBoxWrapper, CustomTextInput, GradientButton, } from '../../components';
+import { alertBox, comingSoonAlert, getSaveData, isValidUserName, RfH, RfW, storeData } from '../../utils/helpers';
 import CustomText from '../../components/CustomText';
 import Images from '../../theme/Images';
 import NavigationRouteNames from '../../routes/ScreenNames';
-import {useNavigation} from '@react-navigation/core';
+import { useNavigation } from '@react-navigation/core';
 import UserContext from './user.context';
 import useAxios from 'axios-hooks';
 import styles from './styles';
@@ -26,12 +26,13 @@ import DropDown from '../../components/Picker/index';
 //Image
 import leftArrowImg from '../../assets/Images/ForgotPassword/LeftArrowIcon.png'
 import logoImg from '../../assets/Images/signupImage/JaydeLogo01.png'
+import { inputs } from '../../utils/constants';
 
 
 function SignUp() {
   const navigation = useNavigation();
   const [clickLogin, setClickLogin] = useState(false);
-  const {user, setUserObj, setLogin, orgLoading, orgData, setLoader} = useContext(UserContext);
+  const { user, setUserObj, setLogin, orgLoading, orgData, setLoader } = useContext(UserContext);
   const [tries, setTries] = useState(2);
   const [selectCompany, setSelectCompany] = useState({});
   const [selectCompanyModal, setSelectCompanyModal] = useState(false);
@@ -39,7 +40,7 @@ function SignUp() {
   const [hidePassword, setHidePassword] = useState(false);
   const [value, setValue] = useState(null);
   const [businesstype, setBusinesstype] = useState();
-  const [rememberMe,setRememberMe]=useState(false);
+  const [rememberMe, setRememberMe] = useState(false);
   const [showError, setShowError] = useState(false);
   const [errorObj, setErrorObj] = useState({
     errorDescription: '',
@@ -59,7 +60,7 @@ function SignUp() {
         businessType: businesstype,
       },
     });
- 
+
     console.log(data)
     if (data.status) {
       alert(data.message)
@@ -109,169 +110,168 @@ function SignUp() {
     setClickLogin(true);
     await loginForm.submitForm();
   };
-  
+
   const onChangeBusinesstype = (value) => {
     setBusinesstype(value)
   }
 
   const screenNavigate = () => {
     navigation.navigate(NavigationRouteNames.LOGIN_WITH_EMAIL);
-  } 
+  }
+
+  const onSubmitEditing = (id) => {
+    inputs[id] ? inputs[id].focus() : null;
+  };
 
   return (
-    <View style={{flex: 1,backgroundColor:Colors.mango}}>
-      <ScrollView>
+    <View style={{ flex: 1, backgroundColor: Colors.mango }}>
+      <KeyboardAwareScrollView
+        style={{ flex: 1 }}
+        behavior={Platform.select({ android: 'height', ios: 'padding' })}
+        enabled>
+        <View style={AppStyles.flex1}>
 
-        <KeyboardAwareScrollView
-          style={{flex: 1}}
-          behavior={Platform.select({android: 'height', ios: 'padding'})}
-          enabled>
-              <View style={AppStyles.flex1}>
-          <View>
+          <View style={[AppStyles.ml20, AppStyles.mt20]}>
+            <TouchableOpacity onPress={() => screenNavigate()}>
+              <Image source={leftArrowImg} />
+            </TouchableOpacity>
+          </View>
 
-              <View style={[AppStyles.ml20, AppStyles.mt20]}>
-              <TouchableOpacity onPress={() => screenNavigate()}>
-                  <Image
-                    source={leftArrowImg}
-                  />
-                </TouchableOpacity>
-                </View>
-            
-           <View style={[AppStyles.mt40, AppStyles.aligncen]}>
-                 <Image style={{width: 160, height: 55}} source={logoImg}  />    
-              </View> 
+          <View style={[AppStyles.mt40, AppStyles.aligncen]}>
+            <Image  source={logoImg} resizeMode = 'contain'/>
+          </View>
 
-              <View style={[AppStyles.mt20, AppStyles.aligncen]}>
-              <Text 
-               style={[AppStyles.mt20, AppStyles.f40, AppStyles.txtWhiteBold, AppStyles.mb20]}>Sign Up!</Text>
-              </View>
-      
-            <View style={styles.formContainer}>
-              <CustomTextInput
-                label={'Name'}
-                inputLabelStyle={commonStyles.inputLabelStyle}
-                placeholder={'Please Enter Your Name'}
-                value={loginForm.values.name}
-                onChangeHandler={(value) =>
-                  loginForm.setFieldValue('name', value)
-                }
-                 error={clickLogin && loginForm.errors.name}
-              />
-              <CustomTextInput
-                label={'Email'}
-                inputLabelStyle={commonStyles.inputLabelStyle}
-                placeholder={'Please Enter Your Email'}
-                value={loginForm.values.username}
-                onChangeHandler={(value) =>
-                  loginForm.setFieldValue('username', value)
-                }
-                error={clickLogin && loginForm.errors.username}
-              />
-              <CustomTextInput
-                 label={'Password'}
-                inputLabelStyle={commonStyles.inputLabelStyle}
-                placeholder={'Please Enter Your Password'}
-                secureTextEntry={!hidePassword}
-                showPasswordField={hidePassword}
-                handleShowPassword={(value) => setHidePassword(value)}
-                 icon={hidePassword ? Images.openEye : Images.closeEye}
-                value={loginForm.values.password}
-                onChangeHandler={(value) =>
-                  loginForm.setFieldValue('password', value)
-                }
-                returnKeyType={'next'}
-                showClearButton={false}
-                keyboardType={'password'}
-                refKey={'password'}
-                error={clickLogin && loginForm.errors.password}
-              />
-              <CustomTextInput
-                label={'Phone Number'}
-                inputLabelStyle={commonStyles.inputLabelStyle}
-                placeholder={'Please Enter Your Phone Number'}
-                value={loginForm.values.phoneno}
-                onChangeHandler={(value) =>
-                  loginForm.setFieldValue('phoneno', value)
-                }
-                keyboardType={'numeric'}
-                error={clickLogin && loginForm.errors.phoneno}
-              />
+          <View style={[AppStyles.mt20, AppStyles.aligncen]}>
+            <Text
+              style={[AppStyles.mt20, AppStyles.f40, AppStyles.txtWhiteBold, AppStyles.mb20]}>Sign Up!</Text>
+          </View>
 
-            <View style={{marginTop: 15}}>
+          <View style={styles.formContainer}>
+            <CustomTextInput
+              label={'Name'}
+              inputLabelStyle={commonStyles.inputLabelStyle}
+              placeholder={'Please Enter Your Name'}
+              value={loginForm.values.name}
+              onChangeHandler={(value) =>
+                loginForm.setFieldValue('name', value)
+              }
+              returnKeyType={"next"}
+              onSubmitEditing={() => onSubmitEditing("Email")}
+              error={clickLogin && loginForm.errors.name}
+            />
+            <CustomTextInput
+              refKey={'Email'}
+              label={'Email'}
+              inputLabelStyle={commonStyles.inputLabelStyle}
+              placeholder={'Please Enter Your Email'}
+              value={loginForm.values.username}
+              onChangeHandler={(value) =>
+                loginForm.setFieldValue('username', value)
+              }
+              returnKeyType={"next"}
+              onSubmitEditing={() => onSubmitEditing("password")}
+              error={clickLogin && loginForm.errors.username}
+            />
+            <CustomTextInput
+              label={'Password'}
+              inputLabelStyle={commonStyles.inputLabelStyle}
+              placeholder={'Please Enter Your Password'}
+              secureTextEntry={!hidePassword}
+              showPasswordField={hidePassword}
+              handleShowPassword={(value) => setHidePassword(value)}
+              icon={hidePassword ? Images.openEye : Images.closeEye}
+              value={loginForm.values.password}
+              onChangeHandler={(value) =>
+                loginForm.setFieldValue('password', value)
+              }
+              returnKeyType={"next"}
+              onSubmitEditing={() => onSubmitEditing("phone")}
+              showClearButton={false}
+              keyboardType={'password'}
+              refKey={'password'}
+              error={clickLogin && loginForm.errors.password}
+            />
+            <CustomTextInput
+              refKey={'phone'}
+              label={'Phone Number'}
+              inputLabelStyle={commonStyles.inputLabelStyle}
+              placeholder={'Please Enter Your Phone Number'}
+              value={loginForm.values.phoneno}
+              onChangeHandler={(value) =>
+                loginForm.setFieldValue('phoneno', value)
+              }
+              keyboardType={'numeric'}
+              returnKeyType={"done"}
+              error={clickLogin && loginForm.errors.phoneno}
+            />
+
+            <View style={{ marginTop: 15 }}>
               <Text style={commonStyles.inputLabelText}>Please choose User Type</Text>
               <DropDown
-                      items={[
-                        {label: 'Seller', value: 'seller'},
-                        {label: 'Aggregate', value: 'aggregate'},
-                        {label: 'Recycler', value: 'recycler'},
-                        {label: 'Epr', value: 'epr'},
-                    ]}
-                      onValueChange=
-                      // {onChangeBusinesstype}
-                       {(onChangeBusinesstype) => loginForm.setFieldValue('businesstype', onChangeBusinesstype) }
-                       selectedValue={loginForm.values.businesstype}
-                      // selectedValue={businesstype}
-                      containerStyle={{ borderRadius: 10, backgroundColor: Colors.grayBackground, paddingLeft: 10 }}
-                    />
-                     {clickLogin && loginForm.errors.businesstype ? ( 
-              <CustomText
-                fontSize={15}
-                color={Colors.red}
-                styling={{marginTop: RfH(10), marginLeft: 5,}}>
-                {loginForm.errors.businesstype}
-              </CustomText>
-               ) : null}
+                items={[
+                  { label: 'Seller', value: 'seller' },
+                  { label: 'Aggregate', value: 'aggregate' },
+                  { label: 'Recycler', value: 'recycler' },
+                  { label: 'Epr', value: 'epr' },
+                ]}
+                onValueChange=
+                // {onChangeBusinesstype}
+                {(onChangeBusinesstype) => loginForm.setFieldValue('businesstype', onChangeBusinesstype)}
+                selectedValue={loginForm.values.businesstype}
+                // selectedValue={businesstype}
+                containerStyle={{ borderRadius: 10, backgroundColor: Colors.grayBackground, paddingLeft: 10 }}
+              />
+              {clickLogin && loginForm.errors.businesstype ? (
+                <CustomText
+                  fontSize={15}
+                  color={Colors.red}
+                  styling={{ marginTop: RfH(10), marginLeft: 5, }}>
+                  {loginForm.errors.businesstype}
+                </CustomText>
+              ) : null}
             </View>
-         
-              <View>
+
+            <View>
               <View style={styles.checkBoxContainer}>
                 <View style={[AppStyles.flexDir, AppStyles.aligncen]}>
                   <Checkbox
-                      disabled={false}
-                      value={loginForm.values.checkcondition}
-                      tintColors={{ true: Colors.mango, false: '#777' }}
-                      onValueChange={(newValue) =>
-                        loginForm.setFieldValue('checkcondition', newValue)
-                      }
-                    />
-                   <View style={{marginLeft: RfW(10)}}>
+                    disabled={false}
+                    value={loginForm.values.checkcondition}
+                    tintColors={{ true: Colors.mango, false: '#777' }}
+                    onValueChange={(newValue) =>
+                      loginForm.setFieldValue('checkcondition', newValue)
+                    }
+                  />
+                  <View style={{ marginLeft: RfW(10) }}>
                     <CustomText
                       color={Colors.black}
                       fontSize={15}
-                      styling={{paddingVertical: RfH(4)}}>
+                      styling={{ paddingVertical: RfH(4) }}>
                       I agree to the Terms and Conditions
                     </CustomText>
-                  </View> 
-
+                  </View>
                 </View>
-             
+
               </View>
-              {clickLogin && loginForm.errors.checkcondition ? ( 
-              <CustomText
-                fontSize={15}
-                color={Colors.red}
-                styling={{marginLeft: 5,}}>
-                {loginForm.errors.checkcondition}
-              </CustomText>
-               ) : null}
-               </View>
-             
+              {clickLogin && loginForm.errors.checkcondition ? (
+                <CustomText
+                  fontSize={15}
+                  color={Colors.red}
+                  styling={{ marginLeft: 5, }}>
+                  {loginForm.errors.checkcondition}
+                </CustomText>
+              ) : null}
+            </View>
 
-               <View style={{marginTop: RfH(10)}}>
+            <View style={{ marginTop: RfH(10) }}>
               <TouchableOpacity style={[AppStyles.mt20, AppStyles.br10, AppStyles.btnPrimary, AppStyles.pv15, AppStyles.aligncen]}
-                  onPress={() => handleSignup()}>
-                  <Text style={[AppStyles.f18, AppStyles.txtWhiteRegular]}>CONFIRM</Text>
+                onPress={() => handleSignup()}>
+                <Text style={[AppStyles.f18, AppStyles.txtWhiteRegular]}>CONFIRM</Text>
               </TouchableOpacity>
-             </View>
-             
             </View>
-
-            </View>
-
-          
-               </View>
-        </KeyboardAwareScrollView>
-      </ScrollView>
+          </View>
+        </View>
+      </KeyboardAwareScrollView>
     </View>
   );
 }

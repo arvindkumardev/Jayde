@@ -10,8 +10,7 @@ const styles = StyleSheet.create({
   bdrclr: {
     borderColor: 'orange',
   },
-  boxContent: {
-    flex: 1,
+  boxContent: {   
     width: 310,
     height: 380,
     backgroundColor: '#ffffff',

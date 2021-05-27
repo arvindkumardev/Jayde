@@ -17,7 +17,7 @@ import { LOCAL_STORAGE_DATA_KEY } from '../../../utils/constants';
 
 import moment from 'moment';
 import UserContext from '../../../appContainer/context/user.context';
-import { getQuoteData, getImageName } from '../../../utils/Global'
+import { getQuoteData, getImageName, setImageName } from '../../../utils/Global'
 
 const CallRequest = () => {
   const navigation = useNavigation();
@@ -97,6 +97,7 @@ const CallRequest = () => {
     console.log(data)
     if (data.status) {
       handelCallBackConfirmation()
+      setImageName([])
     } else {
       alert(data.message)
     }
