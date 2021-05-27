@@ -25,9 +25,9 @@ import SellerOrderDetail from "../containers/Seller/MyOrderDetail/index";
 
 import PickupDetailsConfirmation from "../containers/Seller/PickupDetailsConfirmation";
 import Dashboard from "../containers/Dashboard/index";
-import PaymentVerification from "../containers/PaymentVerification";
+import PaymentVerification from "../containers/Aggregator/PaymentVerification";
 import ViewNewOrder from "../containers/ViewNewOrder";
-import WorkOrderEmail from "../containers/WorkOrderEmail";
+import WorkOrderEmail from "../containers/Aggregator/WorkOrderEmail";
 import OrderDetails from "../containers/Seller/OrderDetails";
 import CallBackConfirmation from "../containers/Seller/CallBackConfirmation";
 import PickupDate from "../containers/Seller/PickupDate";
@@ -395,12 +395,7 @@ const AppStack = (props) => {
             component={OrderConfirmation}
             options={CommonHeaderStyle}
           />
-          {/* Warehouse Details screen number: 32 */}
-          <Stack.Screen
-            name={NavigationRouteNames.WAREHOUSE_DETAILS}
-            component={WarehouseDetails}
-            options={CommonHeaderStyle}
-          />
+         
           {/* New Work Order screen number: 32 */}
           <Stack.Screen
             name={NavigationRouteNames.NEW_WORKORDER}
@@ -519,6 +514,21 @@ const AppStack = (props) => {
             component={PaymentVerification}
             options={CommonHeaderStyle}
           />
+
+           {/* Warehouse Details screen number: 32 */}
+           <Stack.Screen
+            name={NavigationRouteNames.WAREHOUSE_DETAILS}
+            component={WarehouseDetails}
+            options={CommonHeaderStyle}
+          />
+
+           {/* Warehouse Details screen number: 33 */}
+           <Stack.Screen
+            name={NavigationRouteNames.WORKORDER_EMAIL}
+            component={WorkOrderEmail}
+            options={NoHeaderScreen}
+          />
+
           {/* Confirmation Screen */}
           <Stack.Screen
             name={NavigationRouteNames.CONFIRMATION}

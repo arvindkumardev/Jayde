@@ -94,7 +94,7 @@ function AggregatorScheduleOrderList() {
   const screenNavigate = (item) => {
     {
       item.assigned_status == '1' &&
-      navigation.navigate(NavigationRouteNames.PAYMENT_VERIFICATION, { Item: item, getActionType: getActionType });
+      navigation.navigate(NavigationRouteNames.PAYMENT_VERIFICATION, { 'assignedID': item.assigned_id, getActionType: getActionType });
     }
   }
 

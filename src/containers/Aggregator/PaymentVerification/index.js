@@ -1,34 +1,25 @@
 import React, { useContext, useEffect, useState, useLayoutEffect, useRef } from "react";
 import { View, Text, TouchableOpacity, TextInput, Image, Button } from "react-native";
-import { RfH, RfW, formatDisplayDate } from "../../utils/helpers";
+import { RfH, RfW, formatDisplayDate } from "../../../utils/helpers";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import Styles from './styles';
 
-import { Colors, Fonts, AppStyles } from "../../theme";
+import { Colors, Fonts, AppStyles } from "../../../theme";
 import FAIcon from 'react-native-vector-icons/FontAwesome';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import NavigationRouteNames from '../../routes/ScreenNames';
-import CustomText from '../../components/CustomText';
-import { CheckBoxWrapper, CustomTextInput, GradientButton, } from '../../components';
+import NavigationRouteNames from '../../../routes/ScreenNames';
+import CustomText from '../../../components/CustomText';
+import { CheckBoxWrapper, CustomTextInput, GradientButton, } from '../../../components';
 import Checkbox from "@react-native-community/checkbox";
 import moment from 'moment';
 import MIcon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { UploadDocument } from '../../components/index';
+import { UploadDocument } from '../../../components/index';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { useFormik } from "formik";
 import * as yup from "yup";
-import { weightConfirm, weightPropose, paymentConfirm, pickupConfirm, receiptConfirm, scheduleOrderDetail } from './middleware';
-import UserContext from '../../appContainer/context/user.context';
-import DropDown from '../../components/Picker/index';
-
-const unitData = [{
-  subCategory: 'Color record',
-  qty: 100
-},
-{
-  subCategory: 'Craft',
-  qty: 100
-}]
+import { weightConfirm, weightPropose, paymentConfirm, pickupConfirm, receiptConfirm, scheduleOrderDetail } from '../Middelware';
+import UserContext from '../../../appContainer/context/user.context';
+import DropDown from '../../../components/Picker/index';
 
 const PaymentVerification = () => {
   const navigation = useNavigation();
@@ -39,6 +30,7 @@ const PaymentVerification = () => {
   const refPaymentDetail = useRef(null);
 
   const [item, setItem] = useState({});
+  const [isViewLoaded, setViewLoaded] = useState(false)
 
   const [imageUpload, setImageUpload] = useState(false);
   const [imageUpload1, setImageUpload1] = useState(false);
@@ -82,9 +74,6 @@ const PaymentVerification = () => {
 
   // ---------------------- End Api Section ---------------------
 
-
-
-
   const handelNavigate = () => {
     if (item.proposed_weight_confirm === '0' && item.pickup_confirmed === '0') {
       navigation.popToTop();
@@ -115,7 +104,6 @@ const PaymentVerification = () => {
       alert(data.message)
     }
     setLoader(false)
-
   };
 
   const handleProposeWeight = async (volume, unit, Proposekantaslipno) => {
@@ -201,8 +189,8 @@ const PaymentVerification = () => {
 
     console.log(data)
     if (data.status) {
-      navigation.navigate(NavigationRouteNames.WAREHOUSE_DETAILS, {items:  route.params.Item});
-      //handelNavigate()
+      navigation.pop()
+      navigation.navigate(NavigationRouteNames.WAREHOUSE_DETAILS, {items:  item});    
     } else {
       alert(data.message)
 
@@ -213,7 +201,6 @@ const PaymentVerification = () => {
   const onChangeUnit = (id) => {
     proposeRequestForm.setFieldValue('unit', id)
   }
-
 
   const onChangeConfirmWeightDate = (event, selectedDate) => {
     setPickerConfirmWeight(false)
@@ -344,7 +331,7 @@ const PaymentVerification = () => {
 
   const getScheduleDetails = async () => {
     try {
-      const { data } = await onScheduleOrderDetail({ data: { 'assignedId': route.params.Item.assigned_id } });
+      const { data } = await onScheduleOrderDetail({ data: { 'assignedId': route.params.assignedID } });
       if (data.status) {
         let itemObj = data.data.orderDetails[0]
         console.log(data)
@@ -353,6 +340,7 @@ const PaymentVerification = () => {
         const pickderData = data.data.units.map((item) => ({ label: item.unit_name, value: item.id }));
         setUnitData(pickderData);
         setReceiptData(data.data.receiptData)
+        setViewLoaded(true) // Render View
 
         // ------------------- View Condition -------------------------
         if (itemObj.proposed_weight_confirm === '0' && itemObj.pickup_confirmed === '0') {
@@ -378,7 +366,7 @@ const PaymentVerification = () => {
     }
   }
 
-  useEffect(() => {
+  useEffect(() => {    
     setLoader(true)
     getScheduleDetails()   
   }, [])
@@ -408,7 +396,7 @@ const PaymentVerification = () => {
   }
 
   return (
-    <KeyboardAwareScrollView style={[AppStyles.topView, AppStyles.ph20]}>
+    isViewLoaded && <KeyboardAwareScrollView style={[AppStyles.topView, AppStyles.ph20]}>
       <View style={AppStyles.aligncen}>
         <Text style={[AppStyles.txtBlackBold, AppStyles.f17, AppStyles.mt30,]}>Ref No- {item.order_no}</Text>
       </View>
@@ -998,7 +986,7 @@ const PaymentVerification = () => {
           <Text style={[AppStyles.flex1, AppStyles.txtPrimaryBold, AppStyles.f15, AppStyles.textalig]}>Sub Category</Text>
           <Text style={[AppStyles.flex1, AppStyles.txtPrimaryBold, AppStyles.f15, AppStyles.textalig]}>Quantity</Text>
         </View>
-        {unitData.map((item, index) => (
+        {receiptData.map((item, index) => (
           <View
             key={index}
             style={[AppStyles.flexDir, AppStyles.flexRowSpaceBetween, { backgroundColor: index % 2 == 0 ? Colors.grayBorder : Colors.grayTwo }]}>
@@ -1008,7 +996,7 @@ const PaymentVerification = () => {
               color={Colors.blackOne}
               fontFamily={Fonts.regular}
               fontWeight='bold'>
-              {item.subCategory}
+              {item.sub_category_name}
             </CustomText>
             <CustomText
               styling={{ flex: 1, paddingVertical: RfH(20), textAlign: 'center' }}
@@ -1016,13 +1004,13 @@ const PaymentVerification = () => {
               color={Colors.blackOne}
               fontFamily={Fonts.regular}
               fontWeight='bold'>
-              {item.qty}
+              {item.receipt_qty} {item.unit_name}
             </CustomText>
           </View>
         ))}
       </View>}
     </KeyboardAwareScrollView>
-
+    
   );
 };
 

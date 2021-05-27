@@ -47,12 +47,40 @@ function WarehouseDetails() {
   const [{ data: addReceiptData, loading, error }, onAddRecept] = addReceiptQuantity();
 
   const [addMoreCount, setMoreCount] = useState(1);
-
   const [receiptData, setReceiptData] = useState([
     {
       subcategory: '', unit: '', weight: ''
     }
   ])
+
+  useEffect(() => {
+    if (subData) {
+      const pickerData = subData.map((item) => ({ label: item.sub_category_name, value: item.id }));
+      setSubCategories(pickerData);
+    }
+  }, [subData]);
+
+  useEffect(() => {
+    if (unitsData) {
+      const pickderData = unitsData.map((item) => ({ label: item.unit_name, value: item.id }));
+      setUnitData(pickderData);
+    }
+  }, [unitsData]);
+
+  useLayoutEffect(() => {
+    const title = 'Order Warehouse details';
+    navigation.setOptions({
+      title,
+    });
+    const { items } = route.params;
+    setItem(items)
+    onGetSubCategories({ data: { id: items.category_id } });
+    onGetUnits();
+  }, []);
+
+  useEffect(() => {
+    setLoader(loading);
+  }, [addReceiptData, loading]);
 
   const setValueWeight = (value, index) => {
     switch (index) {
@@ -129,57 +157,54 @@ function WarehouseDetails() {
     }
   }
 
-
-  useEffect(() => {
-    if (subData) {
-      const pickerData = subData.map((item) => ({ label: item.sub_category_name, value: item.id }));
-      setSubCategories(pickerData);
-    }
-  }, [subData]);
-
-  useEffect(() => {
-    if (unitsData) {
-      const pickderData = unitsData.map((item) => ({ label: item.unit_name, value: item.id }));
-      setUnitData(pickderData);
-    }
-  }, [unitsData]);
-
-  useLayoutEffect(() => {
-    const title = 'Order Warehouse details';
-    navigation.setOptions({
-      title,
-    });
-    const { items } = route.params;
-    setItem(items)
-    onGetSubCategories({ data: { id: items.category_id } });
-    onGetUnits();
-  }, []);
-
-  useEffect(() => {
-    setLoader(loading);
-
-  }, [addReceiptData, loading]);
-
-
   const handelAddReceipt = async () => {
+    var tempUnit = []
+    var tempCategory = []
+    var tempQty = []
+
+    if (weightOne.trim() != '' && unitOne != '' && subCategoryOne != '') {
+      tempUnit.push(unitOne)
+      tempCategory.push(subCategoryOne)
+      tempQty.push(weightOne)
+    } else {
+      alert('Please complete details')
+    }
+
+    if (addMoreCount > 1) {
+      if (weightTwo.trim() != '' && unitTwo != '' && subCategoryTwo != '') {
+        tempUnit.push(unitTwo)
+        tempCategory.push(subCategoryTwo)
+        tempQty.push(weightTwo)
+      } else {
+        alert('Please complete details')
+      }
+    }
+
+    if (addMoreCount > 2) {
+      if (weightThree.trim() != '' && unitThree != '' && subCategoryThree != '') {
+        tempUnit.push(unitThree)
+        tempCategory.push(subCategoryThree)
+        tempQty.push(weightThree)
+      } else {
+        alert('Please complete details')
+      }
+    }
+
     try {
       let param = {
         'assignedId': item.assigned_id,
-        "unitValues": [1, 1],
-        "subcategoryValues": [2, 2],
-        "qtyValues": [10, 20]
+        "unitValues": tempUnit,
+        "subcategoryValues": tempCategory,
+        "qtyValues": tempQty
       }
-      console.log(param)
-      return
-
+      console.log(param)      
       const { data } = await onAddRecept({
         data: param
       });
-
       console.log(data)
-
       if (data.status) {
-
+        navigation.pop()
+        navigation.navigate(NavigationRouteNames.WORKORDER_EMAIL)
       } else {
         alert(data.message)
       }
@@ -188,14 +213,34 @@ function WarehouseDetails() {
     }
   }
 
-
   const handelAddMore = () => {
     setMoreCount(addMoreCount + 1)
     let listData = receiptData;
     let newData = listData.concat(itemObj);
     setReceiptData(newData)
-
   }
+
+  const handelRemoveLine = (index) => {
+    if (index != -1) {
+      setMoreCount(addMoreCount - 1)
+      let tempData = [...receiptData]
+      console.log(tempData)
+      tempData.splice(index, 1)
+
+      // clear State
+      if (index == 1) {
+        setUnitTwo('')
+        setSubCategoryTwo('')
+        setWeightTwo('')
+      } else if (index == 2) {
+        setUnitThree('')
+        setSubCategoryThree('')
+        setWeightThree('')
+      }
+      setReceiptData(tempData)
+    }
+  }
+
   return (
     <View style={Styles.topView}>
       <KeyboardAwareScrollView>
@@ -273,7 +318,7 @@ function WarehouseDetails() {
             onPress={() => handelAddMore()}
             style={[AppStyles.pv10, AppStyles.ph10, { backgroundColor: Colors.mangoTwo, borderRadius: 5 }, AppStyles.flexDir, AppStyles.alignCenter]}
             activeOpacity={0.6}>
-            <Text style={[AppStyles.txtWhiteRegular,]}>Add more line  </Text>
+            <Text style={[AppStyles.txtWhiteRegular,]}>Add more  </Text>
             <FAIcon name='plus-circle' color={Colors.white} size={18}></FAIcon>
           </TouchableOpacity>
         </View> : <View style={AppStyles.pv10}></View>}
@@ -283,7 +328,16 @@ function WarehouseDetails() {
           {receiptData.map((item, index) => (<View>
             <View key={index}
               style={[AppStyles.mt20]}>
-              <Text style={[AppStyles.txtBlackRegular, AppStyles.f16, AppStyles.mb10]}>Category</Text>
+              <View style={[AppStyles.flexRowSpaceBetween, AppStyles.mb10]}>
+                <Text style={[AppStyles.txtBlackRegular, AppStyles.f16]}>Category</Text>
+                {index > 0 && <TouchableOpacity
+                  onPress={() => handelRemoveLine(index)}
+                  style={[AppStyles.pv5, AppStyles.ph5, { backgroundColor: Colors.mangoTwo, borderRadius: 5 }, AppStyles.flexDir, AppStyles.alignCenter]}
+                  activeOpacity={0.6}>
+                  <Text style={[AppStyles.txtWhiteRegular,]}>Remove  </Text>
+                  <FAIcon name='times-circle-o' color={Colors.white} size={18}></FAIcon>
+                </TouchableOpacity>}
+              </View>
               <DropDown
                 items={subCategories}
                 placeholderText="Select category"

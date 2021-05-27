@@ -1,6 +1,9 @@
 import { StyleSheet } from "react-native";
 
 const spaces = StyleSheet.create({
+    ph5:{
+        paddingHorizontal: 5
+    },
     ph10:{
         paddingHorizontal: 10
     },

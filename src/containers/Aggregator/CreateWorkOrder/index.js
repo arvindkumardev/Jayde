@@ -17,10 +17,11 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 
 import { UploadDocument } from '../../../components/index';
 import UserContext from '../../../appContainer/context/user.context';
-import { alertBox, RfH, RfW, isValidVolume } from '../../../utils/helpers';
+import { alertBox, RfH, RfW, isValidVolume, getSaveData } from '../../../utils/helpers';
 import moment from 'moment';
 import * as Yup from "yup";
 import { useFormik } from "formik";
+import { LOCAL_STORAGE_DATA_KEY } from '../../../utils/constants';
 
 import { getAggregators, getRecyclers } from "../../../services/middleware/user";
 import { getUnits } from '../../Seller/PricingRequest/middleware'
@@ -31,6 +32,7 @@ function NewWorkOrder() {
   const navigation = useNavigation();
   const route = useRoute();
 
+  const [userName, setUserName] = useState('')
   const [item, setItem] = useState('');
   const [viewType, setViewType] = useState(1);
   const [imageUpload, setImageUpload] = useState(false);
@@ -56,17 +58,29 @@ function NewWorkOrder() {
     navigation.navigate(NavigationRouteNames.WORKORDER_SUMMARY);
   }
 
+   useEffect(() => {
+    async function getUserName() {     
+      const userName = await getSaveData(LOCAL_STORAGE_DATA_KEY.USER_NAME);
+      if (userName) {
+        setUserName(userName)
+      }
+    }
+    getUserName();
+  }, []);
+
   useEffect(() => {
     console.log('Aggregator', aggregatorsData)
     if (aggregatorsData) {
-      const pickerData = aggregatorsData.map((item) => ({ label: item.name, value: item.id }));
+       let itemData = aggregatorsData.filter(item => item.name != userName);
+      const pickerData = itemData.map((item) => ({ label: item.name, value: item.id }));
       setAggregator(pickerData);
     }
   }, [aggregatorsData]);
 
   useEffect(() => {
     if (recyclersData) {
-      const pickerData = recyclersData.map((item) => ({ label: item.name, value: item.id }));
+      let itemData = recyclersData.filter(item => item.name != userName);
+      const pickerData = itemData.map((item) => ({ label: item.name, value: item.id }));
       setRecyclers(pickerData);
     }
   }, [recyclersData]);

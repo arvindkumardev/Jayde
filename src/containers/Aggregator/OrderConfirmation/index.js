@@ -28,7 +28,7 @@ function OrderConfirmation() {
   }
 
   const screenNavigate = () => {
-    navigation.navigate(NavigationRouteNames.PAYMENT_VERIFICATION, { Item: item });
+    navigation.navigate(NavigationRouteNames.PAYMENT_VERIFICATION, {assignedID: item.assigned_id});
   }
 
   useLayoutEffect(() => {
