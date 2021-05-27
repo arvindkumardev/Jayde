@@ -43,8 +43,8 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     paddingLeft: 15,
     fontFamily: Fonts.regular,
-    width: 168,
-    height: 44,
+    width: 152,
+    height: 47,
   },
   title: {
     marginLeft: 40,

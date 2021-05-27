@@ -1,21 +1,17 @@
 import React, {useContext, useEffect, useState, useLayoutEffect} from 'react';
 import { Alert } from "react-native";
-import {KeyboardAvoidingView, Platform, TouchableOpacity, View, Text, Image, TextInput, FlatList, ScrollView} from 'react-native';
+import {KeyboardAvoidingView, Platform, TouchableOpacity, View, Text, Image, TextInput, ScrollView} from 'react-native';
 import Styles from "./styles";
 import CustomText from '../../components/CustomText';
 import NavigationRouteNames from '../../routes/ScreenNames';
 import {useNavigation} from '@react-navigation/core';
 import {useRoute} from '@react-navigation/native';
 import { AppStyles, Colors } from '../../theme';
-import FAIcon from "react-native-vector-icons/FontAwesome";
-import DropDown from '../../components/Picker/index';
-import Checkbox from "@react-native-community/checkbox";
 import { RfH, RfW, isValidUserName, getSaveData } from "../../utils/helpers";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { profileUpdate } from './middleware';
 import * as Yup from "yup";
 import {useFormik} from 'formik';
-// import { removeData, getGreeting, getSaveData, formatDisplayDate } from '../../utils/helpers';
 import { LOCAL_STORAGE_DATA_KEY } from '../../utils/constants';
 
 
@@ -23,12 +19,7 @@ function ProfileUpdate() {
 
    const navigation = useNavigation();
    const route = useRoute();
-   const [name, setName] = useState('');
-   const [email, setEmail] = useState('');
-  const [phoneno, setPhoneno] = useState('');
-  //  const [password, setPassword] = useState('');
    const [clickLogin, setClickLogin] = useState(false);
-  //  const [confirmpassword, setConfirmpassword] = useState('');
    const [{ data, loading, error }, onProfileUpdate] = profileUpdate();
    
   
@@ -72,7 +63,6 @@ function ProfileUpdate() {
           ),
       phoneno: Yup.string().required("Please provide phone number"),
       password: Yup.string().required("Please provide password"),
-      // confirmpassword: Yup.string().required("Password not match"),
       confirmpassword: Yup.string().required("Please provide password").when("password", {
         is: val => (val && val.length > 0 ? true : false),
         then: Yup.string().oneOf(
@@ -132,7 +122,6 @@ function ProfileUpdate() {
             <View>
             <TextInput placeholder={"Sahdev Garg"} style={Styles.inputText} 
               value={loginForm.values.name}
-              // onChangeText={setName}
               onChangeText={(txt) =>
                 loginForm.setFieldValue('name', txt)
               }
@@ -152,7 +141,6 @@ function ProfileUpdate() {
             <View>
             <Text style={[AppStyles.txtBlackRegular, AppStyles.f15, AppStyles.mb6]}>Email</Text>
             </View>
-            {/* <TextInput placeholder={"sahdevgarg@gmail.com"} style={Styles.inputText} value={email}/> */}
             <TextInput placeholder={"sahdevgarg@gmail.com"} style={Styles.inputText} 
               value={loginForm.values.username}
               onChangeText={(txt) =>
@@ -210,7 +198,6 @@ function ProfileUpdate() {
             <View style={AppStyles.flex1}>
             <Text style={[AppStyles.txtBlackRegular, AppStyles.f15, AppStyles.mb6]}>Confirm Password</Text>
             </View>
-            {/* <TextInput placeholder={"**********"} style={Styles.inputText} value={confirmpassword}/> */}
             <TextInput placeholder={"**********"} style={Styles.inputText} 
             value={loginForm.values.confirmpassword}
             onChangeText={(txt) =>
