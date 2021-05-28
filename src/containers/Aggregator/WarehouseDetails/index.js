@@ -331,6 +331,7 @@ function WarehouseDetails() {
               <View style={[AppStyles.flexRowSpaceBetween, AppStyles.mb10]}>
                 <Text style={[AppStyles.txtBlackRegular, AppStyles.f16]}>Category</Text>
                 {index > 0 && <TouchableOpacity
+                  key={`${index}1`}
                   onPress={() => handelRemoveLine(index)}
                   style={[AppStyles.pv5, AppStyles.ph5, { backgroundColor: Colors.mangoTwo, borderRadius: 5 }, AppStyles.flexDir, AppStyles.alignCenter]}
                   activeOpacity={0.6}>

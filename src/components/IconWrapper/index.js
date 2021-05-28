@@ -21,7 +21,6 @@ const IconWrapper = (props) => {
     containerStyling,
   } = props;
   const [isError, setIsError] = useState(false);
-
   const imageObject = getImageSource(iconImage);
   const sourceImage = isError ? getImageSource(placeHolderImage) : imageObject;
   const iconMainHeight = get(styling, 'height', iconHeight);

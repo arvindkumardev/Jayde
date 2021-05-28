@@ -27,33 +27,6 @@ const ORDER_IMAGE = {
   'Mix Waste':MixWasterImg,
 };
 
-const STATIC_DATA = [
-  {
-    name: '3 Ton Paper',
-    date: '21/01/21',
-    orderid: 'JYD/N/21/019',
-    image: require('../../assets/Images/Dashboard/Group_9993.png'),
-    images: require('../../assets/Images/Dashboard/Fill_164.png'),
-    status: 'Pending',
-  },
-  {
-    name: '4 Ton Paper',
-    date: '21/01/21',
-    orderid: 'JYD/N/21/021',
-    image: require('../../assets/Images/Dashboard/Group_9993.png'),
-    images: require('../../assets/Images/Dashboard/Icon_metro-truck.png'),
-    status: 'In Transit',
-  },
-  {
-    name: '3 Ton Plastic',
-    date: '21/01/21',
-    orderid: 'JYD/N/21/011',
-    image: require('../../assets/Images/Dashboard/Group_9992.png'),
-    images: require('../../assets/Images/Dashboard/Group_9995.png'),
-    status: 'Completed',
-  },
-];
-
 function HomeScreen() {
   const navigation = useNavigation();
   const { userRole, setLogin, setLoader } = useContext(UserContext);

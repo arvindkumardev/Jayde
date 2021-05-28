@@ -6,7 +6,7 @@ import NavigationRouteNames from '../../../routes/ScreenNames';
 import { useNavigation } from '@react-navigation/core';
 import { useRoute } from '@react-navigation/native';
 import { RfH } from '../../../utils/helpers';
-import { aggreRejectorder } from '../Middelware';
+import { rejectOrder } from '../Middelware';
 import UserContext from '../../../appContainer/context/user.context';
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
@@ -21,11 +21,11 @@ function RejectOrder() {
   const route = useRoute();
   const [item, setItem] = useState({});
 
-  const { setLoader } = useContext(UserContext);
+  const { setLoader,userRole } = useContext(UserContext);
 
   const [clickConfirm, setClickConfirm] = useState(false);
 
-  const [{ data, loading, error }, onRejectOrder] = aggreRejectorder();
+  const [{ data, loading, error }, onRejectOrder] = rejectOrder(userRole);
 
   const screenNavigateBack = () => {
     navigation.pop()
@@ -52,7 +52,7 @@ function RejectOrder() {
     } else {
       alert(data.message)
     }
-    setLoader(true)
+    setLoader(false)
   };
 
   const validationSchema = yup.object().shape({
@@ -76,6 +76,8 @@ function RejectOrder() {
 
   const screenNavigate = () => {
     navigation.popToTop()
+    userRole === 'recycler' ? navigation.navigate(NavigationRouteNames.RECYCLER_NEW_ORDER_LIST)
+    :    
     navigation.navigate(NavigationRouteNames.AGGREGATOR_NEW_ORDERS);
   }
 
@@ -89,7 +91,7 @@ function RejectOrder() {
           </View>
           <View style={Styles.border}></View>
           <View style={[AppStyles.mt20, AppStyles.mr14, AppStyles.ml15]}>
-            <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f15, AppStyles.textalig]}>You have chosen to reject the order Ref NO - JYD/SC/2020/0067. Where you were assignedas a preferred partner.</Text>
+            <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f15, AppStyles.textalig]}>You have chosen to reject the order Ref NO - {item.order_no}. Where you were assigned as a preferred partner.</Text>
           </View>
 
           <View style={[AppStyles.mt20]}>

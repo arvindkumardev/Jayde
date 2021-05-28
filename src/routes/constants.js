@@ -210,17 +210,40 @@ const DRAWER_MENU = {
       screenName: NavigationRouteNames.UPDATE_PROFILE
     },
     {
+      name: 'New Orders',
+      color: Colors.mango,
+      iconName: 'folder',
+      screenName: NavigationRouteNames.RECYCLER_NEW_ORDER_LIST
+    },
+
+    {
+      name: 'Scheduled Order',
+      color: Colors.mango,
+      iconName: 'wpforms',
+      screenName: NavigationRouteNames.RECYCLER_SCHEDULED_ORDER_LIST
+    },
+
+    // {
+    //   name: 'Inventory',
+    //   color: Colors.mango,
+    //   iconName: 'archive',
+    //   screenName: NavigationRouteNames.RECYCLER_INVENTORY
+    // },
+
+    {
       name: 'Work Orders',
       color: Colors.mango,
       iconName: 'folder',
-      screenName: NavigationRouteNames.RECYCLER_WORKORDER_LIST
+      screenName: NavigationRouteNames.RECYCLER_WORK_ORDER_LIST
     },
+    
     {
-      name: 'Inventory',
+      name: 'Completed Order',
       color: Colors.mango,
-      iconName: 'archive',
-      screenName: NavigationRouteNames.RECYCLER_INVENTORY
+      iconName: 'folder',
+      screenName: NavigationRouteNames.COMPLETED_ORDER
     },
+
     {
       name: 'Users',
       color: Colors.mango,

@@ -322,7 +322,7 @@ function UploadDocument(props) {
                             {!isEmpty(imageSet) && map(imageSet, (item, index) =>
                                 (<View style={styles.thumbView} key ={index}>
                                     <IconButtonWrapper
-                                        iconImage={item.path}
+                                       iconImage={item.path}
                                         iconWidth={RfW(75)}
                                         iconHeight={RfW(75)}
                                         styling={{ borderRadius: RfW(15) }}

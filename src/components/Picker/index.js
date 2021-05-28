@@ -64,7 +64,7 @@ const DropDown = (props) => {
 DropDown.propTypes = {
   mode: PropTypes.string,
   onValueChange: PropTypes.func,
-  itemStyle: {},
+  //itemStyle: {},
   selectedValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   items: PropTypes.arrayOf({
     label: PropTypes.string,
@@ -78,7 +78,7 @@ DropDown.defaultProps = {
   selectedValue: '',
   onValueChange: (val) => console.log(val),
   containerStyle: {},
-  itemStyle: {},
+  //itemStyle: {},
   placeholderText: 'Please select item',
   mode: 'modal',
 };

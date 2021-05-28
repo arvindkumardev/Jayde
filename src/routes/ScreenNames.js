@@ -72,7 +72,9 @@ const NavigationRouteNames = {
   INVENTORY: "Inventory",
   RECYCLER_INVENTORY: "RecyclerInventory",
   RECYCLER_NEW_WORKORDER: "RecyclerNewWorkOrder",
-  RECYCLER_WORKORDER_LIST: "RecyclerWorkOrderList",
+  RECYCLER_NEW_ORDER_LIST: "RecyclerNewOrderList",
+  RECYCLER_SCHEDULED_ORDER_LIST: "RecyclerScheduleOrderList",
+  RECYCLER_WORK_ORDER_LIST: 'RecyclerWorkOrderList',
 
   NEW_WORKORDER: "NewWorkOrder",
   WORKORDER_SUMMARY: "Workordersummary",

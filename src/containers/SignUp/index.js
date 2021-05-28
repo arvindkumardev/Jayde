@@ -32,6 +32,7 @@ import { inputs } from '../../utils/constants';
 function SignUp() {
   const navigation = useNavigation();
   const [clickLogin, setClickLogin] = useState(false);
+
   const { user, setUserObj, setLogin, orgLoading, orgData, setLoader } = useContext(UserContext);
   const [tries, setTries] = useState(2);
   const [selectCompany, setSelectCompany] = useState({});
@@ -50,7 +51,7 @@ function SignUp() {
   const [{ data, loading, error }, onSignUp] = signUp();
 
   const confirmSignup = async (name, username, password, phoneno, businesstype) => {
-
+    setLoader(true)
     const { data } = await onSignUp({
       data: {
         name: name,
@@ -68,6 +69,8 @@ function SignUp() {
     } else {
       alert(data.message)
     }
+    setLoader(false)
+
   };
 
   const validationSchema = Yup.object().shape({
@@ -156,6 +159,7 @@ function SignUp() {
                 loginForm.setFieldValue('name', value)
               }
               returnKeyType={"next"}
+              keyboardType = 'default'
               onSubmitEditing={() => onSubmitEditing("Email")}
               error={clickLogin && loginForm.errors.name}
             />
@@ -168,6 +172,7 @@ function SignUp() {
               onChangeHandler={(value) =>
                 loginForm.setFieldValue('username', value)
               }
+              keyboardType = 'email-address'
               returnKeyType={"next"}
               onSubmitEditing={() => onSubmitEditing("password")}
               error={clickLogin && loginForm.errors.username}
@@ -200,7 +205,7 @@ function SignUp() {
               onChangeHandler={(value) =>
                 loginForm.setFieldValue('phoneno', value)
               }
-              keyboardType={'numeric'}
+              keyboardType={'phone-pad'}
               returnKeyType={"done"}
               error={clickLogin && loginForm.errors.phoneno}
             />
