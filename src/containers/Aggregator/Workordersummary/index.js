@@ -1,9 +1,7 @@
 import React, {useContext, useEffect, useState, useLayoutEffect} from 'react';
-// import * as Alert from 'react-native';
 import { Alert } from "react-native";
 import {KeyboardAvoidingView, Platform, TouchableOpacity, View, Text, Image, TextInput, FlatList, ScrollView} from 'react-native';
 import Styles from "./styles";
-import CustomText from '../../../components/CustomText';
 import NavigationRouteNames from '../../../routes/ScreenNames';
 import {useNavigation} from '@react-navigation/core';
 import {useRoute} from '@react-navigation/native';
@@ -48,15 +46,15 @@ function Workordersummary() {
        <ScrollView>
 
           <View style={[AppStyles.flexDir, AppStyles.mt20]}>
-          <View style={[AppStyles.ml24, AppStyles.flexpointeight]}>
+          <View style={[AppStyles.ml24, AppStyles.flexpointnine]}>
           <Text style={[AppStyles.txtBlackRegular, AppStyles.f15]}>JYD/N/21/019</Text>
           <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f13]}>Vijaynanda Krafts pvt ltd</Text>
           </View>
-          {/* <View style={[AppStyles.flexpointtwo, AppStyles.ml30,]}>
+          <View style={[AppStyles.flexpointone, AppStyles.mr10]}>
           <TouchableOpacity onPress={() => { delView() }}>
           <FAIcon size={18} name="trash" />
           </TouchableOpacity>
-          </View> */}
+          </View>
           </View>
 
          <View style={[AppStyles.flexDir, AppStyles.mt20]}>

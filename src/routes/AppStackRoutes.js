@@ -59,6 +59,7 @@ import RecyclerInventory from "../containers/Recycler/Inventory";
 import RecyclerWorkOrderList from "../containers/Recycler/NewWorkOrderList";
 
 import Workordersummary from "../containers/Aggregator/Workordersummary";
+import WorkOrderDetail from "../containers/Aggregator/WorkOrderDetail";
 import CompletedOrder from "../containers/Aggregator/CompletedOrder";
 import RejectOrder from "../containers/Aggregator/RejectOrder";
 import ProposeTime from "../containers/Aggregator/ProposeTime";
@@ -545,6 +546,12 @@ const AppStack = (props) => {
           <Stack.Screen
             name={NavigationRouteNames.PROPOSE_TIME}
             component={ProposeTime}
+            options={CommonHeaderStyle}
+          />
+           {/* Work Order Detail Screen */}
+           <Stack.Screen
+            name={NavigationRouteNames.WORK_ORDERDETAIL}
+            component={WorkOrderDetail}
             options={CommonHeaderStyle}
           />
         </>;

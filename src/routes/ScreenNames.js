@@ -101,7 +101,8 @@ const NavigationRouteNames = {
   AGGREGATOR_WORK_ORDER_LIST: 'AggregatorWorkOrderList',
   REJECT_ORDER: "RejectOrder",
   PROPOSE_TIME: "ProposeTime",
-  ADD_USER: 'AddUser'
+  ADD_USER: 'AddUser',
+  WORK_ORDERDETAIL: "WorkOrderDetail",
 };
 
 export default NavigationRouteNames;
