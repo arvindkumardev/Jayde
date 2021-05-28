@@ -166,7 +166,7 @@ function NewWorkOrder() {
 
     console.log(data)
     if (data.status) {
-
+      alert(data.message)
     } else {
       alert(data.message)
     }

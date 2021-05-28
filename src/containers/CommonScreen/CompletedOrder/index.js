@@ -122,7 +122,7 @@ function CompletedOrder() {
               //   setRememberMe((rememberMe) => !rememberMe)
               // }
               />
-              <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f9, AppStyles.mr10]}>ghg</Text>
+              <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f9, AppStyles.mr10]}></Text>
             </View>
           </View>
         </View>
