@@ -4,7 +4,7 @@ import Styles from "./styles";
 import NavigationRouteNames from '../../../routes/ScreenNames';
 import { useNavigation } from '@react-navigation/core';
 import { useRoute } from '@react-navigation/native';
-import { AppStyles } from '../../../theme';
+import { AppStyles, Colors } from '../../../theme';
 import UserContext from '../../../appContainer/context/user.context';
 import FooterLoader from "../../../appContainer/footerLoader";
 import EmptyView from '../../../appContainer/EmptyView'
@@ -44,7 +44,7 @@ function RecyclerWorkOrderList() {
   const [{ data, loading, error }, onWorkOrder] = getWorkOrderList(offset);
 
   const screenNavigate = () => {
-    navigation.navigate(NavigationRouteNames.PAYMENT_VERIFICATION);
+   // navigation.navigate(NavigationRouteNames.PAYMENT_VERIFICATION);
   }
 
   useLayoutEffect(() => {
@@ -133,13 +133,17 @@ function RecyclerWorkOrderList() {
             </View>
             <View style={[AppStyles.flexpointsix, AppStyles.ml16]}>
               <Text style={[AppStyles.txtBlackRegular, AppStyles.f17,]}>{item.order_no}</Text>
-              <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f15,]}>{item.qty} {item.unit_name} {item.category_name}</Text>
+              <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f15,]}>{item.work_qty} {item.unit_name} {item.category_name}</Text>
               <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f11,]}>{moment(item.pickup_date).format('DD-MMM-YY')}</Text>
+              <View style={[AppStyles.flexRowAlignCenter, AppStyles.mr20]}>
+                <FAIcon size={12} name='rupee' color= {Colors.warmGrey}></FAIcon>
+                <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f15, AppStyles.ml5]}>{item.work_price}</Text>
+              </View>
             </View>
-            <View style={[AppStyles.flexpointtwo,]}>
+            <View style={[AppStyles.flexpointtwo, AppStyles.alignCenter, AppStyles.justifyCon]}>
               <View style={[AppStyles.flexRowAlignCenter, AppStyles.mr20]}>
                 <FAIcon size={14} name='rupee'></FAIcon>
-                <Text style={[AppStyles.txtBlackRegular, AppStyles.f15, AppStyles.ml5]}>{item.price}</Text>
+                <Text style={[AppStyles.txtBlackRegular, AppStyles.f15, AppStyles.ml5]}>{item.work_sub_total}</Text>
               </View>
             </View>
           </View>
