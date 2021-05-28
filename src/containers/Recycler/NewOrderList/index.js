@@ -9,7 +9,7 @@ import UserContext from '../../../appContainer/context/user.context';
 import FooterLoader from "../../../appContainer/footerLoader";
 import EmptyView from '../../../appContainer/EmptyView'
 
-import { getWorkOrderList } from '../Middelware';
+import { getWorkOrder } from '../Middelware';
 import moment from 'moment';
 
 //Image
@@ -26,7 +26,7 @@ const ORDER_IMAGE = {
   'Mix Waste': MixWasterImg,
 };
 
-function RecyclerWorkOrderList() {
+function RecyclerNewOrderList() {
   const navigation = useNavigation();
   const route = useRoute();
 
@@ -41,10 +41,10 @@ function RecyclerWorkOrderList() {
 
   const [refreshPage, setRefreshPage] = useState(false)
 
-  const [{ data, loading, error }, onWorkOrder] = getWorkOrderList(offset);
+  const [{ data, loading, error }, onMyOrder] = getWorkOrder(offset);
 
-  const screenNavigate = () => {
-    navigation.navigate(NavigationRouteNames.PAYMENT_VERIFICATION);
+  const screenNavigate = (item) => {
+    navigation.navigate(NavigationRouteNames.ORDER_CONFIRMATION, { Item: item });
   }
 
   useLayoutEffect(() => {
@@ -62,14 +62,12 @@ function RecyclerWorkOrderList() {
   }
   const workOrder = async () => {
     try {
-      const { data } = await onWorkOrder({ data: {} });
+      const { data } = await onMyOrder({ data: {} });
+      console.log(data)
       setLoader(false)
-      console.log("Response :", data.data[0])
       setPerPage(data.data[0].links.per_page)
       setTotalCount(data.data[0].links.total_count)
       setOrderList(data.data[0].newOrders)
-
-      //setOffset(offset + data.data[0].links.per_page);                     
     }
     catch (e) {
       console.log("Response error", e);
@@ -78,11 +76,10 @@ function RecyclerWorkOrderList() {
 
   const workOrderLoadMore = async () => {
     try {
-      const { data } = await onWorkOrder({ data: {} });
+      const { data } = await onMyOrder({ data: {} });
       let listData = workOrderList;
       let data1 = listData.concat(data.data[0].newOrders);
       setLoadMore(false);
-      //setOrderList( workOrderList =>  [...workOrderList, data.data[0].orderDetails])
       setOrderList([...data1]);
     }
     catch (e) {
@@ -117,26 +114,24 @@ function RecyclerWorkOrderList() {
 
     setLoadMore(true);
     setOffset(offset + perPage);
-
   }
 
   const _RenderItem = (index, item) => {
     return (
       <TouchableOpacity
         key={index}
-        onPress={() => screenNavigate()}>
+        onPress={() => screenNavigate(item)}>
         <View>
-
           <View style={[AppStyles.flexDir, AppStyles.mt20]}>
             <View style={[AppStyles.flexpointtwo, AppStyles.ml14]}>
               <Image source={ORDER_IMAGE[item.category_name]} />
             </View>
-            <View style={[AppStyles.flexpointsix, AppStyles.ml16]}>
+            <View style={[AppStyles.flexpointfive, AppStyles.ml16]}>
               <Text style={[AppStyles.txtBlackRegular, AppStyles.f17,]}>{item.order_no}</Text>
               <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f15,]}>{item.qty} {item.unit_name} {item.category_name}</Text>
               <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f11,]}>{moment(item.pickup_date).format('DD-MMM-YY')}</Text>
             </View>
-            <View style={[AppStyles.flexpointtwo,]}>
+            <View style={[AppStyles.flexpointthree,]}>
               <View style={[AppStyles.flexRowAlignCenter, AppStyles.mr20]}>
                 <FAIcon size={14} name='rupee'></FAIcon>
                 <Text style={[AppStyles.txtBlackRegular, AppStyles.f15, AppStyles.ml5]}>{item.price}</Text>
@@ -147,7 +142,6 @@ function RecyclerWorkOrderList() {
       </TouchableOpacity>
     )
   }
-
 
   return (
     <View style={Styles.mainView}>
@@ -168,9 +162,9 @@ function RecyclerWorkOrderList() {
         }}
       />
         :
-        !loading && <EmptyView onBack = {() => navigation.pop()}></EmptyView>
+        !loading && <EmptyView onBack={() => navigation.pop()}></EmptyView>
       }
     </View>
   );
 }
-export default RecyclerWorkOrderList;
+export default RecyclerNewOrderList;

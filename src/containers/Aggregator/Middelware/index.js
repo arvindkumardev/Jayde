@@ -1,7 +1,7 @@
 import useAxios from 'axios-hooks';
 import {
   AGGREGATOR_NEWORDER, AGGREGATOR_SWO_TO_AGGREGATOR, AGGREGATOR_SWO_TO_RECYCLER, AGGREGATOR_WORK_ORDER_LIST,
-  AGGREGATOR_SCHEDULE_ORDER_LIST, AGGREGATOR_COMPLETED_ORDER_LIST, AGGREGATOR_REJECTORDER, CONFIRM_SCHEDULE,
+  AGGREGATOR_SCHEDULE_ORDER_LIST, AGGREGATOR_COMPLETED_ORDER_LIST,
   CONFIRM_WEIGHT, PROPOSE_WEIGHT, CONFIRM_PAYMENT, CONFIRM_PICKUP, CONFIRM_RECEIPT, AGGREGATOR_SCHEDULE_ORDER_DETAIL,
   AGGREGATOR_ADD_RECEIPT_DATA
 } from '../../../utils/urls';
@@ -62,27 +62,6 @@ const createWorkOrder = (status) => {
   );
 };
 
-const aggreRejectorder = () => {
-  return useAxios(
-    {
-      url: AGGREGATOR_REJECTORDER,
-      method: 'POST',
-      headers: { 'content-type': 'application/json' },
-    },
-    { manual: true }
-  );
-};
-
-const confirmSchedule = () => {
-  return useAxios(
-    {
-      url: CONFIRM_SCHEDULE,
-      method: 'POST',
-      headers: { 'content-type': 'application/json' },
-    },
-    { manual: true }
-  );
-};
 
 
 const weightConfirm = () => {
@@ -164,6 +143,6 @@ const addReceiptQuantity = () => {
 
 export {
   aggregatorNewOrder, createWorkOrder, getWorkOrderList, aggregatorGetCompletedOrder,
-  aggregatorGetScheduleOrder, aggreRejectorder, confirmSchedule, 
+  aggregatorGetScheduleOrder,
   weightConfirm, weightPropose, paymentConfirm, pickupConfirm, receiptConfirm, scheduleOrderDetail, addReceiptQuantity
 };

@@ -6,7 +6,7 @@ import { useNavigation } from '@react-navigation/core';
 import { useRoute } from '@react-navigation/native';
 import { AppStyles, Colors } from '../../../theme';
 import { CheckBoxWrapper } from '../../../components';
-import { aggregatorGetCompletedOrder } from '../Middelware';
+import { getCompletedOrder } from '../Middelware';
 import UserContext from '../../../appContainer/context/user.context';
 import moment from 'moment';
 import FooterLoader from "../../../appContainer/footerLoader";
@@ -30,7 +30,7 @@ const ORDER_IMAGE = {
 function CompletedOrder() {
   const navigation = useNavigation();
   const route = useRoute();
-  const { setLoader } = useContext(UserContext);
+  const { setLoader,userRole } = useContext(UserContext);
 
   const [orderList, setOrderList] = useState([]);
   const [offset, setOffset] = useState(0);
@@ -39,7 +39,7 @@ function CompletedOrder() {
   const [totalCount, setTotalCount] = useState(15)
   const [perPage, setPerPage] = useState(15)
 
-  const [{ data, loading, error }, onGetOrder] = aggregatorGetCompletedOrder(offset);
+  const [{ data, loading, error }, onGetOrder] = getCompletedOrder(offset, userRole);
 
 
   useLayoutEffect(() => {
