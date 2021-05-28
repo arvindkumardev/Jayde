@@ -83,7 +83,7 @@ const DRAWER_MENU = {
       name: 'Download Report',
       color: Colors.mango,
       iconName: 'download',
-      screenName: NavigationRouteNames.DOWNLOAD_REPORT
+      screenName: '',
     },
     {
       name: 'Manage Orders',
@@ -317,13 +317,13 @@ const USERS_ROLE_MENU = {
       color: Colors.mango,
       screenName:  NavigationRouteNames.ADMIN_NEW_ORDER_LIST,
     },
-    {
-      menuName: "Schedule Order",
-      menu1image: require("../assets/Images/Dashboard/Group_9551.png"),
-      iconName: 'pencil',
-      color: Colors.mango,
-      screenName: "",
-    }
+    // {
+    //   menuName: "Schedule Order",
+    //   menu1image: require("../assets/Images/Dashboard/Group_9551.png"),
+    //   iconName: 'pencil',
+    //   color: Colors.mango,
+    //   screenName: "",
+    // }
   ],
   aggregate: [
     {
