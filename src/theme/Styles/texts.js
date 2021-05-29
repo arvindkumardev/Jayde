@@ -83,6 +83,9 @@ const texts = StyleSheet.create({
   f30: {
     fontSize: 30,
   },
+  f34: {
+    fontSize: 34,
+  },
   f35: {
     fontSize: 35,
   },

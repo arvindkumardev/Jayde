@@ -19,6 +19,8 @@ import PaperImg from  './../../assets/Images/NewOrderList/Group_10089.png'
 import PlasticImg from './../../assets/Images/NewOrderList/Group_10090.png'
 import MixWasterImg from './../../assets/Images/NewOrderList/Group_10088.png'
 
+import BagImg from '../../assets/Images/Dashboard/Mask.png'
+
 
 const ORDER_IMAGE = {
   'E-Waste':EWasteImg,
@@ -83,15 +85,15 @@ function HomeScreen() {
         <View style={Styles.dataImage}>
         <Image source={ORDER_IMAGE[item.category_name]}  /> 
         </View>
-        <View style={[Styles.dataItemContent, AppStyles.ml10]}>
+        <View style={[Styles.dataItemContent, AppStyles.ml15]}>
           <Text style={[AppStyles.txtBlackRegular, AppStyles.f17]}>{item.order_no}</Text>
-          <Text style={[AppStyles.txtBlackRegular, AppStyles.f15]}>{item.qty} {item.unit_name} {item.category_name}</Text>
-          <Text style={[AppStyles.txtBlackRegular, AppStyles.f12]}>{formatDisplayDate(item.pickup_date)}</Text>
+          <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f15]}>{item.qty} {item.unit_name} {item.category_name}</Text>
+          <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f11]}>{formatDisplayDate(item.pickup_date)}</Text>
         </View>
         <View style={Styles.statusIcon}>
           <FAIcon name={STATUS_ICON[item.is_confirmed === '3' ? 'Pending' : item.is_confirmed === '4' ? 'Completed' : 'In Transit'].iconName} 
-          color={STATUS_ICON[item.is_confirmed === '3' ? 'Pending' : item.is_confirmed === '4' ? 'Completed' : 'In Transit'].color} size={20} />
-          <Text style={[AppStyles.txtBlackRegular]}>{item.status}</Text>
+          color={STATUS_ICON[item.is_confirmed === '3' ? 'Pending' : item.is_confirmed === '4' ? 'Completed' : 'In Transit'].color} size={18} />
+          <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f11, {color: item.is_confirmed === '3' ? '#707070' : item.is_confirmed === '4' ? '#abc270' : '#707070'}]}>{item.is_confirmed === '3' ? 'Pending' : item.is_confirmed === '4' ? 'Completed' : 'In Transit'}</Text>
         </View>
       </TouchableOpacity>
     );
@@ -99,16 +101,18 @@ function HomeScreen() {
 
   const _renderMenu = (index, item) => {
     return (
-      <View key={index} style={[Styles.menuContainer, { backgroundColor: item.color }]}>
+      <View key={index} style={[Styles.menuContainer, { backgroundColor: index == 0 ? '#f8a230' : index == 1 ? '#fec868' : '#abc270', }]}>
         <View>
           <TouchableOpacity style={Styles.menuEllipseContainer}>
-            <FAIcon name="ellipsis-v" color={Colors.white} size={30} />
+            <FAIcon name="ellipsis-v" color={Colors.white} size={25} />
           </TouchableOpacity>
         </View>
         <TouchableOpacity onPress={() => handleNavigate(item.screenName)} style={Styles.menuActionItem}>
-          <MCIcon name={item.iconName} color={Colors.white} size={20} style={{ alignSelf: 'flex-end' }} />
-          <View>
-            <Text style={[AppStyles.txtWhiteBold, AppStyles.f16]}>{item.menuName}</Text>
+          <View style={[AppStyles.mr20, AppStyles.mb10, AppStyles.alignfend]}>
+          <MCIcon name={item.iconName} color={Colors.white} size={30} />
+          </View>
+          <View style={[AppStyles.aligncen, AppStyles.mb20]}>
+            <Text style={[AppStyles.txtWhiteBold, AppStyles.f17, AppStyles.textalig]}>{item.menuName}</Text>
           </View>
         </TouchableOpacity>
       </View>
@@ -118,18 +122,13 @@ function HomeScreen() {
   return (
     <ScrollView style={{ backgroundColor: Colors.white }}>
       <View style={AppStyles.flexRowSpaceBetween}>
-        <View style={[AppStyles.mt30, AppStyles.ml30]}>
-          <Text style={[AppStyles.txtBlackBold, AppStyles.f18]}>{getGreeting()}</Text>
-          <Text style={[AppStyles.txtBlackBold, AppStyles.f35]}>{name}</Text>
+        <View style={[AppStyles.flexpointseven, AppStyles.mt40, AppStyles.ml24]}>
+          <Text style={[AppStyles.txtBlackBold, AppStyles.f20]}>{getGreeting()}</Text>
+          <Text style={[AppStyles.txtBlackBold, AppStyles.f34]}>{name}</Text>
         </View>
-        <View>
-          <View style={{ alignItems: 'flex-end', marginTop: 10, marginRight: 10 }}>
-            <Image
-              style={{ width: 125, height: 132 }}
-              source={require('../../assets/Images/Dashboard/Mask_Group_28.png')}
-            />
+          <View style={[AppStyles.flexpointthree, AppStyles.mr14]}>
+            <Image source={BagImg} />
           </View>
-        </View>
       </View>
 
       <FlatList
@@ -138,7 +137,7 @@ function HomeScreen() {
         showsHorizontalScrollIndicator={false}
         renderItem={({ index, item }) => _renderMenu(index, item)}
       />
-      <View style={[AppStyles.pl30, AppStyles.mt20]}>
+      <View style={[AppStyles.mt35, AppStyles.ml24]}>
         <Text style={[AppStyles.txtBlackBold, AppStyles.f20]}>Current Orders</Text>
       </View>
       
