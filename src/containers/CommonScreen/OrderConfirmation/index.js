@@ -28,7 +28,9 @@ function OrderConfirmation() {
   }
 
   const screenNavigate = () => {
-    navigation.navigate(NavigationRouteNames.PAYMENT_VERIFICATION, {assignedID: item.assigned_id});
+    navigation.navigate(NavigationRouteNames.PAYMENT_VERIFICATION, 
+    {assignedID: item.assigned_id, WhereFrom: NavigationRouteNames.ORDER_CONFIRMATION});
+    navigation.popToTop()
   }
 
   useLayoutEffect(() => {

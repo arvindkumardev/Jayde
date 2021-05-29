@@ -37,19 +37,15 @@ function HomeScreen() {
   const [homeOrder, setHomeOrder] = useState([]);
   const [{ data, loading, error }, onOrderList] = getOrderList(userRole);
 
-
   useEffect(() => {
     async function getUserName () {
         const username = await getSaveData (LOCAL_STORAGE_DATA_KEY.USER_NAME);       
         setName(username)
     }
     getUserName();
-  }, []);
- 
-  useEffect(()=>{
-    setLoader(loading)
+   // setLoader(loading)
     getHomeOrder();
-  },[]);
+  }, [userRole]);
 
   const getHomeOrder = async () => {
     try {
@@ -59,7 +55,7 @@ function HomeScreen() {
           } else{
             setHomeOrder(data.data[0].newOrders) 
           }
-          setLoader(loading)            
+          //setLoader(loading)            
         }
         catch(e){
             console.log("Response error", e);

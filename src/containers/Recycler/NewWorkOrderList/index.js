@@ -43,8 +43,8 @@ function RecyclerWorkOrderList() {
 
   const [{ data, loading, error }, onWorkOrder] = getWorkOrderList(offset);
 
-  const screenNavigate = () => {
-   // navigation.navigate(NavigationRouteNames.PAYMENT_VERIFICATION);
+  const screenNavigate = (item) => {
+   navigation.navigate(NavigationRouteNames.WORK_ORDER_VERIFICATION, {item});
   }
 
   useLayoutEffect(() => {
@@ -124,7 +124,7 @@ function RecyclerWorkOrderList() {
     return (
       <TouchableOpacity
         key={index}
-        onPress={() => screenNavigate()}>
+        onPress={() => screenNavigate(item)}>
         <View>
 
           <View style={[AppStyles.flexDir, AppStyles.mt20]}>
@@ -137,7 +137,7 @@ function RecyclerWorkOrderList() {
               <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f11,]}>{moment(item.pickup_date).format('DD-MMM-YY')}</Text>
               <View style={[AppStyles.flexRowAlignCenter, AppStyles.mr20]}>
                 <FAIcon size={12} name='rupee' color= {Colors.warmGrey}></FAIcon>
-                <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f15, AppStyles.ml5]}>{item.work_price}</Text>
+                <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f12, AppStyles.ml5]}>{item.work_price} / {item.price_unit}</Text>
               </View>
             </View>
             <View style={[AppStyles.flexpointtwo, AppStyles.alignCenter, AppStyles.justifyCon]}>

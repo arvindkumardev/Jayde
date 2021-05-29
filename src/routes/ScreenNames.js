@@ -57,6 +57,8 @@ const NavigationRouteNames = {
   USERS: "Users",
   PICKUP_ORDER: "PickUpOrder",
   PAYMENT_VERIFICATION: "PaymentVerification",
+  WORK_ORDER_VERIFICATION: "WorkOrderVerification",
+
   ORDER_DETAILS: "OrderDetails",
   WORKORDER_EMAIL: "WorkOrderEmail",
   CALLBACK_CONFIRMATION: "CallBackConfirmation",

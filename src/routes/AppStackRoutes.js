@@ -60,7 +60,7 @@ import RecyclerInventory from "../containers/Recycler/Inventory";
 import RecyclerNewOrderList from "../containers/Recycler/NewOrderList";
 import RecyclerScheduleOrderList from "../containers/Recycler/ScheduleOrderList";
 import RecyclerWorkOrderList from "../containers/Recycler/NewWorkOrderList";
-//import RecyclerCompletedOrder from "../containers/CommonScreen/CompletedOrder"
+import WorkOrderVerification from "../containers/CommonScreen/WorkOrderVerification"
 
 import Workordersummary from "../containers/Aggregator/Workordersummary";
 import WorkOrderDetail from "../containers/Aggregator/WorkOrderDetail";
@@ -681,6 +681,14 @@ const AppStack = (props) => {
             component={PaymentVerification}
             options={CommonHeaderStyle}
           />
+
+           {/* Order Screen number: 21*/}
+           <Stack.Screen
+            name={NavigationRouteNames.WORK_ORDER_VERIFICATION}
+            component={WorkOrderVerification}
+            options={CommonHeaderStyle}
+          />
+
           {/* Work Order Summary screen number: 42 */}
           <Stack.Screen
             name={NavigationRouteNames.WORKORDER_SUMMARY}

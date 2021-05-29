@@ -166,11 +166,15 @@ function NewWorkOrder() {
 
     console.log(data)
     if (data.status) {
+     // alert(data.message)
+     navigation.popToTop()     
+    } else {      
       alert(data.message)
-    } else {
-      alert(data.message)
+      //navigation.navigate(NavigationRouteNames.WAREHOUSEORDER_CONFIRMATION)
     }
   }
+
+  c
 
   const onChange = (event, selectedDate) => {
     setShow(false);

@@ -17,7 +17,10 @@ import { UploadDocument } from '../../../components/index';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { useFormik } from "formik";
 import * as yup from "yup";
-import { weightConfirm, weightPropose, paymentConfirm, pickupConfirm, receiptConfirm, scheduleOrderDetail } from '../Middelware';
+import {
+  weightConfirm, weightPropose, confirmPaymentWork, pickupConfirm,
+  receiptConfirm, scheduleOrderDetail
+} from '../Middelware';
 import UserContext from '../../../appContainer/context/user.context';
 import DropDown from '../../../components/Picker/index';
 
@@ -28,17 +31,16 @@ const paymentMode = [
   { label: 'DD', value: 'DD' },
 ]
 
-const PaymentVerification = () => {
+const WorkOrderVerification = () => {
   const navigation = useNavigation();
   const route = useRoute();
-  const { setLoader } = useContext(UserContext);
+  const { setLoader, userRole } = useContext(UserContext);
 
   const refPaymentMode = useRef(null);
   const refPaymentDetail = useRef(null);
 
   const [item, setItem] = useState({});
   const [isViewLoaded, setViewLoaded] = useState(false)
-  const [refreshPage, setRefreshPage] = useState(false)
 
   const [imageUpload, setImageUpload] = useState(false);
   const [imageUpload1, setImageUpload1] = useState(false);
@@ -73,22 +75,18 @@ const PaymentVerification = () => {
   const [toggleConfirmProposeWeight, setToggleConfirmProposeWeight] = useState(true)
 
   // ---------------------- Start Api Section ---------------------
-  const [{ data: confirmWeightData }, onWeightConfirm] = weightConfirm();
-  const [{ data: proposeWeightData }, onSubmitProposeWeight] = weightPropose();
-  const [{ data: paymentConfirmData }, onSubmitPaymentConfirm] = paymentConfirm();
-  const [{ data: pickupConfirmData }, onSubmitPickupConfirm] = pickupConfirm();
-  const [{ data: receiptConfirmData }, onSubmitReceiptConfirm] = receiptConfirm();
-  const [{ data: scheduleData, loading, error }, onScheduleOrderDetail] = scheduleOrderDetail();
+  const [{ data: confirmWeightData }, onWeightConfirm] = weightConfirm(userRole);
+  const [{ data: proposeWeightData }, onSubmitProposeWeight] = weightPropose(userRole);
+  const [{ data: paymentConfirmData }, onSubmitPaymentConfirm] = confirmPaymentWork(userRole);
+  const [{ data: pickupConfirmData }, onSubmitPickupConfirm] = pickupConfirm(userRole);
+  const [{ data: receiptConfirmData }, onSubmitReceiptConfirm] = receiptConfirm(userRole);
+  const [{ data: scheduleData, loading, error }, onScheduleOrderDetail] = scheduleOrderDetail(userRole);
 
   // ---------------------- End Api Section ---------------------
 
-  const handelRefresh = () => {
-    // navigation.popToTop();
-    // navigation.navigate(NavigationRouteNames.AGGREGATOR_SCHEDULE_ORDER_LIST)
-    //setRefreshPage(true)
-    if(route.params.WhereFrom === NavigationRouteNames.AGGREGATOR_SCHEDULE_ORDER_LIST){
-      route.params.getActionType()
-    }
+  const handelNavigate = () => {
+    navigation.popToTop()
+    navigation.navigate(NavigationRouteNames.RECYCLER_WORK_ORDER_LIST);
   }
 
   const handleConfirmWeight = async (kantaSlipNo) => {
@@ -107,7 +105,7 @@ const PaymentVerification = () => {
 
     console.log(data)
     if (data.status) {
-      handelRefresh()
+      handelNavigate()
     } else {
       alert(data.message)
     }
@@ -132,7 +130,7 @@ const PaymentVerification = () => {
 
     console.log(data)
     if (data.status) {
-      handelRefresh()
+      handelNavigate()
     } else {
       alert(data.message)
     }
@@ -148,18 +146,18 @@ const PaymentVerification = () => {
     setLoader(true)
 
     const { data } = await onSubmitPaymentConfirm({
-      data: {
-        assignedId: item.assigned_id,
-        paymentRequired: item.price,
-        paymentMade: paymentmade,
-        paymentMode: paymentmode,
-        paymentDetails: paymentdetails,
+      data: {      
+        "workId": item.work_id,
+        "paymentRequired": item.work_sub_total,
+        "paymentMade": paymentmade,
+        "paymentMode": paymentmode,
+        "paymentDetails": paymentdetails
       },
     });
 
     console.log(data)
     if (data.status) {
-      handelRefresh()
+      handelNavigate()
     } else {
       alert(data.message)
     }
@@ -175,7 +173,7 @@ const PaymentVerification = () => {
     });
     console.log(data)
     if (data.status) {
-      handelRefresh()
+      handelNavigate()
     } else {
       alert(data.message)
     }
@@ -381,14 +379,12 @@ const PaymentVerification = () => {
   }
 
   useEffect(() => {
-    setLoader(true)
-    getScheduleDetails()
+    //setLoader(true)
+    const { item } = route.params
+    setItem(item)
+    setViewLoaded(true)
+    //getScheduleDetails()   
   }, [])
-
-  useEffect(() => {
-    setLoader(true)
-    getScheduleDetails()
-  }, [confirmWeightData, proposeWeightData, paymentConfirmData, pickupConfirmData, receiptConfirmData])
 
   const confirmWeightImageData = (data) => {
     if (data) {
@@ -417,7 +413,7 @@ const PaymentVerification = () => {
   return (
     isViewLoaded && <KeyboardAwareScrollView style={[AppStyles.topView, AppStyles.ph20]}>
       <View style={AppStyles.aligncen}>
-        <Text style={[AppStyles.txtBlackBold, AppStyles.f17, AppStyles.mt30,]}>Ref No- {item.order_no}</Text>
+        <Text style={[AppStyles.txtBlackBold, AppStyles.f17, AppStyles.mt30,]}>Ref No- {item.work_aggregator_id}</Text>
       </View>
       <View style={AppStyles.boxView}>
         <View style={[AppStyles.flexDir, AppStyles.mt10,]}>
@@ -443,7 +439,7 @@ const PaymentVerification = () => {
             <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f15, AppStyles.mt10, AppStyles.ml20]}>Volume</Text>
           </View>
           <View style={[AppStyles.flexpointfour, AppStyles.alignfend]}>
-            <Text style={[AppStyles.txtBlackRegular, AppStyles.f15, AppStyles.mt10, AppStyles.mr20]}>{item.qty} {item.unit_name}</Text>
+            <Text style={[AppStyles.txtBlackRegular, AppStyles.f15, AppStyles.mt10, AppStyles.mr20]}>{item.work_qty} {item.unit_name}</Text>
           </View>
         </View>
 
@@ -458,10 +454,19 @@ const PaymentVerification = () => {
 
         <View style={AppStyles.flexDir}>
           <View style={AppStyles.flexpointsix}>
-            <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f15, AppStyles.mt10, AppStyles.ml20]}>Purchase amount</Text>
+            <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f15, AppStyles.mt10, AppStyles.ml20]}>Unit Price</Text>
           </View>
           <View style={[AppStyles.flexpointfour, AppStyles.alignfend]}>
-            <Text style={[AppStyles.txtBlackRegular, AppStyles.f15, AppStyles.mt10, AppStyles.mr20]}><FAIcon size={14} name="rupee" /> {item.price}</Text>
+            <Text style={[AppStyles.txtBlackRegular, AppStyles.f15, AppStyles.mt10, AppStyles.mr20]}><FAIcon size={14} name="rupee" /> {item.work_price}</Text>
+          </View>
+        </View>
+
+        <View style={AppStyles.flexDir}>
+          <View style={AppStyles.flexpointsix}>
+            <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f15, AppStyles.mt10, AppStyles.ml20]}>Total Price</Text>
+          </View>
+          <View style={[AppStyles.flexpointfour, AppStyles.alignfend]}>
+            <Text style={[AppStyles.txtBlackRegular, AppStyles.f15, AppStyles.mt10, AppStyles.mr20]}><FAIcon size={14} name="rupee" /> {item.work_sub_total}</Text>
           </View>
         </View>
       </View>
@@ -753,13 +758,13 @@ const PaymentVerification = () => {
         </View>
       </View>
 
-      {item.pickup_confirmed == '0' && isShowPickUpMainView && <View>
+      {item.paid_amount == null && item.is_seller_confirmed == 0 && <View>
         <View style={[AppStyles.mt20]}>
           <Text style={[AppStyles.txtBlackRegular, AppStyles.f15, AppStyles.mb6,]}>Payment Required</Text>
           <View style={{ flex: 1, flexDirection: 'row' }}>
             <TextInput placeholder={"25,864"}
               editable={false}
-              value={item.price}
+              value={item.work_sub_total}
               style={[Styles.inputTextf, Styles.Requiredprice]} />
             <FAIcon style={Styles.rupee} size={15} name="rupee" />
           </View>
@@ -782,7 +787,6 @@ const PaymentVerification = () => {
             style={{ backgroundColor: Colors.grayBackground, borderRadius: 10, paddingLeft: 10 }}
             maxLength={50}
             returnKeyType='next'
-            keyboardType='number-pad'
             onSubmitEditing={() => refPaymentDetail.current?.focus()}
           />
           {paymentClickConfirm && paymentRequestForm.errors.paymentmade ? (
@@ -809,9 +813,9 @@ const PaymentVerification = () => {
 
           <DropDown
             items={paymentMode}
-            placeholderText="Select Payment Mode"
+            placeholderText="Payment Mode"
             itemStyle={{ color: '#000' }}
-            onValueChange={(val) =>  paymentRequestForm.setFieldValue('paymentmode', val)}
+            onValueChange={(val) => paymentRequestForm.setFieldValue('paymentmode', val)}
             selectedValue={paymentRequestForm.values.paymentmode}
             containerStyle={{ borderRadius: 10, backgroundColor: Colors.grayBackground, paddingLeft: 10 }}
           />
@@ -896,7 +900,8 @@ const PaymentVerification = () => {
       </View>
       }
 
-      {item.is_seller_confirmed == '2' ? <View style={[AppStyles.alignCenter, AppStyles.justifyCon, AppStyles.pv10]}>
+
+      {item.paid_amount != null && item.is_seller_confirmed == 0 ? <View style={[AppStyles.alignCenter, AppStyles.justifyCon, AppStyles.pv10]}>
         <Text style={[AppStyles.txtBlackRegular, AppStyles.f16, AppStyles.txtmangoTwoBold]}>Payment Confirmation Sent</Text>
       </View>
         : item.pickup_confirmed == '2' && <View style={[AppStyles.alignCenter, AppStyles.justifyCon, AppStyles.pv10]}>
@@ -904,9 +909,7 @@ const PaymentVerification = () => {
         </View>
       }
 
-      {isShowPickUpConfirmButton && <TouchableOpacity
-        style={Styles.btnConfirmPickup}
-        onPress={() => handelPickupConfirm()}>
+      {isShowPickUpConfirmButton && <TouchableOpacity style={Styles.confirmButtonnabcd} onPress={() => handelPickupConfirm()}>
         <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f17, AppStyles.mt10,]}>Confirm Pickup</Text>
       </TouchableOpacity>}
 
@@ -1040,4 +1043,4 @@ const PaymentVerification = () => {
   );
 };
 
-export default PaymentVerification;
+export default WorkOrderVerification;
