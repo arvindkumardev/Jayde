@@ -8,7 +8,7 @@ const styles = StyleSheet.create({
     width: 310,
     height: 144,
     backgroundColor: '#ffffff',
-    borderRadius: 20,
+    borderRadius: 10,
     marginLeft: 24,
     marginTop: 25,
     marginRight: 24,
@@ -31,8 +31,12 @@ const styles = StyleSheet.create({
   lftimga: {
     width: 16,
     height: 16,
-    marginLeft: 24,
+    marginLeft: 16,
   },
+  mainView: {
+    flex: 1,
+    backgroundColor: '#fafafa',
+  }
 
 });
 export default styles;

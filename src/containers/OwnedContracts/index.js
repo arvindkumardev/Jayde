@@ -15,6 +15,7 @@ import FooterLoader from "../../appContainer/footerLoader";
 import completedImg from '../../assets/Images/OwnedContracts/Completed.png'
 import acceptedImg from '../../assets/Images/OwnedContracts/Accepted.png'
 import scheduledImg from '../../assets/Images/OwnedContracts/schedule.png'
+import recycleImg from '../../assets/Images/Users/noun_Recycle_3673532.png'
 
 function OwnedContracts() {
    const navigation = useNavigation();
@@ -159,7 +160,7 @@ function OwnedContracts() {
 
       <View style={[AppStyles.flexDir, AppStyles.mt14]}>
       <View style={[AppStyles.flexpointone]}>
-      <Image style={Styles.lftimga} source={require('../../assets/Images/Users/noun_Recycle_3673532.png')}  /> 
+      <Image style={Styles.lftimga} source={recycleImg}  /> 
       </View>
       <View style={[AppStyles.flexpointnine]}>
       <Text style={[AppStyles.ml10, AppStyles.txtSecandaryRegular, AppStyles.f13]}>{item.qty} {item.unit_name}</Text>

@@ -29,6 +29,10 @@ const DrawerSideBar = (props) => {
         }     
         getUserName();
     }, []);
+
+    const viewProfile = () => {
+        navigation.navigate(NavigationRouteNames.UPDATE_PROFILE);
+      }
      
 
     const handleUserLogout = async () => {
@@ -66,7 +70,7 @@ const DrawerSideBar = (props) => {
                 </View>
                 <View>
                     <Text style={[AppStyles.txtBlackBold, AppStyles.f18]}>{name}</Text>
-                    <TouchableOpacity onPress={() => { }}>
+                    <TouchableOpacity onPress={() => {viewProfile() }}>
                         <Text style={AppStyles.txtSecandaryRegular}>View Profile</Text>
                     </TouchableOpacity>
                 </View>
