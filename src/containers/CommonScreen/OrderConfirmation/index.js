@@ -7,12 +7,17 @@ import { useRoute } from '@react-navigation/native';
 import { AppStyles } from '../../../theme';
 import moment from 'moment';
 import FAIcon from 'react-native-vector-icons/FontAwesome';
+import { confirmSchedule } from '../Middelware';
+import UserContext from '../../../appContainer/context/user.context';
 
 function OrderConfirmation() {
 
   const navigation = useNavigation();
   const route = useRoute();
   const [item, setItem] = useState({});
+  const { setLoader, userRole } = useContext(UserContext);
+
+  const [{ data: confirmData, loading, error }, onConfirmSchedule] = confirmSchedule(userRole);
 
   const rejectOrder = () => {
     navigation.navigate(NavigationRouteNames.REJECT_ORDER, { Item: item });
@@ -32,6 +37,29 @@ function OrderConfirmation() {
     const title = 'New Order';
     navigation.setOptions({ title });
   }, []);
+
+  useEffect(() => {
+    return () => {
+      setLoader(false)
+    }
+  }, [])
+
+  useEffect(() => {
+    setLoader(loading)
+  }, [confirmData, loading])
+
+  const confirmOrder = async () => {  
+    try {     
+      const { data } = await onConfirmSchedule({ data: { 'assignedId': item.assigned_id } });
+      if (data.status) {
+        screenNavigate()
+      } else {
+        alert(data.message)
+      }     
+    } catch (e) {
+      console.log("Response error", e);
+    }
+    }
 
   return (
     <View style={Styles.topView}>
@@ -99,7 +127,7 @@ function OrderConfirmation() {
 
         <View style={Styles.btnContainer}>
           <TouchableOpacity
-            style={Styles.confirmbtn} onPress={() => screenNavigate(item)}>
+            style={Styles.confirmbtn} onPress={() => confirmOrder()}>
             <Text style={[AppStyles.txtWhiteRegular, AppStyles.f17, AppStyles.textalig, AppStyles.mt10]}>CONFIRM SCHEDULE</Text>
           </TouchableOpacity>
           <TouchableOpacity

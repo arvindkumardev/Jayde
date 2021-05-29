@@ -2,9 +2,9 @@ import useAxios from 'axios-hooks';
 import {
   RECYCLER_COMPLETED_ORDER_LIST, RECYCLER_CONFIRM_WEIGHT, RECYCLER_PROPOSE_WEIGHT, RECYCLER_CONFIRM_PAYMENT,
   RECYCLER_CONFIRM_PICKUP, RECYCLER_CONFIRM_RECEIPT, RECYCLER_SCHEDULE_ORDER_DETAIL, RECYCLER_ADD_RECEIPT_DATA,
-  AGGREGATOR_COMPLETED_ORDER_LIST,
+  AGGREGATOR_COMPLETED_ORDER_LIST, AGGREGATORS_CONFIRM_SCHEDULE, RECYCLER_CONFIRM_SCHEDULE, 
   AGGREGATOR_SWO_TO_AGGREGATOR, AGGREGATOR_SWO_TO_RECYCLER,
-  AGGREGATOR_REJECTORDER, CONFIRM_SCHEDULE, RECYCLER_CONFIRM_SCHEDULE, RECYCLER_REJECT_ORDER,
+  AGGREGATOR_REJECTORDER, CONFIRM_SCHEDULE, RECYCLER_CONFIRM_RESCHEDULE, RECYCLER_REJECT_ORDER,
   CONFIRM_WEIGHT, PROPOSE_WEIGHT, CONFIRM_PAYMENT, CONFIRM_PICKUP, CONFIRM_RECEIPT, AGGREGATOR_SCHEDULE_ORDER_DETAIL,
   AGGREGATOR_ADD_RECEIPT_DATA
 } from '../../../utils/urls';
@@ -33,10 +33,10 @@ const rejectOrder = (userRole) => {
   );
 };
 
-const confirmSchedule = (userRole) => {
+const confirmReschedule = (userRole) => {
   return useAxios(
     {
-      url: userRole === 'recycler' ? RECYCLER_CONFIRM_SCHEDULE : CONFIRM_SCHEDULE,
+      url: userRole === 'recycler' ? RECYCLER_CONFIRM_RESCHEDULE : CONFIRM_SCHEDULE,
       method: 'POST',
       headers: { 'content-type': 'application/json' },
     },
@@ -125,7 +125,7 @@ const addReceiptQuantity = () => {
 const createWorkOrder = (status) => {
   return useAxios(
     {
-      url: status == 1 ? AGGREGATOR_SWO_TO_AGGREGATOR : AGGREGATOR_SWO_TO_RECYCLER,
+      url: status == 1 ? AGGREGATOR_SWO_TO_AGGREGATOR : AGGREGATORS_CONFIRM_ORDER,
       method: 'POST',
       headers: { 'content-type': 'application/json' },
     },
@@ -133,9 +133,19 @@ const createWorkOrder = (status) => {
   );
 };
 
+const confirmSchedule = (userRole) => {
+  return useAxios(
+    {
+      url: userRole === 'recycler' ? RECYCLER_CONFIRM_SCHEDULE : AGGREGATORS_CONFIRM_SCHEDULE,
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+    },
+    { manual: true }
+  );
+};
 
 export {
-  createWorkOrder, rejectOrder, confirmSchedule, getCompletedOrder,
+  createWorkOrder, rejectOrder, confirmReschedule, getCompletedOrder,
   weightConfirm, weightPropose, paymentConfirm, pickupConfirm, receiptConfirm,
-   scheduleOrderDetail, addReceiptQuantity
+   scheduleOrderDetail, addReceiptQuantity, confirmSchedule,
 };

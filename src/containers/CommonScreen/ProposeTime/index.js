@@ -8,7 +8,7 @@ import { AppStyles, Colors } from '../../../theme';
 import moment from 'moment';
 import FAIcon from 'react-native-vector-icons/FontAwesome';
 import DateTimePicker from '@react-native-community/datetimepicker';
-import { confirmSchedule } from '../Middelware';
+import { confirmReschedule } from '../Middelware';
 import UserContext from '../../../appContainer/context/user.context';
 
 function ProposeTime() {
@@ -27,7 +27,7 @@ function ProposeTime() {
   const [mode, setMode] = useState('date');
   const [show, setShow] = useState(false);
 
-  const [{ data, loading, error }, onConfirmSchedule] = confirmSchedule(userRole);
+  const [{ data, loading, error }, onConfirmSchedule] = confirmReschedule(userRole);
 
   const handleConfirm = async () => {
     setLoader(true)
