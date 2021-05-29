@@ -83,8 +83,8 @@ const CallRequest = () => {
       "scheduleDate": timeSlotIndex > 1 ? getAfterDay_Formatted() : getDayAfter_Formatted(),
       "scheduleTime": timeSlotIndex == 0 ? '11:00 AM 1:00 PM'
         : timeSlotIndex == 1 ? '3:00 PM 5:00 PM'
-        : timeSlotIndex == 2 ? '11:00 AM 1:00 PM'
-        : '3:00 PM 5:00 PM'
+          : timeSlotIndex == 2 ? '11:00 AM 1:00 PM'
+            : '3:00 PM 5:00 PM'
     }
     console.log(param)
 
@@ -143,6 +143,9 @@ const CallRequest = () => {
       }
     }
     getUserName();
+    return () => {
+      setLoader(false)
+    }
   }, []);
 
   return (
@@ -200,7 +203,9 @@ const CallRequest = () => {
         </View>
         <View>
           <Text style={[AppStyles.txtBlackRegular, AppStyles.f16, AppStyles.mb10]}>Upload File</Text>
-          <TouchableOpacity style={[Styles.inputText, Styles.inputIcon, AppStyles.br10]} onPress={() => setImageUpload(!imageUpload)}>
+          <TouchableOpacity
+            activeOpacity={0.8}
+            style={[Styles.inputText, Styles.inputIcon, AppStyles.br10]} onPress={() => setImageUpload(!imageUpload)}>
             <Text style={[AppStyles.txtSecandaryRegular, { color: imgData.length > 0 ? Colors.green : Colors.warmGrey }]}>{imgData.length > 0 ? 'File Attached' : 'Attach File'}</Text>
             <MIcon name="attachment" size={25} color={Colors.grayThree} />
           </TouchableOpacity>
@@ -223,24 +228,28 @@ const CallRequest = () => {
       <View style={[AppStyles.mv20]}>
         <Text style={[AppStyles.txtBlackRegular, AppStyles.f16]}>Preferred time slot</Text>
         <TouchableOpacity
+          activeOpacity={0.8}
           onPress={() => setTimeSlotIndex(0)}
           style={[AppStyles.pv15, AppStyles.ph20, AppStyles.flexRowSpaceBetween, timeSlotIndex == 0 && Styles.active]}>
           <Text style={AppStyles.txtBlackRegular}>{getDayAfter()}</Text>
           <Text style={AppStyles.txtBlackRegular}>11:00 AM - 1:00 PM</Text>
         </TouchableOpacity>
         <TouchableOpacity
+          activeOpacity={0.8}
           onPress={() => setTimeSlotIndex(1)}
           style={[AppStyles.pv15, AppStyles.ph20, AppStyles.flexRowSpaceBetween, timeSlotIndex == 1 && Styles.active]}>
           <Text style={AppStyles.txtBlackRegular}>{getDayAfter()}</Text>
           <Text style={AppStyles.txtBlackRegular}>3:00 PM - 5:00 PM</Text>
         </TouchableOpacity>
         <TouchableOpacity
+          activeOpacity={0.8}
           onPress={() => setTimeSlotIndex(2)}
           style={[AppStyles.pv15, AppStyles.ph20, AppStyles.flexRowSpaceBetween, timeSlotIndex == 2 && Styles.active]}>
           <Text style={AppStyles.txtBlackRegular}>{getAfterDay()}</Text>
           <Text style={AppStyles.txtBlackRegular}>11:00 AM - 1:00 PM</Text>
         </TouchableOpacity>
         <TouchableOpacity
+          activeOpacity={0.8}
           onPress={() => setTimeSlotIndex(3)}
           style={[AppStyles.pv15, AppStyles.ph20, AppStyles.flexRowSpaceBetween, timeSlotIndex == 3 && Styles.active]}>
           <Text style={AppStyles.txtBlackRegular}>{getAfterDay()}</Text>
@@ -249,6 +258,7 @@ const CallRequest = () => {
       </View>
 
       <TouchableOpacity
+        activeOpacity={0.8}
         style={[AppStyles.mt20, AppStyles.br10, AppStyles.btnPrimary, AppStyles.pv10, AppStyles.alignCenter, AppStyles.mb20]}
         onPress={() => { handleConfirm() }}>
         <Text style={[AppStyles.f18, AppStyles.txtWhiteRegular]}>CONFIRM</Text>

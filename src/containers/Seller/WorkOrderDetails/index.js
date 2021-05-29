@@ -23,13 +23,10 @@ function WorkOrderDetails() {
   return (
     <View style={Styles.topView}>
       <ScrollView>
-
-
         <View style={AppStyles.aligncen}>
           <Text style={[AppStyles.txtBlackBold, AppStyles.f17, AppStyles.mt30,]}>Ref No- JYD/SC/2020/0067</Text>
         </View>
         <View style={Styles.boxView}>
-
           <View style={[AppStyles.flexDir, AppStyles.mt20,]}>
             <View style={AppStyles.flexpointsix}>
               <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f15, AppStyles.ml20]}>Waste type</Text>
@@ -128,14 +125,12 @@ function WorkOrderDetails() {
 
         <View style={Styles.btnContainer}>
           <TouchableOpacity
+            activeOpacity={0.8}
             style={[Styles.confirmbtn, AppStyles.mb20]}>
             <Text style={[AppStyles.txtWhiteRegular, AppStyles.f17, AppStyles.textalig, AppStyles.mt10]}>CONFIRM</Text>
           </TouchableOpacity>
         </View>
-
       </ScrollView>
-
-
     </View>
   );
 }

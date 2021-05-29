@@ -45,7 +45,7 @@ function SellerMyOrder() {
   const [refreshPage, setRefreshPage] = useState(false)
 
   const [{ data, loading, error }, onMyOrder] = MyOrder(offset);
-
+ 
   const screenNavigate = (item) => {
     navigation.navigate(NavigationRouteNames.SELLER_ORDER_DETAIL, { Item: item, getActionType: getActionType })
   }
@@ -57,13 +57,12 @@ function SellerMyOrder() {
     setLoader(true)
   }
   const triggerNewOrder = async () => {
-    try {
-      const { data } = await onMyOrder({ data: {} });
-      setLoader(false)
-      setPerPage(data.data[0].links.per_page)
-      setTotalCount(data.data[0].links.total_count)
-      setOrderList(data.data[0].orderDetails)
-      //setOffset(offset + data.data[0].links.per_page);                     
+    try {    
+        const { data } = await onMyOrder({ data: {} });
+        setLoader(false)
+        setPerPage(data.data[0].links.per_page)
+        setTotalCount(data.data[0].links.total_count)
+        setOrderList(data.data[0].orderDetails)      
     }
     catch (e) {
       console.log("Response error", e);
@@ -71,13 +70,12 @@ function SellerMyOrder() {
   };
 
   const triggerLoadMore = async () => {
-    try {
-      const { data } = await onMyOrder({ data: {} });
-      let listData = orderList;
-      let data1 = listData.concat(data.data[0].orderDetails);
-      setLoadMore(false);
-      //setOrderList( orderList =>  [...orderList, data.data[0].orderDetails])
-      setOrderList([...data1]);
+    try {      
+        const { data } = await onMyOrder({ data: {} });
+        let listData = orderList;
+        let data1 = listData.concat(data.data[0].orderDetails);
+        setLoadMore(false);
+        setOrderList([...data1]);      
     }
     catch (e) {
       console.log("Response error", e);
@@ -87,6 +85,9 @@ function SellerMyOrder() {
   useEffect(() => {
     setLoader(true)
     triggerNewOrder();
+    return () => {
+      setLoader(false)     
+    }
   }, []);
 
   useEffect(() => {
@@ -141,13 +142,12 @@ function SellerMyOrder() {
     var btnText = getButtonText(item)
     return (
       <TouchableOpacity
+        activeOpacity={0.8}
         key={index}
         onPress={() => screenNavigate(item)}>
         <View>
-
           <View style={[AppStyles.flexDir, AppStyles.mt20,]}>
             <View style={[AppStyles.flexpointtwo, AppStyles.ml14]}>
-
               <View>
                 <Image source={ORDER_IMAGE[item.category_name]} />
               </View>
@@ -160,6 +160,7 @@ function SellerMyOrder() {
 
             <View style={[AppStyles.flexpointthree, AppStyles.ml35, AppStyles.mr20, AppStyles.alignCenter, AppStyles.justifyCon]}>
               <TouchableOpacity
+                activeOpacity={0.8}
                 onPress={() => screenNavigate(item)}
                 style={Styles.confirmBtn}>
                 <Text style={[AppStyles.txtWhiteRegular, AppStyles.f11,
@@ -200,7 +201,7 @@ function SellerMyOrder() {
         }}
       />
         :
-        !loading && <EmptyView onBack = {() => navigation.pop()}></EmptyView>
+        !loading && <EmptyView onBack={() => navigation.pop()}></EmptyView>
       }
     </View>
   );

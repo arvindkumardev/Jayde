@@ -72,6 +72,7 @@ const PickupDetailsConfirmation = () => {
         </View>
         <View>
           <TouchableOpacity
+            activeOpacity={0.8}
             style={[AppStyles.br10, AppStyles.btnPrimary, AppStyles.pv10, AppStyles.alignCenter, AppStyles.ph40]}
             onPress={handleConfirm}>
             <Text style={[AppStyles.txtWhiteRegular, AppStyles.f18]}>CONFIRM</Text>

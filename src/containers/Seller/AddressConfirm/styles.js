@@ -80,15 +80,14 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   deliveryBox: {
-    width: 321,
-    height: 145,
+    width: 321,   
     borderRadius: 10,
   },
   addressBox: {
     width: 321,
     height: 64,
     borderRadius: 10,
-  },
+  }
 });
 
 export default styles;

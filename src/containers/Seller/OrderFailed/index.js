@@ -98,14 +98,18 @@ function OrderFailed() {
 
             <View>
               <View style={AppStyles.aligncen}>
-                <TouchableOpacity style={Styles.homebtn}
+                <TouchableOpacity
+                  activeOpacity={0.8}
+                  style={Styles.homebtn}
                   onPress={() => { screenNavigate() }}>
                   <Text style={[AppStyles.f17, style.warmgreycolor, AppStyles.textalig, AppStyle.mt10]}>HOME</Text>
                 </TouchableOpacity>
               </View>
 
               <View style={AppStyles.aligncen}>
-                <TouchableOpacity style={Styles.recreatebtn}>
+                <TouchableOpacity
+                  activeOpacity={0.8}
+                  style={Styles.recreatebtn}>
                   <Text style={[AppStyles.f17, style.whitecolor, AppStyles.textalig, AppStyle.mt10]}>RECREATE</Text>
                 </TouchableOpacity>
               </View>

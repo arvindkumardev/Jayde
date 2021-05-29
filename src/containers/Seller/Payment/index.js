@@ -24,6 +24,7 @@ function Payment() {
 
         <View style={[AppStyles.aligncen, AppStyles.mt50]}>
           <TouchableOpacity
+            activeOpacity={0.8}
             style={[Styles.homeButton]} onPress={() => screenNavigate()}>
             <Text style={[AppStyles.f17, AppStyles.txtWhiteRegular, AppStyles.mt10]}>GO TO HOME</Text>
           </TouchableOpacity>

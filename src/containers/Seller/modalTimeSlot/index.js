@@ -1,18 +1,16 @@
 import React, { useState, useLayoutEffect, useEffect } from 'react';
-import { View, Text, TouchableOpacity, TextInput } from 'react-native';
-import { useNavigation, useRoute } from '@react-navigation/native';
+import { View, Text, TouchableOpacity, Modal } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import Styles from './styles';
-import NavigationRouteNames from '../../../routes/ScreenNames';
 import { Colors, AppStyles } from '../../../theme';
 import FAIcon from 'react-native-vector-icons/FontAwesome';
 import ToggleSwitch from 'toggle-switch-react-native'
 import moment from 'moment';
 import DateTimePicker from '@react-native-community/datetimepicker';
-
-const PickupDate = () => {
-  const navigation = useNavigation();
-  const route = useRoute();
+import PropTypes from 'prop-types';
+import Ionicons from 'react-native-vector-icons/Ionicons'
+function PickupDate (props) {
+  const { isVisible, handleClose, Data } = props;
 
   const [customDate, setCustomDate] = useState(moment(new Date()).add(1, 'days').format('YYYY-MM-DD'));
   const [fromTime, setFromTime] = useState(moment(new Date()).format('hh:mm A'))
@@ -25,12 +23,6 @@ const PickupDate = () => {
   const [isEnabled, setIsEnabled] = useState(false);
   const [timeSlotIndex, setTimeSlotIndex] = useState(0)
 
-  useLayoutEffect(() => {
-    navigation.setOptions({
-      title: <Text style={[AppStyles.txtBlackBold, AppStyles.f18]}>Pickup Date</Text>,
-    });
-  }, [navigation]);
-
   useEffect(() => {
     isEnabled ? setTimeSlotIndex(-1) : setTimeSlotIndex(0)
   }, [isEnabled])
@@ -41,8 +33,9 @@ const PickupDate = () => {
         date: customDate,
         time: `${fromTime} ${toTime}`
       }
-      route.params.getTimeSlot(param)
-      navigation.goBack()
+      // route.params.getTimeSlot(param)
+      // navigation.goBack()
+      Data(param)
     } else {
       let param = {
         date: timeSlotIndex > 1 ? getAfterDay_Formatted() : getDayAfter_Formatted(),
@@ -51,8 +44,9 @@ const PickupDate = () => {
             : timeSlotIndex == 2 ? '11:00 AM 1:00 PM'
               : '3:00 PM 5:00 PM'
       }
-      route.params.getTimeSlot(param)
-      navigation.goBack()
+      Data(param)
+      // route.params.getTimeSlot(param)
+      // navigation.goBack()
     }
   };
 
@@ -108,8 +102,18 @@ const PickupDate = () => {
   };
 
   return (
+    <Modal animationType="slide" transparent={true}
+    visible={isVisible} onRequestClose={handleClose}>
     <View style={[Styles.mainContainer]}>
-      <KeyboardAwareScrollView>
+      <TouchableOpacity
+            activeOpacity={0.8}
+            onPress={() => {handleClose()}}
+            style={[AppStyles.flexRowAlignCenter, AppStyles.pv15,]}>
+            <Ionicons name="close" size={28} />
+            <Text style = {[AppStyles.txtBlackBold, AppStyles.f18, AppStyles.ml15]}>Pickup Date</Text>
+      </TouchableOpacity>
+
+      <KeyboardAwareScrollView showsVerticalScrollIndicator = {false}>
         <View style={[AppStyles.mv20]}>
           <Text style={[AppStyles.txtBlackRegular, AppStyles.f16]}>Preferred time slot</Text>
           <TouchableOpacity
@@ -220,7 +224,19 @@ const PickupDate = () => {
         <Text style={[AppStyles.txtWhiteRegular, AppStyles.f18]}>CONFIRM</Text>
       </TouchableOpacity>
     </View>
+    </Modal>            
   );
 };
+
+PickupDate.propTypes = {
+  isVisible: PropTypes.bool,
+  handleClose: PropTypes.func,
+};
+
+PickupDate.defaultProps = {
+  isVisible: false,
+  handleClose: null,
+};
+
 
 export default PickupDate;

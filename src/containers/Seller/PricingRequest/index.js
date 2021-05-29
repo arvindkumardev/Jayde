@@ -15,7 +15,6 @@ import MIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import CustomText from '../../../components/CustomText';
 import { alertBox, RfH, RfW, isValidVolume } from '../../../utils/helpers';
 import { setQuoteData, setImageName } from '../../../utils/Global'
-
 function PricingRequest() {
   const navigation = useNavigation();
   const { setLoader } = useContext(UserContext);
@@ -58,6 +57,9 @@ function PricingRequest() {
     setLoader(loading);
     if (quoteData && quoteData.status) {
     }
+    return () => {
+      setLoader(false)     
+    }
   }, [quoteData, loading]);
 
   useEffect(() => {
@@ -65,6 +67,7 @@ function PricingRequest() {
   }, [orderData, orderLoading]);
 
   const handleGetQuote = () => {
+    navigation.pop()
     navigation.navigate(NavigationRouteNames.PRICE_CONFIRM, {
       title: titleName,
       status: quotestatus, Location: requestForm.values.location, Unit: unitName,
@@ -81,7 +84,7 @@ function PricingRequest() {
     onGetUnits();
     setCategoryId(categoryId);
     navigation.setOptions({
-      title,
+      title      
     });
   }, []);
 
@@ -290,6 +293,7 @@ function PricingRequest() {
           </View>
           <View>
             <TouchableOpacity
+              activeOpacity={0.8}
               onPress={() => setImageUpload(!imageUpload)}
               style={[AppStyles.pv10, { backgroundColor: Colors.grayTwo }, AppStyles.alignCenter, AppStyles.inputIcon,]}>
               {/* <FAIcon name="photo" size={25} /> */}
@@ -312,6 +316,7 @@ function PricingRequest() {
       </View>
       <View>
         <TouchableOpacity
+          activeOpacity = {0.8}
           style={[AppStyles.btnPrimary, AppStyles.alignCenter, AppStyles.pv10, AppStyles.br10]}
           //onPress={() => { handleGetQuote()}}
           onPress={() => { handelSubmitQuote() }}

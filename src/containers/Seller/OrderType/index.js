@@ -31,6 +31,9 @@ function OrderType() {
 
   useEffect(() => {
     onGetCategories();
+    return () => {
+      setLoader(false)     
+    }
   }, []);
 
   useEffect(() => {
@@ -42,12 +45,14 @@ function OrderType() {
   }, [data, loading]);
 
   const handleNavigate = (title, category) => {
+    navigation.pop()
     setCategory(title)
     navigation.navigate(NavigationRouteNames.NEW_ORDER_REQUEST, { title, categoryId: category });
   };
   const _renderItem = (index, item) => (
     <TouchableOpacity
       key={index}
+      activeOpacity = {0.8}
       onPress={() => handleNavigate(item.category_name, item.id)} style={Styles.itemContainer}>
       <View>
         <Image style={Styles.itemImageSize} source={ORDER_IMAGE[item.category_name]} />

@@ -141,7 +141,9 @@ const OrderDetails = () => {
 
 
       <View style={{ marginTop: RfH(10), marginTop: 25, marginBottom: 25 }}>
-        <TouchableOpacity style={Styles.confirmButton}>
+        <TouchableOpacity
+          activeOpacity={0.8}
+         style={Styles.confirmButton}>
           <Text style={Styles.confirmBtnText}>CONFIRM</Text>
         </TouchableOpacity>
       </View>

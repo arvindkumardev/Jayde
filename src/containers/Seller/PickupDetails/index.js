@@ -99,6 +99,9 @@ const PickupDetails = () => {
     // return () => {
     //   //Geolocation.clearWatch(watchID);
     // };
+    return () => {
+      setLoader(false)     
+    }
   }, []);
 
   const getOneTimeLocation = () => {
@@ -426,7 +429,9 @@ const PickupDetails = () => {
             </TouchableOpacity>
           </View> */}
 
-        <TouchableOpacity style={[AppStyles.mt20, AppStyles.br10, AppStyles.btnPrimary,
+        <TouchableOpacity 
+        activeOpacity={0.8}
+        style={[AppStyles.mt20, AppStyles.br10, AppStyles.btnPrimary,
         AppStyles.pv10, AppStyles.alignCenter, AppStyles.justifyCon]}
           onPress={() => addressConfirm()}>
           <Text style={[AppStyles.txtWhiteRegular, AppStyles.f18]}>CONFIRM LOCATION</Text>
