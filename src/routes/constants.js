@@ -304,7 +304,7 @@ const USERS_ROLE_MENU = {
     {
       menuName: "Existing Order",
       menu1image: require("../assets/Images/Dashboard/Group_9551.png"),
-      iconName: 'pencil',
+      iconName: 'folder-open',
       color: Colors.mango,
       screenName: NavigationRouteNames.SELLER_MY_ORDER,
     }
@@ -317,13 +317,6 @@ const USERS_ROLE_MENU = {
       color: Colors.mango,
       screenName:  NavigationRouteNames.ADMIN_NEW_ORDER_LIST,
     },
-    // {
-    //   menuName: "Schedule Order",
-    //   menu1image: require("../assets/Images/Dashboard/Group_9551.png"),
-    //   iconName: 'pencil',
-    //   color: Colors.mango,
-    //   screenName: "",
-    // }
   ],
   aggregate: [
     {
