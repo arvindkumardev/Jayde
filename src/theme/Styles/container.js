@@ -44,6 +44,7 @@ const container = StyleSheet.create({
   },
   flexRowSpaceBetween: {
     flexDirection: 'row',
+    justifyContent: 'space-between',
   },
   alignCenter: {
     alignItems: 'center',

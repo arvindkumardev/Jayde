@@ -108,6 +108,9 @@ const texts = StyleSheet.create({
   textalig: {
     textAlign: 'center',
   },
+  textAlignRight: {
+    textAlign: 'right'
+  },
   underline: {
     textDecorationLine: 'underline'
   },
