@@ -12,7 +12,7 @@ const styles = StyleSheet.create({
   },
   menuContainer: {
     flex: 1,
-    width: 156,
+    width: 162,
     height: 136,
     marginLeft: 24,
     borderRadius: 10,
