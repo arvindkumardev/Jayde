@@ -130,7 +130,7 @@ function ProfileUpdate() {
           <View style={[AppStyles.mt30, AppStyles.ml24, AppStyles.mr24]}>
             <Text style={[AppStyles.txtBlackRegular, AppStyles.f15, AppStyles.mb6,]}>Name</Text>
             <View>
-            <TextInput placeholder={"Sahdev Garg"} style={Styles.inputText} 
+            <TextInput placeholder={"Sahdev Garg"} style={AppStyles.inputTxtStyle} 
               value={loginForm.values.name}
               // onChangeText={setName}
               onChangeText={(txt) =>
@@ -153,7 +153,7 @@ function ProfileUpdate() {
             <Text style={[AppStyles.txtBlackRegular, AppStyles.f15, AppStyles.mb6]}>Email</Text>
             </View>
             {/* <TextInput placeholder={"sahdevgarg@gmail.com"} style={Styles.inputText} value={email}/> */}
-            <TextInput placeholder={"sahdevgarg@gmail.com"} style={Styles.inputText} 
+            <TextInput placeholder={"sahdevgarg@gmail.com"} style={AppStyles.inputTxtStyle} 
               value={loginForm.values.username}
               onChangeText={(txt) =>
                 loginForm.setFieldValue('username', txt)
@@ -172,7 +172,7 @@ function ProfileUpdate() {
             <View style={AppStyles.flex1}>
             <Text style={[AppStyles.txtBlackRegular, AppStyles.f15, AppStyles.mb6]}>Phone Number</Text>
             </View>
-            <TextInput placeholder={"9876543210"} style={Styles.inputText} 
+            <TextInput placeholder={"9876543210"} style={AppStyles.inputTxtStyle} 
             value={loginForm.values.phoneno}
             onChangeText={(txt) =>
               loginForm.setFieldValue('phoneno', txt)
@@ -191,7 +191,7 @@ function ProfileUpdate() {
             <View style={AppStyles.flex1}>
             <Text style={[AppStyles.txtBlackRegular, AppStyles.f15, AppStyles.mb6]}>Password</Text>
             </View>
-            <TextInput placeholder={"**********"} style={Styles.inputText} 
+            <TextInput placeholder={"**********"} style={AppStyles.inputTxtStyle} 
             value={loginForm.values.password}
             onChangeText={(txt) =>
               loginForm.setFieldValue('password', txt)
@@ -211,7 +211,7 @@ function ProfileUpdate() {
             <Text style={[AppStyles.txtBlackRegular, AppStyles.f15, AppStyles.mb6]}>Confirm Password</Text>
             </View>
             {/* <TextInput placeholder={"**********"} style={Styles.inputText} value={confirmpassword}/> */}
-            <TextInput placeholder={"**********"} style={Styles.inputText} 
+            <TextInput placeholder={"**********"} style={AppStyles.inputTxtStyle} 
             value={loginForm.values.confirmpassword}
             onChangeText={(txt) =>
               loginForm.setFieldValue('confirmpassword', txt)

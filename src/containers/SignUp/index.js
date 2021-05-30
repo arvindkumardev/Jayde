@@ -181,7 +181,6 @@ function SignUp() {
                 }
                 returnKeyType={'next'}
                 showClearButton={false}
-                keyboardType={'password'}
                 refKey={'password'}
                 error={clickLogin && loginForm.errors.password}
               />

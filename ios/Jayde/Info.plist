@@ -9,7 +9,7 @@
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleGetInfoString</key>
-	<string></string>
+	<string/>
 	<key>CFBundleIdentifier</key>
 	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
 	<key>CFBundleInfoDictionaryVersion</key>
@@ -25,7 +25,7 @@
 	<key>CFBundleVersion</key>
 	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>LSApplicationCategoryType</key>
-	<string></string>
+	<string/>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>
@@ -46,7 +46,7 @@
 	<key>NSFaceIDUsageDescription</key>
 	<string>Enabling Face ID allows you quick and secure access to your account.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string></string>
+	<string/>
 	<key>NSPhotoLibraryAddUsageDescription</key>
 	<string>We need access to photos for uploading documents.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
@@ -68,6 +68,40 @@
 		<string>ProximaNova-Bold.otf</string>
 		<string>ProximaNova-Regular.otf</string>
 		<string>ProximaNova-SemiBold.otf</string>
+		<string>Poppins-SemiBold.otf</string>
+		<string>Poppins-Black.otf</string>
+		<string>Poppins-BlackItalic.otf</string>
+		<string>Poppins-Bold.otf</string>
+		<string>Poppins-BoldItalic.otf</string>
+		<string>Poppins-ExtraBold.otf</string>
+		<string>Poppins-ExtraBoldItalic.otf</string>
+		<string>Poppins-ExtraLight.otf</string>
+		<string>Poppins-ExtraLightItalic.otf</string>
+		<string>Poppins-Italic.otf</string>
+		<string>Poppins-Light.otf</string>
+		<string>Poppins-LightItalic.otf</string>
+		<string>Poppins-Medium.otf</string>
+		<string>Poppins-MediumItalic.otf</string>
+		<string>Poppins-Regular.otf</string>
+		<string>Poppins-SemiBoldItalic.otf</string>
+		<string>Poppins-Thin.otf</string>
+		<string>Poppins-ThinItalic.otf</string>
+		<string>AntDesign.ttf</string>
+		<string>Entypo.ttf</string>
+		<string>EvilIcons.ttf</string>
+		<string>Feather.ttf</string>
+		<string>FontAwesome.ttf</string>
+		<string>FontAwesome5_Brands.ttf</string>
+		<string>FontAwesome5_Regular.ttf</string>
+		<string>FontAwesome5_Solid.ttf</string>
+		<string>Fontisto.ttf</string>
+		<string>Foundation.ttf</string>
+		<string>Ionicons.ttf</string>
+		<string>MaterialCommunityIcons.ttf</string>
+		<string>MaterialIcons.ttf</string>
+		<string>Octicons.ttf</string>
+		<string>SimpleLineIcons.ttf</string>
+		<string>Zocial.ttf</string>
 	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>Launch Screen</string>
