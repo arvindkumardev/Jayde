@@ -51,12 +51,16 @@ const NavigationRouteNames = {
 
   VIEW_NEW_ORDER: "ViewNewOrder",
   CONFIRMATION: "Confirmation",
+  WORK_ORDER_CONFIRMATION: "WorkOrderConfirmation",
+
   ACCOUNT_CREATE: "AccountCreate",
   ORDER_ASSIGN: "OrderAssign",
   ORDER: "Order",
   USERS: "Users",
   PICKUP_ORDER: "PickUpOrder",
   PAYMENT_VERIFICATION: "PaymentVerification",
+  WORK_ORDER_VERIFICATION: "WorkOrderVerification",
+
   ORDER_DETAILS: "OrderDetails",
   WORKORDER_EMAIL: "WorkOrderEmail",
   CALLBACK_CONFIRMATION: "CallBackConfirmation",
@@ -72,7 +76,9 @@ const NavigationRouteNames = {
   INVENTORY: "Inventory",
   RECYCLER_INVENTORY: "RecyclerInventory",
   RECYCLER_NEW_WORKORDER: "RecyclerNewWorkOrder",
-  RECYCLER_WORKORDER_LIST: "RecyclerWorkOrderList",
+  RECYCLER_NEW_ORDER_LIST: "RecyclerNewOrderList",
+  RECYCLER_SCHEDULED_ORDER_LIST: "RecyclerScheduleOrderList",
+  RECYCLER_WORK_ORDER_LIST: 'RecyclerWorkOrderList',
 
   NEW_WORKORDER: "NewWorkOrder",
   WORKORDER_SUMMARY: "Workordersummary",
@@ -101,7 +107,8 @@ const NavigationRouteNames = {
   AGGREGATOR_WORK_ORDER_LIST: 'AggregatorWorkOrderList',
   REJECT_ORDER: "RejectOrder",
   PROPOSE_TIME: "ProposeTime",
-  ADD_USER: 'AddUser'
+  ADD_USER: 'AddUser',
+  WORK_ORDERDETAIL: "WorkOrderDetail",
 };
 
 export default NavigationRouteNames;

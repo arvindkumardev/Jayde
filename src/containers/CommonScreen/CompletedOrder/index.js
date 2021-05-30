@@ -6,7 +6,7 @@ import { useNavigation } from '@react-navigation/core';
 import { useRoute } from '@react-navigation/native';
 import { AppStyles, Colors } from '../../../theme';
 import { CheckBoxWrapper } from '../../../components';
-import { aggregatorGetCompletedOrder } from '../Middelware';
+import { getCompletedOrder } from '../Middelware';
 import UserContext from '../../../appContainer/context/user.context';
 import moment from 'moment';
 import FooterLoader from "../../../appContainer/footerLoader";
@@ -30,7 +30,7 @@ const ORDER_IMAGE = {
 function CompletedOrder() {
   const navigation = useNavigation();
   const route = useRoute();
-  const { setLoader } = useContext(UserContext);
+  const { setLoader,userRole } = useContext(UserContext);
 
   const [orderList, setOrderList] = useState([]);
   const [offset, setOffset] = useState(0);
@@ -39,7 +39,7 @@ function CompletedOrder() {
   const [totalCount, setTotalCount] = useState(15)
   const [perPage, setPerPage] = useState(15)
 
-  const [{ data, loading, error }, onGetOrder] = aggregatorGetCompletedOrder(offset);
+  const [{ data, loading, error }, onGetOrder] = getCompletedOrder(offset, userRole);
 
 
   useLayoutEffect(() => {
@@ -111,7 +111,7 @@ function CompletedOrder() {
         <View style={[AppStyles.flexDir, AppStyles.mt20]}>
           <View style={[AppStyles.ml24, AppStyles.flexpointeight]}>
             <Text style={[AppStyles.txtBlackRegular, AppStyles.f15]}>{'JYD/N/21/0968'}</Text>
-            <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f13]}>{item.business_name}</Text>
+            <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f13, AppStyles.mt3]}>{item.business_name}</Text>
           </View>
           <View style={[AppStyles.flexpointtwo,]}>
             <View style={[AppStyles.mr10]}>
@@ -122,7 +122,7 @@ function CompletedOrder() {
               //   setRememberMe((rememberMe) => !rememberMe)
               // }
               />
-              <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f9, AppStyles.mr10]}>ghg</Text>
+              <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f9, AppStyles.mr10]}></Text>
             </View>
           </View>
         </View>
@@ -132,13 +132,13 @@ function CompletedOrder() {
             <Image source={require('../../../assets/Images/Aggregator/Inventory/Group10150.png')} />
           </View>
           <View style={[AppStyles.flexpointsix, AppStyles.ml10]}>
-            <Text style={[AppStyles.txtBlackRegular, AppStyles.f15]}>{item.category_name}</Text>
+            <Text style={[AppStyles.txtBlackRegular, AppStyles.f15, AppStyles.mt5]}>{item.category_name}</Text>
             <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f13]}>{item.sub_category_name}</Text>
             <View style={AppStyles.flexDir}>
               <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f11]}>{item.work_qty} {item.unit_name} | </Text>
               <View style={[AppStyles.flexRowAlignCenter, AppStyles.ml0]}>
                 <FAIcon size={10} name='rupee' color={Colors.warmGrey}></FAIcon>
-                <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f11, AppStyles.ml5]}>{item.work_price} / {item.price_unit}</Text>
+                <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f13, AppStyles.ml5]}>{item.work_price} / {item.price_unit}</Text>
               </View>
             </View>
 

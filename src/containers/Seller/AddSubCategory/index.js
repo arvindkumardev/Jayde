@@ -89,6 +89,7 @@ function AddSubCategory() {
 
         <View style={Styles.btnContainer}>
           <TouchableOpacity
+            activeOpacity={0.8}
             style={Styles.confirmbtn}>
             <Text style={[AppStyles.txtWhiteRegular, AppStyles.f17, AppStyles.textalig, AppStyles.mt10]}>CONFIRM</Text>
           </TouchableOpacity>

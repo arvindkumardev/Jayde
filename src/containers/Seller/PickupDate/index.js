@@ -23,7 +23,7 @@ const PickupDate = () => {
   const [show, setShow] = useState(false);
 
   const [isEnabled, setIsEnabled] = useState(false);
-  const [timeSlotIndex, setTimeSlotIndex] = useState('')
+  const [timeSlotIndex, setTimeSlotIndex] = useState(0)
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -32,21 +32,17 @@ const PickupDate = () => {
   }, [navigation]);
 
   useEffect(() => {
-    setTimeSlotIndex('')
+    isEnabled ? setTimeSlotIndex(-1) : setTimeSlotIndex(0)
   }, [isEnabled])
 
   const handleConfirm = () => {
-    if (timeSlotIndex === '') {
-      if (isEnabled) {
-        let param = {
-          date: customDate,
-          time: `${fromTime} ${toTime}`
-        }
-        route.params.getTimeSlot(param)
-        navigation.goBack()
-      } else {
-        alert('Please select Preferred time slot')
+    if (isEnabled) {
+      let param = {
+        date: customDate,
+        time: `${fromTime} ${toTime}`
       }
+      route.params.getTimeSlot(param)
+      navigation.goBack()
     } else {
       let param = {
         date: timeSlotIndex > 1 ? getAfterDay_Formatted() : getDayAfter_Formatted(),
@@ -58,7 +54,6 @@ const PickupDate = () => {
       route.params.getTimeSlot(param)
       navigation.goBack()
     }
-    //navigation.navigate(NavigationRouteNames.PICKUP_DETAILS);
   };
 
   const getDayAfter = () => {
@@ -100,45 +95,48 @@ const PickupDate = () => {
   const onChange = (event, selectedDate) => {
     setShow(false);
     if (selectedDate) {
-      if (pickerIndex === 0) {
+      if (pickerIndex == 0) {
         setCustomDate(moment(selectedDate).format('YYYY-MM-DD'));
-      } else if (pickerIndex === 1) {
+      } else if (pickerIndex == 1) {
         setFromTime(moment(selectedDate).format('hh:mm A'));
-      } else if (pickerIndex === 2) {
+      } else if (pickerIndex == 2) {
         setToTime(moment(selectedDate).format('hh:mm A'));
       }
-      //setShow(Platform.OS === 'ios');   
+      //setShow(Platform.OS == 'ios');   
     } else {
     }
   };
 
   return (
     <View style={[Styles.mainContainer]}>
-
       <KeyboardAwareScrollView>
         <View style={[AppStyles.mv20]}>
           <Text style={[AppStyles.txtBlackRegular, AppStyles.f16]}>Preferred time slot</Text>
           <TouchableOpacity
+            activeOpacity={0.8}
             onPress={() => setTimeSlotIndex(0)}
-            style={[AppStyles.pv15, AppStyles.ph20, AppStyles.flexRowSpaceBetween, timeSlotIndex === 0 && Styles.active]}>
+            style={[AppStyles.pv15, AppStyles.ph20, AppStyles.flexRowSpaceBetween, timeSlotIndex == 0 && Styles.active]}>
             <Text style={AppStyles.txtBlackRegular}>{getDayAfter()}</Text>
             <Text style={AppStyles.txtBlackRegular}>11:00 AM - 1:00 PM</Text>
           </TouchableOpacity>
           <TouchableOpacity
+            activeOpacity={0.8}
             onPress={() => setTimeSlotIndex(1)}
-            style={[AppStyles.pv15, AppStyles.ph20, AppStyles.flexRowSpaceBetween, timeSlotIndex === 1 && Styles.active]}>
+            style={[AppStyles.pv15, AppStyles.ph20, AppStyles.flexRowSpaceBetween, timeSlotIndex == 1 && Styles.active]}>
             <Text style={AppStyles.txtBlackRegular}>{getDayAfter()}</Text>
             <Text style={AppStyles.txtBlackRegular}>3:00 PM - 5:00 PM</Text>
           </TouchableOpacity>
           <TouchableOpacity
+            activeOpacity={0.8}
             onPress={() => setTimeSlotIndex(2)}
-            style={[AppStyles.pv15, AppStyles.ph20, AppStyles.flexRowSpaceBetween, timeSlotIndex === 2 && Styles.active]}>
+            style={[AppStyles.pv15, AppStyles.ph20, AppStyles.flexRowSpaceBetween, timeSlotIndex == 2 && Styles.active]}>
             <Text style={AppStyles.txtBlackRegular}>{getAfterDay()}</Text>
             <Text style={AppStyles.txtBlackRegular}>11:00 AM - 1:00 PM</Text>
           </TouchableOpacity>
           <TouchableOpacity
+            activeOpacity={0.8}
             onPress={() => setTimeSlotIndex(3)}
-            style={[AppStyles.pv15, AppStyles.ph20, AppStyles.flexRowSpaceBetween, timeSlotIndex === 3 && Styles.active]}>
+            style={[AppStyles.pv15, AppStyles.ph20, AppStyles.flexRowSpaceBetween, timeSlotIndex == 3 && Styles.active]}>
             <Text style={AppStyles.txtBlackRegular}>{getAfterDay()}</Text>
             <Text style={AppStyles.txtBlackRegular}>3:00 PM - 5:00 PM</Text>
           </TouchableOpacity>
@@ -162,6 +160,7 @@ const PickupDate = () => {
             <View>
               <Text style={[[AppStyles.txtBlackRegular, AppStyles.f16, AppStyles.mb5, AppStyles.mt10]]}>Pick Date</Text>
               <TouchableOpacity
+                activeOpacity={0.8}
                 onPress={() => showDatepicker()}
                 style={[AppStyles.flexRowAlignCenter, AppStyles.btnSecandary, AppStyles.br10, AppStyles.mb10, { padding: 10 }]}>
                 <FAIcon size={22} name='calendar-o' color={Colors.mangoTwo} />
@@ -185,6 +184,7 @@ const PickupDate = () => {
                 <View style={[AppStyles.flex1, AppStyles.pr10]}>
                   <Text style={[AppStyles.txtBlackRegular, AppStyles.f16, AppStyles.mb5]}>From</Text>
                   <TouchableOpacity
+                    activeOpacity={0.8}
                     onPress={() => showTimepicker(1)}
                     style={[AppStyles.flexRowAlignCenter, AppStyles.btnSecandary, AppStyles.br10, AppStyles.mb10, { padding: 10 }]}>
                     <FAIcon size={22} name='clock-o' color={Colors.mangoTwo} />
@@ -195,6 +195,7 @@ const PickupDate = () => {
                 <View style={[AppStyles.flex1, AppStyles.pl10]}>
                   <Text style={[AppStyles.txtBlackRegular, AppStyles.f16, AppStyles.mb5]}>To</Text>
                   <TouchableOpacity
+                    activeOpacity={0.8}
                     onPress={() => showTimepicker(2)}
                     style={[AppStyles.flexRowAlignCenter, AppStyles.btnSecandary, AppStyles.br10, AppStyles.mb10, { padding: 10 }]}>
                     <FAIcon size={22} name='clock-o' color={Colors.mangoTwo} />
@@ -209,13 +210,11 @@ const PickupDate = () => {
 
         {/* End Toggle View */}
         <View style={[AppStyles.flex1, AppStyles.mt20, AppStyles.mb20, { alignSelf: 'flex-end' }]}>
-
-
-
         </View>
 
       </KeyboardAwareScrollView>
       <TouchableOpacity
+        activeOpacity={0.8}
         style={[AppStyles.br10, AppStyles.btnPrimary, AppStyles.pv10, AppStyles.alignCenter, AppStyles.ph40, AppStyles.mb20,]}
         onPress={handleConfirm}>
         <Text style={[AppStyles.txtWhiteRegular, AppStyles.f18]}>CONFIRM</Text>

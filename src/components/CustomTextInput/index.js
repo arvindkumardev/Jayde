@@ -96,9 +96,7 @@ const CustomTextInput = (props) => {
               keyboardType={keyboardType}
               onSubmitEditing={onSubmitEditing}
               refKey={refKey}
-              ref={(input) => {
-                inputs[refKey] = input;
-              }}
+              ref={(input) => {inputs[refKey] = input}}             
               multiline={multiline}
               returnKeyType={returnKeyType}
               underlineColorAndroid="transparent"

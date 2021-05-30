@@ -12,9 +12,8 @@ import { UploadDocument } from '../../../components/index';
 import { getSubCategories, getUnits, createQuote, addOrder } from './middleware';
 import UserContext from '../../../appContainer/context/user.context';
 import CustomText from '../../../components/CustomText';
-import { RfH, isValidVolume } from '../../../utils/helpers';
-import { setQuoteData, setImageName } from '../../../utils/Global';
-
+import { alertBox, RfH, RfW, isValidVolume } from '../../../utils/helpers';
+import { setQuoteData, setImageName } from '../../../utils/Global'
 function PricingRequest() {
   const navigation = useNavigation();
   const { setLoader } = useContext(UserContext);
@@ -55,6 +54,9 @@ function PricingRequest() {
     setLoader(loading);
     if (quoteData && quoteData.status) {
     }
+    return () => {
+      setLoader(false)     
+    }
   }, [quoteData, loading]);
 
   useEffect(() => {
@@ -62,6 +64,7 @@ function PricingRequest() {
   }, [orderData, orderLoading]);
 
   const handleGetQuote = () => {
+    navigation.pop()
     navigation.navigate(NavigationRouteNames.PRICE_CONFIRM, {
       title: titleName,
       status: quotestatus,
@@ -81,7 +84,7 @@ function PricingRequest() {
     onGetUnits();
     setCategoryId(categoryId);
     navigation.setOptions({
-      title,
+      title      
     });
   }, []);
 
@@ -190,8 +193,9 @@ function PricingRequest() {
   return (
     <KeyboardAwareScrollView
       removeClippedSubviews={true}
-      style={[AppStyles.ph20, AppStyles.pv15, { backgroundColor: '#fff' }]}
-      contentContainerStyle={AppStyles.flex1SpaceBetween}>
+      style={[AppStyles.ph20, AppStyles.flex1, AppStyles.pv15, { backgroundColor: Colors.white }]}
+        contentContainerStyle={AppStyles.flex1SpaceBetween}
+    >
       <View>
         <View style={AppStyles.alignCenter}>
           <Text style={[AppStyles.txtBlackBold, AppStyles.f18]}>
@@ -272,6 +276,7 @@ function PricingRequest() {
           </View>
           <View>
             <TouchableOpacity
+              activeOpacity={0.8}
               onPress={() => setImageUpload(!imageUpload)}
               style={[AppStyles.pv10, { backgroundColor: Colors.grayTwo }, AppStyles.alignCenter, AppStyles.inputIcon]}>
               {/* <FAIcon name="photo" size={25} /> */}
@@ -292,6 +297,7 @@ function PricingRequest() {
       </View>
       <View style={{marginBottom: 30}}>
         <TouchableOpacity
+          activeOpacity = {0.8}
           style={[AppStyles.btnPrimary, AppStyles.alignCenter, AppStyles.pv10, AppStyles.br10]}
           //onPress={() => { handleGetQuote()}}
           onPress={() => {

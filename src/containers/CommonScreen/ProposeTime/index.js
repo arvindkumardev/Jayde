@@ -8,7 +8,7 @@ import { AppStyles, Colors } from '../../../theme';
 import moment from 'moment';
 import FAIcon from 'react-native-vector-icons/FontAwesome';
 import DateTimePicker from '@react-native-community/datetimepicker';
-import { confirmSchedule } from '../Middelware';
+import { confirmReschedule } from '../Middelware';
 import UserContext from '../../../appContainer/context/user.context';
 
 function ProposeTime() {
@@ -17,7 +17,7 @@ function ProposeTime() {
   const route = useRoute();
 
   const [item, setItem] = useState({});
-  const { setLoader } = useContext(UserContext);
+  const { setLoader, userRole } = useContext(UserContext);
 
   const [customDate, setCustomDate] = useState(moment(new Date()).add(1, 'days').format('YYYY-MM-DD'));
   const [fromTime, setFromTime] = useState(moment(new Date()).format('hh:mm A'))
@@ -27,7 +27,7 @@ function ProposeTime() {
   const [mode, setMode] = useState('date');
   const [show, setShow] = useState(false);
 
-  const [{ data, loading, error }, onConfirmSchedule] = confirmSchedule();
+  const [{ data, loading, error }, onConfirmSchedule] = confirmReschedule(userRole);
 
   const handleConfirm = async () => {
     setLoader(true)
@@ -53,12 +53,15 @@ function ProposeTime() {
   useLayoutEffect(() => {
     const { Item } = route.params;
     setItem(Item)
+    console.log(userRole)
     const title = 'Re-Schedule Order';
     navigation.setOptions({ title });
   }, []);
 
   const screenNavigate = () => {
     navigation.popToTop()
+    userRole === 'recycler' ? navigation.navigate(NavigationRouteNames.RECYCLER_NEW_ORDER_LIST)
+    :    
     navigation.navigate(NavigationRouteNames.AGGREGATOR_NEW_ORDERS);
   }
 

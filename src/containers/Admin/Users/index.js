@@ -12,6 +12,9 @@ import UserContext from '../../../appContainer/context/user.context';
 import FooterLoader from "../../../appContainer/footerLoader";
 import EmptyView from '../../../appContainer/EmptyView'
 
+//Image
+import recycleImg from '../../../assets/Images/Users/noun_Recycle_3673532.png'
+
 function Users() {
   const navigation = useNavigation();
   const route = useRoute();
@@ -98,32 +101,32 @@ function Users() {
         onPress={() => { screenNavigate(item, index) }}>
         <View style={Styles.boxView}>
 
-          <View style={[AppStyles.flexDir, AppStyles.ml24,]}>
+          <View style={[AppStyles.flexDir, AppStyles.ml16]}>
             <View style={AppStyles.flexpointseven}>
-              <Text style={[AppStyles.f13, AppStyles.txtSecandaryRegular, AppStyles.mt20]}>{item.email}</Text>
+              <Text style={[AppStyles.f13, AppStyles.txtSecandaryRegular, AppStyles.mt12]}>{item.email}</Text>
             </View>
-            <View style={[AppStyles.flexpointthree, AppStyles.mt20, AppStyles.ml24]}>
+            <View style={[AppStyles.flexpointthree, AppStyles.mt12, AppStyles.ml24]}>
               <TouchableOpacity style={item.status == 1 ? Styles.confirmBtn : Styles.InactiveBtn}>
                 <Text style={[AppStyles.txtWhiteRegular, AppStyles.f11, AppStyles.textalig]}>{item.status == 1 ? 'Active' : 'Inactive'}</Text>
               </TouchableOpacity>
             </View>
           </View>
 
-          <Text style={[AppStyles.f15, AppStyles.ml24,]}>{item.business_name}</Text>
-          <Text style={[AppStyles.f15, AppStyles.ml24,]}>{item.name}</Text>
+          <Text style={[AppStyles.f15, AppStyles.ml16, AppStyles.mt12]}>{item.business_name}</Text>
+          <Text style={[AppStyles.f15, AppStyles.ml16,]}>{item.name}</Text>
 
 
           <View style={[AppStyles.flexDir, AppStyles.mt14]}>
-            <View style={[AppStyles.flexpointone]}>
-              <Image style={Styles.lftimga} source={require('../../../assets/Images/Users/noun_Recycle_3673532.png')} />
-            </View>
-            <View style={[AppStyles.flexpointthree]}>
-              <Text style={[AppStyles.ml24, AppStyles.txtSecandaryRegular, AppStyles.f13]}>{item.business_type}</Text>
-            </View>
-            <View style={{ height: '100%', width: 1, borderLeftColor: '000', borderBottomWidth: 20, }}>
-            </View>
             <View>
-              <Text style={[AppStyles.ml20, AppStyles.txtSecandaryRegular, AppStyles.f13]}>{item.type}</Text>
+              <Image style={Styles.lftimga} source={recycleImg} />
+            </View>
+            <View style={[AppStyles.ml10]}>
+              <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f13]}>{item.business_type}</Text>
+            </View>
+            <View style={{ height: '100%', width: 1, borderBottomWidth: 20, marginLeft: 12,}}>
+            </View> 
+            <View>
+              <Text style={[AppStyles.ml10, AppStyles.txtSecandaryRegular, AppStyles.f13]}>User</Text>
             </View>
           </View>
 
@@ -134,7 +137,7 @@ function Users() {
 
 
   return (
-    <View style={AppStyles.topView}>
+    <View style={AppStyles.mainView}>
       {userList.length > 0 ? <FlatList
         data={userList}
         renderItem={({ index, item }) =>

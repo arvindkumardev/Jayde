@@ -8,6 +8,7 @@ import { Fonts, Colors, AppStyles } from '../../../theme';
 import { getQuoteData, getImageName } from '../../../utils/Global'
 import { createQuote, addOrder } from './../PricingRequest/middleware';
 import UserContext from '../../../appContainer/context/user.context';
+import NavClose from './../../../components/HeaderLeft'
 
 
 const PriceConfirm = () => {
@@ -25,6 +26,7 @@ const PriceConfirm = () => {
     setSchedulePick(status);
     navigation.setOptions({
       title,
+      headerLeft: () => <NavClose onClose = {() => navigation.pop()}></NavClose>,
     });
   }, [navigation]);
 
@@ -35,6 +37,9 @@ const PriceConfirm = () => {
   useEffect(() => {
     setLoader(loading);
     if (quoteData && quoteData.status) {
+    }
+    return () => {
+      setLoader(false)     
     }
   }, [quoteData, loading]);
 
@@ -120,22 +125,26 @@ const PriceConfirm = () => {
       {schedulePick == "1" ?
         <View style={Styles.btnContainer}>
           <TouchableOpacity
+            activeOpacity={0.8}
             style={[AppStyles.mt20, AppStyles.br10, AppStyles.borderwidth1, AppStyles.borderColorMango, AppStyles.whitecolor, AppStyles.pv10, AppStyles.alignCenter]}
             onPress={handleREQUESTCALLBACK}>
             <Text style={[AppStyles.txtPrimaryRegular, AppStyles.f17]}>REQUEST CALL BACK</Text>
           </TouchableOpacity>
           <TouchableOpacity
+            activeOpacity={0.8}
             style={[AppStyles.mt20, AppStyles.br10, AppStyles.btnPrimary, AppStyles.pv10, AppStyles.alignCenter]}
             onPress={handleSchedulePickup}>
             <Text style={[AppStyles.txtWhiteRegular, AppStyles.f17]}>SCHEDULE PICKUP</Text>
           </TouchableOpacity>
         </View> : <View style={Styles.btnContainer}>
           <TouchableOpacity
+            activeOpacity={0.8}
             style={[AppStyles.mt20, AppStyles.br10, AppStyles.borderwidth1, AppStyles.borderColorMango, AppStyles.whitecolor, AppStyles.pv10, AppStyles.alignCenter]}
             onPress={() => { confirmBtn() }}>
             <Text style={[AppStyles.txtPrimaryRegular, AppStyles.f17]}>CONFIRM</Text>
           </TouchableOpacity>
           <TouchableOpacity
+            activeOpacity={0.8}
             style={[AppStyles.mt20, AppStyles.br10, AppStyles.btnPrimary, AppStyles.pv10, AppStyles.alignCenter]}>
             <Text style={[AppStyles.txtWhiteRegular, AppStyles.f17]}>REJECT</Text>
           </TouchableOpacity>

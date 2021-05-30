@@ -47,21 +47,26 @@ import AddSubCategory from "../containers/Seller/AddSubCategory";
 import OrderFailed from "../containers/Seller/OrderFailed";
 import WorkOrderDetails from "../containers/Seller/WorkOrderDetails";
 import Payment from "../containers/Seller/Payment";
-import OrderConfirmation from "../containers/Aggregator/OrderConfirmation";
+import OrderConfirmation from "../containers/CommonScreen/OrderConfirmation";
 import WarehouseDetails from "../containers/Aggregator/WarehouseDetails";
 import ScheduledOrder from "../containers/Aggregator/ScheduledOrder";
-import AggregatorScheduleOrderList from '../containers/Aggregator/ScheduleOrderList'
+import AggregatorScheduleOrderList from '../containers/Aggregator/ScheduleOrderList';
 import Inventory from "../containers/Aggregator/Inventory";
 import NewWorkOrder from "../containers/Aggregator/CreateWorkOrder";
-import AggregatorWorkOrderList from './../containers/Aggregator/NewWorkOrderList'
-import RecyclerNewWorkOrder from "../containers/Recycler/NewWorkOrder";
+import AggregatorWorkOrderList from './../containers/Aggregator/NewWorkOrderList';
+import WorkOrderConfirmation from './../containers/Aggregator/WorkOrderConfirmation';
+import RecyclerNewWorkOrder from "../containers/Recycler/CreateWorkOrder";
 import RecyclerInventory from "../containers/Recycler/Inventory";
-import RecyclerWorkOrderList from "../containers/Recycler/NewWorkOrderList";
+import RecyclerNewOrderList from "../containers/Recycler/NewOrderList";
+import RecyclerScheduleOrderList from "../containers/Recycler/ScheduleOrderList";
+import RecyclerWorkOrderList from "../containers/Recycler/NewWorkOrderList";;
+import WorkOrderVerification from "../containers/CommonScreen/WorkOrderVerification"
 
 import Workordersummary from "../containers/Aggregator/Workordersummary";
-import CompletedOrder from "../containers/Aggregator/CompletedOrder";
-import RejectOrder from "../containers/Aggregator/RejectOrder";
-import ProposeTime from "../containers/Aggregator/ProposeTime";
+import WorkOrderDetail from "../containers/Aggregator/WorkOrderDetail";
+import CompletedOrder from "../containers/CommonScreen/CompletedOrder";
+import RejectOrder from "../containers/CommonScreen/RejectOrder";
+import ProposeTime from "../containers/CommonScreen/ProposeTime";
 import WarehouseOrderConfirmation from "../containers/Aggregator/WarehouseOrderConfirmation";
 import PaymentDetails from "../containers/Recycler/PaymentDetails";
 
@@ -78,9 +83,9 @@ import AddSubUser from "../containers/AddSubUser";
 import AddUser from "../containers/AddUser";
 
 import PasswordReset from "../containers/PasswordReset";
-import AdminNewOrderList from "../containers/Admin/AdminNewOrderList"
-import AdminNewOrder from "../containers/AdminNewOrder"
-import AggregatorNewOrder from "../containers/Aggregator/NewOrders"
+import AdminNewOrderList from "../containers/Admin/AdminNewOrderList";
+import AdminNewOrder from "../containers/AdminNewOrder";
+import AggregatorNewOrder from "../containers/Aggregator/NewOrders";
 import { resolveConfig } from "prettier";
 
 const Stack = createStackNavigator();
@@ -212,7 +217,7 @@ const AppStack = (props) => {
           <Stack.Screen
             name={NavigationRouteNames.CALLBACK_CONFIRMATION}
             component={CallBackConfirmation}
-            options={NoTitleHeader}
+            options={NoHeaderScreen}
           />
           {/* Pickup Date Time Slot Screen */}
           <Stack.Screen
@@ -236,7 +241,7 @@ const AppStack = (props) => {
           <Stack.Screen
             name={NavigationRouteNames.CONFIRMATION}
             component={Confirmation}
-            options={CommonHeaderStyle}
+            options={NoHeaderScreen}
           />
           {/* Smart Contract Screen number: 70*/}
           <Stack.Screen
@@ -395,7 +400,7 @@ const AppStack = (props) => {
             component={OrderConfirmation}
             options={CommonHeaderStyle}
           />
-         
+
           {/* New Work Order screen number: 32 */}
           <Stack.Screen
             name={NavigationRouteNames.NEW_WORKORDER}
@@ -515,15 +520,15 @@ const AppStack = (props) => {
             options={CommonHeaderStyle}
           />
 
-           {/* Warehouse Details screen number: 32 */}
-           <Stack.Screen
+          {/* Warehouse Details screen number: 32 */}
+          <Stack.Screen
             name={NavigationRouteNames.WAREHOUSE_DETAILS}
             component={WarehouseDetails}
             options={CommonHeaderStyle}
           />
 
-           {/* Warehouse Details screen number: 33 */}
-           <Stack.Screen
+          {/* Warehouse Details screen number: 33 */}
+          <Stack.Screen
             name={NavigationRouteNames.WORKORDER_EMAIL}
             component={WorkOrderEmail}
             options={NoHeaderScreen}
@@ -533,8 +538,16 @@ const AppStack = (props) => {
           <Stack.Screen
             name={NavigationRouteNames.CONFIRMATION}
             component={Confirmation}
-            options={CommonHeaderStyle}
+            options={NoHeaderScreen}
           />
+
+           {/* Confirmation Screen */}
+           <Stack.Screen
+            name={NavigationRouteNames.WORK_ORDER_CONFIRMATION}
+            component={WorkOrderConfirmation}
+            options={NoHeaderScreen}
+          />
+
           {/* Reject Order Screen */}
           <Stack.Screen
             name={NavigationRouteNames.REJECT_ORDER}
@@ -545,6 +558,12 @@ const AppStack = (props) => {
           <Stack.Screen
             name={NavigationRouteNames.PROPOSE_TIME}
             component={ProposeTime}
+            options={CommonHeaderStyle}
+          />
+           {/* Work Order Detail Screen */}
+           <Stack.Screen
+            name={NavigationRouteNames.WORK_ORDERDETAIL}
+            component={WorkOrderDetail}
             options={CommonHeaderStyle}
           />
         </>;
@@ -623,6 +642,61 @@ const AppStack = (props) => {
             component={RecyclerNewWorkOrder}
             options={CommonHeaderStyle}
           />
+
+          {/* Schedule Order screen number: 21 */}
+          <Stack.Screen
+            name={NavigationRouteNames.RECYCLER_SCHEDULED_ORDER_LIST}
+            component={RecyclerScheduleOrderList}
+            options={CommonHeaderStyle}
+          />
+
+          {/* New Work Order List Screen number: 21*/}
+          <Stack.Screen
+            name={NavigationRouteNames.RECYCLER_WORK_ORDER_LIST}
+            component={RecyclerWorkOrderList}
+            options={CommonHeaderStyle}
+          />
+
+          {/* Completed Order screen number: 45 */}
+          {/* <Stack.Screen
+            name={NavigationRouteNames.COMPLETED_ORDER}
+            component={CompletedOrder}
+            options={CommonHeaderStyle}
+          /> */}
+
+          {/* Confirmation Screen */}
+          <Stack.Screen
+            name={NavigationRouteNames.ORDER_CONFIRMATION}
+            component={OrderConfirmation}
+            options={CommonHeaderStyle}
+          />
+          {/* Reject Order Screen */}
+          <Stack.Screen
+            name={NavigationRouteNames.REJECT_ORDER}
+            component={RejectOrder}
+            options={NoHeaderScreen}
+          />
+          {/* Propose Time Screen */}
+          <Stack.Screen
+            name={NavigationRouteNames.PROPOSE_TIME}
+            component={ProposeTime}
+            options={CommonHeaderStyle}
+          />
+
+          {/* Order Screen number: 21*/}
+          <Stack.Screen
+            name={NavigationRouteNames.PAYMENT_VERIFICATION}
+            component={PaymentVerification}
+            options={CommonHeaderStyle}
+          />
+
+           {/* Order Screen number: 21*/}
+           <Stack.Screen
+            name={NavigationRouteNames.WORK_ORDER_VERIFICATION}
+            component={WorkOrderVerification}
+            options={CommonHeaderStyle}
+          />
+
           {/* Work Order Summary screen number: 42 */}
           <Stack.Screen
             name={NavigationRouteNames.WORKORDER_SUMMARY}
@@ -655,8 +729,8 @@ const AppStack = (props) => {
           />
           {/* New Work Order List Screen number: 21*/}
           <Stack.Screen
-            name={NavigationRouteNames.RECYCLER_WORKORDER_LIST}
-            component={RecyclerWorkOrderList}
+            name={NavigationRouteNames.RECYCLER_NEW_ORDER_LIST}
+            component={RecyclerNewOrderList}
             options={CommonHeaderStyle}
           />
           {/* Sub User Screen number: 81*/}
@@ -871,7 +945,7 @@ const AppStack = (props) => {
             component={LoginWithEmail}
             options={NoHeaderScreen}
           />
-         
+
         </>;
     }
   };

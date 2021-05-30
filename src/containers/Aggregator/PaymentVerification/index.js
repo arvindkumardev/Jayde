@@ -21,6 +21,13 @@ import { weightConfirm, weightPropose, paymentConfirm, pickupConfirm, receiptCon
 import UserContext from '../../../appContainer/context/user.context';
 import DropDown from '../../../components/Picker/index';
 
+const paymentMode = [
+  { label: 'CASH', value: 'CASH' },
+  { label: 'CHEQUE', value: 'CHEQUE' },
+  { label: 'RTGS', value: 'RTGS' },
+  { label: 'DD', value: 'DD' },
+]
+
 const PaymentVerification = () => {
   const navigation = useNavigation();
   const route = useRoute();
@@ -31,6 +38,7 @@ const PaymentVerification = () => {
 
   const [item, setItem] = useState({});
   const [isViewLoaded, setViewLoaded] = useState(false)
+  const [refreshPage, setRefreshPage] = useState(false)
 
   const [imageUpload, setImageUpload] = useState(false);
   const [imageUpload1, setImageUpload1] = useState(false);
@@ -74,19 +82,19 @@ const PaymentVerification = () => {
 
   // ---------------------- End Api Section ---------------------
 
-  const handelNavigate = () => {
-    if (item.proposed_weight_confirm === '0' && item.pickup_confirmed === '0') {
-      navigation.popToTop();
-      navigation.navigate(NavigationRouteNames.AGGREGATOR_NEW_ORDERS)
-    } else {
+  const handelRefresh = () => {
+    // navigation.popToTop();
+    // navigation.navigate(NavigationRouteNames.AGGREGATOR_SCHEDULE_ORDER_LIST)
+    //setRefreshPage(true)
+    if(route.params.WhereFrom === NavigationRouteNames.AGGREGATOR_SCHEDULE_ORDER_LIST){
       route.params.getActionType()
-      navigation.goBack()
     }
   }
 
   const handleConfirmWeight = async (kantaSlipNo) => {
     if (confirmWeightImgData.length == 0)
       return
+
     setLoader(true)
     const { data } = await onWeightConfirm({
       data: {
@@ -99,7 +107,7 @@ const PaymentVerification = () => {
 
     console.log(data)
     if (data.status) {
-      handelNavigate()
+      handelRefresh()
     } else {
       alert(data.message)
     }
@@ -124,7 +132,7 @@ const PaymentVerification = () => {
 
     console.log(data)
     if (data.status) {
-      handelNavigate()
+      handelRefresh()
     } else {
       alert(data.message)
     }
@@ -135,6 +143,7 @@ const PaymentVerification = () => {
 
     if (!isTermChecked) {
       alert('Please Accept Terms & Condition.')
+      return
     }
     setLoader(true)
 
@@ -150,7 +159,8 @@ const PaymentVerification = () => {
 
     console.log(data)
     if (data.status) {
-      handelNavigate()
+      handelRefresh()
+      setShowPickUpMainView(false)
     } else {
       alert(data.message)
     }
@@ -166,7 +176,7 @@ const PaymentVerification = () => {
     });
     console.log(data)
     if (data.status) {
-      handelNavigate()
+      handelRefresh()
     } else {
       alert(data.message)
     }
@@ -190,7 +200,7 @@ const PaymentVerification = () => {
     console.log(data)
     if (data.status) {
       navigation.pop()
-      navigation.navigate(NavigationRouteNames.WAREHOUSE_DETAILS, {items:  item});    
+      navigation.navigate(NavigationRouteNames.WAREHOUSE_DETAILS, { items: item });
     } else {
       alert(data.message)
 
@@ -324,7 +334,7 @@ const PaymentVerification = () => {
     await receiptRequestForm.submitForm();
   }
 
-  useLayoutEffect(() => {   
+  useLayoutEffect(() => {
     const title = 'Order Details';
     navigation.setOptions({ title });
   }, []);
@@ -341,12 +351,19 @@ const PaymentVerification = () => {
         setUnitData(pickderData);
         setReceiptData(data.data.receiptData)
         setViewLoaded(true) // Render View
+        setLoader(false)
+
+        //navigation.navigate(NavigationRouteNames.WAREHOUSE_DETAILS, {items:  item});     
+
 
         // ------------------- View Condition -------------------------
         if (itemObj.proposed_weight_confirm === '0' && itemObj.pickup_confirmed === '0') {
           setShowWeightedMainView(true)
         } else if (itemObj.proposed_weight_confirm === '1' && itemObj.pickup_confirmed === '0' && itemObj.is_seller_confirmed == null) {
           setShowPickUpMainView(true)
+        } else if (itemObj.proposed_weight_confirm === '1' && itemObj.pickup_confirmed === '0' && itemObj.is_seller_confirmed == '2') {
+          setShowPickUpMainView(false)
+          return
         } else if (itemObj.proposed_weight_confirm === '1' && itemObj.pickup_confirmed === '0' && itemObj.is_seller_confirmed == '3') {
           setShowPickUpConfirmButton(true)
         } else if (itemObj.proposed_weight_confirm === '1' && itemObj.pickup_confirmed === '1' && itemObj.is_completed == '1') {
@@ -354,22 +371,27 @@ const PaymentVerification = () => {
         } else {
           setShowWeightedMainView(false)
           setShowPickUpMainView(false)
+          setShowPickUpConfirmButton(false)
           setShowWareHouseMainView(true)
         }
-
       } else {
         alert(data.message)
       }
-      setLoader(false)
+
     } catch (e) {
       console.log("Response error", e);
     }
   }
 
-  useEffect(() => {    
+  useEffect(() => {
     setLoader(true)
-    getScheduleDetails()   
+    getScheduleDetails()
   }, [])
+
+  useEffect(() => {
+    setLoader(true)
+    getScheduleDetails()
+  }, [confirmWeightData, proposeWeightData, paymentConfirmData, pickupConfirmData, receiptConfirmData])
 
   const confirmWeightImageData = (data) => {
     if (data) {
@@ -567,13 +589,7 @@ const PaymentVerification = () => {
               </View>
               <View style={AppStyles.flex1, AppStyles.mt20}>
                 <View style={{ marginTop: RfH(10), marginTop: 5, marginBottom: 25 }}>
-                  <TouchableOpacity style={Styles.confirmButton} onPress={() => {
-                    handelWeightConfirm(item)
-                    //  setRememberMe(!rememberMe)
-                    setSlipNumber("")
-                    //  handleConfirmWeight(item)
-
-                  }}>
+                  <TouchableOpacity style={Styles.confirmButton} onPress={() => handelWeightConfirm()}>
                     <Text style={Styles.confirmBtnText}>CONFIRM</Text>
                   </TouchableOpacity>
                 </View>
@@ -757,19 +773,20 @@ const PaymentVerification = () => {
             <View style={AppStyles.flexpointseven}>
               <Text style={[AppStyles.txtBlackRegular, AppStyles.f15, AppStyles.mb6]}>Payment Made</Text>
             </View>
-            <View style={AppStyles.flexpointthree}>
+            {/* <View style={AppStyles.flexpointthree}>
               <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f11, AppStyles.ml30, AppStyles.mt5]}>enter value</Text>
-            </View>
+            </View> */}
           </View>
 
           <TextInput
-            placeholder="Slip Number"
+            placeholder="Enter Paid Amount"
             value={paymentRequestForm.values.paymentmade}
             onChangeText={(txt) => paymentRequestForm.setFieldValue('paymentmade', txt)}
             style={{ backgroundColor: Colors.grayBackground, borderRadius: 10, paddingLeft: 10 }}
             maxLength={50}
             returnKeyType='next'
-            onSubmitEditing={() => refPaymentMode.current?.focus()}
+            keyboardType='number-pad'
+            onSubmitEditing={() => refPaymentDetail.current?.focus()}
           />
           {paymentClickConfirm && paymentRequestForm.errors.paymentmade ? (
             <CustomText
@@ -782,8 +799,8 @@ const PaymentVerification = () => {
         </View>
 
         <View style={[AppStyles.mt20,]}>
-          <Text style={[AppStyles.txtBlackRegular, AppStyles.f15, AppStyles.mb6,]}>Payment Mode</Text>
-          <TextInput placeholder={"Cash"}
+          <Text style={[AppStyles.txtBlackRegular, AppStyles.f15, AppStyles.mb6,]}>Select Payment Mode</Text>
+          {/* <TextInput placeholder={"Cash"}
             ref={refPaymentMode}
             value={paymentRequestForm.values.paymentmode}
             onChangeText={(txt) => paymentRequestForm.setFieldValue('paymentmode', txt)}
@@ -791,7 +808,17 @@ const PaymentVerification = () => {
             maxLength={50}
             returnKeyType='next'
             onSubmitEditing={() => refPaymentDetail.current?.focus()}
+          /> */}
+
+          <DropDown
+            items={paymentMode}
+            placeholderText="Select Payment Mode"
+            itemStyle={{ color: '#000' }}
+            onValueChange={(val) =>  paymentRequestForm.setFieldValue('paymentmode', val)}
+            selectedValue={paymentRequestForm.values.paymentmode}
+            containerStyle={{ borderRadius: 10, backgroundColor: Colors.grayBackground, paddingLeft: 10 }}
           />
+
           {paymentClickConfirm && paymentRequestForm.errors.paymentmode ? (
             <CustomText
               fontSize={15}
@@ -880,8 +907,10 @@ const PaymentVerification = () => {
         </View>
       }
 
-      {isShowPickUpConfirmButton && <TouchableOpacity style={Styles.confirmButtonnabcd} onPress={() => handelPickupConfirm()}>
-        <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f17, AppStyles.mt10,]}>Confirm Pickup</Text>
+      {isShowPickUpConfirmButton && <TouchableOpacity
+        style={Styles.btnConfirmPickup}
+        onPress={() => handelPickupConfirm()}>
+        <Text style={[AppStyles.txtWhiteRegular, AppStyles.f17, AppStyles.mt10,]}>Confirm Pickup</Text>
       </TouchableOpacity>}
 
       {/* End Material pickup confirmation */}
@@ -1010,7 +1039,7 @@ const PaymentVerification = () => {
         ))}
       </View>}
     </KeyboardAwareScrollView>
-    
+
   );
 };
 

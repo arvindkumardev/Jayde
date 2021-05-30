@@ -36,6 +36,10 @@ function UpdateProfile() {
     navigation.navigate(NavigationRouteNames.PROFILE_UPDATE);
   }
 
+  const completeLater = () => {
+    navigation.navigate(NavigationRouteNames.HOME_SCREEN);
+  }
+
   
   return (
     <View style={Styles.topView}>
@@ -56,7 +60,7 @@ function UpdateProfile() {
          <View style={AppStyles.flex1}>
          <TouchableOpacity
            style={[Styles.aggregatebtn]} onPress={() => screenNavigate()}>
-           <Text style={[AppStyles.txtPrimaryRegular, AppStyles.f17, AppStyles.textalig, AppStyles.mt10]}>UPDATE BUSINESS</Text>
+           <Text style={[AppStyles.txtmangoTwoRegular, AppStyles.f17, AppStyles.textalig, AppStyles.mt10]}>UPDATE BUSINESS</Text>
          </TouchableOpacity>
         </View>
         <View style={AppStyles.flex1}>
@@ -69,8 +73,8 @@ function UpdateProfile() {
 
        <View style={AppStyles.aligncen}>
          <TouchableOpacity
-           style={[Styles.completelaterbtn]}>
-           <Text style={[AppStyles.txtPrimaryRegular, AppStyles.f17, AppStyles.textalig, AppStyles.mt10]}>COMPLETE LATER</Text>
+           style={[Styles.completelaterbtn]} onPress={() => completeLater()}>
+           <Text style={[AppStyles.txtmangoTwoRegular, AppStyles.f17, AppStyles.textalig, AppStyles.mt10]}>COMPLETE LATER</Text>
          </TouchableOpacity>
         </View>
 

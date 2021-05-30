@@ -5,21 +5,19 @@ import {Colors} from '../../theme';
 const styles = StyleSheet.create({
   menuActionItem: {
     width: '100%',
-    marginBottom: 20,
-    alignItems: 'center',
-    paddingHorizontal: 30,
   },
   menuEllipseContainer: {
-    marginLeft: 20,
-    marginTop: 10,
+    marginLeft: 15,
+    marginTop: 15,
   },
   menuContainer: {
     flex: 1,
-    width: 170,
-    height: 200,
-    marginLeft: 20,
+    width: 162,
+    height: 136,
+    marginLeft: 24,
     borderRadius: 10,
     justifyContent: 'space-between',
+    marginTop: 27,
   },
   dataItemContent: {
     flex: 0.5,
@@ -34,7 +32,7 @@ const styles = StyleSheet.create({
   statusIcon: {
     flex: 0.3,
     alignItems: 'center',
-    marginRight: 15,
+    marginTop: 20,
   },
   textDate: {
     fontSize: 11,
@@ -51,8 +49,9 @@ const styles = StyleSheet.create({
   },
   dataItemContainer: {
     flexDirection: 'row',
-    marginLeft: 24,
+    marginLeft: 20,
     alignItems: 'center',
+    marginTop: 17,
   },
   dataItemImage: {
     width: 66,

@@ -23,6 +23,9 @@ function SellerOrderDetail() {
 
   useEffect(() => {
     setLoader(loading)
+    return () => {
+      setLoader(false)     
+    }
   }, [loading, rescheduleData])
 
   useLayoutEffect(() => {
@@ -145,6 +148,7 @@ function SellerOrderDetail() {
         {item.assigned_status == 2 ?
           <View style={[AppStyles.flex1, Styles.btnContainer]}>
             <TouchableOpacity
+              activeOpacity={0.8}
               style={[AppStyles.br10, AppStyles.btnPrimary, AppStyles.pv10, AppStyles.alignCenter, AppStyles.ph40, AppStyles.mb20,]}
               onPress={handleConfirm}
             >
@@ -154,6 +158,7 @@ function SellerOrderDetail() {
           : item.proposed_weight_confirm == 2 ?
             <View style={[AppStyles.flex1, Styles.btnContainer]}>
               <TouchableOpacity
+                activeOpacity={0.8}
                 style={[AppStyles.br10, AppStyles.btnPrimary, AppStyles.pv10, AppStyles.alignCenter, AppStyles.ph40, AppStyles.mb20,]}
                 onPress={handleConfirm}
               >
@@ -163,6 +168,7 @@ function SellerOrderDetail() {
             : item.is_seller_confirmed == 2 &&
             <View style={[AppStyles.flex1, Styles.btnContainer]}>
               <TouchableOpacity
+                activeOpacity={0.8}
                 style={[AppStyles.br10, AppStyles.btnPrimary, AppStyles.pv10, AppStyles.alignCenter, AppStyles.ph40, AppStyles.mb20,]}
                 onPress={handleConfirm}
               >

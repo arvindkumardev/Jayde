@@ -4,12 +4,12 @@ import Styles from "./styles";
 import NavigationRouteNames from '../../../routes/ScreenNames';
 import { useNavigation } from '@react-navigation/core';
 import { useRoute } from '@react-navigation/native';
-import { AppStyles } from '../../../theme';
+import { AppStyles, Colors } from '../../../theme';
 import UserContext from '../../../appContainer/context/user.context';
 import FooterLoader from "../../../appContainer/footerLoader";
 import EmptyView from '../../../appContainer/EmptyView'
 
-import { getWorkOrder } from '../Middelware';
+import { getWorkOrderList } from '../Middelware';
 import moment from 'moment';
 
 //Image
@@ -41,10 +41,10 @@ function RecyclerWorkOrderList() {
 
   const [refreshPage, setRefreshPage] = useState(false)
 
-  const [{ data, loading, error }, onMyOrder] = getWorkOrder(offset);
+  const [{ data, loading, error }, onWorkOrder] = getWorkOrderList(offset);
 
-  const screenNavigate = () => {
-    navigation.navigate(NavigationRouteNames.SMARTCONTRACT_DETAIL);
+  const screenNavigate = (item) => {
+   navigation.navigate(NavigationRouteNames.WORK_ORDER_VERIFICATION, {item});
   }
 
   useLayoutEffect(() => {
@@ -62,9 +62,9 @@ function RecyclerWorkOrderList() {
   }
   const workOrder = async () => {
     try {
-      const { data } = await onMyOrder({ data: {} });
+      const { data } = await onWorkOrder({ data: {} });
       setLoader(false)
-      //console.log("Response :", data.data[0].orderDetails)        
+      console.log("Response :", data.data[0])
       setPerPage(data.data[0].links.per_page)
       setTotalCount(data.data[0].links.total_count)
       setOrderList(data.data[0].newOrders)
@@ -78,7 +78,7 @@ function RecyclerWorkOrderList() {
 
   const workOrderLoadMore = async () => {
     try {
-      const { data } = await onMyOrder({ data: {} });
+      const { data } = await onWorkOrder({ data: {} });
       let listData = workOrderList;
       let data1 = listData.concat(data.data[0].newOrders);
       setLoadMore(false);
@@ -124,7 +124,7 @@ function RecyclerWorkOrderList() {
     return (
       <TouchableOpacity
         key={index}
-        onPress={() => screenNavigate()}>
+        onPress={() => screenNavigate(item)}>
         <View>
 
           <View style={[AppStyles.flexDir, AppStyles.mt20]}>
@@ -133,13 +133,17 @@ function RecyclerWorkOrderList() {
             </View>
             <View style={[AppStyles.flexpointsix, AppStyles.ml16]}>
               <Text style={[AppStyles.txtBlackRegular, AppStyles.f17,]}>{item.order_no}</Text>
-              <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f15,]}>{item.qty} {item.unit_name} {item.category_name}</Text>
+              <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f15,]}>{item.work_qty} {item.unit_name} {item.category_name}</Text>
               <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f11,]}>{moment(item.pickup_date).format('DD-MMM-YY')}</Text>
+              <View style={[AppStyles.flexRowAlignCenter, AppStyles.mr20]}>
+                <FAIcon size={12} name='rupee' color= {Colors.warmGrey}></FAIcon>
+                <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f12, AppStyles.ml5]}>{item.work_price} / {item.price_unit}</Text>
+              </View>
             </View>
-            <View style={[AppStyles.flexpointtwo,]}>
+            <View style={[AppStyles.flexpointtwo, AppStyles.alignCenter, AppStyles.justifyCon]}>
               <View style={[AppStyles.flexRowAlignCenter, AppStyles.mr20]}>
                 <FAIcon size={14} name='rupee'></FAIcon>
-                <Text style={[AppStyles.txtBlackRegular, AppStyles.f15, AppStyles.ml5]}>{item.price}</Text>
+                <Text style={[AppStyles.txtBlackRegular, AppStyles.f15, AppStyles.ml5]}>{item.work_sub_total}</Text>
               </View>
             </View>
           </View>
