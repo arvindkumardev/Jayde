@@ -328,8 +328,8 @@ function WarehouseDetails() {
 
         <View style={[AppStyles.ml20, AppStyles.mr20]}>
           <Text style={[AppStyles.txtBlackBold, AppStyles.f17, AppStyles.textalig]}>Confirm the receipt and quantity</Text>
-          {receiptData.map((item, index) => (<View>
-            <View key={index}
+          {receiptData.map((item, index) => (<View  key={index}>
+            <View
               style={[AppStyles.mt20]}>
               <View style={[AppStyles.flexRowSpaceBetween, AppStyles.mb10]}>
                 <Text style={[AppStyles.txtBlackRegular, AppStyles.f16]}>Category</Text>
