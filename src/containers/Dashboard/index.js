@@ -118,7 +118,7 @@ function HomeScreen() {
   return (
     <ScrollView style={{ backgroundColor: Colors.white }}>
       <View style={AppStyles.flexDir}>
-        <View style={[AppStyles.flexpointsix, AppStyles.mt40, AppStyles.ml24]}>
+        <View style={[AppStyles.flexpointseven, AppStyles.mt40, AppStyles.ml24]}>
           <Text style={[AppStyles.txtBlackBold, AppStyles.f20]}>{getGreeting()}</Text>
           <Text style={[AppStyles.flexDir, AppStyles.txtBlackBold, AppStyles.f34]}>{name}</Text>
         </View>
