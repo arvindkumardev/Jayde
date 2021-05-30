@@ -166,14 +166,14 @@ function NewWorkOrder() {
 
     console.log(data)
     if (data.status) {
-     // alert(data.message)
-     navigation.popToTop()     
+      navigation.navigate(NavigationRouteNames.WORK_ORDER_CONFIRMATION, {item });
+    // navigation.popToTop()     
     } else {      
       alert(data.message)
       //navigation.navigate(NavigationRouteNames.WAREHOUSEORDER_CONFIRMATION)
     }
   }
-  
+
   const onChange = (event, selectedDate) => {
     setShow(false);
     if (selectedDate) {

@@ -51,6 +51,8 @@ const NavigationRouteNames = {
 
   VIEW_NEW_ORDER: "ViewNewOrder",
   CONFIRMATION: "Confirmation",
+  WORK_ORDER_CONFIRMATION: "WorkOrderConfirmation",
+
   ACCOUNT_CREATE: "AccountCreate",
   ORDER_ASSIGN: "OrderAssign",
   ORDER: "Order",

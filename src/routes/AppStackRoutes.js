@@ -50,16 +50,16 @@ import Payment from "../containers/Seller/Payment";
 import OrderConfirmation from "../containers/CommonScreen/OrderConfirmation";
 import WarehouseDetails from "../containers/Aggregator/WarehouseDetails";
 import ScheduledOrder from "../containers/Aggregator/ScheduledOrder";
-import AggregatorScheduleOrderList from '../containers/Aggregator/ScheduleOrderList'
+import AggregatorScheduleOrderList from '../containers/Aggregator/ScheduleOrderList';
 import Inventory from "../containers/Aggregator/Inventory";
 import NewWorkOrder from "../containers/Aggregator/CreateWorkOrder";
-import AggregatorWorkOrderList from './../containers/Aggregator/NewWorkOrderList'
-
+import AggregatorWorkOrderList from './../containers/Aggregator/NewWorkOrderList';
+import WorkOrderConfirmation from './../containers/Aggregator/WorkOrderConfirmation';
 import RecyclerNewWorkOrder from "../containers/Recycler/CreateWorkOrder";
 import RecyclerInventory from "../containers/Recycler/Inventory";
 import RecyclerNewOrderList from "../containers/Recycler/NewOrderList";
 import RecyclerScheduleOrderList from "../containers/Recycler/ScheduleOrderList";
-import RecyclerWorkOrderList from "../containers/Recycler/NewWorkOrderList";
+import RecyclerWorkOrderList from "../containers/Recycler/NewWorkOrderList";;
 import WorkOrderVerification from "../containers/CommonScreen/WorkOrderVerification"
 
 import Workordersummary from "../containers/Aggregator/Workordersummary";
@@ -83,9 +83,9 @@ import AddSubUser from "../containers/AddSubUser";
 import AddUser from "../containers/AddUser";
 
 import PasswordReset from "../containers/PasswordReset";
-import AdminNewOrderList from "../containers/Admin/AdminNewOrderList"
-import AdminNewOrder from "../containers/AdminNewOrder"
-import AggregatorNewOrder from "../containers/Aggregator/NewOrders"
+import AdminNewOrderList from "../containers/Admin/AdminNewOrderList";
+import AdminNewOrder from "../containers/AdminNewOrder";
+import AggregatorNewOrder from "../containers/Aggregator/NewOrders";
 import { resolveConfig } from "prettier";
 
 const Stack = createStackNavigator();
@@ -540,6 +540,14 @@ const AppStack = (props) => {
             component={Confirmation}
             options={NoHeaderScreen}
           />
+
+           {/* Confirmation Screen */}
+           <Stack.Screen
+            name={NavigationRouteNames.WORK_ORDER_CONFIRMATION}
+            component={WorkOrderConfirmation}
+            options={NoHeaderScreen}
+          />
+
           {/* Reject Order Screen */}
           <Stack.Screen
             name={NavigationRouteNames.REJECT_ORDER}
