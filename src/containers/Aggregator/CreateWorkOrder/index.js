@@ -173,9 +173,7 @@ function NewWorkOrder() {
       //navigation.navigate(NavigationRouteNames.WAREHOUSEORDER_CONFIRMATION)
     }
   }
-
-  c
-
+  
   const onChange = (event, selectedDate) => {
     setShow(false);
     if (selectedDate) {

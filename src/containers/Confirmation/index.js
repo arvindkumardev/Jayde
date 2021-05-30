@@ -36,8 +36,7 @@ function Confirmation() {
   
   return (
     <View style={Styles.topView}>
-       <ScrollView>      
-        
+       <ScrollView>     
         <View style={Styles.boxContent}>
           <Image style={Styles.boxImage} source={SuccessImg}  /> 
           <Text style={[AppStyles.txtBlackBold, AppStyles.f20, AppStyles.spacing1]}>SUCCESS</Text>

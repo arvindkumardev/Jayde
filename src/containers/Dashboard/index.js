@@ -87,9 +87,9 @@ function HomeScreen() {
           <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f11]}>{formatDisplayDate(item.pickup_date)}</Text>
         </View>
         <View style={Styles.statusIcon}>
-          <FAIcon name={STATUS_ICON[item.is_confirmed === '3' ? 'Pending' : item.is_confirmed === '4' ? 'Completed' : 'In Transit'].iconName} 
-          color={STATUS_ICON[item.is_confirmed === '3' ? 'Pending' : item.is_confirmed === '4' ? 'Completed' : 'In Transit'].color} size={18} />
-          <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f11, {color: item.is_confirmed === '3' ? '#707070' : item.is_confirmed === '4' ? '#abc270' : '#707070'}]}>{item.is_confirmed === '3' ? 'Pending' : item.is_confirmed === '4' ? 'Completed' : 'In Transit'}</Text>
+          <FAIcon name={STATUS_ICON[item.is_confirmed == '3' ? 'Pending' : item.is_confirmed == '4' ? 'Completed' : 'In Transit'].iconName} 
+          color={STATUS_ICON[item.is_confirmed == '3' ? 'Pending' : item.is_confirmed == '4' ? 'Completed' : 'In Transit'].color} size={18} />
+          <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f11, {color:  item.is_confirmed == '4' ? Colors.lightOlive : Colors.warmGrey}]}>{item.is_confirmed == '3' ? 'Pending' : item.is_confirmed == '4' ? 'Completed' : 'In Transit'}</Text>
         </View>
       </TouchableOpacity>
     );
@@ -97,7 +97,7 @@ function HomeScreen() {
 
   const _renderMenu = (index, item) => {
     return (
-      <View key={index} style={[Styles.menuContainer, { backgroundColor: index == 0 ? '#f8a230' : index == 1 ? '#fec868' : '#abc270', }]}>
+      <View key={index} style={[Styles.menuContainer, { backgroundColor: index == 0 ? Colors.mangoTwo : index == 1 ? '#fec868' : Colors.lightOlive, }]}>
         <View>
           <TouchableOpacity style={Styles.menuEllipseContainer}>
             <FAIcon name="ellipsis-v" color={Colors.white} size={25} />
@@ -117,12 +117,12 @@ function HomeScreen() {
 
   return (
     <ScrollView style={{ backgroundColor: Colors.white }}>
-      <View style={AppStyles.flexRowSpaceBetween}>
-        <View style={[AppStyles.flexpointseven, AppStyles.mt40, AppStyles.ml24]}>
+      <View style={AppStyles.flexDir}>
+        <View style={[AppStyles.flexpointsix, AppStyles.mt40, AppStyles.ml24]}>
           <Text style={[AppStyles.txtBlackBold, AppStyles.f20]}>{getGreeting()}</Text>
-          <Text style={[AppStyles.txtBlackBold, AppStyles.f34]}>{name}</Text>
+          <Text style={[AppStyles.flexDir, AppStyles.txtBlackBold, AppStyles.f34]}>{name}</Text>
         </View>
-          <View style={[AppStyles.flexpointthree, AppStyles.mr14]}>
+          <View style={[AppStyles.flexpointthree]}>
             <Image source={BagImg} />
           </View>
       </View>
