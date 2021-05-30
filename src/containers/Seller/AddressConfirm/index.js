@@ -121,8 +121,9 @@ const AddressConfirm = () => {
     console.log(value)
   }
   return (
-    <ScrollView>
+     
     <View style={[AppStyles.flex1SpaceBetween, AppStyles.pb20, style.whitebackgrnd,]}>
+      <ScrollView>
      
       <View style={[AppStyles.mt20, AppStyles.w100]}>
         <View style={[AppStyles.w100, AppStyles.ph20, AppStyles.txtPrimaryBold]}>
@@ -229,7 +230,8 @@ const AddressConfirm = () => {
           }
         </View>
       </View>
-      <View style={[AppStyles.flexRowSpaceBetween, AppStyles.w100, AppStyles.ph20, AppStyles.alignCenter, AppStyles.mt50]}>
+     
+      <View style={[AppStyles.flexRowSpaceBetween, AppStyles.w100, AppStyles.ph20, AppStyles.alignCenter, AppStyles.mt65]}>
         <View style={[AppStyles.ph10, AppStyles.flexpointfour]}>
           <Text style={[AppStyles.f12, AppStyles.txtPrimaryBold]}>ESTIMATED PRICE</Text>
           <Text style={AppStyles.txtBlackRegular, AppStyles.mt3}>
@@ -251,8 +253,9 @@ const AddressConfirm = () => {
         Data={handelValue} 
 
         />
+       </ScrollView>
     </View>
-     </ScrollView>
+     
   );
 };
 

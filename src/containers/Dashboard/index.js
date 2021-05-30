@@ -120,7 +120,7 @@ function HomeScreen() {
       <View style={AppStyles.flexDir}>
         <View style={[AppStyles.flexpointseven, AppStyles.mt40, AppStyles.ml24]}>
           <Text style={[AppStyles.txtBlackBold, AppStyles.f20]}>{getGreeting()}</Text>
-          <Text style={[AppStyles.flexDir, AppStyles.txtBlackBold, AppStyles.f34]}>{name}</Text>
+          <Text style={[AppStyles.flexDir, AppStyles.txtBlackBold, AppStyles.f30]}>{name}</Text>
         </View>
           <View style={[AppStyles.flexpointthree, AppStyles.mr10]}>
             <Image source={BagImg} />
