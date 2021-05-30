@@ -97,7 +97,7 @@ function HomeScreen() {
 
   const _renderMenu = (index, item) => {
     return (
-      <View key={index} style={[Styles.menuContainer, { backgroundColor: index == 0 ? Colors.mangoTwo : index == 1 ? '#fec868' : Colors.lightOlive, }]}>
+      <View key={index} style={[Styles.menuContainer, { backgroundColor: index == 0 ? Colors.mangoTwo : index == 1 ? Colors.paleGold : Colors.lightOlive, }]}>
         <View>
           <TouchableOpacity style={Styles.menuEllipseContainer}>
             <FAIcon name="ellipsis-v" color={Colors.white} size={25} />
@@ -122,7 +122,7 @@ function HomeScreen() {
           <Text style={[AppStyles.txtBlackBold, AppStyles.f20]}>{getGreeting()}</Text>
           <Text style={[AppStyles.flexDir, AppStyles.txtBlackBold, AppStyles.f34]}>{name}</Text>
         </View>
-          <View style={[AppStyles.flexpointthree]}>
+          <View style={[AppStyles.flexpointthree, AppStyles.mr10]}>
             <Image source={BagImg} />
           </View>
       </View>
