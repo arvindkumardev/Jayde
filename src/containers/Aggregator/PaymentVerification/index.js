@@ -160,6 +160,7 @@ const PaymentVerification = () => {
     console.log(data)
     if (data.status) {
       handelRefresh()
+      setShowPickUpMainView(false)
     } else {
       alert(data.message)
     }
@@ -361,6 +362,7 @@ const PaymentVerification = () => {
         } else if (itemObj.proposed_weight_confirm === '1' && itemObj.pickup_confirmed === '0' && itemObj.is_seller_confirmed == null) {
           setShowPickUpMainView(true)
         } else if (itemObj.proposed_weight_confirm === '1' && itemObj.pickup_confirmed === '0' && itemObj.is_seller_confirmed == '2') {
+          setShowPickUpMainView(false)
           return
         } else if (itemObj.proposed_weight_confirm === '1' && itemObj.pickup_confirmed === '0' && itemObj.is_seller_confirmed == '3') {
           setShowPickUpConfirmButton(true)
@@ -369,6 +371,7 @@ const PaymentVerification = () => {
         } else {
           setShowWeightedMainView(false)
           setShowPickUpMainView(false)
+          setShowPickUpConfirmButton(false)
           setShowWareHouseMainView(true)
         }
       } else {
@@ -907,7 +910,7 @@ const PaymentVerification = () => {
       {isShowPickUpConfirmButton && <TouchableOpacity
         style={Styles.btnConfirmPickup}
         onPress={() => handelPickupConfirm()}>
-        <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f17, AppStyles.mt10,]}>Confirm Pickup</Text>
+        <Text style={[AppStyles.txtWhiteRegular, AppStyles.f17, AppStyles.mt10,]}>Confirm Pickup</Text>
       </TouchableOpacity>}
 
       {/* End Material pickup confirmation */}

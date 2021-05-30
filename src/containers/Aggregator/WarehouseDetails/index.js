@@ -168,6 +168,7 @@ function WarehouseDetails() {
       tempQty.push(weightOne)
     } else {
       alert('Please complete details')
+      return
     }
 
     if (addMoreCount > 1) {
@@ -177,6 +178,7 @@ function WarehouseDetails() {
         tempQty.push(weightTwo)
       } else {
         alert('Please complete details')
+        return
       }
     }
 
@@ -187,6 +189,7 @@ function WarehouseDetails() {
         tempQty.push(weightThree)
       } else {
         alert('Please complete details')
+        return
       }
     }
 
