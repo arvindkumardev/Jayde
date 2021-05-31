@@ -11,6 +11,10 @@ import {useNavigation} from '@react-navigation/core';
 import {useRoute} from '@react-navigation/native';
 import { AppStyles } from '../../theme';
 
+// Image
+import contractImg from '../../assets/Images/SmartContract/contract.png';
+import auditImg from '../../assets/Images/SmartContract/auditing.png';
+
 
 function SmartContract() {
 
@@ -44,7 +48,7 @@ function SmartContract() {
            <View style={[Styles.bdrclr]}></View>
            </View>
            <View style={[style.flexpointtwo, Appstyles.alignfend, AppStyle.mt20, AppStyles.mr14]}>
-           <Image source={require('../../assets/Images/SmartContract/contract.png')}  />  
+           <Image source={contractImg}  />  
            </View>
            </View>
            <Text style={[Appstyles.txtWhiteRegular, Appstyles.f13, AppStyle.mt10, AppStyle.ml20]}>View all the contacts that you own.</Text>
@@ -59,7 +63,7 @@ function SmartContract() {
            <View style={[Styles.bdrclr]}></View>
            </View>
            <View style={[style.flexpointtwo, Appstyles.alignfend, AppStyle.mt20, AppStyles.mr14]}>
-           <Image source={require('../../assets/Images/SmartContract/auditing.png')}  />  
+           <Image source={auditImg}  />  
            </View>
            </View>
            <Text style={[Appstyles.txtWhiteRegular, Appstyles.f13, AppStyle.mt10, AppStyle.ml20, AppStyles.mr30]}>Check the details of contracts for reference.</Text>

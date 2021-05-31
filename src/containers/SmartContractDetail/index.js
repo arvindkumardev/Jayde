@@ -1,6 +1,6 @@
-import React, {useContext, useEffect, useState, useLayoutEffect} from 'react';
+import React, {useState, useLayoutEffect} from 'react';
 import * as Alert from 'react-native';
-import {KeyboardAvoidingView, Platform, TouchableOpacity, View, Text, Image, TextInput, FlatList, ScrollView} from 'react-native';
+import {TouchableOpacity, View, Text, ScrollView} from 'react-native';
 import Styles from "./styles";
 import NavigationRouteNames from '../../routes/ScreenNames';
 import {useNavigation} from '@react-navigation/core';

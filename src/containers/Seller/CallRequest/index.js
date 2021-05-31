@@ -45,11 +45,6 @@ const CallRequest = () => {
   }, [navigation]);
 
   const validationSchema = Yup.object().shape({
-    // contactNumber: Yup.string().test(
-    //   "contactNumber",
-    //   "Please provide valid contact number",
-    //   (value) => isValidVolume(value),
-    // ),
     contactNumber: Yup.string().required('Please provide valid contact number'),
     contactPerson: Yup.string().required('Please provide contact person'),
   });
@@ -147,9 +142,9 @@ const CallRequest = () => {
   return (
     <KeyboardAwareScrollView style={Styles.mainContainer}>
       <View style={[AppStyles.w100, AppStyles.alignCenter, AppStyles.mt20]}>
-        <Text style={[AppStyles.txtBlackBold, AppStyles.f16]}>Please confirm your details</Text>
+        <Text style={[AppStyles.txtBlackBold, AppStyles.f17]}>Please confirm your details</Text>
       </View>
-      <View style={AppStyles.mt20}>
+      <View style={AppStyles.mt30}>
         <View>
           <Text style={[AppStyles.txtBlackRegular, AppStyles.f16, AppStyles.mb10]}>Contact person</Text>
           <TextInput
@@ -165,7 +160,7 @@ const CallRequest = () => {
           ) : null}
         </View>
         <View>
-          <Text style={[[AppStyles.txtBlackRegular, AppStyles.f16, AppStyles.mb10]]}>Contact number</Text>
+          <Text style={[[AppStyles.txtBlackRegular, AppStyles.f16, AppStyles.mb10, AppStyles.mt20]]}>Contact number</Text>
           <TextInput
             placeholder="Contact number..."
             style={AppStyles.inputTxtStyle}
@@ -180,7 +175,7 @@ const CallRequest = () => {
           ) : null}
         </View>
         <View>
-          <Text style={[AppStyles.txtBlackRegular, AppStyles.f16, AppStyles.mb10]}>Upload File</Text>
+          <Text style={[AppStyles.txtBlackRegular, AppStyles.f16, AppStyles.mb10, AppStyles.mt20]}>Upload File</Text>
           <TouchableOpacity
             activeOpacity={0.8}
             style={[Styles.inputText, Styles.inputIcon, AppStyles.br10]} onPress={() => setImageUpload(!imageUpload)}>
@@ -202,30 +197,30 @@ const CallRequest = () => {
         <TouchableOpacity
           activeOpacity={0.8}
           onPress={() => setTimeSlotIndex(0)}
-          style={[AppStyles.pv15, AppStyles.ph20, AppStyles.flexRowSpaceBetween, timeSlotIndex == 0 && Styles.active]}>
-          <Text style={AppStyles.txtBlackRegular}>{getDayAfter()}</Text>
-          <Text style={AppStyles.txtBlackRegular}>11:00 AM - 1:00 PM</Text>
+          style={[AppStyles.pv15, AppStyles.ph20,  AppStyles.mt10, AppStyles.flexRowSpaceBetween, timeSlotIndex == 0 && Styles.active]}>
+          <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f15]}>{getDayAfter()}</Text>
+          <Text style={[AppStyles.txtSecandaryRegular, , AppStyles.f15]}>11:00 AM - 1:00 PM</Text>
         </TouchableOpacity>
         <TouchableOpacity
           activeOpacity={0.8}
           onPress={() => setTimeSlotIndex(1)}
-          style={[AppStyles.pv15, AppStyles.ph20, AppStyles.flexRowSpaceBetween, timeSlotIndex == 1 && Styles.active]}>
-          <Text style={AppStyles.txtBlackRegular}>{getDayAfter()}</Text>
-          <Text style={AppStyles.txtBlackRegular}>3:00 PM - 5:00 PM</Text>
+          style={[AppStyles.pv15, AppStyles.ph20, AppStyles.mt10, AppStyles.flexRowSpaceBetween, timeSlotIndex == 1 && Styles.active]}>
+          <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f15]}>{getDayAfter()}</Text>
+          <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f15]}>3:00 PM - 5:00 PM</Text>
         </TouchableOpacity>
         <TouchableOpacity
           activeOpacity={0.8}
           onPress={() => setTimeSlotIndex(2)}
-          style={[AppStyles.pv15, AppStyles.ph20, AppStyles.flexRowSpaceBetween, timeSlotIndex == 2 && Styles.active]}>
-          <Text style={AppStyles.txtBlackRegular}>{getAfterDay()}</Text>
-          <Text style={AppStyles.txtBlackRegular}>11:00 AM - 1:00 PM</Text>
+          style={[AppStyles.pv15, AppStyles.ph20, AppStyles.mt10, AppStyles.flexRowSpaceBetween, timeSlotIndex == 2 && Styles.active]}>
+          <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f15]}>{getAfterDay()}</Text>
+          <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f15]}>11:00 AM - 1:00 PM</Text>
         </TouchableOpacity>
         <TouchableOpacity
           activeOpacity={0.8}
           onPress={() => setTimeSlotIndex(3)}
-          style={[AppStyles.pv15, AppStyles.ph20, AppStyles.flexRowSpaceBetween, timeSlotIndex == 3 && Styles.active]}>
-          <Text style={AppStyles.txtBlackRegular}>{getAfterDay()}</Text>
-          <Text style={AppStyles.txtBlackRegular}>3:00 PM - 5:00 PM</Text>
+          style={[AppStyles.pv15, AppStyles.ph20, AppStyles.mt10, AppStyles.flexRowSpaceBetween, timeSlotIndex == 3 && Styles.active]}>
+          <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f15]}>{getAfterDay()}</Text>
+          <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f15]}>3:00 PM - 5:00 PM</Text>
         </TouchableOpacity>
       </View>
 
