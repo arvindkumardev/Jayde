@@ -8,7 +8,7 @@ import NavigationRouteNames from '../../../routes/ScreenNames';
 import { useNavigation } from '@react-navigation/core';
 import { useRoute } from '@react-navigation/native';
 import { LOCAL_STORAGE_DATA_KEY } from '../../../utils/constants';
-import {getSaveData } from '../../../utils/helpers';
+import { getSaveData } from '../../../utils/helpers';
 import successLogo from '../../../assets/Images/WorkOrderEmail/Group.png'
 
 function WorkOrderEmail() {
@@ -23,7 +23,7 @@ function WorkOrderEmail() {
   }
 
   useEffect(() => {
-    async function getUserName() {     
+    async function getUserName() {
       const userName = await getSaveData(LOCAL_STORAGE_DATA_KEY.USER_NAME);
       if (userName) {
         setUserName(userName)
@@ -50,7 +50,9 @@ function WorkOrderEmail() {
           <View style={Styles.bxVu}>
 
             <View style={[style.flex1, AppStyles.aligncen]}>
-              <TouchableOpacity style={[AppStyle.mt50, Styles.buttonsize, AppStyles.aligncen, style.br10, style.btnPrimary]} onPress={() => { screenNavigate() }}>
+              <TouchableOpacity
+                activeOpacity={0.8}
+                style={[AppStyle.mt50, Styles.buttonsize, AppStyles.aligncen, style.br10, style.btnPrimary]} onPress={() => { screenNavigate() }}>
                 <Text style={[AppStyles.f17, style.whitecolor, AppStyle.mt10,]}>GO TO HOME</Text>
               </TouchableOpacity>
             </View>

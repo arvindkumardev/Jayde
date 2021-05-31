@@ -126,6 +126,12 @@ function SignUp() {
     inputs[id] ? inputs[id].focus() : null;
   };
 
+  useEffect(() => {
+    return () => {
+      setLoader(false)
+    }
+  })
+
   return (
     <View style={{ flex: 1, backgroundColor: Colors.mango }}>
       <KeyboardAwareScrollView
@@ -135,7 +141,7 @@ function SignUp() {
         <View style={AppStyles.flex1}>
 
           <View style={[AppStyles.ml20, AppStyles.mt20]}>
-            <TouchableOpacity onPress={() => screenNavigate()}>
+            <TouchableOpacity activeOpacity = {0.8} onPress={() => screenNavigate()}>
               <Image source={leftArrowImg} />
             </TouchableOpacity>
           </View>
@@ -269,7 +275,7 @@ function SignUp() {
             </View>
 
             <View style={{ marginTop: RfH(10) }}>
-              <TouchableOpacity style={[AppStyles.mt20, AppStyles.br10, AppStyles.btnPrimary, AppStyles.pv15, AppStyles.aligncen]}
+              <TouchableOpacity activeOpacity = {0.8} style={[AppStyles.mt20, AppStyles.br10, AppStyles.btnPrimary, AppStyles.pv15, AppStyles.aligncen]}
                 onPress={() => handleSignup()}>
                 <Text style={[AppStyles.f18, AppStyles.txtWhiteRegular]}>CONFIRM</Text>
               </TouchableOpacity>

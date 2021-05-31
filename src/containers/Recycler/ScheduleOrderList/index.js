@@ -36,7 +36,7 @@ function RecyclerScheduleOrderList() {
   const [offset, setOffset] = useState(0);
   const [loadMore, setLoadMore] = useState(false);
 
-  const [totalCount, setTotalCount] = useState(15)
+  const [totalCount, setTotalCount] = useState(0)
   const [perPage, setPerPage] = useState(15)
   const [refreshPage, setRefreshPage] = useState(false)
 
@@ -76,11 +76,14 @@ function RecyclerScheduleOrderList() {
   useEffect(() => {
     setLoader(true)
     getOrderList();
+    return () => {
+      setLoader(false)
+    }
   }, []);
 
-  useEffect(() => {   
-    if(refreshPage){
-      setOrderList([])      
+  useEffect(() => {
+    if (refreshPage) {
+      setOrderList([])
       getOrderList()
       setRefreshPage(false)
     }
@@ -93,7 +96,7 @@ function RecyclerScheduleOrderList() {
   const screenNavigate = (item) => {
     {
       item.assigned_status == '1' &&
-      navigation.navigate(NavigationRouteNames.PAYMENT_VERIFICATION, { 'assignedID': item.assigned_id, getActionType: getActionType });
+        navigation.navigate(NavigationRouteNames.PAYMENT_VERIFICATION, { 'assignedID': item.assigned_id, getActionType: getActionType });
     }
   }
 
@@ -135,7 +138,7 @@ function RecyclerScheduleOrderList() {
   }
   const _RenderItem = (index, item) => {
     return (
-      <TouchableOpacity onPress={() => screenNavigate(item)}>
+      <TouchableOpacity activeOpacity={0.8} onPress={() => screenNavigate(item)}>
         <View style={[AppStyles.flexDir, AppStyles.mt20, AppStyles.ph10]}>
           <View style={[AppStyles.flexpointtwo]}>
             <Image source={ORDER_IMAGE[item.category_name]} />
@@ -148,7 +151,7 @@ function RecyclerScheduleOrderList() {
           </View>
 
           {item.assigned_status == '1' ? <View style={[AppStyles.flexpointthree, AppStyles.mt5, AppStyles.alignCenter]}>
-            <TouchableOpacity
+            <TouchableOpacity activeOpacity={0.8}
               onPress={() => screenNavigate(item)}
               style={Styles.confirmBtn}>
               <Text style={[AppStyles.txtWhiteRegular, AppStyles.f11, AppStyles.textalig,]}>VIEW</Text>

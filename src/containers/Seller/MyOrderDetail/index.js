@@ -98,7 +98,7 @@ function SellerOrderDetail() {
               <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f15, AppStyles.mt10, AppStyles.ml20]}>City</Text>
             </View>
             <View style={[AppStyles.flexpointfour, AppStyles.alignfend]}>
-              <Text style={[AppStyles.txtBlackRegular, AppStyles.f15, AppStyles.mt10, AppStyles.mr20]}>{item.city}</Text>
+              <Text style={[AppStyles.txtBlackRegular, AppStyles.f15, AppStyles.mt10, AppStyles.textAlignRight, AppStyles.mr20]}>{item.city}</Text>
             </View>
           </View>
 
@@ -107,7 +107,7 @@ function SellerOrderDetail() {
               <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f15, AppStyles.mt10, AppStyles.ml20]}>Landmark</Text>
             </View>
             <View style={[AppStyles.flexpointsix, AppStyles.alignfend]}>
-              <Text style={[AppStyles.txtBlackRegular, AppStyles.f15, AppStyles.mt10, AppStyles.mr20]}>{item.landmark}</Text>
+              <Text style={[AppStyles.txtBlackRegular, AppStyles.f15, AppStyles.mt10, AppStyles.textAlignRight, AppStyles.mr20]}>{item.landmark}</Text>
             </View>
           </View>
 

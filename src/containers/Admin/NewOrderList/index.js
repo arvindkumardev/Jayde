@@ -38,7 +38,7 @@ function AdminNewOrderList() {
   const [loadMore, setLoadMore] = useState(false);
   const [refreshPage, setRefreshPage] = useState(false)
 
-  const [totalCount, setTotalCount] = useState(5)
+  const [totalCount, setTotalCount] = useState(0)
   const [perPage, setPerPage] = useState(5)
 
   const [{ data, loading, error }, onAdminNewOrder] = adminNewOrder(offset);
@@ -46,9 +46,9 @@ function AdminNewOrderList() {
   const screenNavigate = (item) => {
     {
       item.is_confirmed == 2 ?
-      navigation.navigate(NavigationRouteNames.ORDER_ASSIGN, { Value: item, getActionType: getActionType })
-      :
-      navigation.navigate(NavigationRouteNames.ADMIN_NEW_ORDER, { Item: item, getActionType: getActionType })
+        navigation.navigate(NavigationRouteNames.ORDER_ASSIGN, { Value: item, getActionType: getActionType })
+        :
+        navigation.navigate(NavigationRouteNames.ADMIN_NEW_ORDER, { Item: item, getActionType: getActionType })
     }
   }
 
@@ -101,6 +101,9 @@ function AdminNewOrderList() {
   useEffect(() => {
     setLoader(true)
     triggerNewOrder();
+    return () => {
+      setLoader(false)
+    }
   }, []);
 
   useEffect(() => {
@@ -127,6 +130,7 @@ function AdminNewOrderList() {
   const _RenderItem = (index, item) => {
     return (
       <TouchableOpacity
+        activeOpacity={0.8}
         key={index}
         onPress={() => screenNavigate(item)}>
         <View>
@@ -144,6 +148,7 @@ function AdminNewOrderList() {
             </View>
             <View style={[AppStyles.flexpointthree, AppStyles.ml35]}>
               <TouchableOpacity
+                activeOpacity = {0.8}
                 onPress={() => screenNavigate(item)}
                 style={AppStyles.confirmBtnSmall}>
                 <Text style={[AppStyles.txtWhiteRegular, AppStyles.f11,
@@ -189,7 +194,7 @@ function AdminNewOrderList() {
         }}
       />
         :
-        !loading && <EmptyView onBack = {() => navigation.pop()}></EmptyView>
+        !loading && <EmptyView onBack={() => navigation.pop()}></EmptyView>
       }
     </View>
   );

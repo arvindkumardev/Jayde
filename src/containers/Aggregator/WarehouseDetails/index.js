@@ -80,6 +80,9 @@ function WarehouseDetails() {
 
   useEffect(() => {
     setLoader(loading);
+    return () => {
+      setLoader(false)
+    }
   }, [addReceiptData, loading]);
 
   const setValueWeight = (value, index) => {
@@ -200,7 +203,7 @@ function WarehouseDetails() {
         "subcategoryValues": tempCategory,
         "qtyValues": tempQty
       }
-      console.log(param)      
+      console.log(param)
       const { data } = await onAddRecept({
         data: param
       });
@@ -318,6 +321,7 @@ function WarehouseDetails() {
 
         {addMoreCount < 3 ? <View style={[{ justifyContent: 'flex-end', alignItems: 'flex-end' }, AppStyles.pv10, AppStyles.ph20]}>
           <TouchableOpacity
+            activeOpacity={0.8}
             onPress={() => handelAddMore()}
             style={[AppStyles.pv10, AppStyles.ph10, { backgroundColor: Colors.mangoTwo, borderRadius: 5 }, AppStyles.flexDir, AppStyles.alignCenter]}
             activeOpacity={0.6}>
@@ -328,12 +332,13 @@ function WarehouseDetails() {
 
         <View style={[AppStyles.ml20, AppStyles.mr20]}>
           <Text style={[AppStyles.txtBlackBold, AppStyles.f17, AppStyles.textalig]}>Confirm the receipt and quantity</Text>
-          {receiptData.map((item, index) => (<View  key={index}>
+          {receiptData.map((item, index) => (<View key={index}>
             <View
               style={[AppStyles.mt20]}>
               <View style={[AppStyles.flexRowSpaceBetween, AppStyles.mb10]}>
                 <Text style={[AppStyles.txtBlackRegular, AppStyles.f16]}>Category</Text>
                 {index > 0 && <TouchableOpacity
+                  activeOpacity={0.8}
                   key={`${index}1`}
                   onPress={() => handelRemoveLine(index)}
                   style={[AppStyles.pv5, AppStyles.ph5, { backgroundColor: Colors.mangoTwo, borderRadius: 5 }, AppStyles.flexDir, AppStyles.alignCenter]}
@@ -384,6 +389,7 @@ function WarehouseDetails() {
 
         <View style={Styles.btnContainer}>
           <TouchableOpacity
+            activeOpacity={0.8}
             onPress={() => handelAddReceipt()}
             style={Styles.confirmbtn}>
             <Text style={[AppStyles.txtWhiteRegular, AppStyles.f17, AppStyles.textalig, AppStyles.mt10]}>CONFIRM</Text>

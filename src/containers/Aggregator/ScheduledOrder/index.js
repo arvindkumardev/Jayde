@@ -117,6 +117,7 @@ function ScheduledOrder() {
 
         <View style={Styles.btnContainer}>
           <TouchableOpacity
+            activeOpacity = {0.8}
             style={[Styles.confirmbtn, AppStyle.mb20]}>
             <Text style={[Appstyles.txtWhiteRegular, Appstyles.f17, Appstyles.textalig, AppStyle.mt10]}>PICKUP ORDER</Text>
           </TouchableOpacity>

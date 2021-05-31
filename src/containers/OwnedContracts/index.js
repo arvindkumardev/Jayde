@@ -25,7 +25,7 @@ function OwnedContracts() {
 
   const [offset, setOffset] = useState(0);
   const [loadMore, setLoadMore] = useState(false);
-   const [totalCount, setTotalCount] = useState(15)
+   const [totalCount, setTotalCount] = useState(0)
   const [perPage, setPerPage] = useState(15)
 
   const [arraydata, setArraydata] = useState([]);

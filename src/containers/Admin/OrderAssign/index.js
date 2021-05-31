@@ -72,15 +72,11 @@ function OrderAssign() {
     onGetRecyclers();
   }, []);
 
-  // useEffect(() => {
-  //   async function getUserName() {     
-  //     const userName = await getSaveData(LOCAL_STORAGE_DATA_KEY.USER_NAME);
-  //     if (userName) {
-  //       setUserName(userName)
-  //     }
-  //   }
-  //   getUserName();
-  // }, []);
+  useEffect(() => {
+    return () => {
+      setLoader(false)
+    }
+  }, []);
 
   const handelGetAggregators = async () => {
     setLoader(true)
@@ -271,7 +267,9 @@ function OrderAssign() {
           </View>
 
           <View style={Styles.confirmView}>
-            <TouchableOpacity style={Styles.confirmBtn} onPress={() => { handelSubmit() }}>
+            <TouchableOpacity 
+            activeOpacity = {0.8}
+            style={Styles.confirmBtn} onPress={() => { handelSubmit() }}>
               <Text style={Styles.confirm}>CONFIRM</Text>
             </TouchableOpacity>
           </View>

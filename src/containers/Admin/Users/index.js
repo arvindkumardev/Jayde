@@ -23,7 +23,7 @@ function Users() {
 
   const [offset, setOffset] = useState(1);
   const [loadMore, setLoadMore] = useState(false);
-  const [totalCount, setTotalCount] = useState(5)
+  const [totalCount, setTotalCount] = useState(0)
   const [perPage, setPerPage] = useState(5)
 
   const [userList, setUserList] = useState([])
@@ -60,6 +60,9 @@ function Users() {
   useEffect(() => {
     setLoader(true)
     triggerUser();
+    return () => {
+      setLoader(false)
+    }
   }, []);
 
   useEffect(() => {
@@ -97,6 +100,7 @@ function Users() {
   const _RenderItem = (index, item) => {
     return (
       <TouchableOpacity
+        activeOpacity = {0.8}
         key={index}
         onPress={() => { screenNavigate(item, index) }}>
         <View style={Styles.boxView}>
@@ -106,7 +110,9 @@ function Users() {
               <Text style={[AppStyles.f13, AppStyles.txtSecandaryRegular, AppStyles.mt12]}>{item.email}</Text>
             </View>
             <View style={[AppStyles.flexpointthree, AppStyles.mt12, AppStyles.ml24]}>
-              <TouchableOpacity style={item.status == 1 ? Styles.confirmBtn : Styles.InactiveBtn}>
+              <TouchableOpacity 
+              activeOpacity = {0.8}
+              style={item.status == 1 ? Styles.confirmBtn : Styles.InactiveBtn}>
                 <Text style={[AppStyles.txtWhiteRegular, AppStyles.f11, AppStyles.textalig]}>{item.status == 1 ? 'Active' : 'Inactive'}</Text>
               </TouchableOpacity>
             </View>

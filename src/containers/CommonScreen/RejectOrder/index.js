@@ -31,6 +31,12 @@ function RejectOrder() {
     navigation.pop()
   }
 
+  useEffect(() => {
+    return () => {
+      setLoader(false)
+    }
+  })
+
   useLayoutEffect(() => {
     const { Item } = route.params;
     setItem(Item)
@@ -115,14 +121,14 @@ function RejectOrder() {
 
           <View style = {[AppStyles.mb30]}>
             <View style={AppStyles.aligncen}>
-              <TouchableOpacity style={Styles.backbtn}
+              <TouchableOpacity activeOpacity = {0.8} style={Styles.backbtn}
                 onPress={() => screenNavigateBack()}>
                 <Text style={[AppStyles.f17, AppStyles.warmgreycolor, AppStyles.textalig, AppStyles.mt10]}>BACK</Text>
               </TouchableOpacity>
             </View>
 
             <View style={AppStyles.aligncen}>
-              <TouchableOpacity style={Styles.confirmbtn} onPress={() => handelValidation()}>
+              <TouchableOpacity activeOpacity = {0.8} style={Styles.confirmbtn} onPress={() => handelValidation()}>
                 <Text style={[AppStyles.f17, AppStyles.whitecolor, AppStyles.textalig, AppStyles.mt10]}>CONFIRM</Text>
               </TouchableOpacity>
             </View>

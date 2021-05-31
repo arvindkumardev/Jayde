@@ -198,7 +198,7 @@ function PricingRequest() {
     <KeyboardAwareScrollView
       removeClippedSubviews={true}
       style={[AppStyles.ph20, AppStyles.flex1, AppStyles.pv15, { backgroundColor: Colors.white }]}
-        contentContainerStyle={AppStyles.flex1SpaceBetween}
+      contentContainerStyle={AppStyles.flex1SpaceBetween}
     >
       <View>
         <View style={AppStyles.alignCenter}>

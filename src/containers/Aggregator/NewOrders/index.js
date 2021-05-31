@@ -36,7 +36,7 @@ function AggregatorNewOrder() {
   const [offset, setOffset] = useState(0);
   const [loadMore, setLoadMore] = useState(false);
 
-  const [totalCount, setTotalCount] = useState(15)
+  const [totalCount, setTotalCount] = useState()
   const [perPage, setPerPage] = useState(15)
 
   const [{ data, loading, error }, onGetOrder] = aggregatorNewOrder(offset);
@@ -75,6 +75,9 @@ function AggregatorNewOrder() {
   useEffect(() => {
     setLoader(true)
     getNewOrder();
+    return () => {
+      setLoader(false)
+    }
   }, []);
 
   useEffect(() => {
@@ -105,7 +108,7 @@ function AggregatorNewOrder() {
 
   const _RenderItem = (index, item) => {
     return (
-      <TouchableOpacity onPress={() => screenNavigate(item)}>
+      <TouchableOpacity activeOpacity = {0.8} onPress={() => screenNavigate(item)}>
         <View style={[AppStyles.flexDir, AppStyles.mt20]}>
           <View style={[AppStyles.flexpointtwo, AppStyles.ml14]}>
             <Image source={ORDER_IMAGE[item.category_name]} />
@@ -118,7 +121,7 @@ function AggregatorNewOrder() {
           </View>
 
           <View style={[AppStyles.flexpointthree, AppStyles.mt5, AppStyles.alignCenter]}>
-            <TouchableOpacity
+            <TouchableOpacity activeOpacity = {0.8}
               onPress={() => screenNavigate(item)}
               style={Styles.confirmBtn}>
               <Text style={[AppStyles.txtWhiteRegular, AppStyles.f11, AppStyles.textalig,]}>{item.is_confirmed == 2 ? 'VIEW' : 'ACCEPT'}</Text>

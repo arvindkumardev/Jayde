@@ -36,7 +36,7 @@ function RecyclerWorkOrderList() {
   const [offset, setOffset] = useState(0);
   const [loadMore, setLoadMore] = useState(false);
 
-  const [totalCount, setTotalCount] = useState(5)
+  const [totalCount, setTotalCount] = useState(0)
   const [perPage, setPerPage] = useState(0)
 
   const [refreshPage, setRefreshPage] = useState(false)
@@ -44,7 +44,7 @@ function RecyclerWorkOrderList() {
   const [{ data, loading, error }, onWorkOrder] = getWorkOrderList(offset);
 
   const screenNavigate = (item) => {
-   navigation.navigate(NavigationRouteNames.WORK_ORDER_VERIFICATION, {item});
+    navigation.navigate(NavigationRouteNames.WORK_ORDER_VERIFICATION, { item });
   }
 
   useLayoutEffect(() => {
@@ -93,6 +93,9 @@ function RecyclerWorkOrderList() {
   useEffect(() => {
     setLoader(true)
     workOrder();
+    return () => {
+      setLoader(false)
+    }
   }, []);
 
   useEffect(() => {
@@ -122,7 +125,7 @@ function RecyclerWorkOrderList() {
 
   const _RenderItem = (index, item) => {
     return (
-      <TouchableOpacity
+      <TouchableOpacity activeOpacity={0.8}
         key={index}
         onPress={() => screenNavigate(item)}>
         <View>
@@ -136,7 +139,7 @@ function RecyclerWorkOrderList() {
               <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f15,]}>{item.work_qty} {item.unit_name} {item.category_name}</Text>
               <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f11,]}>{moment(item.pickup_date).format('DD-MMM-YY')}</Text>
               <View style={[AppStyles.flexRowAlignCenter, AppStyles.mr20]}>
-                <FAIcon size={12} name='rupee' color= {Colors.warmGrey}></FAIcon>
+                <FAIcon size={12} name='rupee' color={Colors.warmGrey}></FAIcon>
                 <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f12, AppStyles.ml5]}>{item.work_price} / {item.price_unit}</Text>
               </View>
             </View>
@@ -172,7 +175,7 @@ function RecyclerWorkOrderList() {
         }}
       />
         :
-        !loading && <EmptyView onBack = {() => navigation.pop()}></EmptyView>
+        !loading && <EmptyView onBack={() => navigation.pop()}></EmptyView>
       }
     </View>
   );

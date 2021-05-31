@@ -25,6 +25,9 @@ function EnableDisableUser(props) {
   useEffect(() => {
     const { Item } = route.params;
     setItem(Item)
+    return () => {
+      setLoader(false)
+    }
   }, [])
 
   const handleCloseRefresh = () => {
@@ -72,7 +75,9 @@ function EnableDisableUser(props) {
             <Text style={[AppStyles.f13, AppStyles.txtSecandaryRegular, AppStyles.mt14]}>{item.email}</Text>
           </View>
           <View style={[AppStyles.flexpointthree, AppStyles.mt14,]}>
-            <TouchableOpacity style={item.status == 1 ? Styles.confirmBtn : Styles.InactiveBtn}>
+            <TouchableOpacity 
+            activeOpacity = {0.8}
+            style={item.status == 1 ? Styles.confirmBtn : Styles.InactiveBtn}>
               <Text style={[AppStyles.txtWhiteRegular, AppStyles.f11, AppStyles.textalig, Styles.activebutton]}>{item.status == 1 ? 'Active' : 'Inactive'}</Text>
             </TouchableOpacity>
           </View>
@@ -98,6 +103,7 @@ function EnableDisableUser(props) {
         <View style={[AppStyles.flexDir, Styles.cancelbutton]}>
           <View style={AppStyles.flex1}>
             <TouchableOpacity
+              activeOpacity = {0.8}
               onPress={() => handelClose()}
               style={[AppStyles.br10, AppStyles.borderwidth1, AppStyles.borderColorLightOlive, AppStyles.whitecolor, AppStyles.alignCenter, Styles.bittonSize, Styles.cancelButton]}>
               <Text style={[AppStyles.f17, , Styles.txtLightOliveRegular, AppStyles.mt10]}>CANCEL</Text>
@@ -105,6 +111,7 @@ function EnableDisableUser(props) {
           </View>
           <View style={AppStyles.flex1}>
             <TouchableOpacity
+              activeOpacity = {0.8}
               onPress={() => handelConfirm()}
               style={[AppStyles.br10, AppStyles.lightOlive, AppStyles.alignCenter, Styles.bittonSize, Styles.confirmButton]}>
               <Text style={[AppStyles.f17, AppStyles.txtWhiteRegular, AppStyles.mt10]}>CONFIRM</Text>

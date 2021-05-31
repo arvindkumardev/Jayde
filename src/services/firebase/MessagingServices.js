@@ -92,7 +92,6 @@ const getNotificationScreen = (notificationData, navigation) => {
   }
 };
 
-
 export default {
   initializeNotification,
   registerAppWithFCM,

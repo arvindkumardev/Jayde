@@ -57,8 +57,8 @@ function RecyclerNewWorkOrder() {
     navigation.navigate(NavigationRouteNames.WORKORDER_SUMMARY);
   }
 
-   useEffect(() => {
-    async function getUserName() {     
+  useEffect(() => {
+    async function getUserName() {
       const userName = await getSaveData(LOCAL_STORAGE_DATA_KEY.USER_NAME);
       if (userName) {
         setUserName(userName)
@@ -69,7 +69,7 @@ function RecyclerNewWorkOrder() {
 
   useEffect(() => {
     if (aggregatorsData) {
-       let itemData = aggregatorsData.filter(item => item.name != userName);
+      let itemData = aggregatorsData.filter(item => item.name != userName);
       const pickerData = itemData.map((item) => ({ label: item.name, value: item.id }));
       setAggregator(pickerData);
     }
@@ -92,6 +92,9 @@ function RecyclerNewWorkOrder() {
 
   useEffect(() => {
     setLoader(loading);
+    return () => {
+      setLoader(false)
+    }
   }, [workOrderData, loading]);
 
   useLayoutEffect(() => {
@@ -240,7 +243,7 @@ function RecyclerNewWorkOrder() {
           <View style={[AppStyles.mt20]}>
             <Text style={[AppStyles.txtBlackRegular, AppStyles.f16, AppStyles.mb10]}>Category</Text>
             <View style={[Styles.inputIcon, AppStyles.br10]}>
-            <Text style={[[AppStyles.txtBlackRegular, AppStyles.f16, AppStyles.pv4]]}>Paper</Text>
+              <Text style={[[AppStyles.txtBlackRegular, AppStyles.f16, AppStyles.pv4]]}>Paper</Text>
               {/* <Text style={[[AppStyles.txtBlackRegular, AppStyles.f16, AppStyles.pv4]]}>{item.category_name}</Text> */}
             </View>
           </View>
@@ -280,7 +283,7 @@ function RecyclerNewWorkOrder() {
             </View>
             <View style={{ flexDirection: 'row' }}>
               <View style={[AppStyles.flexpointfive, AppStyles.pr10]}>
-                <TouchableOpacity
+                <TouchableOpacity activeOpacity={0.8}
                   onPress={() => setShow(!show)}
                   style={[AppStyles.flexRowAlignCenter, AppStyles.btnSecandary, AppStyles.br10, AppStyles.pv10, AppStyles.ph10]}>
                   <FAIcon size={22} name='calendar-o' color={Colors.mangoTwo} />
@@ -297,7 +300,7 @@ function RecyclerNewWorkOrder() {
                 />)}
               </View>
               <View style={AppStyles.flexpointfive}>
-                <TouchableOpacity style={[Styles.inputIcon, AppStyles.br10]} onPress={() => setImageUpload(!imageUpload)}>
+                <TouchableOpacity activeOpacity={0.8} style={[Styles.inputIcon, AppStyles.br10]} onPress={() => setImageUpload(!imageUpload)}>
                   <Text style={[AppStyles.txtSecandaryRegular, { color: imgData.length > 0 ? Colors.green : Colors.warmGrey }]}>{imgData.length > 0 ? 'File Attached' : 'Upload file'}</Text>
 
                   <MIcon name="attachment" size={25} color={Colors.grayThree} />
@@ -397,7 +400,7 @@ function RecyclerNewWorkOrder() {
         </View>
 
         <View style={Styles.btnContainer}>
-          <TouchableOpacity
+          <TouchableOpacity activeOpacity={0.8}
             style={Styles.confirmbtn} onPress={() => handelSave()}>
             <Text style={[Appstyles.txtWhiteRegular, Appstyles.f17, Appstyles.textalig, AppStyle.mt10]}>SAVE</Text>
           </TouchableOpacity>

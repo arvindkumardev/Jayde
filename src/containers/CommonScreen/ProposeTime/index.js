@@ -50,6 +50,12 @@ function ProposeTime() {
     setLoader(false)
   };
 
+  useEffect(() => {
+    return () => {
+      setLoader(false)
+    }
+  })
+  
   useLayoutEffect(() => {
     const { Item } = route.params;
     setItem(Item)
@@ -163,7 +169,7 @@ function ProposeTime() {
         <View style={[AppStyles.ml20, AppStyles.mr20]}>
           <View>
             <Text style={[[AppStyles.txtBlackRegular, AppStyles.f16, AppStyles.mb5, AppStyles.mt10]]}>Pick Date</Text>
-            <TouchableOpacity
+            <TouchableOpacity activeOpacity = {0.8}
               onPress={() => showDatepicker()}
               style={[AppStyles.flexRowAlignCenter, AppStyles.btnSecandary, AppStyles.br10, AppStyles.mb10, { padding: 10 }]}>
               <FAIcon size={22} name='calendar-o' color={Colors.mangoTwo} />
@@ -187,7 +193,7 @@ function ProposeTime() {
             <View style={{ flexDirection: 'row' }}>
               <View style={{ flex: 1, paddingRight: 10 }}>
                 <Text style={[AppStyles.txtBlackRegular, AppStyles.f16, AppStyles.mb5]}>From</Text>
-                <TouchableOpacity
+                <TouchableOpacity activeOpacity = {0.8}
                   onPress={() => showTimepicker(1)}
                   style={[AppStyles.flexRowAlignCenter, AppStyles.btnSecandary, AppStyles.br10, AppStyles.mb10, { padding: 10 }]}>
                   <FAIcon size={22} name='clock-o' color={Colors.mangoTwo} />
@@ -196,7 +202,7 @@ function ProposeTime() {
               </View>
               <View style={{ flex: 1 }}>
                 <Text style={[AppStyles.txtBlackRegular, AppStyles.f16, AppStyles.mb5]}>To</Text>
-                <TouchableOpacity
+                <TouchableOpacity activeOpacity = {0.8}
                   onPress={() => showTimepicker(2)}
                   style={[AppStyles.flexRowAlignCenter, AppStyles.btnSecandary, AppStyles.br10, AppStyles.mb10, { padding: 10 }]}>
                   <FAIcon size={22} name='clock-o' color={Colors.mangoTwo} />
@@ -208,7 +214,7 @@ function ProposeTime() {
         </View>
 
         <View style={Styles.btnContainer}>
-          <TouchableOpacity
+          <TouchableOpacity activeOpacity = {0.8}
             style={Styles.confirmbtn} onPress={() => {
               handleConfirm()
             }}>

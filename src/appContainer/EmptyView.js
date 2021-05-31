@@ -10,6 +10,7 @@ const EmptyView = (props) => {
             <Image source={NoRecordImg} />
             <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f15, AppStyles.mt25]}>No Record Found</Text>
             <TouchableOpacity
+                activeOpacity = {0.8}
                 onPress={() => props.onBack()}
                 style={[AppStyles.mt40, AppStyles.br10, AppStyles.btnPrimary, AppStyles.pv5, AppStyles.ph10, AppStyles.alignCenter, AppStyles.NoRecordButton]}>
                 <Text style={[AppStyles.txtWhiteRegular, AppStyles.f17, AppStyles.mt5]}>GO TO HOME</Text>

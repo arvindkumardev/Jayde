@@ -83,8 +83,8 @@ import AddSubUser from "../containers/AddSubUser";
 import AddUser from "../containers/AddUser";
 
 import PasswordReset from "../containers/PasswordReset";
-import AdminNewOrderList from "../containers/Admin/AdminNewOrderList";
-import AdminNewOrder from "../containers/AdminNewOrder";
+import AdminNewOrderList from "../containers/Admin/NewOrderList";
+import AdminNewOrder from "../containers/Admin/OrderDetails";
 import AggregatorNewOrder from "../containers/Aggregator/NewOrders";
 import { resolveConfig } from "prettier";
 
@@ -658,11 +658,11 @@ const AppStack = (props) => {
           />
 
           {/* Completed Order screen number: 45 */}
-          {/* <Stack.Screen
+          <Stack.Screen
             name={NavigationRouteNames.COMPLETED_ORDER}
             component={CompletedOrder}
             options={CommonHeaderStyle}
-          /> */}
+          />
 
           {/* Confirmation Screen */}
           <Stack.Screen

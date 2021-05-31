@@ -33,7 +33,7 @@ function Inventory() {
   const { setLoader } = useContext(UserContext);
   const [offset, setOffset] = useState(0);
   const [loadMore, setLoadMore] = useState(false);
-  const [totalCount, setTotalCount] = useState(5)
+  const [totalCount, setTotalCount] = useState(0)
   const [perPage, setPerPage] = useState(0)
   const [inventoryList, setInventoryList] = useState([])
   const [refreshPage, setRefreshPage] = useState(false)
@@ -93,6 +93,9 @@ function Inventory() {
   useEffect(() => {
     setLoader(true)
     aggregatorInventory();
+    return () => {
+      setLoader(false)
+    }
   }, []);
 
   useEffect(() => {
@@ -119,13 +122,13 @@ function Inventory() {
 
         <View style={[Styles.btnContainer, AppStyles.flexDir]}>
           <View style={AppStyles.flex1}>
-            <TouchableOpacity
+            <TouchableOpacity activeOpacity = {0.8}
               style={[Styles.aggregatebtn]} onPress={() => screenNavigate(item, 1)}>
               <Text style={[AppStyles.txtPrimaryRegular, AppStyles.f17, AppStyles.textalig, AppStyles.mt10]}>AGGREGATOR</Text>
             </TouchableOpacity>
           </View>
           <View style={AppStyles.flex1}>
-            <TouchableOpacity
+            <TouchableOpacity activeOpacity = {0.8}
               style={[Styles.confirmbtn, AppStyles.mb20]} onPress={() => screenNavigate(item, 0)}>
               <Text style={[AppStyles.txtWhiteRegular, AppStyles.f17, AppStyles.textalig, AppStyles.mt10]}>RECYCLER</Text>
             </TouchableOpacity>

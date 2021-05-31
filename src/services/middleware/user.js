@@ -1,29 +1,31 @@
-import {ADD_SUB_USER, SUB_USER, NEW_ORDERS, USERS,
-   ENABLE_USER, DISABLE_USER, ADMIN_NEW_ORDER,
-   ACCEPT_ORDER, REJECT_ORDER, GET_AGGREGATORS,
-   GET_RECYCLERS, GET_AGGREGATOR_INVENTORY, ASSIGN_AGGREGATOR } from "../../utils/urls";
+import {
+  ADD_SUB_USER, SUB_USER, NEW_ORDERS, USERS,
+  ENABLE_USER, DISABLE_USER, ADMIN_NEW_ORDER,
+  ACCEPT_ORDER, REJECT_ORDER, GET_AGGREGATORS,
+  GET_RECYCLERS, GET_AGGREGATOR_INVENTORY, ASSIGN_AGGREGATOR
+} from "../../utils/urls";
 import useAxios from "axios-hooks";
- 
-const newOrder = () => {
-   return useAxios(
-     {
-       url: NEW_ORDERS,
-       method: 'GET',
-       headers: { 'content-type': 'application/json'}
-     },
-     { manual: true }
-  )
- };
 
- const subUser = (pageNumber) => {  
+const newOrder = () => {
+  return useAxios(
+    {
+      url: NEW_ORDERS,
+      method: 'GET',
+      headers: { 'content-type': 'application/json' }
+    },
+    { manual: true }
+  )
+};
+
+const subUser = (pageNumber) => {
   return useAxios(
     {
       url: SUB_USER + pageNumber,
       method: 'GET',
-      headers: { 'content-type': 'application/json'},
+      headers: { 'content-type': 'application/json' },
     },
     { manual: true }
- )
+  )
 };
 
 const addSubUser = () => {
@@ -37,26 +39,26 @@ const addSubUser = () => {
   );
 }
 
- const users = (pageNumber) => {  
+const users = (pageNumber) => {
   return useAxios(
     {
       url: USERS + pageNumber,
       method: 'GET',
-      headers: { 'content-type': 'application/json'},
+      headers: { 'content-type': 'application/json' },
     },
     { manual: true }
- )
+  )
 };
 
-const adminNewOrder = (pageNumber) => {  
+const adminNewOrder = (pageNumber) => {
   return useAxios(
     {
-      url: ADMIN_NEW_ORDER+pageNumber,
+      url: ADMIN_NEW_ORDER + pageNumber,
       method: 'GET',
-      headers: { 'content-type': 'application/json'}
+      headers: { 'content-type': 'application/json' }
     },
     { manual: true }
- )
+  )
 };
 
 const enableUserByAdmin = () => {
@@ -126,15 +128,15 @@ const getRecyclers = () => {
   );
 };
 
-const getAggregatorInventory = (pageNumber=1) => {
-   return useAxios(
-     {
-       url: GET_AGGREGATOR_INVENTORY+pageNumber,
-       method: 'GET',
-       headers: { 'content-type': 'application/json' },
-     },
-     { manual: true }
-   );
+const getAggregatorInventory = (pageNumber = 1) => {
+  return useAxios(
+    {
+      url: GET_AGGREGATOR_INVENTORY + pageNumber,
+      method: 'GET',
+      headers: { 'content-type': 'application/json' },
+    },
+    { manual: true }
+  );
 }
 
 const assignAggregator = () => {
@@ -148,6 +150,7 @@ const assignAggregator = () => {
   );
 }
 
-
-export { newOrder, users, subUser, addSubUser, enableUserByAdmin, disableUserByAdmin, adminNewOrder,
-   acceptOrder, rejectOrder, getAggregators, getRecyclers, getAggregatorInventory, assignAggregator };
+export {
+  newOrder, users, subUser, addSubUser, enableUserByAdmin, disableUserByAdmin, adminNewOrder,
+  acceptOrder, rejectOrder, getAggregators, getRecyclers, getAggregatorInventory, assignAggregator
+};
