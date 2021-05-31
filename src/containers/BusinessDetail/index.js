@@ -258,7 +258,7 @@ function BusinessDetail() {
                 style={Styles.inputText}
                 value={businessForm.values.pan}
                 onChangeText={(txt) => businessForm.setFieldValue('pan', txt)}
-                returnKeyType='done'
+                returnKeyType='next'
                 onSubmitEditing={() => handleBusinessUpdate()}
               />
               {clickLogin && businessForm.errors.pan ? (
