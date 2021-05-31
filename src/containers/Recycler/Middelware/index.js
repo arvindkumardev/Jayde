@@ -1,17 +1,6 @@
 import useAxios from 'axios-hooks';
 import { RECYCLER_NEW_ORDER, RECYCLER_SCHEDULE_ORDER_LIST, RECYCLER_SWO_TO_AGGREGATOR,
    RECYCLER_SWO_TO_RECYCLER, RECYCLER_WORK_ORDER_LIST, RECYCLER_COMPLETED_ORDER_LIST} from '../../../utils/urls';
-
-const getWorkOrder = (pageNumber) => { 
-    return useAxios(
-      {
-        url: RECYCLER_NEW_ORDER + pageNumber,
-        method: 'GET',
-        headers: { 'content-type': 'application/json'}
-      },
-      { manual: true }
-   )
-  };
   
   const Inventory = (pageNumber) => { 
     return useAxios(
@@ -68,4 +57,4 @@ const getWorkOrder = (pageNumber) => {
     );
   };  
 
-  export {getWorkOrder, Inventory, createWorkOrder, recyclerGetScheduleOrder, getWorkOrderList, getCompletedOrder};
+  export {Inventory, createWorkOrder, recyclerGetScheduleOrder, getWorkOrderList, getCompletedOrder};

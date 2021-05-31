@@ -11,7 +11,7 @@ import { LOCAL_STORAGE_DATA_KEY } from '../../utils/constants';
 import UserContext from '../../appContainer/context/user.context';
 import { USERS_ROLE_MENU, STATUS_ICON } from '../../routes/constants';
 import Styles from './styles';
-import { getOrderList } from "./middleware";
+import { getNewOrder } from "../../services/CommonController";
 
 //Image
 import EWasteImg from  './../../assets/Images/NewOrderList/Group_10091.png'
@@ -35,7 +35,7 @@ function HomeScreen() {
 
   const [name,setName] = useState("");
   const [homeOrder, setHomeOrder] = useState([]);
-  const [{ data, loading, error }, onOrderList] = getOrderList(userRole);
+  const [{ data, loading, error }, onOrderList] = getNewOrder(userRole, 0);
 
   useEffect(() => {
     async function getUserName () {

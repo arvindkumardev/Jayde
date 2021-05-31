@@ -1,6 +1,14 @@
 import useAxios from 'axios-hooks';
 import {GET_CATEGORIES, GET_SUB_CATEGORY, GET_UNITS, ADD_SUB_USER, SUB_USER,
-  GET_AGGREGATORS, GET_RECYCLERS,} from '../../utils/urls';
+  GET_AGGREGATORS, GET_RECYCLERS,
+  SELLER_MY_ORDER, AGGREGATOR_NEWORDER, RECYCLER_NEW_ORDER, ADMIN_NEW_ORDER} from '../../utils/urls';
+
+  const USERS_ROLE_MENU = {
+    seller: SELLER_MY_ORDER,
+    admin: ADMIN_NEW_ORDER,
+    aggregate: AGGREGATOR_NEWORDER,
+    recycler: RECYCLER_NEW_ORDER
+  }
 
 const getCategories = () => {
     return useAxios(
@@ -79,5 +87,17 @@ const getRecyclers = () => {
     { manual: true }
   );
 };
+
+const getNewOrder = (role, pageNumber) => {
+  return useAxios(
+    {
+      url: USERS_ROLE_MENU[role] + pageNumber,
+      method: 'GET',
+      headers: { 'content-type': 'application/json' }
+    },
+    { manual: true }
+  )
+};
   
-export { getCategories, getSubCategories, getUnits, subUser, addSubUser, getAggregators, getRecyclers};
+export { getCategories, getSubCategories, getUnits, subUser, addSubUser, getAggregators, getRecyclers,
+  getNewOrder, };

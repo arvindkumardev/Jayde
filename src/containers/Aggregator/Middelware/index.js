@@ -18,17 +18,6 @@ const getWorkOrderList = (pageNumber) => {
   )
 };
 
-const aggregatorNewOrder = (pageNumber) => {
-  return useAxios(
-    {
-      url: AGGREGATOR_NEWORDER + pageNumber,
-      method: 'GET',
-      headers: { 'content-type': 'application/json' },
-    },
-    { manual: true }
-  );
-};
-
 const aggregatorGetCompletedOrder = (pageNumber) => {
   return useAxios(
     {
@@ -153,7 +142,7 @@ const getAggregatorInventory = (pageNumber = 1) => {
 }
 
 export {
-  aggregatorNewOrder, createWorkOrder, getWorkOrderList, aggregatorGetCompletedOrder,
+  createWorkOrder, getWorkOrderList, aggregatorGetCompletedOrder,
   aggregatorGetScheduleOrder, getAggregatorInventory,
   weightConfirm, weightPropose, paymentConfirm, pickupConfirm, receiptConfirm, scheduleOrderDetail, addReceiptQuantity
 };

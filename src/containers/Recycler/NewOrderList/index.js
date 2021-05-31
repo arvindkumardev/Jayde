@@ -9,7 +9,7 @@ import UserContext from '../../../appContainer/context/user.context';
 import FooterLoader from "../../../appContainer/footerLoader";
 import EmptyView from '../../../appContainer/EmptyView'
 
-import { getWorkOrder } from '../Middelware';
+import { getNewOrder } from "../../../services/CommonController";
 import moment from 'moment';
 
 //Image
@@ -30,7 +30,7 @@ function RecyclerNewOrderList() {
   const navigation = useNavigation();
   const route = useRoute();
 
-  const { setLoader } = useContext(UserContext);
+  const { setLoader, userRole } = useContext(UserContext);
   const [workOrderList, setOrderList] = useState([])
 
   const [offset, setOffset] = useState(0);
@@ -41,7 +41,7 @@ function RecyclerNewOrderList() {
 
   const [refreshPage, setRefreshPage] = useState(false)
 
-  const [{ data, loading, error }, onMyOrder] = getWorkOrder(offset);
+  const [{ data, loading, error }, onMyOrder] = getNewOrder(userRole, offset);
 
   const screenNavigate = (item) => {
     navigation.navigate(NavigationRouteNames.ORDER_CONFIRMATION, { Item: item });

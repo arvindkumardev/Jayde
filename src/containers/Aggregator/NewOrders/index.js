@@ -5,7 +5,7 @@ import NavigationRouteNames from '../../../routes/ScreenNames';
 import { useNavigation } from '@react-navigation/core';
 import { useRoute } from '@react-navigation/native';
 import { AppStyles } from '../../../theme';
-import { aggregatorNewOrder } from '../Middelware';
+import { getNewOrder } from "../../../services/CommonController";
 import UserContext from '../../../appContainer/context/user.context';
 import moment from 'moment';
 import FooterLoader from "../../../appContainer/footerLoader";
@@ -30,7 +30,7 @@ function AggregatorNewOrder() {
   const navigation = useNavigation();
   const route = useRoute();
 
-  const { setLoader } = useContext(UserContext);
+  const { setLoader, userRole } = useContext(UserContext);
 
   const [orderList, setOrderList] = useState([]);
   const [offset, setOffset] = useState(0);
@@ -39,14 +39,14 @@ function AggregatorNewOrder() {
   const [totalCount, setTotalCount] = useState()
   const [perPage, setPerPage] = useState(15)
 
-  const [{ data, loading, error }, onGetOrder] = aggregatorNewOrder(offset);
+  const [{ data, loading, error }, onGetOrder] = getNewOrder(userRole, offset);
 
   const getActionType = async () => {
     setOrderList([])
-    getNewOrder()
+    NewOrder()
   }
 
-  const getNewOrder = async () => {
+  const NewOrder = async () => {
     try {
       const { data } = await onGetOrder({ data: {} });
       setLoader(false)
@@ -74,7 +74,7 @@ function AggregatorNewOrder() {
 
   useEffect(() => {
     setLoader(true)
-    getNewOrder();
+    NewOrder();
     return () => {
       setLoader(false)
     }

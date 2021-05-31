@@ -12,17 +12,6 @@ const users = (pageNumber) => {
     )
   };
   
-  const adminNewOrder = (pageNumber) => {
-    return useAxios(
-      {
-        url: ADMIN_NEW_ORDER + pageNumber,
-        method: 'GET',
-        headers: { 'content-type': 'application/json' }
-      },
-      { manual: true }
-    )
-  };
-  
   const enableUserByAdmin = () => {
     return useAxios(
       {
@@ -79,4 +68,4 @@ const users = (pageNumber) => {
     );
   }
 
-  export {users,  enableUserByAdmin, disableUserByAdmin, adminNewOrder, acceptOrder, rejectOrder, assignAggregator}
+  export {users,  enableUserByAdmin, disableUserByAdmin, acceptOrder, rejectOrder, assignAggregator}

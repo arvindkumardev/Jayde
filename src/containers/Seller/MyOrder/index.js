@@ -6,7 +6,9 @@ import NavigationRouteNames from '../../../routes/ScreenNames';
 import { useNavigation } from '@react-navigation/core';
 import { useRoute } from '@react-navigation/native';
 import { AppStyles } from '../../../theme';
-import { MyOrder } from '../Middleware';
+
+import { getNewOrder } from "../../../services/CommonController";
+
 import Colors from '../../../theme/Colors';
 
 import UserContext from '../../../appContainer/context/user.context';
@@ -33,7 +35,7 @@ function SellerMyOrder() {
   const navigation = useNavigation();
   const route = useRoute();
 
-  const { setLoader } = useContext(UserContext);
+  const { setLoader, userRole } = useContext(UserContext);
   const [orderList, setOrderList] = useState([])
 
   const [offset, setOffset] = useState(0);
@@ -44,7 +46,7 @@ function SellerMyOrder() {
 
   const [refreshPage, setRefreshPage] = useState(false)
 
-  const [{ data, loading, error }, onMyOrder] = MyOrder(offset);
+  const [{ data, loading, error }, onMyOrder] = getNewOrder(userRole, offset);
  
   const screenNavigate = (item) => {
     navigation.navigate(NavigationRouteNames.SELLER_ORDER_DETAIL, { Item: item, getActionType: getActionType })

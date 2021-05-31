@@ -5,7 +5,8 @@ import NavigationRouteNames from '../../../routes/ScreenNames';
 import { useNavigation } from '@react-navigation/core';
 import { useRoute } from '@react-navigation/native';
 import { AppStyles } from '../../../theme';
-import { adminNewOrder } from "../Middleware";
+
+import { getNewOrder } from "../../../services/CommonController";
 
 import UserContext from '../../../appContainer/context/user.context';
 import moment from 'moment';
@@ -31,7 +32,7 @@ function AdminNewOrderList() {
   const navigation = useNavigation();
   const route = useRoute();
 
-  const { setLoader } = useContext(UserContext);
+  const { setLoader, userRole } = useContext(UserContext);
   const [adminOrderList, setAdminOrderList] = useState([])
 
   const [offset, setOffset] = useState(0);
@@ -41,7 +42,7 @@ function AdminNewOrderList() {
   const [totalCount, setTotalCount] = useState(0)
   const [perPage, setPerPage] = useState(5)
 
-  const [{ data, loading, error }, onAdminNewOrder] = adminNewOrder(offset);
+  const [{ data, loading, error }, onAdminNewOrder] = getNewOrder(userRole, offset);
 
   const screenNavigate = (item) => {
     {
