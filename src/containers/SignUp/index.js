@@ -47,24 +47,28 @@ function SignUp() {
 
   const confirmSignup = async (name, username, password, phoneno, businesstype) => {
     setLoader(true)
-    const { data } = await onSignUp({
-      data: {
-        name: name,
-        email: username,
-        phone: phoneno,
-        password: password,
-        businessType: businesstype,
-      },
-    });
+    try {
+      const { data } = await onSignUp({
+        data: {
+          name: name,
+          email: username,
+          phone: phoneno,
+          password: password,
+          businessType: businesstype,
+        },
+      });
 
-    console.log(data)
-    if (data.status) {
-      alert(data.message)
-      screenNavigate()
-    } else {
-      alert(data.message)
+      console.log(data)
+      if (data.status) {
+        alert(data.message)
+        screenNavigate()
+      } else {
+        alert(data.message)
+      }
+      setLoader(false)
+    } catch (e) {
+      console.log('Response error', e);
     }
-    setLoader(false)
 
   };
 
@@ -120,6 +124,11 @@ function SignUp() {
   const onSubmitEditing = (id) => {
     inputs[id] ? inputs[id].focus() : null;
   };
+
+  useEffect(() => {
+    if (error)
+      setLoader(false)
+  }, [error])
 
   useEffect(() => {
     return () => {

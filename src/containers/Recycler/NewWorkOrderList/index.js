@@ -68,8 +68,6 @@ function RecyclerWorkOrderList() {
       setPerPage(data.data[0].links.per_page)
       setTotalCount(data.data[0].links.total_count)
       setOrderList(data.data[0].newOrders)
-
-      //setOffset(offset + data.data[0].links.per_page);                     
     }
     catch (e) {
       console.log("Response error", e);
@@ -82,13 +80,17 @@ function RecyclerWorkOrderList() {
       let listData = workOrderList;
       let data1 = listData.concat(data.data[0].newOrders);
       setLoadMore(false);
-      //setOrderList( workOrderList =>  [...workOrderList, data.data[0].orderDetails])
       setOrderList([...data1]);
     }
     catch (e) {
       console.log("Response error", e);
     }
   };
+
+  useEffect(() => {
+    if (error)
+      setLoader(false)
+  }, [error])
 
   useEffect(() => {
     setLoader(true)

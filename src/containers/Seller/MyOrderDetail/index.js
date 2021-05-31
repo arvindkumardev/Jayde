@@ -21,9 +21,15 @@ function SellerOrderDetail() {
   const [{ data: rescheduleData, loading, error }, onConfirmOrder] = confirmOrder(item);
 
   useEffect(() => {
+    if (error)
+      setLoader(false)
+  }, [error])
+
+
+  useEffect(() => {
     setLoader(loading)
     return () => {
-      setLoader(false)     
+      setLoader(false)
     }
   }, [loading, rescheduleData])
 

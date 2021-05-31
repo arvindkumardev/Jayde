@@ -67,9 +67,7 @@ function AggregatorWorkOrderList() {
       console.log("Response :", data.data[0])
       setPerPage(data.data[0].links.per_page)
       setTotalCount(data.data[0].links.total_count)
-      setOrderList(data.data[0].newOrders)
-
-      //setOffset(offset + data.data[0].links.per_page);                     
+      setOrderList(data.data[0].newOrders)                         
     }
     catch (e) {
       console.log("Response error", e);
@@ -90,6 +88,11 @@ function AggregatorWorkOrderList() {
     }
   };
 
+  useEffect(() => {
+    if (error)
+      setLoader(false)
+  }, [error])
+  
   useEffect(() => {
     setLoader(true)
     workOrder();

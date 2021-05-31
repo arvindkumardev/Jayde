@@ -31,31 +31,40 @@ function ProposeTime() {
 
   const handleConfirm = async () => {
     setLoader(true)
-    let param = {
-      assignedId: item.assigned_id,
-      scheduleDate: customDate,
-      timeslot: `${fromTime} ${toTime}`
-    }
-    console.log(param)   
-    const { data } = await onConfirmSchedule({
-      data: param
-    });
+    try {
+      let param = {
+        assignedId: item.assigned_id,
+        scheduleDate: customDate,
+        timeslot: `${fromTime} ${toTime}`
+      }
+      console.log(param)
+      const { data } = await onConfirmSchedule({
+        data: param
+      });
 
-    console.log(data)
-    if (data.status) {
-      screenNavigate()
-    } else {
-      alert(data.message)
+      console.log(data)
+      if (data.status) {
+        screenNavigate()
+      } else {
+        alert(data.message)
+      }
+      setLoader(false)
+    } catch (e) {
+      console.log("Response error", e);
     }
-    setLoader(false)
   };
+
+  useEffect(() => {
+    if (error)
+      setLoader(false)
+  }, [error])
 
   useEffect(() => {
     return () => {
       setLoader(false)
     }
   })
-  
+
   useLayoutEffect(() => {
     const { Item } = route.params;
     setItem(Item)
@@ -67,8 +76,8 @@ function ProposeTime() {
   const screenNavigate = () => {
     navigation.popToTop()
     userRole === 'recycler' ? navigation.navigate(NavigationRouteNames.RECYCLER_NEW_ORDER_LIST)
-    :    
-    navigation.navigate(NavigationRouteNames.AGGREGATOR_NEW_ORDERS);
+      :
+      navigation.navigate(NavigationRouteNames.AGGREGATOR_NEW_ORDERS);
   }
 
   const showMode = (currentMode) => {
@@ -169,7 +178,7 @@ function ProposeTime() {
         <View style={[AppStyles.ml20, AppStyles.mr20]}>
           <View>
             <Text style={[[AppStyles.txtBlackRegular, AppStyles.f16, AppStyles.mb5, AppStyles.mt10]]}>Pick Date</Text>
-            <TouchableOpacity activeOpacity = {0.8}
+            <TouchableOpacity activeOpacity={0.8}
               onPress={() => showDatepicker()}
               style={[AppStyles.flexRowAlignCenter, AppStyles.btnSecandary, AppStyles.br10, AppStyles.mb10, { padding: 10 }]}>
               <FAIcon size={22} name='calendar-o' color={Colors.mangoTwo} />
@@ -193,7 +202,7 @@ function ProposeTime() {
             <View style={{ flexDirection: 'row' }}>
               <View style={{ flex: 1, paddingRight: 10 }}>
                 <Text style={[AppStyles.txtBlackRegular, AppStyles.f16, AppStyles.mb5]}>From</Text>
-                <TouchableOpacity activeOpacity = {0.8}
+                <TouchableOpacity activeOpacity={0.8}
                   onPress={() => showTimepicker(1)}
                   style={[AppStyles.flexRowAlignCenter, AppStyles.btnSecandary, AppStyles.br10, AppStyles.mb10, { padding: 10 }]}>
                   <FAIcon size={22} name='clock-o' color={Colors.mangoTwo} />
@@ -202,7 +211,7 @@ function ProposeTime() {
               </View>
               <View style={{ flex: 1 }}>
                 <Text style={[AppStyles.txtBlackRegular, AppStyles.f16, AppStyles.mb5]}>To</Text>
-                <TouchableOpacity activeOpacity = {0.8}
+                <TouchableOpacity activeOpacity={0.8}
                   onPress={() => showTimepicker(2)}
                   style={[AppStyles.flexRowAlignCenter, AppStyles.btnSecandary, AppStyles.br10, AppStyles.mb10, { padding: 10 }]}>
                   <FAIcon size={22} name='clock-o' color={Colors.mangoTwo} />
@@ -214,7 +223,7 @@ function ProposeTime() {
         </View>
 
         <View style={Styles.btnContainer}>
-          <TouchableOpacity activeOpacity = {0.8}
+          <TouchableOpacity activeOpacity={0.8}
             style={Styles.confirmbtn} onPress={() => {
               handleConfirm()
             }}>

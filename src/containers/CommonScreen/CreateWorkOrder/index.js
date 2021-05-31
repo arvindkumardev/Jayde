@@ -57,6 +57,11 @@ function NewWorkOrder() {
     navigation.navigate(NavigationRouteNames.WORKORDER_SUMMARY);
   }
 
+  useEffect(() => {
+    if (error)
+      setLoader(false)
+  }, [error])
+  
    useEffect(() => {
     async function getUserName() {     
       const userName = await getSaveData(LOCAL_STORAGE_DATA_KEY.USER_NAME);

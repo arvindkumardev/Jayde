@@ -54,6 +54,11 @@ function CompletedOrder() {
     getOrderList()
   }
 
+  useEffect(() => {
+    if (error)
+      setLoader(false)
+  }, [error])
+
   const getOrderList = async () => {
     try {
       const { data } = await onGetOrder({ data: {} });

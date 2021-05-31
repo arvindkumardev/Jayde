@@ -29,6 +29,11 @@ function OrderType() {
   const [{ data, loading, error }, onGetCategories] = getCategories();
 
   useEffect(() => {
+    if (error)
+      setLoader(false)
+  }, [error])
+  
+  useEffect(() => {
     onGetCategories();
     return () => {
       setLoader(false)     

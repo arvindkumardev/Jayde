@@ -28,20 +28,30 @@ function PasswordReset() {
   const [{ data, loading, error }, onForgotPassword] = forgotPassword();
 
   const passwordForgot = async (username) => {
-    const { data } = await onForgotPassword({
-      data: {
-        email: username,
-      },
-    });
-    alert(data);
-    console.log(data)
-    if (data.status) {
-      alert(data.message)
-      screenNavigate()
-    } else {
-      alert(data.message)
+    try {
+      const { data } = await onForgotPassword({
+        data: {
+          email: username,
+        },
+      });
+      alert(data);
+      console.log(data)
+      if (data.status) {
+        alert(data.message)
+        screenNavigate()
+      } else {
+        alert(data.message)
+      }
+    } catch (e) {
+      console.log('Response error', e);
     }
   };
+
+  useEffect(() => {
+    if (error)
+      setLoader(false)
+  }, [error])
+
 
   useEffect(() => {
     return () => {
@@ -79,16 +89,16 @@ function PasswordReset() {
   }
 
   return (
-    <ScrollView 
-    contentContainerStyle={{ backgroundColor: Colors.mango, justifyContent: 'space-between', height: Dimensions.get('window').height }}>
+    <ScrollView
+      contentContainerStyle={{ backgroundColor: Colors.mango, justifyContent: 'space-between', height: Dimensions.get('window').height }}>
       <View>
         <View style={[AppStyles.ml20, AppStyles.mt20]}>
-          <TouchableOpacity activeOpacity = {0.8} onPress={() => screenNavigate()}>
-            <Image source={leftArrow}/>
+          <TouchableOpacity activeOpacity={0.8} onPress={() => screenNavigate()}>
+            <Image source={leftArrow} />
           </TouchableOpacity>
         </View>
         <View style={[AppStyles.alignCenter, AppStyles.mt40]}>
-          <Image style={{ width: 160, height: 55 }} source={Logo}/>
+          <Image style={{ width: 160, height: 55 }} source={Logo} />
         </View>
         <View style={[AppStyles.alignCenter, AppStyles.mt40]}>
           <Text style={[AppStyles.txtWhiteBold, AppStyles.f40, AppStyles.pv10]}>
@@ -109,7 +119,7 @@ function PasswordReset() {
             />
           </View>
           <View style={{ marginTop: RfH(21) }}>
-            <TouchableOpacity activeOpacity = {0.8} style={styles.loginButton} onPress={() => handlePasswordReset()}>
+            <TouchableOpacity activeOpacity={0.8} style={styles.loginButton} onPress={() => handlePasswordReset()}>
               <Text style={[AppStyles.txtWhiteBold, AppStyles.f18]}>Confirm</Text>
               <FAIcon name="long-arrow-right" color={'#fff'} style={AppStyles.ml10} size={20} />
             </TouchableOpacity>

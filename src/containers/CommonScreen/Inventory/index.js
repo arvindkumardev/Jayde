@@ -58,9 +58,10 @@ function Inventory() {
   };
 
   useEffect(() => {
-    setLoader(false)
+    if (error)
+      setLoader(false)
   }, [error])
-
+  
   const loadMoreResults = async info => {
     if (loadMore)
       return

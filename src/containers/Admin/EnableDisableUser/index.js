@@ -18,9 +18,19 @@ function EnableDisableUser(props) {
   const [item, setItem] = useState({});
 
 
-  const [{ data: enableUserData, loading, error }, onEnableUserByAdmin] = enableUserByAdmin();
-  const [{ data: disableUserData }, onDisableUserByAdmin] = disableUserByAdmin();
+  const [{ data: enableUserData, loading: enableLoading, error: enableError }, onEnableUserByAdmin] = enableUserByAdmin();
+  const [{ data: disableUserData, loading: disableLoading, error: disableError }, onDisableUserByAdmin] = disableUserByAdmin();
 
+
+  useEffect(() => {
+    if (enableError)
+      setLoader(false)
+  }, [enableError])
+
+  useEffect(() => {
+    if (disableError)
+      setLoader(false)
+  }, [disableError])
 
   useEffect(() => {
     const { Item } = route.params;
@@ -43,25 +53,33 @@ function EnableDisableUser(props) {
     setLoader(true);
     if (item.status == 0) {
       // Disable User if Enable
-      const { data } = await onEnableUserByAdmin({
-        data: { userId: item.userId },
-      });
-      console.log(data)
-      if (data.status) {
-        handleCloseRefresh()
-      } else {
-        alert(data.message)
+      try {
+        const { data } = await onEnableUserByAdmin({
+          data: { userId: item.userId },
+        });
+        console.log(data)
+        if (data.status) {
+          handleCloseRefresh()
+        } else {
+          alert(data.message)
+        }
+      } catch (e) {
+        console.log("Response error", e);
       }
     } else {
       // Enable User if Disable
-      const { data } = await onDisableUserByAdmin({
-        data: { userId: item.userId },
-      });
-      console.log(data)
-      if (data.status) {
-        handleCloseRefresh()
-      } else {
-        alert(data.message)
+      try {
+        const { data } = await onDisableUserByAdmin({
+          data: { userId: item.userId },
+        });
+        console.log(data)
+        if (data.status) {
+          handleCloseRefresh()
+        } else {
+          alert(data.message)
+        }
+      } catch (e) {
+        console.log("Response error", e);
       }
     }
     setLoader(false);
@@ -75,9 +93,9 @@ function EnableDisableUser(props) {
             <Text style={[AppStyles.f13, AppStyles.txtSecandaryRegular, AppStyles.mt14]}>{item.email}</Text>
           </View>
           <View style={[AppStyles.flexpointthree, AppStyles.mt14,]}>
-            <TouchableOpacity 
-            activeOpacity = {0.8}
-            style={item.status == 1 ? Styles.confirmBtn : Styles.InactiveBtn}>
+            <TouchableOpacity
+              activeOpacity={0.8}
+              style={item.status == 1 ? Styles.confirmBtn : Styles.InactiveBtn}>
               <Text style={[AppStyles.txtWhiteRegular, AppStyles.f11, AppStyles.textalig, Styles.activebutton]}>{item.status == 1 ? 'Active' : 'Inactive'}</Text>
             </TouchableOpacity>
           </View>
@@ -103,7 +121,7 @@ function EnableDisableUser(props) {
         <View style={[AppStyles.flexDir, Styles.cancelbutton]}>
           <View style={AppStyles.flex1}>
             <TouchableOpacity
-              activeOpacity = {0.8}
+              activeOpacity={0.8}
               onPress={() => handelClose()}
               style={[AppStyles.br10, AppStyles.borderwidth1, AppStyles.borderColorLightOlive, AppStyles.whitecolor, AppStyles.alignCenter, Styles.bittonSize, Styles.cancelButton]}>
               <Text style={[AppStyles.f17, , Styles.txtLightOliveRegular, AppStyles.mt10]}>CANCEL</Text>
@@ -111,14 +129,13 @@ function EnableDisableUser(props) {
           </View>
           <View style={AppStyles.flex1}>
             <TouchableOpacity
-              activeOpacity = {0.8}
+              activeOpacity={0.8}
               onPress={() => handelConfirm()}
               style={[AppStyles.br10, AppStyles.lightOlive, AppStyles.alignCenter, Styles.bittonSize, Styles.confirmButton]}>
               <Text style={[AppStyles.f17, AppStyles.txtWhiteRegular, AppStyles.mt10]}>CONFIRM</Text>
             </TouchableOpacity>
           </View>
         </View>
-
 
       </View>
 

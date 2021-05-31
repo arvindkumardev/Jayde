@@ -29,7 +29,7 @@ function PricingRequest() {
   const [{ data: unitsData }, onGetUnits] = getUnits();
 
   const [{ data: quoteData, loading, error }, onSubmitQuote] = createQuote(category);
-  const [{ data: orderData, loading: orderLoading }, onAddOrder] = addOrder(category);
+  const [{ data: orderData, loading: orderLoading, error: addOrderError }, onAddOrder] = addOrder(category);
 
   const [categoryId, setCategoryId] = useState(0);
   const [titleName, setTitleName] = useState('');
@@ -54,11 +54,22 @@ function PricingRequest() {
   }, [unitsData]);
 
   useEffect(() => {
+    if (error)
+      setLoader(false)
+  }, [error])
+
+  useEffect(() => {
+    if (addOrderError)
+      setLoader(false)
+  }, [addOrderError])
+
+
+  useEffect(() => {
     setLoader(loading);
     if (quoteData && quoteData.status) {
     }
     return () => {
-      setLoader(false)     
+      setLoader(false)
     }
   }, [quoteData, loading]);
 
@@ -87,7 +98,7 @@ function PricingRequest() {
     onGetUnits();
     setCategoryId(categoryId);
     navigation.setOptions({
-      title      
+      title
     });
   }, []);
 
@@ -95,45 +106,55 @@ function PricingRequest() {
     if (imgData.length === 0) return;
 
     if (quotestatus === '0') {
-      const { data } = await onSubmitQuote({
-        data: {
-          primeId: 0,
-          category_id: categoryId,
-          sub_category_id: subCategoryId,
-          qty: volume,
-          unit,
-          location,
-          uploaded_files: imgData,
-        },
-      });
-      console.log(data.data.quoteDetails);
-      // Save Global
-      setImageName(imgData);
-      setQuoteData(data.data.quoteDetails);
-      if (data.status) {
-        handleGetQuote();
-      } else {
-        alert(data.message);
+      try {
+        const { data } = await onSubmitQuote({
+          data: {
+            primeId: 0,
+            category_id: categoryId,
+            sub_category_id: subCategoryId,
+            qty: volume,
+            unit,
+            location,
+            uploaded_files: imgData,
+          },
+        });
+        console.log(data.data.quoteDetails);
+        // Save Global
+        setImageName(imgData);
+        setQuoteData(data.data.quoteDetails);
+        if (data.status) {
+          handleGetQuote();
+        } else {
+          alert(data.message);
+        }
+      }
+      catch (e) {
+        console.log("Response error", e);
       }
     } else {
-      const { data } = await onAddOrder({
-        data: {
-          primeId: 0,
-          category_id: categoryId,
-          sub_category_id: subCategoryId,
-          qty: volume,
-          unit,
-          location,
-        },
-      });
-      console.log(data.data);
-      // Save Global
-      setImageName(imgData);
-      setQuoteData(data.data.orderDetails);
-      if (data.status) {
-        handleGetQuote();
-      } else {
-        alert(data.message);
+      try {
+        const { data } = await onAddOrder({
+          data: {
+            primeId: 0,
+            category_id: categoryId,
+            sub_category_id: subCategoryId,
+            qty: volume,
+            unit,
+            location,
+          },
+        });
+        console.log(data.data);
+        // Save Global
+        setImageName(imgData);
+        setQuoteData(data.data.orderDetails);
+        if (data.status) {
+          handleGetQuote();
+        } else {
+          alert(data.message);
+        }
+      }
+      catch (e) {
+        console.log("Response error", e);
       }
     }
   };
@@ -298,9 +319,9 @@ function PricingRequest() {
           </View>
         </View>
       </View>
-      <View style={{marginBottom: 30}}>
+      <View style={{ marginBottom: 30 }}>
         <TouchableOpacity
-          activeOpacity = {0.8}
+          activeOpacity={0.8}
           style={[AppStyles.btnPrimary, AppStyles.alignCenter, AppStyles.pv10, AppStyles.br10]}
           //onPress={() => { handleGetQuote()}}
           onPress={() => {

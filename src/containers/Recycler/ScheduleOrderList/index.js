@@ -74,6 +74,11 @@ function RecyclerScheduleOrderList() {
   };
 
   useEffect(() => {
+    if (error)
+      setLoader(false)
+  }, [error])
+
+  useEffect(() => {
     setLoader(true)
     getOrderList();
     return () => {

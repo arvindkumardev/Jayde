@@ -41,6 +41,11 @@ function OrderConfirmation() {
   }, []);
 
   useEffect(() => {
+    if (error)
+      setLoader(false)
+  }, [error])
+  
+  useEffect(() => {
     return () => {
       setLoader(false)
     }

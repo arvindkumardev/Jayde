@@ -58,6 +58,11 @@ function Users() {
   };
 
   useEffect(() => {
+    if(error)
+    setLoader(false)   
+  }, [error])
+  
+  useEffect(() => {
     setLoader(true)
     triggerUser();
     return () => {
@@ -65,6 +70,7 @@ function Users() {
     }
   }, []);
 
+  
   useEffect(() => {
     triggerLoadMore();
   }, [offset])
@@ -143,7 +149,7 @@ function Users() {
 
 
   return (
-    <View style={AppStyles.mainView}>
+    <View style={AppStyles.topView}>
       {userList.length > 0 ? <FlatList
         data={userList}
         renderItem={({ index, item }) =>

@@ -79,6 +79,11 @@ function AddUser() {
   }
 
   useEffect(() => {
+    if(error)
+    setLoader(false) 
+  }, [error])
+  
+  useEffect(() => {
     setLoader(loading);
     return () => {
       setLoader(false)

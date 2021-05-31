@@ -35,6 +35,12 @@ const CallRequest = () => {
   };
 
   useEffect(() => {
+    if (error)
+      setLoader(false)
+  }, [error])
+
+  
+  useEffect(() => {
     setLoader(loading);
   }, [callBackData, loading]);
 
@@ -82,15 +88,20 @@ const CallRequest = () => {
     if (imgData.length === 0)
       return
 
-    const { data } = await onRequestCallBack({
-      data: param,
-    });
-    console.log(data);
-    if (data.status) {
-      handelCallBackConfirmation()
-      setImageName([])
-    } else {
-      alert(data.message);
+    try {
+      const { data } = await onRequestCallBack({
+        data: param,
+      });
+      console.log(data);
+      if (data.status) {
+        handelCallBackConfirmation()
+        setImageName([])
+      } else {
+        alert(data.message);
+      }
+    }
+    catch (e) {
+      console.log("Response error", e);
     }
   };
 
@@ -197,7 +208,7 @@ const CallRequest = () => {
         <TouchableOpacity
           activeOpacity={0.8}
           onPress={() => setTimeSlotIndex(0)}
-          style={[AppStyles.pv15, AppStyles.ph20,  AppStyles.mt10, AppStyles.flexRowSpaceBetween, timeSlotIndex == 0 && Styles.active]}>
+          style={[AppStyles.pv15, AppStyles.ph20, AppStyles.mt10, AppStyles.flexRowSpaceBetween, timeSlotIndex == 0 && Styles.active]}>
           <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f15]}>{getDayAfter()}</Text>
           <Text style={[AppStyles.txtSecandaryRegular, , AppStyles.f15]}>11:00 AM - 1:00 PM</Text>
         </TouchableOpacity>

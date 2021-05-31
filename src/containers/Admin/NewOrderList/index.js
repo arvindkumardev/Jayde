@@ -62,15 +62,11 @@ function AdminNewOrderList() {
 
   const triggerNewOrder = async () => {
     try {
-      const { data } = await onAdminNewOrder({ data: {} });
-      console.log("Response :", data.data[0].newOrders)
+      const { data } = await onAdminNewOrder({ data: {} });     
       setLoader(false)
       setPerPage(data.data[0].links.per_page)
       setTotalCount(data.data[0].links.total_count)
-      setAdminOrderList(data.data[0].newOrders)
-
-      //setOffset(offset + perPage);
-      //triggerLoadMore();           
+      setAdminOrderList(data.data[0].newOrders)      
     }
     catch (e) {
       console.log("Response error", e);
@@ -97,7 +93,11 @@ function AdminNewOrderList() {
       setRefreshPage(false)
     }
   }, [refreshPage])
-
+  
+  useEffect(() => {
+    if(error)
+    setLoader(false)
+  }, [error])
 
   useEffect(() => {
     setLoader(true)

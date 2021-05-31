@@ -80,6 +80,11 @@ function AddSubUser() {
     }
   };
 
+  useEffect(() => {   
+    if(error)
+    setLoader(false) 
+  }, [error])
+  
   useEffect(() => {
     setLoader(true)
     getSubUser();

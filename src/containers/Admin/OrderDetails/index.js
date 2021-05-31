@@ -18,8 +18,8 @@ function ViewNewOrder() {
   const [item, setItem] = useState({});
   const { setLoader } = useContext(UserContext);
 
-  const [{ data: acceptData }, onAcceptOrder] = acceptOrder();
-  const [{ data: rejectData }, onRejectOrder] = rejectOrder();
+  const [{ data: acceptData, loading: acceptLoading, error: acceptError }, onAcceptOrder] = acceptOrder();
+  const [{ data: rejectData, loading: rejectLoading, error: rejectError }, onRejectOrder] = rejectOrder();
 
   useLayoutEffect(() => {
     const { Item } = route.params;
@@ -31,6 +31,22 @@ function ViewNewOrder() {
     });
   }, []);
 
+  useEffect(() => {
+    if (acceptError)
+      setLoader(false)
+  }, [acceptError])
+
+  useEffect(() => {
+    if (rejectError)
+      setLoader(false)
+  }, [rejectError])
+
+  useEffect(() => {
+    return () => {
+      setLoader(false)
+    }
+  }, [])
+
   const getActionType = () => {
     route.params.getActionType()
     navigation.goBack()
@@ -38,35 +54,43 @@ function ViewNewOrder() {
 
   const handelReject = async () => {
     setLoader(true);
-    const { data } = await onRejectOrder({
-      data: { orderId: item.orderId },
-    });
-    console.log(data)
-    if (data.status) {
-      navigation.navigate(NavigationRouteNames.ORDER_FAILED, { Value: item, getActionType: getActionType })
-    } else {
-      alert(data.message)
+    try {
+      const { data } = await onRejectOrder({
+        data: { orderId: item.orderId },
+      });
+      console.log(data)
+      if (data.status) {
+        navigation.navigate(NavigationRouteNames.ORDER_FAILED, { Value: item, getActionType: getActionType })
+      } else {
+        alert(data.message)
+      }
+      setLoader(false);
+    } catch (e) {
+      console.log("Response error", e);
     }
-    setLoader(false);
   }
 
   const handelAccept = async () => {
     setLoader(true);
-    const { data } = await onAcceptOrder({
-      data: { orderId: item.orderId },
-    });
-    console.log(data)
-    if (data.status) {
-      navigation.navigate(NavigationRouteNames.ORDER_ASSIGN, { Value: item })
-    } else {
-      alert(data.message)
+    try {
+      const { data } = await onAcceptOrder({
+        data: { orderId: item.orderId },
+      });
+      console.log(data)
+      if (data.status) {
+        navigation.navigate(NavigationRouteNames.ORDER_ASSIGN, { Value: item })
+      } else {
+        alert(data.message)
+      }
+      setLoader(false);
+    } catch (e) {
+      console.log("Response error", e);
     }
-    setLoader(false);
   }
 
   return (
     <View style={AppStyles.topView}>
-      <ScrollView showsVerticalScrollIndicator = {false}>
+      <ScrollView showsVerticalScrollIndicator={false}>
         <View style={AppStyles.aligncen}>
           <Text style={[AppStyles.txtBlackBold, AppStyles.f17, AppStyles.mt30,]}>Ref No- {item.order_no}</Text>
         </View>

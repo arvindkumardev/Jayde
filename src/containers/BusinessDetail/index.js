@@ -27,8 +27,8 @@ function BusinessDetail() {
 
   const [clickLogin, setClickLogin] = useState(false);
   const { setLoader } = useContext(UserContext);
-  const [{ data, loading, error }, onBusinessUpdate] = businessUpdate();
-  const [{ getdata, getloading, geterror }, onGetBusinessProfile] = getBusinessProfile();
+  const [{ data, loading, error: updateError }, onBusinessUpdate] = businessUpdate();
+  const [{ data: getdata, loading: profileLoading, error: profileError }, onGetBusinessProfile] = getBusinessProfile();
 
   const getBusinessData = async () => {
     try {
@@ -45,6 +45,16 @@ function BusinessDetail() {
       console.log('Response error', e);
     }
   };
+
+  useEffect(() => {
+    if (updateError)
+      setLoader(false)
+  }, [updateError])
+
+  useEffect(() => {
+    if (profileError)
+      setLoader(false)
+  }, [profileError])
 
   useEffect(() => {
     setLoader(true);

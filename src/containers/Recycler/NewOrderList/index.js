@@ -88,6 +88,11 @@ function RecyclerNewOrderList() {
   };
 
   useEffect(() => {
+    if (error)
+      setLoader(false)
+  }, [error])
+
+  useEffect(() => {
     setLoader(true)
     workOrder();
     return () => {

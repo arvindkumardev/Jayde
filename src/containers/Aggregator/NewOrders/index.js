@@ -54,7 +54,7 @@ function AggregatorNewOrder() {
       setOrderList(data.data[0].newOrders)
       setPerPage(data.data[0].links.per_page)
       setTotalCount(data.data[0].links.total_count)
-      setOrderList(data.data[0].newOrders)     
+      setOrderList(data.data[0].newOrders)
     } catch (e) {
       console.log("Response error", e);
     }
@@ -71,6 +71,11 @@ function AggregatorNewOrder() {
       console.log("Response error", e);
     }
   };
+
+  useEffect(() => {
+    if (error)
+      setLoader(false)
+  }, [error])
 
   useEffect(() => {
     setLoader(true)
@@ -108,7 +113,7 @@ function AggregatorNewOrder() {
 
   const _RenderItem = (index, item) => {
     return (
-      <TouchableOpacity activeOpacity = {0.8} onPress={() => screenNavigate(item)}>
+      <TouchableOpacity activeOpacity={0.8} onPress={() => screenNavigate(item)}>
         <View style={[AppStyles.flexDir, AppStyles.mt20]}>
           <View style={[AppStyles.flexpointtwo, AppStyles.ml14]}>
             <Image source={ORDER_IMAGE[item.category_name]} />
@@ -121,7 +126,7 @@ function AggregatorNewOrder() {
           </View>
 
           <View style={[AppStyles.flexpointthree, AppStyles.mt5, AppStyles.alignCenter]}>
-            <TouchableOpacity activeOpacity = {0.8}
+            <TouchableOpacity activeOpacity={0.8}
               onPress={() => screenNavigate(item)}
               style={Styles.confirmBtn}>
               <Text style={[AppStyles.txtWhiteRegular, AppStyles.f11, AppStyles.textalig,]}>{item.is_confirmed == 2 ? 'VIEW' : 'ACCEPT'}</Text>
@@ -154,7 +159,7 @@ function AggregatorNewOrder() {
         }}
       />
         :
-        !loading && <EmptyView onBack = {() => navigation.pop()}></EmptyView>
+        !loading && <EmptyView onBack={() => navigation.pop()}></EmptyView>
       }
 
     </View>

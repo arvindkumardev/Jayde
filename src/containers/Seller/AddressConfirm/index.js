@@ -36,7 +36,13 @@ const AddressConfirm = () => {
   const { date, time } = timeSlot
 
   const [modalVisible, setModalVisible] = useState(false)
- 
+
+
+  useEffect(() => {
+    if (error)
+      setLoader(false)
+  }, [error])
+
 
   useEffect(() => {
     async function getUserAddress() {
@@ -75,7 +81,7 @@ const AddressConfirm = () => {
     });
   }, [navigation]);
 
- 
+
   const handelNewAddress = () => {
     navigation.navigate(NavigationRouteNames.PICKUP_DETAILS, { getReturnAddress: getReturnAddress });
   };
@@ -99,13 +105,18 @@ const AddressConfirm = () => {
       'aggregator': ''
     }
     console.log(param)
-    const { data } = await onAddSchedule({ data: param })
-    console.log(data)
-    if (data.status) {
-      setImageName([])
-      handleConfirm()
-    } else {
-      alert(data.message)
+    try {
+      const { data } = await onAddSchedule({ data: param })
+      console.log(data)
+      if (data.status) {
+        setImageName([])
+        handleConfirm()
+      } else {
+        alert(data.message)
+      }
+    }
+    catch (e) {
+      console.log("Response error", e);
     }
   };
 
@@ -120,10 +131,10 @@ const AddressConfirm = () => {
     console.log(value)
   }
   return (
-     
+
     <View style={[AppStyles.flex1SpaceBetween, AppStyles.pb10, style.whitebackgrnd,]}>
       {/* <ScrollView> */}
-     
+
       <View style={[AppStyles.mt20, AppStyles.w100]}>
         <View style={[AppStyles.w100, AppStyles.ph20, AppStyles.txtPrimaryBold]}>
 
@@ -169,15 +180,15 @@ const AddressConfirm = () => {
                   <View style={[AppStyles.mt20, AppStyles.ml20, AppStyles.mb20]}>
                     <View style={AppStyles.flexRowSpaceBetween}>
                       <View style={AppStyles.flexpointeight}>
-                      <Text style={[AppStyles.txtBlackBold, AppStyles.mb10, AppStyles.f17]}>Delivery Address</Text>
+                        <Text style={[AppStyles.txtBlackBold, AppStyles.mb10, AppStyles.f17]}>Delivery Address</Text>
                       </View>
                       <View style={AppStyles.flexpointtwo}>
-                      <TouchableOpacity
-                        activeOpacity={0.8}
-                        onPress={handelNewAddress}
-                        style={[AppStyles.mr20]}>
-                        <Text style={[AppStyles.txtmangoTwoRegular, AppStyles.f11, AppStyles.ml20]}>Edit</Text>
-                      </TouchableOpacity>
+                        <TouchableOpacity
+                          activeOpacity={0.8}
+                          onPress={handelNewAddress}
+                          style={[AppStyles.mr20]}>
+                          <Text style={[AppStyles.txtmangoTwoRegular, AppStyles.f11, AppStyles.ml20]}>Edit</Text>
+                        </TouchableOpacity>
                       </View>
                     </View>
                     <View>
@@ -195,7 +206,7 @@ const AddressConfirm = () => {
               <View style={[AppStyles.mt20, AppStyles.ml20,]}>
                 <TouchableOpacity
                   activeOpacity={0.8}
-                  onPress={ () => setModalVisible(true)}
+                  onPress={() => setModalVisible(true)}
                   style={[AppStyles.flexRowAlignCenter]}>
                   <FAIcon name={'plus'} size={20} color={Colors.mango} />
                   <Text style={[AppStyles.ml10, AppStyles.txtBlackBold, AppStyles.f16]}>Add Time Slot</Text>
@@ -204,19 +215,19 @@ const AddressConfirm = () => {
             </View>
             :
             <View style={[AppStyles.mt20]}>
-              <View style={[style.btnSecandary, {borderRadius: 10} ]}>
+              <View style={[style.btnSecandary, { borderRadius: 10 }]}>
                 <View style={[AppStyles.mt20, AppStyles.mb20, AppStyles.ml20,]}>
                   <View style={AppStyles.flexRowSpaceBetween}>
-                  <View style={AppStyles.flexpointeight}>
-                    <Text style={[AppStyles.txtBlackBold, AppStyles.mb10, AppStyles.f17]}>Date & Time</Text>
+                    <View style={AppStyles.flexpointeight}>
+                      <Text style={[AppStyles.txtBlackBold, AppStyles.mb10, AppStyles.f17]}>Date & Time</Text>
                     </View>
                     <View style={AppStyles.flexpointtwo}>
-                    <TouchableOpacity
-                      activeOpacity={0.8}
-                      onPress={ () => setModalVisible(true)}
-                      style={[AppStyles.mr20]}>
-                      <Text style={[AppStyles.txtmangoTwoRegular, AppStyles.f11, AppStyles.ml20]}>Edit</Text>
-                    </TouchableOpacity>
+                      <TouchableOpacity
+                        activeOpacity={0.8}
+                        onPress={() => setModalVisible(true)}
+                        style={[AppStyles.mr20]}>
+                        <Text style={[AppStyles.txtmangoTwoRegular, AppStyles.f11, AppStyles.ml20]}>Edit</Text>
+                      </TouchableOpacity>
                     </View>
                   </View>
                   <View>
@@ -229,7 +240,7 @@ const AddressConfirm = () => {
           }
         </View>
       </View>
-     
+
       <View style={[AppStyles.flexRowSpaceBetween, AppStyles.w100, AppStyles.ph20, AppStyles.alignCenter]}>
         <View style={[AppStyles.ph10, AppStyles.flexpointfour]}>
           <Text style={[AppStyles.f12, AppStyles.txtPrimaryBold]}>ESTIMATED PRICE</Text>
@@ -247,14 +258,14 @@ const AddressConfirm = () => {
         </View>
       </View>
       <PickupDate
-        handleClose={() => setModalVisible(false)}       
+        handleClose={() => setModalVisible(false)}
         isVisible={modalVisible}
-        Data={handelValue} 
+        Data={handelValue}
 
-        />
-       {/* </ScrollView> */}
+      />
+      {/* </ScrollView> */}
     </View>
-     
+
   );
 };
 

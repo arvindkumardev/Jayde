@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState, useLayoutEffect, useRef } from 'react';
-import { TouchableOpacity, View, Text, TextInput} from 'react-native';
+import { TouchableOpacity, View, Text, TextInput } from 'react-native';
 
 import { useNavigation } from '@react-navigation/core';
 import { useRoute } from '@react-navigation/native';
@@ -34,25 +34,31 @@ function ProfileUpdate() {
 
   useLayoutEffect(() => {
     const title = 'Update Profile';
-    navigation.setOptions({title});
+    navigation.setOptions({ title });
   }, []);
 
   const confirmProfileUpdate = async (name, username, phoneno, password) => {
-    const { data } = await onProfileUpdate({
-      data: {
-        name,
-        email: username,
-        phone: phoneno,
-        password,
-      },
-    });
+    setLoader(true)
+    try {
+      const { data } = await onProfileUpdate({
+        data: {
+          name,
+          email: username,
+          phone: phoneno,
+          password,
+        },
+      });
 
-    console.log(data);
-    if (data.status) {
-      alert(data.message);
-      screenNavigate();
-    } else {
-      alert(data.message);
+      console.log(data);
+      if (data.status) {
+        alert(data.message);
+        screenNavigate();
+      } else {
+        alert(data.message);
+      }
+      setLoader(false)
+    } catch (e) {
+      console.log('Response error', e);
     }
   };
 
@@ -96,6 +102,11 @@ function ProfileUpdate() {
   };
 
   useEffect(() => {
+    if (error)
+      setLoader(false)
+  }, [error])
+
+  useEffect(() => {
     async function getUserName() {
       const username = await getSaveData(LOCAL_STORAGE_DATA_KEY.USER_NAME);
       const phoneno = await getSaveData(LOCAL_STORAGE_DATA_KEY.USER_PHONE);
@@ -137,7 +148,7 @@ function ProfileUpdate() {
         <View style={[AppStyles.mt20, AppStyles.ml24, AppStyles.mr24]}>
           <View>
             <Text style={[AppStyles.txtBlackRegular, AppStyles.f15, AppStyles.mb6]}>Email</Text>
-          </View>         
+          </View>
           <TextInput
             ref={refEmail}
             placeholder="Email"
@@ -146,7 +157,7 @@ function ProfileUpdate() {
             keyboardType='email-address'
             maxLength={50}
             returnKeyType='next'
-            editable = {false}
+            editable={false}
             onChangeText={(txt) => loginForm.setFieldValue('username', txt)}
           />
           {clickLogin && loginForm.errors.username ? (
@@ -207,7 +218,7 @@ function ProfileUpdate() {
           </View>
           {/* <TextInput placeholder={"**********"} style={Styles.inputText} value={confirmpassword}/> */}
           <TextInput
-           ref={refConfPassword}
+            ref={refConfPassword}
             placeholder="**********"
             style={AppStyles.inputTxtStyle}
             value={loginForm.values.confirmpassword}
@@ -216,7 +227,7 @@ function ProfileUpdate() {
             maxLength={30}
             returnKeyType='next'
             onChangeText={(txt) => loginForm.setFieldValue('confirmpassword', txt)}
-            onSubmitEditing = {() => handleProfileUpdate()}
+            onSubmitEditing={() => handleProfileUpdate()}
           />
           {clickLogin && loginForm.errors.confirmpassword ? (
             <CustomText fontSize={15} color={Colors.red} styling={{ marginTop: RfH(10) }}>
@@ -227,14 +238,14 @@ function ProfileUpdate() {
 
         <View style={[Styles.btnContainer, AppStyles.flexDir]}>
           <View style={AppStyles.flex1}>
-            <TouchableOpacity activeOpacity = {0.8} style={[Styles.aggregatebtn]} onPress={() => screenNavigate()}>
+            <TouchableOpacity activeOpacity={0.8} style={[Styles.aggregatebtn]} onPress={() => screenNavigate()}>
               <Text style={[AppStyles.txtPrimaryRegular, AppStyles.f17, AppStyles.textalig, AppStyles.mt10]}>
                 CANCEL
                   </Text>
             </TouchableOpacity>
           </View>
           <View style={AppStyles.flex1}>
-            <TouchableOpacity activeOpacity = {0.8} style={[Styles.confirmbtn, AppStyles.mb20]} onPress={() => handleProfileUpdate()}>
+            <TouchableOpacity activeOpacity={0.8} style={[Styles.confirmbtn, AppStyles.mb20]} onPress={() => handleProfileUpdate()}>
               <Text style={[AppStyles.txtWhiteRegular, AppStyles.f17, AppStyles.textalig, AppStyles.mt10]}>
                 SAVE
                   </Text>
