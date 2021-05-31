@@ -1,11 +1,10 @@
-import React, { useContext, useEffect, useState, useLayoutEffect } from 'react';
-import { KeyboardAvoidingView, Platform, TouchableOpacity, View, Text, Image, TextInput, ScrollView } from 'react-native';
+import React, { useState, useLayoutEffect } from 'react';
+import { View, Text, Image, ScrollView } from 'react-native';
 import Styles from "./styles";
 import NavigationRouteNames from '../../routes/ScreenNames';
 import { useNavigation } from '@react-navigation/core';
 import { useRoute } from '@react-navigation/native';
 import { AppStyles, Colors } from '../../theme';
-import DropDown from '../../components/Picker/index';
 
 import checkCircle from '../../assets/Images/AddSubCategory/check-circle.png'
 import invoice from '../../assets/Images/SmartContractViewItem/Invoice.png'

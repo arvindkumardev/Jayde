@@ -138,7 +138,7 @@ function Users() {
             <View style={{ height: '100%', width: 1, borderBottomWidth: 20, marginLeft: 12,}}>
             </View> 
             <View>
-              <Text style={[AppStyles.ml10, AppStyles.txtSecandaryRegular, AppStyles.f13]}>User</Text>
+              <Text style={[AppStyles.ml10, AppStyles.txtSecandaryRegular, AppStyles.f13]}>{item.type}</Text>
             </View>
           </View>
 
