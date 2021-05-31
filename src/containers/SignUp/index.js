@@ -1,22 +1,17 @@
 import React, { useContext, useEffect, useState } from 'react';
-import * as Alert from 'react-native';
-import { KeyboardAvoidingView, Platform, TouchableOpacity, View, Text, Image, TextInput, ScrollView, } from 'react-native';
-import DropDownPicker from "react-native-dropdown-picker";
+import { Platform, TouchableOpacity, View, Text, Image } from 'react-native';
 import * as Yup from "yup";
 import { useFormik } from 'formik';
 import Colors from '../../theme/Colors';
-import { CheckBoxWrapper, CustomTextInput, GradientButton, } from '../../components';
-import { alertBox, comingSoonAlert, getSaveData, isValidUserName, RfH, RfW, storeData } from '../../utils/helpers';
+import { CustomTextInput } from '../../components';
+import { isValidUserName, RfH, RfW, storeData } from '../../utils/helpers';
 import CustomText from '../../components/CustomText';
 import Images from '../../theme/Images';
 import NavigationRouteNames from '../../routes/ScreenNames';
 import { useNavigation } from '@react-navigation/core';
-import UserContext from './user.context';
-import useAxios from 'axios-hooks';
+import UserContext from './../../appContainer/context/user.context';
 import styles from './styles';
-import { ENDPOINT, LOGIN_URL } from '../../utils/urls';
 import commonStyles from '../../theme/commonStyles';
-import axios from "axios";
 import { AppStyles } from "../../theme";
 import { signUp } from './middleware';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
@@ -141,13 +136,13 @@ function SignUp() {
         <View style={AppStyles.flex1}>
 
           <View style={[AppStyles.ml20, AppStyles.mt20]}>
-            <TouchableOpacity activeOpacity = {0.8} onPress={() => screenNavigate()}>
+            <TouchableOpacity activeOpacity={0.8} onPress={() => screenNavigate()}>
               <Image source={leftArrowImg} />
             </TouchableOpacity>
           </View>
 
           <View style={[AppStyles.mt40, AppStyles.aligncen]}>
-            <Image  source={logoImg} resizeMode = 'contain'/>
+            <Image source={logoImg} resizeMode='contain' />
           </View>
 
           <View style={[AppStyles.mt20, AppStyles.aligncen]}>
@@ -165,7 +160,7 @@ function SignUp() {
                 loginForm.setFieldValue('name', value)
               }
               returnKeyType={"next"}
-              keyboardType = 'default'
+              keyboardType='default'
               onSubmitEditing={() => onSubmitEditing("Email")}
               error={clickLogin && loginForm.errors.name}
             />
@@ -178,7 +173,7 @@ function SignUp() {
               onChangeHandler={(value) =>
                 loginForm.setFieldValue('username', value)
               }
-              keyboardType = 'email-address'
+              keyboardType='email-address'
               returnKeyType={"next"}
               onSubmitEditing={() => onSubmitEditing("password")}
               error={clickLogin && loginForm.errors.username}
@@ -275,7 +270,7 @@ function SignUp() {
             </View>
 
             <View style={{ marginTop: RfH(10) }}>
-              <TouchableOpacity activeOpacity = {0.8} style={[AppStyles.mt20, AppStyles.br10, AppStyles.btnPrimary, AppStyles.pv15, AppStyles.aligncen]}
+              <TouchableOpacity activeOpacity={0.8} style={[AppStyles.mt20, AppStyles.br10, AppStyles.btnPrimary, AppStyles.pv15, AppStyles.aligncen]}
                 onPress={() => handleSignup()}>
                 <Text style={[AppStyles.f18, AppStyles.txtWhiteRegular]}>CONFIRM</Text>
               </TouchableOpacity>
