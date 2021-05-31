@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Platform } from 'react-native';
 import Colors from '../Colors';
 import Fonts from '../Fonts';
 
@@ -113,6 +113,12 @@ const texts = StyleSheet.create({
   },
   underline: {
     textDecorationLine: 'underline'
+  },
+  inputTxtStyle: {
+    borderRadius: 10,
+    paddingLeft: 10,
+    backgroundColor: Colors.grayTwo,
+    ...Platform.select({ ios: { paddingVertical: 15 } }),
   },
 });
 

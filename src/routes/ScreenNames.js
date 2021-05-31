@@ -46,7 +46,7 @@ const NavigationRouteNames = {
   SIGNUP: "SignUp",
   LOGIN_WITH_EMAIL: "LoginWithEmail",
   HOME_SCREEN: "HomeScreen",
-  NEW_ORDER_REQUEST: "NewOrder",
+  NEW_ORDER_REQUEST: "New Order",
   ADD_SUBCATEGORY: "AddSubCategory",
 
   VIEW_NEW_ORDER: "ViewNewOrder",

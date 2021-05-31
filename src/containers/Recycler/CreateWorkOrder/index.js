@@ -211,7 +211,7 @@ function RecyclerNewWorkOrder() {
                 itemStyle={{ color: '#000' }}
                 onValueChange={(val) => requestForm.setFieldValue('assignTo', val)}
                 selectedValue={requestForm.values.assignTo}
-                containerStyle={{ borderRadius: 10, backgroundColor: Colors.grayBackground, paddingLeft: 10 }}
+                containerStyle={AppStyles.inputTxtStyle}
               />
               {clickConfirm && requestForm.errors.assignTo && <CustomText
                 fontSize={15}
@@ -229,7 +229,7 @@ function RecyclerNewWorkOrder() {
                 itemStyle={{ color: '#000' }}
                 onValueChange={(val) => requestForm.setFieldValue('assignTo', val)}
                 selectedValue={requestForm.values.assignTo}
-                containerStyle={{ borderRadius: 10, backgroundColor: Colors.grayBackground, paddingLeft: 10 }}
+                containerStyle={AppStyles.inputTxtStyle}
               />
 
               {clickConfirm && requestForm.errors.assignTo && <CustomText
@@ -262,7 +262,7 @@ function RecyclerNewWorkOrder() {
               placeholder="Enter Vehicle Number"
               value={requestForm.values.vehicleNo}
               onChangeText={(txt) => requestForm.setFieldValue('vehicleNo', txt)}
-              style={{ backgroundColor: Colors.grayBackground, borderRadius: 10, paddingLeft: 10 }}
+              style={AppStyles.inputTxtStyle}
             />
             {clickConfirm && requestForm.errors.vehicleNo && <CustomText
               fontSize={15}
@@ -330,7 +330,7 @@ function RecyclerNewWorkOrder() {
                   value={requestForm.values.volume}
                   keyboardType={'number-pad'}
                   onChangeText={(txt) => requestForm.setFieldValue('volume', txt)}
-                  style={{ backgroundColor: Colors.grayBackground, borderRadius: 10, paddingLeft: 10 }}
+                  style={AppStyles.inputTxtStyle}
                 />
                 {clickConfirm && requestForm.errors.volume && <CustomText
                   fontSize={15}
@@ -346,7 +346,7 @@ function RecyclerNewWorkOrder() {
                   itemStyle={{ color: '#000' }}
                   onValueChange={(val) => requestForm.setFieldValue('unit', val)}
                   selectedValue={requestForm.values.unit}
-                  containerStyle={{ borderRadius: 10, backgroundColor: Colors.grayBackground, paddingLeft: 10 }}
+                  containerStyle={AppStyles.inputTxtStyle}
                 />
                 {clickConfirm && requestForm.errors.unit && <CustomText
                   fontSize={15}
@@ -369,7 +369,7 @@ function RecyclerNewWorkOrder() {
                   value={requestForm.values.price}
                   keyboardType={'number-pad'}
                   onChangeText={(txt) => requestForm.setFieldValue('price', txt)}
-                  style={{ backgroundColor: Colors.grayBackground, borderRadius: 10, paddingLeft: 10 }}
+                  style={AppStyles.inputTxtStyle}
                 />
                 {clickConfirm && requestForm.errors.price && <CustomText
                   fontSize={15}
@@ -385,7 +385,7 @@ function RecyclerNewWorkOrder() {
                   itemStyle={{ color: '#000' }}
                   onValueChange={(val) => requestForm.setFieldValue('priceUnit', val)}
                   selectedValue={requestForm.values.priceUnit}
-                  containerStyle={{ borderRadius: 10, backgroundColor: Colors.grayBackground, paddingLeft: 10 }}
+                  containerStyle={AppStyles.inputTxtStyle}
                 />
                 {clickConfirm && requestForm.errors.priceUnit && <CustomText
                   fontSize={15}

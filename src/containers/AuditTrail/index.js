@@ -64,7 +64,7 @@ function AuditTrail() {
           <View style={[AppStyles.mt20, AppStyles.ml24, AppStyles.mr24]}>
             <Text style={[AppStyles.txtBlackRegular, AppStyles.f15, AppStyles.mb6,]}>Enter valid Jayde ID</Text>
             <View>
-            <TextInput placeholder={"JYD/X/20XX/XXXX"} style={Styles.inputText} 
+            <TextInput placeholder={"JYD/X/20XX/XXXX"} style={AppStyles.inputTxtStyle} 
               value={businessForm.values.id}
               onChangeText={(txt) =>
                 businessForm.setFieldValue('id', txt)

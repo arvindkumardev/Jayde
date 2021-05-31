@@ -14,12 +14,7 @@ const DropDown = (props) => {
     const Item = Picker.Item;
     return (
       <View style={[Styles.androidPickerContainer, containerStyle]}>
-        <Picker
-          mode={mode}
-          //itemStyle={itemStyle}
-          //style={itemStyle}
-          onValueChange={onValueChange}
-          selectedValue={selectedValue}>
+        <Picker mode={mode} onValueChange={onValueChange} selectedValue={selectedValue}>
           <Item label={placeholderText} value="" />
           {dropDownData.map((item, index) => (
             <Item key={index} value={item.value} label={item.label} />
@@ -33,7 +28,7 @@ const DropDown = (props) => {
     ActionSheetIOS.showActionSheetWithOptions(
       {
         options: ['Cancel', ...buttonListLabel],
-        destructiveButtonIndex: 2,
+        destructiveButtonIndex: 0,
         cancelButtonIndex: 0,
       },
       (buttonIndex) => {

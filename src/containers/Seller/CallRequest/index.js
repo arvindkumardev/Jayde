@@ -1,12 +1,13 @@
 import React, { useState, useLayoutEffect, useEffect, useContext } from 'react';
 import { View, Text, TouchableOpacity, TextInput } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
-import * as Yup from "yup";
-import { useFormik } from "formik";
-import { requestCallBack } from './../PricingRequest/middleware';
-
+import * as Yup from 'yup';
+import { useFormik } from 'formik';
 import MIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import moment from 'moment';
+import { requestCallBack } from '../PricingRequest/middleware';
+
 import Styles from './styles';
 import NavigationRouteNames from '../../../routes/ScreenNames';
 import { Colors, AppStyles } from '../../../theme';
@@ -15,7 +16,6 @@ import CustomText from '../../../components/CustomText';
 import { alertBox, RfH, RfW, getSaveData } from '../../../utils/helpers';
 import { LOCAL_STORAGE_DATA_KEY } from '../../../utils/constants';
 
-import moment from 'moment';
 import UserContext from '../../../appContainer/context/user.context';
 import { getQuoteData, getImageName, setImageName } from '../../../utils/Global'
 
@@ -24,9 +24,9 @@ const CallRequest = () => {
   const route = useRoute();
   const [imageUpload, setImageUpload] = useState(false);
   const [clickConfirm, setClickConfirm] = useState(false);
-  const [timeSlotIndex, setTimeSlotIndex] = useState(0)
+  const [timeSlotIndex, setTimeSlotIndex] = useState(0);
   const { setLoader } = useContext(UserContext);
-  const [imgData, setImageData] = useState(getImageName)
+  const [imgData, setImageData] = useState(getImageName);
 
   const [{ data: callBackData, loading, error }, onRequestCallBack] = requestCallBack();
 
@@ -35,14 +35,13 @@ const CallRequest = () => {
   };
 
   useEffect(() => {
-    setLoader(loading)
-  }, [callBackData, loading])
+    setLoader(loading);
+  }, [callBackData, loading]);
 
   useLayoutEffect(() => {
     navigation.setOptions({
       title: <Text style={[AppStyles.txtBlackBold, AppStyles.f18]}>Call Back Request</Text>,
     });
-
   }, [navigation]);
 
   const validationSchema = Yup.object().shape({
@@ -51,8 +50,8 @@ const CallRequest = () => {
     //   "Please provide valid contact number",
     //   (value) => isValidVolume(value),
     // ),
-    contactNumber: Yup.string().required("Please provide valid contact number"),
-    contactPerson: Yup.string().required("Please provide contact person"),
+    contactNumber: Yup.string().required('Please provide valid contact number'),
+    contactPerson: Yup.string().required('Please provide contact person'),
   });
 
   const requestForm = useFormik({
@@ -60,17 +59,14 @@ const CallRequest = () => {
     validateOnBlur: true,
     initialValues: {
       contactNumber: '',
-      contactPerson: ''
+      contactPerson: '',
     },
     validationSchema,
-    onSubmit: () => handleSubmit(
-      requestForm.values.contactPerson,
-      requestForm.values.contactNumber,
-    )
+    onSubmit: () => handleSubmit(requestForm.values.contactPerson, requestForm.values.contactNumber),
   });
 
   const handleConfirm = async () => {
-    setClickConfirm(true)
+    setClickConfirm(true);
     await requestForm.submitForm();
   };
 
@@ -94,52 +90,52 @@ const CallRequest = () => {
     const { data } = await onRequestCallBack({
       data: param,
     });
-    console.log(data)
+    console.log(data);
     if (data.status) {
       handelCallBackConfirmation()
       setImageName([])
     } else {
-      alert(data.message)
+      alert(data.message);
     }
-  }
+  };
 
   const getDayAfter = () => {
-    let dayAfter = moment(new Date()).add(1, 'days').format('DD-MM-YYYY')
-    return dayAfter
-  }
+    const dayAfter = moment(new Date()).add(1, 'days').format('DD-MM-YYYY');
+    return dayAfter;
+  };
 
   const getAfterDay = () => {
-    let afterDay = moment(new Date()).add(2, 'days').format('DD-MM-YYYY')
-    return afterDay
-  }
+    const afterDay = moment(new Date()).add(2, 'days').format('DD-MM-YYYY');
+    return afterDay;
+  };
 
   const getDayAfter_Formatted = () => {
-    let dayAfter = moment(new Date()).add(1, 'days').format('YYYY-MM-DD')
-    return dayAfter
-  }
+    const dayAfter = moment(new Date()).add(1, 'days').format('YYYY-MM-DD');
+    return dayAfter;
+  };
 
   const getAfterDay_Formatted = () => {
-    let afterDay = moment(new Date()).add(2, 'days').format('YYYY-MM-DD')
-    return afterDay
-  }
+    const afterDay = moment(new Date()).add(2, 'days').format('YYYY-MM-DD');
+    return afterDay;
+  };
 
   const ImageData = (data) => {
     if (data) {
-      let listData = imgData;
-      let data1 = listData.concat(data);
+      const listData = imgData;
+      const data1 = listData.concat(data);
       setImageData([...data1]);
     }
-  }
+  };
 
   useEffect(() => {
     async function getUserName() {
       const userName = await getSaveData(LOCAL_STORAGE_DATA_KEY.USER_NAME);
       if (userName) {
-        requestForm.setFieldValue("contactPerson", userName)
+        requestForm.setFieldValue('contactPerson', userName);
       }
       const phoneNo = await getSaveData(LOCAL_STORAGE_DATA_KEY.USER_PHONE);
       if (phoneNo) {
-        requestForm.setFieldValue("contactNumber", phoneNo)
+        requestForm.setFieldValue('contactNumber', phoneNo);
       }
     }
     getUserName();
@@ -158,21 +154,12 @@ const CallRequest = () => {
           <Text style={[AppStyles.txtBlackRegular, AppStyles.f16, AppStyles.mb10]}>Contact person</Text>
           <TextInput
             placeholder="Name..."
-            style={[
-              AppStyles.txtSecandaryRegular,
-              AppStyles.btnSecandary,
-              AppStyles.br10,
-              AppStyles.mb10,
-              AppStyles.pl20,
-            ]}
+            style={AppStyles.inputTxtStyle}
             value={requestForm.values.contactPerson}
-            onChangeText={(txt) => requestForm.setFieldValue("contactPerson", txt)}
+            onChangeText={(txt) => requestForm.setFieldValue('contactPerson', txt)}
           />
           {clickConfirm && requestForm.errors.contactPerson ? (
-            <CustomText
-              fontSize={15}
-              color={Colors.red}
-              styling={{ marginTop: RfH(10) }}>
+            <CustomText fontSize={15} color={Colors.red} styling={{ marginTop: RfH(10) }}>
               {requestForm.errors.contactPerson}
             </CustomText>
           ) : null}
@@ -181,22 +168,13 @@ const CallRequest = () => {
           <Text style={[[AppStyles.txtBlackRegular, AppStyles.f16, AppStyles.mb10]]}>Contact number</Text>
           <TextInput
             placeholder="Contact number..."
-            style={[
-              AppStyles.txtSecandaryRegular,
-              AppStyles.btnSecandary,
-              AppStyles.br10,
-              AppStyles.mb10,
-              AppStyles.pl20,
-            ]}
+            style={AppStyles.inputTxtStyle}
             value={requestForm.values.contactNumber}
-            keyboardType={'number-pad'}
-            onChangeText={(txt) => requestForm.setFieldValue("contactNumber", txt)}
+            keyboardType="number-pad"
+            onChangeText={(txt) => requestForm.setFieldValue('contactNumber', txt)}
           />
           {clickConfirm && requestForm.errors.contactNumber ? (
-            <CustomText
-              fontSize={15}
-              color={Colors.red}
-              styling={{ marginTop: RfH(10) }}>
+            <CustomText fontSize={15} color={Colors.red} styling={{ marginTop: RfH(10) }}>
               {requestForm.errors.contactNumber}
             </CustomText>
           ) : null}
@@ -211,18 +189,12 @@ const CallRequest = () => {
           </TouchableOpacity>
 
           {clickConfirm && imgData.length === 0 ? (
-            <CustomText
-              fontSize={15}
-              color={Colors.red}
-              styling={{ marginTop: RfH(10) }}>
+            <CustomText fontSize={15} color={Colors.red} styling={{ marginTop: RfH(10) }}>
               Upload Picture
             </CustomText>
           ) : null}
 
-          <UploadDocument
-            handleClose={() => setImageUpload(false)}
-            ImageData={ImageData}
-            isVisible={imageUpload} />
+          <UploadDocument handleClose={() => setImageUpload(false)} ImageData={ImageData} isVisible={imageUpload} />
         </View>
       </View>
       <View style={[AppStyles.mv20]}>
