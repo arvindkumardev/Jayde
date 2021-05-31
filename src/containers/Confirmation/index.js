@@ -1,6 +1,6 @@
-import React, {useContext, useEffect, useLayoutEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import * as Alert from 'react-native';
-import {KeyboardAvoidingView, Platform, TouchableOpacity, View, Text, Image, TextInput, FlatList, ScrollView} from 'react-native';
+import {TouchableOpacity, View, Text, Image, ScrollView} from 'react-native';
 import Styles from "./styles";
 import {AppStyles} from "../../theme";
 import styles from '../../components/CustomImage/style';

@@ -122,13 +122,12 @@ const AddressConfirm = () => {
   return (
      
     <View style={[AppStyles.flex1SpaceBetween, AppStyles.pb10, style.whitebackgrnd,]}>
-      {/* <ScrollView> */}
      
       <View style={[AppStyles.mt20, AppStyles.w100]}>
         <View style={[AppStyles.w100, AppStyles.ph20, AppStyles.txtPrimaryBold]}>
 
-          <View style={[Styles.paperBox, style.btnSecandary,]}>
-            <View style={[AppStyles.mt20, AppStyles.ml20,]}>
+          <View style={[style.btnSecandary, AppStyles.br10]}>
+            <View style={[AppStyles.mt20, AppStyles.ml20, AppStyles.mb20]}>
               <Text style={[AppStyles.txtBlackBold, AppStyles.f16, AppStyles.mb10]}>{getQuoteData().category_name}</Text>
               <View style={AppStyles.flexRowSpaceBetween}>
                 <View style={AppStyles.flexpointsix}>
@@ -165,7 +164,7 @@ const AddressConfirm = () => {
               </View>
               :
               <View>
-                <View style={[Styles.deliveryBox, style.btnSecandary,]}>
+                <View style={[style.btnSecandary, style.br10]}>
                   <View style={[AppStyles.mt20, AppStyles.ml20, AppStyles.mb20]}>
                     <View style={AppStyles.flexRowSpaceBetween}>
                       <View style={AppStyles.flexpointeight}>
@@ -181,7 +180,7 @@ const AddressConfirm = () => {
                       </View>
                     </View>
                     <View>
-                      <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f16, AppStyles.mt5]}>{Address}</Text>
+                      <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f16, AppStyles.mt5, AppStyles.mr5]}>{Address}</Text>
                       <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f16, AppStyles.mt5]}>{Landmark}</Text>
                       <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f16, AppStyles.mt5]}>{City} {PinCode}</Text>
                     </View>
@@ -191,8 +190,8 @@ const AddressConfirm = () => {
             }
           </View>
           {timeSlot === '' ?
-            <View style={[Styles.addressBox, style.btnSecandary, AppStyles.mt20,]}>
-              <View style={[AppStyles.mt20, AppStyles.ml20,]}>
+            <View style={[style.btnSecandary, AppStyles.mt20, AppStyles.br10]}>
+              <View style={[AppStyles.mt20, AppStyles.ml20, AppStyles.mb20,]}>
                 <TouchableOpacity
                   activeOpacity={0.8}
                   onPress={ () => setModalVisible(true)}
@@ -230,7 +229,7 @@ const AddressConfirm = () => {
         </View>
       </View>
      
-      <View style={[AppStyles.flexRowSpaceBetween, AppStyles.w100, AppStyles.ph20, AppStyles.alignCenter]}>
+      <View style={[AppStyles.flexRowSpaceBetween, AppStyles.w100, AppStyles.ph20, AppStyles.alignCenter, AppStyles.mt10]}>
         <View style={[AppStyles.ph10, AppStyles.flexpointfour]}>
           <Text style={[AppStyles.f12, AppStyles.txtPrimaryBold]}>ESTIMATED PRICE</Text>
           <Text style={AppStyles.txtBlackRegular, AppStyles.mt3}>
@@ -252,7 +251,7 @@ const AddressConfirm = () => {
         Data={handelValue} 
 
         />
-       {/* </ScrollView> */}
+      
     </View>
      
   );

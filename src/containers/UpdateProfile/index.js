@@ -41,7 +41,7 @@ function UpdateProfile() {
           <Text style={[AppStyles.txtBlackBold, AppStyles.f17, AppStyles.mt30,]}>Welcome {name}</Text>
         </View>
         <View style={Styles.boxView}>
-          <View style={[AppStyles.ml20, AppStyles.mr20]}>
+          <View style={[AppStyles.ml20, AppStyles.mr20, AppStyles.mb20]}>
             <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f15, AppStyles.mt20]}>As a business user you need to complete business registration to complete transactions on Jayde.</Text>
             <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f15, AppStyles.mt20]}>You can choose to complete it now or complete it later under the profile section.</Text>
           </View>
@@ -51,15 +51,15 @@ function UpdateProfile() {
           <View style={AppStyles.flex1}>
             <TouchableOpacity
               activeOpacity={0.8}
-              style={[Styles.aggregatebtn]} onPress={() => screenNavigate()}>
-              <Text style={[AppStyles.txtmangoTwoRegular, AppStyles.f17, AppStyles.textalig, AppStyles.mt10]}>UPDATE BUSINESS</Text>
+              style={[Styles.businessButton]} onPress={() => screenNavigate()}>
+              <Text style={[AppStyles.txtmangoTwoRegular, AppStyles.f15, AppStyles.textalig]}>UPDATE BUSINESS</Text>
             </TouchableOpacity>
           </View>
           <View style={AppStyles.flex1}>
             <TouchableOpacity
               activeOpacity={0.8}
-              style={[Styles.confirmbtn, AppStyles.mb20]} onPress={() => updateProfile()}>
-              <Text style={[AppStyles.txtWhiteRegular, AppStyles.f17, AppStyles.textalig, AppStyles.mt10]}>UPDATE PROFILE</Text>
+              style={[Styles.profileButton, AppStyles.mb20]} onPress={() => updateProfile()}>
+              <Text style={[AppStyles.txtWhiteRegular, AppStyles.f15, AppStyles.textalig]}>UPDATE PROFILE</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -68,7 +68,7 @@ function UpdateProfile() {
           <TouchableOpacity
             activeOpacity={0.8}
             style={[Styles.completelaterbtn]} onPress={() => completeLater()}>
-            <Text style={[AppStyles.txtmangoTwoRegular, AppStyles.f17, AppStyles.textalig, AppStyles.mt10]}>COMPLETE LATER</Text>
+            <Text style={[AppStyles.txtmangoTwoRegular, AppStyles.f15, AppStyles.textalig, AppStyles.mt10]}>COMPLETE LATER</Text>
           </TouchableOpacity>
         </View>
 
