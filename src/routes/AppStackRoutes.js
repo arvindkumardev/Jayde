@@ -26,7 +26,6 @@ import SellerOrderDetail from "../containers/Seller/MyOrderDetail/index";
 import PickupDetailsConfirmation from "../containers/Seller/PickupDetailsConfirmation";
 import Dashboard from "../containers/Dashboard/index";
 import PaymentVerification from "../containers/Aggregator/PaymentVerification";
-import ViewNewOrder from "../containers/ViewNewOrder";
 import WorkOrderEmail from "../containers/Aggregator/WorkOrderEmail";
 import OrderDetails from "../containers/Seller/OrderDetails";
 import CallBackConfirmation from "../containers/Seller/CallBackConfirmation";
@@ -499,12 +498,6 @@ const AppStack = (props) => {
           <Stack.Screen
             name={NavigationRouteNames.SMARTCONTRACT_VIEWITEM}
             component={SmartContractViewItem}
-            options={CommonHeaderStyle}
-          />
-          {/* View New Order Screen*/}
-          <Stack.Screen
-            name={NavigationRouteNames.VIEW_NEW_ORDER}
-            component={ViewNewOrder}
             options={CommonHeaderStyle}
           />
           {/* Order Screen number: 21*/}
