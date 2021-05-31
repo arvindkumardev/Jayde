@@ -9,7 +9,7 @@ import { useNavigation } from '@react-navigation/core';
 import { useRoute } from '@react-navigation/native';
 import { AppStyles } from '../../../theme';
 import moment from 'moment';
-import { acceptOrder, rejectOrder } from "../../../services/middleware/user";
+import { acceptOrder, rejectOrder } from "../Middleware";
 import UserContext from '../../../appContainer/context/user.context';
 
 function ViewNewOrder() {

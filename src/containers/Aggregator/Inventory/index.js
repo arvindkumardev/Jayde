@@ -6,7 +6,7 @@ import NavigationRouteNames from '../../../routes/ScreenNames';
 import { useNavigation } from '@react-navigation/core';
 import { useRoute } from '@react-navigation/native';
 import { AppStyles } from '../../../theme';
-import { getAggregatorInventory } from '../../../services/middleware/user';
+import { getAggregatorInventory } from '../Middelware';
 import FooterLoader from "../../../appContainer/footerLoader";
 import EmptyView from '../../../appContainer/EmptyView'
 

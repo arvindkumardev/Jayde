@@ -6,7 +6,7 @@ import { useFormik } from 'formik';
 import MIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import moment from 'moment';
-import { requestCallBack } from '../PricingRequest/middleware';
+import { requestCallBack } from '../Middleware';;
 
 import Styles from './styles';
 import NavigationRouteNames from '../../../routes/ScreenNames';
@@ -45,11 +45,6 @@ const CallRequest = () => {
   }, [navigation]);
 
   const validationSchema = Yup.object().shape({
-    // contactNumber: Yup.string().test(
-    //   "contactNumber",
-    //   "Please provide valid contact number",
-    //   (value) => isValidVolume(value),
-    // ),
     contactNumber: Yup.string().required('Please provide valid contact number'),
     contactPerson: Yup.string().required('Please provide contact person'),
   });

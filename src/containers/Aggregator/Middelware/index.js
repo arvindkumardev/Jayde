@@ -1,7 +1,7 @@
 import useAxios from 'axios-hooks';
 import {
   AGGREGATOR_NEWORDER, AGGREGATOR_SWO_TO_AGGREGATOR, AGGREGATOR_SWO_TO_RECYCLER, AGGREGATOR_WORK_ORDER_LIST,
-  AGGREGATOR_SCHEDULE_ORDER_LIST, AGGREGATOR_COMPLETED_ORDER_LIST,
+  AGGREGATOR_SCHEDULE_ORDER_LIST, AGGREGATOR_COMPLETED_ORDER_LIST, GET_AGGREGATOR_INVENTORY,
   CONFIRM_WEIGHT, PROPOSE_WEIGHT, CONFIRM_PAYMENT, CONFIRM_PICKUP, CONFIRM_RECEIPT, AGGREGATOR_SCHEDULE_ORDER_DETAIL,
   AGGREGATOR_ADD_RECEIPT_DATA
 } from '../../../utils/urls';
@@ -141,8 +141,19 @@ const addReceiptQuantity = () => {
   );
 };
 
+const getAggregatorInventory = (pageNumber = 1) => {
+  return useAxios(
+    {
+      url: GET_AGGREGATOR_INVENTORY + pageNumber,
+      method: 'GET',
+      headers: { 'content-type': 'application/json' },
+    },
+    { manual: true }
+  );
+}
+
 export {
   aggregatorNewOrder, createWorkOrder, getWorkOrderList, aggregatorGetCompletedOrder,
-  aggregatorGetScheduleOrder,
+  aggregatorGetScheduleOrder, getAggregatorInventory,
   weightConfirm, weightPropose, paymentConfirm, pickupConfirm, receiptConfirm, scheduleOrderDetail, addReceiptQuantity
 };

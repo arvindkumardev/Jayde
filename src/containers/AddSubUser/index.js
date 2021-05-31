@@ -8,7 +8,7 @@ import UserContext from '../../appContainer/context/user.context';
 import FooterLoader from "../../appContainer/footerLoader";
 import EmptyView from '../../appContainer/EmptyView'
 
-import { subUser } from '../../services/middleware/user';
+import { subUser } from '../../services/CommonController';
 import FAIcon from 'react-native-vector-icons/FontAwesome';
 
 function AddSubUser() {

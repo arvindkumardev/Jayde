@@ -16,7 +16,10 @@ import { useNavigation } from '@react-navigation/core';
 import { useRoute } from '@react-navigation/native';
 import moment from 'moment';
 import UserContext from '../../../appContainer/context/user.context';
-import { getAggregators, getRecyclers, assignAggregator } from "../../../services/middleware/user";
+import { getAggregators, getRecyclers} from "../../../services/CommonController"
+  
+import {assignAggregator} from "../Middleware";
+
 import { LOCAL_STORAGE_DATA_KEY } from '../../../utils/constants';
 
 const typeData = [

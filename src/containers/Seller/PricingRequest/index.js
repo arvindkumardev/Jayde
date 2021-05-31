@@ -9,11 +9,14 @@ import { AppStyles, Colors } from '../../../theme';
 import NavigationRouteNames from '../../../routes/ScreenNames';
 import DropDown from '../../../components/Picker/index';
 import { UploadDocument } from '../../../components/index';
-import { getSubCategories, getUnits, createQuote, addOrder } from './middleware';
+import { createQuote, addOrder } from '../Middleware';
+import { getSubCategories, getUnits } from './../../../services/CommonController';
+
 import UserContext from '../../../appContainer/context/user.context';
 import CustomText from '../../../components/CustomText';
-import { alertBox, RfH, RfW, isValidVolume } from '../../../utils/helpers';
-import { setQuoteData, setImageName } from '../../../utils/Global'
+import { RfH, RfW, isValidVolume } from '../../../utils/helpers';
+import { setQuoteData, setImageName } from '../../../utils/Global';
+
 function PricingRequest() {
   const navigation = useNavigation();
   const { setLoader } = useContext(UserContext);

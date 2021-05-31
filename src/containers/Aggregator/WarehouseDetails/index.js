@@ -11,7 +11,7 @@ import DropDown from '../../../components/Picker/index';
 import { RfH, RfW, formatDisplayDate } from "../../../utils/helpers";
 import FAIcon from 'react-native-vector-icons/FontAwesome';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import { getSubCategories, getUnits } from './../../Seller/PricingRequest/middleware';
+import { getSubCategories, getUnits } from './../../../services/CommonController';
 import { addReceiptQuantity } from '../Middelware'
 import UserContext from '../../../appContainer/context/user.context';
 

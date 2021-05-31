@@ -9,7 +9,7 @@ import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 
-import { addSubUser } from './../../services/middleware/user';
+import { addSubUser } from '../../services/CommonController';
 import UserContext from '../../appContainer/context/user.context';
 
 function AddUser() {

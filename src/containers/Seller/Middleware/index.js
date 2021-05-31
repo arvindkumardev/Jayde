@@ -6,29 +6,6 @@ import {
   SELLER_REQUEST_CALLBACK
 } from '../../../utils/urls';
 
-const getCategories = () => {
-  return useAxios(
-    {
-      url: GET_CATEGORIES,
-      method: 'GET',
-      headers: { 'content-type': 'application/json' },
-    },
-    { manual: true }
-  );
-};
-
-
-const getSubCategories = () => {
-  return useAxios(
-    {
-      url: GET_SUB_CATEGORY,
-      method: 'POST',
-      headers: { 'content-type': 'application/json' },
-    },
-    { manual: true }
-  );
-};
-
 const createQuote = (category) => {
   return useAxios(
     {
@@ -40,16 +17,6 @@ const createQuote = (category) => {
   );
 }
 
-const getUnits = () => {
-  return useAxios(
-    {
-      url: GET_UNITS,
-      method: 'GET',
-      headers: { 'content-type': 'application/json' },
-    },
-    { manual: true }
-  );
-};
 const addOrder = (category) => {
   return useAxios(
     {
@@ -83,7 +50,6 @@ const addSchedule = (category) => {
   );
 };
 
-
 const MyOrder = (pageNumber) => {
   return useAxios(
     {
@@ -96,7 +62,6 @@ const MyOrder = (pageNumber) => {
 };
 
 const confirmOrder = (item) => {
-
   return useAxios(
     {
       url: item.assigned_status == 2 ? SELLER_CONFIRM_RESCHEDULE : item.proposed_weight_confirm == 2 ? SELLER_CONFIRM_PROPOSED_WEIGHT : item.is_seller_confirmed == 2 && SELLER_CONFIRM_PAYMENT,
@@ -107,4 +72,4 @@ const confirmOrder = (item) => {
   );
 }
 
-export { getCategories, getSubCategories, getUnits, createQuote, addSchedule, MyOrder, confirmOrder, addOrder, requestCallBack };
+export { createQuote, addSchedule, MyOrder, confirmOrder, addOrder, requestCallBack };

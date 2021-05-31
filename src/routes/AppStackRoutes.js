@@ -23,14 +23,11 @@ import OrderType from "../containers/Seller/OrderType/index";
 import SellerMyOrder from "../containers/Seller/MyOrder/index";
 import SellerOrderDetail from "../containers/Seller/MyOrderDetail/index";
 
-import PickupDetailsConfirmation from "../containers/Seller/PickupDetailsConfirmation";
 import Dashboard from "../containers/Dashboard/index";
 import PaymentVerification from "../containers/Aggregator/PaymentVerification";
-import ViewNewOrder from "../containers/ViewNewOrder";
 import WorkOrderEmail from "../containers/Aggregator/WorkOrderEmail";
 import OrderDetails from "../containers/Seller/OrderDetails";
 import CallBackConfirmation from "../containers/Seller/CallBackConfirmation";
-import PickupDate from "../containers/Seller/PickupDate";
 import { USER_ROLE } from "./constants";
 import { AppStyles } from "../theme";
 import DrawerSideBar from "../containers/DrawerSideBar/index";
@@ -43,7 +40,6 @@ import DownloadReport from "../containers/Admin/DownloadReport";
 import ManageEPR from "../containers/Admin/ManageEPR";
 import SubCategoryDetails from "../containers/Admin/SubCategoryDetails";
 import ProvisionalPricing from "../containers/Admin/ProvisionalPricing";
-import AddSubCategory from "../containers/Seller/AddSubCategory";
 import OrderFailed from "../containers/Seller/OrderFailed";
 import WorkOrderDetails from "../containers/Seller/WorkOrderDetails";
 import Payment from "../containers/Seller/Payment";
@@ -219,13 +215,8 @@ const AppStack = (props) => {
             component={CallBackConfirmation}
             options={NoHeaderScreen}
           />
-          {/* Pickup Date Time Slot Screen */}
-          <Stack.Screen
-            name={NavigationRouteNames.PICKUP_DATE}
-            component={PickupDate}
-            options={NoTitleHeader}
-          />
-          {/* Pickup Date Time Slot Screen */}
+         
+          {/* Order Failed Screen */}
           <Stack.Screen
             name={NavigationRouteNames.ORDER_FAILED}
             component={OrderFailed}
@@ -286,19 +277,8 @@ const AppStack = (props) => {
             name={NavigationRouteNames.PAYMENT}
             component={Payment}
             options={NoHeaderScreen}
-          />
-          {/* Pickup Details Confirmation Screen*/}
-          <Stack.Screen
-            name={NavigationRouteNames.PICKUPDETAILS_CONFIRMATION}
-            component={PickupDetailsConfirmation}
-            options={CommonHeaderStyle}
-          />
-          {/* Pickup Details Confirmation Screen*/}
-          <Stack.Screen
-            name={NavigationRouteNames.ADD_SUBCATEGORY}
-            component={AddSubCategory}
-            options={CommonHeaderStyle}
-          />
+          />         
+        
           {/* Smart Contract View Item Screen*/}
           <Stack.Screen
             name={NavigationRouteNames.SMARTCONTRACT_VIEWITEM}
@@ -501,12 +481,7 @@ const AppStack = (props) => {
             component={SmartContractViewItem}
             options={CommonHeaderStyle}
           />
-          {/* View New Order Screen*/}
-          <Stack.Screen
-            name={NavigationRouteNames.VIEW_NEW_ORDER}
-            component={ViewNewOrder}
-            options={CommonHeaderStyle}
-          />
+        
           {/* Order Screen number: 21*/}
           <Stack.Screen
             name={NavigationRouteNames.AGGREGATOR_NEW_ORDERS}

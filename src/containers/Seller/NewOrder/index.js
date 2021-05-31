@@ -19,17 +19,6 @@ const NewOrder = () => {
     });
   };
 
-  const handleSchedulePickup = () => {
-    navigation.navigate(NavigationRouteNames.PRICE_REQUEST, { title: 'Schedule Pickup' });
-  };
-
-  // useLayoutEffect(() => {
-  //   const { title, categoryId } = route.params;
-  //   navigation.setOptions({
-  //     title,
-  //   });
-  // }, []);
-
   useLayoutEffect(() => {
     const { categoryId } = route.params;
     setCategoryId(categoryId)

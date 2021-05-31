@@ -22,8 +22,8 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 import * as Yup from "yup";
 import { useFormik } from "formik";
 
-import { getAggregators, getRecyclers } from "../../../services/middleware/user";
-import { getUnits } from '../../Seller/PricingRequest/middleware'
+import { getAggregators, getRecyclers, getUnits } from "../../../services/CommonController";
+
 import { createWorkOrder } from '../Middelware'
 import { LOCAL_STORAGE_DATA_KEY } from '../../../utils/constants';
 function RecyclerNewWorkOrder() {

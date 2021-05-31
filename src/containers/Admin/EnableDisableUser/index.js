@@ -8,7 +8,7 @@ import { AppStyles } from '../../../theme';
 
 import UserContext from '../../../appContainer/context/user.context';
 
-import { enableUserByAdmin, disableUserByAdmin } from "../../../services/middleware/user";
+import { enableUserByAdmin, disableUserByAdmin } from "../Middleware";
 import recycleLogo from '../../../assets/Images/Users/noun_Recycle_3673532.png'
 
 function EnableDisableUser(props) {

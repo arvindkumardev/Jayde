@@ -6,7 +6,7 @@ import Styles from "./styles";
 import NavigationRouteNames from '../../../routes/ScreenNames';
 import { Fonts, Colors, AppStyles } from '../../../theme';
 import { getQuoteData, getImageName } from '../../../utils/Global'
-import { createQuote, addOrder } from './../PricingRequest/middleware';
+import { createQuote, addOrder } from '../Middleware';
 import UserContext from '../../../appContainer/context/user.context';
 import NavClose from './../../../components/HeaderLeft'
 
@@ -74,8 +74,6 @@ const PriceConfirm = () => {
       navigation.navigate(NavigationRouteNames.CONFIRM_ADDRESS);
     }
   };
-
-
 
   return (
     <View style={[Styles.screenContainer,]}>

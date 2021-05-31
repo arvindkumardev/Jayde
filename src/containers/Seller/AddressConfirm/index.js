@@ -12,12 +12,11 @@ import { getQuoteData, setImageName } from '../../../utils/Global'
 import NavigationRouteNames from '../../../routes/ScreenNames';
 import { Colors, AppStyles } from '../../../theme';
 
-import { addSchedule } from './../PricingRequest/middleware';
+import { addSchedule } from '../Middleware';
 import UserContext from '../../../appContainer/context/user.context';
 import { getSaveData, formatDisplayDate } from '../../../utils/helpers';
 import { LOCAL_STORAGE_DATA_KEY } from '../../../utils/constants';
 import PickupDate from '../modalTimeSlot'
-import { ScrollView } from 'react-native';
 
 const AddressConfirm = () => {
   const navigation = useNavigation();
