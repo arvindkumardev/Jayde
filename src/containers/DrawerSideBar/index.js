@@ -35,30 +35,29 @@ const DrawerSideBar = (props) => {
         await removeData(LOCAL_STORAGE_DATA_KEY.JWT_TOKEN);
         await removeData(LOCAL_STORAGE_DATA_KEY.USER_ROLE);
         // await removeData(LOCAL_STORAGE_DATA_KEY.USER_NAME);
-        setLogin(false); 
+        setLogin(false);
     };
     const onNavigation = (screenName) => {
         if (screenName === 'logout') {
             handleUserLogout();
-        }
-        else {
+        } else {
             navigation.navigate(screenName)
         }
     }
-    const onRenderMenu = (item) => {
+    const onRenderMenu = (index, item) => {
         return (
-            <View style={Styles.menuItemContainer}>
-                <TouchableOpacity onPress={() => onNavigation(item.item.screenName)}>
+            <View key={index} style={Styles.menuItemContainer}>
+                <TouchableOpacity activeOpacity={0.8} onPress={() => onNavigation(item.screenName)}>
                     <View style={{ flexDirection: 'row' }}>
-                        <FAIcon name={item.item.iconName} size={20} style={AppStyles.mr20} color={item.item.color} />
-                        <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f16]}>{item.item.name}</Text>
+                        <FAIcon name={item.iconName} size={20} style={AppStyles.mr20} color={item.color} />
+                        <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f16]}>{item.name}</Text>
                     </View>
                 </TouchableOpacity>
             </View>
         )
     }
     return (
-        <ScrollView showsVerticalScrollIndicator = {false}>
+        <ScrollView showsVerticalScrollIndicator={false}>
             <View>
                 <View style={Styles.userSectionContainer}>
                     <View style={[AppStyles.ml10, AppStyles.mr10]}>
@@ -75,7 +74,7 @@ const DrawerSideBar = (props) => {
                 </View>
                 <FlatList
                     data={DRAWER_MENU[userRole]}
-                    renderItem={onRenderMenu}
+                    renderItem={({ index, item }) => onRenderMenu(index, item)}
                 />
             </View>
         </ScrollView>
