@@ -1,17 +1,7 @@
 import useAxios from 'axios-hooks';
-import { RECYCLER_NEW_ORDER, RECYCLER_SCHEDULE_ORDER_LIST, RECYCLER_SWO_TO_AGGREGATOR,
-   RECYCLER_SWO_TO_RECYCLER, RECYCLER_WORK_ORDER_LIST, RECYCLER_COMPLETED_ORDER_LIST} from '../../../utils/urls';
+import { RECYCLER_SCHEDULE_ORDER_LIST, RECYCLER_SWO_TO_AGGREGATOR,
+   RECYCLER_SWO_TO_RECYCLER, RECYCLER_WORK_ORDER_LIST} from '../../../utils/urls';
   
-  const Inventory = (pageNumber) => { 
-    return useAxios(
-      {
-        url: RECYCLER_NEW_ORDER + pageNumber,
-        method: 'GET',
-        headers: { 'content-type': 'application/json'}
-      },
-      { manual: true }
-   )
-  };
 
   const createWorkOrder = (status) => { 
     return useAxios(
@@ -46,15 +36,6 @@ import { RECYCLER_NEW_ORDER, RECYCLER_SCHEDULE_ORDER_LIST, RECYCLER_SWO_TO_AGGRE
     )
   };  
 
-  const getCompletedOrder = (pageNumber) => {
-    return useAxios(
-      {
-        url: RECYCLER_COMPLETED_ORDER_LIST + pageNumber,
-        method: 'GET',
-        headers: { 'content-type': 'application/json' },
-      },
-      { manual: true }
-    );
-  };  
 
-  export {Inventory, createWorkOrder, recyclerGetScheduleOrder, getWorkOrderList, getCompletedOrder};
+
+  export {createWorkOrder, recyclerGetScheduleOrder, getWorkOrderList};

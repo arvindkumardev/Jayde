@@ -33,7 +33,6 @@ const DRAWER_MENU = {
       color: Colors.mango,
       iconName: 'folder-open',
       screenName: NavigationRouteNames.NEW_ORDER
-      // screenName: NavigationRouteNames.CONFIRM_ADDRESS
 
     },
     {
@@ -224,12 +223,12 @@ const DRAWER_MENU = {
       screenName: NavigationRouteNames.RECYCLER_SCHEDULED_ORDER_LIST
     },
 
-    // {
-    //   name: 'Inventory',
-    //   color: Colors.mango,
-    //   iconName: 'archive',
-    //   screenName: NavigationRouteNames.RECYCLER_INVENTORY
-    // },
+    {
+      name: 'Inventory',
+      color: Colors.mango,
+      iconName: 'archive',
+      screenName: NavigationRouteNames.INVENTORY
+    },
 
     {
       name: 'Work Orders',

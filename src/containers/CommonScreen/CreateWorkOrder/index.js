@@ -36,7 +36,7 @@ function NewWorkOrder() {
   const [viewType, setViewType] = useState(1);
   const [imageUpload, setImageUpload] = useState(false);
 
-  const { setLoader } = useContext(UserContext);
+  const { setLoader, userRole } = useContext(UserContext);
 
   const [aggregators, setAggregator] = useState([])
   const [recyclers, setRecyclers] = useState([])
@@ -51,7 +51,7 @@ function NewWorkOrder() {
   const [{ data: aggregatorsData }, onGetAggregators] = getAggregators();
   const [{ data: recyclersData }, onGetRecyclers] = getRecyclers();
   const [{ data: unitsData }, onGetUnits] = getUnits();
-  const [{ data: workOrderData, loading, error }, onCreateWorkOrder] = createWorkOrder(viewType)
+  const [{ data: workOrderData, loading, error }, onCreateWorkOrder] = createWorkOrder(userRole, viewType)
 
   const screenNavigate = () => {
     navigation.navigate(NavigationRouteNames.WORKORDER_SUMMARY);

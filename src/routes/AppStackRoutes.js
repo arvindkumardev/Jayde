@@ -47,12 +47,11 @@ import OrderConfirmation from "../containers/CommonScreen/OrderConfirmation";
 import WarehouseDetails from "../containers/Aggregator/WarehouseDetails";
 import ScheduledOrder from "../containers/Aggregator/ScheduledOrder";
 import AggregatorScheduleOrderList from '../containers/Aggregator/ScheduleOrderList';
-import Inventory from "../containers/Aggregator/Inventory";
-import NewWorkOrder from "../containers/Aggregator/CreateWorkOrder";
+import Inventory from "../containers/CommonScreen/Inventory";
+import NewWorkOrder from "../containers/CommonScreen/CreateWorkOrder";
 import AggregatorWorkOrderList from './../containers/Aggregator/NewWorkOrderList';
 import WorkOrderConfirmation from './../containers/Aggregator/WorkOrderConfirmation';
-import RecyclerNewWorkOrder from "../containers/Recycler/CreateWorkOrder";
-import RecyclerInventory from "../containers/Recycler/Inventory";
+
 import RecyclerNewOrderList from "../containers/Recycler/NewOrderList";
 import RecyclerScheduleOrderList from "../containers/Recycler/ScheduleOrderList";
 import RecyclerWorkOrderList from "../containers/Recycler/NewWorkOrderList";;
@@ -607,14 +606,14 @@ const AppStack = (props) => {
           />
           {/* Inventory screen number: 40 */}
           <Stack.Screen
-            name={NavigationRouteNames.RECYCLER_INVENTORY}
-            component={RecyclerInventory}
+            name={NavigationRouteNames.INVENTORY}
+            component={Inventory}
             options={CommonHeaderStyle}
           />
           {/* New Work Order screen number: 32 */}
           <Stack.Screen
-            name={NavigationRouteNames.RECYCLER_NEW_WORKORDER}
-            component={RecyclerNewWorkOrder}
+            name={NavigationRouteNames.NEW_WORKORDER}
+            component={NewWorkOrder}
             options={CommonHeaderStyle}
           />
 

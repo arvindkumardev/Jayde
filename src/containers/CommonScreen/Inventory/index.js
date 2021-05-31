@@ -1,17 +1,16 @@
 import React, { useContext, useEffect, useState, useLayoutEffect } from 'react';
+import * as Alert from 'react-native';
 import { Platform, TouchableOpacity, View, Text, Image, FlatList } from 'react-native';
 import Styles from "./styles";
 import NavigationRouteNames from '../../../routes/ScreenNames';
 import { useNavigation } from '@react-navigation/core';
 import { useRoute } from '@react-navigation/native';
 import { AppStyles } from '../../../theme';
-import arraydata from '../../../utils/arraydata2.json';
-import UserContext from '../../../appContainer/context/user.context';
+import { getInventory } from '../Middelware';
 import FooterLoader from "../../../appContainer/footerLoader";
 import EmptyView from '../../../appContainer/EmptyView'
 
-import { Inventory } from '../Middelware';
-
+import UserContext from '../../../appContainer/context/user.context';
 //Image
 import EWasteImg from './../../../assets/Images/NewOrderList/Group_10091.png'
 import PaperImg from './../../../assets/Images/NewOrderList/Group_10089.png'
@@ -26,93 +25,43 @@ const ORDER_IMAGE = {
   'Mix Waste': MixWasterImg,
 };
 
-
-function RecyclerInventory() {
+function Inventory() {
 
   const navigation = useNavigation();
   const route = useRoute();
 
-  const { setLoader } = useContext(UserContext);
-  const [inventoryList, setInventoryList] = useState([])
-
+  const { setLoader, userRole } = useContext(UserContext);
   const [offset, setOffset] = useState(0);
   const [loadMore, setLoadMore] = useState(false);
-
   const [totalCount, setTotalCount] = useState(0)
   const [perPage, setPerPage] = useState(0)
-
+  const [inventoryList, setInventoryList] = useState([])
   const [refreshPage, setRefreshPage] = useState(false)
 
-  const [{ data, loading, error }, onInventory] = Inventory(offset);
+  const [{ data, loading, error }, onGetInventory] = getInventory(userRole, offset);
 
-
-  const screenNavigate = (btnstatus) => {
-    navigation.navigate(NavigationRouteNames.RECYCLER_NEW_WORKORDER, { status: btnstatus });
+  const screenNavigate = (item, btnstatus) => {
+    navigation.navigate(NavigationRouteNames.NEW_WORKORDER, { status: btnstatus, item });
   }
-
-  useLayoutEffect(() => {
-    const title = 'Inventory';
-    navigation.setOptions({ title });
-  }, []);
-
-  const getActionType = () => {
-    setOffset(0)
-    setPerPage(0)
-    setRefreshPage(true)
-    setLoader(true)
-  }
-  const inventory = async () => {
+  const handleInventory = async () => {
     try {
-      const { data } = await onInventory({ data: {} });
+      const { data } = await onGetInventory();
       setLoader(false)
-      console.log("Response :", data.data[0].newOrders)
+      console.log("Response :", data, data.data[0].inventory)
       setPerPage(data.data[0].links.per_page)
       setTotalCount(data.data[0].links.total_count)
-      setInventoryList(data.data[0].newOrders)
+      setInventoryList(data.data[0].inventory)
 
-      // setOffset(offset + data.data[0].links.per_page);                     
-    }
-    catch (e) {
-      console.log("Response error", e);
-    }
-  };
-
-  const inventoryLoadMore = async () => {
-    try {
-      const { data } = await onInventory({ data: {} });
-      let listData = inventoryList;
-      let data1 = listData.concat(data.data[0].orderDetails);
-      setLoadMore(false);
-      //setInventoryList( inventoryList =>  [...inventoryList, data.data[0].orderDetails])
-      setInventoryList([...data1]);
-    }
-    catch (e) {
+    } catch (e) {
       console.log("Response error", e);
     }
   };
 
   useEffect(() => {
-    //setLoader(true)
-    //inventory();
-    return () => {
-      setLoader(false)
-    }
-  }, []);
-
-  useEffect(() => {
-    inventoryLoadMore();
-  }, [offset]);
-
-  useEffect(() => {
-    if (refreshPage) {
-      setInventoryList([])
-      inventory()
-      setRefreshPage(false)
-    }
-  }, [refreshPage])
+    setLoader(false)
+  }, [error])
 
   const loadMoreResults = async info => {
-    console.log(totalCount)
     if (loadMore)
       return
 
@@ -121,37 +70,75 @@ function RecyclerInventory() {
 
     setLoadMore(true);
     setOffset(offset + perPage);
-
   }
+
+  useEffect(() => {
+    triggerLoadMore();
+  }, [offset])
+
+  const triggerLoadMore = async () => {
+    try {
+      const { data } = await onGetInventory();
+      console.log('triggerLoadMore data: ', data);
+      let listData = inventoryList;
+      let data1 = listData.concat(data.data[0].inventory);
+      setLoadMore(false);
+      setInventoryList([...data1]);
+    }
+    catch (e) {
+      console.log("Response error", e);
+    }
+  };
+  useLayoutEffect(() => {
+    const title = 'Inventory';
+    navigation.setOptions({ title });
+  }, []);
+
+  useEffect(() => {
+    setLoader(true)
+    handleInventory();
+    return () => {
+      setLoader(false)
+    }
+  }, []);
+
+  useEffect(() => {
+    if (refreshPage) {
+      setInventoryList([])
+      handleInventory()
+      setRefreshPage(false)
+    }
+  }, [refreshPage])
 
   const _RenderItem = (index, item) => {
     return (
-      <View key={index} >
+      <View key={index}>
         <View style={[AppStyles.flexDir, AppStyles.ml20, AppStyles.mt20]}>
           <View style={AppStyles.flexpointtwo}>
-            <Image source={require('../../../assets/Images/Aggregator/Inventory/Group10150.png')} />
+            <Image source={ORDER_IMAGE[item.category_name]} />
           </View>
           <View style={AppStyles.flexpointeight, AppStyles.ml30}>
-            <Text style={[AppStyles.txtBlackRegular, AppStyles.f15]}>{item.productname}</Text>
-            <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f13]}>{item.product}</Text>
-            <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f11]}>{item.weight}</Text>
+            <Text style={[AppStyles.txtBlackRegular, AppStyles.f15]}>{item.category_name}</Text>
+            <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f13]}>{item.sub_category_name}</Text>
+            <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f11]}>{item.inventory_qty} {item.unit_name}</Text>
           </View>
         </View>
 
         <View style={[Styles.btnContainer, AppStyles.flexDir]}>
           <View style={AppStyles.flex1}>
             <TouchableOpacity activeOpacity={0.8}
-              style={[Styles.aggregatebtn]} onPress={() => screenNavigate("1")}>
+              style={[Styles.aggregatebtn]} onPress={() => screenNavigate(item, 1)}>
               <Text style={[AppStyles.txtPrimaryRegular, AppStyles.f17, AppStyles.textalig, AppStyles.mt10]}>AGGREGATOR</Text>
             </TouchableOpacity>
           </View>
           <View style={AppStyles.flex1}>
             <TouchableOpacity activeOpacity={0.8}
-              style={[Styles.confirmbtn, AppStyles.mb20]} onPress={() => screenNavigate("0")}>
+              style={[Styles.confirmbtn, AppStyles.mb20]} onPress={() => screenNavigate(item, 0)}>
               <Text style={[AppStyles.txtWhiteRegular, AppStyles.f17, AppStyles.textalig, AppStyles.mt10]}>RECYCLER</Text>
             </TouchableOpacity>
           </View>
         </View>
+
         <View style={[AppStyles.w100, Styles.bdrclr]}></View>
       </View>
     )
@@ -159,8 +146,8 @@ function RecyclerInventory() {
 
   return (
     <View style={[Styles.topView]}>
-      {arraydata.length > 0 ? <FlatList
-        data={arraydata}
+      {inventoryList.length > 0 ? <FlatList
+        data={inventoryList}
         renderItem={({ index, item }) =>
           _RenderItem(index, item)
         }
@@ -181,4 +168,4 @@ function RecyclerInventory() {
     </View>
   );
 }
-export default RecyclerInventory;
+export default Inventory;
