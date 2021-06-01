@@ -43,7 +43,7 @@ function SmartContractDetail() {
         <View style={AppStyles.aligncen}>
           <Text style={[AppStyles.txtBlackBold, AppStyles.f17, AppStyles.mt30]}>Ref No- JYD/SC/2020/0067</Text>
         </View>
-        <View style={Styles.boxView}>
+        <View style={[AppStyles.boxxView, AppStyles.mt20]}>
           <View style={[AppStyles.flexDir, AppStyles.mt20]}>
             <View style={AppStyles.flexpointsix}>
               <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f15, AppStyles.ml20]}>Waste type</Text>
@@ -80,7 +80,7 @@ function SmartContractDetail() {
             </View>
           </View>
 
-          <View style={AppStyles.flexDir}>
+          <View style={[AppStyles.flexDir, AppStyles.mb20]}>
             <View style={AppStyles.flex1}>
               <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f15, AppStyles.mt10, AppStyles.ml20]}>Purchase amount</Text>
             </View>
@@ -94,7 +94,7 @@ function SmartContractDetail() {
           <Text style={[AppStyles.txtBlackBold, AppStyles.f17, AppStyles.mt35,]}>Waste Details</Text>
         </View>
 
-        <View style={Styles.wasteboxView}>
+        <View style={[AppStyles.boxxView, AppStyles.mt20]}>
           <Text style={[AppStyles.txtBlackBold, AppStyles.f15, AppStyles.mt15, AppStyles.ml20]}>Collection Details</Text>
           <View style={[Styles.bdrclr]} />
           <View style={AppStyles.ml20}>
@@ -183,7 +183,7 @@ function SmartContractDetail() {
             </View>
           </View>
 
-          <View style={AppStyles.ml20}>
+          <View style={[AppStyles.ml20, AppStyles.mb20]}>
             <View style={AppStyles.flexDir}>
               <View style={AppStyles.flexpointseven}>
                 <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f13, AppStyles.mt15]}>Waybill number</Text>
@@ -199,7 +199,7 @@ function SmartContractDetail() {
           </View>
         </View>
 
-        <View style={Styles.recycleboxView}>
+        <View style={[AppStyles.boxxView, AppStyles.mt20, AppStyles.mb20]}>
           <Text style={[AppStyles.txtBlackBold, AppStyles.f15, AppStyles.mt15, AppStyles.ml20]}>Recycling Details</Text>
           <View style={[Styles.bdrclr]} />
           <View style={AppStyles.ml20}>
@@ -302,7 +302,7 @@ function SmartContractDetail() {
             </View>
           </View>
 
-          <View style={AppStyles.ml20}>
+          <View style={[AppStyles.ml20, AppStyles.mb20]}>
             <View style={AppStyles.flexDir}>
               <View style={AppStyles.flexpointseven}>
                 <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f13, AppStyles.mt15]}>Waybill number</Text>

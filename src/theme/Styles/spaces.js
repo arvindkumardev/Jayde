@@ -141,6 +141,9 @@ const spaces = StyleSheet.create({
     mb10:{
         marginBottom: 10
     },
+    mb40:{
+        marginBottom: 40
+    },
     mt3:{
         marginTop: 3,
     },

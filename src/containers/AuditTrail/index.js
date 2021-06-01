@@ -74,7 +74,8 @@ function AuditTrail() {
               </View>
             </View>
 
-            <View style={[Styles.btnContainer, AppStyles.flexDir]}>
+
+          <View style={[Styles.btnContainer, AppStyles.flexDir]}>
               <View style={AppStyles.flex1}>
                 <TouchableOpacity style={[Styles.aggregatebtn]}>
                   <Text style={[AppStyles.txtPrimaryRegular, AppStyles.f17, AppStyles.textalig, AppStyles.mt10]}>

@@ -29,7 +29,7 @@ function SmartContract() {
   }, []);
 
   return (
-    <View style={[AppStyles.topView, { alignItems: 'center' }]}>
+    <View style={[AppStyles.topView]}>
       <ScrollView showsVerticalScrollIndicator={false}>
         <TouchableOpacity activeOpacity={0.8} onPress={() => ownedContracts()}>
           <View style={Styles.boxView}>
@@ -42,7 +42,7 @@ function SmartContract() {
                 <Image source={contractIcon} />
               </View>
             </View>
-            <Text style={[AppStyles.txtWhiteRegular, AppStyles.f13, AppStyles.mt10, AppStyles.ml20]}>View all the contacts that you own.</Text>
+            <Text style={[AppStyles.txtWhiteRegular, AppStyles.f13, AppStyles.mt10, AppStyles.ml20, AppStyles.mb40]}>View all the contacts that you own.</Text>
           </View>
         </TouchableOpacity>
 
@@ -57,7 +57,7 @@ function SmartContract() {
                 <Image source={auditIcon} />
               </View>
             </View>
-            <Text style={[AppStyles.txtWhiteRegular, AppStyles.f13, AppStyles.mt10, AppStyles.ml20, AppStyles.mr30]}>Check the details of contracts for reference.</Text>
+            <Text style={[AppStyles.txtWhiteRegular, AppStyles.f13, AppStyles.mt10, AppStyles.ml20, AppStyles.mr40, AppStyles.mb20]}>Check the details of contracts for reference.</Text>
           </View>
         </TouchableOpacity>
       </ScrollView>

@@ -8,11 +8,10 @@ const styles = StyleSheet.create({
     backgroundColor: '#fafafa',
   },
   boxView: {
-    width: 320, 
-    height: 144, 
     backgroundColor: '#ffffff', 
     borderRadius: 20, 
-    marginLeft: 20, 
+    marginLeft: 24, 
+    marginRight: 24,
     marginTop: 25, 
   },
   lftimga: {

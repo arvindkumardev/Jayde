@@ -30,11 +30,11 @@ function SmartContractViewItem() {
   }, []);
 
   return (
-    <View style={Styles.topView}>
+    <View style={AppStyles.topView}>
       <ScrollView>
         <Text style={[AppStyles.txtBlackBold, AppStyles.f17, AppStyles.mt20, AppStyles.textalig]}>Ref No- JYD/SC/2020/0067</Text>
-        <View style={Styles.boxView}>
-          <View style={AppStyles.flexDir}>
+        <View style={[AppStyles.boxxView, AppStyles.mt35]}>
+          <View style={[AppStyles.flexDir, AppStyles.mb10]}>
             <View style={[AppStyles.flexpointone, AppStyles.ml16, AppStyles.mt10]}>
               <Text style={[AppStyles.txtmangoTwoRegular, AppStyles.f15,]}>04</Text>
             </View>
@@ -47,7 +47,7 @@ function SmartContractViewItem() {
             </View>
           </View>
         </View>
-        <View style={[AppStyles.mt35, AppStyles.ml20]}>
+        <View style={[AppStyles.mt35, AppStyles.ml24, AppStyles.mr24, AppStyles.aligncen]}>
           <Image source={invoice} />
         </View>
       </ScrollView>

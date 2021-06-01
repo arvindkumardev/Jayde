@@ -4,23 +4,21 @@ import {Colors} from '../../theme';
 
 const styles = StyleSheet.create({
   boxView: {
-    width: 320, 
-    height: 123, 
-    backgroundColor: '#f8a230', 
+    backgroundColor: Colors.mangoTwo, 
     borderRadius: 10, 
     marginTop: 35, 
-    // marginLeft: 20,
+    marginLeft: 24,
+    marginRight: 24,
   },
   auditboxView: {
-    width: 320, 
-    height: 123, 
-    backgroundColor: '#fec868', 
+    backgroundColor: Colors.paleGold, 
     borderRadius: 10, 
     marginTop: 20, 
-    // marginLeft: 20,
+    marginLeft: 24,
+    marginRight: 24,
   },
   bdrclr: {
-    borderColor: '#ffffff',
+    borderColor: Colors.white,
     borderWidth: 0.4,
     marginLeft: 20,
     marginTop: 5,

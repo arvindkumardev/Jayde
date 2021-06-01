@@ -176,7 +176,7 @@ function OwnedContracts() {
             </View>
           </View>
 
-          <View style={[AppStyles.flexDir, AppStyles.mt14]}>
+          <View style={[AppStyles.flexDir, AppStyles.mt14, AppStyles.mb20]}>
             <View style={[AppStyles.flexpointone]}>
               <Image style={Styles.lftimga} source={recycleImg} />
             </View>

@@ -60,6 +60,12 @@ const commonCss = StyleSheet.create({
     borderColor: '#F7A435',
     borderWidth: 1,
   },
+  boxxView: {
+    backgroundColor: Colors.grayBackground, 
+    borderRadius: 10, 
+    marginLeft: 24,
+    marginRight: 24,
+  },
 });
 
 export default commonCss;
