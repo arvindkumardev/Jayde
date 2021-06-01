@@ -7,6 +7,7 @@ const UserState = (props) => {
   const [orgDataObj, setOrgDataObj] = useState({});
   const [loadingFlag, setLoadingFlag] = useState(false);
   const [loggedInUserRole, setLoggedInUserRole] = useState('');
+  const [firebaseToken, setFirebaseToken] = useState('')
 
   return (
     <UserContext.Provider
@@ -16,11 +17,13 @@ const UserState = (props) => {
         orgData: orgDataObj,
         isLoading: loadingFlag,
         userRole: loggedInUserRole,
+        fcmToken: firebaseToken,
         setUserObj: (v) => setUserObject(v),
         setLogin: (v) => setLoginFlag(v),
         setUserRole: (v) => setLoggedInUserRole(v),
         setLoader: (v) => setLoadingFlag(v),
         setOrgData: (v) => setOrgDataObj(v),
+        setFcmToken: (v) => setFirebaseToken(v)
       }}>
       {props.children}
     </UserContext.Provider>

@@ -7,13 +7,13 @@
 /* eslint-disable import/order */
 /* eslint-disable prettier/prettier */
 import React, { useContext, useEffect, useState } from "react";
-import {KeyboardAvoidingView,Platform,View,Text,Image,ScrollView,TouchableOpacity,Dimensions} from "react-native";
+import { KeyboardAvoidingView, Platform, View, Text, Image, ScrollView, TouchableOpacity, Dimensions } from "react-native";
 import { isEmpty, isNumber } from 'lodash';
 import * as Yup from "yup";
 import { useFormik } from "formik";
 import Colors from "../../theme/Colors";
-import {CustomTextInput,GradientButton} from "../../components";
-import {isValidUserName,RfH,storeData,removeData} from "../../utils/helpers";
+import { CustomTextInput, GradientButton } from "../../components";
+import { isValidUserName, RfH, storeData, removeData } from "../../utils/helpers";
 import Images from "../../theme/Images";
 import NavigationRouteNames from "../../routes/ScreenNames";
 import { useNavigation } from "@react-navigation/core";
@@ -24,8 +24,9 @@ import { userLogin } from "./user";
 import { LOCAL_STORAGE_DATA_KEY } from "../../utils/constants";
 import { AppStyles } from "../../theme";
 import FAIcon from "react-native-vector-icons/FontAwesome";
-import {useRoute} from '@react-navigation/native';
+import { useRoute } from '@react-navigation/native';
 import { inputs } from '../../utils/constants';
+import { NotificationService } from '../../services/firebase'
 
 import logoImg from '../../assets/Images/signupImage/JaydeLogo01.png'
 
@@ -44,6 +45,7 @@ function LoginWithEmail() {
   const [hidePassword, setHidePassword] = useState(false);
 
   const [{ data, loading, error }, emLogin] = userLogin();
+  const [firebaseToken, setFirebaseToken] = useState('')
 
 
   const triggerLogin = async (username, password) => {
@@ -70,16 +72,25 @@ function LoginWithEmail() {
   };
 
   useEffect(() => {
-    if(error)
-    setLoader(false) 
+    if (error)
+      setLoader(false)
   }, [error])
-  
+
   useEffect(() => {
     setLoader(loading)
     return () => {
       setLoader(false)
     }
   }, [loading])
+
+  const successHandler = (token) => {
+    console.log(token)
+    setFirebaseToken(token)
+  }
+
+  useEffect(() => {
+    NotificationService.getFcmToken(successHandler)
+  }, [])
 
   const validationSchema = Yup.object().shape({
     username: Yup.string().test(
@@ -113,7 +124,7 @@ function LoginWithEmail() {
   const forgotPassword = () => {
     navigation.navigate(NavigationRouteNames.PASSWORD_RESET);
   }
-  
+
   const onSubmitEditing = (id) => {
     inputs[id] ? inputs[id].focus() : null;
   };
@@ -122,7 +133,7 @@ function LoginWithEmail() {
     <ScrollView contentContainerStyle={{ backgroundColor: Colors.mango, justifyContent: 'space-between', height: Dimensions.get('window').height }}>
       <View>
         <View style={[AppStyles.alignCenter, AppStyles.mt40]}>
-          <Image resizeMode = 'contain' source={logoImg}/>
+          <Image resizeMode='contain' source={logoImg} />
         </View>
         <View style={[AppStyles.alignCenter, AppStyles.mt40]}>
           <Text style={[AppStyles.txtWhiteBold, AppStyles.f40, AppStyles.pv10]}>
@@ -162,21 +173,21 @@ function LoginWithEmail() {
             />
           </View>
           <View style={{ marginTop: RfH(21) }}>
-            <TouchableOpacity activeOpacity = {0.8} onPress={handleLogin} style={styles.loginButton}>
+            <TouchableOpacity activeOpacity={0.8} onPress={handleLogin} style={styles.loginButton}>
               <Text style={[AppStyles.txtWhiteBold, AppStyles.f18]}>Confirm</Text>
               <FAIcon name="long-arrow-right" color={'#fff'} style={AppStyles.ml10} size={20} />
             </TouchableOpacity>
           </View>
         </View>
-        <TouchableOpacity activeOpacity = {0.8} style={{ alignSelf: 'flex-end', marginRight: 40, marginTop: 20 }}
-        onPress={() => forgotPassword()}>
+        <TouchableOpacity activeOpacity={0.8} style={{ alignSelf: 'flex-end', marginRight: 40, marginTop: 20 }}
+          onPress={() => forgotPassword()}>
           <Text style={[AppStyles.txtWhiteRegular, AppStyles.f15]}>Forgot password?</Text>
         </TouchableOpacity>
       </View>
       <View style={{ width: '100%', alignItems: 'center', alignSelf: 'flex-end', marginBottom: 20 }}>
         <View style={{ flexDirection: 'row' }}>
           <Text style={[AppStyles.txtWhiteRegular, AppStyles.f15]}>Don't have an account?</Text>
-          <TouchableOpacity activeOpacity = {0.8} onPress={() => navigation.navigate(NavigationRouteNames.SIGNUP)}>
+          <TouchableOpacity activeOpacity={0.8} onPress={() => navigation.navigate(NavigationRouteNames.SIGNUP)}>
             <Text style={[AppStyles.txtWhiteRegular, AppStyles.f15, AppStyles.underline]}> Create one</Text>
           </TouchableOpacity>
         </View>

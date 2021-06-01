@@ -1,8 +1,8 @@
 import React from 'react';
 import { Platform } from 'react-native';
 import messaging from '@react-native-firebase/messaging';
-// import NavigationRouteNames from '../../routes/ScreenNames';
 
+// import NavigationRouteNames from '../../routes/ScreenNames';
 const registerAppWithFCM = async () => {
   if (Platform.OS === 'ios') {
     await messaging().registerDeviceForRemoteMessages();
@@ -18,7 +18,6 @@ const requestPermission = async (successHandler) => {
 
     if (enabled) {
       const fcmToken = await messaging().getToken();
-      console.log('FCM_TOKEN', fcmToken)
 
       if (successHandler) {
         await successHandler(fcmToken);
