@@ -41,12 +41,10 @@ const styles = StyleSheet.create({
     fontFamily: Fonts.regular,
   },
   inputTextcity:{
-    backgroundColor:'#e4e4e4',
+    backgroundColor: Colors.grayTwo,
     borderRadius: 10,
     paddingLeft: 15,
     fontFamily: Fonts.regular,
-    width: 152,
-    height: 47,
   },
   title: {
     marginLeft: 40,

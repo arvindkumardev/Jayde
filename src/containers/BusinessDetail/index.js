@@ -195,7 +195,7 @@ function BusinessDetail() {
               ) : null}
             </View>
 
-            <View style={[AppStyles.mt20, AppStyles.flexDir]}>
+            <View style={[AppStyles.mt20, AppStyles.flexDir, AppStyles.mr24]}>
               <View style={AppStyles.flex1}>
                 <Text style={[AppStyles.txtBlackRegular, AppStyles.ml24, AppStyles.f15, AppStyles.mb6]}>City</Text>
                 <View style={(AppStyles.flex1, AppStyles.ml24)}>

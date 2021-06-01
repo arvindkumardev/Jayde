@@ -62,13 +62,13 @@ function SellerOrderDetail() {
   }
 
   return (
-    <View style={Styles.mainVu}>
+    <View style={AppStyles.topView}>
       <ScrollView>
         <View style={AppStyles.aligncen}>
           <Text style={[AppStyles.txtBlackBold, AppStyles.f17, AppStyles.mt30,]}>Ref No- {item.order_no}</Text>
         </View>
 
-        <View style={Styles.boxView}>
+        <View style={[AppStyles.boxxView, AppStyles.mt35]}>
           <View style={[AppStyles.flexDir, AppStyles.mt20,]}>
             <View style={AppStyles.flexpointsix}>
               <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f15, AppStyles.ml20]}>Waste type</Text>
@@ -135,7 +135,7 @@ function SellerOrderDetail() {
             </View>
           </View>
 
-          <View style={AppStyles.flexDir}>
+          <View style={[AppStyles.flexDir, AppStyles.mb20]}>
             <View style={AppStyles.flexpointsix}>
               <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f15, AppStyles.mt10, AppStyles.ml20]}>Pick Up Schedule</Text>
             </View>

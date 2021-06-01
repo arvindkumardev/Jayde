@@ -129,13 +129,13 @@ function Inventory() {
           <View style={AppStyles.flex1}>
             <TouchableOpacity activeOpacity={0.8}
               style={[Styles.aggregatebtn]} onPress={() => screenNavigate(item, 1)}>
-              <Text style={[AppStyles.txtPrimaryRegular, AppStyles.f17, AppStyles.textalig, AppStyles.mt10]}>AGGREGATOR</Text>
+              <Text style={[AppStyles.txtPrimaryRegular, AppStyles.f17, AppStyles.textalig]}>AGGREGATOR</Text>
             </TouchableOpacity>
           </View>
           <View style={AppStyles.flex1}>
             <TouchableOpacity activeOpacity={0.8}
               style={[Styles.confirmbtn, AppStyles.mb20]} onPress={() => screenNavigate(item, 0)}>
-              <Text style={[AppStyles.txtWhiteRegular, AppStyles.f17, AppStyles.textalig, AppStyles.mt10]}>RECYCLER</Text>
+              <Text style={[AppStyles.txtWhiteRegular, AppStyles.f17, AppStyles.textalig]}>RECYCLER</Text>
             </TouchableOpacity>
           </View>
         </View>

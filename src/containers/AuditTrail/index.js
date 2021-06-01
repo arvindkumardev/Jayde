@@ -49,9 +49,9 @@ function AuditTrail() {
   }, []);
 
   return (
-    <KeyboardAwareScrollView>
-      <View style={[Styles.topView, { alignItems: 'center' }]}>
-        <ScrollView contentContainerStyle={{ alignItems: 'center'}}>
+    // <KeyboardAwareScrollView>
+      <View style={[Styles.topView, { alignItems: 'center', flex: 1,}]}>
+        <ScrollView contentContainerStyle={{ alignItems: 'center', flex: 1, justifyContent: 'space-between',}}>
           <View>
             <Text style={[AppStyles.txtBlackBold, AppStyles.f17, Styles.title]}>
               Check the basic details of the contracts for reference purpose
@@ -73,28 +73,29 @@ function AuditTrail() {
                 ) : null}
               </View>
             </View>
+            </View>
 
 
           <View style={[Styles.btnContainer, AppStyles.flexDir]}>
               <View style={AppStyles.flex1}>
-                <TouchableOpacity style={[Styles.aggregatebtn]}>
-                  <Text style={[AppStyles.txtPrimaryRegular, AppStyles.f17, AppStyles.textalig, AppStyles.mt10]}>
+                <TouchableOpacity style={[Styles.resetButton]}>
+                  <Text style={[AppStyles.txtPrimaryRegular, AppStyles.f17, AppStyles.textalig]}>
                     RESET
                   </Text>
                 </TouchableOpacity>
               </View>
               <View style={AppStyles.flex1}>
-                <TouchableOpacity style={[Styles.confirmbtn, AppStyles.mb20]} onPress={() => handleAuditTrail()}>
-                  <Text style={[AppStyles.txtWhiteRegular, AppStyles.f17, AppStyles.textalig, AppStyles.mt10]}>
+                <TouchableOpacity style={[Styles.submitButton, AppStyles.mb20]} onPress={() => handleAuditTrail()}>
+                  <Text style={[AppStyles.txtWhiteRegular, AppStyles.f17, AppStyles.textalig]}>
                     SUBMIT
                   </Text>
                 </TouchableOpacity>
               </View>
             </View>
-          </View>
+          
         </ScrollView>
       </View>
-    </KeyboardAwareScrollView>
+    // </KeyboardAwareScrollView>
   );
 }
 export default AuditTrail;

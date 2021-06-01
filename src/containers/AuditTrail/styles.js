@@ -6,32 +6,28 @@ import Fonts from "../../theme/Fonts";
 const styles = StyleSheet.create({
   topView: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: Colors.white,
   },
   btnContainer:{
-    marginTop: 300,
+    // marginTop: 300,
     marginLeft: 24,
     marginRight: 24,
   },
-  confirmbtn: {
-    backgroundColor: '#F7A435',
-    width: 150,
-    height: 44,
+  submitButton: {
+    backgroundColor: Colors.mango,
     borderRadius: 10,
+    paddingHorizontal: 10,
+    paddingVertical: 11,
+    marginLeft: 3,
   },
-  aggregatebtn: {
-    backgroundColor: '#fff',
-    width: 150,
-    height: 44,
+  resetButton: {
+    backgroundColor: Colors.white,
     borderRadius: 10,
-    borderColor: '#F7A435',
+    borderColor: Colors.mango,
     borderWidth: 1,
-  },
-  inputText:{
-    backgroundColor:'#e4e4e4',
-    borderRadius: 10,
-    paddingLeft: 15,
-    fontFamily: Fonts.regular,
+    paddingHorizontal: 10,
+    paddingVertical: 10,
+    marginRight: 5,
   },
   title: {
     textAlign: 'center',

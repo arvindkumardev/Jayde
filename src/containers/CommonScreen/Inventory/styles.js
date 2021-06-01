@@ -5,25 +5,28 @@ import { Colors } from '../../../theme';
 const styles = StyleSheet.create({
   topView: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: Colors.white,
   },
   btnContainer: {
     marginTop: 20,
-    marginLeft: 20,
+    marginLeft: 24,
+    marginRight: 24,
   },
   confirmbtn: {
-    backgroundColor: '#F7A435',
-    width: 160,
-    height: 44,
+    backgroundColor: Colors.mango,
     borderRadius: 10,
+    paddingHorizontal: 10,
+    paddingVertical: 10,
+    marginLeft: 3,
   },
   aggregatebtn: {
-    backgroundColor: '#fff',
-    width: 160,
-    height: 44,
+    backgroundColor: Colors.white,
     borderRadius: 10,
-    borderColor: '#F7A435',
+    borderColor: Colors.mango,
     borderWidth: 1,
+    paddingHorizontal: 10,
+    paddingVertical: 10,
+    marginRight: 5,
   },
   bdrclr: {
     borderColor: '#f5f5f5',

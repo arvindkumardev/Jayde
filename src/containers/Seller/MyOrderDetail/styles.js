@@ -3,18 +3,6 @@ import { RfH, RfW } from '../../../utils/helpers';
 import { Colors } from '../../../theme';
 
 const styles = StyleSheet.create({
-  mainVu: {
-    flex: 1,
-    backgroundColor: '#ffffff',
-  },
-  boxView: {
-    width: 320,
-    height: 310,
-    backgroundColor: '#f5f5f5',
-    borderRadius: 10,
-    marginTop: 35,
-    marginLeft: 20,
-  },
   btnContainer: {
     marginLeft: 20,
     marginTop: 100,

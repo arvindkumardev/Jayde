@@ -5,9 +5,7 @@ import { Colors } from '../../../theme';
 const styles = StyleSheet.create({
   
   boxView: {
-    width: 310,
-    height: 144,
-    backgroundColor: '#ffffff',
+    backgroundColor: Colors.white,
     borderRadius: 10,
     marginLeft: 24,
     marginTop: 25,
@@ -15,7 +13,7 @@ const styles = StyleSheet.create({
   },
   confirmBtn: {
     borderRadius: 10,
-    backgroundColor: '#ABC270',
+    backgroundColor: Colors.lightOlive,
     width: 58,
     height: 27,
     justifyContent: 'center'

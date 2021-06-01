@@ -128,7 +128,7 @@ function Users() {
           <Text style={[AppStyles.f15, AppStyles.ml16,]}>{item.name}</Text>
 
 
-          <View style={[AppStyles.flexDir, AppStyles.mt14]}>
+          <View style={[AppStyles.flexDir, AppStyles.mt14, AppStyles.mb20]}>
             <View>
               <Image style={Styles.lftimga} source={recycleImg} />
             </View>
@@ -149,7 +149,7 @@ function Users() {
 
 
   return (
-    <View style={AppStyles.topView}>
+    <View style={Styles.mainView}>
       {userList.length > 0 ? <FlatList
         data={userList}
         renderItem={({ index, item }) =>
