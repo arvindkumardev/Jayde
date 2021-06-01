@@ -16,12 +16,15 @@ const styles = StyleSheet.create({
      marginRight: 17,
    },
   boxContent: {
-    width: 320, 
+    // width: 320, 
+    // flex: 1,
     backgroundColor: '#ffffff',  
     borderRadius: 10, 
-    marginLeft: 20, 
-    marginTop: 30,
-    marginBottom: 70,
+    marginLeft: 24, 
+    marginRight: 24,
+    marginTop: 35,
+    // marginBottom: 30,
+    marginBottom: 10,
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
@@ -46,7 +49,7 @@ const styles = StyleSheet.create({
     marginTop: 12,
   },
   rejectImg: {
-    marginTop: 15,
+    marginTop: 30,
     resizeMode: 'contain',
   },
   canceltextinput: {

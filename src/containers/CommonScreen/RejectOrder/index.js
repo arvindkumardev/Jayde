@@ -97,9 +97,9 @@ function RejectOrder() {
   }
 
   return (
-    <View style={AppStyles.topView}>
+    <View style={[AppStyles.topView]}>
       <KeyboardAwareScrollView showsVerticalScrollIndicator={false}>
-        <View style={Styles.boxContent}>
+        <View style={[Styles.boxContent]}>
           <View style={AppStyles.aligncen}>
             <Image style={Styles.rejectImg} source={rejectLogo} />
             <Text style={[AppStyles.txtBlackBold, AppStyles.f20, AppStyles.spacing1]}>REJECT ORDER</Text>
@@ -128,7 +128,7 @@ function RejectOrder() {
             ) : null}
           </View>
 
-          <View style={[AppStyles.mb30]}>
+          <View style={[AppStyles.mb40]}>
             <View style={AppStyles.aligncen}>
               <TouchableOpacity activeOpacity={0.8} style={Styles.backbtn}
                 onPress={() => screenNavigateBack()}>

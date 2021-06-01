@@ -425,7 +425,7 @@ const PaymentVerification = () => {
       <View style={AppStyles.aligncen}>
         <Text style={[AppStyles.txtBlackBold, AppStyles.f17, AppStyles.mt30,]}>Ref No- {item.order_no}</Text>
       </View>
-      <View style={AppStyles.boxView}>
+      <View style={[AppStyles.paymentboxView, AppStyles.mt25]}>
         <View style={[AppStyles.flexDir, AppStyles.mt10,]}>
           <View style={AppStyles.flexpointsix}>
             <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f15, AppStyles.mt10, AppStyles.ml20]}>Waste type</Text>
@@ -464,7 +464,7 @@ const PaymentVerification = () => {
 
         <View style={AppStyles.flexDir}>
           <View style={AppStyles.flexpointsix}>
-            <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f15, AppStyles.mt10, AppStyles.ml20]}>Purchase amount</Text>
+            <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f15, AppStyles.mt10, AppStyles.ml20, AppStyles.mb20]}>Purchase amount</Text>
           </View>
           <View style={[AppStyles.flexpointfour, AppStyles.alignfend]}>
             <Text style={[AppStyles.txtBlackRegular, AppStyles.f15, AppStyles.mt10, AppStyles.mr20]}><FAIcon size={14} name="rupee" /> {item.price}</Text>
