@@ -29,7 +29,7 @@ function SmartContract() {
   }, []);
 
   return (
-    <View style={AppStyles.topView}>
+    <View style={[AppStyles.topView, { alignItems: 'center' }]}>
       <ScrollView showsVerticalScrollIndicator={false}>
         <TouchableOpacity activeOpacity={0.8} onPress={() => ownedContracts()}>
           <View style={Styles.boxView}>

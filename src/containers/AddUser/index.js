@@ -105,7 +105,7 @@ function AddUser() {
               onBlur={handleBlur('name')}
               onChangeText={handleChange('name')}
               onSubmitEditing={() => refEmail.current?.focus()}
-              style={AppStyles.inputText} />
+              style={AppStyles.inputTxtStyle} />
 
             {errors.name && <CustomText
               fontSize={15}
@@ -132,7 +132,7 @@ function AddUser() {
             onBlur={handleBlur('email')}
             onChangeText={handleChange('email')}
             onSubmitEditing={() => refMobile.current?.focus()}
-            style={AppStyles.inputText} />
+            style={AppStyles.inputTxtStyle} />
 
           {errors.email && <CustomText
             fontSize={15}
@@ -156,7 +156,7 @@ function AddUser() {
             onBlur={handleBlur('phone')}
             onChangeText={handleChange('phone')}
             onSubmitEditing={() => refPassword.current?.focus()}
-            style={AppStyles.inputText} />
+            style={AppStyles.inputTxtStyle} />
 
           {errors.phone && <CustomText
             fontSize={15}
@@ -182,7 +182,7 @@ function AddUser() {
             onBlur={handleBlur('password')}
             onChangeText={handleChange('password')}
             onSubmitEditing={() => refConfPassword.current?.focus()}
-            style={AppStyles.inputText} />
+            style={AppStyles.inputTxtStyle} />
 
           {errors.password && <CustomText
             fontSize={15}
@@ -207,7 +207,7 @@ function AddUser() {
             value={values.confPassword}
             onBlur={handleBlur('confPassword')}
             onChangeText={handleChange('confPassword')}
-            style={AppStyles.inputText} />
+            style={AppStyles.inputTxtStyle} />
 
           {errors.confPassword && <CustomText
             fontSize={15}
