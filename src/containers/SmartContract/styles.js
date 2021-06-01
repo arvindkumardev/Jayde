@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#f8a230', 
     borderRadius: 10, 
     marginTop: 35, 
-    marginLeft: 20,
+    // marginLeft: 20,
   },
   auditboxView: {
     width: 320, 
@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fec868', 
     borderRadius: 10, 
     marginTop: 20, 
-    marginLeft: 20,
+    // marginLeft: 20,
   },
   bdrclr: {
     borderColor: '#ffffff',

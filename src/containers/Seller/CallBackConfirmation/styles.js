@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#ffffff',
     alignItems: 'center',
     borderRadius: 10,
-    marginLeft: 24,
+    // marginLeft: 24,
     marginTop: 32,
   },
   bxVu: {

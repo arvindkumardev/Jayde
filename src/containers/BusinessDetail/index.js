@@ -140,7 +140,7 @@ function BusinessDetail() {
               <View>
                 <TextInput
                   placeholder={'Business Name'}
-                  style={Styles.inputText}
+                  style={AppStyles.inputTxtStyle}
                   value={businessForm.values.businessname}
                   // value={item.business_name}
                   onChangeText={(txt) => businessForm.setFieldValue('businessname', txt)}
@@ -159,7 +159,7 @@ function BusinessDetail() {
               </View>
               <TextInput
                 placeholder={'Address'}
-                style={Styles.inputText}
+                style={AppStyles.inputTxtStyle}
                 value={businessForm.values.address}
                 onChangeText={(txt) => businessForm.setFieldValue('address', txt)}
               />
@@ -176,7 +176,7 @@ function BusinessDetail() {
                 <View style={(AppStyles.flex1, AppStyles.ml24)}>
                   <TextInput
                     placeholder={'Hyderabad'}
-                    style={Styles.inputTextcity}
+                    style={AppStyles.inputTxtStyle}
                     value={businessForm.values.city}
                     onChangeText={(txt) => businessForm.setFieldValue('city', txt)}
                   />
@@ -212,7 +212,7 @@ function BusinessDetail() {
               </View>
               <TextInput
                 placeholder={'GST Details'}
-                style={Styles.inputText}
+                style={AppStyles.inputTxtStyle}
                 value={businessForm.values.gstin}
                 onChangeText={(txt) => businessForm.setFieldValue('gstin', txt)}
               />
@@ -229,7 +229,7 @@ function BusinessDetail() {
               </View>
               <TextInput
                 placeholder={'Pan Number'}
-                style={Styles.inputText}
+                style={AppStyles.inputTxtStyle}
                 value={businessForm.values.pan}
                 onChangeText={(txt) => businessForm.setFieldValue('pan', txt)}
               />

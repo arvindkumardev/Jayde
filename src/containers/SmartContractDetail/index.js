@@ -38,8 +38,8 @@ function SmartContractDetail() {
   }, []);
   
   return (
-    <View style={Styles.topView}>
-       <ScrollView>
+    <View style={[Styles.topView, { alignItems:'center'}]}>
+       <ScrollView showsVerticalScrollIndicator={false}>
        
         
        <View style={AppStyles.aligncen}>

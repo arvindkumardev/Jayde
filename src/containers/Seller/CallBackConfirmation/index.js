@@ -19,7 +19,7 @@ function CallBackConfirmation() {
   }
 
   return (
-    <View style={[Styles.topView, AppStyles.justifyCon]}>
+    <View style={[Styles.topView, AppStyles.justifyCon, { alignItems: 'center' }]}>
       <View style={Styles.boxContent}>
         <Text style={[AppStyles.txtBlackBold, AppStyles.f20, AppStyles.spacing1, AppStyles.mt35]}>THANKYOU</Text>
         <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f15, AppStyles.mt5,]}>For your request for call back!</Text>

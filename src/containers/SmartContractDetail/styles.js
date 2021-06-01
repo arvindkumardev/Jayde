@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#f5f5f5', 
     borderRadius: 10, 
     marginTop: 20, 
-    marginLeft: 20,
+    // marginLeft: 20,
   },
   wasteboxView: {
     width: 320, 
@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#f5f5f5', 
     borderRadius: 10, 
     marginTop: 20, 
-    marginLeft: 20,
+    // marginLeft: 20,
   },
   recycleboxView: {
     width: 320, 
@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#f5f5f5', 
     borderRadius: 10, 
     marginTop: 20, 
-    marginLeft: 20,
+    // marginLeft: 20,
     marginBottom: 20,
   },
   bdrclr: {
