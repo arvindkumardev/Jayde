@@ -70,7 +70,15 @@ function LoginWithEmail() {
   };
 
   useEffect(() => {
+    if(error)
+    setLoader(false) 
+  }, [error])
+  
+  useEffect(() => {
     setLoader(loading)
+    return () => {
+      setLoader(false)
+    }
   }, [loading])
 
   const validationSchema = Yup.object().shape({
@@ -154,13 +162,13 @@ function LoginWithEmail() {
             />
           </View>
           <View style={{ marginTop: RfH(21) }}>
-            <TouchableOpacity onPress={handleLogin} style={styles.loginButton}>
+            <TouchableOpacity activeOpacity = {0.8} onPress={handleLogin} style={styles.loginButton}>
               <Text style={[AppStyles.txtWhiteBold, AppStyles.f18]}>Confirm</Text>
               <FAIcon name="long-arrow-right" color={'#fff'} style={AppStyles.ml10} size={20} />
             </TouchableOpacity>
           </View>
         </View>
-        <TouchableOpacity style={{ alignSelf: 'flex-end', marginRight: 40, marginTop: 20 }}
+        <TouchableOpacity activeOpacity = {0.8} style={{ alignSelf: 'flex-end', marginRight: 40, marginTop: 20 }}
         onPress={() => forgotPassword()}>
           <Text style={[AppStyles.txtWhiteRegular, AppStyles.f15]}>Forgot password?</Text>
         </TouchableOpacity>
@@ -168,7 +176,7 @@ function LoginWithEmail() {
       <View style={{ width: '100%', alignItems: 'center', alignSelf: 'flex-end', marginBottom: 20 }}>
         <View style={{ flexDirection: 'row' }}>
           <Text style={[AppStyles.txtWhiteRegular, AppStyles.f15]}>Don't have an account?</Text>
-          <TouchableOpacity onPress={() => navigation.navigate(NavigationRouteNames.SIGNUP)}>
+          <TouchableOpacity activeOpacity = {0.8} onPress={() => navigation.navigate(NavigationRouteNames.SIGNUP)}>
             <Text style={[AppStyles.txtWhiteRegular, AppStyles.f15, AppStyles.underline]}> Create one</Text>
           </TouchableOpacity>
         </View>

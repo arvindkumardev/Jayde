@@ -15,7 +15,6 @@ function CallBackConfirmation() {
 
   const screenNavigate = () => {
     navigation.popToTop()
-    //navigation.navigate(NavigationRouteNames.CALL_REQUEST);
   }
 
   return (
@@ -31,8 +30,6 @@ function CallBackConfirmation() {
           <Text style={[AppStyles.f11, AppStyles.txtSecandaryRegular, AppStyles.ml24, AppStyles.mr20, AppStyles.mt20,]}>For any concern you can send us email at support@jayde.in </Text>
         </View>
         <View style={Styles.bxVu}>
-
-
           <View style={[style.flex1, AppStyles.aligncen]}>
             <TouchableOpacity
               activeOpacity={0.8}
@@ -41,7 +38,6 @@ function CallBackConfirmation() {
               <Text style={[AppStyles.f17, style.whitecolor, AppStyles.mt10,]}>BACK</Text>
             </TouchableOpacity>
           </View>
-
         </View>
       </View>
     </View>

@@ -276,7 +276,6 @@ const PickupDetails = () => {
   const addressConfirm = async () => {
     setClickConfirm(true)
     await requestForm.submitForm();
-    //navigation.navigate(NavigationRouteNames.PICKUPDETAILS_CONFIRMATION);
   }
 
   return (
@@ -415,19 +414,7 @@ const PickupDetails = () => {
               </View>
             </View>
           </View>
-
-        </View>
-
-        {/* <View style={Styles.inputContainer}>
-            <TextInput style={[AppStyles.txtSecandaryRegular, AppStyles.f16]} placeholder={"Select pickup location"}/>
-          </View>
-          <View style={[Styles.inputContainer, AppStyles.flexRowAlignCenter]}>
-            <TextInput style={Styles.firstElement} 
-            placeholder={address}/>
-            <TouchableOpacity style={Styles.changeTxtButtonContainer}>
-              <Text style={[AppStyles.txtPrimaryRegular, AppStyles.f16]}>CHANGE</Text>
-            </TouchableOpacity>
-          </View> */}
+        </View>       
 
         <TouchableOpacity 
         activeOpacity={0.8}
@@ -439,9 +426,6 @@ const PickupDetails = () => {
 
         <View style={{ height: 20 }}></View>
       </View>
-
-
-
     </KeyboardAwareScrollView>
   );
 };

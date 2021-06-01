@@ -1,9 +1,8 @@
 import useAxios from 'axios-hooks';
 import {
-  AGGREGATOR_NEWORDER, AGGREGATOR_SWO_TO_AGGREGATOR, AGGREGATOR_SWO_TO_RECYCLER, AGGREGATOR_WORK_ORDER_LIST,
-  AGGREGATOR_SCHEDULE_ORDER_LIST, AGGREGATOR_COMPLETED_ORDER_LIST,
-  CONFIRM_WEIGHT, PROPOSE_WEIGHT, CONFIRM_PAYMENT, CONFIRM_PICKUP, CONFIRM_RECEIPT, AGGREGATOR_SCHEDULE_ORDER_DETAIL,
-  AGGREGATOR_ADD_RECEIPT_DATA
+  AGGREGATOR_SWO_TO_AGGREGATOR, AGGREGATOR_SWO_TO_RECYCLER, AGGREGATOR_WORK_ORDER_LIST,
+  AGGREGATOR_SCHEDULE_ORDER_LIST, CONFIRM_WEIGHT, PROPOSE_WEIGHT, CONFIRM_PAYMENT, CONFIRM_PICKUP, 
+  CONFIRM_RECEIPT, AGGREGATOR_SCHEDULE_ORDER_DETAIL, AGGREGATOR_ADD_RECEIPT_DATA
 } from '../../../utils/urls';
 
 
@@ -16,28 +15,6 @@ const getWorkOrderList = (pageNumber) => {
     },
     { manual: true }
   )
-};
-
-const aggregatorNewOrder = (pageNumber) => {
-  return useAxios(
-    {
-      url: AGGREGATOR_NEWORDER + pageNumber,
-      method: 'GET',
-      headers: { 'content-type': 'application/json' },
-    },
-    { manual: true }
-  );
-};
-
-const aggregatorGetCompletedOrder = (pageNumber) => {
-  return useAxios(
-    {
-      url: AGGREGATOR_COMPLETED_ORDER_LIST + pageNumber,
-      method: 'GET',
-      headers: { 'content-type': 'application/json' },
-    },
-    { manual: true }
-  );
 };
 
 const aggregatorGetScheduleOrder = (pageNumber) => {
@@ -141,8 +118,9 @@ const addReceiptQuantity = () => {
   );
 };
 
+
 export {
-  aggregatorNewOrder, createWorkOrder, getWorkOrderList, aggregatorGetCompletedOrder,
-  aggregatorGetScheduleOrder,
-  weightConfirm, weightPropose, paymentConfirm, pickupConfirm, receiptConfirm, scheduleOrderDetail, addReceiptQuantity
+  createWorkOrder, getWorkOrderList,
+  aggregatorGetScheduleOrder, weightConfirm, weightPropose, paymentConfirm,
+   pickupConfirm, receiptConfirm, scheduleOrderDetail, addReceiptQuantity
 };

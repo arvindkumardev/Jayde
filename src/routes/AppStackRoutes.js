@@ -23,14 +23,11 @@ import OrderType from "../containers/Seller/OrderType/index";
 import SellerMyOrder from "../containers/Seller/MyOrder/index";
 import SellerOrderDetail from "../containers/Seller/MyOrderDetail/index";
 
-import PickupDetailsConfirmation from "../containers/Seller/PickupDetailsConfirmation";
 import Dashboard from "../containers/Dashboard/index";
 import PaymentVerification from "../containers/Aggregator/PaymentVerification";
-import ViewNewOrder from "../containers/ViewNewOrder";
 import WorkOrderEmail from "../containers/Aggregator/WorkOrderEmail";
 import OrderDetails from "../containers/Seller/OrderDetails";
 import CallBackConfirmation from "../containers/Seller/CallBackConfirmation";
-import PickupDate from "../containers/Seller/PickupDate";
 import { USER_ROLE } from "./constants";
 import { AppStyles } from "../theme";
 import DrawerSideBar from "../containers/DrawerSideBar/index";
@@ -43,7 +40,6 @@ import DownloadReport from "../containers/Admin/DownloadReport";
 import ManageEPR from "../containers/Admin/ManageEPR";
 import SubCategoryDetails from "../containers/Admin/SubCategoryDetails";
 import ProvisionalPricing from "../containers/Admin/ProvisionalPricing";
-import AddSubCategory from "../containers/Seller/AddSubCategory";
 import OrderFailed from "../containers/Seller/OrderFailed";
 import WorkOrderDetails from "../containers/Seller/WorkOrderDetails";
 import Payment from "../containers/Seller/Payment";
@@ -51,12 +47,11 @@ import OrderConfirmation from "../containers/CommonScreen/OrderConfirmation";
 import WarehouseDetails from "../containers/Aggregator/WarehouseDetails";
 import ScheduledOrder from "../containers/Aggregator/ScheduledOrder";
 import AggregatorScheduleOrderList from '../containers/Aggregator/ScheduleOrderList';
-import Inventory from "../containers/Aggregator/Inventory";
-import NewWorkOrder from "../containers/Aggregator/CreateWorkOrder";
+import Inventory from "../containers/CommonScreen/Inventory";
+import NewWorkOrder from "../containers/CommonScreen/CreateWorkOrder";
 import AggregatorWorkOrderList from './../containers/Aggregator/NewWorkOrderList';
 import WorkOrderConfirmation from './../containers/Aggregator/WorkOrderConfirmation';
-import RecyclerNewWorkOrder from "../containers/Recycler/CreateWorkOrder";
-import RecyclerInventory from "../containers/Recycler/Inventory";
+
 import RecyclerNewOrderList from "../containers/Recycler/NewOrderList";
 import RecyclerScheduleOrderList from "../containers/Recycler/ScheduleOrderList";
 import RecyclerWorkOrderList from "../containers/Recycler/NewWorkOrderList";;
@@ -83,8 +78,8 @@ import AddSubUser from "../containers/AddSubUser";
 import AddUser from "../containers/AddUser";
 
 import PasswordReset from "../containers/PasswordReset";
-import AdminNewOrderList from "../containers/Admin/AdminNewOrderList";
-import AdminNewOrder from "../containers/AdminNewOrder";
+import AdminNewOrderList from "../containers/Admin/NewOrderList";
+import AdminNewOrder from "../containers/Admin/OrderDetails";
 import AggregatorNewOrder from "../containers/Aggregator/NewOrders";
 import { resolveConfig } from "prettier";
 
@@ -219,13 +214,8 @@ const AppStack = (props) => {
             component={CallBackConfirmation}
             options={NoHeaderScreen}
           />
-          {/* Pickup Date Time Slot Screen */}
-          <Stack.Screen
-            name={NavigationRouteNames.PICKUP_DATE}
-            component={PickupDate}
-            options={NoTitleHeader}
-          />
-          {/* Pickup Date Time Slot Screen */}
+         
+          {/* Order Failed Screen */}
           <Stack.Screen
             name={NavigationRouteNames.ORDER_FAILED}
             component={OrderFailed}
@@ -286,19 +276,8 @@ const AppStack = (props) => {
             name={NavigationRouteNames.PAYMENT}
             component={Payment}
             options={NoHeaderScreen}
-          />
-          {/* Pickup Details Confirmation Screen*/}
-          <Stack.Screen
-            name={NavigationRouteNames.PICKUPDETAILS_CONFIRMATION}
-            component={PickupDetailsConfirmation}
-            options={CommonHeaderStyle}
-          />
-          {/* Pickup Details Confirmation Screen*/}
-          <Stack.Screen
-            name={NavigationRouteNames.ADD_SUBCATEGORY}
-            component={AddSubCategory}
-            options={CommonHeaderStyle}
-          />
+          />         
+        
           {/* Smart Contract View Item Screen*/}
           <Stack.Screen
             name={NavigationRouteNames.SMARTCONTRACT_VIEWITEM}
@@ -501,12 +480,7 @@ const AppStack = (props) => {
             component={SmartContractViewItem}
             options={CommonHeaderStyle}
           />
-          {/* View New Order Screen*/}
-          <Stack.Screen
-            name={NavigationRouteNames.VIEW_NEW_ORDER}
-            component={ViewNewOrder}
-            options={CommonHeaderStyle}
-          />
+        
           {/* Order Screen number: 21*/}
           <Stack.Screen
             name={NavigationRouteNames.AGGREGATOR_NEW_ORDERS}
@@ -632,14 +606,14 @@ const AppStack = (props) => {
           />
           {/* Inventory screen number: 40 */}
           <Stack.Screen
-            name={NavigationRouteNames.RECYCLER_INVENTORY}
-            component={RecyclerInventory}
+            name={NavigationRouteNames.INVENTORY}
+            component={Inventory}
             options={CommonHeaderStyle}
           />
           {/* New Work Order screen number: 32 */}
           <Stack.Screen
-            name={NavigationRouteNames.RECYCLER_NEW_WORKORDER}
-            component={RecyclerNewWorkOrder}
+            name={NavigationRouteNames.NEW_WORKORDER}
+            component={NewWorkOrder}
             options={CommonHeaderStyle}
           />
 
@@ -658,11 +632,11 @@ const AppStack = (props) => {
           />
 
           {/* Completed Order screen number: 45 */}
-          {/* <Stack.Screen
+          <Stack.Screen
             name={NavigationRouteNames.COMPLETED_ORDER}
             component={CompletedOrder}
             options={CommonHeaderStyle}
-          /> */}
+          />
 
           {/* Confirmation Screen */}
           <Stack.Screen

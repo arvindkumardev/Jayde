@@ -36,7 +36,7 @@ function CompletedOrder() {
   const [offset, setOffset] = useState(0);
   const [loadMore, setLoadMore] = useState(false);
 
-  const [totalCount, setTotalCount] = useState(15)
+  const [totalCount, setTotalCount] = useState(0)
   const [perPage, setPerPage] = useState(15)
 
   const [{ data, loading, error }, onGetOrder] = getCompletedOrder(offset, userRole);
@@ -53,6 +53,11 @@ function CompletedOrder() {
     setOrderList([])
     getOrderList()
   }
+
+  useEffect(() => {
+    if (error)
+      setLoader(false)
+  }, [error])
 
   const getOrderList = async () => {
     try {
@@ -82,6 +87,9 @@ function CompletedOrder() {
   useEffect(() => {
     setLoader(true)
     getOrderList();
+    return () => {
+      setLoader(false)
+    }
   }, []);
 
   useEffect(() => {
@@ -107,7 +115,7 @@ function CompletedOrder() {
 
   const _RenderItem = (index, item) => {
     return (
-      <TouchableOpacity key={index}>
+      <TouchableOpacity activeOpacity = {0.8} key={index}>
         <View style={[AppStyles.flexDir, AppStyles.mt20]}>
           <View style={[AppStyles.ml24, AppStyles.flexpointeight]}>
             <Text style={[AppStyles.txtBlackRegular, AppStyles.f15]}>{'JYD/N/21/0968'}</Text>

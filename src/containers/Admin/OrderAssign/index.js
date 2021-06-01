@@ -16,7 +16,10 @@ import { useNavigation } from '@react-navigation/core';
 import { useRoute } from '@react-navigation/native';
 import moment from 'moment';
 import UserContext from '../../../appContainer/context/user.context';
-import { getAggregators, getRecyclers, assignAggregator } from "../../../services/middleware/user";
+import { getAggregators, getRecyclers } from "../../../services/CommonController"
+
+import { assignAggregator } from "../Middleware";
+
 import { LOCAL_STORAGE_DATA_KEY } from '../../../utils/constants';
 
 const typeData = [
@@ -72,15 +75,18 @@ function OrderAssign() {
     onGetRecyclers();
   }, []);
 
-  // useEffect(() => {
-  //   async function getUserName() {     
-  //     const userName = await getSaveData(LOCAL_STORAGE_DATA_KEY.USER_NAME);
-  //     if (userName) {
-  //       setUserName(userName)
-  //     }
-  //   }
-  //   getUserName();
-  // }, []);
+  useEffect(() => {
+    if (error)
+      setLoader(false)
+  }, [error])
+
+  useEffect(() => {
+    return () => {
+      setLoader(false)
+    }
+  }, []);
+
+
 
   const handelGetAggregators = async () => {
     setLoader(true)
@@ -147,137 +153,143 @@ function OrderAssign() {
   });
 
   const handleConfirm = async (aggregatorID) => {
-    const { data } = await onAssignAggregator({
-      data: {
-        "orderId": item.orderId,
-        "vendor": requestForm.values.businessType == 1 ? aggregatorID : '',
-        "recycler": requestForm.values.businessType == 2 ? aggregatorID : ''
-      },
-    });
-    console.log(data)
-    if (data.status) {
-      screenNavigate()
-    } else {
-      alert(data.message)
+    try {
+      const { data } = await onAssignAggregator({
+        data: {
+          "orderId": item.orderId,
+          "vendor": requestForm.values.businessType == 1 ? aggregatorID : '',
+          "recycler": requestForm.values.businessType == 2 ? aggregatorID : ''
+        },
+      });
+      console.log(data)
+      if (data.status) {
+        screenNavigate()
+      } else {
+        alert(data.message)
+      }
+    }catch (e) {
+      console.log("Response error", e);
     }
-  };
+};
 
-  const handelSubmit = async () => {
-    setClickConfirm(true)
-    await requestForm.submitForm();
-  }
+const handelSubmit = async () => {
+  setClickConfirm(true)
+  await requestForm.submitForm();
+}
 
-  useEffect(() => {
-    setLoader(loading);
-  }, [Aggregator, loading]);
+useEffect(() => {
+  setLoader(loading);
+}, [Aggregator, loading]);
 
-  return (
-    <View style={AppStyles.topView}>
-      <ScrollView style={AppStyles.topView}
-        removeClippedSubviews={Platform.OS == 'android' && true}>
-        <View style={AppStyles.topView}>
+return (
+  <View style={AppStyles.topView}>
+    <ScrollView style={AppStyles.topView}
+      removeClippedSubviews={Platform.OS == 'android' && true}>
+      <View style={AppStyles.topView}>
 
-          <View style={Styles.refView}>
-            <Text style={Styles.refText}>Ref No- {item.order_no}</Text>
-          </View>
+        <View style={Styles.refView}>
+          <Text style={Styles.refText}>Ref No- {item.order_no}</Text>
+        </View>
 
-          <View style={Styles.boxView}>
+        <View style={Styles.boxView}>
 
-            <View style={Styles.boxText}>
-              <View style={Styles.flx}>
-                <Text style={Styles.boxtxtt}>Waste type</Text>
-              </View>
-              <View style={Styles.boxTxtView}>
-                <Text style={Styles.boxTextt1}>{item.category_name}</Text>
-              </View>
+          <View style={Styles.boxText}>
+            <View style={Styles.flx}>
+              <Text style={Styles.boxtxtt}>Waste type</Text>
             </View>
-
-            <View style={Styles.boxText}>
-              <View style={Styles.flx}>
-                <Text style={Styles.boxtxtt}>Waste Sub Category</Text>
-              </View>
-              <View style={Styles.boxTxtView}>
-                <Text style={Styles.boxTextt1}>{item.sub_category_name}</Text>
-              </View>
-            </View>
-
-            <View style={Styles.boxText}>
-              <View style={Styles.flx}>
-                <Text style={Styles.boxtxtt}>Volume</Text>
-              </View>
-              <View style={Styles.boxTxtView}>
-                <Text style={Styles.boxTextt1}>{item.qty} {item.unit_name}</Text>
-              </View>
-            </View>
-
-            <View style={Styles.boxText}>
-              <View style={Styles.flx}>
-                <Text style={Styles.boxtxtt}>Purchase Date</Text>
-              </View>
-              <View style={Styles.boxTxtView}>
-                <Text style={Styles.boxTextt1}>{moment(item.pickup_date).format('DD/MM/YYYY')}</Text>
-              </View>
-            </View>
-
-            <View style={Styles.boxText}>
-              <View style={Styles.flx}>
-                <Text style={Styles.boxtxtt}>Purchase Amount</Text>
-              </View>
-              <View style={Styles.boxTxtView}>
-                <Text style={Styles.boxTextt1}>₹ {item.price}</Text>
-              </View>
+            <View style={Styles.boxTxtView}>
+              <Text style={Styles.boxTextt1}>{item.category_name}</Text>
             </View>
           </View>
 
-
-          <View style={Styles.businessType}>
-            <Text style = {[AppStyles.txtBlackRegular, AppStyles.mb10]}>Select business type</Text>
-            <DropDown
-              placeholderText="Select one"
-              items={typeData}
-              itemStyle={{ color: '#000' }}
-              onValueChange={handelBusinessType}
-              selectedValue={requestForm.values.businessType}
-              containerStyle={{ borderRadius: 10, backgroundColor: Colors.grayTwo, paddingLeft: 10 }}
-            />
-            {clickConfirm && requestForm.errors.businessType ?
-              <CustomText
-                fontSize={15}
-                color={Colors.red}
-                styling={{ marginTop: RfH(10) }}>
-                {(requestForm.errors.businessType).toString()}
-              </CustomText>
-              : null}
+          <View style={Styles.boxText}>
+            <View style={Styles.flx}>
+              <Text style={Styles.boxtxtt}>Waste Sub Category</Text>
+            </View>
+            <View style={Styles.boxTxtView}>
+              <Text style={Styles.boxTextt1}>{item.sub_category_name}</Text>
+            </View>
           </View>
 
-          <View style={Styles.slctAggre}>
-            <Text style = {[AppStyles.txtBlackRegular, AppStyles.mb10]}>Select Aggregator</Text>
-            <DropDown
-              placeholderText="Select one"
-              items={arrayData}
-              itemStyle={{ color: '#000' }}
-              onValueChange={onChangeAggregator}
-              selectedValue={requestForm.values.selectedID}
-              containerStyle={{ borderRadius: 10, backgroundColor: Colors.grayTwo, paddingLeft: 10 }}
-            />
-            {clickConfirm && requestForm.values.selectedID == '' ?
-              <CustomText
-                fontSize={15}
-                color={Colors.red}
-                styling={{ marginTop: RfH(10) }}>
-                {(requestForm.errors.selectedID).toString()}
-              </CustomText>
-              : null}
+          <View style={Styles.boxText}>
+            <View style={Styles.flx}>
+              <Text style={Styles.boxtxtt}>Volume</Text>
+            </View>
+            <View style={Styles.boxTxtView}>
+              <Text style={Styles.boxTextt1}>{item.qty} {item.unit_name}</Text>
+            </View>
           </View>
 
-          <View style={Styles.confirmView}>
-            <TouchableOpacity style={Styles.confirmBtn} onPress={() => { handelSubmit() }}>
-              <Text style={Styles.confirm}>CONFIRM</Text>
-            </TouchableOpacity>
+          <View style={Styles.boxText}>
+            <View style={Styles.flx}>
+              <Text style={Styles.boxtxtt}>Purchase Date</Text>
+            </View>
+            <View style={Styles.boxTxtView}>
+              <Text style={Styles.boxTextt1}>{moment(item.pickup_date).format('DD/MM/YYYY')}</Text>
+            </View>
+          </View>
+
+          <View style={Styles.boxText}>
+            <View style={Styles.flx}>
+              <Text style={Styles.boxtxtt}>Purchase Amount</Text>
+            </View>
+            <View style={Styles.boxTxtView}>
+              <Text style={Styles.boxTextt1}>₹ {item.price}</Text>
+            </View>
           </View>
         </View>
-      </ScrollView>
-    </View>
-  );
+
+
+        <View style={Styles.businessType}>
+          <Text style={[AppStyles.txtBlackRegular, AppStyles.mb10]}>Select business type</Text>
+          <DropDown
+            placeholderText="Select one"
+            items={typeData}
+            itemStyle={{ color: '#000' }}
+            onValueChange={handelBusinessType}
+            selectedValue={requestForm.values.businessType}
+            containerStyle={{ borderRadius: 10, backgroundColor: Colors.grayTwo, paddingLeft: 10 }}
+          />
+          {clickConfirm && requestForm.errors.businessType ?
+            <CustomText
+              fontSize={15}
+              color={Colors.red}
+              styling={{ marginTop: RfH(10) }}>
+              {(requestForm.errors.businessType).toString()}
+            </CustomText>
+            : null}
+        </View>
+
+        <View style={Styles.slctAggre}>
+          <Text style={[AppStyles.txtBlackRegular, AppStyles.mb10]}>Select Aggregator</Text>
+          <DropDown
+            placeholderText="Select one"
+            items={arrayData}
+            itemStyle={{ color: '#000' }}
+            onValueChange={onChangeAggregator}
+            selectedValue={requestForm.values.selectedID}
+            containerStyle={{ borderRadius: 10, backgroundColor: Colors.grayTwo, paddingLeft: 10 }}
+          />
+          {clickConfirm && requestForm.values.selectedID == '' ?
+            <CustomText
+              fontSize={15}
+              color={Colors.red}
+              styling={{ marginTop: RfH(10) }}>
+              {(requestForm.errors.selectedID).toString()}
+            </CustomText>
+            : null}
+        </View>
+
+        <View style={Styles.confirmView}>
+          <TouchableOpacity
+            activeOpacity={0.8}
+            style={Styles.confirmBtn} onPress={() => { handelSubmit() }}>
+            <Text style={Styles.confirm}>CONFIRM</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+    </ScrollView>
+  </View>
+);
 }
 export default OrderAssign;

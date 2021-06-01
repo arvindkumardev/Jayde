@@ -7,7 +7,7 @@ import NavigationRouteNames from '../../../routes/ScreenNames';
 import { useNavigation } from '@react-navigation/core';
 import { useRoute } from '@react-navigation/native';
 import { AppStyles } from '../../../theme';
-import { users } from "../../../services/middleware/user";
+import { users } from "../Middleware";
 import UserContext from '../../../appContainer/context/user.context';
 import FooterLoader from "../../../appContainer/footerLoader";
 import EmptyView from '../../../appContainer/EmptyView'
@@ -23,7 +23,7 @@ function Users() {
 
   const [offset, setOffset] = useState(1);
   const [loadMore, setLoadMore] = useState(false);
-  const [totalCount, setTotalCount] = useState(5)
+  const [totalCount, setTotalCount] = useState(0)
   const [perPage, setPerPage] = useState(5)
 
   const [userList, setUserList] = useState([])
@@ -58,10 +58,19 @@ function Users() {
   };
 
   useEffect(() => {
+    if(error)
+    setLoader(false)   
+  }, [error])
+  
+  useEffect(() => {
     setLoader(true)
     triggerUser();
+    return () => {
+      setLoader(false)
+    }
   }, []);
 
+  
   useEffect(() => {
     triggerLoadMore();
   }, [offset])
@@ -97,6 +106,7 @@ function Users() {
   const _RenderItem = (index, item) => {
     return (
       <TouchableOpacity
+        activeOpacity = {0.8}
         key={index}
         onPress={() => { screenNavigate(item, index) }}>
         <View style={Styles.boxView}>
@@ -106,7 +116,9 @@ function Users() {
               <Text style={[AppStyles.f13, AppStyles.txtSecandaryRegular, AppStyles.mt12]}>{item.email}</Text>
             </View>
             <View style={[AppStyles.flexpointthree, AppStyles.mt12, AppStyles.ml24]}>
-              <TouchableOpacity style={item.status == 1 ? Styles.confirmBtn : Styles.InactiveBtn}>
+              <TouchableOpacity 
+              activeOpacity = {0.8}
+              style={item.status == 1 ? Styles.confirmBtn : Styles.InactiveBtn}>
                 <Text style={[AppStyles.txtWhiteRegular, AppStyles.f11, AppStyles.textalig]}>{item.status == 1 ? 'Active' : 'Inactive'}</Text>
               </TouchableOpacity>
             </View>
@@ -126,7 +138,7 @@ function Users() {
             <View style={{ height: '100%', width: 1, borderBottomWidth: 20, marginLeft: 12,}}>
             </View> 
             <View>
-              <Text style={[AppStyles.ml10, AppStyles.txtSecandaryRegular, AppStyles.f13]}>User</Text>
+              <Text style={[AppStyles.ml10, AppStyles.txtSecandaryRegular, AppStyles.f13]}>{item.type}</Text>
             </View>
           </View>
 
@@ -137,7 +149,7 @@ function Users() {
 
 
   return (
-    <View style={AppStyles.mainView}>
+    <View style={AppStyles.topView}>
       {userList.length > 0 ? <FlatList
         data={userList}
         renderItem={({ index, item }) =>

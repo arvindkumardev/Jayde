@@ -21,7 +21,7 @@ function RejectOrder() {
   const route = useRoute();
   const [item, setItem] = useState({});
 
-  const { setLoader,userRole } = useContext(UserContext);
+  const { setLoader, userRole } = useContext(UserContext);
 
   const [clickConfirm, setClickConfirm] = useState(false);
 
@@ -30,6 +30,17 @@ function RejectOrder() {
   const screenNavigateBack = () => {
     navigation.pop()
   }
+
+  useEffect(() => {
+    if (error)
+      setLoader(false)
+  }, [error])
+
+  useEffect(() => {
+    return () => {
+      setLoader(false)
+    }
+  })
 
   useLayoutEffect(() => {
     const { Item } = route.params;
@@ -40,19 +51,23 @@ function RejectOrder() {
 
   const handleConfirm = async (reason) => {
     setLoader(true)
-    const { data } = await onRejectOrder({
-      data: {
-        assignedId: item.assigned_id,
-        feedback: reason,
-      },
-    });
-    console.log(data)
-    if (data.status) {
-      screenNavigate()
-    } else {
-      alert(data.message)
+    try {
+      const { data } = await onRejectOrder({
+        data: {
+          assignedId: item.assigned_id,
+          feedback: reason,
+        },
+      });
+      console.log(data)
+      if (data.status) {
+        screenNavigate()
+      } else {
+        alert(data.message)
+      }
+      setLoader(false)
+    } catch (e) {
+      console.log("Response error", e);
     }
-    setLoader(false)
   };
 
   const validationSchema = yup.object().shape({
@@ -77,8 +92,8 @@ function RejectOrder() {
   const screenNavigate = () => {
     navigation.popToTop()
     userRole === 'recycler' ? navigation.navigate(NavigationRouteNames.RECYCLER_NEW_ORDER_LIST)
-    :    
-    navigation.navigate(NavigationRouteNames.AGGREGATOR_NEW_ORDERS);
+      :
+      navigation.navigate(NavigationRouteNames.AGGREGATOR_NEW_ORDERS);
   }
 
   return (
@@ -113,16 +128,16 @@ function RejectOrder() {
             ) : null}
           </View>
 
-          <View style = {[AppStyles.mb30]}>
+          <View style={[AppStyles.mb30]}>
             <View style={AppStyles.aligncen}>
-              <TouchableOpacity style={Styles.backbtn}
+              <TouchableOpacity activeOpacity={0.8} style={Styles.backbtn}
                 onPress={() => screenNavigateBack()}>
                 <Text style={[AppStyles.f17, AppStyles.warmgreycolor, AppStyles.textalig, AppStyles.mt10]}>BACK</Text>
               </TouchableOpacity>
             </View>
 
             <View style={AppStyles.aligncen}>
-              <TouchableOpacity style={Styles.confirmbtn} onPress={() => handelValidation()}>
+              <TouchableOpacity activeOpacity={0.8} style={Styles.confirmbtn} onPress={() => handelValidation()}>
                 <Text style={[AppStyles.f17, AppStyles.whitecolor, AppStyles.textalig, AppStyles.mt10]}>CONFIRM</Text>
               </TouchableOpacity>
             </View>

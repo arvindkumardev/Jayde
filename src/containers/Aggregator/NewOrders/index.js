@@ -5,7 +5,7 @@ import NavigationRouteNames from '../../../routes/ScreenNames';
 import { useNavigation } from '@react-navigation/core';
 import { useRoute } from '@react-navigation/native';
 import { AppStyles } from '../../../theme';
-import { aggregatorNewOrder } from '../Middelware';
+import { getNewOrder } from "../../../services/CommonController";
 import UserContext from '../../../appContainer/context/user.context';
 import moment from 'moment';
 import FooterLoader from "../../../appContainer/footerLoader";
@@ -30,23 +30,23 @@ function AggregatorNewOrder() {
   const navigation = useNavigation();
   const route = useRoute();
 
-  const { setLoader } = useContext(UserContext);
+  const { setLoader, userRole } = useContext(UserContext);
 
   const [orderList, setOrderList] = useState([]);
   const [offset, setOffset] = useState(0);
   const [loadMore, setLoadMore] = useState(false);
 
-  const [totalCount, setTotalCount] = useState(15)
+  const [totalCount, setTotalCount] = useState()
   const [perPage, setPerPage] = useState(15)
 
-  const [{ data, loading, error }, onGetOrder] = aggregatorNewOrder(offset);
+  const [{ data, loading, error }, onGetOrder] = getNewOrder(userRole, offset);
 
   const getActionType = async () => {
     setOrderList([])
-    getNewOrder()
+    NewOrder()
   }
 
-  const getNewOrder = async () => {
+  const NewOrder = async () => {
     try {
       const { data } = await onGetOrder({ data: {} });
       setLoader(false)
@@ -54,7 +54,7 @@ function AggregatorNewOrder() {
       setOrderList(data.data[0].newOrders)
       setPerPage(data.data[0].links.per_page)
       setTotalCount(data.data[0].links.total_count)
-      setOrderList(data.data[0].newOrders)     
+      setOrderList(data.data[0].newOrders)
     } catch (e) {
       console.log("Response error", e);
     }
@@ -73,8 +73,16 @@ function AggregatorNewOrder() {
   };
 
   useEffect(() => {
+    if (error)
+      setLoader(false)
+  }, [error])
+
+  useEffect(() => {
     setLoader(true)
-    getNewOrder();
+    NewOrder();
+    return () => {
+      setLoader(false)
+    }
   }, []);
 
   useEffect(() => {
@@ -105,7 +113,7 @@ function AggregatorNewOrder() {
 
   const _RenderItem = (index, item) => {
     return (
-      <TouchableOpacity onPress={() => screenNavigate(item)}>
+      <TouchableOpacity activeOpacity={0.8} onPress={() => screenNavigate(item)}>
         <View style={[AppStyles.flexDir, AppStyles.mt20]}>
           <View style={[AppStyles.flexpointtwo, AppStyles.ml14]}>
             <Image source={ORDER_IMAGE[item.category_name]} />
@@ -118,7 +126,7 @@ function AggregatorNewOrder() {
           </View>
 
           <View style={[AppStyles.flexpointthree, AppStyles.mt5, AppStyles.alignCenter]}>
-            <TouchableOpacity
+            <TouchableOpacity activeOpacity={0.8}
               onPress={() => screenNavigate(item)}
               style={Styles.confirmBtn}>
               <Text style={[AppStyles.txtWhiteRegular, AppStyles.f11, AppStyles.textalig,]}>{item.is_confirmed == 2 ? 'VIEW' : 'ACCEPT'}</Text>
@@ -151,7 +159,7 @@ function AggregatorNewOrder() {
         }}
       />
         :
-        !loading && <EmptyView onBack = {() => navigation.pop()}></EmptyView>
+        !loading && <EmptyView onBack={() => navigation.pop()}></EmptyView>
       }
 
     </View>

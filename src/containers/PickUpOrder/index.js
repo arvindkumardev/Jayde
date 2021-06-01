@@ -42,11 +42,6 @@ const PickUpOrder = () => {
   //   });
   // }, []);
 
-  // useEffect(async () => {
-  //   const { data } = await getSubCategory(1);
-  //   console.log('Getting response from subcategory ', data);
-  // }, []);
-
   const onClose = () => {
     setShowCamera(false);
   };
@@ -90,72 +85,72 @@ const PickUpOrder = () => {
     <KeyboardAwareScrollView style={{ flex: 1, paddingHorizontal: RfW(20), backgroundColor: '#ffffff', }}>
       <View style={[style.flexDir, AppStyle.mt20,]}>
         <View style={style.flexpointthree}>
-        <Image style={Styles.lftimg} source={require('../../assets/Images/AdminNewOrder/Group10055.png')}  />
-          </View>
+          <Image style={Styles.lftimg} source={require('../../assets/Images/AdminNewOrder/Group10055.png')} />
+        </View>
         <View style={style.flexpointseven}>
           <Text style={[Appstyles.txtBlackBold, Appstyles.f20,]}>Pickup Order</Text>
+        </View>
+      </View>
+
+      <View style={Appstyles.aligncen}>
+        <Text style={[Appstyles.txtBlackBold, Appstyles.f17, AppStyle.mt30,]}>Ref No- JYD/SC/2020/0067</Text>
+      </View>
+      <View style={Styles.boxView}>
+
+        <View style={[style.flexDir, AppStyle.mt20,]}>
+          <View style={style.flexpointsix}>
+            <Text style={[Appstyles.txtSecandaryRegular, Appstyles.f15, AppStyle.mt10, AppStyle.ml20]}>Waste type</Text>
+          </View>
+          <View style={[style.flexpointfour, Appstyles.alignfend]}>
+            <Text style={[Appstyles.txtBlackRegular, Appstyles.f15, AppStyle.mt10, AppStyle.mr20]}>Plastic</Text>
           </View>
         </View>
 
-       <View style={Appstyles.aligncen}>
-       <Text style={[Appstyles.txtBlackBold, Appstyles.f17, AppStyle.mt30,]}>Ref No- JYD/SC/2020/0067</Text>
-       </View>
-       <View style={Styles.boxView}>
+        <View style={style.flexDir}>
+          <View style={style.flexpointsix}>
+            <Text style={[Appstyles.txtSecandaryRegular, Appstyles.f15, AppStyle.mt10, AppStyle.ml20]}>Waste sub category</Text>
+          </View>
+          <View style={[style.flexpointfour, Appstyles.alignfend]}>
+            <Text style={[Appstyles.txtBlackRegular, Appstyles.f15, AppStyle.mt10, AppStyle.mr20]}>Type 1</Text>
+          </View>
+        </View>
 
-         <View style={[style.flexDir, AppStyle.mt20,]}>
-         <View style={style.flexpointsix}>
-           <Text style={[Appstyles.txtSecandaryRegular, Appstyles.f15, AppStyle.mt10, AppStyle.ml20]}>Waste type</Text>
-           </View>
-           <View style={[style.flexpointfour, Appstyles.alignfend]}>
-           <Text style={[Appstyles.txtBlackRegular, Appstyles.f15, AppStyle.mt10, AppStyle.mr20]}>Plastic</Text>
-           </View>
-           </View>
+        <View style={style.flexDir}>
+          <View style={style.flexpointsix}>
+            <Text style={[Appstyles.txtSecandaryRegular, Appstyles.f15, AppStyle.mt10, AppStyle.ml20]}>Volume</Text>
+          </View>
+          <View style={[style.flexpointfour, Appstyles.alignfend]}>
+            <Text style={[Appstyles.txtBlackRegular, Appstyles.f15, AppStyle.mt10, AppStyle.mr20]}>3 Tons</Text>
+          </View>
+        </View>
 
-           <View style={style.flexDir}>
-         <View style={style.flexpointsix}>
-           <Text style={[Appstyles.txtSecandaryRegular, Appstyles.f15, AppStyle.mt10, AppStyle.ml20]}>Waste sub category</Text>
-           </View>
-           <View style={[style.flexpointfour, Appstyles.alignfend]}>
-           <Text style={[Appstyles.txtBlackRegular, Appstyles.f15, AppStyle.mt10, AppStyle.mr20]}>Type 1</Text>
-           </View>
-           </View>
+        <View style={style.flexDir}>
+          <View style={style.flexpointsix}>
+            <Text style={[Appstyles.txtSecandaryRegular, Appstyles.f15, AppStyle.mt10, AppStyle.ml20]}>Purchase Date</Text>
+          </View>
+          <View style={[style.flexpointfour, Appstyles.alignfend]}>
+            <Text style={[Appstyles.txtBlackRegular, Appstyles.f15, AppStyle.mt10, AppStyle.mr20]}>26/07/2020</Text>
+          </View>
+        </View>
 
-           <View style={style.flexDir}>
-         <View style={style.flexpointsix}>
-           <Text style={[Appstyles.txtSecandaryRegular, Appstyles.f15, AppStyle.mt10, AppStyle.ml20]}>Volume</Text>
-           </View>
-           <View style={[style.flexpointfour, Appstyles.alignfend]}>
-           <Text style={[Appstyles.txtBlackRegular, Appstyles.f15, AppStyle.mt10, AppStyle.mr20]}>3 Tons</Text>
-           </View>
-           </View>
+        <View style={style.flexDir}>
+          <View style={style.flexpointsix}>
+            <Text style={[Appstyles.txtSecandaryRegular, Appstyles.f15, AppStyle.mt10, AppStyle.ml20]}>Purchase amount</Text>
+          </View>
+          <View style={[style.flexpointfour, Appstyles.alignfend]}>
+            <Text style={[Appstyles.txtBlackRegular, Appstyles.f15, AppStyle.mt10, AppStyle.mr20]}>₹ 25,864</Text>
+          </View>
+        </View>
 
-           <View style={style.flexDir}>
-         <View style={style.flexpointsix}>
-           <Text style={[Appstyles.txtSecandaryRegular, Appstyles.f15, AppStyle.mt10, AppStyle.ml20]}>Purchase Date</Text>
-           </View>
-           <View style={[style.flexpointfour, Appstyles.alignfend]}>
-           <Text style={[Appstyles.txtBlackRegular, Appstyles.f15, AppStyle.mt10, AppStyle.mr20]}>26/07/2020</Text>
-           </View>
-           </View>
-
-           <View style={style.flexDir}>
-         <View style={style.flexpointsix}>
-           <Text style={[Appstyles.txtSecandaryRegular, Appstyles.f15, AppStyle.mt10, AppStyle.ml20]}>Purchase amount</Text>
-           </View>
-           <View style={[style.flexpointfour, Appstyles.alignfend]}>
-           <Text style={[Appstyles.txtBlackRegular, Appstyles.f15, AppStyle.mt10, AppStyle.mr20]}>₹ 25,864</Text>
-           </View>
-           </View>
-
-           <View style={style.flexDir}>
-         <View style={style.flexpointsix}>
-           <Text style={[Appstyles.txtSecandaryRegular, Appstyles.f15, AppStyle.mt10, AppStyle.ml20]}>Pickup Address</Text>
-           </View>
-           <View style={[style.flexpointfour, Appstyles.alignfend]}>
-           <Text style={[Appstyles.txtBlackRegular, Appstyles.f11, AppStyle.mt10, , AppStyle.mr20]}>1812, building No 2, Banjara Hills. Hyderabad (TN)</Text>
-           </View>
-           </View>
-       </View>
+        <View style={style.flexDir}>
+          <View style={style.flexpointsix}>
+            <Text style={[Appstyles.txtSecandaryRegular, Appstyles.f15, AppStyle.mt10, AppStyle.ml20]}>Pickup Address</Text>
+          </View>
+          <View style={[style.flexpointfour, Appstyles.alignfend]}>
+            <Text style={[Appstyles.txtBlackRegular, Appstyles.f11, AppStyle.mt10, , AppStyle.mr20]}>1812, building No 2, Banjara Hills. Hyderabad (TN)</Text>
+          </View>
+        </View>
+      </View>
 
       <View style={Styles.headerContainer}>
         <Text style={Styles.headerText}>Enter the following details</Text>
@@ -396,7 +391,7 @@ const PickUpOrder = () => {
           />
         </View>
       </View>
-{/* 
+      {/* 
       <View style={{ marginTop: 35 }}>
         <Text style={Styles.inputLabelText}>Please choose a sub category</Text>
         <DropDownPicker
@@ -417,9 +412,9 @@ const PickUpOrder = () => {
           onChangeItem={(item) => console.log(item)}
         />
       </View> */}
-     
-      
-      
+
+
+
       <View style={{ marginTop: RfH(10), marginTop: 25, marginBottom: 25 }}>
         <TouchableOpacity style={Styles.confirmButton} onPress={handleConfirm}>
           <Text style={Styles.confirmBtnText}>CONFIRM</Text>

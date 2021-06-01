@@ -29,8 +29,8 @@ function OrderConfirmation() {
 
   const screenNavigate = () => {
     navigation.popToTop()
-    navigation.navigate(NavigationRouteNames.PAYMENT_VERIFICATION, 
-    {assignedID: item.assigned_id, WhereFrom: NavigationRouteNames.ORDER_CONFIRMATION});
+    navigation.navigate(NavigationRouteNames.PAYMENT_VERIFICATION,
+      { assignedID: item.assigned_id, WhereFrom: NavigationRouteNames.ORDER_CONFIRMATION });
   }
 
   useLayoutEffect(() => {
@@ -41,6 +41,11 @@ function OrderConfirmation() {
   }, []);
 
   useEffect(() => {
+    if (error)
+      setLoader(false)
+  }, [error])
+  
+  useEffect(() => {
     return () => {
       setLoader(false)
     }
@@ -50,22 +55,22 @@ function OrderConfirmation() {
     setLoader(loading)
   }, [confirmData, loading])
 
-  const confirmOrder = async () => {  
-    try {     
+  const confirmOrder = async () => {
+    try {
       const { data } = await onConfirmSchedule({ data: { 'assignedId': item.assigned_id } });
       if (data.status) {
         screenNavigate()
       } else {
         alert(data.message)
-      }     
+      }
     } catch (e) {
       console.log("Response error", e);
     }
-    }
+  }
 
   return (
     <View style={Styles.topView}>
-      <ScrollView showsVerticalScrollIndicator = {false}>
+      <ScrollView showsVerticalScrollIndicator={false}>
 
         <View style={AppStyles.aligncen}>
           <Text style={[AppStyles.txtBlackBold, AppStyles.f17, AppStyles.mt30,]}>Ref No- {item.order_no}</Text>
@@ -129,14 +134,17 @@ function OrderConfirmation() {
 
         <View style={Styles.btnContainer}>
           <TouchableOpacity
+            activeOpacity={0.8}
             style={Styles.confirmbtn} onPress={() => confirmOrder()}>
             <Text style={[AppStyles.txtWhiteRegular, AppStyles.f17, AppStyles.textalig, AppStyles.mt10]}>CONFIRM SCHEDULE</Text>
           </TouchableOpacity>
           <TouchableOpacity
+            activeOpacity={0.8}
             style={[Styles.proposebtn]} onPress={() => proposeTime(item)}>
             <Text style={[AppStyles.txtPrimaryRegular, AppStyles.f17, AppStyles.textalig, AppStyles.mt10]}>PROPOSE NEW TIME</Text>
           </TouchableOpacity>
           <TouchableOpacity
+            activeOpacity={0.8}
             style={[Styles.proposebtn, AppStyles.mb20]} onPress={() => rejectOrder(item)}>
             <Text style={[AppStyles.txtPrimaryRegular, AppStyles.f17, AppStyles.textalig, AppStyles.mt10]}>REJECT</Text>
           </TouchableOpacity>

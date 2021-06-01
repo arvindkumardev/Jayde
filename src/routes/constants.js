@@ -4,6 +4,7 @@
 
 import NavigationRouteNames from "./ScreenNames";
 import { Colors } from "../theme";
+import pencilIcon from "../assets/Images/Dashboard/Group_9551.png"
 
 const USER_ROLE = {
   SELLER: "seller",
@@ -32,7 +33,6 @@ const DRAWER_MENU = {
       color: Colors.mango,
       iconName: 'folder-open',
       screenName: NavigationRouteNames.NEW_ORDER
-      // screenName: NavigationRouteNames.CONFIRM_ADDRESS
 
     },
     {
@@ -148,14 +148,14 @@ const DRAWER_MENU = {
       iconName: 'pencil',
       screenName: NavigationRouteNames.AGGREGATOR_NEW_ORDERS,
     },
-   
+
     {
       name: 'Scheduled Order',
       color: Colors.mango,
       iconName: 'wpforms',
       screenName: NavigationRouteNames.AGGREGATOR_SCHEDULE_ORDER_LIST
     },
-  
+
     {
       name: 'Inventory',
       color: Colors.mango,
@@ -175,7 +175,7 @@ const DRAWER_MENU = {
       iconName: 'folder',
       screenName: NavigationRouteNames.COMPLETED_ORDER
     },
-    
+
     {
       name: 'Users',
       color: Colors.mango,
@@ -223,12 +223,12 @@ const DRAWER_MENU = {
       screenName: NavigationRouteNames.RECYCLER_SCHEDULED_ORDER_LIST
     },
 
-    // {
-    //   name: 'Inventory',
-    //   color: Colors.mango,
-    //   iconName: 'archive',
-    //   screenName: NavigationRouteNames.RECYCLER_INVENTORY
-    // },
+    {
+      name: 'Inventory',
+      color: Colors.mango,
+      iconName: 'archive',
+      screenName: NavigationRouteNames.INVENTORY
+    },
 
     {
       name: 'Work Orders',
@@ -236,7 +236,7 @@ const DRAWER_MENU = {
       iconName: 'folder',
       screenName: NavigationRouteNames.RECYCLER_WORK_ORDER_LIST
     },
-    
+
     {
       name: 'Completed Order',
       color: Colors.mango,
@@ -296,14 +296,14 @@ const USERS_ROLE_MENU = {
   seller: [
     {
       menuName: "New Order",
-      menu1image: require("../assets/Images/Dashboard/Group_9551.png"),
+      menu1image: pencilIcon,
       iconName: 'pencil',
       color: Colors.mango,
       screenName: NavigationRouteNames.NEW_ORDER,
     },
     {
       menuName: "Existing Order",
-      menu1image: require("../assets/Images/Dashboard/Group_9551.png"),
+      menu1image: pencilIcon,
       iconName: 'folder-open',
       color: Colors.mango,
       screenName: NavigationRouteNames.SELLER_MY_ORDER,
@@ -312,30 +312,30 @@ const USERS_ROLE_MENU = {
   admin: [
     {
       menuName: "New Order",
-      menu1image: require("../assets/Images/Dashboard/Group_9551.png"),
+      menu1image: pencilIcon,
       iconName: 'pencil',
       color: Colors.mango,
-      screenName:  NavigationRouteNames.ADMIN_NEW_ORDER_LIST,
+      screenName: NavigationRouteNames.ADMIN_NEW_ORDER_LIST,
     },
   ],
   aggregate: [
     {
       menuName: "New Order",
-      menu1image: require("../assets/Images/Dashboard/Group_9551.png"),
+      menu1image: pencilIcon,
       iconName: 'pencil',
       color: Colors.mango,
       screenName: NavigationRouteNames.AGGREGATOR_NEW_ORDERS,
     },
     {
       menuName: "Scheduled Order",
-      menu1image: require("../assets/Images/Dashboard/Group_9551.png"),
+      menu1image: pencilIcon,
       iconName: 'folder-open',
       color: Colors.mango,
       screenName: NavigationRouteNames.AGGREGATOR_SCHEDULE_ORDER_LIST,
     },
     {
       menuName: "Completed Work Order",
-      menu1image: require("../assets/Images/Dashboard/Group_9551.png"),
+      menu1image: pencilIcon,
       iconName: 'check-circle',
       color: Colors.green,
       screenName: NavigationRouteNames.COMPLETED_ORDER,
@@ -343,14 +343,14 @@ const USERS_ROLE_MENU = {
   ],
   recycler: [{
     menuName: "Work Order",
-    menu1image: require("../assets/Images/Dashboard/Group_9551.png"),
+    menu1image: pencilIcon,
     iconName: 'pencil',
     color: Colors.mango,
-    screenName: "",
+    screenName: NavigationRouteNames.RECYCLER_WORK_ORDER_LIST,
   }],
   EPR: [{
     menuName: "New Order",
-    menu1image: require("../assets/Images/Dashboard/Group_9551.png"),
+    menu1image: pencilIcon,
     iconName: 'pencil',
     color: Colors.mango,
     screenName: "",

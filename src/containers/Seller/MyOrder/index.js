@@ -6,7 +6,9 @@ import NavigationRouteNames from '../../../routes/ScreenNames';
 import { useNavigation } from '@react-navigation/core';
 import { useRoute } from '@react-navigation/native';
 import { AppStyles } from '../../../theme';
-import { MyOrder } from "./../PricingRequest/middleware";
+
+import { getNewOrder } from "../../../services/CommonController";
+
 import Colors from '../../../theme/Colors';
 
 import UserContext from '../../../appContainer/context/user.context';
@@ -33,19 +35,19 @@ function SellerMyOrder() {
   const navigation = useNavigation();
   const route = useRoute();
 
-  const { setLoader } = useContext(UserContext);
+  const { setLoader, userRole } = useContext(UserContext);
   const [orderList, setOrderList] = useState([])
 
   const [offset, setOffset] = useState(0);
   const [loadMore, setLoadMore] = useState(false);
 
-  const [totalCount, setTotalCount] = useState(5)
+  const [totalCount, setTotalCount] = useState(0)
   const [perPage, setPerPage] = useState(0)
 
   const [refreshPage, setRefreshPage] = useState(false)
 
-  const [{ data, loading, error }, onMyOrder] = MyOrder(offset);
- 
+  const [{ data, loading, error }, onMyOrder] = getNewOrder(userRole, offset);
+
   const screenNavigate = (item) => {
     navigation.navigate(NavigationRouteNames.SELLER_ORDER_DETAIL, { Item: item, getActionType: getActionType })
   }
@@ -57,12 +59,12 @@ function SellerMyOrder() {
     setLoader(true)
   }
   const triggerNewOrder = async () => {
-    try {    
-        const { data } = await onMyOrder({ data: {} });
-        setLoader(false)
-        setPerPage(data.data[0].links.per_page)
-        setTotalCount(data.data[0].links.total_count)
-        setOrderList(data.data[0].orderDetails)      
+    try {
+      const { data } = await onMyOrder({ data: {} });
+      setLoader(false)
+      setPerPage(data.data[0].links.per_page)
+      setTotalCount(data.data[0].links.total_count)
+      setOrderList(data.data[0].orderDetails)
     }
     catch (e) {
       console.log("Response error", e);
@@ -70,12 +72,12 @@ function SellerMyOrder() {
   };
 
   const triggerLoadMore = async () => {
-    try {      
-        const { data } = await onMyOrder({ data: {} });
-        let listData = orderList;
-        let data1 = listData.concat(data.data[0].orderDetails);
-        setLoadMore(false);
-        setOrderList([...data1]);      
+    try {
+      const { data } = await onMyOrder({ data: {} });
+      let listData = orderList;
+      let data1 = listData.concat(data.data[0].orderDetails);
+      setLoadMore(false);
+      setOrderList([...data1]);
     }
     catch (e) {
       console.log("Response error", e);
@@ -83,10 +85,16 @@ function SellerMyOrder() {
   };
 
   useEffect(() => {
+    if (error)
+      setLoader(false)
+  }, [error])
+
+
+  useEffect(() => {
     setLoader(true)
     triggerNewOrder();
     return () => {
-      setLoader(false)     
+      setLoader(false)
     }
   }, []);
 

@@ -129,13 +129,13 @@ function PaymentDetails() {
 
           <View style={[Styles.btnContainer, AppStyles.flexDir]}>
             <View style={AppStyles.flex1}>
-              <TouchableOpacity
+              <TouchableOpacity activeOpacity={0.8}
                 style={[Styles.aggregatebtn]}>
                 <Text style={[AppStyles.txtPrimaryRegular, AppStyles.f17, AppStyles.textalig, AppStyles.mt10]}>CANCEL</Text>
               </TouchableOpacity>
             </View>
             <View style={AppStyles.flex1}>
-              <TouchableOpacity
+              <TouchableOpacity activeOpacity={0.8}
                 style={[Styles.confirmbtn, AppStyles.mb20]}>
                 <Text style={[AppStyles.txtWhiteRegular, AppStyles.f17, AppStyles.textalig, AppStyles.mt10]}>CONFIRM</Text>
               </TouchableOpacity>

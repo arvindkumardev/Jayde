@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState, useLayoutEffect } from 'react';
-import { Platform, View, Text, Image, FlatList, ScrollView, TouchableOpacity, ActivityIndicator } from 'react-native';
+import { Platform, View, Text, Image, FlatList, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/core';
 import { useRoute } from '@react-navigation/native';
 import moment from 'moment';
@@ -30,8 +30,8 @@ function OwnedContracts() {
 
   const [offset, setOffset] = useState(0);
   const [loadMore, setLoadMore] = useState(false);
-  const [totalCount, setTotalCount] = useState(15);
-  const [perPage, setPerPage] = useState(15);
+   const [totalCount, setTotalCount] = useState(0)
+  const [perPage, setPerPage] = useState(15)
 
   const [arraydata, setArraydata] = useState([]);
 
@@ -52,6 +52,11 @@ function OwnedContracts() {
     }
   };
 
+  useEffect(() => {
+    if(error)
+    setLoader(false) 
+  }, [error])
+  
   useEffect(() => {
     setLoader(true);
     getOwnedContracts();
@@ -182,14 +187,6 @@ function OwnedContracts() {
             </View>
           </View>
 
-          <View style={[AppStyles.flexDir, AppStyles.mt14]}>
-            <View style={[AppStyles.flexpointone]}>
-              <Image style={Styles.lftimga} source={require('../../assets/Images/Users/noun_Recycle_3673532.png')} />
-            </View>
-            <View style={[AppStyles.flexpointnine]}>
-              <Text style={[AppStyles.ml10, AppStyles.txtSecandaryRegular, AppStyles.f13]}>{item.weight}</Text>
-            </View>
-          </View>
         </View>
       </TouchableOpacity>
     );

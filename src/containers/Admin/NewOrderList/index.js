@@ -5,7 +5,8 @@ import NavigationRouteNames from '../../../routes/ScreenNames';
 import { useNavigation } from '@react-navigation/core';
 import { useRoute } from '@react-navigation/native';
 import { AppStyles } from '../../../theme';
-import { adminNewOrder } from "../../../services/middleware/user";
+
+import { getNewOrder } from "../../../services/CommonController";
 
 import UserContext from '../../../appContainer/context/user.context';
 import moment from 'moment';
@@ -31,24 +32,24 @@ function AdminNewOrderList() {
   const navigation = useNavigation();
   const route = useRoute();
 
-  const { setLoader } = useContext(UserContext);
+  const { setLoader, userRole } = useContext(UserContext);
   const [adminOrderList, setAdminOrderList] = useState([])
 
   const [offset, setOffset] = useState(0);
   const [loadMore, setLoadMore] = useState(false);
   const [refreshPage, setRefreshPage] = useState(false)
 
-  const [totalCount, setTotalCount] = useState(5)
+  const [totalCount, setTotalCount] = useState(0)
   const [perPage, setPerPage] = useState(5)
 
-  const [{ data, loading, error }, onAdminNewOrder] = adminNewOrder(offset);
+  const [{ data, loading, error }, onAdminNewOrder] = getNewOrder(userRole, offset);
 
   const screenNavigate = (item) => {
     {
       item.is_confirmed == 2 ?
-      navigation.navigate(NavigationRouteNames.ORDER_ASSIGN, { Value: item, getActionType: getActionType })
-      :
-      navigation.navigate(NavigationRouteNames.ADMIN_NEW_ORDER, { Item: item, getActionType: getActionType })
+        navigation.navigate(NavigationRouteNames.ORDER_ASSIGN, { Value: item, getActionType: getActionType })
+        :
+        navigation.navigate(NavigationRouteNames.ADMIN_NEW_ORDER, { Item: item, getActionType: getActionType })
     }
   }
 
@@ -61,15 +62,11 @@ function AdminNewOrderList() {
 
   const triggerNewOrder = async () => {
     try {
-      const { data } = await onAdminNewOrder({ data: {} });
-      console.log("Response :", data.data[0].newOrders)
+      const { data } = await onAdminNewOrder({ data: {} });     
       setLoader(false)
       setPerPage(data.data[0].links.per_page)
       setTotalCount(data.data[0].links.total_count)
-      setAdminOrderList(data.data[0].newOrders)
-
-      //setOffset(offset + perPage);
-      //triggerLoadMore();           
+      setAdminOrderList(data.data[0].newOrders)      
     }
     catch (e) {
       console.log("Response error", e);
@@ -96,11 +93,18 @@ function AdminNewOrderList() {
       setRefreshPage(false)
     }
   }, [refreshPage])
-
+  
+  useEffect(() => {
+    if(error)
+    setLoader(false)
+  }, [error])
 
   useEffect(() => {
     setLoader(true)
     triggerNewOrder();
+    return () => {
+      setLoader(false)
+    }
   }, []);
 
   useEffect(() => {
@@ -127,6 +131,7 @@ function AdminNewOrderList() {
   const _RenderItem = (index, item) => {
     return (
       <TouchableOpacity
+        activeOpacity={0.8}
         key={index}
         onPress={() => screenNavigate(item)}>
         <View>
@@ -144,6 +149,7 @@ function AdminNewOrderList() {
             </View>
             <View style={[AppStyles.flexpointthree, AppStyles.ml35]}>
               <TouchableOpacity
+                activeOpacity = {0.8}
                 onPress={() => screenNavigate(item)}
                 style={AppStyles.confirmBtnSmall}>
                 <Text style={[AppStyles.txtWhiteRegular, AppStyles.f11,
@@ -189,7 +195,7 @@ function AdminNewOrderList() {
         }}
       />
         :
-        !loading && <EmptyView onBack = {() => navigation.pop()}></EmptyView>
+        !loading && <EmptyView onBack={() => navigation.pop()}></EmptyView>
       }
     </View>
   );

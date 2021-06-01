@@ -18,19 +18,25 @@ const styles = StyleSheet.create({
     marginLeft: 24,
     marginRight: 24,
   },
-  confirmbtn: {
+  saveButton: {
     backgroundColor: '#F7A435',
-    width: 150,
-    height: 44,
+    paddingHorizontal: 10,
+    paddingVertical: 11,
+    // width: 150,
+    // height: 44,
     borderRadius: 10,
+    marginLeft: 3,
   },
-  aggregatebtn: {
+  cancelButton: {
     backgroundColor: '#fff',
-    width: 150,
-    height: 44,
+    paddingHorizontal: 10,
+    paddingVertical: 10,
+    // width: 150,
+    // height: 44,
     borderRadius: 10,
     borderColor: '#F7A435',
     borderWidth: 1,
+    marginRight: 5,
   },
   inputText:{
     backgroundColor:'#e4e4e4',

@@ -36,7 +36,7 @@ function AggregatorScheduleOrderList() {
   const [offset, setOffset] = useState(0);
   const [loadMore, setLoadMore] = useState(false);
 
-  const [totalCount, setTotalCount] = useState(15)
+  const [totalCount, setTotalCount] = useState(0)
   const [perPage, setPerPage] = useState(15)
   const [refreshPage, setRefreshPage] = useState(false)
 
@@ -52,8 +52,7 @@ function AggregatorScheduleOrderList() {
   const getOrderList = async () => {
     try {
       const { data } = await onGetOrder({ data: {} });
-      setLoader(false)
-      //console.log("Response from login ", data.data[0].newOrders)
+      setLoader(false)     
       setOrderList(data.data[0].newOrders)
       setPerPage(data.data[0].links.per_page)
       setTotalCount(data.data[0].links.total_count)
@@ -75,13 +74,21 @@ function AggregatorScheduleOrderList() {
   };
 
   useEffect(() => {
+    if (error)
+      setLoader(false)
+  }, [error])
+  
+  useEffect(() => {
     setLoader(true)
     getOrderList();
+    return () => {
+      setLoader(false)
+    }
   }, []);
 
-  useEffect(() => {   
-    if(refreshPage){
-      setOrderList([])      
+  useEffect(() => {
+    if (refreshPage) {
+      setOrderList([])
       getOrderList()
       setRefreshPage(false)
     }
@@ -94,10 +101,12 @@ function AggregatorScheduleOrderList() {
   const screenNavigate = (item) => {
     {
       item.assigned_status == '1' &&
-      navigation.navigate(NavigationRouteNames.PAYMENT_VERIFICATION, 
-      { 'assignedID': item.assigned_id, 
-      getActionType: getActionType,
-      WhereFrom: NavigationRouteNames.AGGREGATOR_SCHEDULE_ORDER_LIST });
+        navigation.navigate(NavigationRouteNames.PAYMENT_VERIFICATION,
+          {
+            'assignedID': item.assigned_id,
+            getActionType: getActionType,
+            WhereFrom: NavigationRouteNames.AGGREGATOR_SCHEDULE_ORDER_LIST
+          });
     }
   }
 
@@ -139,7 +148,9 @@ function AggregatorScheduleOrderList() {
   }
   const _RenderItem = (index, item) => {
     return (
-      <TouchableOpacity onPress={() => screenNavigate(item)}>
+      <TouchableOpacity
+        activeOpacity={0.8}
+        onPress={() => screenNavigate(item)}>
         <View style={[AppStyles.flexDir, AppStyles.mt20, AppStyles.ph10]}>
           <View style={[AppStyles.flexpointtwo]}>
             <Image source={ORDER_IMAGE[item.category_name]} />
@@ -153,6 +164,7 @@ function AggregatorScheduleOrderList() {
 
           {item.assigned_status == '1' ? <View style={[AppStyles.flexpointthree, AppStyles.mt5, AppStyles.alignCenter]}>
             <TouchableOpacity
+              activeOpacity={0.8}
               onPress={() => screenNavigate(item)}
               style={Styles.confirmBtn}>
               <Text style={[AppStyles.txtWhiteRegular, AppStyles.f11, AppStyles.textalig,]}>VIEW</Text>

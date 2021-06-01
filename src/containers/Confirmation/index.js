@@ -1,6 +1,6 @@
-import React, {useContext, useEffect, useLayoutEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import * as Alert from 'react-native';
-import {KeyboardAvoidingView, Platform, TouchableOpacity, View, Text, Image, TextInput, FlatList, ScrollView} from 'react-native';
+import {TouchableOpacity, View, Text, Image, ScrollView} from 'react-native';
 import Styles from "./styles";
 import {AppStyles} from "../../theme";
 import styles from '../../components/CustomImage/style';
@@ -92,7 +92,7 @@ function Confirmation() {
       </View> 
 
         <View style={[AppStyles.flex1, Styles.tbut]}>
-            <TouchableOpacity style={[AppStyles.mt30, AppStyles.pv11, AppStyles.aligncen, AppStyles.br13,  AppStyles.btnPrimary]} 
+            <TouchableOpacity activeOpacity = {0.8} style={[AppStyles.mt30, AppStyles.pv11, AppStyles.aligncen, AppStyles.br13,  AppStyles.btnPrimary]} 
               onPress={() => {screenNavigate()}}>
                 <Text style={[AppStyles.f18, AppStyles.whitecolor]}>GO TO HOME</Text>
               </TouchableOpacity>

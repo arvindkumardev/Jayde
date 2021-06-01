@@ -1,10 +1,9 @@
 import React, { useContext, useEffect, useState } from 'react';
-import * as Alert from 'react-native';
 import { TouchableOpacity, View, Text, Image, FlatList, ScrollView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import NavigationRouteNames from '../../../routes/ScreenNames';
 import { AppStyles, Colors } from '../../../theme';
-import { getCategories } from './../PricingRequest/middleware';
+import { getCategories } from './../../../services/CommonController';
 import UserContext from '../../../appContainer/context/user.context';
 import Styles from './styles';
 import { setCategory } from '../../../utils/Global'
@@ -29,6 +28,11 @@ function OrderType() {
   const [categories, setCategories] = useState([]);
   const [{ data, loading, error }, onGetCategories] = getCategories();
 
+  useEffect(() => {
+    if (error)
+      setLoader(false)
+  }, [error])
+  
   useEffect(() => {
     onGetCategories();
     return () => {

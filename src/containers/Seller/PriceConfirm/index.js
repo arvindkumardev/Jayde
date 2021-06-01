@@ -6,7 +6,7 @@ import Styles from "./styles";
 import NavigationRouteNames from '../../../routes/ScreenNames';
 import { Fonts, Colors, AppStyles } from '../../../theme';
 import { getQuoteData, getImageName } from '../../../utils/Global'
-import { createQuote, addOrder } from './../PricingRequest/middleware';
+import { createQuote, addOrder } from '../Middleware';
 import UserContext from '../../../appContainer/context/user.context';
 import NavClose from './../../../components/HeaderLeft'
 
@@ -17,8 +17,8 @@ const PriceConfirm = () => {
   const [schedulePick, setSchedulePick] = useState("");
   const { setLoader } = useContext(UserContext);
 
-  const [{ data: quoteData, loading, error }, onSubmitQuote] = createQuote(getQuoteData().category_name);
-  const [{ data: orderData, loading: orderLoading }, onAddOrder] = addOrder(getQuoteData().category_name);
+  const [{ data: quoteData }, onSubmitQuote] = createQuote(getQuoteData().category_name);
+  const [{ data: orderData, loading: orderLoading, error }, onAddOrder] = addOrder(getQuoteData().category_name);
 
   useLayoutEffect(() => {
     const { title } = route.params;
@@ -26,7 +26,7 @@ const PriceConfirm = () => {
     setSchedulePick(status);
     navigation.setOptions({
       title,
-      headerLeft: () => <NavClose onClose = {() => navigation.pop()}></NavClose>,
+      headerLeft: () => <NavClose onClose={() => navigation.pop()}></NavClose>,
     });
   }, [navigation]);
 
@@ -35,11 +35,16 @@ const PriceConfirm = () => {
   };
 
   useEffect(() => {
+    if (error)
+      setLoader(false)
+  }, [error])
+
+  useEffect(() => {
     setLoader(loading);
     if (quoteData && quoteData.status) {
     }
     return () => {
-      setLoader(false)     
+      setLoader(false)
     }
   }, [quoteData, loading]);
 
@@ -74,8 +79,6 @@ const PriceConfirm = () => {
       navigation.navigate(NavigationRouteNames.CONFIRM_ADDRESS);
     }
   };
-
-
 
   return (
     <View style={[Styles.screenContainer,]}>

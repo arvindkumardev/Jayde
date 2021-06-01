@@ -1,20 +1,20 @@
-import React, { useContext, useState } from 'react';
-import { Platform, TouchableOpacity, View, Text, Image, SafeAreaView } from 'react-native';
-import * as Yup from 'yup';
+import React, { useContext, useEffect, useState } from 'react';
+import { Platform, TouchableOpacity, View, Text, Image } from 'react-native';
+import * as Yup from "yup";
 import { useFormik } from 'formik';
 import { useNavigation } from '@react-navigation/core';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import Checkbox from '@react-native-community/checkbox';
 import Colors from '../../theme/Colors';
 import { CustomTextInput } from '../../components';
-import { isValidUserName, RfH, RfW } from '../../utils/helpers';
+import { isValidUserName, RfH, RfW, storeData } from '../../utils/helpers';
 import CustomText from '../../components/CustomText';
 import Images from '../../theme/Images';
 import NavigationRouteNames from '../../routes/ScreenNames';
-import UserContext from './user.context';
+import UserContext from './../../appContainer/context/user.context';
 import styles from './styles';
 import commonStyles from '../../theme/commonStyles';
-import { AppStyles } from '../../theme';
+import { AppStyles } from "../../theme";
 import { signUp } from './middleware';
 import DropDown from '../../components/Picker/index';
 
@@ -45,25 +45,30 @@ function SignUp() {
   const [{ data, loading, error }, onSignUp] = signUp();
 
   const confirmSignup = async (name, username, password, phoneno, businesstype) => {
-    setLoader(true);
-    const { data } = await onSignUp({
-      data: {
-        name,
-        email: username,
-        phone: phoneno,
-        password,
-        businessType: businesstype,
-      },
-    });
+    setLoader(true)
+    try {
+      const { data } = await onSignUp({
+        data: {
+          name: name,
+          email: username,
+          phone: phoneno,
+          password: password,
+          businessType: businesstype,
+        },
+      });
 
-    console.log(data);
-    if (data.status) {
-      alert(data.message);
-      screenNavigate();
-    } else {
-      alert(data.message);
+      console.log(data)
+      if (data.status) {
+        alert(data.message)
+        screenNavigate()
+      } else {
+        alert(data.message)
+      }
+      setLoader(false)
+    } catch (e) {
+      console.log('Response error', e);
     }
-    setLoader(false);
+
   };
 
   const validationSchema = Yup.object().shape({
@@ -116,21 +121,32 @@ function SignUp() {
     inputs[id] ? inputs[id].focus() : null;
   };
 
+  useEffect(() => {
+    if (error)
+      setLoader(false)
+  }, [error])
+
+  useEffect(() => {
+    return () => {
+      setLoader(false)
+    }
+  })
+
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: Colors.mango }}>
+    <View style={{ flex: 1, backgroundColor: Colors.mango }}>
       <KeyboardAwareScrollView
         style={{ flex: 1 }}
         behavior={Platform.select({ android: 'height', ios: 'padding' })}
         enabled>
         <View style={AppStyles.flex1}>
           <View style={[AppStyles.ml20, AppStyles.mt20]}>
-            <TouchableOpacity onPress={() => screenNavigate()}>
+            <TouchableOpacity activeOpacity={0.8} onPress={() => screenNavigate()}>
               <Image source={leftArrowImg} />
             </TouchableOpacity>
           </View>
 
           <View style={[AppStyles.mt40, AppStyles.aligncen]}>
-            <Image source={logoImg} resizeMode="contain" />
+            <Image source={logoImg} resizeMode='contain' />
           </View>
 
           <View style={[AppStyles.mt20, AppStyles.aligncen]}>
@@ -143,10 +159,12 @@ function SignUp() {
               inputLabelStyle={commonStyles.inputLabelStyle}
               placeholder="Please Enter Your Name"
               value={loginForm.values.name}
-              onChangeHandler={(value) => loginForm.setFieldValue('name', value)}
-              returnKeyType="next"
-              keyboardType="default"
-              onSubmitEditing={() => onSubmitEditing('Email')}
+              onChangeHandler={(value) =>
+                loginForm.setFieldValue('name', value)
+              }
+              returnKeyType={"next"}
+              keyboardType='default'
+              onSubmitEditing={() => onSubmitEditing("Email")}
               error={clickLogin && loginForm.errors.name}
             />
             <CustomTextInput
@@ -155,10 +173,12 @@ function SignUp() {
               inputLabelStyle={commonStyles.inputLabelStyle}
               placeholder="Please Enter Your Email"
               value={loginForm.values.username}
-              onChangeHandler={(value) => loginForm.setFieldValue('username', value)}
-              keyboardType="email-address"
-              returnKeyType="next"
-              onSubmitEditing={() => onSubmitEditing('password')}
+              onChangeHandler={(value) =>
+                loginForm.setFieldValue('username', value)
+              }
+              keyboardType='email-address'
+              returnKeyType={"next"}
+              onSubmitEditing={() => onSubmitEditing("password")}
               error={clickLogin && loginForm.errors.username}
             />
             <CustomTextInput
@@ -236,8 +256,7 @@ function SignUp() {
             </View>
 
             <View style={{ marginTop: RfH(10) }}>
-              <TouchableOpacity
-                style={[AppStyles.mt20, AppStyles.br10, AppStyles.btnPrimary, AppStyles.pv15, AppStyles.aligncen]}
+              <TouchableOpacity activeOpacity={0.8} style={[AppStyles.mt20, AppStyles.br10, AppStyles.btnPrimary, AppStyles.pv15, AppStyles.aligncen]}
                 onPress={() => handleSignup()}>
                 <Text style={[AppStyles.f18, AppStyles.txtWhiteRegular]}>CONFIRM</Text>
               </TouchableOpacity>
@@ -245,7 +264,7 @@ function SignUp() {
           </View>
         </View>
       </KeyboardAwareScrollView>
-    </SafeAreaView>
+    </View>
   );
 }
 export default SignUp;

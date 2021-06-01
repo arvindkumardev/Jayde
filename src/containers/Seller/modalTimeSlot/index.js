@@ -33,9 +33,7 @@ function PickupDate (props) {
         date: customDate,
         time: `${fromTime} ${toTime}`
       }
-      // route.params.getTimeSlot(param)
-      // navigation.goBack()
-      Data(param)
+      Data(param) // Send Values
     } else {
       let param = {
         date: timeSlotIndex > 1 ? getAfterDay_Formatted() : getDayAfter_Formatted(),
@@ -44,9 +42,7 @@ function PickupDate (props) {
             : timeSlotIndex == 2 ? '11:00 AM 1:00 PM'
               : '3:00 PM 5:00 PM'
       }
-      Data(param)
-      // route.params.getTimeSlot(param)
-      // navigation.goBack()
+      Data(param) // Send Values
     }
   };
 
@@ -153,9 +149,7 @@ function PickupDate (props) {
           label="Customize Time Slot"
           labelStyle={{ color: "black", fontFamily: "Poppins-SemiBold", fontSize: 15, marginRight: 95, marginLeft: 0, }}
           size="large"
-          onToggle={isOn => setIsEnabled(!isEnabled)
-            // console.log("changed to : ", isOn)
-          }
+          onToggle={isOn => setIsEnabled(!isEnabled)}
         />
 
         {/* Start Toggle View */}

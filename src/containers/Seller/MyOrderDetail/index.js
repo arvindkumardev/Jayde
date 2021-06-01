@@ -9,9 +9,8 @@ import { useNavigation } from '@react-navigation/core';
 import { useRoute } from '@react-navigation/native';
 import { AppStyles } from '../../../theme';
 import moment from 'moment';
-import { confirmOrder } from "./../PricingRequest/middleware";
+import { confirmOrder } from '../Middleware';
 import UserContext from '../../../appContainer/context/user.context';
-
 
 function SellerOrderDetail() {
   const navigation = useNavigation();
@@ -22,9 +21,15 @@ function SellerOrderDetail() {
   const [{ data: rescheduleData, loading, error }, onConfirmOrder] = confirmOrder(item);
 
   useEffect(() => {
+    if (error)
+      setLoader(false)
+  }, [error])
+
+
+  useEffect(() => {
     setLoader(loading)
     return () => {
-      setLoader(false)     
+      setLoader(false)
     }
   }, [loading, rescheduleData])
 
@@ -56,11 +61,9 @@ function SellerOrderDetail() {
     setLoader(false);
   }
 
-
   return (
     <View style={Styles.mainVu}>
       <ScrollView>
-
         <View style={AppStyles.aligncen}>
           <Text style={[AppStyles.txtBlackBold, AppStyles.f17, AppStyles.mt30,]}>Ref No- {item.order_no}</Text>
         </View>
@@ -98,7 +101,7 @@ function SellerOrderDetail() {
               <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f15, AppStyles.mt10, AppStyles.ml20]}>City</Text>
             </View>
             <View style={[AppStyles.flexpointfour, AppStyles.alignfend]}>
-              <Text style={[AppStyles.txtBlackRegular, AppStyles.f15, AppStyles.mt10, AppStyles.mr20]}>{item.city}</Text>
+              <Text style={[AppStyles.txtBlackRegular, AppStyles.f15, AppStyles.mt10, AppStyles.textAlignRight, AppStyles.mr20]}>{item.city}</Text>
             </View>
           </View>
 
@@ -107,7 +110,7 @@ function SellerOrderDetail() {
               <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f15, AppStyles.mt10, AppStyles.ml20]}>Landmark</Text>
             </View>
             <View style={[AppStyles.flexpointsix, AppStyles.alignfend]}>
-              <Text style={[AppStyles.txtBlackRegular, AppStyles.f15, AppStyles.mt10, AppStyles.mr20]}>{item.landmark}</Text>
+              <Text style={[AppStyles.txtBlackRegular, AppStyles.f15, AppStyles.mt10, AppStyles.textAlignRight, AppStyles.mr20]}>{item.landmark}</Text>
             </View>
           </View>
 
@@ -144,7 +147,6 @@ function SellerOrderDetail() {
           </View>
         </View>
 
-
         {item.assigned_status == 2 ?
           <View style={[AppStyles.flex1, Styles.btnContainer]}>
             <TouchableOpacity
@@ -177,8 +179,6 @@ function SellerOrderDetail() {
             </View>
         }
       </ScrollView>
-
-
     </View>
   );
 }

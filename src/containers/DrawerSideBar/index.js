@@ -11,16 +11,13 @@ import { removeData, getSaveData } from '../../utils/helpers';
 import { LOCAL_STORAGE_DATA_KEY } from '../../utils/constants';
 import UserContext from '../../appContainer/context/user.context';
 import { DRAWER_MENU } from "../../routes/constants";
-// import React, { useContext, useEffect } from "react";
 
-const newLocal = '../../assets/Images/Login/Mask_Group_28.png';
-
+import newLocal from '../../assets/Images/Login/Mask_Group_28.png';
 
 const DrawerSideBar = (props) => {
     const [name, setName] = useState("");
     const { navigation } = props;
     const { userRole, setLogin, setUserObj } = useContext(UserContext);
-    //console.log("userdata",JSON.stringyfy(setUserObj))
 
     useEffect(() => {
         async function getUserName() {
@@ -34,41 +31,39 @@ const DrawerSideBar = (props) => {
         navigation.navigate(NavigationRouteNames.UPDATE_PROFILE);
     }
 
-
     const handleUserLogout = async () => {
         await removeData(LOCAL_STORAGE_DATA_KEY.JWT_TOKEN);
         await removeData(LOCAL_STORAGE_DATA_KEY.USER_ROLE);
         // await removeData(LOCAL_STORAGE_DATA_KEY.USER_NAME);
-        setLogin(false); // Error Here
+        setLogin(false);
     };
     const onNavigation = (screenName) => {
         if (screenName === 'logout') {
             handleUserLogout();
-        }
-        else {
+        } else {
             navigation.navigate(screenName)
         }
     }
-    const onRenderMenu = (item) => {
+    const onRenderMenu = (index, item) => {
         return (
-            <View style={Styles.menuItemContainer}>
-                <TouchableOpacity onPress={() => onNavigation(item.item.screenName)}>
+            <View key={index} style={Styles.menuItemContainer}>
+                <TouchableOpacity activeOpacity={0.8} onPress={() => onNavigation(item.screenName)}>
                     <View style={{ flexDirection: 'row' }}>
-                        <FAIcon name={item.item.iconName} size={20} style={AppStyles.mr20} color={item.item.color} />
-                        <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f16]}>{item.item.name}</Text>
+                        <FAIcon name={item.iconName} size={20} style={AppStyles.mr20} color={item.color} />
+                        <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f16]}>{item.name}</Text>
                     </View>
                 </TouchableOpacity>
             </View>
         )
     }
     return (
-        <ScrollView>
+        <ScrollView showsVerticalScrollIndicator={false}>
             <View>
                 <View style={Styles.userSectionContainer}>
                     <View style={[AppStyles.ml10, AppStyles.mr10]}>
-                        <Image source={require(newLocal)} width={50} height={50} />
+                        <Image source={newLocal} width={50} height={50} />
                     </View>
-                    <View style = {[AppStyles.flex1, AppStyles.mr10]}>
+                    <View style={[AppStyles.flex1, AppStyles.mr10]}>
                         <Text style={[AppStyles.txtBlackBold, AppStyles.f18,]}>{name}</Text>
                         <TouchableOpacity
                             activeOpacity={0.8}
@@ -79,7 +74,7 @@ const DrawerSideBar = (props) => {
                 </View>
                 <FlatList
                     data={DRAWER_MENU[userRole]}
-                    renderItem={onRenderMenu}
+                    renderItem={({ index, item }) => onRenderMenu(index, item)}
                 />
             </View>
         </ScrollView>

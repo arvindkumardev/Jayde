@@ -6,7 +6,7 @@ import NavigationRouteNames from '../../../routes/ScreenNames';
 import { useNavigation } from '@react-navigation/core';
 import { useRoute } from '@react-navigation/native';
 import { AppStyles } from '../../../theme';
-import { getAggregatorInventory } from '../../../services/middleware/user';
+import { getInventory } from '../Middelware';
 import FooterLoader from "../../../appContainer/footerLoader";
 import EmptyView from '../../../appContainer/EmptyView'
 
@@ -30,22 +30,22 @@ function Inventory() {
   const navigation = useNavigation();
   const route = useRoute();
 
-  const { setLoader } = useContext(UserContext);
+  const { setLoader, userRole } = useContext(UserContext);
   const [offset, setOffset] = useState(0);
   const [loadMore, setLoadMore] = useState(false);
-  const [totalCount, setTotalCount] = useState(5)
+  const [totalCount, setTotalCount] = useState(0)
   const [perPage, setPerPage] = useState(0)
   const [inventoryList, setInventoryList] = useState([])
   const [refreshPage, setRefreshPage] = useState(false)
 
-  const [{ data, loading, error }, onGetAggregatorInventory] = getAggregatorInventory(offset);
+  const [{ data, loading, error }, onGetInventory] = getInventory(userRole, offset);
 
   const screenNavigate = (item, btnstatus) => {
     navigation.navigate(NavigationRouteNames.NEW_WORKORDER, { status: btnstatus, item });
   }
-  const aggregatorInventory = async () => {
+  const handleInventory = async () => {
     try {
-      const { data } = await onGetAggregatorInventory();
+      const { data } = await onGetInventory();
       setLoader(false)
       console.log("Response :", data, data.data[0].inventory)
       setPerPage(data.data[0].links.per_page)
@@ -57,6 +57,11 @@ function Inventory() {
     }
   };
 
+  useEffect(() => {
+    if (error)
+      setLoader(false)
+  }, [error])
+  
   const loadMoreResults = async info => {
     if (loadMore)
       return
@@ -74,7 +79,7 @@ function Inventory() {
 
   const triggerLoadMore = async () => {
     try {
-      const { data } = await onGetAggregatorInventory();
+      const { data } = await onGetInventory();
       console.log('triggerLoadMore data: ', data);
       let listData = inventoryList;
       let data1 = listData.concat(data.data[0].inventory);
@@ -92,13 +97,16 @@ function Inventory() {
 
   useEffect(() => {
     setLoader(true)
-    aggregatorInventory();
+    handleInventory();
+    return () => {
+      setLoader(false)
+    }
   }, []);
 
   useEffect(() => {
     if (refreshPage) {
       setInventoryList([])
-      aggregatorInventory()
+      handleInventory()
       setRefreshPage(false)
     }
   }, [refreshPage])
@@ -119,13 +127,13 @@ function Inventory() {
 
         <View style={[Styles.btnContainer, AppStyles.flexDir]}>
           <View style={AppStyles.flex1}>
-            <TouchableOpacity
+            <TouchableOpacity activeOpacity={0.8}
               style={[Styles.aggregatebtn]} onPress={() => screenNavigate(item, 1)}>
               <Text style={[AppStyles.txtPrimaryRegular, AppStyles.f17, AppStyles.textalig, AppStyles.mt10]}>AGGREGATOR</Text>
             </TouchableOpacity>
           </View>
           <View style={AppStyles.flex1}>
-            <TouchableOpacity
+            <TouchableOpacity activeOpacity={0.8}
               style={[Styles.confirmbtn, AppStyles.mb20]} onPress={() => screenNavigate(item, 0)}>
               <Text style={[AppStyles.txtWhiteRegular, AppStyles.f17, AppStyles.textalig, AppStyles.mt10]}>RECYCLER</Text>
             </TouchableOpacity>
@@ -156,7 +164,7 @@ function Inventory() {
         }}
       />
         :
-        !loading && <EmptyView onBack = {() => navigation.pop()}></EmptyView>
+        !loading && <EmptyView onBack={() => navigation.pop()}></EmptyView>
       }
     </View>
   );

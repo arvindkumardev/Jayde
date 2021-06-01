@@ -36,7 +36,7 @@ function AggregatorWorkOrderList() {
   const [offset, setOffset] = useState(0);
   const [loadMore, setLoadMore] = useState(false);
 
-  const [totalCount, setTotalCount] = useState(5)
+  const [totalCount, setTotalCount] = useState(0)
   const [perPage, setPerPage] = useState(0)
 
   const [refreshPage, setRefreshPage] = useState(false)
@@ -67,9 +67,7 @@ function AggregatorWorkOrderList() {
       console.log("Response :", data.data[0])
       setPerPage(data.data[0].links.per_page)
       setTotalCount(data.data[0].links.total_count)
-      setOrderList(data.data[0].newOrders)
-
-      //setOffset(offset + data.data[0].links.per_page);                     
+      setOrderList(data.data[0].newOrders)                         
     }
     catch (e) {
       console.log("Response error", e);
@@ -91,8 +89,16 @@ function AggregatorWorkOrderList() {
   };
 
   useEffect(() => {
+    if (error)
+      setLoader(false)
+  }, [error])
+  
+  useEffect(() => {
     setLoader(true)
     workOrder();
+    return () => {
+      setLoader(false)
+    }
   }, []);
 
   useEffect(() => {
@@ -123,6 +129,7 @@ function AggregatorWorkOrderList() {
   const _RenderItem = (index, item) => {
     return (
       <TouchableOpacity
+        activeOpacity = {0.8}
         key={index}
         onPress={() => screenNavigate()}>
         <View>

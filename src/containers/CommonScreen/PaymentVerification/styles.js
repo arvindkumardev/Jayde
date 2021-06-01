@@ -3,9 +3,9 @@ import Fonts from "../../../theme/Fonts";
 import { Colors } from '../../../theme';
 
 const styles = StyleSheet.create({
-  confirmButtonnabcd:{
+  btnConfirmPickup:{
     borderRadius: 10,
-    backgroundColor:Colors.grayBackground,
+    backgroundColor:Colors.mangoTwo,
     height: 44,
     width: 315,
     alignItems:'center',

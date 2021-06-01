@@ -8,7 +8,6 @@ import NavigationRouteNames from './ScreenNames';
 import {View} from 'react-native';
 import styles from './styles';
 import CommingSoon from '../containers/ComingSoon';
-import Profile from "../containers/Profile";
 
 const BottomTab = createBottomTabNavigator();
 const BottomTabStack = () => {
@@ -83,7 +82,7 @@ const BottomTabStack = () => {
       <BottomTab.Screen
         name={NavigationRouteNames.PROFILE}
         options={{tabBarLabel: 'Profile'}}
-        component={Profile}
+        component={CommingSoon}
       />
     </BottomTab.Navigator>
   );

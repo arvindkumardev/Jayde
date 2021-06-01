@@ -36,7 +36,6 @@ const NavigationRouteNames = {
   CALL_REQUEST: "CallRequest",
   WORKORDER_DETAILS: "WorkOrderDetails",
   PAYMENT: "Payment",
-  PICKUPDETAILS_CONFIRMATION: "PickupDetailsConfirmation",
 
   NEW_ORDER: "OrderType",
   SELLER_MY_ORDER: 'SellerMyOrder',
@@ -47,9 +46,7 @@ const NavigationRouteNames = {
   LOGIN_WITH_EMAIL: "LoginWithEmail",
   HOME_SCREEN: "HomeScreen",
   NEW_ORDER_REQUEST: "New Order",
-  ADD_SUBCATEGORY: "AddSubCategory",
 
-  VIEW_NEW_ORDER: "ViewNewOrder",
   CONFIRMATION: "Confirmation",
   WORK_ORDER_CONFIRMATION: "WorkOrderConfirmation",
 
@@ -75,7 +72,7 @@ const NavigationRouteNames = {
 
   INVENTORY: "Inventory",
   RECYCLER_INVENTORY: "RecyclerInventory",
-  RECYCLER_NEW_WORKORDER: "RecyclerNewWorkOrder",
+  
   RECYCLER_NEW_ORDER_LIST: "RecyclerNewOrderList",
   RECYCLER_SCHEDULED_ORDER_LIST: "RecyclerScheduleOrderList",
   RECYCLER_WORK_ORDER_LIST: 'RecyclerWorkOrderList',

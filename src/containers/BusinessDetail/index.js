@@ -1,6 +1,5 @@
-import React, { useContext, useEffect, useState, useLayoutEffect } from 'react';
-import { Alert } from 'react-native';
-import { KeyboardAvoidingView, Platform, TouchableOpacity, View, Text, TextInput, ScrollView } from 'react-native';
+import React, { useContext, useEffect, useState, useLayoutEffect, useRef } from 'react';
+import { TouchableOpacity, View, Text, TextInput, ScrollView } from 'react-native';
 import Styles from './styles';
 import CustomText from '../../components/CustomText';
 import NavigationRouteNames from '../../routes/ScreenNames';
@@ -18,14 +17,18 @@ import { useRoute } from '@react-navigation/native';
 function BusinessDetail() {
   const navigation = useNavigation();
   const route = useRoute();
-  const [unitPickerData, setUnitData] = useState([]);
-  const [unit, setUnit] = useState('');
-  const [item, setItem] = useState({});
+
+  const refBusinessName = useRef(null);
+  const refAddress = useRef(null);
+  const refCity = useRef(null);
+  const refPinCode = useRef(null);
+  const refGSTIN = useRef(null);
+  const refPAN = useRef(null);
+
   const [clickLogin, setClickLogin] = useState(false);
-  const [businessData, setBusinessData] = useState();
   const { setLoader } = useContext(UserContext);
-  const [{ data, loading, error }, onBusinessUpdate] = businessUpdate();
-  const [{ getdata, getloading, geterror }, onGetBusinessProfile] = getBusinessProfile();
+  const [{ data, loading, error: updateError }, onBusinessUpdate] = businessUpdate();
+  const [{ data: getdata, loading: profileLoading, error: profileError }, onGetBusinessProfile] = getBusinessProfile();
 
   const getBusinessData = async () => {
     try {
@@ -44,8 +47,21 @@ function BusinessDetail() {
   };
 
   useEffect(() => {
+    if (updateError)
+      setLoader(false)
+  }, [updateError])
+
+  useEffect(() => {
+    if (profileError)
+      setLoader(false)
+  }, [profileError])
+
+  useEffect(() => {
     setLoader(true);
     getBusinessData();
+    return () => {
+      setLoader(false)
+    }
   }, []);
 
   const confirmBusinessUpdate = async (businessname, address, city, pincode, gstin, pan) => {
@@ -131,7 +147,11 @@ function BusinessDetail() {
             <View style={[AppStyles.mt30, AppStyles.ml24, AppStyles.mr24]}>
               <Text style={[AppStyles.txtBlackRegular, AppStyles.f15, AppStyles.mb6]}>Name</Text>
               <View>
-                <TextInput placeholder="Name" style={AppStyles.inputTxtStyle} />
+                <TextInput placeholder="Name"
+                  style={AppStyles.inputTxtStyle}
+                  returnKeyType='next'
+                  onSubmitEditing={() => refBusinessName.current?.focus()}
+                />
               </View>
             </View>
 
@@ -139,11 +159,13 @@ function BusinessDetail() {
               <Text style={[AppStyles.txtBlackRegular, AppStyles.f15, AppStyles.mb6]}>Business Name</Text>
               <View>
                 <TextInput
+                  ref={refBusinessName}
                   placeholder={'Business Name'}
                   style={AppStyles.inputTxtStyle}
                   value={businessForm.values.businessname}
-                  // value={item.business_name}
                   onChangeText={(txt) => businessForm.setFieldValue('businessname', txt)}
+                  returnKeyType='next'
+                  onSubmitEditing={() => refAddress.current?.focus()}
                 />
                 {clickLogin && businessForm.errors.businessname ? (
                   <CustomText fontSize={15} color={Colors.red} styling={{ marginTop: RfH(10) }}>
@@ -158,10 +180,13 @@ function BusinessDetail() {
                 <Text style={[AppStyles.txtBlackRegular, AppStyles.f15, AppStyles.mb6]}>Address</Text>
               </View>
               <TextInput
+                ref={refAddress}
                 placeholder={'Address'}
                 style={AppStyles.inputTxtStyle}
                 value={businessForm.values.address}
                 onChangeText={(txt) => businessForm.setFieldValue('address', txt)}
+                returnKeyType='next'
+                onSubmitEditing={() => refCity.current?.focus()}
               />
               {clickLogin && businessForm.errors.address ? (
                 <CustomText fontSize={15} color={Colors.red} styling={{ marginTop: RfH(10) }}>
@@ -175,10 +200,13 @@ function BusinessDetail() {
                 <Text style={[AppStyles.txtBlackRegular, AppStyles.ml24, AppStyles.f15, AppStyles.mb6]}>City</Text>
                 <View style={(AppStyles.flex1, AppStyles.ml24)}>
                   <TextInput
+                    ref={refCity}
                     placeholder={'Hyderabad'}
                     style={AppStyles.inputTxtStyle}
                     value={businessForm.values.city}
                     onChangeText={(txt) => businessForm.setFieldValue('city', txt)}
+                    returnKeyType='next'
+                    onSubmitEditing={() => refPinCode.current?.focus()}
                   />
                   {clickLogin && businessForm.errors.city ? (
                     <CustomText fontSize={15} color={Colors.red} styling={{ marginTop: RfH(10) }}>
@@ -191,11 +219,15 @@ function BusinessDetail() {
                 <Text style={[AppStyles.txtBlackRegular, AppStyles.ml10, AppStyles.f15, AppStyles.mb6]}>Pincode</Text>
                 <View style={[AppStyles.flex1, AppStyles.ml5]}>
                   <TextInput
+                    ref={refPinCode}
                     placeholder={'110004'}
                     style={Styles.inputTextcity}
                     keyboardType={'numeric'}
+                    maxLength={6}
                     value={businessForm.values.pincode}
                     onChangeText={(txt) => businessForm.setFieldValue('pincode', txt)}
+                    returnKeyType='next'
+                    onSubmitEditing={() => refGSTIN.current?.focus()}
                   />
                   {clickLogin && businessForm.errors.pincode ? (
                     <CustomText fontSize={15} color={Colors.red} styling={{ marginTop: RfH(10) }}>
@@ -211,10 +243,13 @@ function BusinessDetail() {
                 <Text style={[AppStyles.txtBlackRegular, AppStyles.f15, AppStyles.mb6]}>GSTIN</Text>
               </View>
               <TextInput
+                ref={refGSTIN}
                 placeholder={'GST Details'}
                 style={AppStyles.inputTxtStyle}
                 value={businessForm.values.gstin}
                 onChangeText={(txt) => businessForm.setFieldValue('gstin', txt)}
+                returnKeyType='next'
+                onSubmitEditing={() => refPAN.current?.focus()}
               />
               {clickLogin && businessForm.errors.gstin ? (
                 <CustomText fontSize={15} color={Colors.red} styling={{ marginTop: RfH(10) }}>
@@ -228,10 +263,13 @@ function BusinessDetail() {
                 <Text style={[AppStyles.txtBlackRegular, AppStyles.f15, AppStyles.mb6]}>PAN</Text>
               </View>
               <TextInput
+                ref={refPAN}
                 placeholder={'Pan Number'}
                 style={AppStyles.inputTxtStyle}
                 value={businessForm.values.pan}
                 onChangeText={(txt) => businessForm.setFieldValue('pan', txt)}
+                returnKeyType='next'
+                onSubmitEditing={() => handleBusinessUpdate()}
               />
               {clickLogin && businessForm.errors.pan ? (
                 <CustomText fontSize={15} color={Colors.red} styling={{ marginTop: RfH(10) }}>
@@ -246,7 +284,6 @@ function BusinessDetail() {
                   disabled={false}
                   value={businessForm.values.checkcondition}
                   tintColors={{ true: Colors.mango, false: '#777' }}
-                  // onValueChange={(newValue) => console.log(newValue)}
                   onValueChange={(newValue) => businessForm.setFieldValue('checkcondition', newValue)}
                 />
                 <View style={{ marginLeft: RfW(10) }}>
@@ -264,15 +301,15 @@ function BusinessDetail() {
 
             <View style={[Styles.btnContainer, AppStyles.flexDir]}>
               <View style={AppStyles.flex1}>
-                <TouchableOpacity style={[Styles.aggregatebtn]} onPress={() => screenNavigate()}>
-                  <Text style={[AppStyles.txtPrimaryRegular, AppStyles.f17, AppStyles.textalig, AppStyles.mt10]}>
+                <TouchableOpacity activeOpacity={0.8} style={[Styles.cancelButton]} onPress={() => screenNavigate()}>
+                  <Text style={[AppStyles.txtPrimaryRegular, AppStyles.f17, AppStyles.textalig]}>
                     CANCEL
                   </Text>
                 </TouchableOpacity>
               </View>
               <View style={AppStyles.flex1}>
-                <TouchableOpacity style={[Styles.confirmbtn, AppStyles.mb20]} onPress={() => handleBusinessUpdate()}>
-                  <Text style={[AppStyles.txtWhiteRegular, AppStyles.f17, AppStyles.textalig, AppStyles.mt10]}>
+                <TouchableOpacity activeOpacity={0.8} style={[Styles.saveButton, AppStyles.mb20]} onPress={() => handleBusinessUpdate()}>
+                  <Text style={[AppStyles.txtWhiteRegular, AppStyles.f17, AppStyles.textalig]}>
                     SAVE
                   </Text>
                 </TouchableOpacity>

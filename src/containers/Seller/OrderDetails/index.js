@@ -12,12 +12,9 @@ import style from "../../../theme/Styles/container";
 import Checkbox from "@react-native-community/checkbox";
 import CustomText from '../../../components/CustomText';
 
-
-
 const OrderDetails = () => {
   const navigation = useNavigation();
   const route = useRoute();
-
 
   const handleConfirm = () => {
     navigation.navigate(NavigationRouteNames.NEW_ORDER_REQUEST);
@@ -104,7 +101,6 @@ const OrderDetails = () => {
           </View>
         </View>
 
-
         <View style={style.flexDir}>
           <View style={style.flexpointsix}>
             <Text style={[Appstyles.txtSecandaryRegular, Appstyles.f15, AppStyle.mt10, AppStyle.ml20]}>Payment Details</Text>
@@ -113,7 +109,6 @@ const OrderDetails = () => {
             <Text style={[Appstyles.txtBlackRegular, Appstyles.f15, AppStyle.mt10, AppStyle.mr20]}>1235567778</Text>
           </View>
         </View>
-
       </View>
 
       <View>
@@ -138,7 +133,6 @@ const OrderDetails = () => {
           </View>
         </View>
       </View>
-
 
       <View style={{ marginTop: RfH(10), marginTop: 25, marginBottom: 25 }}>
         <TouchableOpacity
