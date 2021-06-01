@@ -256,7 +256,7 @@ function UploadDocument(props) {
                                 <Text style={styles.label1}>{'How would you like to upload your document?'}</Text>
                                 <View style={styles.saparator} />
                                 {isPhotoPickerVisible && <>
-                                    <TouchableOpacity activeOpacity={0.4}
+                                    <TouchableOpacity activeOpacity={0.8}
                                         onPress={() => {
                                             setPickerVisibility(false);
                                             setOption(CAMERA);
@@ -267,7 +267,7 @@ function UploadDocument(props) {
                                     ><Text style={styles.label}>Camera</Text>
                                     </TouchableOpacity>
                                     <View style={styles.saparator} />
-                                    <TouchableOpacity activeOpacity={0.4}
+                                    <TouchableOpacity activeOpacity={0.8}
                                         onPress={() => {
                                             setPickerVisibility(false);
                                             setOption(GALLERY);
@@ -280,7 +280,7 @@ function UploadDocument(props) {
                                 </>}
 
                                 {isFilePickerVisible &&
-                                    <TouchableOpacity activeOpacity={0.4}
+                                    <TouchableOpacity activeOpacity={0.8}
                                         onPress={() => {
                                             setOption(FILE);
                                             setPickerVisibility(false);

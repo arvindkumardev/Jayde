@@ -15,7 +15,7 @@ const GradientButton = (props) => {
         style={{borderRadius: RfH(20), flex: 1}}
         locations={[0.1, 1]}
         colors={colors}>
-        <TouchableOpacity style={[styles.couponCodeButton]} onPress={onPress}>
+        <TouchableOpacity activeOpacity={0.8} style={[styles.couponCodeButton]} onPress={onPress}>
           <CustomText fontSize={fontSize} fontWeight={'bold'} color={textColor}>
             {title}
           </CustomText>

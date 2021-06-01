@@ -23,12 +23,14 @@ import UserState from "../appContainer/context/user";
 import AppLoader from "./AppLoader";
 import NavigationRouteNames from "../routes/ScreenNames";
 import UserContext from "./context/user.context";
-import {NotificationService} from '../services/firebase'
+import { NotificationService } from '../services/firebase'
 
 
 const axios = Axios.create({
   baseURL: BASE_URL,
   headers: { "content-Type": "application/json" },
+  timeout: 10000,
+  timeoutErrorMessage: "Request Timeout",
 });
 
 const CancelToken = Axios.CancelToken;

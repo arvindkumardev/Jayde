@@ -13,7 +13,7 @@ const NoDataApprovalRequest = (props) => {
                 <Image source={Images.checkedIom} style={styles.imageStyle} resizeMode={'cover'} />
                 <Text style={styles.warningInfoText}>{heading}</Text>
                 <Text style={styles.warningInfoMessage}>{message}</Text>
-                <TouchableOpacity onPress={onListRefresh} style={styles.refreshButton}>
+                <TouchableOpacity activeOpacity={0.8} onPress={onListRefresh} style={styles.refreshButton}>
                     <Text style={[styles.warningInfoText, { color: '#1350eb' }]}>Refresh</Text>
                 </TouchableOpacity>
             </View>

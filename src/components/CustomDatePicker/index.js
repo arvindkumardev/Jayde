@@ -42,7 +42,7 @@ function CustomDatePicker(props) {
             </Text>
           </View>
           }
-            <TouchableOpacity onPress={()=>setShowDate(true)} style={[styles.textInputInnerContainer, textInputStyle]}>
+            <TouchableOpacity activeOpacity={0.8} onPress={()=>setShowDate(true)} style={[styles.textInputInnerContainer, textInputStyle]}>
             <Text style={[styles.inputStyle, inputWidth && { width: inputWidth }, !value&&{color:Colors.coolGrey}]}>
               {value?moment(value).format(format):placeholder}
             </Text>

@@ -36,7 +36,7 @@ function ActionSheet(props) {
                             {actions && map(actions, (action, index) => (<View key={index}>
 
                                 <View style={styles.modalSeparator} />
-                                <TouchableOpacity activeOpacity={0.4} onPress={() => action.handler(index)}>
+                                <TouchableOpacity activeOpacity={0.8} onPress={() => action.handler(index)}>
                                     <CustomText fontSize={18} color={Colors.blue} styling={{ paddingVertical: RfH(16), textAlign: 'center', }}>
                                         {action.label}</CustomText>
                                     {/* <Text style={[styles.modalActionLabel, action.labelColor && { color: action.labelColor }]}>

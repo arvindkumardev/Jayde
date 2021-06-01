@@ -42,7 +42,7 @@ function CustomSearchBar(props) {
                     style={styles.iconStyle}
                 />
             </TouchableOpacity>}
-            <TouchableOpacity onPress={()=>{
+            <TouchableOpacity activeOpacity={0.8} onPress={()=>{
                 onChangeText('')
                 cancelSearch()}                
                 }>

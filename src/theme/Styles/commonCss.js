@@ -2,6 +2,7 @@ import { StyleSheet } from 'react-native';
 import Colors from '../Colors';
 import Fonts from '../Fonts';
 import Spaces from "./spaces";
+import { RfH, RfW } from '../../utils/helpers'
 
 const commonCss = StyleSheet.create({
   topView: {
@@ -61,10 +62,16 @@ const commonCss = StyleSheet.create({
     borderWidth: 1,
   },
   boxxView: {
-    backgroundColor: Colors.grayBackground, 
-    borderRadius: 10, 
+    backgroundColor: Colors.grayBackground,
+    borderRadius: 10,
     marginLeft: 24,
     marginRight: 24,
+  },
+
+  imgCloud: {
+    width: RfW(200),
+    height: RfH(200),
+    resizeMode: "contain"
   },
 });
 

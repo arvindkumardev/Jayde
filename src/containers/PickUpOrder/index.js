@@ -416,7 +416,7 @@ const PickUpOrder = () => {
 
 
       <View style={{ marginTop: RfH(10), marginTop: 25, marginBottom: 25 }}>
-        <TouchableOpacity style={Styles.confirmButton} onPress={handleConfirm}>
+        <TouchableOpacity activeOpacity = {0.8} style={Styles.confirmButton} onPress={handleConfirm}>
           <Text style={Styles.confirmBtnText}>CONFIRM</Text>
         </TouchableOpacity>
       </View>

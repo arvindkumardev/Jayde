@@ -78,14 +78,14 @@ function AuditTrail() {
 
           <View style={[Styles.btnContainer, AppStyles.flexDir]}>
               <View style={AppStyles.flex1}>
-                <TouchableOpacity style={[Styles.resetButton]}>
+                <TouchableOpacity activeOpacity = {0.8} style={[Styles.resetButton]}>
                   <Text style={[AppStyles.txtPrimaryRegular, AppStyles.f17, AppStyles.textalig]}>
                     RESET
                   </Text>
                 </TouchableOpacity>
               </View>
               <View style={AppStyles.flex1}>
-                <TouchableOpacity style={[Styles.submitButton, AppStyles.mb20]} onPress={() => handleAuditTrail()}>
+                <TouchableOpacity activeOpacity = {0.8} style={[Styles.submitButton, AppStyles.mb20]} onPress={() => handleAuditTrail()}>
                   <Text style={[AppStyles.txtWhiteRegular, AppStyles.f17, AppStyles.textalig]}>
                     SUBMIT
                   </Text>

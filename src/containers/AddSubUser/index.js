@@ -7,7 +7,7 @@ import { AppStyles, Colors } from '../../theme';
 import UserContext from '../../appContainer/context/user.context';
 import FooterLoader from "../../appContainer/footerLoader";
 import EmptyView from '../../appContainer/EmptyView'
-
+import NetworkView from '../../appContainer/NetworkView'
 import { subUser } from '../../services/CommonController';
 import FAIcon from 'react-native-vector-icons/FontAwesome';
 
@@ -25,6 +25,7 @@ function AddSubUser() {
   const [perPage, setPerPage] = useState(0)
 
   const [refreshPage, setRefreshPage] = useState(false)
+  const [retry, setRetry] = useState(false)
 
   const [{ data, loading, error }, onSubUser] = subUser(offset);
 
@@ -37,7 +38,7 @@ function AddSubUser() {
     navigation.setOptions({
       title, headerRight: () => (
         <TouchableOpacity
-          activeOpacity = {0.8}
+          activeOpacity={0.8}
           style={[AppStyles.pv10, AppStyles.ph20]}
           onPress={() => screenNavigate()}>
           <FAIcon size={28} name='plus-circle' color={Colors.mangoTwo} />
@@ -52,15 +53,14 @@ function AddSubUser() {
     setRefreshPage(true)
     setLoader(true)
   }
+
   const getSubUser = async () => {
     try {
       const { data } = await onSubUser({ data: {} });
       setLoader(false)
-      console.log("Response :", data.data[0].subUsers)
       setPerPage(data.data[0].links.per_page)
       setTotalCount(data.data[0].links.total_count)
       setSubUserList(data.data[0].subUsers)
-      // setOffset(offset + data.data[0].links.per_page);                     
     } catch (e) {
       console.log("Response error", e);
     }
@@ -72,7 +72,6 @@ function AddSubUser() {
       let listData = subUserList;
       let data1 = listData.concat(data.data[0].subUsers);
       setLoadMore(false);
-      //setSubUserList( subUserList =>  [...subUserList, data.data[0].subUsers])
       setSubUserList([...data1]);
     }
     catch (e) {
@@ -80,18 +79,18 @@ function AddSubUser() {
     }
   };
 
-  useEffect(() => {   
-    if(error)
-    setLoader(false) 
+  useEffect(() => {
+    if (error)
+      setLoader(false)
   }, [error])
-  
+
   useEffect(() => {
     setLoader(true)
     getSubUser();
     return () => {
       setLoader(false)
     }
-  }, []);
+  }, [retry]);
 
   useEffect(() => {
     if (refreshPage) {
@@ -144,24 +143,27 @@ function AddSubUser() {
 
   return (
     <View style={AppStyles.topView}>
-      {subUserList.length > 0 ? <FlatList
-        data={subUserList}
-        renderItem={({ index, item }) =>
-          _RenderItem(index, item)
-        }
-        showsVerticalScrollIndicator={false}
-        extraData={useState}
-        removeClippedSubviews={Platform.OS === 'android' && true}
-        numColumns={1}
-        keyExtractor={(_, index) => `${index}1`}
-        ListFooterComponent={<FooterLoader Loading={loadMore}></FooterLoader>}
-        onEndReachedThreshold={0.5}
-        onEndReached={info => {
-          loadMoreResults(info);
-        }}
-      />
-        :
-        !loading && <EmptyView onBack={() => navigation.pop()}></EmptyView>
+      {
+        subUserList.length > 0 ? <FlatList
+          data={subUserList}
+          renderItem={({ index, item }) =>
+            _RenderItem(index, item)
+          }
+          showsVerticalScrollIndicator={false}
+          extraData={useState}
+          removeClippedSubviews={Platform.OS === 'android' && true}
+          numColumns={1}
+          keyExtractor={(_, index) => `${index}1`}
+          ListFooterComponent={<FooterLoader Loading={loadMore}></FooterLoader>}
+          onEndReachedThreshold={0.5}
+          onEndReached={info => {
+            loadMoreResults(info);
+          }}
+        />
+          :
+          !loading && error == null ? <EmptyView onBack={() => navigation.pop()}></EmptyView>
+            : error &&
+            <NetworkView Retry={() => setRetry(!retry)}></NetworkView>
       }
     </View>
   );

@@ -9,7 +9,7 @@ const container = StyleSheet.create({
   btnSecandary: {
     backgroundColor: Colors.grayBackground,
   },
- whitebackgrnd: {
+  whitebackgrnd: {
     backgroundColor: Colors.white,
   },
   grayBackground: {
@@ -52,6 +52,10 @@ const container = StyleSheet.create({
   justifyCon: {
     justifyContent: 'center',
   },
+  inCenter: {
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   topBorderGray: {
     paddingTop: 20,
     borderTopColor: '#ccc',
@@ -74,7 +78,7 @@ const container = StyleSheet.create({
   },
   borderwidth1: {
     borderWidth: 1,
-  },	
+  },
   borderwidth2: {
     borderWidth: 2,
   },
@@ -111,19 +115,19 @@ const container = StyleSheet.create({
   borderColorLightOlive: {
     borderColor: Colors.lightOlive,
   },
-  inputIcon:{
-    flexDirection:'row',
-    alignItems:'center',
-    justifyContent:'space-between',
+  inputIcon: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
     paddingHorizontal: 20,
     paddingVertical: 10,
-    backgroundColor:Colors.grayBackground,
+    backgroundColor: Colors.grayBackground,
   },
   NoRecordButton: {
     width: 160,
-    height : 44,
+    height: 44,
   },
-  
+
 });
 
 export default container;

@@ -45,7 +45,7 @@ const DropDown = (props) => {
 
   const getIOSActionSheet = () => {
     return (
-      <TouchableOpacity style={containerStyle} onPress={openActionSheet}>
+      <TouchableOpacity activeOpacity={0.8} style={containerStyle} onPress={openActionSheet}>
         <Text>{iosSelectedValue}</Text>
       </TouchableOpacity>
     );

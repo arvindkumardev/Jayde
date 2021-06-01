@@ -30,7 +30,7 @@ function OwnedContracts() {
 
   const [offset, setOffset] = useState(0);
   const [loadMore, setLoadMore] = useState(false);
-   const [totalCount, setTotalCount] = useState(0)
+  const [totalCount, setTotalCount] = useState(0)
   const [perPage, setPerPage] = useState(15)
 
   const [arraydata, setArraydata] = useState([]);
@@ -40,26 +40,27 @@ function OwnedContracts() {
   const getOwnedContracts = async () => {
     try {
       const { data } = await onOwnedContracts({ data: {} });
-      console.log('data', data.data[0].orderDetails);
       setLoader(false);
       console.log('data', data.data[0].orderDetails);
       setPerPage(data.data[0].links.per_page);
       setTotalCount(data.data[0].links.total_count);
       setArraydata(data.data[0].orderDetails);
-      // console.log("data", JSON.stringify(data.data[0].orderDetails))
     } catch (e) {
       console.log('Response error', e);
     }
   };
 
   useEffect(() => {
-    if(error)
-    setLoader(false) 
+    if (error)
+      setLoader(false)
   }, [error])
-  
+
   useEffect(() => {
     setLoader(true);
     getOwnedContracts();
+    return () => {
+      setLoader(false)
+    }
   }, []);
 
   const triggerLoadMore = async () => {
@@ -90,11 +91,8 @@ function OwnedContracts() {
   }, []);
 
   const loadMoreResults = async (info) => {
-    // console.log(totalCount)
     if (loadMore) return;
-
     if (offset + perPage > totalCount) return;
-
     setLoadMore(true);
     setOffset(offset + perPage);
   };
@@ -126,7 +124,7 @@ function OwnedContracts() {
   const _RenderItem = (index, item) => {
     const btnText = getButtonText(item);
     return (
-      <TouchableOpacity onPress={() => screenNavigate()}>
+      <TouchableOpacity activeOpacity = {0.8} key = {index} onPress={() => screenNavigate()}>
         <View style={Styles.boxView}>
           <View style={[AppStyles.flexDir]}>
             <View style={AppStyles.flexpointseven}>
@@ -165,10 +163,10 @@ function OwnedContracts() {
                       btnText === 'ACCEPTED'
                         ? Colors.warmGrey
                         : btnText === 'COMPLETED'
-                        ? Colors.warmGrey
-                        : btnText === 'SCHEDULED'
-                        ? Colors.warmGrey
-                        : Colors.red,
+                          ? Colors.warmGrey
+                          : btnText === 'SCHEDULED'
+                            ? Colors.warmGrey
+                            : Colors.red,
                   },
                 ]}>
                 {btnText}

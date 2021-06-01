@@ -92,7 +92,7 @@ const CommonHeaderStyle = { headerTitleStyle: [AppStyles.txtBlackBold, AppStyles
 const DrawerMenu = ({ navigation }) => ({
   title: null,
   headerStyle: { borderBottomWidth: 0, elevation: 0 },
-  headerLeft: () => <TouchableOpacity onPress={() => {
+  headerLeft: () => <TouchableOpacity activeOpacity = {0.8} onPress={() => {
     navigation.dispatch(DrawerActions.toggleDrawer());
   }} style={{ marginLeft: 10 }}><FAIcon name="navicon" size={25} /></TouchableOpacity>,
 });
@@ -142,7 +142,7 @@ const AppStack = (props) => {
             options={({ navigation }) => ({
               title: null,
               headerStyle: { borderBottomWidth: 0, elevation: 0 },
-              headerLeft: () => <TouchableOpacity onPress={() => {
+              headerLeft: () => <TouchableOpacity activeOpacity = {0.8} onPress={() => {
                 navigation.dispatch(DrawerActions.toggleDrawer());
               }} style={{ marginLeft: 10 }}><FAIcon name="navicon" size={25} /></TouchableOpacity>,
               headerRight: () => <Text style={{ marginRight: 10, fontSize: 20, fontFamily: 'Poppins-SemiBold', textTransform: 'capitalize', }}>{role}</Text>,
@@ -311,7 +311,7 @@ const AppStack = (props) => {
             options={({ navigation }) => ({
               title: null,
               headerStyle: { borderBottomWidth: 0, elevation: 0 },
-              headerLeft: () => <TouchableOpacity onPress={() => {
+              headerLeft: () => <TouchableOpacity activeOpacity = {0.8} onPress={() => {
                 navigation.dispatch(DrawerActions.toggleDrawer());
               }} style={{ marginLeft: 10 }}><FAIcon name="navicon" size={25} /></TouchableOpacity>,
               headerRight: () => <Text style={{ marginRight: 10, fontSize: 20, fontFamily: 'Poppins-SemiBold', textTransform: 'capitalize', }}>{role}</Text>,
@@ -549,7 +549,7 @@ const AppStack = (props) => {
             options={({ navigation }) => ({
               title: null,
               headerStyle: { borderBottomWidth: 0, elevation: 0 },
-              headerLeft: () => <TouchableOpacity onPress={() => {
+              headerLeft: () => <TouchableOpacity activeOpacity = {0.8} onPress={() => {
                 navigation.dispatch(DrawerActions.toggleDrawer());
               }} style={{ marginLeft: 10 }}><FAIcon name="navicon" size={25} /></TouchableOpacity>,
               headerRight: () => <Text style={{ marginRight: 10, fontSize: 20, fontFamily: 'Poppins-SemiBold', textTransform: 'capitalize', }}>{role}</Text>,
@@ -756,7 +756,7 @@ const AppStack = (props) => {
             options={({ navigation }) => ({
               title: null,
               headerStyle: { borderBottomWidth: 0, elevation: 0 },
-              headerLeft: () => <TouchableOpacity onPress={() => {
+              headerLeft: () => <TouchableOpacity activeOpacity = {0.8} onPress={() => {
                 navigation.dispatch(DrawerActions.toggleDrawer());
               }} style={{ marginLeft: 10 }}><FAIcon name="navicon" size={25} /></TouchableOpacity>,
               headerRight: () => <Text style={{ marginRight: 10, fontSize: 20, fontFamily: 'Poppins-SemiBold', textTransform: 'capitalize', }}>{role}</Text>,

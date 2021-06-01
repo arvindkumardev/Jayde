@@ -80,11 +80,11 @@ function DocumentDetailModal(props) {
                         flexDirection: 'row', justifyContent: 'space-between',
                         marginVertical: RfH(20), marginHorizontal: RfW(20)
                     }}>
-                        <TouchableOpacity style={styles.uploadView} onPress={handleClick}>
+                        <TouchableOpacity activeOpacity={0.8} style={styles.uploadView} onPress={handleClick}>
                             <Text style={styles.uplodaButton}
                             >Upload</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity style={styles.dismissView} onPress={handleDismiss}>
+                        <TouchableOpacity activeOpacity={0.8} style={styles.dismissView} onPress={handleDismiss}>
                             <Text style={styles.uplodaButton}
                             >Dismiss</Text>
                         </TouchableOpacity>
@@ -92,7 +92,7 @@ function DocumentDetailModal(props) {
 
                 </View>
             </View>
-        </Modal >
+        </Modal>
     );
 }
 

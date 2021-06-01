@@ -66,7 +66,7 @@ function UploadDocument(props) {
                         noOfLines={3}
                     />
 
-                    <TouchableOpacity style={styles.submitButton} onPress={onSubmit} activeOpacity={0.7}>
+                    <TouchableOpacity activeOpacity={0.8} style={styles.submitButton} onPress={onSubmit} activeOpacity={0.7}>
                         <CustomText fontSize={17} fontWeight={'500'} color={Colors.blue} >SUBMIT</CustomText>
                     </TouchableOpacity>
                 </View>

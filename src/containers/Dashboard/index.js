@@ -110,7 +110,7 @@ function HomeScreen() {
   };
   const _renderData = (index, item) => {
     return (
-      <TouchableOpacity key={index} style={Styles.dataItemContainer}>
+      <TouchableOpacity activeOpacity = {0.8} key={index} style={Styles.dataItemContainer}>
         <View style={Styles.dataImage}>
           <Image source={ORDER_IMAGE[item.category_name]} />
         </View>
@@ -132,11 +132,11 @@ function HomeScreen() {
     return (
       <View key={index} style={[Styles.menuContainer, { backgroundColor: index == 0 ? Colors.mangoTwo : index == 1 ? Colors.paleGold : Colors.lightOlive, }]}>
         <View>
-          <TouchableOpacity style={Styles.menuEllipseContainer}>
+          <TouchableOpacity activeOpacity = {0.8} style={Styles.menuEllipseContainer}>
             <FAIcon name="ellipsis-v" color={Colors.white} size={25} />
           </TouchableOpacity>
         </View>
-        <TouchableOpacity onPress={() => handleNavigate(item.screenName)} style={Styles.menuActionItem}>
+        <TouchableOpacity activeOpacity = {0.8} onPress={() => handleNavigate(item.screenName)} style={Styles.menuActionItem}>
           <View style={[AppStyles.mr20, AppStyles.mb10, AppStyles.alignfend]}>
             <MCIcon name={item.iconName} color={Colors.white} size={30} />
           </View>
@@ -149,7 +149,7 @@ function HomeScreen() {
   };
 
   return (
-    <ScrollView style={{ backgroundColor: Colors.white }}>
+    <ScrollView showsVerticalScrollIndicator = {false} style={{ backgroundColor: Colors.white }}>
       <View style={AppStyles.flexDir}>
         <View style={[AppStyles.flexpointseven, AppStyles.mt40, AppStyles.ml24]}>
           <Text style={[AppStyles.txtBlackBold, AppStyles.f20]}>{getGreeting()}</Text>

@@ -51,10 +51,10 @@ const Camera = ({ visible, onClose, onTakePic }) => {
                     }}
                     />
                     <View style={Styles.BtnsContainer}>
-                        <TouchableOpacity style={Styles.closeButton} onPress={()=> onCloseModal()}>
+                        <TouchableOpacity activeOpacity={0.8} style={Styles.closeButton} onPress={()=> onCloseModal()}>
                             <Text style={Styles.closeTxt}>Close Camera</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity style={Styles.captureButton} onPress={()=> onCapturePic()}>
+                        <TouchableOpacity activeOpacity={0.8} style={Styles.captureButton} onPress={()=> onCapturePic()}>
                             <Text style={Styles.BtnTakeSnap}>Take Snap</Text>
                         </TouchableOpacity>
                     </View>
