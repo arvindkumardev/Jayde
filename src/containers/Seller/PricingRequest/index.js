@@ -28,8 +28,8 @@ function PricingRequest() {
   const [{ data: subData }, onGetSubCategories] = getSubCategories();
   const [{ data: unitsData }, onGetUnits] = getUnits();
 
-  const [{ data: quoteData, loading, error }, onSubmitQuote] = createQuote(category);
-  const [{ data: orderData, loading: orderLoading, error: addOrderError }, onAddOrder] = addOrder(category);
+  const [{ data: quoteData, loading : quoteLoading, error: quoteError }, onSubmitQuote] = createQuote(category);
+  const [{ data: orderData, loading : orderLoading, error: addOrderError }, onAddOrder] = addOrder(category);
 
   const [categoryId, setCategoryId] = useState(0);
   const [titleName, setTitleName] = useState('');
@@ -54,9 +54,9 @@ function PricingRequest() {
   }, [unitsData]);
 
   useEffect(() => {
-    if (error)
+    if (quoteError)
       setLoader(false)
-  }, [error])
+  }, [quoteError])
 
   useEffect(() => {
     if (addOrderError)
@@ -65,13 +65,11 @@ function PricingRequest() {
 
 
   useEffect(() => {
-    setLoader(loading);
-    if (quoteData && quoteData.status) {
-    }
+    setLoader(quoteLoading);
     return () => {
       setLoader(false)
     }
-  }, [quoteData, loading]);
+  }, [quoteData, quoteLoading]);
 
   useEffect(() => {
     setLoader(orderLoading);

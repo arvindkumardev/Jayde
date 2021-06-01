@@ -12,6 +12,7 @@ import UserContext from '../../appContainer/context/user.context';
 import { USERS_ROLE_MENU, STATUS_ICON } from '../../routes/constants';
 import Styles from './styles';
 import { getNewOrder } from "../../services/CommonController";
+import {NotificationService} from '../../services/firebase'
 
 //Image
 import EWasteImg from  './../../assets/Images/NewOrderList/Group_10091.png'
@@ -41,11 +42,24 @@ function HomeScreen() {
     async function getUserName () {
         const username = await getSaveData (LOCAL_STORAGE_DATA_KEY.USER_NAME);       
         setName(username)
-    }
+    } 
     getUserName();
-   // setLoader(loading)
     getHomeOrder();
+
+     // Initialization Notification
+     NotificationService.initializeNotification(onNotification, onOpenNotification)
+    return () => {
+      NotificationService.unsubscribe() // Unsubscribe on Notification
+    }
   }, [userRole]);
+
+  const onOpenNotification = (remoteMessage) => {
+    console.log("onOpenNotification", JSON.stringify(remoteMessage))
+  }
+
+  const onNotification = (remoteMessage) => {
+    console.log("onNotification", JSON.stringify(remoteMessage))
+  }
 
   const getHomeOrder = async () => {
     try {
@@ -61,7 +75,7 @@ function HomeScreen() {
             console.log("Response error", e);
         }
   };
-
+ 
   const handleUserLogout = async () => {
     await removeData(LOCAL_STORAGE_DATA_KEY.JWT_TOKEN);
     await removeData(LOCAL_STORAGE_DATA_KEY.USER_ROLE);

@@ -23,6 +23,8 @@ import UserState from "../appContainer/context/user";
 import AppLoader from "./AppLoader";
 import NavigationRouteNames from "../routes/ScreenNames";
 import UserContext from "./context/user.context";
+import {NotificationService} from '../services/firebase'
+
 
 const axios = Axios.create({
   baseURL: BASE_URL,
@@ -62,6 +64,10 @@ function App() {
     const { params } = state.routes[state.index];
     setShowTopBar(params && params.showTopBar);
   };
+
+  useEffect(() => {
+    NotificationService.requestPermission()
+  }, [])
 
   return (
     <NavigationContainer onStateChange={onStateChangeHandle}>

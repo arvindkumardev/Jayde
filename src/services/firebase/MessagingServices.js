@@ -1,9 +1,13 @@
 import React from 'react';
+import { Platform } from 'react-native';
 import messaging from '@react-native-firebase/messaging';
 // import NavigationRouteNames from '../../routes/ScreenNames';
 
 const registerAppWithFCM = async () => {
-  await messaging().registerDeviceForRemoteMessages();
+  if (Platform.OS === 'ios') {
+    await messaging().registerDeviceForRemoteMessages();
+    await messaging().setAutoInitEnabled(true)
+  }
 };
 
 // push permission
@@ -14,19 +18,20 @@ const requestPermission = async (successHandler) => {
 
     if (enabled) {
       const fcmToken = await messaging().getToken();
+      console.log('FCM_TOKEN', fcmToken)
+
       if (successHandler) {
         await successHandler(fcmToken);
       }
     } else {
       console.log('User declined messaging permissions :(');
     }
-  } catch (er) {}
+  } catch (er) { }
 };
 
 // To retrieve the FB tocken
 const getFcmToken = async (successHandler) => {
   const fcmToken = await messaging().getToken();
-
   if (fcmToken) {
     if (successHandler) {
       await successHandler(fcmToken);
@@ -41,27 +46,38 @@ const getFcmToken = async (successHandler) => {
 };
 
 // Listeners
-const onMessage = () => {
+const onMessage = (onNotification) => {
   messaging().onMessage(async (remoteMessage) => {
-    console.log('ON MESSAGE TRIGGERRED', remoteMessage);
-  });
-};
-
-const onNotificationOpenedApp = (onNotification) => {
-  messaging().onNotificationOpenedApp((remoteMessage) => {
-    if (onNotification) {
-      onNotification(remoteMessage);
+    if (remoteMessage) {
+      console.log('[FCMService] A new FCM message arrived!', JSON.stringify(remoteMessage));
+      let notification = null
+      // if (Platform.OS === 'ios') {
+      //   notification = remoteMessage.data.notification
+      // } else {
+      //   notification = remoteMessage.notification
+      // }
+      onNotification(remoteMessage)
     }
   });
 };
 
-const getInitialNotification = (onNotification) => {
+const onNotificationOpenedApp = (onOpenNotification) => {  
+  messaging().onNotificationOpenedApp((remoteMessage) => {
+    console.log('[FCMService] onNotificationOpenedApp Notification caused app to open from background state:', JSON.stringify(remoteMessage))
+    if (onOpenNotification) {
+      onOpenNotification(remoteMessage);
+    }
+  });
+};
+
+const getInitialNotification = (onOpenNotification) => {
   messaging()
     .getInitialNotification()
     .then((remoteMessage) => {
+      console.log('[FCMService] getInitialNotification Notification caused app to open from quit state:', JSON.stringify(remoteMessage))
       if (remoteMessage) {
-        if (onNotification) {
-          onNotification(remoteMessage);
+        if (onOpenNotification) {
+          onOpenNotification(remoteMessage);
         }
       }
     });
@@ -78,11 +94,11 @@ const unsubscribe = () => {
   onMessage();
 };
 
-const initializeNotification = (onNotification) => {
+const initializeNotification = (onNotification, onOpenNotification) => {
   registerAppWithFCM();
-  onMessage();
-  onNotificationOpenedApp(onNotification);
-  getInitialNotification(onNotification);
+  onMessage(onNotification);
+  onNotificationOpenedApp(onOpenNotification);
+  getInitialNotification(onOpenNotification);
 };
 
 const getNotificationScreen = (notificationData, navigation) => {

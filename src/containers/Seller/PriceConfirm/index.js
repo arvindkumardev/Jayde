@@ -40,13 +40,13 @@ const PriceConfirm = () => {
   }, [error])
 
   useEffect(() => {
-    setLoader(loading);
+    setLoader(orderLoading);
     if (quoteData && quoteData.status) {
     }
     return () => {
       setLoader(false)
     }
-  }, [quoteData, loading]);
+  }, [quoteData, orderLoading]);
 
   useEffect(() => {
     setLoader(orderLoading);
