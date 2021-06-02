@@ -14,7 +14,6 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   btnContainer:{
-    marginTop: 20,
     marginLeft: 24,
     marginRight: 24,
   },

@@ -52,14 +52,14 @@ function UpdateProfile() {
             <TouchableOpacity
               activeOpacity={0.8}
               style={[Styles.businessButton]} onPress={() => screenNavigate()}>
-              <Text style={[AppStyles.txtmangoTwoRegular, AppStyles.f15, AppStyles.textalig]}>UPDATE BUSINESS</Text>
+              <Text style={[AppStyles.txtmangoTwoRegular, AppStyles.f17, AppStyles.textalig]}>UPDATE BUSINESS</Text>
             </TouchableOpacity>
           </View>
           <View style={AppStyles.flex1}>
             <TouchableOpacity
               activeOpacity={0.8}
               style={[Styles.profileButton, AppStyles.mb20]} onPress={() => updateProfile()}>
-              <Text style={[AppStyles.txtWhiteRegular, AppStyles.f15, AppStyles.textalig]}>UPDATE PROFILE</Text>
+              <Text style={[AppStyles.txtWhiteRegular, AppStyles.f17, AppStyles.textalig]}>UPDATE PROFILE</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -68,7 +68,7 @@ function UpdateProfile() {
           <TouchableOpacity
             activeOpacity={0.8}
             style={[Styles.completelaterbtn]} onPress={() => completeLater()}>
-            <Text style={[AppStyles.txtmangoTwoRegular, AppStyles.f15, AppStyles.textalig, AppStyles.mt10]}>COMPLETE LATER</Text>
+            <Text style={[AppStyles.txtmangoTwoRegular, AppStyles.f17, AppStyles.textalig]}>COMPLETE LATER</Text>
           </TouchableOpacity>
         </View>
 

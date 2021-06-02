@@ -136,24 +136,13 @@ function BusinessDetail() {
   };
 
   return (
-    <KeyboardAwareScrollView>
-      <View style={Styles.topView}>
-        <ScrollView>
-          <View>
+      <KeyboardAwareScrollView contentContainerStyle={AppStyles.flex1}>
+      <View style={[Styles.topView, AppStyles.flex1SpaceBetween]}>
+        <ScrollView contentContainerStyle={AppStyles.flex1}>
+          <View style={AppStyles.flex1}>
             <Text style={[AppStyles.txtBlackBold, AppStyles.f17, Styles.title]}>
               Please enter the details for your business registration
             </Text>
-
-            <View style={[AppStyles.mt30, AppStyles.ml24, AppStyles.mr24]}>
-              <Text style={[AppStyles.txtBlackRegular, AppStyles.f15, AppStyles.mb6]}>Name</Text>
-              <View>
-                <TextInput placeholder="Name"
-                  style={AppStyles.inputTxtStyle}
-                  returnKeyType='next'
-                  onSubmitEditing={() => refBusinessName.current?.focus()}
-                />
-              </View>
-            </View>
 
             <View style={[AppStyles.mt30, AppStyles.ml24, AppStyles.mr24]}>
               <Text style={[AppStyles.txtBlackRegular, AppStyles.f15, AppStyles.mb6]}>Business Name</Text>
@@ -299,6 +288,8 @@ function BusinessDetail() {
               ) : null}
             </View>
 
+          </View>
+
             <View style={[Styles.btnContainer, AppStyles.flexDir]}>
               <View style={AppStyles.flex1}>
                 <TouchableOpacity activeOpacity={0.8} style={[Styles.cancelButton]} onPress={() => screenNavigate()}>
@@ -315,10 +306,11 @@ function BusinessDetail() {
                 </TouchableOpacity>
               </View>
             </View>
-          </View>
+        
+
         </ScrollView>
       </View>
-    </KeyboardAwareScrollView>
+      </KeyboardAwareScrollView>
   );
 }
 export default BusinessDetail;

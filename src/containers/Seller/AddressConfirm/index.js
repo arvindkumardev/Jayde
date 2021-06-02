@@ -2,7 +2,7 @@
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable global-require */
 import React, { useLayoutEffect, useContext, useEffect, useState } from 'react';
-import { View, Text, TouchableOpacity, Modal } from 'react-native';
+import { View, Text, TouchableOpacity, Modal, ScrollView } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import FAIcon from 'react-native-vector-icons/FontAwesome';
 import style from '../../../theme/Styles/container';
@@ -133,27 +133,28 @@ const AddressConfirm = () => {
   return (
 
     <View style={[AppStyles.flex1SpaceBetween, AppStyles.pb10, style.whitebackgrnd,]}>
+      <ScrollView contentContainerStyle={AppStyles.flex1}>
      
       <View style={[AppStyles.mt20, AppStyles.w100]}>
         <View style={[AppStyles.w100, AppStyles.ph20, AppStyles.txtPrimaryBold]}>
 
           <View style={[style.btnSecandary, AppStyles.br10]}>
             <View style={[AppStyles.mt20, AppStyles.ml20, AppStyles.mb20]}>
-              <Text style={[AppStyles.txtBlackBold, AppStyles.f16, AppStyles.mb10]}>{getQuoteData().category_name}</Text>
+              <Text style={[AppStyles.txtBlackBold, AppStyles.f17, AppStyles.mb10]}>{getQuoteData().category_name}</Text>
               <View style={AppStyles.flexRowSpaceBetween}>
                 <View style={AppStyles.flexpointsix}>
-                  <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f16]}>Subcategory</Text>
+                  <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f15]}>Subcategory</Text>
                 </View>
                 <View style={AppStyles.flexpointfour}>
-                  <Text style={[AppStyles.txtBlackRegular, AppStyles.f16]}>{getQuoteData().sub_category_name}</Text>
+                  <Text style={[AppStyles.txtBlackRegular, AppStyles.f17]}>{getQuoteData().sub_category_name}</Text>
                 </View>
               </View>
               <View style={AppStyles.flexRowSpaceBetween}>
                 <View style={AppStyles.flexpointsix}>
-                  <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f16, AppStyles.mt10]}>Volume</Text>
+                  <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f15, AppStyles.mt10]}>Volume</Text>
                 </View>
                 <View style={AppStyles.flexpointfour}>
-                  <Text style={[AppStyles.txtBlackRegular, AppStyles.f16, AppStyles.mt10]}>{getQuoteData().qty} {getQuoteData().unit_name}</Text>
+                  <Text style={[AppStyles.txtBlackRegular, AppStyles.f17, AppStyles.mt10]}>{getQuoteData().qty} {getQuoteData().unit_name}</Text>
                 </View>
               </View>
             </View>
@@ -169,7 +170,7 @@ const AddressConfirm = () => {
                     onPress={handelNewAddress}
                     style={[AppStyles.flexRowAlignCenter]}>
                     <FAIcon name={'plus'} size={20} color={Colors.mango} />
-                    <Text style={[AppStyles.ml10, AppStyles.txtBlackBold, AppStyles.f16]}>Add New Address</Text>
+                    <Text style={[AppStyles.ml10, AppStyles.txtBlackBold, AppStyles.f17]}>Add New Address</Text>
                   </TouchableOpacity>
                 </View>
               </View>
@@ -186,14 +187,14 @@ const AddressConfirm = () => {
                           activeOpacity={0.8}
                           onPress={handelNewAddress}
                           style={[AppStyles.mr20]}>
-                          <Text style={[AppStyles.txtmangoTwoRegular, AppStyles.f11, AppStyles.ml20]}>Edit</Text>
+                          <Text style={[AppStyles.txtmangoTwoRegular, AppStyles.f12, AppStyles.ml20]}>Edit</Text>
                         </TouchableOpacity>
                       </View>
                     </View>
                     <View>
-                      <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f16, AppStyles.mt5, AppStyles.mr5]}>{Address}</Text>
-                      <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f16, AppStyles.mt5]}>{Landmark}</Text>
-                      <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f16, AppStyles.mt5]}>{City} {PinCode}</Text>
+                      <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f15, AppStyles.mt5, AppStyles.mr5]}>{Address}</Text>
+                      <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f15, AppStyles.mt5]}>{Landmark}</Text>
+                      <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f15, AppStyles.mt5]}>{City} {PinCode}</Text>
                     </View>
                   </View>
                 </View>
@@ -208,7 +209,7 @@ const AddressConfirm = () => {
                   onPress={() => setModalVisible(true)}
                   style={[AppStyles.flexRowAlignCenter]}>
                   <FAIcon name={'plus'} size={20} color={Colors.mango} />
-                  <Text style={[AppStyles.ml10, AppStyles.txtBlackBold, AppStyles.f16]}>Add Time Slot</Text>
+                  <Text style={[AppStyles.ml10, AppStyles.txtBlackBold, AppStyles.f17]}>Add Time Slot</Text>
                 </TouchableOpacity>
               </View>
             </View>
@@ -240,10 +241,11 @@ const AddressConfirm = () => {
         </View>
       </View>
 
-      <View style={[AppStyles.flexRowSpaceBetween, AppStyles.w100, AppStyles.ph20, AppStyles.alignCenter, AppStyles.mt10]}>
+      <View style={[AppStyles.flex1, {justifyContent: 'flex-end', alignItems: 'flex-end',}]}>
+      <View style={[AppStyles.flexRowSpaceBetween, AppStyles.w100, AppStyles.ph20, AppStyles.alignCenter, AppStyles.mt20]}>
         <View style={[AppStyles.ph10, AppStyles.flexpointfour]}>
           <Text style={[AppStyles.f12, AppStyles.txtPrimaryBold]}>ESTIMATED PRICE</Text>
-          <Text style={AppStyles.txtBlackRegular, AppStyles.mt3}>
+          <Text style={AppStyles.txtBlackBold, AppStyles.mt3, AppStyles.f15}>
             <FAIcon size={14} name='rupee' /> {getQuoteData().price}</Text>
         </View>
         <View style={[AppStyles.flexpointsix]}>
@@ -256,6 +258,7 @@ const AddressConfirm = () => {
           </TouchableOpacity>
         </View>
       </View>
+      </View>
       <PickupDate
         handleClose={() => setModalVisible(false)}
         isVisible={modalVisible}
@@ -263,6 +266,7 @@ const AddressConfirm = () => {
 
         />
 
+      </ScrollView>
     </View>
 
   );

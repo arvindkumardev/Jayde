@@ -317,7 +317,7 @@ function PricingRequest() {
           </View>
         </View>
       </View>
-      <View style={{ marginBottom: 30 }}>
+      <View style={AppStyles.mb10}>
         <TouchableOpacity
           activeOpacity={0.8}
           style={[AppStyles.btnPrimary, AppStyles.alignCenter, AppStyles.pv10, AppStyles.br10]}

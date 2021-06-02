@@ -35,8 +35,8 @@ const styles = StyleSheet.create({
   },
   completelaterbtn: {
     backgroundColor: '#fff',
-    width: 155,
-    height: 44,
+    paddingHorizontal: 10,
+    paddingVertical: 10,
     borderRadius: 10,
     borderColor: '#F7A435',
     borderWidth: 1,
