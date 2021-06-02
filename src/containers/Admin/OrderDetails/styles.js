@@ -19,14 +19,14 @@ const styles = StyleSheet.create({
   },
   confirmbtn: {
     backgroundColor: '#F7A435',
-    width: RfW(158),
-    height: RfH(44),
+    paddingHorizontal: RfW(10),
+    paddingVertical: RfH(11),
     borderRadius: 10,
   },
   aggregatebtn: {
     backgroundColor: '#fff',
-    width: RfW(158),
-    height: RfH(44),
+    paddingHorizontal: RfW(10),
+    paddingVertical: RfH(10),
     borderRadius: 10,
     borderColor: '#F7A435',
     borderWidth: 1,

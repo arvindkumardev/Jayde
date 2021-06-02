@@ -138,7 +138,7 @@ function BusinessDetail() {
   return (
       <KeyboardAwareScrollView>
       <View style={[Styles.topView, AppStyles.flex1SpaceBetween]}>
-        <ScrollView contentContainerStyle={AppStyles.flex1}>
+      
           <View style={AppStyles.flex1}>
             <Text style={[AppStyles.txtBlackBold, AppStyles.f17, Styles.title]}>
               Please enter the details for your business registration
@@ -308,7 +308,6 @@ function BusinessDetail() {
             </View>
         
 
-        </ScrollView>
       </View>
       </KeyboardAwareScrollView>
   );

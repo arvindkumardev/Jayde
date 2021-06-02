@@ -95,7 +95,7 @@ function ViewNewOrder() {
           <Text style={[AppStyles.txtBlackBold, AppStyles.f17, AppStyles.mt30,]}>Ref No- {item.order_no}</Text>
         </View>
 
-        <View style={Styles.boxView}>
+        <View style={[AppStyles.boxxView, AppStyles.mt35]}>
           <View style={[AppStyles.flexDir, AppStyles.mt20,]}>
             <View style={AppStyles.flexpointsix}>
               <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f15, AppStyles.ml20]}>Waste type</Text>
@@ -144,7 +144,7 @@ function ViewNewOrder() {
             </View>
           </View>
 
-          <View style={AppStyles.flexDir}>
+          <View style={[AppStyles.flexDir, AppStyles.mb10]}>
             <View style={AppStyles.flexpointsix}>
               <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f15, AppStyles.mt10, AppStyles.ml20]}>Pick Up Schedule</Text>
             </View>
@@ -161,7 +161,7 @@ function ViewNewOrder() {
               activeOpacity={0.8}
               style={[Styles.aggregatebtn]}
               onPress={() => { handelReject() }}>
-              <Text style={[AppStyles.txtPrimaryRegular, AppStyles.f17, AppStyles.textalig, AppStyles.mt10]}>REJECT</Text>
+              <Text style={[AppStyles.txtPrimaryRegular, AppStyles.f17, AppStyles.textalig]}>REJECT</Text>
             </TouchableOpacity>
           </View>
           <View style={AppStyles.flex1}>
@@ -169,7 +169,7 @@ function ViewNewOrder() {
               activeOpacity={0.8}
               style={[Styles.confirmbtn, AppStyles.mb20]}
               onPress={() => { handelAccept() }}>
-              <Text style={[AppStyles.txtWhiteRegular, AppStyles.f17, AppStyles.textalig, AppStyles.mt10]}>ACCEPT</Text>
+              <Text style={[AppStyles.txtWhiteRegular, AppStyles.f17, AppStyles.textalig]}>ACCEPT</Text>
             </TouchableOpacity>
           </View>
         </View>

@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
   },
   imgBag: {
     width: RfW(108),
-    height: RfH(131)
+    height: RfH(131),
   }
 
 });
