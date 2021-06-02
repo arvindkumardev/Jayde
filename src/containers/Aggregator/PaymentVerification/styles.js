@@ -53,16 +53,20 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     backgroundColor:Colors.mango,
     alignItems:'center',
-    height: 44,
-    width: 156,
+    paddingHorizontal: 10,
+    paddingVertical: 11,
+    // height: 44,
+    // width: 156,
     marginLeft: 4,
   },
   confirmButtonn:{
     marginTop:20,
     borderRadius: 10,
     backgroundColor:Colors.white,
-    height: 44,
-    width: 156,
+    paddingHorizontal: 10,
+    paddingVertical: 10,
+    // height: 44,
+    // width: 156,
     alignItems:'center',
     borderColor: Colors.mango,
     borderWidth: 1,
@@ -72,14 +76,14 @@ const styles = StyleSheet.create({
     fontFamily:
     Fonts.regular,
     color: Colors.white,
-    marginTop: 10,
+    // marginTop: 10,
   },
   confirmBtnTextt:{
     fontSize: RFValue(15, STANDARD_SCREEN_SIZE),
     fontFamily:
     Fonts.regular,
     color: Colors.mango,
-    marginTop: 10,
+    // marginTop: 10,
   },
 
   inputTextf:{

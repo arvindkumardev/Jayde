@@ -136,7 +136,7 @@ function BusinessDetail() {
   };
 
   return (
-      <KeyboardAwareScrollView contentContainerStyle={AppStyles.flex1}>
+      <KeyboardAwareScrollView>
       <View style={[Styles.topView, AppStyles.flex1SpaceBetween]}>
         <ScrollView contentContainerStyle={AppStyles.flex1}>
           <View style={AppStyles.flex1}>

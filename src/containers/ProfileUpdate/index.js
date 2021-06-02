@@ -124,7 +124,7 @@ function ProfileUpdate() {
   return (
  
       <View style={Styles.topView}>
-        <ScrollView contentContainerStyle={AppStyles.flex1}>
+        <ScrollView>
           <View style={AppStyles.flex1}>
         <Text style={[AppStyles.txtBlackBold, AppStyles.f17, Styles.title]}>Please enter the details</Text>
         <View style={[AppStyles.mt30, AppStyles.ml24, AppStyles.mr24]}>

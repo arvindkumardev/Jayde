@@ -16,6 +16,7 @@ const styles = StyleSheet.create({
   btnContainer:{
     marginLeft: 24,
     marginRight: 24,
+    marginTop: 100,
   },
   saveButton: {
     backgroundColor: '#F7A435',
