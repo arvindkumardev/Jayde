@@ -50,7 +50,7 @@ const DrawerSideBar = (props) => {
                 <TouchableOpacity activeOpacity={0.8} onPress={() => onNavigation(item.screenName)}>
                     <View style={{ flexDirection: 'row' }}>
                         <FAIcon name={item.iconName} size={20} style={AppStyles.mr20} color={item.color} />
-                        <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f16]}>{item.name}</Text>
+                        <Text style={[AppStyles.txtBlackRegular, AppStyles.f16]}>{item.name}</Text>
                     </View>
                 </TouchableOpacity>
             </View>

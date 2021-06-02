@@ -2,6 +2,8 @@ import { StyleSheet } from 'react-native';
 import { RfH, RfW } from '../../../utils/helpers';
 import { Colors } from '../../../theme';
 import Fonts from "../../../theme/Fonts";
+import { RFValue } from 'react-native-responsive-fontsize';
+import { STANDARD_SCREEN_SIZE } from '../../../utils/constants';
 
 const styles = StyleSheet.create({
   topView: {
@@ -43,7 +45,7 @@ const styles = StyleSheet.create({
     alignItems: 'flex-end',
     marginLeft: 280,
     marginTop: 15,
-    fontSize: 15,
+    fontSize: RFValue(15, STANDARD_SCREEN_SIZE),
   },
 });
 export default styles;

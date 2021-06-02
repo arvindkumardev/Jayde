@@ -1,6 +1,8 @@
 import {StyleSheet} from 'react-native';
 import {RfH, RfW} from '../../utils/helpers';
 import {Colors} from '../../theme';
+import {STANDARD_SCREEN_SIZE} from '../../utils/constants';
+import {RFValue} from 'react-native-responsive-fontsize';
 
 const styles = StyleSheet.create({
   formContainer: {
@@ -32,7 +34,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 1,
   },
   eyeIcon: {
-    fontSize: 18,
+    fontSize: RFValue(18, STANDARD_SCREEN_SIZE),
     color: '#818181',
     paddingBottom: RfH(8),
   },

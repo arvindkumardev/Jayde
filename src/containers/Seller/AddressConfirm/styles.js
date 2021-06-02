@@ -1,8 +1,8 @@
 import { StyleSheet } from 'react-native';
 import { RfH, RfW } from '../../../utils/helpers';
 import Fonts from "../../../theme/Fonts";
-// import { RFValue } from 'react-native-responsive-fontsize';
-// import { STANDARD_SCREEN_SIZE } from '../../../utils/constants';
+import { RFValue } from 'react-native-responsive-fontsize';
+import { STANDARD_SCREEN_SIZE } from '../../../utils/constants';
 import { Colors } from '../../../theme';
 
 const styles = StyleSheet.create({
@@ -25,16 +25,16 @@ const styles = StyleSheet.create({
   totalTxt: {
     fontFamily: Fonts.bold,
     color: Colors.black,
-    fontSize: 16
+    fontSize: RFValue(16, STANDARD_SCREEN_SIZE),
   },
   itemTxt: {
     fontFamily: Fonts.regular,
     color: Colors.grayThree,
-    fontSize: 16
+    fontSize: RFValue(16, STANDARD_SCREEN_SIZE),
   },
   headerTxt: {
     fontFamily: Fonts.bold,
-    fontSize: 18
+    fontSize: RFValue(18, STANDARD_SCREEN_SIZE),
   },
   priceContainer: {
     width: '100%',
@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
   },
   labelTxt: {
     fontFamily: Fonts.bold,
-    fontSize: 18
+    fontSize: RFValue(18, STANDARD_SCREEN_SIZE),
   },
   btnPrimary: {
     borderRadius: 10,
@@ -57,13 +57,13 @@ const styles = StyleSheet.create({
     paddingHorizontal: 40
   },
   btnTextWhite: {
-    fontSize: 18,
+    fontSize: RFValue(18, STANDARD_SCREEN_SIZE),
     fontFamily:
       Fonts.regular,
     color: Colors.white
   },
   btnTextGray: {
-    fontSize: 18,
+    fontSize: RFValue(18, STANDARD_SCREEN_SIZE),
     fontFamily:
       Fonts.regular,
     color: Colors.grayThree

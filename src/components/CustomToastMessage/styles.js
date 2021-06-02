@@ -1,5 +1,7 @@
 import { StyleSheet } from 'react-native';
 import { RfW } from '../../utils/helpers';
+import { RFValue } from 'react-native-responsive-fontsize';
+import { STANDARD_SCREEN_SIZE } from '../../utils/constants';
 
 const styles = StyleSheet.create({
   toastContainer: {
@@ -26,7 +28,7 @@ const styles = StyleSheet.create({
     paddingTop: RfW(8)
   },
   toastLabel: {
-    fontSize: 12,
+    fontSize: RFValue(12, STANDARD_SCREEN_SIZE),
     color: '#000',
     fontWeight: '500',
     textAlign: 'center',

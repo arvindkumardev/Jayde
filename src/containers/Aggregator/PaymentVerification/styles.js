@@ -1,6 +1,8 @@
 import { StyleSheet } from 'react-native';
 import Fonts from "../../../theme/Fonts";
 import { Colors } from '../../../theme';
+import { RFValue } from 'react-native-responsive-fontsize';
+import { STANDARD_SCREEN_SIZE } from '../../../utils/constants';
 
 const styles = StyleSheet.create({
   btnConfirmPickup:{
@@ -66,14 +68,14 @@ const styles = StyleSheet.create({
     borderWidth: 1,
   },
   confirmBtnText:{
-    fontSize: 15,
+    fontSize: RFValue(15, STANDARD_SCREEN_SIZE),
     fontFamily:
     Fonts.regular,
     color: Colors.white,
     marginTop: 10,
   },
   confirmBtnTextt:{
-    fontSize: 15,
+    fontSize: RFValue(15, STANDARD_SCREEN_SIZE),
     fontFamily:
     Fonts.regular,
     color: Colors.mango,
@@ -99,7 +101,7 @@ const styles = StyleSheet.create({
     alignItems: 'flex-end', 
     marginLeft: 290, 
     marginTop: 15, 
-    fontSize: 15,
+    fontSize: RFValue(15, STANDARD_SCREEN_SIZE),
   },
 
   // is the material weighted css
@@ -125,7 +127,7 @@ const styles = StyleSheet.create({
     marginBottom: 5,
     fontFamily:
     Fonts.regular,
-    fontSize: 16
+    fontSize: RFValue(16, STANDARD_SCREEN_SIZE),
   },
   locationTxt:{
     flex: 3,
@@ -146,7 +148,7 @@ const styles = StyleSheet.create({
   },
   dropDownText: {
     fontFamily: Fonts.regular,
-    fontSize: 16
+    fontSize: RFValue(16, STANDARD_SCREEN_SIZE),
   },
   imagePickerContainer:{
     marginTop: 15,
@@ -178,7 +180,7 @@ const styles = StyleSheet.create({
     alignItems:'center'
   },
   confirmBtnTextaa:{
-    fontSize: 18,
+    fontSize: RFValue(18, STANDARD_SCREEN_SIZE),
     fontFamily:
     Fonts.regular,
     color: Colors.white

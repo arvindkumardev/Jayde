@@ -49,7 +49,7 @@ const commonStyles = StyleSheet.create({
   },
   dropDownText: {
     fontFamily: Fonts.regular,
-    fontSize: 15
+    fontSize:  RFValue(16, STANDARD_SCREEN_SIZE),
   },
 });
 export default commonStyles;

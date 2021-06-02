@@ -1,6 +1,8 @@
 import { StyleSheet } from 'react-native';
 import { RfH, RfW } from '../../../utils/helpers';
 import { Colors } from '../../../theme';
+import { RFValue } from 'react-native-responsive-fontsize';
+import { STANDARD_SCREEN_SIZE } from '../../../utils/constants';
 
 const styles = StyleSheet.create({
   confirmView: {
@@ -17,7 +19,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   confirm: {
-    fontSize: 18,
+    fontSize: RFValue(18, STANDARD_SCREEN_SIZE),
     color: '#ffffff',
   },
   slctAggre: {
@@ -47,7 +49,7 @@ const styles = StyleSheet.create({
     marginLeft: 34,
   },
   topTitle: {
-    fontSize: 20,
+    fontSize: RFValue(20, STANDARD_SCREEN_SIZE),
     color: '#000000',
     fontWeight: "bold",
   },
@@ -57,7 +59,7 @@ const styles = StyleSheet.create({
   },
   refText: {
     marginLeft: 24,
-    fontSize: 17,
+    fontSize: RFValue(17, STANDARD_SCREEN_SIZE),
     color: '#121212',
     fontWeight: "bold",
   },
@@ -78,13 +80,13 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   boxtxtt: {
-    fontSize: 15,
+    fontSize: RFValue(15, STANDARD_SCREEN_SIZE),
     color: '#121212',
     marginTop: 20,
     fontFamily: 'ProximaNova-Regular',
   },
   boxTextt1: {
-    fontSize: 15,
+    fontSize: RFValue(15, STANDARD_SCREEN_SIZE),
     color: '#121212',
     marginTop: 20,
     fontFamily: 'ProximaNova-Regular',

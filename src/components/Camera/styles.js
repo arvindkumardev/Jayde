@@ -1,6 +1,7 @@
 import { StyleSheet } from "react-native";
 import { Colors, Fonts} from "../../theme";
-
+import { RFValue } from 'react-native-responsive-fontsize';
+import { STANDARD_SCREEN_SIZE } from '../../utils/constants';
 
 const styles = StyleSheet.create({
     cameraContainer:{
@@ -11,12 +12,12 @@ const styles = StyleSheet.create({
     BtnTakeSnap:{
       color: '#fff',
       fontFamily:Fonts.bold,
-      fontSize: 18
+      fontSize: RFValue(18, STANDARD_SCREEN_SIZE)
     },
     closeTxt:{
       color: '#000',
       fontFamily:Fonts.bold,
-      fontSize: 18
+      fontSize: RFValue(18, STANDARD_SCREEN_SIZE)
     },
     BtnsContainer:{
       flexDirection: 'row',

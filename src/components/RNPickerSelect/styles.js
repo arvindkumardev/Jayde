@@ -1,5 +1,7 @@
 import { StyleSheet } from 'react-native';
 import {Colors} from '../../theme';
+import { RFValue } from 'react-native-responsive-fontsize';
+import { STANDARD_SCREEN_SIZE } from '../../utils/constants';
 
 export const defaultStyles = StyleSheet.create({
     viewContainer: {
@@ -49,12 +51,12 @@ export const defaultStyles = StyleSheet.create({
     done: {
         color: '#007aff',
         fontWeight: '600',
-        fontSize: 17,
+        fontSize: RFValue(17, STANDARD_SCREEN_SIZE),
         paddingTop: 1,
         paddingRight: 11,
     },
     doneDepressed: {
-        fontSize: 19,
+        fontSize: RFValue(19, STANDARD_SCREEN_SIZE),
     },
     modalViewBottom: {
         justifyContent: 'center',
