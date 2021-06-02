@@ -1,6 +1,9 @@
 import { StyleSheet, Platform } from 'react-native';
 import Colors from '../Colors';
 import Fonts from '../Fonts';
+import { RFValue } from 'react-native-responsive-fontsize';
+
+import { STANDARD_SCREEN_SIZE } from '../../utils/constants';
 
 const texts = StyleSheet.create({
   txtWhiteRegular: {
@@ -54,44 +57,45 @@ const texts = StyleSheet.create({
     includeFontPadding: false
   },
   f9: {
-    fontSize: 9,
+    fontSize: RFValue(9, STANDARD_SCREEN_SIZE),
   },
   f11: {
-    fontSize: 11,
+    fontSize: RFValue(11, STANDARD_SCREEN_SIZE),
   },
   f12: {
-    fontSize: 12,
+    fontSize: RFValue(12, STANDARD_SCREEN_SIZE),
   },
   f13: {
-    fontSize: 13,
+    fontSize: RFValue(13, STANDARD_SCREEN_SIZE),
   },
   f15: {
-    fontSize: 15,
+    fontSize: RFValue(15, STANDARD_SCREEN_SIZE),
   },
   f16: {
-    fontSize: 16,
+    fontSize: RFValue(16, STANDARD_SCREEN_SIZE),
   },
   f17: {
-    fontSize: 17,
+    fontSize: RFValue(17, STANDARD_SCREEN_SIZE),
   },
   f18: {
-    fontSize: 18,
+    fontSize: RFValue(18, STANDARD_SCREEN_SIZE),
   },
   f20: {
-    fontSize: 20,
+    fontSize: RFValue(20, STANDARD_SCREEN_SIZE),
   },
   f30: {
-    fontSize: 30,
+    fontSize: RFValue(30, STANDARD_SCREEN_SIZE),
   },
   f34: {
-    fontSize: 34,
+    fontSize: RFValue(34, STANDARD_SCREEN_SIZE),
   },
   f35: {
-    fontSize: 35,
+    fontSize: RFValue(35, STANDARD_SCREEN_SIZE),
   },
   f40: {
-    fontSize: 40,
+    fontSize: RFValue(40, STANDARD_SCREEN_SIZE),
   },
+
   flexRowAlignCenter: {
     flexDirection: 'row',
     alignItems: 'center',
