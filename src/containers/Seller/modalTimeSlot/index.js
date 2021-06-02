@@ -147,8 +147,8 @@ function PickupDate (props) {
           onColor="#ABC270"
           offColor="#707070"
           label="Customize Time Slot"
-          labelStyle={{ color: "black", fontFamily: "Poppins-SemiBold", fontSize: 15, marginRight: 95, marginLeft: 0, }}
-          size="large"
+          labelStyle={[AppStyles.txtBlackBold, AppStyles.f15, {marginLeft: 0}, AppStyles.flex1SpaceBetween]}
+          size="medium"
           onToggle={isOn => setIsEnabled(!isEnabled)}
         />
 

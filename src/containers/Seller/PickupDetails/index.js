@@ -105,7 +105,7 @@ const PickupDetails = () => {
   }, []);
 
   const getOneTimeLocation = () => {
-    setLoader(true);
+   // setLoader(true);
     setLocationStatus('Getting Location ...');
     Geolocation.getCurrentPosition(
       (position) => {
