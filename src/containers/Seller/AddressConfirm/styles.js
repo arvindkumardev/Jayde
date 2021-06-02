@@ -7,7 +7,7 @@ import { Colors } from '../../../theme';
 
 const styles = StyleSheet.create({
   quoteContainer: {
-    marginTop: 20,
+    marginTop: RfH(20),
     width: '100%',
   },
   itemContainer: {
@@ -15,12 +15,12 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between'
   },
   totalPriceContainer: {
-    paddingVertical: 20,
+    paddingVertical: RfH(20),
     borderTopColor: '#ccc',
     borderTopWidth: 1,
     borderBottomColor: '#ccc',
     borderBottomWidth: 1,
-    marginTop: 20
+    marginTop: RfH(20)
   },
   totalTxt: {
     fontFamily: Fonts.bold,
@@ -38,8 +38,8 @@ const styles = StyleSheet.create({
   },
   priceContainer: {
     width: '100%',
-    paddingHorizontal: 20,
-    marginTop: 20
+    paddingHorizontal: RfW(20),
+    marginTop: RfH(20)
   },
   screenContainer: {
     flex: 1,
@@ -52,40 +52,38 @@ const styles = StyleSheet.create({
   btnPrimary: {
     borderRadius: 10,
     backgroundColor: Colors.mango,
-    paddingVertical: 10,
+    paddingVertical: RfH(10),
     alignItems: 'center',
-    paddingHorizontal: 40
+    paddingHorizontal: RfW(40)
   },
   btnTextWhite: {
     fontSize: RFValue(18, STANDARD_SCREEN_SIZE),
-    fontFamily:
-      Fonts.regular,
+    fontFamily: Fonts.regular,
     color: Colors.white
   },
   btnTextGray: {
     fontSize: RFValue(18, STANDARD_SCREEN_SIZE),
-    fontFamily:
-      Fonts.regular,
+    fontFamily: Fonts.regular,
     color: Colors.grayThree
   },
   btnContainer: {
     width: '100%',
-    paddingHorizontal: 20,
-    bottom: 20,
+    paddingHorizontal: RfW(20),
+    bottom: RfH(20),
     position: 'absolute'
   },
   paperBox: {
-    width: 321,
-    height: 126,
+    width: RfW(321),
+    height: RfH(126),
     borderRadius: 10,
   },
   deliveryBox: {
-    width: 321,   
+    width: RfW(321),   
     borderRadius: 10,
   },
   addressBox: {
-    width: 321,
-    height: 64,
+    width: RfW(321),
+    height: RfH(64),
     borderRadius: 10,
   }
 });

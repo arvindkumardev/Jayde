@@ -8,15 +8,15 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.white,
   },
   btnContainer: {
-    marginTop: 20,
-    marginLeft: 24,
-    marginRight: 24,
+    marginTop: RfH(20),
+    marginLeft: RfW(24),
+    marginRight: RfW(24),
   },
   confirmbtn: {
     backgroundColor: Colors.mango,
     borderRadius: 10,
-    paddingHorizontal: 10,
-    paddingVertical: 10,
+    paddingHorizontal: RfW(10),
+    paddingVertical: RfH(10),
     marginLeft: 3,
   },
   aggregatebtn: {
@@ -24,8 +24,8 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     borderColor: Colors.mango,
     borderWidth: 1,
-    paddingHorizontal: 10,
-    paddingVertical: 10,
+    paddingHorizontal: RfW(10),
+    paddingVertical: RfH(10),
     marginRight: 5,
   },
   bdrclr: {

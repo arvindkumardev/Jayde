@@ -10,21 +10,21 @@ const styles = StyleSheet.create({
   boxView: {
     backgroundColor: '#ffffff', 
     borderRadius: 20, 
-    marginLeft: 24, 
-    marginRight: 24,
-    marginTop: 25, 
+    marginLeft: RfW(24), 
+    marginRight: RfW(24),
+    marginTop: RfH(25), 
   },
   lftimga: {
-    width: 16, 
-    height: 16, 
-    marginLeft: 17,
+    width: RfW(16), 
+    height: RfH(16), 
+    marginLeft: RfW(17),
   },
   scheduleimage: {
-    width: 22, 
-    height: 22, 
-    marginBottom: 8,
-    marginLeft: 30,
-    marginTop: 10,
+    width: RfW(22), 
+    height: RfH(22), 
+    marginBottom: RfH(8),
+    marginLeft: RfW(30),
+    marginTop: RfH(10),
   },
 });
 export default styles;

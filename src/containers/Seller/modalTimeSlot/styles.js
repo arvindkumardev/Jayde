@@ -6,7 +6,7 @@ import { Colors } from '../../../theme';
 const styles = StyleSheet.create({
   active: {
     borderLeftColor: Colors.mango,
-    borderLeftWidth: 10,
+    borderLeftWidth: RfW(10),
     backgroundColor: Colors.grayLine
   },
   txtFileUpload: {
@@ -17,8 +17,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    paddingHorizontal: 20,
-    paddingVertical: 10,
+    paddingHorizontal: RfW(20),
+    paddingVertical: RfH(10),
     backgroundColor: Colors.grayBackground,
   },
   mainContainer: {

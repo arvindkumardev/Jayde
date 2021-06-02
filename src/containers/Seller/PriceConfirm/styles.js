@@ -9,13 +9,13 @@ const styles = StyleSheet.create({
   totalPriceContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    paddingVertical: 15,
+    paddingVertical: RfH(15),
     borderTopColor: '#707070',
     borderTopWidth: 1,
     borderBottomColor: '#707070',
     borderBottomWidth: 1,
-    marginTop: 5,
-    marginRight: 20,
+    marginTop: RfH(5),
+    marginRight: RfW(20),
   },
   screenContainer: {
     flex: 1,
@@ -26,16 +26,16 @@ const styles = StyleSheet.create({
   btnContainer: {
     width: '100%',
     paddingHorizontal: 20,
-    bottom: 20
+    bottom: RfH(20)
   },
   provisionalBox: {
-    width: 321,
-    height: 190,
+    width: RfW(321),
+    height: RfH(190),
     borderRadius: 10,
     backgroundColor: '#f5f5f5',
   },
   estPrice: {
-    marginLeft: 10,
+    marginLeft: RfW(10),
   },
 });
 

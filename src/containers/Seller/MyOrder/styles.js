@@ -1,5 +1,6 @@
 import { StyleSheet } from 'react-native';
 import Colors from '../../../theme/Colors';
+import { RfH, RfW } from '../../../utils/helpers';
 
 
 const styles = StyleSheet.create({
@@ -8,20 +9,20 @@ const styles = StyleSheet.create({
     backgroundColor: '#ffffff',
   },
   boxView: {
-    width: 320,
-    height: 144,
+    width: RfW(320),
+    height: RfH(144),
     backgroundColor: '#ffffff',
     borderRadius: 20,
-    marginLeft: 20,
-    marginTop: 25,
+    marginLeft: RfW(20),
+    marginTop: RfH(25),
   },
   confirmBtn: {
     borderRadius: 10,
     backgroundColor: Colors.mangoTwo,
-    width: 66,
-    height: 23,
+    width: RfW(66),
+    height: RfH(23),
     justifyContent: 'center',
-    marginLeft: 5,
+    marginLeft: RfW(5),
   }
 });
 export default styles;

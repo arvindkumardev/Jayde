@@ -3,66 +3,67 @@ import Fonts from "../../../theme/Fonts";
 import { Colors } from '../../../theme';
 import { RFValue } from 'react-native-responsive-fontsize';
 import { STANDARD_SCREEN_SIZE } from '../../../utils/constants';
+import { RfH, RfW } from '../../../utils/helpers';
 
 const styles = StyleSheet.create({
-  confirmButtonnabcd:{
+  confirmButtonabcd:{
     borderRadius: 10,
-    backgroundColor:Colors.grayBackground,
-    height: 44,
-    width: 315,
+    backgroundColor:Colors.mangoTwo,
+    height: RfH(44),
+    width: RfW(315),
     alignItems:'center',
-    marginTop: 10,
+    marginTop: RfH(10),
   },
   confirmButtonabc:{
-    marginTop: 20,
+    marginTop: RfH(20),
     borderRadius: 10,
     backgroundColor:Colors.mango,
     // backgroundColor: shouldShow3 == true ? Colors.mango : Colors.grayBackground,
     alignItems:'center',
-    height: 44,
-    width: 154,
+    height: RfH(44),
+    width: RfW(154),
   },
   confirmButtonnabc:{
-    marginTop:20,
+    marginTop:RfH(20),
     borderRadius: 10,
     backgroundColor:Colors.grayBackground,
     // backgroundColor: selected2 == true ? Colors.mango : Colors.grayBackground,
-    height: 44,
-    width: 154,
+    height: RfH(44),
+    width: RfW(154),
     alignItems:'center',
-    marginLeft: 9,
+    marginLeft: RfW(9),
   },
   imageContainer:{
     alignItems:'center',
     flexDirection:'row',
     justifyContent:'space-around',
-    marginTop: 40
+    marginTop: RfH(40)
   },
   uploadImage:{
-    width: 200,
-    height: 100
+    width: RfW(200),
+    height: RfH(100)
   },
   removeBtn:{
-    paddingVertical: 8,
-    paddingHorizontal: 10,
+    paddingVertical: RfH(8),
+    paddingHorizontal: RfW(10),
     backgroundColor:'red',
     borderRadius: 10
   },
   confirmButton:{
-    marginTop: 20,
+    marginTop: RfH(20),
     borderRadius: 10,
     backgroundColor:Colors.mango,
     alignItems:'center',
-    height: 44,
-    width: 156,
-    marginLeft: 4,
+    height: RfH(44),
+    width: RfW(156),
+    marginLeft: RfW(4),
   },
   confirmButtonn:{
-    marginTop:20,
+    marginTop:RfH(20),
     borderRadius: 10,
     backgroundColor:Colors.white,
-    height: 44,
-    width: 156,
+    height: RfH(44),
+    width: RfW(156),
     alignItems:'center',
     borderColor: Colors.mango,
     borderWidth: 1,
@@ -72,42 +73,42 @@ const styles = StyleSheet.create({
     fontFamily:
     Fonts.regular,
     color: Colors.white,
-    marginTop: 10,
+    marginTop: RfH(10),
   },
   confirmBtnTextt:{
     fontSize: RFValue(15, STANDARD_SCREEN_SIZE),
     fontFamily:
     Fonts.regular,
     color: Colors.mango,
-    marginTop: 10,
+    marginTop: RfH(10),
   },
 
   inputTextf:{
     backgroundColor:'#e4e4e4',
     borderRadius: 10,
-    paddingLeft: 15,
+    paddingLeft: RfW(15),
     fontFamily: Fonts.regular,
     flex:1,
   },
   boxView: {
-    width: 310, 
-    height: 200, 
+    width: RfW(310), 
+    height: RfH(200), 
     backgroundColor: '#f5f5f5', 
     borderRadius: 10, 
-    marginTop: 25, 
+    marginTop: RfH(25), 
   },
   rupee: {
     position: 'absolute', 
     alignItems: 'flex-end', 
-    marginLeft: 290, 
-    marginTop: 15, 
+    marginLeft: RfW(290), 
+    marginTop: RfH(15), 
     fontSize: RFValue(15, STANDARD_SCREEN_SIZE),
   },
 
   // is the material weighted css
   viewVolume:{
-    marginTop: 15,
-    height: 60,
+    marginTop: RfH(15),
+    height: RfH(60),
     width: '100%'
   },
   viewVolumeInputContainer:{
@@ -116,67 +117,66 @@ const styles = StyleSheet.create({
     justifyContent:'space-between'
   },
   viewVolumeInputContainerDate:{
-    width: 169,
-    height: 44,
+    width: RfW(169),
+    height: RfH(44),
   },
   viewVolumeInputContainerK: {
-    width: 157,
-    height: 44,
+    width: RfW(157),
+    height: RfH(44),
   },
   inputLabelText: {
-    marginBottom: 5,
-    fontFamily:
-    Fonts.regular,
-    fontSize: RFValue(16, STANDARD_SCREEN_SIZE)
+    marginBottom: RfH(5),
+    fontFamily:Fonts.regular,
+    fontSize: RFValue(16, STANDARD_SCREEN_SIZE),
   },
   locationTxt:{
     flex: 3,
-    height: 45,
-    width: 159,
-    marginRight: 15
+    height: RfH(45),
+    width: RfW(159),
+    marginRight: RfW(15)
   },
   locationTxtStyle:{
     flex: 3,
-    height: 44,
-    marginRight: 15
+    height: RfH(44),
+    marginRight: RfW(15)
   },
   inputText:{
     backgroundColor: Colors.grayBackground,
     borderRadius: 10,
-    paddingLeft: 15,
+    paddingLeft: RfW(15),
     fontFamily: Fonts.regular
   },
   dropDownText: {
     fontFamily: Fonts.regular,
-    fontSize: RFValue(16, STANDARD_SCREEN_SIZE)
+    fontSize: RFValue(16, STANDARD_SCREEN_SIZE),
   },
   imagePickerContainer:{
-    marginTop: 15,
-    height: 50
+    marginTop: RfH(15),
+    height: RfH(50)
   },
   imageContainer:{
     alignItems:'center',
     flexDirection:'row',
     justifyContent:'space-around',
-    marginTop: 40
+    marginTop: RfH(40)
   },
   uploadImage:{
-    width: 200,
-    height: 100
+    width: RfW(200),
+    height: RfH(100)
   },
   iconButton:{
     borderRadius: 10,
-    paddingHorizontal: 45,
-    paddingVertical: 25,
+    paddingHorizontal: RfW(45),
+    paddingVertical: RfH(25),
     backgroundColor:'#ccc',
     flexDirection:'row',
     alignItems:'center'
   },
   confirmButtonaa:{
-    marginTop:20,
+    marginTop:RfH(20),
     borderRadius: 10,
     backgroundColor:Colors.mango,
-    paddingVertical: 15,
+    paddingVertical: RfH(15),
     alignItems:'center'
   },
   confirmBtnTextaa:{
@@ -187,19 +187,19 @@ const styles = StyleSheet.create({
   },
   headerContainer:{
     alignItems:'center',
-    marginBottom: 20,
-    paddingTop: 30
+    marginBottom: RfH(20),
+    paddingTop: RfH(30)
   },
   headerText:{
     fontFamily: Fonts.bold,
-    fontSize: RFValue(20, STANDARD_SCREEN_SIZE),
+    fontSize: 20
   },
   inputIcon:{
     flexDirection:'row',
     alignItems:'center',
     justifyContent:'space-between',
-    paddingHorizontal: 20,
-    paddingVertical: 10,
+    paddingHorizontal: RfW(20),
+    paddingVertical: RfH(10),
   },
   Requiredprice:{
     color: "#000",

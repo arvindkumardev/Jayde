@@ -7,15 +7,15 @@ import { STANDARD_SCREEN_SIZE } from '../../../utils/constants';
 const styles = StyleSheet.create({
   confirmView: {
     flex: 1,
-    marginTop: 20,
-    marginRight: 24,
-    marginLeft: 24,
+    marginTop: RfH(20),
+    marginRight: RfW(24),
+    marginLeft: RfW(24),
   },
   confirmBtn: {
-    marginTop: 20,
+    marginTop: RfH(20),
     borderRadius: 13,
     backgroundColor: 'orange',
-    paddingVertical: 11,
+    paddingVertical: RfH(11),
     alignItems: 'center',
   },
   confirm: {
@@ -23,19 +23,19 @@ const styles = StyleSheet.create({
     color: '#ffffff',
   },
   slctAggre: {
-    marginTop: 15,
-    marginRight: 24,
-    marginLeft: 24,
+    marginTop: RfH(15),
+    marginRight: RfW(24),
+    marginLeft: RfW(24),
   },
   businessType: {
-    marginTop: 15,
-    marginRight: 24,
-    marginLeft: 24,
+    marginTop: RfH(15),
+    marginRight: RfW(24),
+    marginLeft: RfW(24),
   },
 
   leftArrwView: {
     flexDirection: 'row',
-    marginTop: 30,
+    marginTop: RfH(30),
   },
   flx1: {
     flex: .3,
@@ -44,9 +44,9 @@ const styles = StyleSheet.create({
     flex: .7,
   },
   lftimg: {
-    width: 24,
-    height: 34,
-    marginLeft: 34,
+    width: RfW(24),
+    height: RfH(34),
+    marginLeft: RfW(34),
   },
   topTitle: {
     fontSize: RFValue(20, STANDARD_SCREEN_SIZE),
@@ -55,26 +55,26 @@ const styles = StyleSheet.create({
   },
   refView: {
     alignItems: 'center',
-    marginTop: 25,
+    marginTop: RfH(25),
   },
   refText: {
-    marginLeft: 24,
+    marginLeft: RfW(24),
     fontSize: RFValue(17, STANDARD_SCREEN_SIZE),
     color: '#121212',
     fontWeight: "bold",
   },
   boxView: {
-    width: 310,
-    height: 215,
+    width: RfW(310),
+    height: RfH(215),
     backgroundColor: '#f5f5f5',
     borderRadius: 20,
-    marginLeft: 24,
-    marginTop: 25,
-    marginRight: 24,
+    marginLeft: RfW(24),
+    marginTop: RfH(25),
+    marginRight: RfW(24),
   },
   boxText: {
     flexDirection: 'row',
-    marginLeft: 24,
+    marginLeft: RfW(24),
   },
   flx: {
     flex: 1,
@@ -82,15 +82,15 @@ const styles = StyleSheet.create({
   boxtxtt: {
     fontSize: RFValue(15, STANDARD_SCREEN_SIZE),
     color: '#121212',
-    marginTop: 20,
+    marginTop: RfH(20),
     fontFamily: 'ProximaNova-Regular',
   },
   boxTextt1: {
     fontSize: RFValue(15, STANDARD_SCREEN_SIZE),
     color: '#121212',
-    marginTop: 20,
+    marginTop: RfH(20),
     fontFamily: 'ProximaNova-Regular',
-    marginRight: 30,
+    marginRight: RfW(30),
   },
   boxTxtView: {
     flex: 1,

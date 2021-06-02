@@ -8,26 +8,26 @@ import { Colors } from '../../../theme';
 const styles = StyleSheet.create({
   locationTxt: {
     flex: 3,
-    height: 45,
-    marginRight: 15
+    height: RfH(45),
+    marginRight: RfW(15)
   },
   imagePickerContainer: {
-    marginTop: 15,
-    height: 50
+    marginTop: RfH(15),
+    height: RfH(50)
   },
   imageContainer: {
     alignItems: 'center',
     flexDirection: 'row',
     justifyContent: 'space-around',
-    marginTop: 40
+    marginTop: RfH(40)
   },
   uploadImage: {
-    width: 200,
-    height: 100
+    width: RfW(200),
+    height: RfH(100)
   },
   removeBtn: {
-    paddingVertical: 8,
-    paddingHorizontal: 10,
+    paddingVertical: RfH(8),
+    paddingHorizontal: RfW(10),
     backgroundColor: 'red',
     borderRadius: 10
   },
@@ -38,26 +38,25 @@ const styles = StyleSheet.create({
   },
   headerContainer: {
     alignItems: 'center',
-    marginBottom: 20,
-    paddingTop: 30
+    marginBottom: RfH(20),
+    paddingTop: RfH(30)
   },
   confirmButton: {
-    marginTop: 20,
+    marginTop: RfH(20),
     borderRadius: 10,
     backgroundColor: Colors.mango,
-    paddingVertical: 15,
+    paddingVertical: RfH(15),
     alignItems: 'center'
   },
   confirmBtnText: {
     fontSize: RFValue(18, STANDARD_SCREEN_SIZE),
-    fontFamily:
-      Fonts.regular,
+    fontFamily:Fonts.regular,
     color: Colors.white
   },
   iconButton: {
     borderRadius: 10,
-    paddingHorizontal: 45,
-    paddingVertical: 25,
+    paddingHorizontal: RfW(45),
+    paddingVertical: RfH(25),
     backgroundColor: '#ccc',
     flexDirection: 'row',
     alignItems: 'center'
@@ -67,8 +66,8 @@ const styles = StyleSheet.create({
     fontSize: RFValue(20, STANDARD_SCREEN_SIZE),
   },
   viewVolume: {
-    marginTop: 15,
-    height: 60,
+    marginTop: RfH(15),
+    height: RfH(60),
     width: '100%'
   },
   viewVolumeInputContainer: {
@@ -87,11 +86,11 @@ const styles = StyleSheet.create({
   inputText: {
     backgroundColor: '#e4e4e4',
     borderRadius: 10,
-    paddingLeft: 15,
+    paddingLeft: RfW(15),
     fontFamily: Fonts.regular
   },
   inputLabelText: {
-    marginBottom: 5,
+    marginBottom: RfH(5),
     fontFamily: Fonts.regular,
     fontSize: RFValue(16, STANDARD_SCREEN_SIZE),
   },

@@ -23,7 +23,6 @@ import MixWasterImg from './../../assets/Images/NewOrderList/Group_10088.png'
 
 import BagImg from '../../assets/Images/Dashboard/Mask.png'
 
-
 const ORDER_IMAGE = {
   'E-Waste': EWasteImg,
   Paper: PaperImg,
@@ -130,10 +129,10 @@ function HomeScreen() {
 
   const _renderMenu = (index, item) => {
     return (
-      <View key={index} style={[Styles.menuContainer, { backgroundColor: index == 0 ? Colors.mangoTwo : index == 1 ? Colors.paleGold : Colors.lightOlive, }]}>
+      <View key={index} style={[index == 0 ? Styles.menuContainerLarge : Styles.menuContainer, { backgroundColor: index == 0 ? Colors.mangoTwo : index == 1 ? Colors.paleGold : Colors.lightOlive}]}>
         <View>
           <TouchableOpacity activeOpacity = {0.8} style={Styles.menuEllipseContainer}>
-            <FAIcon name="ellipsis-v" color={Colors.white} size={25} />
+            <FAIcon name="ellipsis-v" color={Colors.white} size={20} />
           </TouchableOpacity>
         </View>
         <TouchableOpacity activeOpacity = {0.8} onPress={() => handleNavigate(item.screenName)} style={Styles.menuActionItem}>
@@ -155,8 +154,8 @@ function HomeScreen() {
           <Text style={[AppStyles.txtBlackBold, AppStyles.f20]}>{getGreeting()}</Text>
           <Text style={[AppStyles.flexDir, AppStyles.txtBlackBold, AppStyles.f30]}>{name}</Text>
         </View>
-        <View style={[AppStyles.flexpointthree, AppStyles.mr10]}>
-          <Image source={BagImg} />
+        <View style={[AppStyles.flexpointthree, {right: -10}]}>
+          <Image source={BagImg} style = {[Styles.imgBag]} />
         </View>
       </View>
 

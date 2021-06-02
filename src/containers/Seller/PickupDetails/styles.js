@@ -36,15 +36,15 @@ const styles = StyleSheet.create({
   userInputContainer: {
     flex: 1,
     width: '100%',
-    paddingHorizontal: 20
+    paddingHorizontal: RfW(20)
   },
   mainContainer: {
     flex: 1,
-    paddingBottom: 20
+    paddingBottom: RfH(20)
   },
   labelPosition: {
     left: labelLeft,
-    width: 250,
+    width: RfW(250),
     marginTop: -77,
     position: 'absolute',
     top: '52%'
@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
   inputBox: {
     backgroundColor: Colors.grayTwo,
     borderRadius: 10,
-    paddingLeft: 10
+    paddingLeft: RfW(10)
   },
   starText: {
     color: '#f75006',

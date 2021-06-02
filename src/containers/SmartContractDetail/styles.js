@@ -8,8 +8,8 @@ const styles = StyleSheet.create({
   bdrclr: {
     borderColor: Colors.warmGrey,
     borderWidth: 0.4,
-    marginLeft: 20,
-    marginTop: 15,
+    marginLeft: RfW(20),
+    marginTop: RfH(15),
     width: "85%",
   },
   text: {
@@ -17,13 +17,13 @@ const styles = StyleSheet.create({
     fontSize:  RFValue(15, STANDARD_SCREEN_SIZE),
   },
   btnContainer:{
-    marginTop: 20,
-    marginLeft: 20,
+    marginTop: RfH(20),
+    marginLeft: RfW(20),
   },
   confirmbtn: {
     backgroundColor: Colors.mango,
-    width: 45,
-    height: 22,
+    width: RfW(45),
+    height: RfH(22),
     borderRadius: 10,
   },
 });

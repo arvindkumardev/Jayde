@@ -8,23 +8,23 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
   boxView: {
-    width: 320,
-    height: 300,
+    width: RfW(320),
+    height: RfH(300),
     backgroundColor: '#f5f5f5',
     borderRadius: 10,
-    marginTop: 35,
-    marginLeft: 20,
+    marginTop: RfH(35),
+    marginLeft: RfW(20),
   },
   btnContainer: {
     alignItems: 'center',
-    marginTop: 100,
+    marginTop: RfH(100),
   },
   confirmbtn: {
     backgroundColor: '#F7A435',
-    width: 327,
-    height: 44,
+    width: RfW(327),
+    height: RfH(44),
     borderRadius: 10,
-    marginTop: 30,
+    marginTop: RfH(30),
   },
 });
 export default styles;

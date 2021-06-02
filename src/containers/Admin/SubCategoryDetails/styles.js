@@ -12,26 +12,26 @@ const styles = StyleSheet.create({
     borderWidth: 4,
   },
   btnContainer: {
-    marginTop: 20,
-    marginLeft: 20,
+    marginTop: RfH(20),
+    marginLeft: RfW(20),
   },
   confirmbtn: {
     backgroundColor: '#F7A435',
-    width: 160,
-    height: 44,
+    width: RfW(160),
+    height: RfH(44),
     borderRadius: 10,
   },
   aggregatebtn: {
     backgroundColor: '#fff',
-    width: 160,
-    height: 44,
+    width: RfW(160),
+    height: RfH(44),
     borderRadius: 10,
     borderColor: '#F7A435',
     borderWidth: 1,
   },
   productImage: {
-    width: 46,
-    height: 46,
+    width: RfW(46),
+    height: RfH(46),
   },
 });
 export default styles;

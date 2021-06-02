@@ -11,10 +11,10 @@ const styles = StyleSheet.create({
     borderRadius: RfH(25),
   },
   loginButton: {
-    paddingLeft: 40,
-    paddingRight: 20,
+    paddingLeft: RfW(40),
+    paddingRight: RfW(20),
     backgroundColor: Colors.mango,
-    paddingVertical: 10,
+    paddingVertical: RfH(10),
     borderTopLeftRadius: 30,
     borderBottomLeftRadius: 30,
     borderBottomRightRadius: 30,

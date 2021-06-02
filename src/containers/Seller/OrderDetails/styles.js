@@ -7,31 +7,30 @@ import {RFValue} from 'react-native-responsive-fontsize';
 
 const styles = StyleSheet.create({
   confirmButton: {
-    marginTop: 20,
+    marginTop: RfH(20),
     borderRadius: 10,
     backgroundColor: Colors.mango,
-    width: 317,
+    width: RfW(317),
     // paddingVertical: 15,
-    height: 44,
+    height: RfH(44),
     alignItems: 'center',
     borderRadius: 10,
   },
   confirmBtnText: {
     fontSize: RFValue(17, STANDARD_SCREEN_SIZE),
-    fontFamily:
-      Fonts.regular,
+    fontFamily:Fonts.regular,
     color: Colors.white,
-    marginTop: 10,
+    marginTop: RfH(10),
   },
   boxView: {
-    width: 310,
-    height: 278,
+    width: RfW(310),
+    height: RfH(278),
     backgroundColor: '#f5f5f5',
     borderRadius: 10,
-    marginTop: 25,
+    marginTop: RfH(25),
   },
   mt22: {
-    marginTop: 22,
+    marginTop: RfH(22),
   },
 });
 

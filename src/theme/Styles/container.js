@@ -1,6 +1,7 @@
 import { StyleSheet } from 'react-native';
 import Colors from '../Colors';
 import Fonts from '../Fonts';
+import { RfH, RfW } from '../../utils/helpers';
 
 const container = StyleSheet.create({
   btnPrimary: {
@@ -52,19 +53,22 @@ const container = StyleSheet.create({
   justifyCon: {
     justifyContent: 'center',
   },
+  justifyConEnd: {
+    justifyContent: 'flex-end',
+  },
   inCenter: {
     justifyContent: 'center',
     alignItems: 'center',
   },
   topBorderGray: {
-    paddingTop: 20,
+    paddingTop:  RfH(20),
     borderTopColor: '#ccc',
     borderTopWidth: 1,
   },
   bottomBorderGray: {
     borderBottomColor: '#ccc',
     borderBottomWidth: 1,
-    paddingBottom: 20,
+    paddingBottom:  RfH(20),
   },
   flex1SpaceBetween: {
     flex: 1,
@@ -119,13 +123,13 @@ const container = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    paddingHorizontal: 20,
-    paddingVertical: 10,
+    paddingHorizontal: RfW(20),
+    paddingVertical: RfH(10),
     backgroundColor: Colors.grayBackground,
   },
   NoRecordButton: {
-    width: 160,
-    height: 44,
+    width: RfW(160),
+    height: RfH(44),
   },
 
 });

@@ -10,9 +10,9 @@ const styles = StyleSheet.create({
   bdrclr: {
     borderColor: '#707070',
     borderWidth: 0.5,
-    marginLeft: 24,
-    marginRight: 24,
-    marginTop: 10,
+    marginLeft: RfW(24),
+    marginRight: RfW(24),
+    marginTop: RfH(10),
   },
 });
 export default styles;

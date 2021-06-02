@@ -11,16 +11,16 @@ const commonCss = StyleSheet.create({
   },
 
   boxView: {
-    width: 310,
-    height: 200,
+    width: RfW(310),
+    height: RfH(200),
     backgroundColor: Colors.grayBackground,
     borderRadius: 10,
-    marginTop: 25,
+    marginTop: RfH(25),
   },
 
   title: {
     textAlign: 'center',
-    marginTop: 35,
+    marginTop: RfH(35),
   },
 
   bdrclr: {
@@ -31,32 +31,32 @@ const commonCss = StyleSheet.create({
   inputText: {
     backgroundColor: '#e4e4e4',
     borderRadius: 10,
-    paddingLeft: 15,
+    paddingLeft: RfW(15),
     fontFamily: Fonts.regular,
   },
   btnContainer: {
-    marginTop: 100,
-    marginLeft: 24,
-    marginRight: 24,
+    marginTop: RfH(100),
+    marginLeft: RfW(24),
+    marginRight: RfW(24),
   },
   confirmBtnSmall: {
     borderRadius: 10,
     backgroundColor: Colors.mangoTwo,
-    width: 54,
-    height: 23,
+    width: RfW(54),
+    height: RfH(23),
     justifyContent: 'center',
-    marginLeft: 5,
+    marginLeft: RfW(5),
   },
   confirmBtn: {
     backgroundColor: '#F7A435',
-    width: 150,
-    height: 44,
+    width: RfW(150),
+    height: RfH(44),
     borderRadius: 10,
   },
   cancelBtn: {
     backgroundColor: '#fff',
-    width: 150,
-    height: 44,
+    width: RfW(150),
+    height: RfH(44),
     borderRadius: 10,
     borderColor: '#F7A435',
     borderWidth: 1,
@@ -64,8 +64,8 @@ const commonCss = StyleSheet.create({
   boxxView: {
     backgroundColor: Colors.grayBackground,
     borderRadius: 10,
-    marginLeft: 24,
-    marginRight: 24,
+    marginLeft: RfW(24),
+    marginRight: RfW(24),
   },
 
   imgCloud: {

@@ -6,9 +6,9 @@ const styles = StyleSheet.create({
 
   dataItemContainer: {
     flexDirection: 'row',
-    marginLeft: 20,
+    marginLeft: RfW(24),
     alignItems: 'center',
-    marginTop: 17,
+    marginTop: RfH(17),
   },
   dataImage: {
     flex: 0.2,
@@ -19,24 +19,37 @@ const styles = StyleSheet.create({
   statusIcon: {
     flex: 0.3,
     alignItems: 'center',
-    marginTop: 20,
+    marginTop: RfH(20),
   },
-  menuContainer: {
-    flex: 1,
-    width: 162,
-    height: 136,
-    marginLeft: 24,
+  menuContainerLarge: {
+    width: RfW(167),
+    height: RfH(216),
+    marginLeft: RfW(24),
     borderRadius: 10,
     justifyContent: 'space-between',
-    marginTop: 27,
+    marginTop: RfH(27),
+  },
+
+  menuContainer: {
+    width: RfW(164),
+    height: RfH(180),
+    marginLeft: RfW(24),
+    borderRadius: 10,
+    justifyContent: 'space-between',
+    marginTop: RfH(27),
+    alignSelf: 'flex-end'
   },
   menuEllipseContainer: {
-    marginLeft: 15,
-    marginTop: 15,
+    marginLeft: RfW(15),
+    marginTop: RfH(15),
   },
   menuActionItem: {
     width: '100%',
   },
+  imgBag: {
+    width: RfW(108),
+    height: RfH(131)
+  }
 
 });
 export default styles;
