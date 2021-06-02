@@ -106,7 +106,7 @@ function PickupDate (props) {
             onPress={() => {handleClose()}}
             style={[AppStyles.flexRowAlignCenter, AppStyles.pv15,]}>
             <Ionicons name="close" size={28} />
-            <Text style = {[AppStyles.txtBlackBold, AppStyles.f18, AppStyles.ml15]}>Pickup Date</Text>
+            <Text style = {[AppStyles.txtBlackBold, AppStyles.f20, AppStyles.ml15]}>Pickup Date</Text>
       </TouchableOpacity>
 
       <KeyboardAwareScrollView showsVerticalScrollIndicator = {false}>

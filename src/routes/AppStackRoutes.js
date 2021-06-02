@@ -88,7 +88,7 @@ const Drawer = createDrawerNavigator();
 
 const NoHeaderScreen = { headerShown: false };
 const NoTitleHeader = { title: null, headerStyle: { borderBottomWidth: 0, elevation: 0 } };
-const CommonHeaderStyle = { headerTitleStyle: [AppStyles.txtBlackBold, AppStyles.f20, AppStyles.ml10,], headerStyle: { borderBottomWidth: 0, elevation: 0 } };
+const CommonHeaderStyle = { headerTitleStyle: [AppStyles.txtBlackBold, AppStyles.f20], headerStyle: { borderBottomWidth: 0, elevation: 0 } };
 const DrawerMenu = ({ navigation }) => ({
   title: null,
   headerStyle: { borderBottomWidth: 0, elevation: 0 },
