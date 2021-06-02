@@ -57,7 +57,7 @@ function SmartContract() {
                 <Image source={auditIcon} />
               </View>
             </View>
-            <Text style={[AppStyles.txtWhiteRegular, AppStyles.f13, AppStyles.mt10, AppStyles.ml20, AppStyles.mr40, AppStyles.mb20]}>Check the details of contracts for reference.</Text>
+            <Text style={[AppStyles.txtWhiteRegular, AppStyles.f13, AppStyles.mt10, AppStyles.ml20, AppStyles.mb40]}>Check the details of contracts for reference.</Text>
           </View>
         </TouchableOpacity>
       </ScrollView>

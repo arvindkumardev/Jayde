@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState, useLayoutEffect, useRef } from 'react';
-import { TouchableOpacity, View, Text, TextInput } from 'react-native';
+import { TouchableOpacity, View, Text, TextInput, ScrollView } from 'react-native';
 
 import { useNavigation } from '@react-navigation/core';
 import { useRoute } from '@react-navigation/native';
@@ -122,8 +122,10 @@ function ProfileUpdate() {
   }, []);
 
   return (
-    <KeyboardAwareScrollView showsVerticalScrollIndicator={false}>
+ 
       <View style={Styles.topView}>
+        <ScrollView>
+          <View style={AppStyles.flex1}>
         <Text style={[AppStyles.txtBlackBold, AppStyles.f17, Styles.title]}>Please enter the details</Text>
         <View style={[AppStyles.mt30, AppStyles.ml24, AppStyles.mr24]}>
           <Text style={[AppStyles.txtBlackRegular, AppStyles.f15, AppStyles.mb6]}>Name</Text>
@@ -235,7 +237,9 @@ function ProfileUpdate() {
             </CustomText>
           ) : null}
         </View>
+        </View>
 
+        
         <View style={[Styles.btnContainer, AppStyles.flexDir]}>
           <View style={AppStyles.flex1}>
             <TouchableOpacity activeOpacity = {0.8} style={[Styles.cancelButton]} onPress={() => screenNavigate()}>
@@ -252,8 +256,9 @@ function ProfileUpdate() {
             </TouchableOpacity>
           </View>
         </View>
+        </ScrollView>
       </View>
-    </KeyboardAwareScrollView>
+     
   );
 }
 export default ProfileUpdate;

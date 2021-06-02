@@ -1,5 +1,5 @@
 import React, { useState, useLayoutEffect, useEffect, useContext } from 'react';
-import { View, Text, TouchableOpacity, TextInput, Platform } from 'react-native';
+import { View, Text, TouchableOpacity, TextInput, Platform, ScrollView } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import * as Yup from 'yup';
@@ -215,10 +215,11 @@ function PricingRequest() {
   return (
     <KeyboardAwareScrollView
       removeClippedSubviews={true}
-      style={[AppStyles.ph20, AppStyles.flex1, AppStyles.pv15, { backgroundColor: Colors.white }]}
-      contentContainerStyle={AppStyles.flex1SpaceBetween}
+      style={[AppStyles.ph20, AppStyles.flex1, { backgroundColor: Colors.white }]}
+       contentContainerStyle={AppStyles.flex1SpaceBetween}
     >
-      <View>
+      <ScrollView>
+      <View style={AppStyles.flex1}>
         <View style={AppStyles.alignCenter}>
           <Text style={[AppStyles.txtBlackBold, AppStyles.f18]}>
             {quotestatus === '0' ? 'Get Quote' : 'Schedule Order'}
@@ -317,7 +318,9 @@ function PricingRequest() {
           </View>
         </View>
       </View>
-      <View style={{ marginBottom: 30 }}>
+
+      
+      <View style={[AppStyles.mb10, AppStyles.mt65]}>
         <TouchableOpacity
           activeOpacity={0.8}
           style={[AppStyles.btnPrimary, AppStyles.alignCenter, AppStyles.pv10, AppStyles.br10]}
@@ -328,6 +331,9 @@ function PricingRequest() {
           <Text style={[AppStyles.txtWhiteRegular, AppStyles.f18]}>CONFIRM</Text>
         </TouchableOpacity>
       </View>
+   
+
+      </ScrollView>
     </KeyboardAwareScrollView>
   );
 }
