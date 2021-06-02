@@ -3,6 +3,8 @@ import { RfH, RfW } from '../../../utils/helpers';
 import Fonts from "../../../theme/Fonts";
 import { Colors } from '../../../theme';
 const { width, height } = Dimensions.get('window');
+import {STANDARD_SCREEN_SIZE} from '../../../utils/constants';
+import {RFValue} from 'react-native-responsive-fontsize';
 
 const labelLeft = (width - 250) / 2;
 const iconLeft = (width - 45) / 2;
@@ -20,12 +22,12 @@ const styles = StyleSheet.create({
   },
   txtPrimary: {
     color: Colors.mango,
-    fontSize: 16
+    fontSize: RFValue(16, STANDARD_SCREEN_SIZE),
   },
   firstElement: {
     flex: 3,
     fontFamily: Fonts.regular,
-    fontSize: 15
+    fontSize: RFValue(15, STANDARD_SCREEN_SIZE),
   },
   inputContainer: {
     borderBottomWidth: 1,
@@ -60,7 +62,7 @@ const styles = StyleSheet.create({
   },
   starText: {
     color: '#f75006',
-    fontSize: 13,
+    fontSize: RFValue(13, STANDARD_SCREEN_SIZE),
   },
 });
 

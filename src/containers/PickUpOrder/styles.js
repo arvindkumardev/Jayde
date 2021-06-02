@@ -1,8 +1,8 @@
 import { StyleSheet } from 'react-native';
 import { RfH, RfW } from '../../utils/helpers';
 import Fonts from "../../theme/Fonts";
-// import { RFValue } from 'react-native-responsive-fontsize';
-// import { STANDARD_SCREEN_SIZE } from '../../../utils/constants';
+import { RFValue } from 'react-native-responsive-fontsize';
+import { STANDARD_SCREEN_SIZE } from '../../../utils/constants';
 import { Colors } from '../../theme';
 
 const styles = StyleSheet.create({
@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
     alignItems:'center'
   },
   confirmBtnText:{
-    fontSize: 18,
+    fontSize: RFValue(18, STANDARD_SCREEN_SIZE),
     fontFamily:
     Fonts.regular,
     color: Colors.white
@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
   },
   headerText:{
     fontFamily: Fonts.bold,
-    fontSize: 20
+    fontSize: RFValue(20, STANDARD_SCREEN_SIZE),
   },
   viewVolume:{
     marginTop: 15,
@@ -82,7 +82,7 @@ const styles = StyleSheet.create({
   },
   dropDownText: {
     fontFamily: Fonts.regular,
-    fontSize: 16
+    fontSize: RFValue(16, STANDARD_SCREEN_SIZE),
   },
   inputText:{
     backgroundColor:'#e4e4e4',
@@ -94,7 +94,7 @@ const styles = StyleSheet.create({
     marginBottom: 5,
     fontFamily:
     Fonts.regular,
-    fontSize: 16
+    fontSize: RFValue(16, STANDARD_SCREEN_SIZE),
   },
   boxView: {
     width: 310, 

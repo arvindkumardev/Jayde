@@ -1,6 +1,8 @@
 import { StyleSheet } from 'react-native';
 import { RfH, RfW } from '../../../utils/helpers';
 import { Colors } from '../../../theme';
+import {STANDARD_SCREEN_SIZE} from '../../../utils/constants';
+import {RFValue} from 'react-native-responsive-fontsize';
 
 const styles = StyleSheet.create({
  
@@ -50,7 +52,7 @@ const styles = StyleSheet.create({
   },
   starText: {
     color: '#f75006',
-    fontSize: 13,
+    fontSize: RFValue(13, STANDARD_SCREEN_SIZE),
   },
 });
 export default styles;

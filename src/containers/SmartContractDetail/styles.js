@@ -1,6 +1,8 @@
 import {StyleSheet} from 'react-native';
 import {RfH, RfW} from '../../utils/helpers';
 import {Colors} from '../../theme';
+import {STANDARD_SCREEN_SIZE} from '../../utils/constants';
+import {RFValue} from 'react-native-responsive-fontsize';
 
 const styles = StyleSheet.create({
   bdrclr: {
@@ -12,7 +14,7 @@ const styles = StyleSheet.create({
   },
   text: {
     marginTop: 2,
-    fontSize: 15,
+    fontSize:  RFValue(15, STANDARD_SCREEN_SIZE),
   },
   btnContainer:{
     marginTop: 20,

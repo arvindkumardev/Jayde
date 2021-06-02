@@ -2,6 +2,8 @@ import { StyleSheet } from 'react-native';
 import { RfH, RfW } from '../../../utils/helpers';
 import Fonts from "../../../theme/Fonts";
 import { Colors } from '../../../theme';
+import {STANDARD_SCREEN_SIZE} from '../../../utils/constants';
+import {RFValue} from 'react-native-responsive-fontsize';
 
 const styles = StyleSheet.create({
   confirmButton: {
@@ -15,7 +17,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   confirmBtnText: {
-    fontSize: 17,
+    fontSize: RFValue(17, STANDARD_SCREEN_SIZE),
     fontFamily:
       Fonts.regular,
     color: Colors.white,
