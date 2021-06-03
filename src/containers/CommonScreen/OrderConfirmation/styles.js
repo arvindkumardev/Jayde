@@ -4,20 +4,20 @@ import {Colors} from '../../../theme';
 
 const styles = StyleSheet.create({
   btnContainer:{
-    alignItems: 'center',
-    // marginTop: 100,
+    marginLeft: RfW(24),
+    marginRight: RfW(24),
   },
   confirmbtn: {
     backgroundColor: '#F7A435',
-    width: RfW(327),
-    height: RfH(44),
+    paddingHorizontal: RfW(10),
     borderRadius: 10,
     marginTop: RfH(30),
+    borderColor: '#F7A435',
+    borderWidth: 1,
   },
   proposebtn: {
     backgroundColor: '#fff',
-    width: RfW(327),
-    height: RfH(44),
+    paddingHorizontal: RfW(10),
     borderRadius: 10,
     marginTop: RfH(20),
     borderColor: '#F7A435',

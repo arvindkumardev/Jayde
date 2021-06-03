@@ -37,14 +37,14 @@ const styles = StyleSheet.create({
     color: Colors.lightOlive,
   },
   bittonSize: {
-    width: RfW(146),
-    height: RfH(44),
+    paddingHorizontal: RfW(10),
   },
   cancelButton: {
     marginLeft: RfW(14),
   },
   confirmButton: {
     marginLeft: RfW(7),
+    marginRight: RfW(14),
   },
   cancelbutton: {
     marginTop: RfH(26),

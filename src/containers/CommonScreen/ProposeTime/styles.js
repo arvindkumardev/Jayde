@@ -12,15 +12,17 @@ const styles = StyleSheet.create({
     marginLeft: RfW(20),
   },
   btnContainer:{
-    alignItems: 'center',
     marginTop: RfH(100),
+    marginLeft: RfW(24),
+    marginRight: RfW(24),
   },
   confirmbtn: {
     backgroundColor: '#F7A435',
-    width: RfW(327),
-    height: RfH(44),
+    paddingHorizontal: RfW(10),
     borderRadius: 10,
     marginBottom: RfH(20),
+    borderColor: Colors.mango,
+    borderWidth: 1,
   },
 });
 export default styles;

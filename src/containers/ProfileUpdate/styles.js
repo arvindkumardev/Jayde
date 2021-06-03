@@ -21,14 +21,14 @@ const styles = StyleSheet.create({
   saveButton: {
     backgroundColor: '#F7A435',
     paddingHorizontal: RfW(10),
-    paddingVertical: RfH(11),
     borderRadius: 10,
     marginLeft: RfW(3),
+    borderColor: '#F7A435',
+    borderWidth: 1,
   },
   cancelButton: {
     backgroundColor: '#fff',
-    paddingHorizontal: RfW(10),
-    paddingVertical: RfH(10),  
+    paddingHorizontal: RfW(10), 
     borderRadius: 10,
     borderColor: '#F7A435',
     borderWidth: 1,

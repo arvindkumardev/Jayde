@@ -51,14 +51,14 @@ function UpdateProfile() {
           <View style={AppStyles.flex1}>
             <TouchableOpacity
               activeOpacity={0.8}
-              style={[Styles.businessButton]} onPress={() => screenNavigate()}>
+              style={[Styles.businessButton, AppStyles.btnHeight44, AppStyles.inCenter]} onPress={() => screenNavigate()}>
               <Text style={[AppStyles.txtmangoTwoRegular, AppStyles.f17, AppStyles.textalig]}>UPDATE BUSINESS</Text>
             </TouchableOpacity>
           </View>
           <View style={AppStyles.flex1}>
             <TouchableOpacity
               activeOpacity={0.8}
-              style={[Styles.profileButton, AppStyles.mb20]} onPress={() => updateProfile()}>
+              style={[Styles.profileButton, AppStyles.mb20, AppStyles.btnHeight44, AppStyles.inCenter]} onPress={() => updateProfile()}>
               <Text style={[AppStyles.txtWhiteRegular, AppStyles.f17, AppStyles.textalig]}>UPDATE PROFILE</Text>
             </TouchableOpacity>
           </View>
@@ -67,7 +67,7 @@ function UpdateProfile() {
         <View style={AppStyles.aligncen}>
           <TouchableOpacity
             activeOpacity={0.8}
-            style={[Styles.completelaterbtn]} onPress={() => completeLater()}>
+            style={[Styles.completelaterbtn, AppStyles.btnHeight44, AppStyles.inCenter]} onPress={() => completeLater()}>
             <Text style={[AppStyles.txtmangoTwoRegular, AppStyles.f17, AppStyles.textalig]}>COMPLETE LATER</Text>
           </TouchableOpacity>
         </View>

@@ -17,8 +17,9 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.mango,
     borderRadius: 10,
     paddingHorizontal: RfW(10),
-    paddingVertical: RfH(11),
     marginLeft: RfW(3),
+    borderColor: Colors.mango,
+    borderWidth: 1,
   },
   resetButton: {
     backgroundColor: Colors.white,
@@ -26,7 +27,6 @@ const styles = StyleSheet.create({
     borderColor: Colors.mango,
     borderWidth: 1,
     paddingHorizontal: RfW(10),
-    paddingVertical: RfH(10),
     marginRight: RfW(5),
   },
   title: {

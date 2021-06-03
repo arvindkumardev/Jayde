@@ -77,6 +77,9 @@ const commonCss = StyleSheet.create({
     backgroundColor: Colors.grayBackground, 
     borderRadius: 10, 
   },
+  btnHeight44: {
+    height: RfH(44),
+  },
 });
 
 export default commonCss;

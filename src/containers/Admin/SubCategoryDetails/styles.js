@@ -15,13 +15,13 @@ const styles = StyleSheet.create({
     marginTop: RfH(20),
     marginLeft: RfW(20),
   },
-  confirmbtn: {
+  deleteBtn: {
     backgroundColor: '#F7A435',
     width: RfW(160),
     height: RfH(44),
     borderRadius: 10,
   },
-  aggregatebtn: {
+  editBtn: {
     backgroundColor: '#fff',
     width: RfW(160),
     height: RfH(44),

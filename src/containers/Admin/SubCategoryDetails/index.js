@@ -46,13 +46,13 @@ function SubCategoryDetails() {
         <View style={[Styles.btnContainer, AppStyles.flexDir]}>
           <View style={AppStyles.flex1}>
             <TouchableOpacity
-              style={[Styles.aggregatebtn]}>
+              style={[Styles.editBtn]}>
               <Text style={[AppStyles.txtPrimaryRegular, AppStyles.f17, AppStyles.textalig, AppStyles.mt10]}>EDIT</Text>
             </TouchableOpacity>
           </View>
           <View style={AppStyles.flex1}>
             <TouchableOpacity
-              style={[Styles.confirmbtn, AppStyles.mb20]}>
+              style={[Styles.deleteBtn, AppStyles.mb20]}>
               <Text style={[AppStyles.txtWhiteRegular, AppStyles.f17, AppStyles.textalig, AppStyles.mt10]}>DELETE</Text>
             </TouchableOpacity>
           </View>

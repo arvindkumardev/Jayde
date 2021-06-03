@@ -12,8 +12,8 @@ const EmptyView = (props) => {
             <TouchableOpacity
                 activeOpacity = {0.8}
                 onPress={() => props.onBack()}
-                style={[AppStyles.mt40, AppStyles.br10, AppStyles.btnPrimary, AppStyles.pv5, AppStyles.ph10, AppStyles.alignCenter, AppStyles.NoRecordButton]}>
-                <Text style={[AppStyles.txtWhiteRegular, AppStyles.f17, AppStyles.mt5]}>GO TO HOME</Text>
+                style={[AppStyles.mt40, AppStyles.br10, AppStyles.btnPrimary, AppStyles.btnHeight44, AppStyles.ph10, AppStyles.NoRecordButton, AppStyles.inCenter]}>
+                <Text style={[AppStyles.txtWhiteRegular, AppStyles.f17]}>GO TO HOME</Text>
             </TouchableOpacity>
         </View>
     )

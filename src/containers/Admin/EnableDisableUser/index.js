@@ -123,16 +123,16 @@ function EnableDisableUser(props) {
             <TouchableOpacity
               activeOpacity={0.8}
               onPress={() => handelClose()}
-              style={[AppStyles.br10, AppStyles.borderwidth1, AppStyles.borderColorLightOlive, AppStyles.whitecolor, AppStyles.alignCenter, Styles.bittonSize, Styles.cancelButton]}>
-              <Text style={[AppStyles.f17, , Styles.txtLightOliveRegular, AppStyles.mt10]}>CANCEL</Text>
+              style={[AppStyles.br10, AppStyles.borderwidth1, AppStyles.borderColorLightOlive, AppStyles.whitecolor, AppStyles.inCenter, Styles.bittonSize, Styles.cancelButton, AppStyles.btnHeight44]}>
+              <Text style={[AppStyles.f17, , Styles.txtLightOliveRegular]}>CANCEL</Text>
             </TouchableOpacity>
           </View>
           <View style={AppStyles.flex1}>
             <TouchableOpacity
               activeOpacity={0.8}
               onPress={() => handelConfirm()}
-              style={[AppStyles.br10, AppStyles.lightOlive, AppStyles.alignCenter, Styles.bittonSize, Styles.confirmButton]}>
-              <Text style={[AppStyles.f17, AppStyles.txtWhiteRegular, AppStyles.mt10]}>CONFIRM</Text>
+              style={[AppStyles.br10, AppStyles.lightOlive, AppStyles.inCenter, Styles.bittonSize, Styles.confirmButton, AppStyles.btnHeight44]}>
+              <Text style={[AppStyles.f17, AppStyles.txtWhiteRegular]}>CONFIRM</Text>
             </TouchableOpacity>
           </View>
         </View>
