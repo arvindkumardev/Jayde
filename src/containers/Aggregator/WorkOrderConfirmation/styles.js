@@ -17,12 +17,11 @@ const styles = StyleSheet.create({
   },
   boxContent: {
     flex: 1, 
-    width: RfW(310), 
-    height: RfH(574), 
     backgroundColor: '#ffffff', 
     alignItems: 'center', 
     borderRadius: 20, 
     marginLeft: RfW(24), 
+    marginRight: RfW(24), 
     marginTop: RfH(32),
     marginBottom: RfH(40),
   },

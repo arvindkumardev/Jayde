@@ -96,9 +96,9 @@ function WorkOrderConfirmation() {
             <View style={[style.flex1, Styles.tbut]}>
               <TouchableOpacity
                 activeOpacity={0.8}
-                style={[AppStyle.mt30, AppStyle.pv11, AppStyles.aligncen, style.br13, style.btnPrimary]}
+                style={[AppStyle.mt30, AppStyle.pv11, AppStyles.aligncen, style.br10, style.btnPrimary]}
                 onPress={() => { screenNavigate() }}>
-                <Text style={[AppStyles.f18, style.whitecolor]}>GO TO HOME</Text>
+                <Text style={[AppStyles.f17, style.whitecolor]}>GO TO HOME</Text>
               </TouchableOpacity>
             </View>
           </View>

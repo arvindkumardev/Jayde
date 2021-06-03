@@ -136,7 +136,12 @@ function BusinessDetail() {
   };
 
   return (
-      <KeyboardAwareScrollView>
+      <KeyboardAwareScrollView
+      contentInsetAdjustmentBehavior = 'always'
+      showsVerticalScrollIndicator = {false}
+      contentContainerStyle = {{flexGrow:1}}
+      automaticallyAdjustContentInsets = {false}
+      >
       <View style={[Styles.topView, AppStyles.flex1SpaceBetween]}>
       
           <View style={AppStyles.flex1}>

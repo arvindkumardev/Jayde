@@ -237,7 +237,7 @@ const CallRequest = () => {
 
       <TouchableOpacity
         activeOpacity={0.8}
-        style={[AppStyles.mt20, AppStyles.br10, AppStyles.btnPrimary, AppStyles.pv10, AppStyles.alignCenter, AppStyles.mb20]}
+        style={[AppStyles.mt20, AppStyles.br10, AppStyles.btnPrimary, AppStyles.btnHeightwidth, AppStyles.inCenter, AppStyles.mb20]}
         onPress={() => { handleConfirm() }}>
         <Text style={[AppStyles.f18, AppStyles.txtWhiteRegular]}>CONFIRM</Text>
       </TouchableOpacity>

@@ -325,7 +325,7 @@ function PricingRequest() {
           <TouchableOpacity
             activeOpacity={0.8}
             style={[AppStyles.btnPrimary, AppStyles.inCenter, 
-            AppStyles.pv10, AppStyles.br10, AppStyles.mt50, AppStyles.mb20]}            
+            AppStyles.btnHeightwidth, AppStyles.br10, AppStyles.mt50, AppStyles.mb20]}            
             onPress={() => {
               handelSubmitQuote();
             }}>

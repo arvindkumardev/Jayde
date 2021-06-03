@@ -480,7 +480,7 @@ const WorkOrderVerification = () => {
           <Text style={[AppStyles.txtBlackRegular, AppStyles.f15,]}>Is the material Weighted</Text>
         </TouchableOpacity>
 
-        <View style={[AppStyles.flexpointsix, AppStyles.mt10, AppStyles.alignfend, AppStyles.mr10]}>
+        <View style={[AppStyles.flexpointsix, AppStyles.mt10, AppStyles.alignfend]}>
           <CheckBoxWrapper
             isChecked={item.proposed_weight_confirm == '1' ? true : false}
             checkBoxHandler={() => { }}
@@ -753,7 +753,7 @@ const WorkOrderVerification = () => {
           <Text style={[AppStyles.txtBlackRegular, AppStyles.f15,]}>Material Pick-up confirmation</Text>
         </TouchableOpacity>
 
-        <View style={[AppStyles.flexpointsix, AppStyles.mt10, AppStyles.alignfend, AppStyles.mr10]}>
+        <View style={[AppStyles.flexpointsix, AppStyles.mt10, AppStyles.alignfend]}>
           <CheckBoxWrapper
             isChecked={item.pickup_confirmed == '1' ? true : false}
             checkBoxHandler={() => { }}
@@ -923,7 +923,7 @@ const WorkOrderVerification = () => {
           <Text style={[AppStyles.txtBlackRegular, AppStyles.f15,]}>Has the material reached your warehouse</Text>
         </TouchableOpacity>
 
-        <View style={[AppStyles.flexpointfour, AppStyles.mt10, AppStyles.alignfend, AppStyles.mr10]}>
+        <View style={[AppStyles.flexpointfour, AppStyles.mt10, AppStyles.alignfend]}>
           <CheckBoxWrapper
             style={{ width: 50, height: 50 }}
             isChecked={item.is_completed == '1' ? true : false}

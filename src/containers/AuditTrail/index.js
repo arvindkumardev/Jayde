@@ -49,10 +49,14 @@ function AuditTrail() {
   }, []);
 
   return (
-    // <KeyboardAwareScrollView>
-      <View style={[Styles.topView, { alignItems: 'center', flex: 1,}]}>
-        <ScrollView contentContainerStyle={{ alignItems: 'center', flex: 1, justifyContent: 'space-between',}}>
-          <View>
+    <KeyboardAwareScrollView
+    contentInsetAdjustmentBehavior = 'always'
+      showsVerticalScrollIndicator = {false}
+      contentContainerStyle = {{flexGrow:1,}}
+      automaticallyAdjustContentInsets = {false}
+      style={[AppStyles.flex1, AppStyles.whitebackgrnd]}>
+
+          <View style={AppStyles.flex1}>
             <Text style={[AppStyles.txtBlackBold, AppStyles.f17, Styles.title]}>
               Check the basic details of the contracts for reference purpose
             </Text>
@@ -93,9 +97,8 @@ function AuditTrail() {
               </View>
             </View>
           
-        </ScrollView>
-      </View>
-    // </KeyboardAwareScrollView>
+    
+    </KeyboardAwareScrollView>
   );
 }
 export default AuditTrail;

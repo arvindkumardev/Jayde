@@ -54,16 +54,14 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     backgroundColor:Colors.mango,
     alignItems:'center',
-    height: RfH(44),
-    width: RfW(156),
+    paddingHorizontal: RfW(10),
     marginLeft: RfW(4),
   },
   confirmButtonn:{
     marginTop:RfH(20),
     borderRadius: 10,
     backgroundColor:Colors.white,
-    height: RfH(44),
-    width: RfW(156),
+    paddingHorizontal: RfW(10),
     alignItems:'center',
     borderColor: Colors.mango,
     borderWidth: 1,
@@ -73,14 +71,12 @@ const styles = StyleSheet.create({
     fontFamily:
     Fonts.regular,
     color: Colors.white,
-    marginTop: RfH(10),
   },
   confirmBtnTextt:{
     fontSize: RFValue(15, STANDARD_SCREEN_SIZE),
     fontFamily:
     Fonts.regular,
     color: Colors.mango,
-    marginTop: RfH(10),
   },
 
   inputTextf:{
