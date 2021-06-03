@@ -73,6 +73,13 @@ const commonCss = StyleSheet.create({
     height: RfH(200),
     resizeMode: "contain"
   },
+
+  imgEmpty: {
+    width: RfW(247),
+    height: RfH(212),
+    resizeMode: "contain"
+  },
+
   paymentboxView: {
     backgroundColor: Colors.grayBackground, 
     borderRadius: 10, 

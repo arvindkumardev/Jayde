@@ -52,7 +52,7 @@ function AggregatorScheduleOrderList() {
   const getOrderList = async () => {
     try {
       const { data } = await onGetOrder({ data: {} });
-      setLoader(false)     
+      setLoader(false)
       setOrderList(data.data[0].newOrders)
       setPerPage(data.data[0].links.per_page)
       setTotalCount(data.data[0].links.total_count)
@@ -77,7 +77,7 @@ function AggregatorScheduleOrderList() {
     if (error)
       setLoader(false)
   }, [error])
-  
+
   useEffect(() => {
     setLoader(true)
     getOrderList();

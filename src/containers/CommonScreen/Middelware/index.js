@@ -6,7 +6,8 @@ import {
   AGGREGATOR_SWO_TO_AGGREGATOR, AGGREGATOR_SWO_TO_RECYCLER, RECYCLER_SWO_TO_AGGREGATOR, RECYCLER_SWO_TO_RECYCLER,
   AGGREGATOR_REJECTORDER, CONFIRM_SCHEDULE, RECYCLER_CONFIRM_RESCHEDULE, RECYCLER_REJECT_ORDER,
   CONFIRM_WEIGHT, PROPOSE_WEIGHT, CONFIRM_PAYMENT, CONFIRM_PICKUP, CONFIRM_RECEIPT, AGGREGATOR_SCHEDULE_ORDER_DETAIL,
-  AGGREGATOR_ADD_RECEIPT_DATA, AGGREGATOR_CONFIRM_PAYMENT_WORK_ORDER, AGGREGATOR_INVENTORY, RECYCLER_INVENTORY
+  AGGREGATOR_ADD_RECEIPT_DATA, AGGREGATOR_CONFIRM_PAYMENT_WORK_ORDER, AGGREGATOR_CONFIRM_WORK_ORDER_PAYMENT, 
+  AGGREGATOR_INVENTORY, RECYCLER_INVENTORY
 } from '../../../utils/urls';
 
 
@@ -166,9 +167,21 @@ const getInventory = (userRole, pageNumber) => {
   );
 }
 
+const confirmWorkOrderPayment = () => {
+  return useAxios(
+    {
+      url: AGGREGATOR_CONFIRM_WORK_ORDER_PAYMENT,
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+    },
+    { manual: true }
+  );
+};
+
+
 export {
   createWorkOrder, rejectOrder, confirmReschedule, getCompletedOrder,
   weightConfirm, weightPropose, paymentConfirm, pickupConfirm, receiptConfirm,
   scheduleOrderDetail, addReceiptQuantity, confirmSchedule, confirmPaymentWork,
-  getInventory
+  getInventory, confirmWorkOrderPayment
 };

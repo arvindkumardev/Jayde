@@ -30,7 +30,7 @@ const ORDER_IMAGE = {
 function CompletedOrder() {
   const navigation = useNavigation();
   const route = useRoute();
-  const { setLoader,userRole } = useContext(UserContext);
+  const { setLoader, userRole } = useContext(UserContext);
 
   const [orderList, setOrderList] = useState([]);
   const [offset, setOffset] = useState(0);
@@ -38,9 +38,24 @@ function CompletedOrder() {
 
   const [totalCount, setTotalCount] = useState(0)
   const [perPage, setPerPage] = useState(15)
+  const [refreshPage, setRefreshPage] = useState(false)
 
   const [{ data, loading, error }, onGetOrder] = getCompletedOrder(offset, userRole);
 
+
+  const getActionType = async () => {
+    setOffset(0)
+    setPerPage(0)
+    setRefreshPage(true)
+    setLoader(true)
+  }
+
+
+  const handelNavigation = (item) => {
+    if (item.paid_amount !== null && item.is_seller_confirmed == 0) {
+      navigation.navigate(NavigationRouteNames.WORKORDER_DETAILS, {item, getActionType: getActionType})
+    }
+  }
 
   useLayoutEffect(() => {
     const title = 'Completed Orders';
@@ -48,11 +63,6 @@ function CompletedOrder() {
       title,
     });
   }, []);
-
-  const getActionType = async () => {
-    setOrderList([])
-    getOrderList()
-  }
 
   useEffect(() => {
     if (error)
@@ -63,7 +73,6 @@ function CompletedOrder() {
     try {
       const { data } = await onGetOrder({ data: {} });
       setLoader(false)
-      console.log("Response from login ", data.data[0].completeOrders)
       setPerPage(data.data[0].links.per_page)
       setTotalCount(data.data[0].links.total_count)
       setOrderList(data.data[0].completeOrders)
@@ -96,9 +105,13 @@ function CompletedOrder() {
     triggerLoadMore();
   }, [offset])
 
-  const screenNavigate = (item) => {
-    navigation.navigate(NavigationRouteNames.ORDER_CONFIRMATION, { Item: item, getActionType: getActionType });
-  }
+  useEffect(() => {
+    if (refreshPage) {
+      setOrderList([])
+      getOrderList()
+      setRefreshPage(false)
+    }
+  }, [refreshPage])
 
   const loadMoreResults = async info => {
     console.log(totalCount)
@@ -115,31 +128,42 @@ function CompletedOrder() {
 
   const _RenderItem = (index, item) => {
     return (
-      <TouchableOpacity activeOpacity = {0.8} key={index}>
+      <TouchableOpacity
+        onPress={() => handelNavigation(item)}
+        activeOpacity={0.8} key={index}>
         <View style={[AppStyles.flexDir, AppStyles.mt20]}>
-          <View style={[AppStyles.ml24, AppStyles.flexpointeight]}>
-            <Text style={[AppStyles.txtBlackRegular, AppStyles.f15]}>{'JYD/N/21/0968'}</Text>
+          <View style={[AppStyles.ml24, AppStyles.flexpointseven]}>
+            <Text style={[AppStyles.txtBlackRegular, AppStyles.f15]}>{item.work_id}</Text>
             <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f13, AppStyles.mt3]}>{item.business_name}</Text>
           </View>
-          <View style={[AppStyles.flexpointtwo,]}>
-            <View style={[AppStyles.mr10]}>
-              <CheckBoxWrapper
-                //  style={{width: 40, height: 40}}
-                isChecked={true}
-              // checkBoxHandler={() =>
-              //   setRememberMe((rememberMe) => !rememberMe)
-              // }
-              />
-              <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f9, AppStyles.mr10]}></Text>
+          <View style={[AppStyles.flexpointthree,]}>
+            <View style={[AppStyles.inCenter]}>
+              {item.paid_amount !== null && item.is_seller_confirmed == 0 ?
+                <TouchableOpacity
+                  activeOpacity={0.8}
+                  onPress={() => handelNavigation(item)}
+                  style={[Styles.confirmBtn]}>
+                  <Text style={[AppStyles.txtWhiteRegular, AppStyles.f11, AppStyles.textalig]}>Confirm Payment</Text>
+                </TouchableOpacity>
+                : item.work_status == 1 ?
+                  <View
+                    style={[Styles.btnCorner]}>
+                    <Text style={[AppStyles.txtWhiteRegular, AppStyles.f11, AppStyles.textalig]}>Work Order Sent</Text>
+                  </View>
+                  :
+                  <CheckBoxWrapper
+                    isChecked={true}
+                  />
+              }
             </View>
           </View>
         </View>
 
-        <View style={[AppStyles.flexDir, AppStyles.mt20]}>
+        <View style={[AppStyles.flexDir, AppStyles.mt10]}>
           <View style={[AppStyles.flexpointtwo, AppStyles.ml20]}>
             <Image source={require('../../../assets/Images/Aggregator/Inventory/Group10150.png')} />
           </View>
-          <View style={[AppStyles.flexpointsix, AppStyles.ml10]}>
+          <View style={[AppStyles.flexpointfive, AppStyles.ml10]}>
             <Text style={[AppStyles.txtBlackRegular, AppStyles.f15, AppStyles.mt5]}>{item.category_name}</Text>
             <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f13]}>{item.sub_category_name}</Text>
             <View style={AppStyles.flexDir}>
@@ -151,8 +175,8 @@ function CompletedOrder() {
             </View>
 
           </View>
-          <View style={AppStyles.flexpointtwo}>
-            <View style={[AppStyles.flexRowAlignCenter, AppStyles.mt10, AppStyles.mr20]}>
+          <View style={[AppStyles.flexpointthree, AppStyles.inCenter]}>
+            <View style={[AppStyles.flexRowAlignCenter, AppStyles.mt10]}>
               <FAIcon size={14} name='rupee'></FAIcon>
               <Text style={[AppStyles.txtBlackRegular, AppStyles.f15, AppStyles.ml5]}>{item.work_sub_total}</Text>
             </View>
@@ -166,7 +190,7 @@ function CompletedOrder() {
 
 
   return (
-    <View style={Styles.topView}>
+    <View style={AppStyles.topView}>
       {orderList.length > 0 ? <FlatList
         style={{ flex: 1 }}
         data={orderList}
@@ -184,7 +208,7 @@ function CompletedOrder() {
         }}
       />
         :
-        !loading && <EmptyView onBack = {() => navigation.pop()}></EmptyView>
+        !loading && <EmptyView onBack={() => navigation.pop()}></EmptyView>
       }
 
     </View>

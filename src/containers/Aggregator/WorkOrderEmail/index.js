@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { TouchableOpacity, View, Text, Image, ScrollView } from 'react-native';
 import Styles from "./styles";
-import AppStyles from "../../../theme/Styles/texts";
+import {AppStyles} from "../../../theme";
 import AppStyle from "../../../theme/Styles/spaces";
 import style from "../../../theme/Styles/container";
 import NavigationRouteNames from '../../../routes/ScreenNames';
@@ -33,8 +33,8 @@ function WorkOrderEmail() {
   }, []);
 
   return (
-    <View style={Styles.topView}>
-      <ScrollView>
+    <View style={[Styles.topView, AppStyles.inCenter]}>
+     
         <View style={Styles.boxContent}>
           <Image style={Styles.boxImage} source={successLogo} />
           <Text style={[AppStyles.txtBlackBold, AppStyles.f20, AppStyles.spacing1]}>THANKYOU</Text>
@@ -58,7 +58,7 @@ function WorkOrderEmail() {
             </View>
           </View>
         </View>
-      </ScrollView>
+     
     </View>
   );
 }
