@@ -242,14 +242,14 @@ function ProfileUpdate() {
         
         <View style={[Styles.btnContainer, AppStyles.flexDir]}>
           <View style={AppStyles.flex1}>
-            <TouchableOpacity activeOpacity = {0.8} style={[Styles.cancelButton]} onPress={() => screenNavigate()}>
+            <TouchableOpacity activeOpacity = {0.8} style={[Styles.cancelButton, AppStyles.btnHeight44, AppStyles.inCenter]} onPress={() => screenNavigate()}>
               <Text style={[AppStyles.txtPrimaryRegular, AppStyles.f17, AppStyles.textalig]}>
                 CANCEL
                   </Text>
             </TouchableOpacity>
           </View>
           <View style={AppStyles.flex1}>
-            <TouchableOpacity activeOpacity = {0.8} style={[Styles.saveButton, AppStyles.mb20]} onPress={() => handleProfileUpdate()}>
+            <TouchableOpacity activeOpacity = {0.8} style={[Styles.saveButton, AppStyles.mb20, AppStyles.btnHeight44, AppStyles.inCenter]} onPress={() => handleProfileUpdate()}>
               <Text style={[AppStyles.txtWhiteRegular, AppStyles.f17, AppStyles.textalig]}>
                 SAVE
                   </Text>

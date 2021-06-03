@@ -129,26 +129,26 @@ const PriceConfirm = () => {
         <View style={Styles.btnContainer}>
           <TouchableOpacity
             activeOpacity={0.8}
-            style={[AppStyles.mt20, AppStyles.br10, AppStyles.borderwidth1, AppStyles.borderColorMango, AppStyles.whitecolor, AppStyles.pv10, AppStyles.alignCenter]}
+            style={[AppStyles.mt20, AppStyles.br10, AppStyles.borderwidth1, AppStyles.borderColorMango, AppStyles.whitecolor, AppStyles.btnHeightwidth, AppStyles.inCenter]}
             onPress={handleREQUESTCALLBACK}>
             <Text style={[AppStyles.txtPrimaryRegular, AppStyles.f17]}>REQUEST CALL BACK</Text>
           </TouchableOpacity>
           <TouchableOpacity
             activeOpacity={0.8}
-            style={[AppStyles.mt20, AppStyles.br10, AppStyles.btnPrimary, AppStyles.pv10, AppStyles.alignCenter]}
+            style={[AppStyles.mt20, AppStyles.br10, AppStyles.btnPrimary, AppStyles.btnHeightwidth, AppStyles.inCenter]}
             onPress={handleSchedulePickup}>
             <Text style={[AppStyles.txtWhiteRegular, AppStyles.f17]}>SCHEDULE PICKUP</Text>
           </TouchableOpacity>
         </View> : <View style={Styles.btnContainer}>
           <TouchableOpacity
             activeOpacity={0.8}
-            style={[AppStyles.mt20, AppStyles.br10, AppStyles.borderwidth1, AppStyles.borderColorMango, AppStyles.whitecolor, AppStyles.pv10, AppStyles.alignCenter]}
+            style={[AppStyles.mt20, AppStyles.br10, AppStyles.borderwidth1, AppStyles.borderColorMango, AppStyles.whitecolor, AppStyles.btnHeightwidth, AppStyles.inCenter]}
             onPress={() => { confirmBtn() }}>
             <Text style={[AppStyles.txtPrimaryRegular, AppStyles.f17]}>CONFIRM</Text>
           </TouchableOpacity>
           <TouchableOpacity
             activeOpacity={0.8}
-            style={[AppStyles.mt20, AppStyles.br10, AppStyles.btnPrimary, AppStyles.pv10, AppStyles.alignCenter]}>
+            style={[AppStyles.mt20, AppStyles.br10, AppStyles.btnPrimary, AppStyles.btnHeightwidth, AppStyles.borderwidth1, AppStyles.borderColorMango, AppStyles.inCenter]}>
             <Text style={[AppStyles.txtWhiteRegular, AppStyles.f17]}>REJECT</Text>
           </TouchableOpacity>
         </View>}

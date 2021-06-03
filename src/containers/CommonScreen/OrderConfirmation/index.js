@@ -139,18 +139,18 @@ function OrderConfirmation() {
       <View style={Styles.btnContainer}>
           <TouchableOpacity
             activeOpacity={0.8}
-            style={Styles.confirmbtn} onPress={() => confirmOrder()}>
-            <Text style={[AppStyles.txtWhiteRegular, AppStyles.f17, AppStyles.textalig, AppStyles.mt10]}>CONFIRM SCHEDULE</Text>
+            style={[Styles.confirmbtn, AppStyles.btnHeight44, AppStyles.inCenter]} onPress={() => confirmOrder()}>
+            <Text style={[AppStyles.txtWhiteRegular, AppStyles.f17, AppStyles.textalig]}>CONFIRM SCHEDULE</Text>
           </TouchableOpacity>
           <TouchableOpacity
             activeOpacity={0.8}
-            style={[Styles.proposebtn]} onPress={() => proposeTime(item)}>
-            <Text style={[AppStyles.txtPrimaryRegular, AppStyles.f17, AppStyles.textalig, AppStyles.mt10]}>PROPOSE NEW TIME</Text>
+            style={[Styles.proposebtn, AppStyles.btnHeight44, AppStyles.inCenter]} onPress={() => proposeTime(item)}>
+            <Text style={[AppStyles.txtPrimaryRegular, AppStyles.f17, AppStyles.textalig]}>PROPOSE NEW TIME</Text>
           </TouchableOpacity>
           <TouchableOpacity
             activeOpacity={0.8}
-            style={[Styles.proposebtn, AppStyles.mb20]} onPress={() => rejectOrder(item)}>
-            <Text style={[AppStyles.txtPrimaryRegular, AppStyles.f17, AppStyles.textalig, AppStyles.mt10]}>REJECT</Text>
+            style={[Styles.proposebtn, AppStyles.mb20, AppStyles.btnHeight44, AppStyles.inCenter]} onPress={() => rejectOrder(item)}>
+            <Text style={[AppStyles.txtPrimaryRegular, AppStyles.f17, AppStyles.textalig]}>REJECT</Text>
           </TouchableOpacity>
         </View>
 

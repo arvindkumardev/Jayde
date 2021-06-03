@@ -483,7 +483,7 @@ const WorkOrderVerification = () => {
           <Text style={[AppStyles.txtBlackRegular, AppStyles.f15,]}>Material Pick-up confirmation</Text>
         </TouchableOpacity>
 
-        <View style={[AppStyles.flexpointsix, AppStyles.mt10, AppStyles.alignfend, AppStyles.mr10]}>
+        <View style={[AppStyles.flexpointsix, AppStyles.mt10, AppStyles.alignfend]}>
           <CheckBoxWrapper
             isChecked={item.is_seller_confirmed == '1' ? true : false}
             checkBoxHandler={() => { }}

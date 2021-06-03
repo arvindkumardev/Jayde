@@ -610,7 +610,7 @@ const PaymentVerification = () => {
             <View style={[AppStyles.flexDir, AppStyles.mt20]}>
               <View style={[AppStyles.flex1]}>
                 <View style={{ marginTop: RfH(10), marginTop: 5, marginBottom: 25 }}>
-                  <TouchableOpacity activeOpacity={0.8} style={Styles.confirmButtonn}
+                  <TouchableOpacity activeOpacity={0.8} style={[Styles.confirmButtonn, AppStyles.btnHeight44, AppStyles.inCenter]}
                     onPress={() => navi}>
                     <Text style={Styles.confirmBtnTextt}>CANCEL</Text>
                   </TouchableOpacity>
@@ -618,7 +618,7 @@ const PaymentVerification = () => {
               </View>
               <View style={[AppStyles.flex1]}>
                 <View style={{ marginTop: RfH(10), marginTop: 5, marginBottom: 25 }}>
-                  <TouchableOpacity activeOpacity={0.8} style={Styles.confirmButton} onPress={() => handelWeightConfirm()}>
+                  <TouchableOpacity activeOpacity={0.8} style={[Styles.confirmButton, AppStyles.btnHeight44, AppStyles.inCenter]} onPress={() => handelWeightConfirm()}>
                     <Text style={Styles.confirmBtnText}>CONFIRM</Text>
                   </TouchableOpacity>
                 </View>
@@ -746,7 +746,7 @@ const PaymentVerification = () => {
             <View style={AppStyles.flexDir}>
               <View style={[AppStyles.flex1, AppStyles.mt20]}>
                 <View style={{ marginTop: RfH(10), marginTop: 5, marginBottom: 25 }}>
-                  <TouchableOpacity activeOpacity={0.8} style={Styles.confirmButtonn}
+                  <TouchableOpacity activeOpacity={0.8} style={[Styles.confirmButtonn, AppStyles.btnHeight44, AppStyles.inCenter]}
                     onPress={() => navigation.pop()}>
                     <Text style={Styles.confirmBtnTextt}>CANCEL</Text>
                   </TouchableOpacity>
@@ -754,7 +754,7 @@ const PaymentVerification = () => {
               </View>
               <View style={[AppStyles.flex1, AppStyles.mt20]}>
                 <View style={{ marginTop: RfH(10), marginTop: 5, marginBottom: 25 }}>
-                  <TouchableOpacity activeOpacity={0.8} style={Styles.confirmButton} onPress={() =>
+                  <TouchableOpacity activeOpacity={0.8} style={[Styles.confirmButton, AppStyles.btnHeight44, AppStyles.inCenter]} onPress={() =>
                     submitProposeWeight()}>
                     <Text style={Styles.confirmBtnText}>CONFIRM</Text>
                   </TouchableOpacity>
@@ -902,14 +902,14 @@ const PaymentVerification = () => {
         <View style={AppStyles.flexDir}>
           <View style={AppStyles.flex1}>
             <View style={{ marginTop: RfH(10), marginTop: 5, marginBottom: 25 }}>
-              <TouchableOpacity activeOpacity={0.8} style={Styles.confirmButtonn} onPress={() => navigation.pop()}>
+              <TouchableOpacity activeOpacity={0.8} style={[Styles.confirmButtonn, AppStyles.btnHeight44, AppStyles.inCenter]} onPress={() => navigation.pop()}>
                 <Text style={Styles.confirmBtnTextt}>CANCEL</Text>
               </TouchableOpacity>
             </View>
           </View>
           <View style={AppStyles.flex1}>
             <View style={{ marginTop: RfH(10), marginTop: 5, marginBottom: 25 }}>
-              <TouchableOpacity activeOpacity={0.8} style={Styles.confirmButton} onPress={() => handleSubmitPayment()}>
+              <TouchableOpacity activeOpacity={0.8} style={[Styles.confirmButton, AppStyles.btnHeight44, AppStyles.inCenter]} onPress={() => handleSubmitPayment()}>
                 <Text style={Styles.confirmBtnText}>CONFIRM</Text>
               </TouchableOpacity>
             </View>
@@ -1012,14 +1012,14 @@ const PaymentVerification = () => {
         <View style={AppStyles.flexDir}>
           <View style={[AppStyles.flex1, AppStyles.mt20]}>
             <View style={{ marginTop: RfH(10), marginTop: 5, marginBottom: 25 }}>
-              <TouchableOpacity activeOpacity={0.8} style={Styles.confirmButtonn} onPress={() => navigation.pop()}>
+              <TouchableOpacity activeOpacity={0.8} style={[Styles.confirmButtonn, AppStyles.btnHeight44, AppStyles.inCenter]} onPress={() => navigation.pop()}>
                 <Text style={Styles.confirmBtnTextt}>CANCEL</Text>
               </TouchableOpacity>
             </View>
           </View>
           <View style={[AppStyles.flex1, AppStyles.mt20]}>
             <View style={{ marginTop: RfH(10), marginTop: 5, marginBottom: 25 }}>
-              <TouchableOpacity activeOpacity={0.8} style={Styles.confirmButton} onPress={() => handleSubmitReceipt()}>
+              <TouchableOpacity activeOpacity={0.8} style={[Styles.confirmButton, AppStyles.btnHeight44, AppStyles.inCenter]} onPress={() => handleSubmitReceipt()}>
                 <Text style={Styles.confirmBtnText}>CONFIRM</Text>
               </TouchableOpacity>
             </View>

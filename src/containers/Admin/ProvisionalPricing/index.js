@@ -46,14 +46,14 @@ function ProvisionalPricing() {
          <View style={[Styles.btnContainer, AppStyles.flexDir]}>
         <View style={AppStyles.flex1}>
         <TouchableOpacity
-          style={[Styles.aggregatebtn]}>
-          <Text style={[AppStyles.txtPrimaryRegular, AppStyles.f17, AppStyles.textalig, AppStyles.mt10]}>EDIT</Text>
+          style={[Styles.aggregatebtn, AppStyles.btnHeight44, AppStyles.inCenter]}>
+          <Text style={[AppStyles.txtPrimaryRegular, AppStyles.f17, AppStyles.textalig]}>EDIT</Text>
         </TouchableOpacity>
        </View>
        <View style={AppStyles.flex1}>
       <TouchableOpacity
-          style={[Styles.confirmbtn, AppStyles.mb20]}>
-          <Text style={[AppStyles.txtWhiteRegular, AppStyles.f17, AppStyles.textalig, AppStyles.mt10]}>DELETE</Text>
+          style={[Styles.confirmbtn, AppStyles.mb20, AppStyles.btnHeight44, AppStyles.inCenter]}>
+          <Text style={[AppStyles.txtWhiteRegular, AppStyles.f17, AppStyles.textalig]}>DELETE</Text>
         </TouchableOpacity>
         </View>
       </View>

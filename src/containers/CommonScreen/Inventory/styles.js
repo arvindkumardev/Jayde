@@ -16,8 +16,9 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.mango,
     borderRadius: 10,
     paddingHorizontal: RfW(10),
-    paddingVertical: RfH(10),
     marginLeft: 3,
+    borderColor: Colors.mango,
+    borderWidth: 1,
   },
   aggregatebtn: {
     backgroundColor: Colors.white,
@@ -25,7 +26,6 @@ const styles = StyleSheet.create({
     borderColor: Colors.mango,
     borderWidth: 1,
     paddingHorizontal: RfW(10),
-    paddingVertical: RfH(10),
     marginRight: 5,
   },
   bdrclr: {

@@ -402,8 +402,8 @@ function NewWorkOrder() {
 
         <View style={Styles.btnContainer}>
           <TouchableOpacity activeOpacity = {0.8}
-            style={Styles.confirmbtn} onPress={() => handelSave()}>
-            <Text style={[Appstyles.txtWhiteRegular, Appstyles.f17, Appstyles.textalig, AppStyle.mt10]}>SAVE</Text>
+            style={[Styles.confirmbtn, AppStyles.btnHeight44, AppStyles.inCenter]} onPress={() => handelSave()}>
+            <Text style={[Appstyles.txtWhiteRegular, Appstyles.f17, Appstyles.textalig]}>SAVE</Text>
           </TouchableOpacity>
         </View>
       </View>

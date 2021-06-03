@@ -224,10 +224,10 @@ function ProposeTime() {
 
         <View style={Styles.btnContainer}>
           <TouchableOpacity activeOpacity={0.8}
-            style={Styles.confirmbtn} onPress={() => {
+            style={[Styles.confirmbtn, AppStyles.btnHeight44, AppStyles.inCenter]} onPress={() => {
               handleConfirm()
             }}>
-            <Text style={[AppStyles.txtWhiteRegular, AppStyles.f17, AppStyles.textalig, AppStyles.mt10]}>CONFIRM</Text>
+            <Text style={[AppStyles.txtWhiteRegular, AppStyles.f17, AppStyles.textalig]}>CONFIRM</Text>
           </TouchableOpacity>
         </View>
       </ScrollView>

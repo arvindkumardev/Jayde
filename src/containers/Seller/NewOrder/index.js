@@ -30,13 +30,13 @@ const NewOrder = () => {
       <View style={[AppStyles.w100, AppStyles.ph20]}>
         <TouchableOpacity
           activeOpacity = {0.8}
-          style={[AppStyles.mt20, AppStyles.br10, AppStyles.btnPrimary, AppStyles.pv10, AppStyles.alignCenter]}
+          style={[AppStyles.mt20, AppStyles.br10, AppStyles.btnPrimary, AppStyles.btnHeightwidth, AppStyles.inCenter,]}
           onPress={() => { handleGetQuote("0") }}>
           <Text style={[AppStyles.txtWhiteRegular, AppStyles.f18]}>GET QUOTE</Text>
         </TouchableOpacity>
         <TouchableOpacity
           activeOpacity = {0.8}
-          style={[AppStyles.mt20, AppStyles.br10, AppStyles.btnSecandary, AppStyles.pv10, AppStyles.alignCenter]}
+          style={[AppStyles.mt20, AppStyles.br10, AppStyles.btnSecandary, AppStyles.btnHeightwidth, AppStyles.inCenter,]}
           onPress={() => { handleGetQuote("1") }}>
           <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f18]}>SCHEDULE PICKUP</Text>
         </TouchableOpacity>

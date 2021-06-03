@@ -17,16 +17,16 @@ const styles = StyleSheet.create({
   },
   profileButton: {
     backgroundColor: '#F7A435',
-     paddingHorizontal: RfW(10),
-     paddingVertical: RfH(11),
+    paddingHorizontal: RfW(10),
     borderRadius: 10,
+    borderColor: '#F7A435',
+    borderWidth: 1,
     marginTop: RfH(35),
     marginLeft: RfW(3),
   },
   businessButton: {
     backgroundColor: '#fff',
     paddingHorizontal: RfW(10),
-    paddingVertical: RfH(10),
     borderRadius: 10,
     borderColor: '#F7A435',
     borderWidth: 1,
@@ -36,7 +36,6 @@ const styles = StyleSheet.create({
   completelaterbtn: {
     backgroundColor: '#fff',
     paddingHorizontal: RfW(10),
-    paddingVertical: RfH(10),
     borderRadius: 10,
     borderColor: '#F7A435',
     borderWidth: 1,
