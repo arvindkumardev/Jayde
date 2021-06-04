@@ -10,11 +10,6 @@ const styles = StyleSheet.create({
    bdrclr: {
      borderColor: 'orange',
    },
-  leftArrow: {
-    width: 24, 
-    height: RfH(24), 
-    marginLeft: RfW(24),
-  },
   boxContent: {   
     width: RfW(310), 
     height: RfH(574), 
@@ -24,13 +19,14 @@ const styles = StyleSheet.create({
     marginLeft: RfW(24), 
     marginTop: RfH(32),
     marginBottom: RfH(40),
+    marginRight: RfW(24),
   },
   boxImage: {
     width: RfW(132), 
     height: RfH(132), 
     marginTop: RfH(12),
   },
-  bxVu: {
+  boxView: {
     width: RfW(310), 
     height: RfH(295), 
     borderRadius: 20, 
@@ -38,7 +34,7 @@ const styles = StyleSheet.create({
     marginTop: RfH(5), 
     marginRight: RfW(24),
   },
-  tbut: {
+  homeButton: {
     marginRight: RfW(64), 
     marginLeft: RfW(64),
   },

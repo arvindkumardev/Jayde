@@ -115,30 +115,30 @@ function PickupDate (props) {
           <TouchableOpacity
             activeOpacity={0.8}
             onPress={() => setTimeSlotIndex(0)}
-            style={[AppStyles.pv15, AppStyles.ph20, AppStyles.flexRowSpaceBetween, timeSlotIndex == 0 ? AppStyles.timeSlotActive : AppStyles.timeSlotInActive]}>
-            <Text style={AppStyles.txtBlackRegular}>{getDayAfter()}</Text>
-            <Text style={AppStyles.txtBlackRegular}>11:00 AM - 1:00 PM</Text>
+            style={[AppStyles.pv15, AppStyles.ph20, AppStyles.mt10, AppStyles.flexRowSpaceBetween, timeSlotIndex == 0 ? AppStyles.timeSlotActive : AppStyles.timeSlotInActive]}>
+            <Text style={AppStyles.txtSecandaryRegular}>{getDayAfter()}</Text>
+            <Text style={AppStyles.txtSecandaryRegular}>11:00 AM - 1:00 PM</Text>
           </TouchableOpacity>
           <TouchableOpacity
             activeOpacity={0.8}
             onPress={() => setTimeSlotIndex(1)}
-            style={[AppStyles.pv15, AppStyles.ph20, AppStyles.flexRowSpaceBetween, timeSlotIndex == 1 ? AppStyles.timeSlotActive : AppStyles.timeSlotInActive]}>
-            <Text style={AppStyles.txtBlackRegular}>{getDayAfter()}</Text>
-            <Text style={AppStyles.txtBlackRegular}>3:00 PM - 5:00 PM</Text>
+            style={[AppStyles.pv15, AppStyles.ph20, AppStyles.mt10, AppStyles.flexRowSpaceBetween, timeSlotIndex == 1 ? AppStyles.timeSlotActive : AppStyles.timeSlotInActive]}>
+            <Text style={AppStyles.txtSecandaryRegular}>{getDayAfter()}</Text>
+            <Text style={AppStyles.txtSecandaryRegular}>3:00 PM - 5:00 PM</Text>
           </TouchableOpacity>
           <TouchableOpacity
             activeOpacity={0.8}
             onPress={() => setTimeSlotIndex(2)}
-            style={[AppStyles.pv15, AppStyles.ph20, AppStyles.flexRowSpaceBetween, timeSlotIndex == 2 ? AppStyles.timeSlotActive : AppStyles.timeSlotInActive]}>
-            <Text style={AppStyles.txtBlackRegular}>{getAfterDay()}</Text>
-            <Text style={AppStyles.txtBlackRegular}>11:00 AM - 1:00 PM</Text>
+            style={[AppStyles.pv15, AppStyles.ph20, AppStyles.mt10, AppStyles.flexRowSpaceBetween, timeSlotIndex == 2 ? AppStyles.timeSlotActive : AppStyles.timeSlotInActive]}>
+            <Text style={AppStyles.txtSecandaryRegular}>{getAfterDay()}</Text>
+            <Text style={AppStyles.txtSecandaryRegular}>11:00 AM - 1:00 PM</Text>
           </TouchableOpacity>
           <TouchableOpacity
             activeOpacity={0.8}
             onPress={() => setTimeSlotIndex(3)}
-            style={[AppStyles.pv15, AppStyles.ph20, AppStyles.flexRowSpaceBetween, timeSlotIndex == 3 ? AppStyles.timeSlotActive : AppStyles.timeSlotInActive]}>
-            <Text style={AppStyles.txtBlackRegular}>{getAfterDay()}</Text>
-            <Text style={AppStyles.txtBlackRegular}>3:00 PM - 5:00 PM</Text>
+            style={[AppStyles.pv15, AppStyles.ph20, AppStyles.mt10, AppStyles.flexRowSpaceBetween, timeSlotIndex == 3 ? AppStyles.timeSlotActive : AppStyles.timeSlotInActive]}>
+            <Text style={AppStyles.txtSecandaryRegular}>{getAfterDay()}</Text>
+            <Text style={AppStyles.txtSecandaryRegular}>3:00 PM - 5:00 PM</Text>
           </TouchableOpacity>
         </View>
 
@@ -156,7 +156,7 @@ function PickupDate (props) {
         {isEnabled == true ?
           <View>
             <View>
-              <Text style={[[AppStyles.txtBlackRegular, AppStyles.f16, AppStyles.mb5, AppStyles.mt10]]}>Pick Date</Text>
+              <Text style={[[AppStyles.txtBlackRegular, AppStyles.f16, AppStyles.mb5, AppStyles.mt20]]}>Pick Date</Text>
               <TouchableOpacity
                 activeOpacity={0.8}
                 onPress={() => showDatepicker()}
@@ -174,7 +174,7 @@ function PickupDate (props) {
                 onChange={onChange}
               />)}
             </View>
-            <View style={[AppStyles.mt10]}>
+            <View style={[AppStyles.mt20]}>
               <View>
                 <Text style={[AppStyles.txtBlackRegular, AppStyles.f16, AppStyles.mb5]}>Pick Time Slot</Text>
               </View>

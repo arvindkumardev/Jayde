@@ -97,18 +97,18 @@ const PriceConfirm = () => {
               </View>
               <View style={AppStyles.flexRowSpaceBetween}>
                 <View style={AppStyles.flexpointsix}>
-                  <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f16]}>Location</Text>
+                  <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f16, AppStyles.mt10]}>Location</Text>
                 </View>
                 <View style={AppStyles.flexpointfour}>
-                  <Text style={[AppStyles.txtBlackRegular, AppStyles.f16]}>{getQuoteData().location}</Text>
+                  <Text style={[AppStyles.txtBlackRegular, AppStyles.f16, AppStyles.mt10]}>{getQuoteData().location}</Text>
                 </View>
               </View>
               <View style={AppStyles.flexRowSpaceBetween}>
                 <View style={AppStyles.flexpointsix}>
-                  <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f16]}>Volume</Text>
+                  <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f16, AppStyles.mt10]}>Volume</Text>
                 </View>
                 <View style={AppStyles.flexpointfour}>
-                  <Text style={[AppStyles.txtBlackRegular, AppStyles.f16]}>{getQuoteData().qty} {getQuoteData().unit_name}</Text>
+                  <Text style={[AppStyles.txtBlackRegular, AppStyles.f16, AppStyles.mt10]}>{getQuoteData().qty} {getQuoteData().unit_name}</Text>
                 </View>
               </View>
               <View style={Styles.totalPriceContainer}>

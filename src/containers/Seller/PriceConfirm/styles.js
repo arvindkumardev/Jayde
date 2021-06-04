@@ -14,8 +14,9 @@ const styles = StyleSheet.create({
     borderTopWidth: 1,
     borderBottomColor: '#707070',
     borderBottomWidth: 1,
-    marginTop: RfH(5),
+    marginTop: RfH(16),
     marginRight: RfW(20),
+    marginBottom: RfH(20),
   },
   screenContainer: {
     flex: 1,
@@ -30,7 +31,6 @@ const styles = StyleSheet.create({
   },
   provisionalBox: {
     width: RfW(321),
-    height: RfH(190),
     borderRadius: 10,
     backgroundColor: '#f5f5f5',
   },

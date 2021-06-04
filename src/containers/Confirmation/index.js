@@ -44,7 +44,7 @@ function Confirmation() {
           <View style={styles.alignCenter}>
           <Text style={[AppStyles.f11, AppStyles.txtSecandaryRegular, AppStyles.ml24, AppStyles.mr20, AppStyles.mt20, AppStyles.textalig]}>{`The Order with Ref No- ${item.order_no} with the following details has been sent to ${route.params.businessSubType}`}</Text>
           </View>
-        <View style={Styles.bxVu}>
+        <View style={Styles.boxView}>
         
         <View style={[AppStyles.flexDir, AppStyles.ml24]}>
         <View style={AppStyles.flex1}>
@@ -91,8 +91,8 @@ function Confirmation() {
         </View>
       </View> 
 
-        <View style={[AppStyles.flex1, Styles.tbut]}>
-            <TouchableOpacity activeOpacity = {0.8} style={[AppStyles.mt30, AppStyles.pv11, AppStyles.aligncen, AppStyles.br13,  AppStyles.btnPrimary]} 
+        <View style={[AppStyles.flex1, Styles.homeButton]}>
+            <TouchableOpacity activeOpacity = {0.8} style={[AppStyles.mt50, AppStyles.btnHeightwidth, AppStyles.inCenter, AppStyles.br10,  AppStyles.btnPrimary]} 
               onPress={() => {screenNavigate()}}>
                 <Text style={[AppStyles.f18, AppStyles.whitecolor]}>GO TO HOME</Text>
               </TouchableOpacity>
