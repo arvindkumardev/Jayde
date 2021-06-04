@@ -129,10 +129,10 @@ function HomeScreen() {
 
   const _renderMenu = (index, item) => {
     return (
-      <View key={index} style={[index == 0 ? Styles.menuContainerLarge : Styles.menuContainer, { backgroundColor: index == 0 ? Colors.mangoTwo : index == 1 ? Colors.paleGold : Colors.lightOlive}]}>
+      <View key={index} style={[Styles.menuContainer, { backgroundColor: index == 0 ? Colors.mangoTwo : index == 1 ? Colors.paleGold : Colors.lightOlive, }]}>
         <View>
           <TouchableOpacity activeOpacity = {0.8} style={Styles.menuEllipseContainer}>
-            <FAIcon name="ellipsis-v" color={Colors.white} size={20} />
+            {/* <FAIcon name="ellipsis-v" color={Colors.white} size={20} /> */}
           </TouchableOpacity>
         </View>
         <TouchableOpacity activeOpacity = {0.8} onPress={() => handleNavigate(item.screenName)} style={Styles.menuActionItem}>
@@ -140,7 +140,7 @@ function HomeScreen() {
             <MCIcon name={item.iconName} color={Colors.white} size={30} />
           </View>
           <View style={[AppStyles.aligncen, AppStyles.mb20]}>
-            <Text style={[AppStyles.txtWhiteBold, AppStyles.f17, AppStyles.textalig]}>{item.menuName}</Text>
+            <Text style={[AppStyles.txtWhiteBold, AppStyles.f17, AppStyles.textalig, AppStyles.ml10, AppStyles.mr10]}>{item.menuName}</Text>
           </View>
         </TouchableOpacity>
       </View>
