@@ -90,6 +90,9 @@ const spaces = StyleSheet.create({
     mr14:{
         marginRight: RfW(14)
     },
+    mr16:{
+        marginRight: RfW(16)
+    },
     mr20:{
         marginRight: RfW(20)
     },

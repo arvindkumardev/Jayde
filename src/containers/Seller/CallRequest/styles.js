@@ -4,11 +4,6 @@ import Fonts from "../../../theme/Fonts";
 import { Colors } from '../../../theme';
 
 const styles = StyleSheet.create({
-  active: {
-    borderLeftColor: Colors.mango,
-    borderLeftWidth: RfW(10),
-    backgroundColor: Colors.grayLine
-  },
   txtFileUpload: {
     fontFamily: Fonts.regular,
     color: Colors.grayThree

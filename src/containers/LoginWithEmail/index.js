@@ -166,6 +166,8 @@ function LoginWithEmail() {
               onChangeHandler={(value) =>
                 loginForm.setFieldValue("password", value)
               }
+              returnKeyType={"next"}
+              onSubmitEditing={() => handleLogin()}
               showClearButton={false}
               keyboardType={"default"}
               refKey={"password"}

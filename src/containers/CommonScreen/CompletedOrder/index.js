@@ -133,8 +133,9 @@ function CompletedOrder() {
         activeOpacity={0.8} key={index}>
         <View style={[AppStyles.flexDir, AppStyles.mt20]}>
           <View style={[AppStyles.ml24, AppStyles.flexpointseven]}>
-            <Text style={[AppStyles.txtBlackRegular, AppStyles.f15]}>{item.work_id}</Text>
-            <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f13, AppStyles.mt3]}>{item.business_name}</Text>
+            <Text style={[AppStyles.txtBlackRegular, AppStyles.f15]}>{item.work_order_no}</Text>
+            <Text numberOfLines = {1} 
+            style={[AppStyles.txtSecandaryRegular, AppStyles.f13, AppStyles.mt3]}>{item.business_name}</Text>
           </View>
           <View style={[AppStyles.flexpointthree,]}>
             <View style={[AppStyles.inCenter]}>
@@ -142,13 +143,13 @@ function CompletedOrder() {
                 <TouchableOpacity
                   activeOpacity={0.8}
                   onPress={() => handelNavigation(item)}
-                  style={[Styles.confirmBtn]}>
+                  style={[Styles.confirmBtn,  AppStyles.inCenter]}>
                   <Text style={[AppStyles.txtWhiteRegular, AppStyles.f11, AppStyles.textalig]}>Confirm Payment</Text>
                 </TouchableOpacity>
                 : item.work_status == 1 ?
                   <View
-                    style={[Styles.btnCorner]}>
-                    <Text style={[AppStyles.txtWhiteRegular, AppStyles.f11, AppStyles.textalig]}>Work Order Sent</Text>
+                    style={[Styles.textHeight, AppStyles.inCenter]}>
+                    <Text style={[AppStyles.txtPrimaryRegular, AppStyles.f11, AppStyles.textalig]}>Work Order Sent</Text>
                   </View>
                   :
                   <CheckBoxWrapper

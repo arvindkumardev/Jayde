@@ -7,6 +7,8 @@ const styles = StyleSheet.create({
     marginLeft: RfW(20),
     borderBottomColor: Colors.grayLight,
     borderBottomWidth: 1,
+    flexDirection : 'row',
+    alignItems: 'center'
   },
   userSectionContainer: {
     flexDirection: 'row',

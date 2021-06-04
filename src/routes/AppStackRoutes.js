@@ -7,6 +7,7 @@ import { DrawerActions } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import FAIcon from "react-native-vector-icons/FontAwesome";
+import EvilIcons from "react-native-vector-icons/EvilIcons";
 import SplashScreen from "react-native-splash-screen";
 import NavigationRouteNames from "./ScreenNames";
 import HomeScreen from "../containers/Dashboard";
@@ -92,7 +93,7 @@ const CommonHeaderStyle = { headerTitleStyle: [AppStyles.txtBlackBold, AppStyles
 const DrawerMenu = ({ navigation }) => ({
   title: null,
   headerStyle: { borderBottomWidth: 0, elevation: 0 },
-  headerLeft: () => <TouchableOpacity activeOpacity = {0.8} onPress={() => {
+  headerLeft: () => <TouchableOpacity activeOpacity={0.8} onPress={() => {
     navigation.dispatch(DrawerActions.toggleDrawer());
   }} style={{ marginLeft: 10 }}><FAIcon name="navicon" size={25} /></TouchableOpacity>,
 });
@@ -142,10 +143,10 @@ const AppStack = (props) => {
             options={({ navigation }) => ({
               title: null,
               headerStyle: { borderBottomWidth: 0, elevation: 0 },
-              headerLeft: () => <TouchableOpacity activeOpacity = {0.8} onPress={() => {
+              headerLeft: () => <TouchableOpacity activeOpacity={0.6} onPress={() => {
                 navigation.dispatch(DrawerActions.toggleDrawer());
-              }} style={{ marginLeft: 10 }}><FAIcon name="navicon" size={25} /></TouchableOpacity>,
-              headerRight: () => <Text style={[AppStyles.txtBlackBold, AppStyles.mr10, AppStyles.f20, {textTransform: 'capitalize'}]}>{role}</Text>,
+              }} style={AppStyles.ml14}><EvilIcons name="navicon" size={30} /></TouchableOpacity>,
+              headerRight: () => <Text style={[AppStyles.txtBlackBold, AppStyles.mr14, AppStyles.f20, { textTransform: 'capitalize' }]}>{role}</Text>,
             })
             }
           />
@@ -214,14 +215,14 @@ const AppStack = (props) => {
             component={CallBackConfirmation}
             options={NoHeaderScreen}
           />
-         
+
           {/* Order Failed Screen */}
           <Stack.Screen
             name={NavigationRouteNames.ORDER_FAILED}
             component={OrderFailed}
             options={NoTitleHeader}
           />
-         
+
           {/* Confirmation Screen */}
           <Stack.Screen
             name={NavigationRouteNames.CONFIRMATION}
@@ -271,8 +272,8 @@ const AppStack = (props) => {
             name={NavigationRouteNames.PAYMENT}
             component={Payment}
             options={NoHeaderScreen}
-          />         
-        
+          />
+
           {/* Smart Contract View Item Screen*/}
           <Stack.Screen
             name={NavigationRouteNames.SMARTCONTRACT_VIEWITEM}
@@ -305,11 +306,11 @@ const AppStack = (props) => {
             component={DrawerStack}
             options={({ navigation }) => ({
               title: null,
-              headerStyle: { borderBottomWidth: 0, elevation: 0 },
-              headerLeft: () => <TouchableOpacity activeOpacity = {0.8} onPress={() => {
+              headerStyle: {borderBottomWidth: 0, elevation: 0},
+              headerLeft: () => <TouchableOpacity activeOpacity={0.6} onPress={() => {
                 navigation.dispatch(DrawerActions.toggleDrawer());
-              }} style={{ marginLeft: 10 }}><FAIcon name="navicon" size={25} /></TouchableOpacity>,
-              headerRight: () => <Text style={[AppStyles.txtBlackBold, AppStyles.mr10, AppStyles.f20, {textTransform: 'capitalize'}]}>{role}</Text>,
+              }} style={AppStyles.ml14}><EvilIcons name="navicon" size={30} /></TouchableOpacity>,
+              headerRight: () => <Text style={[AppStyles.txtBlackBold, AppStyles.mr14, AppStyles.f20, { textTransform: 'capitalize' }]}>{role}</Text>,
             })
             }
           />
@@ -402,13 +403,13 @@ const AppStack = (props) => {
             options={CommonHeaderStyle}
           />
 
-           {/* Work Order Details Screen number: 31 */}
-           <Stack.Screen
+          {/* Work Order Details Screen number: 31 */}
+          <Stack.Screen
             name={NavigationRouteNames.WORKORDER_DETAILS}
             component={WorkOrderDetails}
             options={CommonHeaderStyle}
           />
-          
+
           {/* Smart Contract Screen number: 70*/}
           <Stack.Screen
             name={NavigationRouteNames.SMART_CONTRACT}
@@ -483,7 +484,7 @@ const AppStack = (props) => {
             component={SmartContractViewItem}
             options={CommonHeaderStyle}
           />
-        
+
           {/* Order Screen number: 21*/}
           <Stack.Screen
             name={NavigationRouteNames.AGGREGATOR_NEW_ORDERS}
@@ -518,8 +519,8 @@ const AppStack = (props) => {
             options={NoHeaderScreen}
           />
 
-           {/* Confirmation Screen */}
-           <Stack.Screen
+          {/* Confirmation Screen */}
+          <Stack.Screen
             name={NavigationRouteNames.WORK_ORDER_CONFIRMATION}
             component={WorkOrderConfirmation}
             options={NoHeaderScreen}
@@ -537,8 +538,8 @@ const AppStack = (props) => {
             component={ProposeTime}
             options={CommonHeaderStyle}
           />
-           {/* Work Order Detail Screen */}
-           <Stack.Screen
+          {/* Work Order Detail Screen */}
+          <Stack.Screen
             name={NavigationRouteNames.WORK_ORDERDETAIL}
             component={WorkOrderDetail}
             options={CommonHeaderStyle}
@@ -552,10 +553,10 @@ const AppStack = (props) => {
             options={({ navigation }) => ({
               title: null,
               headerStyle: { borderBottomWidth: 0, elevation: 0 },
-              headerLeft: () => <TouchableOpacity activeOpacity = {0.8} onPress={() => {
+              headerLeft: () => <TouchableOpacity activeOpacity={0.6} onPress={() => {
                 navigation.dispatch(DrawerActions.toggleDrawer());
-              }} style={{ marginLeft: 10 }}><FAIcon name="navicon" size={25} /></TouchableOpacity>,
-              headerRight: () => <Text style={[AppStyles.txtBlackBold, AppStyles.mr10, AppStyles.f20, {textTransform: 'capitalize'}]}>{role}</Text>,
+              }} style={AppStyles.ml14}><EvilIcons name="navicon" size={30} /></TouchableOpacity>,
+              headerRight: () => <Text style={[AppStyles.txtBlackBold, AppStyles.mr14, AppStyles.f20, { textTransform: 'capitalize' }]}>{role}</Text>,
             })
             }
           />
@@ -667,8 +668,8 @@ const AppStack = (props) => {
             options={CommonHeaderStyle}
           />
 
-           {/* Order Screen number: 21*/}
-           <Stack.Screen
+          {/* Order Screen number: 21*/}
+          <Stack.Screen
             name={NavigationRouteNames.WORK_ORDER_VERIFICATION}
             component={WorkOrderVerification}
             options={CommonHeaderStyle}
@@ -749,7 +750,6 @@ const AppStack = (props) => {
             options={CommonHeaderStyle}
           />
         </>;
-
       case USER_ROLE.ADMIN:
         return <>
           {/* Dashboard SCREEN */}
@@ -759,10 +759,10 @@ const AppStack = (props) => {
             options={({ navigation }) => ({
               title: null,
               headerStyle: { borderBottomWidth: 0, elevation: 0 },
-              headerLeft: () => <TouchableOpacity activeOpacity = {0.8} onPress={() => {
+              headerLeft: () => <TouchableOpacity activeOpacity={0.6} onPress={() => {
                 navigation.dispatch(DrawerActions.toggleDrawer());
-              }} style={{ marginLeft: 10 }}><FAIcon name="navicon" size={25} /></TouchableOpacity>,
-              headerRight: () => <Text style={[AppStyles.txtBlackBold, AppStyles.mr10, AppStyles.f20, {textTransform: 'capitalize'}]}>{role}</Text>,
+              }} style={AppStyles.ml14}><EvilIcons name="navicon" size={30} /></TouchableOpacity>,
+              headerRight: () => <Text style={[AppStyles.txtBlackBold, AppStyles.mr14, AppStyles.f20, { textTransform: 'capitalize' }]}>{role}</Text>,
             })
             }
           />

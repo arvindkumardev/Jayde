@@ -16,12 +16,8 @@ const styles = StyleSheet.create({
     height: RfH(28),
     justifyContent: 'center',
   },
-  btnCorner: {
-    borderRadius: 24,
-    backgroundColor: Colors.mangoTwo,
-    width: RfW(60),
+  textHeight: {  
     height: RfH(28),
-    justifyContent: 'center',
   }
 });
 export default styles;

@@ -46,14 +46,13 @@ const DrawerSideBar = (props) => {
     }
     const onRenderMenu = (index, item) => {
         return (
-            <View key={index} style={Styles.menuItemContainer}>
-                <TouchableOpacity activeOpacity={0.8} onPress={() => onNavigation(item.screenName)}>
-                    <View style={{ flexDirection: 'row' }}>
-                        <FAIcon name={item.iconName} size={20} style={AppStyles.mr20} color={item.color} />
-                        <Text style={[AppStyles.txtBlackRegular, AppStyles.f16]}>{item.name}</Text>
-                    </View>
-                </TouchableOpacity>
-            </View>
+            <TouchableOpacity activeOpacity={0.8} onPress={() => onNavigation(item.screenName)}>
+                <View
+                    key={index} style={[Styles.menuItemContainer]}>
+                    <FAIcon name={item.iconName} size={20} style={AppStyles.mr20} color={item.color} />
+                    <Text style={[AppStyles.txtBlackRegular, AppStyles.f16]}>{item.name}</Text>
+                </View>
+            </TouchableOpacity>
         )
     }
     return (

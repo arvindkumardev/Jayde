@@ -39,7 +39,7 @@ const CallRequest = () => {
       setLoader(false)
   }, [error])
 
-  
+
   useEffect(() => {
     setLoader(loading);
   }, [callBackData, loading]);
@@ -208,28 +208,28 @@ const CallRequest = () => {
         <TouchableOpacity
           activeOpacity={0.8}
           onPress={() => setTimeSlotIndex(0)}
-          style={[AppStyles.pv15, AppStyles.ph20, AppStyles.mt10, AppStyles.flexRowSpaceBetween, timeSlotIndex == 0 && Styles.active]}>
+          style={[AppStyles.pv15, AppStyles.ph20, AppStyles.mt10, AppStyles.flexRowSpaceBetween, timeSlotIndex == 0 ? AppStyles.timeSlotActive : AppStyles.timeSlotInActive]}>
           <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f15]}>{getDayAfter()}</Text>
           <Text style={[AppStyles.txtSecandaryRegular, , AppStyles.f15]}>11:00 AM - 1:00 PM</Text>
         </TouchableOpacity>
         <TouchableOpacity
           activeOpacity={0.8}
           onPress={() => setTimeSlotIndex(1)}
-          style={[AppStyles.pv15, AppStyles.ph20, AppStyles.mt10, AppStyles.flexRowSpaceBetween, timeSlotIndex == 1 && Styles.active]}>
+          style={[AppStyles.pv15, AppStyles.ph20, AppStyles.mt10, AppStyles.flexRowSpaceBetween, timeSlotIndex == 1 ? AppStyles.timeSlotActive : AppStyles.timeSlotInActive]}>
           <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f15]}>{getDayAfter()}</Text>
           <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f15]}>3:00 PM - 5:00 PM</Text>
         </TouchableOpacity>
         <TouchableOpacity
           activeOpacity={0.8}
           onPress={() => setTimeSlotIndex(2)}
-          style={[AppStyles.pv15, AppStyles.ph20, AppStyles.mt10, AppStyles.flexRowSpaceBetween, timeSlotIndex == 2 && Styles.active]}>
+          style={[AppStyles.pv15, AppStyles.ph20, AppStyles.mt10, AppStyles.flexRowSpaceBetween, timeSlotIndex == 2 ? AppStyles.timeSlotActive : AppStyles.timeSlotInActive]}>
           <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f15]}>{getAfterDay()}</Text>
           <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f15]}>11:00 AM - 1:00 PM</Text>
         </TouchableOpacity>
         <TouchableOpacity
           activeOpacity={0.8}
           onPress={() => setTimeSlotIndex(3)}
-          style={[AppStyles.pv15, AppStyles.ph20, AppStyles.mt10, AppStyles.flexRowSpaceBetween, timeSlotIndex == 3 && Styles.active]}>
+          style={[AppStyles.pv15, AppStyles.ph20, AppStyles.mt10, AppStyles.flexRowSpaceBetween, timeSlotIndex == 3 ? AppStyles.timeSlotActive : AppStyles.timeSlotInActive]}>
           <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f15]}>{getAfterDay()}</Text>
           <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f15]}>3:00 PM - 5:00 PM</Text>
         </TouchableOpacity>

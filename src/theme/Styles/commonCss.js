@@ -91,6 +91,16 @@ const commonCss = StyleSheet.create({
     height: RfH(44),
     paddingHorizontal: RfW(10),
   },
+  timeSlotActive: {
+    borderLeftColor: Colors.mango,
+    borderLeftWidth: RfW(10),
+    backgroundColor: Colors.grayLine
+  },
+  timeSlotInActive: {
+    borderLeftColor: 'transparent',
+    borderLeftWidth: RfW(10),
+    backgroundColor: Colors.white
+  },
 });
 
 export default commonCss;
