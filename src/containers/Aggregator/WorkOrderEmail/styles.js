@@ -35,7 +35,9 @@ const styles = StyleSheet.create({
   },
   buttonsize: {
      height: RfH(44),
-     width: RfW(160),
+     paddingHorizontal: RfW(10),
+     alignItems: 'center',
+     justifyContent: 'center',
   },
 });
 export default styles;

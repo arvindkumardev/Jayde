@@ -53,7 +53,7 @@ function WorkOrderEmail() {
               <TouchableOpacity
                 activeOpacity={0.8}
                 style={[AppStyle.mt50, Styles.buttonsize, AppStyles.aligncen, style.br10, style.btnPrimary]} onPress={() => { screenNavigate() }}>
-                <Text style={[AppStyles.f17, style.whitecolor, AppStyle.mt10,]}>GO TO HOME</Text>
+                <Text style={[AppStyles.f17, style.whitecolor]}>GO TO HOME</Text>
               </TouchableOpacity>
             </View>
           </View>

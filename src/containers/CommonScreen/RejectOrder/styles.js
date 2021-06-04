@@ -16,14 +16,11 @@ const styles = StyleSheet.create({
      marginRight: RfW(17),
    },
   boxContent: {
-    // width: 320, 
-    // flex: 1,
     backgroundColor: '#ffffff',  
     borderRadius: 10, 
     marginLeft: RfW(24), 
     marginRight: RfW(24),
     marginTop: 35,
-    // marginBottom: 30,
     marginBottom: RfH(10),
     shadowColor: "#000",
     shadowOffset: {

@@ -9,7 +9,6 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.white,
   },
   btnContainer:{
-    // marginTop: 300,
     marginLeft: RfW(24),
     marginRight: RfW(24),
   },
