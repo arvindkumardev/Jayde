@@ -14,6 +14,8 @@ import Styles from './styles';
 import { getNewOrder } from "../../services/CommonController";
 import { NotificationService } from '../../services/firebase'
 import LocalNotificationService from '../../services/firebase/LocalNotificationService'
+import { size } from 'lodash';
+import { RfH, RfW } from '../../utils/helpers';
 
 //Image
 import EWasteImg from './../../assets/Images/NewOrderList/Group_10091.png'
@@ -164,17 +166,25 @@ function HomeScreen() {
         horizontal
         showsHorizontalScrollIndicator={false}
         renderItem={({ index, item }) => _renderMenu(index, item)}
+        keyExtractor={(_, index) => `${index}1`}
       />
       <View style={[AppStyles.mt35, AppStyles.ml24]}>
         <Text style={[AppStyles.txtBlackBold, AppStyles.f20]}>Current Orders</Text>
       </View>
 
+      {size(homeOrder) > 0 ?
       <FlatList data={homeOrder}
         renderItem={({ index, item }) => _renderData(index, item)}
         extraData={useState}
         removeClippedSubviews={Platform.OS === 'android' && true}
         numColumns={1}
-        keyExtractor={(_, index) => `${index}1`} />
+        keyExtractor={(_, index) => `${index}2`} />
+        :
+        !loading && <View style = {[AppStyles.inCenter, {height:RfH(320)}]}>
+        <Text style = {[AppStyles.txtBlackRegular, AppStyles.textalig, AppStyles.f18]}>No Pending Task</Text>
+        </View> 
+      }
+
     </ScrollView>
   );
 }

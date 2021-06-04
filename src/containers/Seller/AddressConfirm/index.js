@@ -253,7 +253,7 @@ const AddressConfirm = () => {
             activeOpacity={0.8}
             disabled={btnConfirm ? false : true}
             onPress={() => _addSchedule()}
-            style={[AppStyles.br10, btnConfirm ? AppStyles.btnPrimary : AppStyles.btnSecandary, AppStyles.pv10, AppStyles.alignCenter, AppStyles.ph40]}>
+            style={[AppStyles.br10, btnConfirm ? AppStyles.btnPrimary : AppStyles.btnSecandary, AppStyles.btnHeight44, AppStyles.inCenter, AppStyles.ph40]}>
             <Text style={[AppStyles.txtWhiteRegular, AppStyles.f18, { color: btnConfirm ? Colors.white : Colors.black }]}>CONFIRM</Text>
           </TouchableOpacity>
         </View>

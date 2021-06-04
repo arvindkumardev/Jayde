@@ -1,7 +1,6 @@
 import { StyleSheet } from 'react-native';
 import Colors from '../Colors';
 import Fonts from '../Fonts';
-import Spaces from "./spaces";
 import { RfH, RfW } from '../../utils/helpers'
 
 const commonCss = StyleSheet.create({
