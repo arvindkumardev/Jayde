@@ -15,8 +15,7 @@ const styles = StyleSheet.create({
     height: RfH(24), 
     marginLeft: RfW(24),
   },
-  boxContent: {
-    flex: 1, 
+  boxContent: {   
     width: RfW(310), 
     height: RfH(574), 
     backgroundColor: '#ffffff', 

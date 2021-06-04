@@ -82,10 +82,7 @@ const PaymentVerification = () => {
 
   // ---------------------- End Api Section ---------------------
 
-  const handelRefresh = () => {
-    // navigation.popToTop();
-    // navigation.navigate(NavigationRouteNames.AGGREGATOR_SCHEDULE_ORDER_LIST)
-    //setRefreshPage(true)
+  const handelRefresh = () => {    
     if (route.params.WhereFrom === NavigationRouteNames.AGGREGATOR_SCHEDULE_ORDER_LIST) {
       route.params.getActionType()
     }
@@ -96,22 +93,27 @@ const PaymentVerification = () => {
       return
 
     setLoader(true)
-    const { data } = await onWeightConfirm({
-      data: {
-        assignedId: item.assigned_id,
-        kanta_slip_number: kantaSlipNo,
-        kanta_slip_date: confirmWeightDate,
-        uploaded_files: confirmWeightImgData,
-      },
-    });
+    try {
+      const { data } = await onWeightConfirm({
+        data: {
+          assignedId: item.assigned_id,
+          kanta_slip_number: kantaSlipNo,
+          kanta_slip_date: confirmWeightDate,
+          uploaded_files: confirmWeightImgData,
+        },
+      });
 
-    console.log(data)
-    if (data.status) {
-      handelRefresh()
-    } else {
-      alert(data.message)
+      console.log(data)
+      if (data.status) {
+        handelRefresh()
+      } else {
+        alert(data.message)
+      }
+      setLoader(false)
     }
-    setLoader(false)
+    catch (e) {
+      console.log("Response error", e);
+    }
   };
 
   const handleProposeWeight = async (volume, unit, Proposekantaslipno) => {
@@ -119,24 +121,29 @@ const PaymentVerification = () => {
       return
 
     setLoader(true)
-    const { data } = await onSubmitProposeWeight({
-      data: {
-        assignedId: item.assigned_id,
-        newWeight: volume,
-        unit: unit,
-        kanta_slip_number: Proposekantaslipno,
-        kanta_slip_date: proposeWeightDate,
-        uploaded_files: proposeWeightImgData,
-      },
-    });
+    try {
+      const { data } = await onSubmitProposeWeight({
+        data: {
+          assignedId: item.assigned_id,
+          newWeight: volume,
+          unit: unit,
+          kanta_slip_number: Proposekantaslipno,
+          kanta_slip_date: proposeWeightDate,
+          uploaded_files: proposeWeightImgData,
+        },
+      });
 
-    console.log(data)
-    if (data.status) {
-      handelRefresh()
-    } else {
-      alert(data.message)
+      console.log(data)
+      if (data.status) {
+        handelRefresh()
+      } else {
+        alert(data.message)
+      }
+      setLoader(false)
     }
-    setLoader(false)
+    catch (e) {
+      console.log("Response error", e);
+    }
   };
 
   const handlePaymentConfirm = async (paymentmade, paymentmode, paymentdetails) => {
@@ -146,41 +153,50 @@ const PaymentVerification = () => {
       return
     }
     setLoader(true)
+    try {
+      const { data } = await onSubmitPaymentConfirm({
+        data: {
+          assignedId: item.assigned_id,
+          paymentRequired: item.price,
+          paymentMade: paymentmade,
+          paymentMode: paymentmode,
+          paymentDetails: paymentdetails,
+        },
+      });
 
-    const { data } = await onSubmitPaymentConfirm({
-      data: {
-        assignedId: item.assigned_id,
-        paymentRequired: item.price,
-        paymentMade: paymentmade,
-        paymentMode: paymentmode,
-        paymentDetails: paymentdetails,
-      },
-    });
-
-    console.log(data)
-    if (data.status) {
-      handelRefresh()
-      setShowPickUpMainView(false)
-    } else {
-      alert(data.message)
+      console.log(data)
+      if (data.status) {
+        handelRefresh()
+        setShowPickUpMainView(false)
+      } else {
+        alert(data.message)
+      }
+      setLoader(false)
     }
-    setLoader(false)
+    catch (e) {
+      console.log("Response error", e);
+    }
   };
 
   const handelPickupConfirm = async () => {
     setLoader(true)
-    const { data } = await onSubmitPickupConfirm({
-      data: {
-        assignedId: item.assigned_id,
-      },
-    });
-    console.log(data)
-    if (data.status) {
-      handelRefresh()
-    } else {
-      alert(data.message)
+    try {
+      const { data } = await onSubmitPickupConfirm({
+        data: {
+          assignedId: item.assigned_id,
+        },
+      });
+      console.log(data)
+      if (data.status) {
+        handelRefresh()
+      } else {
+        alert(data.message)
+      }
+      setLoader(false)
     }
-    setLoader(false)
+    catch (e) {
+      console.log("Response error", e);
+    }
   };
 
   const handleReceiptConfirm = async (vechileNo) => {
@@ -188,24 +204,29 @@ const PaymentVerification = () => {
       return
 
     setLoader(true)
-    const { data } = await onSubmitReceiptConfirm({
-      data: {
-        assignedId: item.assigned_id,
-        vehicleNumber: vechileNo,
-        pickUpDate: warehouseDate,
-        uploaded_files: receiptImgData,
-      },
-    });
+    try {
+      const { data } = await onSubmitReceiptConfirm({
+        data: {
+          assignedId: item.assigned_id,
+          vehicleNumber: vechileNo,
+          pickUpDate: warehouseDate,
+          uploaded_files: receiptImgData,
+        },
+      });
 
-    console.log(data)
-    if (data.status) {
-      navigation.pop()
-      navigation.navigate(NavigationRouteNames.WAREHOUSE_DETAILS, { items: item });
-    } else {
-      alert(data.message)
+      console.log(data)
+      if (data.status) {
+        navigation.pop()
+        navigation.navigate(NavigationRouteNames.WAREHOUSE_DETAILS, { items: item });
+      } else {
+        alert(data.message)
 
+      }
+      setLoader(false)
     }
-    setLoader(false)
+    catch (e) {
+      console.log("Response error", e);
+    }
   };
 
   const onChangeUnit = (id) => {
@@ -382,6 +403,11 @@ const PaymentVerification = () => {
       console.log("Response error", e);
     }
   }
+
+  useEffect(() => {
+    if (error)
+      setLoader(false)
+  }, [error])
 
   useEffect(() => {
     setLoader(true)
@@ -569,7 +595,7 @@ const PaymentVerification = () => {
                       <CustomText
                         fontSize={15}
                         color={Colors.red}
-                        styling={{ marginTop: RfH(10) }}>
+                        styling={[AppStyles.mt10, AppStyles.mb5]}>
                         Upload Picture
                       </CustomText>
                     ) : null}
@@ -581,8 +607,8 @@ const PaymentVerification = () => {
               </View>
             </View>
 
-            <View style={AppStyles.flexDir}>
-              <View style={[AppStyles.flex1, AppStyles.mt20]}>
+            <View style={[AppStyles.flexDir, AppStyles.mt20]}>
+              <View style={[AppStyles.flex1]}>
                 <View style={{ marginTop: RfH(10), marginTop: 5, marginBottom: 25 }}>
                   <TouchableOpacity activeOpacity={0.8} style={[Styles.confirmButtonn, AppStyles.btnHeight44, AppStyles.inCenter]}
                     onPress={() => navi}>
@@ -590,7 +616,7 @@ const PaymentVerification = () => {
                   </TouchableOpacity>
                 </View>
               </View>
-              <View style={[AppStyles.flex1, AppStyles.mt20]}>
+              <View style={[AppStyles.flex1]}>
                 <View style={{ marginTop: RfH(10), marginTop: 5, marginBottom: 25 }}>
                   <TouchableOpacity activeOpacity={0.8} style={[Styles.confirmButton, AppStyles.btnHeight44, AppStyles.inCenter]} onPress={() => handelWeightConfirm()}>
                     <Text style={Styles.confirmBtnText}>CONFIRM</Text>
@@ -803,16 +829,6 @@ const PaymentVerification = () => {
 
         <View style={[AppStyles.mt20,]}>
           <Text style={[AppStyles.txtBlackRegular, AppStyles.f15, AppStyles.mb6,]}>Select Payment Mode</Text>
-          {/* <TextInput placeholder={"Cash"}
-            ref={refPaymentMode}
-            value={paymentRequestForm.values.paymentmode}
-            onChangeText={(txt) => paymentRequestForm.setFieldValue('paymentmode', txt)}
-            style={Styles.inputText}
-            maxLength={50}
-            returnKeyType='next'
-            onSubmitEditing={() => refPaymentDetail.current?.focus()}
-          /> */}
-
           <DropDown
             items={paymentMode}
             placeholderText="Select Payment Mode"

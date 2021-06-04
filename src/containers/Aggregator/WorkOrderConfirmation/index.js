@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useLayoutEffect, useState } from 'react';
 import * as Alert from 'react-native';
 import { KeyboardAvoidingView, Platform, TouchableOpacity, View, Text, Image, TextInput, FlatList, ScrollView } from 'react-native';
 import Styles from "./styles";
-import AppStyles from "../../../theme/Styles/texts";
+import {AppStyles} from "../../../theme";
 import AppStyle from "../../../theme/Styles/spaces";
 import style from "../../../theme/Styles/container";
 import styles from '../../../components/CustomImage/style';
@@ -35,8 +35,8 @@ function WorkOrderConfirmation() {
 
 
   return (
-    <View style={Styles.topView}>
-      <ScrollView>
+    <View style={[Styles.topView, AppStyles.inCenter]}>
+     
         <View style={Styles.boxContent}>
           <Image style={Styles.boxImage} source={SuccessImg} />
           <Text style={[AppStyles.txtBlackBold, AppStyles.f20, AppStyles.spacing1]}>SUCCESS</Text>
@@ -103,7 +103,7 @@ function WorkOrderConfirmation() {
             </View>
           </View>
         </View>
-      </ScrollView>
+    
     </View>
   );
 }

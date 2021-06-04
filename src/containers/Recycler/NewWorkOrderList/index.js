@@ -18,6 +18,8 @@ import PaperImg from './../../../assets/Images/NewOrderList/Group_10089.png'
 import PlasticImg from './../../../assets/Images/NewOrderList/Group_10090.png'
 import MixWasterImg from './../../../assets/Images/NewOrderList/Group_10088.png'
 import FAIcon from 'react-native-vector-icons/FontAwesome';
+import PendingImg from './../../../assets/Images/AddSubUser/pending.png'
+import CompletedImg from './../../../assets/Images/Dashboard/Group_9995.png'
 
 const ORDER_IMAGE = {
   'E-Waste': EWasteImg,
@@ -125,6 +127,22 @@ function RecyclerWorkOrderList() {
 
   }
 
+  const getStatusText = (item) => {
+
+    if (item.paid_amount != null && item.is_seller_confirmed == 0) {
+      return 'Waiting for Confirmation'
+    }
+
+    if (item.paid_amount != null && item.is_seller_confirmed == 1) {
+      return 'Confirmed'
+    }
+
+    if (item.paid_amount == null && item.is_seller_confirmed == 0) {
+      return 'View'
+    }
+
+  }
+
   const _RenderItem = (index, item) => {
     return (
       <TouchableOpacity activeOpacity={0.8}
@@ -136,20 +154,32 @@ function RecyclerWorkOrderList() {
             <View style={[AppStyles.flexpointtwo, AppStyles.ml14]}>
               <Image source={ORDER_IMAGE[item.category_name]} />
             </View>
-            <View style={[AppStyles.flexpointsix, AppStyles.ml16]}>
+            <View style={[AppStyles.flexpointfive, AppStyles.ml16]}>
               <Text style={[AppStyles.txtBlackRegular, AppStyles.f17,]}>{item.order_no}</Text>
               <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f15,]}>{item.work_qty} {item.unit_name} {item.category_name}</Text>
               <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f11,]}>{moment(item.pickup_date).format('DD-MMM-YY')}</Text>
               <View style={[AppStyles.flexRowAlignCenter, AppStyles.mr20]}>
-                <FAIcon size={12} name='rupee' color={Colors.warmGrey}></FAIcon>
+                <FAIcon size={11} name='rupee' color={Colors.warmGrey}></FAIcon>
                 <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f12, AppStyles.ml5]}>{item.work_price} / {item.price_unit}</Text>
               </View>
             </View>
-            <View style={[AppStyles.flexpointtwo, AppStyles.alignCenter, AppStyles.justifyCon]}>
-              <View style={[AppStyles.flexRowAlignCenter, AppStyles.mr20]}>
+            <View style={[AppStyles.flexpointthree, AppStyles.inCenter,]}>
+              <View style={[AppStyles.flexRowAlignCenter]}>
                 <FAIcon size={14} name='rupee'></FAIcon>
                 <Text style={[AppStyles.txtBlackRegular, AppStyles.f15, AppStyles.ml5]}>{item.work_sub_total}</Text>
               </View>
+              <Image style={[AppStyles.mt5]} source={item.is_seller_confirmed == 0 ? PendingImg : CompletedImg} />
+              {item.paid_amount == null && item.is_seller_confirmed == 0 ?
+                <TouchableOpacity
+                  activeOpacity={0.8}
+                  onPress={() => screenNavigate(item)}
+                  style={[Styles.confirmBtn, AppStyles.mt5]}>
+                  <Text style={[AppStyles.txtWhiteRegular, AppStyles.f11,
+                  AppStyles.textalig,]}> View </Text>
+                </TouchableOpacity>
+                :
+                <Text style={[AppStyles.txtPrimaryRegular, AppStyles.f11, AppStyles.mt5, AppStyles.textalig, AppStyles.ph10]}>{getStatusText(item)}</Text>
+              }
             </View>
           </View>
         </View>

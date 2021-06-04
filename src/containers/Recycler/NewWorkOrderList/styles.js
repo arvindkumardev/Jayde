@@ -37,5 +37,13 @@ const styles = StyleSheet.create({
     marginLeft: RfW(24),
     marginTop: RfH(20),
   },
+  confirmBtn: {
+    borderRadius: 10,
+    backgroundColor: Colors.mangoTwo,
+    width: RfW(50),
+    height: RfH(23),
+    justifyContent: 'center',
+    marginLeft: RfW(5),
+  }
 });
 export default styles;

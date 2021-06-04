@@ -41,7 +41,7 @@ import ManageEPR from "../containers/Admin/ManageEPR";
 import SubCategoryDetails from "../containers/Admin/SubCategoryDetails";
 import ProvisionalPricing from "../containers/Admin/ProvisionalPricing";
 import OrderFailed from "../containers/Seller/OrderFailed";
-import WorkOrderDetails from "../containers/Seller/WorkOrderDetails";
+import WorkOrderDetails from "../containers/CommonScreen/WorkOrderDetails";
 import Payment from "../containers/Seller/Payment";
 import OrderConfirmation from "../containers/CommonScreen/OrderConfirmation";
 import WarehouseDetails from "../containers/Aggregator/WarehouseDetails";
@@ -221,12 +221,7 @@ const AppStack = (props) => {
             component={OrderFailed}
             options={NoTitleHeader}
           />
-          {/* Work Order Details Screen number: 31 */}
-          <Stack.Screen
-            name={NavigationRouteNames.WORKORDER_DETAILS}
-            component={WorkOrderDetails}
-            options={CommonHeaderStyle}
-          />
+         
           {/* Confirmation Screen */}
           <Stack.Screen
             name={NavigationRouteNames.CONFIRMATION}
@@ -406,6 +401,14 @@ const AppStack = (props) => {
             component={CompletedOrder}
             options={CommonHeaderStyle}
           />
+
+           {/* Work Order Details Screen number: 31 */}
+           <Stack.Screen
+            name={NavigationRouteNames.WORKORDER_DETAILS}
+            component={WorkOrderDetails}
+            options={CommonHeaderStyle}
+          />
+          
           {/* Smart Contract Screen number: 70*/}
           <Stack.Screen
             name={NavigationRouteNames.SMART_CONTRACT}
