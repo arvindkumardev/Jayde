@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
   },
 
   menuContainer: {
-    width: RfW(156),
+    width: RfW(146),
     height: RfH(136),
     marginLeft: RfW(24),
     borderRadius: 10,
