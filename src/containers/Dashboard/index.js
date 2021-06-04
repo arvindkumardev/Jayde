@@ -140,7 +140,7 @@ function HomeScreen() {
             <MCIcon name={item.iconName} color={Colors.white} size={30} />
           </View>
           <View style={[AppStyles.aligncen, AppStyles.mb20]}>
-            <Text style={[AppStyles.txtWhiteBold, AppStyles.f17, AppStyles.textalig, AppStyles.ml10, AppStyles.mr10]}>{item.menuName}</Text>
+            <Text style={[AppStyles.txtWhiteBold, AppStyles.f17, AppStyles.textalig]}>{item.menuName}</Text>
           </View>
         </TouchableOpacity>
       </View>
