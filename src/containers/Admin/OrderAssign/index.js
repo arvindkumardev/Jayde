@@ -7,6 +7,7 @@ import Styles from "./styles";
 import { AppStyles, Colors } from '../../../theme';
 import { alertBox, RfH, RfW, getSaveData } from '../../../utils/helpers';
 import CustomText from '../../../components/CustomText';
+import FAIcon from 'react-native-vector-icons/FontAwesome';
 
 import * as Yup from "yup";
 import { useFormik } from "formik";
@@ -183,60 +184,64 @@ useEffect(() => {
 
 return (
   <View style={AppStyles.topView}>
-    <ScrollView style={AppStyles.topView}
-      removeClippedSubviews={Platform.OS == 'android' && true}>
+    <ScrollView contentContainerStyle={AppStyles.flex1}
+      removeClippedSubviews={Platform.OS == 'android' && true}
+      >
       <View style={AppStyles.topView}>
 
         <View style={Styles.refView}>
-          <Text style={Styles.refText}>Ref No- {item.order_no}</Text>
+          <Text style={[AppStyles.txtBlackBold, AppStyles.f17]}>Ref No- {item.order_no}</Text>
         </View>
 
-        <View style={Styles.boxView}>
-
-          <View style={Styles.boxText}>
-            <View style={Styles.flx}>
-              <Text style={Styles.boxtxtt}>Waste type</Text>
+        <View style={[AppStyles.boxxView, AppStyles.mt35]}>
+          <View style={[AppStyles.flexDir, AppStyles.mt20,]}>
+            <View style={AppStyles.flexpointsix}>
+              <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f15, AppStyles.ml20]}>Waste Type</Text>
             </View>
-            <View style={Styles.boxTxtView}>
-              <Text style={Styles.boxTextt1}>{item.category_name}</Text>
-            </View>
-          </View>
-
-          <View style={Styles.boxText}>
-            <View style={Styles.flx}>
-              <Text style={Styles.boxtxtt}>Waste Sub Category</Text>
-            </View>
-            <View style={Styles.boxTxtView}>
-              <Text style={Styles.boxTextt1}>{item.sub_category_name}</Text>
+            <View style={[AppStyles.flexpointfour, AppStyles.alignfend]}>
+              <Text style={[AppStyles.txtBlackRegular, AppStyles.f15, AppStyles.mr20]}>{item.category_name}</Text>
             </View>
           </View>
 
-          <View style={Styles.boxText}>
-            <View style={Styles.flx}>
-              <Text style={Styles.boxtxtt}>Volume</Text>
+          <View style={AppStyles.flexDir}>
+            <View style={AppStyles.flexpointsix}>
+              <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f15, AppStyles.mt10, AppStyles.ml20]}>Waste Sub Category</Text>
             </View>
-            <View style={Styles.boxTxtView}>
-              <Text style={Styles.boxTextt1}>{item.qty} {item.unit_name}</Text>
-            </View>
-          </View>
-
-          <View style={Styles.boxText}>
-            <View style={Styles.flx}>
-              <Text style={Styles.boxtxtt}>Purchase Date</Text>
-            </View>
-            <View style={Styles.boxTxtView}>
-              <Text style={Styles.boxTextt1}>{moment(item.pickup_date).format('DD/MM/YYYY')}</Text>
+            <View style={[AppStyles.flexpointfour, AppStyles.alignfend]}>
+              <Text style={[AppStyles.txtBlackRegular, AppStyles.f15, AppStyles.mt10, AppStyles.mr20]}>{item.sub_category_name}</Text>
             </View>
           </View>
 
-          <View style={Styles.boxText}>
-            <View style={Styles.flx}>
-              <Text style={Styles.boxtxtt}>Purchase Amount</Text>
+          <View style={AppStyles.flexDir}>
+            <View style={AppStyles.flexpointsix}>
+              <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f15, AppStyles.mt10, AppStyles.ml20]}>Volume</Text>
             </View>
-            <View style={Styles.boxTxtView}>
-              <Text style={Styles.boxTextt1}>₹ {item.price}</Text>
+            <View style={[AppStyles.flexpointfour, AppStyles.alignfend]}>
+              <Text style={[AppStyles.txtBlackRegular, AppStyles.f15, AppStyles.mt10, AppStyles.mr20]}>{item.qty} {item.unit_name}</Text>
             </View>
           </View>
+
+          <View style={AppStyles.flexDir}>
+            <View style={AppStyles.flexpointsix}>
+            <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f15, AppStyles.mt10, AppStyles.ml20]}>Purchase Date</Text>
+            </View>
+            <View style={[AppStyles.flexpointfour, AppStyles.alignfend]}>
+            <Text style={[AppStyles.txtBlackRegular, AppStyles.f15, AppStyles.mt10, AppStyles.mr20]}>{moment(item.pickup_date).format('DD/MM/YYYY')}</Text>
+            </View>
+          </View>
+
+          <View style={[AppStyles.flexDir, AppStyles.mb20]}>
+            <View style={AppStyles.flexpointsix}>
+              <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f15, AppStyles.mt10, AppStyles.ml20]}>Purchase Amount</Text>
+            </View>
+            <View style={[AppStyles.flexpointfour, AppStyles.alignfend]}>
+              <View style={[AppStyles.flexRowAlignCenter, AppStyles.mt10, AppStyles.mr20]}>
+                <FAIcon size={14} name='rupee'></FAIcon>
+                <Text style={[AppStyles.txtBlackRegular, AppStyles.f15, AppStyles.ml5]}>{item.price}</Text>
+              </View>
+            </View>
+          </View>
+
         </View>
 
 
@@ -280,14 +285,15 @@ return (
             : null}
         </View>}
 
-        <View style={Styles.confirmView}>
+      
+      </View>
+      <View style={Styles.confirmView}>
           <TouchableOpacity
             activeOpacity={0.8}
-            style={Styles.confirmBtn} onPress={() => { handelSubmit() }}>
-            <Text style={Styles.confirm}>CONFIRM</Text>
+            style={[Styles.confirmBtn, AppStyles.btnHeight44, AppStyles.inCenter]} onPress={() => { handelSubmit() }}>
+            <Text style={[AppStyles.txtWhiteRegular, AppStyles.f17, AppStyles.textalig]}>CONFIRM</Text>
           </TouchableOpacity>
         </View>
-      </View>
     </ScrollView>
   </View>
 );

@@ -12,7 +12,7 @@ const styles = StyleSheet.create({
    },
   boxContent: {   
     width: RfW(310), 
-    height: RfH(574), 
+    height: RfH(599), 
     backgroundColor: '#ffffff', 
     alignItems: 'center', 
     borderRadius: 20, 
@@ -20,6 +20,7 @@ const styles = StyleSheet.create({
     marginTop: RfH(32),
     marginBottom: RfH(40),
     marginRight: RfW(24),
+    // flex: 1,
   },
   boxImage: {
     width: RfW(132), 
@@ -28,15 +29,12 @@ const styles = StyleSheet.create({
   },
   boxView: {
     width: RfW(310), 
-    height: RfH(295), 
-    borderRadius: 20, 
-    marginLeft: RfW(24), 
     marginTop: RfH(5), 
-    marginRight: RfW(24),
   },
   homeButton: {
     marginRight: RfW(64), 
     marginLeft: RfW(64),
+    //marginTop: RfH(50),
   },
 });
 export default styles;

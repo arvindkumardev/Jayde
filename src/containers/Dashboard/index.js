@@ -181,7 +181,7 @@ function HomeScreen() {
         keyExtractor={(_, index) => `${index}2`} />
         :
         !loading && <View style = {[AppStyles.inCenter, {height:RfH(320)}]}>
-        <Text style = {[AppStyles.txtBlackRegular, AppStyles.textalig, AppStyles.f18]}>No Pending Task</Text>
+        <Text style = {[AppStyles.txtBlackRegular, AppStyles.textalig, AppStyles.f18]}>No Pending Orders</Text>
         </View> 
       }
 

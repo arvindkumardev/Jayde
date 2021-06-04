@@ -36,6 +36,7 @@ function Confirmation() {
     <View style={[Styles.topView, AppStyles.inCenter]}>
        
         <View style={Styles.boxContent}>
+       
           <Image style={Styles.boxImage} source={SuccessImg}  /> 
           <Text style={[AppStyles.txtBlackBold, AppStyles.f20, AppStyles.spacing1]}>SUCCESS</Text>
 
@@ -47,57 +48,59 @@ function Confirmation() {
         <View style={Styles.boxView}>
         
         <View style={[AppStyles.flexDir, AppStyles.ml24]}>
-        <View style={AppStyles.flex1}>
+        <View style={AppStyles.flexpointfour}>
             <Text style={[AppStyles.f15, AppStyles.mt20, AppStyles.txtSecandaryRegular]}>Category</Text>
         </View>
-        <View style={[AppStyles.flex1, AppStyles.alignfend]}>
+        <View style={[AppStyles.flexpointsix, AppStyles.alignfend]}>
             <Text style={[AppStyles.f15, AppStyles.txtBlackRegular, AppStyles.mt20, AppStyles.mr30]}>{item.category_name}</Text>
         </View>
       </View> 
 
       <View style={[AppStyles.flexDir, AppStyles.ml24]}>
-        <View style={AppStyles.flex1}>
+        <View style={AppStyles.flexpointfour}>
           <Text style={[AppStyles.f15, AppStyles.mt20, AppStyles.txtSecandaryRegular]}>Sub Category</Text>
         </View>
-          <View style={[AppStyles.flex1, AppStyles.alignfend]}>
+          <View style={[AppStyles.flexpointsix, AppStyles.alignfend]}>
           <Text style={[AppStyles.f15, AppStyles.txtBlackRegular, AppStyles.mt20, AppStyles.mr30]}>{item.sub_category_name}</Text>
           </View>
       </View> 
 
       <View style={[AppStyles.flexDir, AppStyles.ml24]}>
-        <View style={AppStyles.flex1}>
+        <View style={AppStyles.flexpointfour}>
           <Text style={[AppStyles.f15, AppStyles.mt20, AppStyles.txtSecandaryRegular]}>Volume</Text>
         </View>
-        <View style={[AppStyles.flex1, AppStyles.alignfend]}>
+        <View style={[AppStyles.flexpointsix, AppStyles.alignfend]}>
           <Text style={[AppStyles.f15, AppStyles.txtBlackRegular, AppStyles.mt20, AppStyles.mr30]}>{item.qty} {item.unit_name}</Text>
         </View>
       </View> 
 
       <View style={[AppStyles.flexDir, AppStyles.ml24]}>
-        <View style={AppStyles.flex1}>
+        <View style={AppStyles.flexpointfour}>
           <Text style={[AppStyles.f15, AppStyles.mt20, AppStyles.txtSecandaryRegular]}>Location</Text>
         </View>
-        <View style={[AppStyles.flex1, AppStyles.alignfend]}>
+        <View style={[AppStyles.flexpointsix, AppStyles.alignfend]}>
          <Text style={[AppStyles.f15, AppStyles.txtBlackRegular, AppStyles.mt20, AppStyles.mr30, AppStyles.textAlignRight]}>{item.location}</Text>
         </View>
       </View> 
 
       <View style={[AppStyles.flexDir, AppStyles.ml24]}>
-        <View style={AppStyles.flex1}>
+        <View style={AppStyles.flexpointfour}>
           <Text style={[AppStyles.f15, AppStyles.mt20, AppStyles.txtSecandaryRegular]}>Prov. Price</Text>
         </View>
-        <View style={[AppStyles.flex1, AppStyles.alignfend]}>
+        <View style={[AppStyles.flexpointsix, AppStyles.alignfend]}>
           <Text style={[AppStyles.f15, AppStyles.txtBlackRegular, AppStyles.mt20, AppStyles.mr30]}><FAIcon size={14} name="rupee" /> {item.price}</Text>
         </View>
       </View> 
 
-        <View style={[AppStyles.flex1, Styles.homeButton]}>
-            <TouchableOpacity activeOpacity = {0.8} style={[AppStyles.mt50, AppStyles.btnHeightwidth, AppStyles.inCenter, AppStyles.br10,  AppStyles.btnPrimary]} 
+      <View style={[AppStyles.flex1, Styles.homeButton]}>
+            <TouchableOpacity activeOpacity = {0.8} style={[AppStyles.mt30, AppStyles.btnHeightwidth, AppStyles.inCenter, AppStyles.br10,  AppStyles.btnPrimary]} 
               onPress={() => {screenNavigate()}}>
                 <Text style={[AppStyles.f18, AppStyles.whitecolor]}>GO TO HOME</Text>
               </TouchableOpacity>
         </View>  
        </View>
+
+      
     </View>
 
 </View>
