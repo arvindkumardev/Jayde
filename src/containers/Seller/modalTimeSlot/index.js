@@ -213,7 +213,7 @@ function PickupDate (props) {
       </KeyboardAwareScrollView>
       <TouchableOpacity
         activeOpacity={0.8}
-        style={[AppStyles.br10, AppStyles.btnPrimary, AppStyles.pv10, AppStyles.alignCenter, AppStyles.ph40, AppStyles.mb20,]}
+        style={[AppStyles.br10, AppStyles.btnPrimary, AppStyles.btnHeight44, AppStyles.inCenter, AppStyles.ph40, AppStyles.mb20,]}
         onPress={handleConfirm}>
         <Text style={[AppStyles.txtWhiteRegular, AppStyles.f18]}>CONFIRM</Text>
       </TouchableOpacity>

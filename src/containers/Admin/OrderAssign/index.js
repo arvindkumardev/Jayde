@@ -260,8 +260,8 @@ return (
             : null}
         </View>
 
-        <View style={Styles.slctAggre}>
-          <Text style={[AppStyles.txtBlackRegular, AppStyles.mb10]}>Select Aggregator</Text>
+        { requestForm.values.businessType != '' && <View style={Styles.slctAggre}>
+          <Text style={[AppStyles.txtBlackRegular, AppStyles.mb10]}>Select {requestForm.values.businessType == '1' ? 'Aggregator' : requestForm.values.businessType == '2' && 'Recycler'}</Text>
           <DropDown
             placeholderText="Select one"
             items={arrayData}
@@ -278,7 +278,7 @@ return (
               {(requestForm.errors.selectedID).toString()}
             </CustomText>
             : null}
-        </View>
+        </View>}
 
         <View style={Styles.confirmView}>
           <TouchableOpacity
