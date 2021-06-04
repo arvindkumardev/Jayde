@@ -8,7 +8,7 @@ import MIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { AppStyles, Colors } from '../../../theme';
 import NavigationRouteNames from '../../../routes/ScreenNames';
 import DropDown from '../../../components/Picker/index';
-import { UploadDocument } from '../../../components/index';
+import  UploadDocument  from '../../../components/UploadDocument';
 import { createQuote, addOrder } from '../Middleware';
 import { getSubCategories, getUnits } from './../../../services/CommonController';
 

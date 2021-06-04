@@ -1,7 +1,7 @@
 import React from 'react';
 import {View} from 'react-native';
 import {Colors} from '../../theme';
-import {CustomText} from '../../components';
+import CustomText from '../../components/CustomText';
 
 function CommingSoon() {
   return (

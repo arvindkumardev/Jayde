@@ -12,7 +12,7 @@ import { LOCAL_STORAGE_DATA_KEY } from '../../utils/constants';
 import UserContext from '../../appContainer/context/user.context';
 import { DRAWER_MENU } from "../../routes/constants";
 
-import newLocal from '../../assets/Images/Login/Mask_Group_28.png';
+import newLocal from '../../assets/commonOld/circularUserPlaceHolder.png';
 
 const DrawerSideBar = (props) => {
     const [name, setName] = useState("");
@@ -46,9 +46,11 @@ const DrawerSideBar = (props) => {
     }
     const onRenderMenu = (index, item) => {
         return (
-            <TouchableOpacity activeOpacity={0.8} onPress={() => onNavigation(item.screenName)}>
+            <TouchableOpacity
+                key={index}
+                activeOpacity={0.8} onPress={() => onNavigation(item.screenName)}>
                 <View
-                    key={index} style={[Styles.menuItemContainer]}>
+                    style={[Styles.menuItemContainer]}>
                     <FAIcon name={item.iconName} size={20} style={AppStyles.mr20} color={item.color} />
                     <Text style={[AppStyles.txtBlackRegular, AppStyles.f16]}>{item.name}</Text>
                 </View>
@@ -60,7 +62,7 @@ const DrawerSideBar = (props) => {
             <View>
                 <View style={Styles.userSectionContainer}>
                     <View style={[AppStyles.ml10, AppStyles.mr10]}>
-                        <Image source={newLocal} width={50} height={50} />
+                        <Image source={newLocal} style = {[Styles.userProfile]} />
                     </View>
                     <View style={[AppStyles.flex1, AppStyles.mr10]}>
                         <Text style={[AppStyles.txtBlackBold, AppStyles.f18,]}>{name}</Text>
@@ -73,6 +75,7 @@ const DrawerSideBar = (props) => {
                 </View>
                 <FlatList
                     data={DRAWER_MENU[userRole]}
+                    keyExtractor={(_, index) => `${index}2`}
                     renderItem={({ index, item }) => onRenderMenu(index, item)}
                 />
             </View>

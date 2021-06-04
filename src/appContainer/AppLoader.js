@@ -1,6 +1,6 @@
 /* eslint-disable react/destructuring-assignment */
 import React, { useContext } from 'react';
-import { Loader } from '../components';
+import Loader  from '../components/Loader';
 import UserContext from './context/user.context';
 
 function AppLoader(props) {

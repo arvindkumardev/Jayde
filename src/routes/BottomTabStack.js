@@ -1,4 +1,4 @@
-import {IconWrapper} from '../components';
+import IconWrapper from '../components/IconWrapper';
 import React, {useContext} from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {Colors} from '../theme';

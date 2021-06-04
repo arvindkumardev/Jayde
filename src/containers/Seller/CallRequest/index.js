@@ -11,7 +11,7 @@ import { requestCallBack } from '../Middleware';;
 import Styles from './styles';
 import NavigationRouteNames from '../../../routes/ScreenNames';
 import { Colors, AppStyles } from '../../../theme';
-import { UploadDocument } from '../../../components/index';
+import UploadDocument  from '../../../components/UploadDocument';
 import CustomText from '../../../components/CustomText';
 import { alertBox, RfH, RfW, getSaveData } from '../../../utils/helpers';
 import { LOCAL_STORAGE_DATA_KEY } from '../../../utils/constants';

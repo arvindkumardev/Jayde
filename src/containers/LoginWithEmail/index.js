@@ -12,7 +12,7 @@ import { isEmpty, isNumber } from 'lodash';
 import * as Yup from "yup";
 import { useFormik } from "formik";
 import Colors from "../../theme/Colors";
-import { CustomTextInput, GradientButton } from "../../components";
+import CustomTextInput  from "../../components/CustomTextInput";
 import { isValidUserName, RfH, storeData, removeData } from "../../utils/helpers";
 import Images from "../../theme/Images";
 import NavigationRouteNames from "../../routes/ScreenNames";

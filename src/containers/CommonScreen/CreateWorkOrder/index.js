@@ -17,7 +17,7 @@ import NavigationRouteNames from '../../../routes/ScreenNames';
 import { AppStyles, Colors } from '../../../theme';
 import DropDown from '../../../components/Picker/index';
 
-import { UploadDocument } from '../../../components/index';
+import  UploadDocument  from '../../../components/UploadDocument';
 import UserContext from '../../../appContainer/context/user.context';
 import { RfH, isValidVolume, getSaveData } from '../../../utils/helpers';
 import { LOCAL_STORAGE_DATA_KEY } from '../../../utils/constants';

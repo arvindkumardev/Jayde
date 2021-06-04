@@ -5,7 +5,7 @@ import NavigationRouteNames from '../../../routes/ScreenNames';
 import { useNavigation } from '@react-navigation/core';
 import { useRoute } from '@react-navigation/native';
 import { AppStyles, Colors } from '../../../theme';
-import { CheckBoxWrapper } from '../../../components';
+import  CheckBoxWrapper  from '../../../components/CheckBoxWrapper';
 import { getCompletedOrder } from '../Middelware';
 import UserContext from '../../../appContainer/context/user.context';
 import moment from 'moment';

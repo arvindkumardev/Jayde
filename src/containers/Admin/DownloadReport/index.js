@@ -8,7 +8,7 @@ import {useNavigation} from '@react-navigation/core';
 import {useRoute} from '@react-navigation/native';
 import { AppStyles } from '../../../theme';
 import FAIcon from "react-native-vector-icons/FontAwesome";
-import {CheckBoxWrapper} from '../../../components';
+import CheckBoxWrapper from '../../../components/CheckBoxWrapper';
 import arraydata from '../../../utils/arraydata3.json';
 
 

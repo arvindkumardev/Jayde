@@ -6,7 +6,7 @@ import { useNavigation } from '@react-navigation/core';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import Checkbox from '@react-native-community/checkbox';
 import Colors from '../../theme/Colors';
-import { CustomTextInput } from '../../components';
+import CustomTextInput  from '../../components/CustomTextInput';
 import { isValidUserName, RfH, RfW, storeData } from '../../utils/helpers';
 import CustomText from '../../components/CustomText';
 import Images from '../../theme/Images';

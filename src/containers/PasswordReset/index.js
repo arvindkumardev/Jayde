@@ -3,7 +3,7 @@ import { View, Text, Image, ScrollView, TouchableOpacity, Dimensions } from "rea
 import * as Yup from "yup";
 import { useFormik } from "formik";
 import Colors from "../../theme/Colors";
-import { CustomTextInput } from "../../components";
+import CustomTextInput  from "../../components/CustomTextInput";
 import { isValidUserName, RfH } from "../../utils/helpers";
 import { useNavigation } from "@react-navigation/core";
 import UserContext from "../../appContainer/context/user.context";
