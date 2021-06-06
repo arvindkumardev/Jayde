@@ -415,7 +415,7 @@ const WorkOrderVerification = () => {
   return (
     isViewLoaded && <KeyboardAwareScrollView style={[AppStyles.topView, AppStyles.ph20]}>
       <View style={AppStyles.aligncen}>
-        <Text style={[AppStyles.txtBlackBold, AppStyles.f17, AppStyles.mt30,]}>Ref No- {item.work_aggregator_id}</Text>
+        <Text style={[AppStyles.txtBlackBold, AppStyles.f17, AppStyles.mt30,]}>Ref No- {item.work_order_no}</Text>
       </View>
       <View style={[AppStyles.paymentboxView, AppStyles.mt25]}>
         <View style={[AppStyles.flexDir, AppStyles.mt10,]}>

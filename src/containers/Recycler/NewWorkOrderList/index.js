@@ -155,7 +155,7 @@ function RecyclerWorkOrderList() {
               <Image source={ORDER_IMAGE[item.category_name]} />
             </View>
             <View style={[AppStyles.flexpointfive, AppStyles.ml16]}>
-              <Text style={[AppStyles.txtBlackRegular, AppStyles.f17,]}>{item.order_no}</Text>
+              <Text style={[AppStyles.txtBlackRegular, AppStyles.f17,]}>{item.work_order_no}</Text>
               <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f15,]}>{item.work_qty} {item.unit_name} {item.category_name}</Text>
               <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f11,]}>{moment(item.pickup_date).format('DD-MMM-YY')}</Text>
               <View style={[AppStyles.flexRowAlignCenter, AppStyles.mr20]}>

@@ -44,7 +44,7 @@ function WorkOrderConfirmation() {
         <View style={[style.w85, style.borderwidth1, AppStyle.mt20, Styles.bdrclr]}></View>
 
         <View style={styles.alignCenter}>
-          <Text style={[AppStyles.f11, AppStyles.txtSecandaryRegular, AppStyle.ml24, AppStyle.mr20, AppStyle.mt20, AppStyles.textalig]}>{`The Order with Ref No- ${item.inventory_id} with the following details has been sent to ${route.params.businessSubType}`}</Text>
+          <Text style={[AppStyles.f11, AppStyles.txtSecandaryRegular, AppStyle.ml24, AppStyle.mr20, AppStyle.mt20, AppStyles.textalig]}>{`The Order with Ref No- ${item.inventory_id} with the following details has been sent to ${route.params.category_name}`}</Text>
         </View>
 
 
