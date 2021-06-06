@@ -20,6 +20,7 @@ const styles = StyleSheet.create({
     marginTop: RfH(32),
     marginBottom: RfH(40),
     marginRight: RfW(24),
+    // flex: 1,
   },
   boxImage: {
     width: RfW(132),
