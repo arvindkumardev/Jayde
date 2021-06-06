@@ -12,13 +12,12 @@ const styles = StyleSheet.create({
   },
   boxContent: {
     width: RfW(310),
-    height: RfH(574),
+    //height: RfH(574),
     backgroundColor: '#ffffff',
     alignItems: 'center',
     borderRadius: 20,
     marginLeft: RfW(24),
     marginTop: RfH(32),
-    marginBottom: RfH(40),
     marginRight: RfW(24),
     // flex: 1,
   },
@@ -29,7 +28,7 @@ const styles = StyleSheet.create({
   },
 
   homeButton: {
-    marginBottom: RfH(30),
+    marginBottom: RfH(32),
   },
 
   buttonSize: {

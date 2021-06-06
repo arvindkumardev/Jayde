@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { TouchableOpacity, View, Text, Image, ScrollView } from 'react-native';
 import Styles from "./styles";
-import {AppStyles} from "../../../theme";
+import { AppStyles } from "../../../theme";
 import AppStyle from "../../../theme/Styles/spaces";
 import style from "../../../theme/Styles/container";
 import NavigationRouteNames from '../../../routes/ScreenNames';
@@ -34,32 +34,31 @@ function WorkOrderEmail() {
 
   return (
     <View style={[Styles.topView, AppStyles.inCenter]}>
-     
-        <View style={Styles.boxContent}>
-          <Image style={Styles.boxImage} source={successLogo} />
-          <Text style={[AppStyles.txtBlackBold, AppStyles.f20, AppStyles.spacing1]}>THANKYOU</Text>
-          <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f15, AppStyle.mt5,]}>{userName}</Text>
 
-          <View style={[style.w85, style.borderwidth1, AppStyle.mt20, Styles.bdrclr]}></View>
+      <View style={Styles.boxContent}>
+        <Image style={Styles.boxImage} source={successLogo} />
+        <Text style={[AppStyles.txtBlackBold, AppStyles.f20, AppStyles.spacing1]}>THANKYOU</Text>
+        <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f15, AppStyle.mt5,]}>{userName}</Text>
 
-          <View>
-            <Text style={[AppStyles.f11, AppStyles.txtSecandaryRegular, AppStyle.ml24, AppStyle.mr20, AppStyle.mt20,]}>Thankyou for confirming quantity received at the warehouse</Text>
-            <Text style={[AppStyles.f11, AppStyles.txtSecandaryRegular, AppStyle.ml24, AppStyle.mr20, AppStyle.mt20,]}>The same will be communicated to the customer and will be updated in your inventory.</Text>
-            <Text style={[AppStyles.f11, AppStyles.txtSecandaryRegular, AppStyle.ml24, AppStyle.mr20, AppStyle.mt20,]}>For any concern you can send us email at support@jayde.in </Text>
-          </View>
-          <View style={Styles.bxVu}>
+        <View style={[style.w85, style.borderwidth1, AppStyle.mt20, Styles.bdrclr]}></View>
 
-            <View style={[style.flex1, AppStyles.aligncen]}>
-              <TouchableOpacity
-                activeOpacity={0.8}
-                style={[AppStyle.mt50, Styles.buttonsize, AppStyles.aligncen, style.br10, style.btnPrimary]} onPress={() => { screenNavigate() }}>
-                <Text style={[AppStyles.f17, style.whitecolor]}>GO TO HOME</Text>
-              </TouchableOpacity>
-            </View>
-          </View>
+        <View>
+          <Text style={[AppStyles.f11, AppStyles.txtSecandaryRegular, AppStyle.ml24, AppStyle.mr20, AppStyle.mt20,]}>Thankyou for confirming quantity received at the warehouse</Text>
+          <Text style={[AppStyles.f11, AppStyles.txtSecandaryRegular, AppStyle.ml24, AppStyle.mr20, AppStyle.mt20,]}>The same will be communicated to the customer and will be updated in your inventory.</Text>
+          <Text style={[AppStyles.f11, AppStyles.txtSecandaryRegular, AppStyle.ml24, AppStyle.mr20, AppStyle.mt20,]}>For any concern you can send us email at support@jayde.in </Text>
         </View>
-     
+
+        <View style={[AppStyles.inCenter]}>
+          <TouchableOpacity
+            activeOpacity={0.8}
+            style={[AppStyle.mt50, Styles.buttonsize, AppStyles.aligncen, style.br10, style.btnPrimary]} onPress={() => { screenNavigate() }}>
+            <Text style={[AppStyles.f17, style.whitecolor]}>GO TO HOME</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
     </View>
+     
+   
   );
 }
 export default WorkOrderEmail;

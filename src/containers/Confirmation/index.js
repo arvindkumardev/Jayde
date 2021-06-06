@@ -90,7 +90,7 @@ function Confirmation() {
           </View>
         </View>
 
-        <View style={[AppStyles.flex1, Styles.homeButton,]}>
+        <View style={[Styles.homeButton,]}>
           <TouchableOpacity activeOpacity={0.8} style={[AppStyles.mt50, Styles.buttonSize,
           AppStyles.inCenter, AppStyles.br10, AppStyles.btnPrimary]}
             onPress={() => { screenNavigate() }}>
