@@ -58,6 +58,7 @@ function OrderConfirmation() {
   const confirmOrder = async () => {
     try {
       const { data } = await onConfirmSchedule({ data: { 'assignedId': item.assigned_id } });
+      console.log(data)
       if (data.status) {
         screenNavigate()
       } else {

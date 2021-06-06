@@ -2,8 +2,14 @@ import { StyleSheet } from 'react-native';
 import { Colors } from "../../theme";
 import { RfH, RfW } from '../../utils/helpers';
 const styles = StyleSheet.create({
+  
+  iconContainer : {
+    width: RfH(24),
+    height: RfH(24),
+  },
+  
   menuItemContainer: {
-    paddingVertical: RfH(12),
+    paddingVertical: RfH(14),
     marginLeft: RfW(20),
     borderBottomColor: Colors.grayLight,
     borderBottomWidth: 1,

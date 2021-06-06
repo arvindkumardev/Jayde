@@ -17,7 +17,7 @@ import NavigationRouteNames from '../../../routes/ScreenNames';
 import { AppStyles, Colors } from '../../../theme';
 import DropDown from '../../../components/Picker/index';
 
-import  UploadDocument  from '../../../components/UploadDocument';
+import UploadDocument from '../../../components/UploadDocument';
 import UserContext from '../../../appContainer/context/user.context';
 import { RfH, isValidVolume, getSaveData } from '../../../utils/helpers';
 import { LOCAL_STORAGE_DATA_KEY } from '../../../utils/constants';
@@ -59,9 +59,9 @@ function NewWorkOrder() {
     if (error)
       setLoader(false)
   }, [error])
-  
-   useEffect(() => {
-    async function getUserName() {     
+
+  useEffect(() => {
+    async function getUserName() {
       const userName = await getSaveData(LOCAL_STORAGE_DATA_KEY.USER_NAME);
       if (userName) {
         setUserName(userName);
@@ -156,17 +156,21 @@ function NewWorkOrder() {
 
     if (imgData.length == 0) return;
 
-    const { data } = await onCreateWorkOrder({
-      data: param,
-    });
+    try {
+      const { data } = await onCreateWorkOrder({
+        data: param,
+      });
 
-    console.log(data);
-    if (data.status) {
-      navigation.navigate(NavigationRouteNames.WORK_ORDER_CONFIRMATION, { item });
-      // navigation.popToTop()
-    } else {
-      alert(data.message);
-      // navigation.navigate(NavigationRouteNames.WAREHOUSEORDER_CONFIRMATION)
+      console.log(data);
+      if (data.status) {
+        navigation.navigate(NavigationRouteNames.WORK_ORDER_CONFIRMATION, { item });
+        // navigation.popToTop()
+      } else {
+        alert(data.message);
+        // navigation.navigate(NavigationRouteNames.WAREHOUSEORDER_CONFIRMATION)
+      }
+    } catch (e) {
+      console.log("Response error", e);
     }
   };
 
@@ -278,7 +282,7 @@ function NewWorkOrder() {
             </View>
             <View style={{ flexDirection: 'row' }}>
               <View style={[AppStyles.flexpointfive, AppStyles.pr10]}>
-                <TouchableOpacity activeOpacity = {0.8}
+                <TouchableOpacity activeOpacity={0.8}
                   onPress={() => setShow(!show)}
                   style={[
                     AppStyles.flexRowAlignCenter,
@@ -305,7 +309,7 @@ function NewWorkOrder() {
                 )}
               </View>
               <View style={AppStyles.flexpointfive}>
-                <TouchableOpacity  activeOpacity = {0.8} style={[Styles.inputIcon, AppStyles.br10]} onPress={() => setImageUpload(!imageUpload)}>
+                <TouchableOpacity activeOpacity={0.8} style={[Styles.inputIcon, AppStyles.br10]} onPress={() => setImageUpload(!imageUpload)}>
                   <Text style={[AppStyles.txtSecandaryRegular, { color: imgData.length > 0 ? Colors.green : Colors.warmGrey }]}>{imgData.length > 0 ? 'File Attached' : 'Upload file'}</Text>
 
                   <MIcon name="attachment" size={25} color={Colors.grayThree} />
@@ -401,7 +405,7 @@ function NewWorkOrder() {
         </View>
 
         <View style={Styles.btnContainer}>
-          <TouchableOpacity activeOpacity = {0.8}
+          <TouchableOpacity activeOpacity={0.8}
             style={[Styles.saveButton, AppStyles.btnHeight44, AppStyles.inCenter]} onPress={() => handelSave()}>
             <Text style={[Appstyles.txtWhiteRegular, Appstyles.f17, Appstyles.textalig]}>SAVE</Text>
           </TouchableOpacity>

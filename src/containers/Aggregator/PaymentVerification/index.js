@@ -83,6 +83,8 @@ const PaymentVerification = () => {
   const handelRefresh = () => {    
     if (route.params.WhereFrom === NavigationRouteNames.AGGREGATOR_SCHEDULE_ORDER_LIST) {
       route.params.getActionType()
+    } else if (route.params.WhereFrom === NavigationRouteNames.RECYCLER_SCHEDULED_ORDER_LIST) {
+      route.params.getActionType()
     }
   }
 

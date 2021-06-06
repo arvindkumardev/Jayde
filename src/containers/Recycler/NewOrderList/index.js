@@ -139,8 +139,8 @@ function RecyclerNewOrderList() {
               <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f15,]}>{item.qty} {item.unit_name} {item.category_name}</Text>
               <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f11,]}>{moment(item.pickup_date).format('DD-MMM-YY')}</Text>
             </View>
-            <View style={[AppStyles.flexpointthree,]}>
-              <View style={[AppStyles.flexRowAlignCenter, AppStyles.mr20]}>
+            <View style={[AppStyles.flexpointthree, AppStyles.inCenter]}>
+              <View style={[AppStyles.flexRowAlignCenter]}>
                 <FAIcon size={14} name='rupee'></FAIcon>
                 <Text style={[AppStyles.txtBlackRegular, AppStyles.f15, AppStyles.ml5]}>{item.price}</Text>
               </View>

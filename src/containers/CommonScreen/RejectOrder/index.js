@@ -25,7 +25,7 @@ function RejectOrder() {
 
   const [clickConfirm, setClickConfirm] = useState(false);
 
-  const [{ data, loading, error }, onRejectOrder] = rejectOrder(userRole);
+  const [{ data: rejectData, loading, error }, onRejectOrder] = rejectOrder(userRole);
 
   const screenNavigateBack = () => {
     navigation.pop()
@@ -42,6 +42,10 @@ function RejectOrder() {
     }
   })
 
+  useEffect(() => {
+    setLoader(loading)    
+  }, [rejectData, loading])
+
   useLayoutEffect(() => {
     const { Item } = route.params;
     setItem(Item)
@@ -49,8 +53,7 @@ function RejectOrder() {
     navigation.setOptions({ title });
   }, []);
 
-  const handleConfirm = async (reason) => {
-    setLoader(true)
+  const handleConfirm = async (reason) => {   
     try {
       const { data } = await onRejectOrder({
         data: {
@@ -63,8 +66,7 @@ function RejectOrder() {
         screenNavigate()
       } else {
         alert(data.message)
-      }
-      setLoader(false)
+      }      
     } catch (e) {
       console.log("Response error", e);
     }

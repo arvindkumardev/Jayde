@@ -11,6 +11,8 @@ import { removeData, getSaveData } from '../../utils/helpers';
 import { LOCAL_STORAGE_DATA_KEY } from '../../utils/constants';
 import UserContext from '../../appContainer/context/user.context';
 import { DRAWER_MENU } from "../../routes/constants";
+import { RfH, RfW } from '../../utils/helpers';
+import { RFValue } from 'react-native-responsive-fontsize';
 
 import newLocal from '../../assets/commonOld/circularUserPlaceHolder.png';
 
@@ -51,7 +53,10 @@ const DrawerSideBar = (props) => {
                 activeOpacity={0.8} onPress={() => onNavigation(item.screenName)}>
                 <View
                     style={[Styles.menuItemContainer]}>
-                    <FAIcon name={item.iconName} size={20} style={AppStyles.mr20} color={item.color} />
+                    <View style = {[Styles.iconContainer, AppStyles.mr20, AppStyles.inCenter]}>
+                    <FAIcon name={item.iconName} size={20} color={item.color} />
+
+                    </View>
                     <Text style={[AppStyles.txtBlackRegular, AppStyles.f16]}>{item.name}</Text>
                 </View>
             </TouchableOpacity>
