@@ -88,7 +88,7 @@ export const styles = StyleSheet.create({
 
     },
     imageView: {
-        height: RfW(460),
+        height: RfW(360),
         borderColor: '#717171',
         alignItems: 'center',
         justifyContent: 'center',

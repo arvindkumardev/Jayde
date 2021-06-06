@@ -310,7 +310,7 @@ function UploadDocument(props) {
                         <IconButtonWrapper
                             iconImage={recentImage.path}
                             iconWidth={RfW(350)}
-                            iconHeight={RfH(440)}
+                            iconHeight={RfH(350)}
                         />
                     </View>
                     <View style={{ flexDirection: 'row', marginHorizontal: RfW(16) }}>

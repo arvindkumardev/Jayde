@@ -61,14 +61,14 @@ const container = StyleSheet.create({
     alignItems: 'center',
   },
   topBorderGray: {
-    paddingTop:  RfH(20),
+    paddingTop: RfH(20),
     borderTopColor: '#ccc',
     borderTopWidth: 1,
   },
   bottomBorderGray: {
     borderBottomColor: '#ccc',
     borderBottomWidth: 1,
-    paddingBottom:  RfH(20),
+    paddingBottom: RfH(20),
   },
   flex1SpaceBetween: {
     flex: 1,

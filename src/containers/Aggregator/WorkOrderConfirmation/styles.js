@@ -10,38 +10,31 @@ const styles = StyleSheet.create({
    bdrclr: {
      borderColor: 'orange',
    },
-  leftArrow: {
-    width: RfW(24), 
-    height: RfH(24), 
-    marginLeft: RfW(24),
-  },
+
   boxContent: { 
     width: RfW(310), 
-    height: RfH(574), 
+    //height: RfH(574), 
     backgroundColor: '#ffffff', 
     alignItems: 'center', 
     borderRadius: 20, 
     marginLeft: RfW(24), 
     marginRight: RfW(24), 
     marginTop: RfH(32),
-    marginBottom: RfH(40),
   },
   boxImage: {
     width: RfW(132), 
     height: RfH(132), 
     marginTop: RfH(12),
   },
-  bxVu: {
-    width: RfW(310), 
-    height: RfH(295), 
-    borderRadius: 20, 
-    marginLeft: RfW(24), 
-    marginTop: RfH(5), 
-    marginRight: RfW(24),
-  },
+ 
   tbut: {
-    marginRight: RfW(64), 
-    marginLeft: RfW(64),
+    marginTop: RfH(50),
+    marginBottom: RfH(32),
+   
+  },
+  buttonSize: {
+    height: RfH(44),
+    width: RfW(160),
   },
 });
 export default styles;

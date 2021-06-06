@@ -14,7 +14,8 @@ const DropDown = (props) => {
     const Item = Picker.Item;
     return (
       <View style={[Styles.androidPickerContainer, containerStyle]}>
-        <Picker mode={mode} onValueChange={onValueChange} selectedValue={selectedValue}>
+        <Picker       
+         mode={mode} onValueChange={onValueChange} selectedValue={selectedValue}>
           <Item label={placeholderText} value="" />
           {dropDownData.map((item, index) => (
             <Item key={index} value={item.value} label={item.label} />

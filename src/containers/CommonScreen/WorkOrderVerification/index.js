@@ -59,8 +59,6 @@ const WorkOrderVerification = () => {
   const [proposeWeightDate, setProposeWeightDate] = useState(moment(new Date()).add(1, 'days').format('YYYY-MM-DD'));
   const [warehouseDate, setWarehouseDate] = useState(moment(new Date()).add(1, 'days').format('YYYY-MM-DD'));
 
-  const [isTermChecked, setTermChecked] = useState(false);
-
   const [clickWeightConfirm, setWeightClickConfirm] = useState(false);
   const [proposeClickConfirm, setProposeClickConfirm] = useState(false);
   const [paymentClickConfirm, setPaymentClickConfirm] = useState(false);
@@ -136,11 +134,7 @@ const WorkOrderVerification = () => {
     setLoader(false)
   };
 
-  const handlePaymentConfirm = async (paymentmade, paymentmode, paymentdetails) => {
-    if (!isTermChecked) {
-      alert('Please Accept Terms & Condition.')
-      return
-    }
+  const handlePaymentConfirm = async (paymentmade, paymentmode, paymentdetails) => { 
     setLoader(true)
     try {
       const { data } = await onSubmitPaymentConfirm({
@@ -289,6 +283,8 @@ const WorkOrderVerification = () => {
     paymentmade: yup.string().required('Please Provide Payment Details'),
     paymentmode: yup.string().required("Please Provide Payment Mode Details"),
     paymentdetails: yup.string().required("Please Provide Payment Details"),
+    checkCondition: yup.bool().oneOf([true], 'Accept Terms & Conditions is required'),
+
   });
 
   const paymentRequestForm = useFormik({
@@ -297,7 +293,8 @@ const WorkOrderVerification = () => {
     initialValues: {
       paymentmade: '',
       paymentmode: '',
-      paymentdetails: '',
+      checkCondition: false,
+      paymentdetails: ''
     },
     validationSchema: paymentValidationSchema,
     onSubmit: () => handlePaymentConfirm(
@@ -518,6 +515,7 @@ const WorkOrderVerification = () => {
             onChangeText={(txt) => paymentRequestForm.setFieldValue('paymentmade', txt)}
             style={{ backgroundColor: Colors.grayBackground, borderRadius: 10, paddingLeft: 10 }}
             maxLength={50}
+            keyboardType='number-pad'
             returnKeyType='next'
             onSubmitEditing={() => refPaymentDetail.current?.focus()}
           />
@@ -576,7 +574,7 @@ const WorkOrderVerification = () => {
             placeholder={"1235567778"}
             value={paymentRequestForm.values.paymentdetails}
             onChangeText={(txt) => paymentRequestForm.setFieldValue('paymentdetails', txt)}
-            keyboardType='number-pad'
+            //keyboardType='number-pad'
             style={Styles.inputText}
             maxLength={50}
             returnKeyType='done'
@@ -595,11 +593,10 @@ const WorkOrderVerification = () => {
           <View style={[AppStyles.flexDir, AppStyles.alignCenter, AppStyles.mt20]}>
             <Checkbox
               disabled={false}
-              value={isTermChecked}
+              value={paymentRequestForm.values.checkCondition}
               tintColors={{ true: Colors.mango, false: '#777' }}
-              onValueChange={(newValue) =>
-                setTermChecked((newValue) => !newValue)
-              }
+              onValueChange={(newValue) => paymentRequestForm.setFieldValue('checkCondition', newValue)}
+              
             />
             <View style={{ marginLeft: RfW(10) }}>
               <CustomText
@@ -610,6 +607,11 @@ const WorkOrderVerification = () => {
                 </CustomText>
             </View>
           </View>
+          {paymentClickConfirm && paymentRequestForm.errors.checkCondition ? (
+            <CustomText fontSize={15} color={Colors.red} styling={{ marginLeft: 27 }}>
+              { paymentRequestForm.errors.checkCondition}
+            </CustomText>
+          ) : null}
         </View>
 
 

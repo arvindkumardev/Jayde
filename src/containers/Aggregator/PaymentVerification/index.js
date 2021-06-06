@@ -58,8 +58,6 @@ const PaymentVerification = () => {
   const [proposeWeightDate, setProposeWeightDate] = useState(moment(new Date()).add(1, 'days').format('YYYY-MM-DD'));
   const [warehouseDate, setWarehouseDate] = useState(moment(new Date()).add(1, 'days').format('YYYY-MM-DD'));
 
-  const [isTermChecked, setTermChecked] = useState(false);
-
   const [clickWeightConfirm, setWeightClickConfirm] = useState(false);
   const [proposeClickConfirm, setProposeClickConfirm] = useState(false);
   const [paymentClickConfirm, setPaymentClickConfirm] = useState(false);
@@ -148,10 +146,6 @@ const PaymentVerification = () => {
 
   const handlePaymentConfirm = async (paymentmade, paymentmode, paymentdetails) => {
 
-    if (!isTermChecked) {
-      alert('Please Accept Terms & Condition.')
-      return
-    }
     setLoader(true)
     try {
       const { data } = await onSubmitPaymentConfirm({
@@ -311,6 +305,8 @@ const PaymentVerification = () => {
     paymentmade: yup.string().required('Please Provide Payment Details'),
     paymentmode: yup.string().required("Please Provide Payment Mode Details"),
     paymentdetails: yup.string().required("Please Provide Payment Details"),
+    checkCondition: yup.bool().oneOf([true], 'Accept Terms & Conditions is required'),
+
   });
 
   const paymentRequestForm = useFormik({
@@ -320,6 +316,7 @@ const PaymentVerification = () => {
       paymentmade: '',
       paymentmode: '',
       paymentdetails: '',
+      checkCondition: false,
     },
     validationSchema: paymentValidationSchema,
     onSubmit: () => handlePaymentConfirm(
@@ -388,6 +385,11 @@ const PaymentVerification = () => {
         } else if (itemObj.proposed_weight_confirm === '1' && itemObj.pickup_confirmed === '0' && itemObj.is_seller_confirmed == '3') {
           setShowPickUpConfirmButton(true)
         } else if (itemObj.proposed_weight_confirm === '1' && itemObj.pickup_confirmed === '1' && itemObj.is_completed == '1') {
+          setShowWareHouseMainView(false)
+        } else if (itemObj.proposed_weight_confirm === '2') {
+          setShowWeightedMainView(false)
+          setShowPickUpMainView(false)
+          setShowPickUpConfirmButton(false)
           setShowWareHouseMainView(false)
         } else {
           setShowWeightedMainView(false)
@@ -862,7 +864,7 @@ const PaymentVerification = () => {
             placeholder={"1235567778"}
             value={paymentRequestForm.values.paymentdetails}
             onChangeText={(txt) => paymentRequestForm.setFieldValue('paymentdetails', txt)}
-            keyboardType='number-pad'
+            //keyboardType='number-pad'
             style={Styles.inputText}
             maxLength={50}
             returnKeyType='done'
@@ -879,13 +881,11 @@ const PaymentVerification = () => {
 
         <View>
           <View style={[AppStyles.flexDir, AppStyles.alignCenter, AppStyles.mt20]}>
-            <Checkbox
+          <Checkbox
               disabled={false}
-              value={isTermChecked}
+              value={paymentRequestForm.values.checkCondition}
               tintColors={{ true: Colors.mango, false: '#777' }}
-              onValueChange={(newValue) =>
-                setTermChecked((newValue) => !newValue)
-              }
+              onValueChange={(newValue) => paymentRequestForm.setFieldValue('checkCondition', newValue)}
             />
             <View style={{ marginLeft: RfW(10) }}>
               <CustomText
@@ -896,6 +896,11 @@ const PaymentVerification = () => {
                 </CustomText>
             </View>
           </View>
+          {paymentClickConfirm && paymentRequestForm.errors.checkCondition ? (
+            <CustomText fontSize={15} color={Colors.red} styling={{ marginLeft: 27 }}>
+              { paymentRequestForm.errors.checkCondition}
+            </CustomText>
+          ) : null}
         </View>
 
 

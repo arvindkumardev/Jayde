@@ -10,26 +10,28 @@ const styles = StyleSheet.create({
   bdrclr: {
     borderColor: 'orange',
   },
-  boxContent: {   
+  boxContent: {
     width: RfW(310),
-    height: RfH(380),
+    //height: RfH(380),
     backgroundColor: '#ffffff',
     alignItems: 'center',
     borderRadius: 10,
     // marginLeft: 24,
-    marginTop:  RfH(32),
+    marginTop: RfH(32),
   },
   bxVu: {
-    width: RfW(310),
-    height:  RfH(285),
+    //width: RfW(310),
+    //height:  RfH(285),
     borderRadius: 20,
     marginLeft: RfW(24),
-    marginTop:  RfH(5),
+    marginTop: RfH(5),
+    marginBottom: RfH(32),
+
     marginRight: RfW(24),
   },
   buttonsize: {
-    height:  RfH(44),
-    width:  RfW(160),
+    height: RfH(44),
+    width: RfW(160),
   },
 });
 export default styles;
