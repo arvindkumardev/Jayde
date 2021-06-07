@@ -89,6 +89,8 @@ const WorkOrderVerification = () => {
       navigation.popToTop()
       navigation.navigate(NavigationRouteNames.RECYCLER_WORK_ORDER_LIST);
     }
+
+
   }
 
   const handleConfirmWeight = async (kantaSlipNo) => {
