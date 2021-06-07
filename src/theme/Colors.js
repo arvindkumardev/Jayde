@@ -38,5 +38,6 @@ const Colors = {
   grayBackground: '#f5f5f5',
   mangoTwo: '#f8a230',
   paleGold: '#fec868',
+  cardBorder:'#d3d3d3',
 };
 export default Colors;

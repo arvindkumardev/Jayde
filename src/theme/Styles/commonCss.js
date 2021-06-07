@@ -80,8 +80,8 @@ const commonCss = StyleSheet.create({
   },
 
   paymentboxView: {
-    backgroundColor: Colors.grayBackground, 
-    borderRadius: 10, 
+    backgroundColor: Colors.grayBackground,
+    borderRadius: 10,
   },
   btnHeight44: {
     height: RfH(44),
@@ -100,6 +100,35 @@ const commonCss = StyleSheet.create({
     borderLeftWidth: RfW(10),
     backgroundColor: Colors.white
   },
+
+  shadow: {
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.22,
+    shadowRadius: 2.22,
+    elevation: 3,
+  },
+
+  cardStyle: {
+    borderWidth: 1,
+    borderColor: Colors.cardBorder,
+    marginTop: 8,
+    marginLeft: 8,
+    marginRight: 8,
+    borderRadius: 5,
+  },
+  itemBtn: {
+    borderRadius: 10,
+    backgroundColor: Colors.mangoTwo,
+    width: RfW(66),
+    height: RfH(23),
+    justifyContent: 'center',
+    marginLeft: RfW(5),
+  }
+
 });
 
 export default commonCss;

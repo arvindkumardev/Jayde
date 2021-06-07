@@ -283,3 +283,6 @@ export const getMainModuleScreenName =(module)=>{
 export const formatDisplayDate = (value) => {
   return moment(value).format('DD-MMM-YYYY')
 } 
+export const displayShortDate = (value) => {
+  return moment(value).format('DD-MMM-YY')
+} 

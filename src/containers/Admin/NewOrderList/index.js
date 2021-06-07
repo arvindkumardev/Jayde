@@ -1,6 +1,6 @@
 
 import React, { useContext, useEffect, useState, useLayoutEffect } from 'react';
-import { View, Text, Image, FlatList, ScrollView, TouchableOpacity, ActivityIndicator } from 'react-native';
+import { View, FlatList} from 'react-native';
 import NavigationRouteNames from '../../../routes/ScreenNames';
 import { useNavigation } from '@react-navigation/core';
 import { useRoute } from '@react-navigation/native';
@@ -9,24 +9,9 @@ import { AppStyles } from '../../../theme';
 import { getNewOrder } from "../../../services/CommonController";
 
 import UserContext from '../../../appContainer/context/user.context';
-import moment from 'moment';
 import FooterLoader from "../../../appContainer/footerLoader";
 import EmptyView from '../../../appContainer/EmptyView'
-
-//Image
-import EWasteImg from '../../../assets/Images/NewOrderList/Group_10091.png'
-import PaperImg from '../../../assets/Images/NewOrderList/Group_10089.png'
-import PlasticImg from '../../../assets/Images/NewOrderList/Group_10090.png'
-import MixWasterImg from '../../../assets/Images/NewOrderList/Group_10088.png'
-import PendingImg from '../../../assets/Images/AddSubUser/pending.png'
-import CompletedImg from '../../../assets/Images/Dashboard/Group_9995.png'
-
-const ORDER_IMAGE = {
-  'E-Waste': EWasteImg,
-  Paper: PaperImg,
-  Plastic: PlasticImg,
-  'Mix Waste': MixWasterImg,
-};
+import ItemRow from '../../Components/NewOrder'
 
 function AdminNewOrderList() {
   const navigation = useNavigation();
@@ -62,11 +47,11 @@ function AdminNewOrderList() {
 
   const triggerNewOrder = async () => {
     try {
-      const { data } = await onAdminNewOrder({ data: {} });     
+      const { data } = await onAdminNewOrder({ data: {} });
       setLoader(false)
       setPerPage(data.data[0].links.per_page)
       setTotalCount(data.data[0].links.total_count)
-      setAdminOrderList(data.data[0].newOrders)      
+      setAdminOrderList(data.data[0].newOrders)
     }
     catch (e) {
       console.log("Response error", e);
@@ -93,10 +78,10 @@ function AdminNewOrderList() {
       setRefreshPage(false)
     }
   }, [refreshPage])
-  
+
   useEffect(() => {
-    if(error)
-    setLoader(false)
+    if (error)
+      setLoader(false)
   }, [error])
 
   useEffect(() => {
@@ -128,61 +113,18 @@ function AdminNewOrderList() {
     setOffset(offset + perPage);
   }
 
-  const _RenderItem = (index, item) => {
-    return (
-      <TouchableOpacity
-        activeOpacity={0.8}
-        key={index}
-        onPress={() => screenNavigate(item)}>
-        <View>
-
-          <View style={[AppStyles.flexDir, AppStyles.mt20,]}>
-            <View style={[AppStyles.flexpointtwo, AppStyles.ml14]}>
-              <View>
-                <Image source={ORDER_IMAGE[item.category_name]} />
-              </View>
-            </View>
-            <View style={[AppStyles.flexpointfive, AppStyles.ml16]}>
-              <Text style={[AppStyles.txtBlackRegular, AppStyles.f17,]}>{item.order_no}</Text>
-              <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f15,]}>{item.qty} {item.unit_name} {item.category_name}</Text>
-              <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f11,]}>{moment(item.pickup_date).format('DD-MMM-YY')}</Text>
-            </View>
-            <View style={[AppStyles.flexpointthree, AppStyles.ml35]}>
-              <TouchableOpacity
-                activeOpacity = {0.8}
-                onPress={() => screenNavigate(item)}
-                style={AppStyles.confirmBtnSmall}>
-                <Text style={[AppStyles.txtWhiteRegular, AppStyles.f11,
-                AppStyles.textalig,]}>{item.is_confirmed == 2 ? 'ASSIGN' : 'VIEW'}</Text>
-              </TouchableOpacity>
-              {item.is_confirmed == 4 ?
-                <View style={AppStyles.mr20}>
-                  <Image style={[AppStyles.ml24, AppStyles.mt10]}
-                    source={CompletedImg} />
-                  <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f11, AppStyles.ml5]}>Completed</Text>
-                </View> : item.is_confirmed == 3 &&
-                <View>
-                  <Image style={[AppStyles.ml24, AppStyles.mt10]}
-                    source={PendingImg} />
-                  <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f11, AppStyles.ml10]}>Pending</Text>
-                </View>
-              }
-            </View>
-          </View>
-
-        </View>
-      </TouchableOpacity>
-    )
-  }
-
-
   return (
     <View style={AppStyles.topView}>
       {adminOrderList.length > 0 ? <FlatList
-        style={{ flex: 1 }}
+        showsVerticalScrollIndicator = {false}
+        style={AppStyles.flex1}
         data={adminOrderList}
         renderItem={({ index, item }) =>
-          _RenderItem(index, item)
+          <ItemRow item={item}
+            index={index}
+            screenNavigate={screenNavigate}
+            userRole={userRole}>
+          </ItemRow>
         }
         extraData={useState}
         removeClippedSubviews={Platform.OS === 'android' && true}

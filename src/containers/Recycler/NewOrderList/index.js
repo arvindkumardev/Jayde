@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useState, useLayoutEffect } from 'react';
-import { View, Text, Image, FlatList, ScrollView, TouchableOpacity } from 'react-native';
-import Styles from "./styles";
+import { View, FlatList } from 'react-native';
 import NavigationRouteNames from '../../../routes/ScreenNames';
 import { useNavigation } from '@react-navigation/core';
 import { useRoute } from '@react-navigation/native';
@@ -10,21 +9,7 @@ import FooterLoader from "../../../appContainer/footerLoader";
 import EmptyView from '../../../appContainer/EmptyView'
 
 import { getNewOrder } from "../../../services/CommonController";
-import moment from 'moment';
-
-//Image
-import EWasteImg from './../../../assets/Images/NewOrderList/Group_10091.png'
-import PaperImg from './../../../assets/Images/NewOrderList/Group_10089.png'
-import PlasticImg from './../../../assets/Images/NewOrderList/Group_10090.png'
-import MixWasterImg from './../../../assets/Images/NewOrderList/Group_10088.png'
-import FAIcon from 'react-native-vector-icons/FontAwesome';
-
-const ORDER_IMAGE = {
-  'E-Waste': EWasteImg,
-  Paper: PaperImg,
-  Plastic: PlasticImg,
-  'Mix Waste': MixWasterImg,
-};
+import ItemRow from '../../Components/NewOrder'
 
 function RecyclerNewOrderList() {
   const navigation = useNavigation();
@@ -124,39 +109,16 @@ function RecyclerNewOrderList() {
     setOffset(offset + perPage);
   }
 
-  const _RenderItem = (index, item) => {
-    return (
-      <TouchableOpacity activeOpacity={0.8}
-        key={index}
-        onPress={() => screenNavigate(item)}>
-        <View>
-          <View style={[AppStyles.flexDir, AppStyles.mt20]}>
-            <View style={[AppStyles.flexpointtwo, AppStyles.ml14]}>
-              <Image source={ORDER_IMAGE[item.category_name]} />
-            </View>
-            <View style={[AppStyles.flexpointfive, AppStyles.ml16]}>
-              <Text style={[AppStyles.txtBlackRegular, AppStyles.f17,]}>{item.order_no}</Text>
-              <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f15,]}>{item.qty} {item.unit_name} {item.category_name}</Text>
-              <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f11,]}>{moment(item.pickup_date).format('DD-MMM-YY')}</Text>
-            </View>
-            <View style={[AppStyles.flexpointthree, AppStyles.inCenter]}>
-              <View style={[AppStyles.flexRowAlignCenter]}>
-                <FAIcon size={14} name='rupee'></FAIcon>
-                <Text style={[AppStyles.txtBlackRegular, AppStyles.f15, AppStyles.ml5]}>{item.price}</Text>
-              </View>
-            </View>
-          </View>
-        </View>
-      </TouchableOpacity>
-    )
-  }
-
   return (
-    <View style={Styles.mainView}>
+    <View style={AppStyles.topView}>
       {workOrderList.length > 0 ? <FlatList
         data={workOrderList}
         renderItem={({ index, item }) =>
-          _RenderItem(index, item)
+          <ItemRow item={item}
+            index={index}
+            screenNavigate={screenNavigate}
+            userRole={userRole}>
+          </ItemRow>
         }
         showsVerticalScrollIndicator={false}
         extraData={useState}

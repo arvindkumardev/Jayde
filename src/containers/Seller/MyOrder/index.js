@@ -1,35 +1,16 @@
 
 import React, { useContext, useEffect, useState, useLayoutEffect } from 'react';
-import { View, Text, Image, FlatList, TouchableOpacity, ActivityIndicator } from 'react-native';
-import Styles from "./../MyOrder/styles";
+import { View, FlatList } from 'react-native';
 import NavigationRouteNames from '../../../routes/ScreenNames';
 import { useNavigation } from '@react-navigation/core';
 import { useRoute } from '@react-navigation/native';
 import { AppStyles } from '../../../theme';
 
 import { getNewOrder } from "../../../services/CommonController";
-
-import Colors from '../../../theme/Colors';
-
 import UserContext from '../../../appContainer/context/user.context';
-import moment from 'moment';
 import FooterLoader from "../../../appContainer/footerLoader";
 import EmptyView from '../../../appContainer/EmptyView'
-
-//Image
-import EWasteImg from '../../../assets/Images/NewOrderList/Group_10091.png'
-import PaperImg from '../../../assets/Images/NewOrderList/Group_10089.png'
-import PlasticImg from '../../../assets/Images/NewOrderList/Group_10090.png'
-import MixWasterImg from '../../../assets/Images/NewOrderList/Group_10088.png'
-import PendingImg from '../../../assets/Images/AddSubUser/pending.png'
-import CompletedImg from '../../../assets/Images/Dashboard/Group_9995.png'
-
-const ORDER_IMAGE = {
-  'E-Waste': EWasteImg,
-  Paper: PaperImg,
-  Plastic: PlasticImg,
-  'Mix Waste': MixWasterImg,
-};
+import ItemRow from '../../Components/NewOrder'
 
 function SellerMyOrder() {
   const navigation = useNavigation();
@@ -127,76 +108,18 @@ function SellerMyOrder() {
     setOffset(offset + perPage);
   }
 
-  const getButtonText = (item) => {
-
-    if (item.assigned_status == 2) {
-      return 'Rescheduled';
-    } else if (item.proposed_weight_confirm == 2) {
-      return 'New Weight Proposed';
-    } else if (item.is_seller_confirmed == 2) {
-      return 'Confirm Payment';
-    } else if (item.pickup_confirmed == 1) {
-      return 'COMPLETED';
-    } else if (item.is_confirmed == 2) {
-      return 'SCHEDULED';
-    } else if (item.is_confirmed == 3) {
-      return 'ACCEPTED';
-    } else if (item.is_confirmed == 4) {
-      return 'Rejected';
-    }
-  }
-
-  const _RenderItem = (index, item) => {
-    var btnText = getButtonText(item)
-    return (
-      <TouchableOpacity
-        activeOpacity={0.8}
-        key={index}
-        onPress={() => screenNavigate(item)}>
-        <View>
-          <View style={[AppStyles.flexDir, AppStyles.mt20,]}>
-            <View style={[AppStyles.flexpointtwo, AppStyles.ml14]}>
-              <View>
-                <Image source={ORDER_IMAGE[item.category_name]} />
-              </View>
-            </View>
-            <View style={[AppStyles.flexpointfive, AppStyles.ml16]}>
-              <Text style={[AppStyles.txtBlackRegular, AppStyles.f17,]}>{item.order_no}</Text>
-              <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f15,]}>{item.qty} {item.unit_name} {item.category_name}</Text>
-              <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f11,]}>{moment(item.pickup_date).format('DD-MMM-YY')}</Text>
-            </View>
-
-            <View style={[AppStyles.flexpointthree, AppStyles.ml35, AppStyles.mr20, AppStyles.alignCenter, AppStyles.justifyCon]}>
-              <TouchableOpacity
-                activeOpacity={0.8}
-                onPress={() => screenNavigate(item)}
-                style={Styles.confirmBtn}>
-                <Text style={[AppStyles.txtWhiteRegular, AppStyles.f11,
-                AppStyles.textalig,]}>{item.assigned_status == 2 ? 'Confirm' : 'View Order'}</Text>
-              </TouchableOpacity>
-              <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f11,
-              AppStyles.ml5, AppStyles.mt10, AppStyles.textalig,
-              {
-                color: btnText === 'ACCEPTED' ? Colors.warmGrey
-                  : btnText === 'COMPLETED' ? Colors.warmGrey
-                    : btnText === 'SCHEDULED' ? Colors.warmGrey
-                      : Colors.red
-              }]}>{btnText}</Text>
-            </View>
-          </View>
-        </View>
-      </TouchableOpacity>
-    )
-  }
-
   return (
-    <View style={Styles.mainView}>
+    <View style={AppStyles.topView}>
       {orderList.length > 0 ? <FlatList
         style={AppStyles.flex1}
         data={orderList}
         showsVerticalScrollIndicator={false}
         renderItem={({ index, item }) =>
-          _RenderItem(index, item)
+          <ItemRow item={item}
+            index={index}
+            screenNavigate = {screenNavigate}
+            userRole = {userRole}>
+          </ItemRow>
         }
         extraData={useState}
         removeClippedSubviews={Platform.OS === 'android' && true}
