@@ -108,14 +108,15 @@ function Users() {
       <TouchableOpacity
         activeOpacity = {0.8}
         key={index}
+        style={[AppStyles.cardStyle, AppStyles.shadow, AppStyles.whitebackgrnd]}
         onPress={() => { screenNavigate(item, index) }}>
-        <View style={Styles.boxView}>
+        <View >
 
-          <View style={[AppStyles.flexDir, AppStyles.ml16]}>
+          <View style={[AppStyles.flexDir, AppStyles.ml16, AppStyles.mt12]}>
             <View style={AppStyles.flexpointseven}>
-              <Text style={[AppStyles.f13, AppStyles.txtSecandaryRegular, AppStyles.mt12]}>{item.email}</Text>
+              <Text style={[AppStyles.f13, AppStyles.txtSecandaryRegular,]}>{item.email}</Text>
             </View>
-            <View style={[AppStyles.flexpointthree, AppStyles.mt12, AppStyles.ml24]}>
+            <View style={[AppStyles.flexpointthree, AppStyles.inCenter]}>
               <TouchableOpacity 
               activeOpacity = {0.8}
               style={item.status == 1 ? Styles.confirmBtn : Styles.InactiveBtn}>
@@ -124,8 +125,8 @@ function Users() {
             </View>
           </View>
 
-          <Text style={[AppStyles.f15, AppStyles.ml16, AppStyles.mt12]}>{item.business_name}</Text>
-          <Text style={[AppStyles.f15, AppStyles.ml16,]}>{item.name}</Text>
+          <Text style={[AppStyles.txtBlackRegular, AppStyles.f15, AppStyles.ml16, AppStyles.mt12]}>{item.business_name}</Text>
+          <Text style={[AppStyles.txtBlackRegular, AppStyles.f15, AppStyles.ml16,]}>{item.name}</Text>
 
 
           <View style={[AppStyles.flexDir, AppStyles.mt14, AppStyles.mb20]}>
@@ -149,7 +150,7 @@ function Users() {
 
 
   return (
-    <View style={Styles.mainView}>
+    <View style={AppStyles.topView}>
       {userList.length > 0 ? <FlatList
         data={userList}
         renderItem={({ index, item }) =>
