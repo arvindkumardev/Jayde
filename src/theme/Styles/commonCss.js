@@ -44,7 +44,11 @@ const commonCss = StyleSheet.create({
     width: RfW(54),
     height: RfH(23),
     justifyContent: 'center',
-    marginLeft: RfW(5),
+  },
+  emptyHeight: {
+    backgroundColor: 'transparent',
+    height: RfH(23),
+    justifyContent: 'center',
   },
   confirmBtn: {
     backgroundColor: '#F7A435',

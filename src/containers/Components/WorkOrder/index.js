@@ -46,7 +46,7 @@ function ItemRow(props) {
             onPress={() => screenNavigate(item)}>
             <View style={[AppStyles.flexDir]}>
                 <View style={[AppStyles.flexpointtwo, AppStyles.ml5]}>
-                    <Image source={ORDER_IMAGE[item.category_name]} style = {AppStyles.imgOrders}/>
+                    <Image source={ORDER_IMAGE[item.category_name]} style={AppStyles.imgOrders} />
                 </View>
                 <View style={[AppStyles.flexpointfive, AppStyles.ml16]}>
                     <Text style={[AppStyles.txtBlackRegular, AppStyles.f17, AppStyles.mt5]}>{item.work_order_no}</Text>
@@ -72,7 +72,9 @@ function ItemRow(props) {
                             AppStyles.textalig,]}> View </Text>
                         </TouchableOpacity>
                         :
-                        <Text style={[AppStyles.txtPrimaryRegular, AppStyles.f11, AppStyles.mt5, AppStyles.textalig, AppStyles.ph10]}>{getStatusText(item)}</Text>
+                        <View style={AppStyles.emptyHeight}>
+                            <Text style={[AppStyles.txtPrimaryRegular, AppStyles.f11, AppStyles.mt5, AppStyles.textalig, AppStyles.ph10]}>{getStatusText(item)}</Text>
+                        </View>
                     }
                 </View>
             </View>
