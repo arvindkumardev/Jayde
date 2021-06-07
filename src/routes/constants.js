@@ -223,12 +223,12 @@ const DRAWER_MENU = {
       screenName: NavigationRouteNames.RECYCLER_SCHEDULED_ORDER_LIST
     },
 
-    {
-      name: 'Inventory',
-      color: Colors.mango,
-      iconName: 'archive',
-      screenName: NavigationRouteNames.INVENTORY
-    },
+    // {
+    //   name: 'Inventory',
+    //   color: Colors.mango,
+    //   iconName: 'archive',
+    //   screenName: NavigationRouteNames.INVENTORY
+    // },
 
     {
       name: 'Work Orders',

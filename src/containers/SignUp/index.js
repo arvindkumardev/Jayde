@@ -153,7 +153,7 @@ function SignUp() {
             <Text style={[AppStyles.mt20, AppStyles.f40, AppStyles.txtWhiteBold, AppStyles.mb20]}>Sign Up!</Text>
           </View>
 
-          <View style={styles.formContainer}>
+          <View style={[styles.formContainer, AppStyles.mb40]}>
             <CustomTextInput
               label="Name"
               inputLabelStyle={commonStyles.inputLabelStyle}

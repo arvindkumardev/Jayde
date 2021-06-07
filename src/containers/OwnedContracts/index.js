@@ -125,7 +125,7 @@ function OwnedContracts() {
     const btnText = getButtonText(item);
     return (
       <TouchableOpacity activeOpacity = {0.8} key = {index} onPress={() => screenNavigate()}>
-        <View style={Styles.boxView}>
+        <View style={[Styles.boxView, AppStyles.shadow]}>
           <View style={[AppStyles.flexDir]}>
             <View style={AppStyles.flexpointseven}>
               <Text style={[AppStyles.f13, AppStyles.txtSecandaryRegular, AppStyles.mt12, AppStyles.ml16]}>
