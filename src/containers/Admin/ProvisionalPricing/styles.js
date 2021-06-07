@@ -3,10 +3,6 @@ import {RfH, RfW} from '../../../utils/helpers';
 import {Colors} from '../../../theme';
 
 const styles = StyleSheet.create({
-  topView: {
-    flex: 1,
-    backgroundColor: '#fff',
-  },
   bdrclr: {
     borderColor: '#f5f5f5',
     borderWidth: 4,

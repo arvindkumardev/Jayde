@@ -8,6 +8,9 @@ import { useRoute } from '@react-navigation/native';
 import { AppStyles } from '../../../theme';
 import arraydata from '../../../utils/arraydata4.json';
 
+//Image
+import PaperImg from '../../../assets/Images/Aggregator/Inventory/Group10150.png'
+
 
 function SubCategoryDetails() {
 
@@ -31,7 +34,7 @@ function SubCategoryDetails() {
 
         <View style={[AppStyles.flexDir, AppStyles.mt20]}>
           <View style={[AppStyles.flexpointtwo, AppStyles.ml20]}>
-            <Image style={Styles.productImage} source={require('../../../assets/Images/Aggregator/Inventory/Group10150.png')} />
+            <Image style={Styles.productImage} source={PaperImg} />
           </View>
           <View style={[AppStyles.flexpointsix]}>
             <Text style={[AppStyles.txtBlackRegular, AppStyles.f15]}>{item.productname}</Text>
@@ -66,7 +69,7 @@ function SubCategoryDetails() {
 
   return (
 
-    <View style={Styles.topView}>
+    <View style={AppStyles.topView}>
       <ScrollView>
 
         <FlatList

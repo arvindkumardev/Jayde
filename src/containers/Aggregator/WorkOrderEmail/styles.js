@@ -17,6 +17,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderRadius: 10,
     marginLeft: RfW(24),
+    marginRight: RfW(24),
     marginTop: RfH(32),
   },
   boxImage: {

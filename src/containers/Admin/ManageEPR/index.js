@@ -27,7 +27,7 @@ function ManageEPR() {
 
   return (
 
-    <View style={Styles.topView}>
+    <View style={AppStyles.topView}>
       <ScrollView>
 
         <Text style={[AppStyles.txtBlackRegular, AppStyles.f17, AppStyles.ml24, AppStyles.mt35]}>Sahdev Garg</Text>
