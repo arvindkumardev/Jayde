@@ -28,7 +28,7 @@ function RecyclerWorkOrderList() {
   const [{ data, loading, error }, onWorkOrder] = getWorkOrderList(offset);
 
   const screenNavigate = (item) => {
-    navigation.navigate(NavigationRouteNames.WORK_ORDER_VERIFICATION, { item });
+    navigation.navigate(NavigationRouteNames.WORK_ORDER_VERIFICATION, { item, WhereFrom : NavigationRouteNames.RECYCLER_WORK_ORDER_LIST });
   }
 
   useLayoutEffect(() => {

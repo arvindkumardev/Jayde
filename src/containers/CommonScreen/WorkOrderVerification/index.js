@@ -9,7 +9,7 @@ import FAIcon from 'react-native-vector-icons/FontAwesome';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import NavigationRouteNames from '../../../routes/ScreenNames';
 import CustomText from '../../../components/CustomText';
-import  CheckBoxWrapper from '../../../components/CheckBoxWrapper';
+import CheckBoxWrapper from '../../../components/CheckBoxWrapper';
 import Checkbox from "@react-native-community/checkbox";
 import moment from 'moment';
 import MIcon from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -82,8 +82,13 @@ const WorkOrderVerification = () => {
   // ---------------------- End Api Section ---------------------
 
   const handelNavigate = () => {
-    navigation.popToTop()
-    navigation.navigate(NavigationRouteNames.RECYCLER_WORK_ORDER_LIST);
+    if (route.params.WhereFrom === NavigationRouteNames.AGGREGATOR_WORK_ORDER_LIST) {
+      navigation.popToTop()
+      navigation.navigate(NavigationRouteNames.AGGREGATOR_WORK_ORDER_LIST);
+    } else if (route.params.WhereFrom === NavigationRouteNames.RECYCLER_WORK_ORDER_LIST) {
+      navigation.popToTop()
+      navigation.navigate(NavigationRouteNames.RECYCLER_WORK_ORDER_LIST);
+    }
   }
 
   const handleConfirmWeight = async (kantaSlipNo) => {
@@ -134,7 +139,7 @@ const WorkOrderVerification = () => {
     setLoader(false)
   };
 
-  const handlePaymentConfirm = async (paymentmade, paymentmode, paymentdetails) => { 
+  const handlePaymentConfirm = async (paymentmade, paymentmode, paymentdetails) => {
     setLoader(true)
     try {
       const { data } = await onSubmitPaymentConfirm({
@@ -596,7 +601,7 @@ const WorkOrderVerification = () => {
               value={paymentRequestForm.values.checkCondition}
               tintColors={{ true: Colors.mango, false: '#777' }}
               onValueChange={(newValue) => paymentRequestForm.setFieldValue('checkCondition', newValue)}
-              
+
             />
             <View style={{ marginLeft: RfW(10) }}>
               <CustomText

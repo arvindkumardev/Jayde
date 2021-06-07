@@ -28,7 +28,7 @@ function AggregatorWorkOrderList() {
   const [{ data, loading, error }, onWorkOrder] = getWorkOrderList(offset);
 
   const screenNavigate = (item) => {
-    navigation.navigate(NavigationRouteNames.WORK_ORDER_VERIFICATION, { item });
+    navigation.navigate(NavigationRouteNames.WORK_ORDER_VERIFICATION, { item, WhereFrom : NavigationRouteNames.AGGREGATOR_WORK_ORDER_LIST });
   }
 
   useLayoutEffect(() => {
