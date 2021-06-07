@@ -8,6 +8,9 @@ import {useRoute} from '@react-navigation/native';
 import { AppStyles } from '../../../theme';
 import arraydata from '../../../utils/arraydata5.json';
 
+//Image
+import PaperImg from '../../../assets/Images/Aggregator/Inventory/Group10150.png'
+
 
 function ProvisionalPricing() {
 
@@ -31,7 +34,7 @@ function ProvisionalPricing() {
 
          <View style={[AppStyles.flexDir, AppStyles.mt20]}>
          <View style={[AppStyles.flexpointtwo, AppStyles.ml20]}>
-         <Image source={require('../../../assets/Images/Aggregator/Inventory/Group10150.png')}  />
+         <Image source={PaperImg}  />
          </View>
          <View style={[AppStyles.flexpointsix, AppStyles.ml20]}>
            <Text style={[AppStyles.txtBlackRegular, AppStyles.f15]}>{item.company}</Text>
@@ -66,7 +69,7 @@ function ProvisionalPricing() {
   
   return (
     
-    <View style={Styles.topView}>
+    <View style={AppStyles.topView}>
        <ScrollView>
 
         <FlatList

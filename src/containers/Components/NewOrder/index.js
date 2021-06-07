@@ -121,19 +121,19 @@ function ItemRow(props) {
         <TouchableOpacity
             activeOpacity={0.8}
             key={index}
-            style={[AppStyles.cardStyle, AppStyles.shadow, AppStyles.whitebackgrnd, AppStyles.pv11]}
+            style={[AppStyles.cardStyle, AppStyles.shadow, AppStyles.whitebackgrnd, AppStyles.pv11, AppStyles.ml15, AppStyles.mr15, AppStyles.mt20]}
             onPress={() => screenNavigate(item)}>
 
             <View style={[AppStyles.flexDir]}>
                 <View style={[AppStyles.flexpointtwo, AppStyles.ml5]}>
                     <View>
-                        <Image source={ORDER_IMAGE[item.category_name]} />
+                        <Image source={ORDER_IMAGE[item.category_name]} style = {AppStyles.imgOrders}/>
                     </View>
                 </View>
                 <View style={[AppStyles.flexpointfive, AppStyles.ml16]}>
-                    <Text style={[AppStyles.txtBlackRegular, AppStyles.f17,]}>{item.order_no}</Text>
-                    <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f15,]}>{item.qty} {item.unit_name} {item.category_name}</Text>
-                    <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f11,]}>{displayShortDate(item.pickup_date)}</Text>
+                    <Text style={[AppStyles.txtBlackRegular, AppStyles.f17, AppStyles.mt5]}>{item.order_no}</Text>
+                    <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f15]}>{item.qty} {item.unit_name} {item.category_name}</Text>
+                    <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f11]}>{displayShortDate(item.pickup_date)}</Text>
                 </View>
                 {getActionView(item, userRole, props)}
             </View>
