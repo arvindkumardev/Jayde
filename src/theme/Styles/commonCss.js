@@ -79,6 +79,12 @@ const commonCss = StyleSheet.create({
     resizeMode: "contain"
   },
 
+  homeImgEmpty: {
+    width: RfW(186),
+    height: RfH(159),
+    resizeMode: "contain"
+  },
+
   imgOrders: {
     width: RfW(66),
     height: RfH(66),
@@ -121,11 +127,21 @@ const commonCss = StyleSheet.create({
   cardStyle: {
     borderWidth: 1,
     borderColor: Colors.cardBorder,
-    marginTop:  RfH(15),
+    marginTop:  RfH(20),
     marginLeft:  RfW(15),
     marginRight:  RfW(15),
     borderRadius:  RfH(10),
   },
+
+  userCardStyle: {
+    borderWidth: 1,
+    borderColor: Colors.cardBorder,
+    marginTop:  RfH(20),
+    marginLeft:  RfW(24),
+    marginRight:  RfW(24),
+    borderRadius:  RfH(10),
+  },
+
   itemBtn: {
     borderRadius: 10,
     backgroundColor: Colors.mangoTwo,

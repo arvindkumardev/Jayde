@@ -23,6 +23,7 @@ import PaperImg from './../../assets/Images/NewOrderList/Group_10089.png'
 import PlasticImg from './../../assets/Images/NewOrderList/Group_10090.png'
 import MixWasterImg from './../../assets/Images/NewOrderList/Group_10088.png'
 import BagImg from '../../assets/Images/Dashboard/Mask.png'
+import NoRecordImg from '../../assets/Images/NoRecord/NoRecordFound.png'
 
 const ORDER_IMAGE = {
   'E-Waste': EWasteImg,
@@ -180,6 +181,8 @@ function HomeScreen() {
         keyExtractor={(_, index) => `${index}2`} />
         :
         !loading && <View style = {[AppStyles.inCenter, {height:RfH(320)}]}>
+          <Image source={NoRecordImg} style = {AppStyles.homeImgEmpty}/>
+        <Text style = {[AppStyles.txtBlackRegular, AppStyles.textalig, AppStyles.f18, AppStyles.mt20]}>No Pending Orders</Text>
         </View> 
       }
 

@@ -27,8 +27,8 @@ function AggregatorWorkOrderList() {
 
   const [{ data, loading, error }, onWorkOrder] = getWorkOrderList(offset);
 
-  const screenNavigate = () => {
-    navigation.navigate(NavigationRouteNames.SMARTCONTRACT_DETAIL);
+  const screenNavigate = (item) => {
+    navigation.navigate(NavigationRouteNames.WORK_ORDER_VERIFICATION, { item });
   }
 
   useLayoutEffect(() => {

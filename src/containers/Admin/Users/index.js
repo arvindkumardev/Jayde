@@ -108,7 +108,7 @@ function Users() {
       <TouchableOpacity
         activeOpacity = {0.8}
         key={index}
-        style={[AppStyles.cardStyle, AppStyles.shadow, AppStyles.whitebackgrnd]}
+        style={[AppStyles.userCardStyle, AppStyles.shadow, AppStyles.whitebackgrnd]}
         onPress={() => { screenNavigate(item, index) }}>
         <View >
 
@@ -129,7 +129,7 @@ function Users() {
           <Text style={[AppStyles.txtBlackRegular, AppStyles.f15, AppStyles.ml16,]}>{item.name}</Text>
 
 
-          <View style={[AppStyles.flexDir, AppStyles.mt14, AppStyles.mb20]}>
+          <View style={[AppStyles.flexDir, AppStyles.mt14, AppStyles.mb15]}>
             <View>
               <Image style={Styles.lftimga} source={recycleImg} />
             </View>

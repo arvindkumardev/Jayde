@@ -155,6 +155,9 @@ const spaces = StyleSheet.create({
     mb10:{
         marginBottom: RfH(10)
     },
+    mb15:{
+        marginBottom: RfH(15)
+    },
     mb20:{
         marginBottom: RfH(20)
     },
@@ -165,6 +168,9 @@ const spaces = StyleSheet.create({
         marginBottom: RfH(40)
     }, 
 
+    mt2:{
+        marginTop: RfH(2)
+    },
     mt3:{
         marginTop: RfH(3)
     },

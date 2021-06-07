@@ -410,6 +410,13 @@ const AppStack = (props) => {
             options={CommonHeaderStyle}
           />
 
+           {/* Order Screen number: 21*/}
+           <Stack.Screen
+            name={NavigationRouteNames.WORK_ORDER_VERIFICATION}
+            component={WorkOrderVerification}
+            options={CommonHeaderStyle}
+          />
+
           {/* Smart Contract Screen number: 70*/}
           <Stack.Screen
             name={NavigationRouteNames.SMART_CONTRACT}

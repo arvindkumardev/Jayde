@@ -45,17 +45,17 @@ function ItemRow(props) {
             style={[AppStyles.cardStyle, AppStyles.shadow, AppStyles.whitebackgrnd, AppStyles.pv11]}
             onPress={() => screenNavigate(item)}>
             <View style={[AppStyles.flexDir]}>
-                <View style={[AppStyles.flexpointtwo, AppStyles.ml14]}>
-                    <Image source={ORDER_IMAGE[item.category_name]} />
+                <View style={[AppStyles.flexpointtwo, AppStyles.ml5]}>
+                    <Image source={ORDER_IMAGE[item.category_name]} style = {AppStyles.imgOrders}/>
                 </View>
                 <View style={[AppStyles.flexpointfive, AppStyles.ml16]}>
-                    <Text style={[AppStyles.txtBlackRegular, AppStyles.f17,]}>{item.work_order_no}</Text>
-                    <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f15,]}>{item.work_qty} {item.unit_name} {item.category_name}</Text>
-                    <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f11,]}>{displayShortDate(item.pickup_date)}</Text>
-                    <View style={[AppStyles.flexRowAlignCenter, AppStyles.mr20]}>
+                    <Text style={[AppStyles.txtBlackRegular, AppStyles.f17, AppStyles.mt5]}>{item.work_order_no}</Text>
+                    <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f15, AppStyles.mt2]}>{item.work_qty} {item.unit_name} {item.category_name}</Text>
+                    <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f11, AppStyles.mt2]}>{displayShortDate(item.pickup_date)}</Text>
+                    {/* <View style={[AppStyles.flexRowAlignCenter, AppStyles.mr20]}>
                         <FAIcon size={11} name='rupee' color={Colors.warmGrey}></FAIcon>
                         <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f12, AppStyles.ml5]}>{item.work_price} / {item.price_unit}</Text>
-                    </View>
+                    </View> */}
                 </View>
                 <View style={[AppStyles.flexpointthree, AppStyles.inCenter]}>
                     <View style={[AppStyles.flexRowAlignCenter]}>

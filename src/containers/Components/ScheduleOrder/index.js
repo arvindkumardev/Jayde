@@ -49,15 +49,15 @@ function ItemRow(props) {
             key={index}
             style={[AppStyles.cardStyle, AppStyles.shadow, AppStyles.whitebackgrnd, AppStyles.pv11]}
             onPress={() => screenNavigate(item)}>
-            <View style={[AppStyles.flexDir, AppStyles.ph10]}>
+            <View style={[AppStyles.flexDir, AppStyles.ml5]}>
                 <View style={[AppStyles.flexpointtwo]}>
-                    <Image source={ORDER_IMAGE[item.category_name]} />
+                    <Image source={ORDER_IMAGE[item.category_name]} style = {AppStyles.imgOrders}/>
                 </View>
 
                 <View style={[AppStyles.flexpointfive, AppStyles.ml16]}>
-                    <Text style={[AppStyles.txtBlackRegular, AppStyles.f17,]}>{item.order_no}</Text>
-                    <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f15,]}>{item.qty}  {item.unit_name}  {item.category_name}</Text>
-                    <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f11,]}>{displayShortDate(item.pickup_date)}</Text>
+                    <Text style={[AppStyles.txtBlackRegular, AppStyles.f17, AppStyles.mt5]}>{item.order_no}</Text>
+                    <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f15, AppStyles.mt2]}>{item.qty}  {item.unit_name}  {item.category_name}</Text>
+                    <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f11, AppStyles.mt2]}>{displayShortDate(item.pickup_date)}</Text>
                 </View>
 
                 {item.assigned_status == '1' ?
