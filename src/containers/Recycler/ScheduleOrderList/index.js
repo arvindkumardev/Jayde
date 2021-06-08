@@ -85,7 +85,9 @@ function RecyclerScheduleOrderList() {
   const screenNavigate = (item) => {
     {
       item.assigned_status == '1' &&
-        navigation.navigate(NavigationRouteNames.PAYMENT_VERIFICATION, { 'assignedID': item.assigned_id, getActionType: getActionType });
+        navigation.navigate(NavigationRouteNames.PAYMENT_VERIFICATION, 
+          { 'assignedID': item.assigned_id, getActionType: getActionType,
+          WhereFrom: NavigationRouteNames.RECYCLER_SCHEDULED_ORDER_LIST });
     }
   }
 
