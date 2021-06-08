@@ -56,6 +56,22 @@ const commonCss = StyleSheet.create({
     height: RfH(44),
     borderRadius: 10,
   },
+  confirmButton: {
+    backgroundColor: '#F7A435',
+    borderRadius: 10,
+    paddingHorizontal: RfW(10),
+    marginLeft: 3,
+    borderColor: '#F7A435',
+    borderWidth: 1,
+  },
+  cancelButton: {
+    backgroundColor: '#fff',
+    borderRadius: 10,
+    borderColor: '#F7A435',
+    borderWidth: 1,
+    paddingHorizontal: RfW(10),
+    marginRight: 5,
+  },
   cancelBtn: {
     backgroundColor: '#fff',
     width: RfW(150),
@@ -132,8 +148,8 @@ const commonCss = StyleSheet.create({
     borderWidth: 1,
     borderColor: Colors.cardBorder,
     marginTop:  RfH(20),
-    marginLeft:  RfW(15),
-    marginRight:  RfW(15),
+    marginLeft:  RfW(24),
+    marginRight:  RfW(24),
     borderRadius:  RfH(10),
   },
 

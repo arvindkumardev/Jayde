@@ -151,7 +151,7 @@ function SellerOrderDetail() {
           <View style={[AppStyles.flex1, Styles.btnContainer]}>
             <TouchableOpacity
               activeOpacity={0.8}
-              style={[AppStyles.br10, AppStyles.btnPrimary, AppStyles.pv10, AppStyles.alignCenter, AppStyles.ph40, AppStyles.mb20,]}
+              style={[AppStyles.br10, AppStyles.btnPrimary, AppStyles.btnHeightwidth, AppStyles.inCenter, AppStyles.mb20,]}
               onPress={handleConfirm}
             >
               <Text style={[AppStyles.txtWhiteRegular, AppStyles.f18]}>CONFIRM</Text>
@@ -161,7 +161,7 @@ function SellerOrderDetail() {
             <View style={[AppStyles.flex1, Styles.btnContainer]}>
               <TouchableOpacity
                 activeOpacity={0.8}
-                style={[AppStyles.br10, AppStyles.btnPrimary, AppStyles.pv10, AppStyles.alignCenter, AppStyles.ph40, AppStyles.mb20,]}
+                style={[AppStyles.br10, AppStyles.btnPrimary, AppStyles.btnHeightwidth, AppStyles.inCenter, AppStyles.mb20,]}
                 onPress={handleConfirm}
               >
                 <Text style={[AppStyles.txtWhiteRegular, AppStyles.f18]}>CONFIRM</Text>
@@ -171,7 +171,7 @@ function SellerOrderDetail() {
             <View style={[AppStyles.flex1, Styles.btnContainer]}>
               <TouchableOpacity
                 activeOpacity={0.8}
-                style={[AppStyles.br10, AppStyles.btnPrimary, AppStyles.pv10, AppStyles.alignCenter, AppStyles.ph40, AppStyles.mb20,]}
+                style={[AppStyles.br10, AppStyles.btnPrimary, AppStyles.btnHeightwidth, AppStyles.inCenter, AppStyles.mb20]}
                 onPress={handleConfirm}
               >
                 <Text style={[AppStyles.txtWhiteRegular, AppStyles.f18]}>CONFIRM</Text>

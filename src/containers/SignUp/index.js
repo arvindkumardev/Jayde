@@ -256,7 +256,7 @@ function SignUp() {
             </View>
 
             <View style={{ marginTop: RfH(10) }}>
-              <TouchableOpacity activeOpacity={0.8} style={[AppStyles.mt20, AppStyles.br10, AppStyles.btnPrimary, AppStyles.pv15, AppStyles.aligncen]}
+              <TouchableOpacity activeOpacity={0.8} style={[AppStyles.mt20, AppStyles.br10, AppStyles.btnPrimary, AppStyles.btnHeightwidth, AppStyles.inCenter]}
                 onPress={() => handleSignup()}>
                 <Text style={[AppStyles.f18, AppStyles.txtWhiteRegular]}>CONFIRM</Text>
               </TouchableOpacity>

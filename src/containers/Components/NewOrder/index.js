@@ -121,7 +121,7 @@ function ItemRow(props) {
         <TouchableOpacity
             activeOpacity={0.8}
             key={index}
-            style={[AppStyles.cardStyle, AppStyles.shadow, AppStyles.whitebackgrnd, AppStyles.pv11]}
+            style={[AppStyles.cardStyle, AppStyles.shadow, AppStyles.whitebackgrnd, AppStyles.pv15]}
             onPress={() => screenNavigate(item)}>
 
             <View style={[AppStyles.flexDir]}>

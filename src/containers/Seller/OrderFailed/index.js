@@ -29,7 +29,7 @@ function OrderFailed() {
   return (
     <View style={AppStyles.topView}>
       <ScrollView showsVerticalScrollIndicator = {false}>
-        <View style={Styles.boxContent}>
+        <View style={[Styles.boxContent, AppStyles.shadow]}>
           <Image style={Styles.boxImage} source={FailedImg} />
           <Text style={[AppStyles.txtBlackBold, AppStyles.f20, AppStyles.spacing1]}>ORDER FAILED</Text>
 

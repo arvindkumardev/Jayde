@@ -223,8 +223,8 @@ function AddUser() {
             <TouchableOpacity
               activeOpacity = {0.8}
               onPress={() => navigation.pop()}
-              style={[AppStyles.cancelBtn]}>
-              <Text style={[AppStyles.txtPrimaryRegular, AppStyles.f17, AppStyles.textalig, AppStyles.mt10]}>CANCEL</Text>
+              style={[AppStyles.cancelButton, AppStyles.btnHeight44, AppStyles.inCenter]}>
+              <Text style={[AppStyles.txtPrimaryRegular, AppStyles.f17]}>CANCEL</Text>
             </TouchableOpacity>
           </View>
           <View style={AppStyles.flex1}>
@@ -232,8 +232,8 @@ function AddUser() {
               activeOpacity = {0.8}
               disabled={!isValid}
               onPress={handleSubmit}
-              style={[AppStyles.confirmBtn, AppStyles.mb20]}>
-              <Text style={[AppStyles.txtWhiteRegular, AppStyles.f17, AppStyles.textalig, AppStyles.mt10]}>SAVE</Text>
+              style={[AppStyles.confirmButton, AppStyles.mb20, AppStyles.btnHeight44, AppStyles.inCenter]}>
+              <Text style={[AppStyles.txtWhiteRegular, AppStyles.f17]}>SAVE</Text>
             </TouchableOpacity>
           </View>
         </View>

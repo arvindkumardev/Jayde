@@ -111,14 +111,14 @@ function HomeScreen() {
   };
   const _renderData = (index, item) => {
     return (
-      <TouchableOpacity activeOpacity = {0.8} key={index} style={Styles.dataItemContainer}>
+      <TouchableOpacity activeOpacity = {0.8} key={index} style={[Styles.dataItemContainer, AppStyles.cardStyle, AppStyles.pv15]}>
         <View style={Styles.dataImage}>
-          <Image source={ORDER_IMAGE[item.category_name]} />
+          <Image source={ORDER_IMAGE[item.category_name]} style = {AppStyles.imgOrders}/>
         </View>
         <View style={[Styles.dataItemContent, AppStyles.ml15]}>
-          <Text style={[AppStyles.txtBlackRegular, AppStyles.f17]}>{item.order_no}</Text>
-          <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f15]}>{item.qty} {item.unit_name} {item.category_name}</Text>
-          <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f11]}>{formatDisplayDate(item.pickup_date)}</Text>
+          <Text style={[AppStyles.txtBlackRegular, AppStyles.f17, AppStyles.mt5]}>{item.order_no}</Text>
+          <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f15, AppStyles.mt2]}>{item.qty} {item.unit_name} {item.category_name}</Text>
+          <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f11, AppStyles.mt2]}>{formatDisplayDate(item.pickup_date)}</Text>
         </View>
         <View style={Styles.statusIcon}>
           <FAIcon name={STATUS_ICON[item.is_confirmed == '3' ? 'Pending' : item.is_confirmed == '4' ? 'Completed' : 'In Transit'].iconName}

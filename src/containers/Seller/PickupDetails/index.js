@@ -419,7 +419,7 @@ const PickupDetails = () => {
         <TouchableOpacity 
         activeOpacity={0.8}
         style={[AppStyles.mt20, AppStyles.br10, AppStyles.btnPrimary,
-        AppStyles.pv10, AppStyles.alignCenter, AppStyles.justifyCon]}
+        AppStyles.btnHeightwidth, AppStyles.inCenter]}
           onPress={() => addressConfirm()}>
           <Text style={[AppStyles.txtWhiteRegular, AppStyles.f18]}>CONFIRM LOCATION</Text>
         </TouchableOpacity>
