@@ -523,7 +523,8 @@ const PaymentVerification = () => {
               dashGap={2}
               style={{
                 width: 1,
-                height: item.proposed_weight_confirm == '0' && isShowWeightedMainView ? '100%' : item.proposed_weight_confirm == '2' ? 60 : 35,
+                height: item.proposed_weight_confirm == '0' && isShowWeightedMainView ? '100%' 
+                : item.proposed_weight_confirm == '2' ? 65 : 35,
                 flexDirection: 'column'
               }} />
           </View>
@@ -808,7 +809,8 @@ const PaymentVerification = () => {
               style={{
                 width: 1,
                 height: item.pickup_confirmed == '0' && isShowPickUpMainView ? '100%' :
-                  item.pickup_confirmed == '2' ? 60 : item.is_seller_confirmed == '2' ? 60 : 35,
+                  item.pickup_confirmed == '2' ? 65 : item.is_seller_confirmed == '2' ? 65 
+                  : isShowPickUpConfirmButton ? 85 : 35,
                 flexDirection: 'column'
               }} />
           </View>
