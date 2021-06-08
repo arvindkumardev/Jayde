@@ -9,9 +9,7 @@ const styles = StyleSheet.create({
   btnConfirmPickup:{
     borderRadius: 10,
     backgroundColor:Colors.mangoTwo,
-    height: RfH(44),
-    width: RfW(315),
-    alignItems:'center',
+    height: RfH(44),  
     marginTop: RfH(10),
   },
   confirmButtonabc:{

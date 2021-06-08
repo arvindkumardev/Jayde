@@ -9,19 +9,21 @@ import FAIcon from 'react-native-vector-icons/FontAwesome';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import NavigationRouteNames from '../../../routes/ScreenNames';
 import CustomText from '../../../components/CustomText';
-import CheckBoxWrapper  from '../../../components/CheckBoxWrapper';
+import CheckBoxWrapper from '../../../components/CheckBoxWrapper';
 import Checkbox from "@react-native-community/checkbox";
 import moment from 'moment';
 import MIcon from 'react-native-vector-icons/MaterialCommunityIcons';
-import UploadDocument  from '../../../components/UploadDocument';
+import UploadDocument from '../../../components/UploadDocument';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { useFormik } from "formik";
 import * as yup from "yup";
-import { weightConfirm, weightPropose, paymentConfirm, pickupConfirm,
-   receiptConfirm, scheduleOrderDetail } from '../Middelware';
+import {
+  weightConfirm, weightPropose, paymentConfirm, pickupConfirm,
+  receiptConfirm, scheduleOrderDetail
+} from '../Middelware';
 import UserContext from '../../../appContainer/context/user.context';
 import DropDown from '../../../components/Picker/index';
-
+import Dash from 'react-native-dash';
 const paymentMode = [
   { label: 'CASH', value: 'CASH' },
   { label: 'CHEQUE', value: 'CHEQUE' },
@@ -81,7 +83,7 @@ const PaymentVerification = () => {
 
   // ---------------------- End Api Section ---------------------
 
-  const handelRefresh = () => {    
+  const handelRefresh = () => {
     if (route.params.WhereFrom === NavigationRouteNames.AGGREGATOR_SCHEDULE_ORDER_LIST) {
       route.params.getActionType()
     } else if (route.params.WhereFrom === NavigationRouteNames.RECYCLER_SCHEDULED_ORDER_LIST) {
@@ -227,6 +229,7 @@ const PaymentVerification = () => {
   };
 
   const onChangeUnit = (id) => {
+    console.log(id)
     proposeRequestForm.setFieldValue('unit', id)
   }
 
@@ -452,7 +455,9 @@ const PaymentVerification = () => {
   }
 
   return (
-    isViewLoaded && <KeyboardAwareScrollView style={[AppStyles.topView, AppStyles.ph20]}>
+    isViewLoaded && <KeyboardAwareScrollView contentInsetAdjustmentBehavior="automatic"
+      automaticallyAdjustContentInsets={false}
+      style={[AppStyles.topView, AppStyles.ph20]}>
       <View style={AppStyles.aligncen}>
         <Text style={[AppStyles.txtBlackBold, AppStyles.f17, AppStyles.mt30,]}>Ref No- {item.order_no}</Text>
       </View>
@@ -504,236 +509,527 @@ const PaymentVerification = () => {
       </View>
 
       {/* Start Material weighted */}
-      <View style={[AppStyles.flexDir, AppStyles.mt35, AppStyles.inCenter]}>
-        <TouchableOpacity activeOpacity={0.8} style={[AppStyles.flexpointfour]}>
-          <Text style={[AppStyles.txtBlackRegular, AppStyles.f15,]}>Is the material Weighted</Text>
-        </TouchableOpacity>
-
-        <View style={[AppStyles.flexpointsix, AppStyles.alignfend, AppStyles.mr10]}>
+      <View style={[AppStyles.flexDir, AppStyles.mt35]}>
+        <View style={[AppStyles.flexpointone, AppStyles.inCenter, AppStyles.mr20]}>
           <CheckBoxWrapper
             isChecked={item.proposed_weight_confirm == '1' ? true : false}
             checkBoxHandler={() => { }}
           />
-        </View>
-      </View>
 
-      {item.proposed_weight_confirm == '0' && isShowWeightedMainView && <View>
-        <View style={[AppStyles.flexDir, AppStyles.mt20]}>
-          <View style={[AppStyles.flex1, AppStyles.mr5]}>
-            <TouchableOpacity activeOpacity={0.8} style={[AppStyles.alignCenter, AppStyles.justifyCon, {
-              borderRadius: 10, height: 44,
-              backgroundColor: toggleConfirmProposeWeight ? Colors.mango : Colors.grayBackground
-            }]} onPress={() => { setToggleConfirmProposeWeight(!toggleConfirmProposeWeight) }}>
-              <Text style={{
-                color: toggleConfirmProposeWeight ? Colors.white : Colors.warmGrey,
-              }}>Confirm Weight</Text>
-            </TouchableOpacity>
-          </View>
-
-          <View style={[AppStyles.flex1, AppStyles.ml5]}>
-            <TouchableOpacity activeOpacity={0.8} style={[AppStyles.alignCenter, AppStyles.justifyCon, {
-              borderRadius: 10, height: 44,
-              backgroundColor: toggleConfirmProposeWeight ? Colors.grayBackground : Colors.mango,
-            }]} onPress={() => { setToggleConfirmProposeWeight(!toggleConfirmProposeWeight) }}>
-              <Text style={{ color: toggleConfirmProposeWeight ? Colors.warmGrey : Colors.white }}>Propose Weight</Text>
-            </TouchableOpacity>
-
+          <View style={[AppStyles.flex1]}>
+            <Dash
+              dashColor={Colors.warmGrey}
+              dashThickness={1}
+              dashGap={2}
+              style={{
+                width: 1,
+                height: item.proposed_weight_confirm == '0' && isShowWeightedMainView ? '100%' : item.proposed_weight_confirm == '2' ? 60 : 35,
+                flexDirection: 'column'
+              }} />
           </View>
         </View>
 
-        {/* Start Confirm Weight */}
-        {toggleConfirmProposeWeight &&
-          <View>
-            <View style={{ marginTop: 20 }}>
-              <View>
-                <Text style={Styles.inputLabelText}>Kanta Slip Number</Text>
+        <View style={[AppStyles.flexpointnine]}>
+          <Text style={[AppStyles.txtBlackRegular, AppStyles.f15, AppStyles.mt12]}>Is the material Weighted</Text>
+
+          {item.proposed_weight_confirm == '0' && isShowWeightedMainView ? <View>
+            <View style={[AppStyles.flexDir, AppStyles.mt20]}>
+              <View style={[AppStyles.flex1, AppStyles.mr5]}>
+                <TouchableOpacity activeOpacity={0.8} style={[AppStyles.alignCenter, AppStyles.justifyCon, {
+                  borderRadius: 10, height: 44,
+                  backgroundColor: toggleConfirmProposeWeight ? Colors.mango : Colors.grayBackground
+                }]} onPress={() => { setToggleConfirmProposeWeight(!toggleConfirmProposeWeight) }}>
+                  <Text style={{
+                    color: toggleConfirmProposeWeight ? Colors.white : Colors.warmGrey,
+                  }}>Confirm Weight</Text>
+                </TouchableOpacity>
               </View>
-              <View>
-                <TextInput
-                  value={weightRequestForm.values.kantaSlipNo}
-                  placeholder="Slip Number"
-                  onChangeText={(txt) => weightRequestForm.setFieldValue('kantaSlipNo', txt)}
-                  style={{ backgroundColor: Colors.grayBackground, borderRadius: 10, paddingLeft: 10 }}
-                />
-                {clickWeightConfirm && weightRequestForm.errors.kantaSlipNo ? (
-                  <CustomText
-                    fontSize={15}
-                    color={Colors.red}
-                    styling={{ marginTop: RfH(10) }}>
-                    {weightRequestForm.errors.kantaSlipNo}
 
-                  </CustomText>
-                ) : null}
+              <View style={[AppStyles.flex1, AppStyles.ml5]}>
+                <TouchableOpacity activeOpacity={0.8} style={[AppStyles.alignCenter, AppStyles.justifyCon, {
+                  borderRadius: 10, height: 44,
+                  backgroundColor: toggleConfirmProposeWeight ? Colors.grayBackground : Colors.mango,
+                }]} onPress={() => { setToggleConfirmProposeWeight(!toggleConfirmProposeWeight) }}>
+                  <Text style={{ color: toggleConfirmProposeWeight ? Colors.warmGrey : Colors.white }}>Propose Weight</Text>
+                </TouchableOpacity>
+
               </View>
             </View>
 
-            <View style={[AppStyles.flexDir, , Styles.viewVolume]}>
-              <View style={AppStyles.flex1}>
-                <Text style={Styles.inputLabelText}>Date</Text>
-                <View>
-                  <TouchableOpacity activeOpacity={0.8}
-                    onPress={() => setPickerConfirmWeight(true)}
-                    style={[AppStyles.flexRowAlignCenter, AppStyles.btnSecandary, AppStyles.br10, AppStyles.mb10, { padding: 10 }]}>
-                    <FAIcon size={22} name='calendar-o' color={Colors.mangoTwo} />
-                    <Text style={[[AppStyles.txtBlackRegular, AppStyles.f16, AppStyles.pl20]]}>{formatDisplayDate(confirmWeightDate)}</Text>
-                  </TouchableOpacity>
-                  {showPickerConfirmWeight && (<DateTimePicker
-                    testID="dateTimePicker"
-                    value={new Date()}
-                    minimumDate={new Date(moment(new Date()).add(1, 'days').format('YYYY-MM-DD'))}
-                    mode={'date'}
-                    is24Hour={false}
-                    display="default"
-                    onChange={onChangeConfirmWeightDate}
-                  />)}
-                </View>
-              </View>
-              <View style={[AppStyles.flex1, AppStyles.ml10]}>
-                <Text style={Styles.inputLabelText}>Upload Documents</Text>
-                <View>
+            {/* Start Confirm Weight */}
+            {toggleConfirmProposeWeight &&
+              <View>
+                <View style={{ marginTop: 20 }}>
                   <View>
-                    <TouchableOpacity activeOpacity={0.8} style={[Styles.inputText, Styles.inputIcon, AppStyles.br10]} onPress={() => setImageUpload(!imageUpload)}>
-                      <Text style={[AppStyles.txtSecandaryRegular, { color: confirmWeightImgData.length > 0 ? Colors.green : Colors.warmGrey }]}>{confirmWeightImgData.length > 0 ? 'File Attached' : 'Attach File'}</Text>
-                      <MIcon name="attachment" size={25} color={Colors.grayThree} />
-                    </TouchableOpacity>
-                    {clickWeightConfirm && confirmWeightImgData.length === 0 ? (
+                    <Text style={Styles.inputLabelText}>Kanta Slip Number</Text>
+                  </View>
+                  <View>
+                    <TextInput
+                      value={weightRequestForm.values.kantaSlipNo}
+                      placeholder="Slip Number"
+                      onChangeText={(txt) => weightRequestForm.setFieldValue('kantaSlipNo', txt)}
+                      style={{ backgroundColor: Colors.grayBackground, borderRadius: 10, paddingLeft: 10 }}
+                    />
+                    {clickWeightConfirm && weightRequestForm.errors.kantaSlipNo ? (
                       <CustomText
                         fontSize={15}
                         color={Colors.red}
-                        styling={[AppStyles.mt10, AppStyles.mb5]}>
-                        Upload Picture
+                        styling={{ marginTop: RfH(10) }}>
+                        {weightRequestForm.errors.kantaSlipNo}
+
                       </CustomText>
                     ) : null}
-                    <UploadDocument handleClose={() => setImageUpload(false)}
-                      isVisible={imageUpload}
-                      ImageData={confirmWeightImageData} />
+                  </View>
+                </View>
+
+                <View style={[AppStyles.flexDir, , Styles.viewVolume]}>
+                  <View style={AppStyles.flex1}>
+                    <Text style={Styles.inputLabelText}>Date</Text>
+                    <View>
+                      <TouchableOpacity activeOpacity={0.8}
+                        onPress={() => setPickerConfirmWeight(true)}
+                        style={[AppStyles.flexRowAlignCenter, AppStyles.btnSecandary, AppStyles.br10, AppStyles.mb10, { padding: 10 }]}>
+                        <FAIcon size={22} name='calendar-o' color={Colors.mangoTwo} />
+                        <Text style={[[AppStyles.txtBlackRegular, AppStyles.f16, AppStyles.pl20]]}>{formatDisplayDate(confirmWeightDate)}</Text>
+                      </TouchableOpacity>
+                      {showPickerConfirmWeight && (<DateTimePicker
+                        testID="dateTimePicker"
+                        value={new Date()}
+                        minimumDate={new Date(moment(new Date()).add(1, 'days').format('YYYY-MM-DD'))}
+                        mode={'date'}
+                        is24Hour={false}
+                        display="default"
+                        onChange={onChangeConfirmWeightDate}
+                      />)}
+                    </View>
+                  </View>
+                  <View style={[AppStyles.flex1, AppStyles.ml10]}>
+                    <Text style={Styles.inputLabelText}>Upload Documents</Text>
+                    <View>
+                      <View>
+                        <TouchableOpacity activeOpacity={0.8} style={[Styles.inputText, Styles.inputIcon, AppStyles.br10]} onPress={() => setImageUpload(!imageUpload)}>
+                          <Text style={[AppStyles.txtSecandaryRegular, { color: confirmWeightImgData.length > 0 ? Colors.green : Colors.warmGrey }]}>{confirmWeightImgData.length > 0 ? 'File Attached' : 'Attach File'}</Text>
+                          <MIcon name="attachment" size={25} color={Colors.grayThree} />
+                        </TouchableOpacity>
+                        {clickWeightConfirm && confirmWeightImgData.length === 0 ? (
+                          <CustomText
+                            fontSize={15}
+                            color={Colors.red}
+                            styling={[AppStyles.mt10, AppStyles.mb5]}>
+                            Upload Picture
+                          </CustomText>
+                        ) : null}
+                        <UploadDocument handleClose={() => setImageUpload(false)}
+                          isVisible={imageUpload}
+                          ImageData={confirmWeightImageData} />
+                      </View>
+                    </View>
+                  </View>
+                </View>
+
+                <View style={[AppStyles.flexDir, AppStyles.mt20]}>
+                  <View style={[AppStyles.flex1]}>
+                    <View style={{ marginTop: RfH(10), marginTop: 5, marginBottom: 25 }}>
+                      <TouchableOpacity activeOpacity={0.8} style={[Styles.confirmButtonn, AppStyles.btnHeight44, AppStyles.inCenter]}
+                        onPress={() => navigation.pop()}>
+                        <Text style={Styles.confirmBtnTextt}>CANCEL</Text>
+                      </TouchableOpacity>
+                    </View>
+                  </View>
+                  <View style={[AppStyles.flex1]}>
+                    <View style={{ marginTop: RfH(10), marginTop: 5, marginBottom: 25 }}>
+                      <TouchableOpacity activeOpacity={0.8} style={[Styles.confirmButton, AppStyles.btnHeight44, AppStyles.inCenter]} onPress={() => handelWeightConfirm()}>
+                        <Text style={Styles.confirmBtnText}>CONFIRM</Text>
+                      </TouchableOpacity>
+                    </View>
                   </View>
                 </View>
               </View>
+            }
+            {/* End Confirm Weight */}
+
+            {/* Start Propose Weight */}
+            {!toggleConfirmProposeWeight &&
+              <View>
+                <View style={Styles.viewVolume}>
+                  <Text style={Styles.inputLabelText}>Enter New Volume</Text>
+                  <View>
+                    <View style={{ flexDirection: 'row' }}>
+                      <View style={[AppStyles.flex1, AppStyles.pr10]}>
+                        <TextInput
+                          placeholder="Enter volume"
+                          value={proposeRequestForm.values.volume}
+                          keyboardType={'numeric'}
+                          onChangeText={(txt) => proposeRequestForm.setFieldValue("volume", txt)}
+                          style={{ backgroundColor: Colors.grayBackground, borderRadius: 10, paddingLeft: 10 }}
+                        />
+                        {proposeClickConfirm && proposeRequestForm.errors.volume ? (
+                          <CustomText
+                            fontSize={15}
+                            color={Colors.red}
+                            styling={{ marginTop: RfH(5) }}>
+                            {proposeRequestForm.errors.volume}
+                          </CustomText>
+                        ) : null}
+
+                      </View>
+                      <View style={AppStyles.flex1}>
+                        <DropDown
+                          items={unitPickerData}
+                          placeholderText="Units"
+                          itemStyle={{ color: '#000' }}
+                          onValueChange={onChangeUnit}
+                          selectedValue={proposeRequestForm.values.unit}
+                          containerStyle={{ borderRadius: 10, backgroundColor: Colors.grayBackground, paddingLeft: 10 }}
+                        />
+
+                        {proposeClickConfirm && proposeRequestForm.errors.unit ? (
+                          <CustomText
+                            fontSize={15}
+                            color={Colors.red}
+                            styling={{ marginTop: RfH(5) }}>
+                            {proposeRequestForm.errors.unit}
+                          </CustomText>
+                        ) : null}
+                      </View>
+                    </View>
+                  </View>
+                </View>
+
+                <View style={{ marginTop: 20 }}>
+                  <View>
+                    <Text style={[Styles.inputLabelText, AppStyles.mt20]}>Kanta Slip Number</Text>
+                  </View>
+                  <View>
+                    <TextInput
+                      value={proposeRequestForm.values.Proposekantaslipno}
+                      placeholder="Slip Number"
+                      onChangeText={(txt) => proposeRequestForm.setFieldValue('Proposekantaslipno', txt)}
+                      style={{ backgroundColor: Colors.grayBackground, borderRadius: 10, paddingLeft: 10 }}
+                    />
+                    {proposeClickConfirm && proposeRequestForm.errors.Proposekantaslipno ? (
+                      <CustomText
+                        fontSize={15}
+                        color={Colors.red}
+                        styling={{ marginTop: RfH(5) }}>
+                        {proposeRequestForm.errors.Proposekantaslipno}
+                      </CustomText>
+                    ) : null}
+                  </View>
+                </View>
+
+                <View style={[AppStyles.flexDir, Styles.viewVolume, AppStyles.mr5]}>
+                  <View style={AppStyles.flex1}>
+                    <Text style={Styles.inputLabelText}>Date</Text>
+                    <View>
+                      <TouchableOpacity activeOpacity={0.8}
+                        onPress={() => setPickerProposeWeight(true)}
+                        style={[AppStyles.flexRowAlignCenter, AppStyles.btnSecandary, AppStyles.br10, AppStyles.mb10, { padding: 10 }]}>
+                        <FAIcon size={22} name='calendar-o' color={Colors.mangoTwo} />
+                        <Text style={[[AppStyles.txtBlackRegular, AppStyles.f16, AppStyles.pl20]]}>{formatDisplayDate(proposeWeightDate)}</Text>
+                      </TouchableOpacity>
+                      {showPickerProposeWeight && (<DateTimePicker
+                        testID="dateTimePicker"
+                        value={new Date()}
+                        minimumDate={new Date(moment(new Date()).add(1, 'days').format('YYYY-MM-DD'))}
+                        mode={'date'}
+                        is24Hour={false}
+                        display="default"
+                        onChange={onChangeProposeWeightDate}
+                      />)}
+                    </View>
+                  </View>
+                  <View style={[AppStyles.flex1, AppStyles.ml5]}>
+                    <Text style={Styles.inputLabelText}>Upload Documents</Text>
+                    <View>
+                      <TouchableOpacity activeOpacity={0.8} style={[Styles.inputText, Styles.inputIcon, AppStyles.br10]} onPress={() => setImageUpload1(!imageUpload1)}>
+                        {/* <Text style={Styles.txtFileUpload}>Upload file</Text> */}
+                        <Text style={[AppStyles.txtSecandaryRegular, { color: proposeWeightImgData.length > 0 ? Colors.green : Colors.warmGrey }]}>{proposeWeightImgData.length > 0 ? 'File Attached' : 'Attach File'}</Text>
+                        <MIcon name="attachment" size={25} color={Colors.grayThree} />
+                      </TouchableOpacity>
+                      {proposeClickConfirm && proposeWeightImgData.length === 0 ? (
+                        <CustomText
+                          fontSize={15}
+                          color={Colors.red}
+                          styling={{ marginTop: RfH(5) }}>
+                          Upload Picture
+                        </CustomText>
+                      ) : null}
+                      <UploadDocument handleClose={() => setImageUpload1(false)}
+                        isVisible={imageUpload1}
+                        ImageData={proposeWeightImageData} />
+                    </View>
+                  </View>
+                </View>
+
+                <View style={AppStyles.flexDir}>
+                  <View style={[AppStyles.flex1, AppStyles.mt20]}>
+                    <View style={{ marginTop: RfH(10), marginTop: 5, marginBottom: 25 }}>
+                      <TouchableOpacity activeOpacity={0.8} style={[Styles.confirmButtonn, AppStyles.btnHeight44, AppStyles.inCenter]}
+                        onPress={() => navigation.pop()}>
+                        <Text style={Styles.confirmBtnTextt}>CANCEL</Text>
+                      </TouchableOpacity>
+                    </View>
+                  </View>
+                  <View style={[AppStyles.flex1, AppStyles.mt20]}>
+                    <View style={{ marginTop: RfH(10), marginTop: 5, marginBottom: 25 }}>
+                      <TouchableOpacity activeOpacity={0.8} style={[Styles.confirmButton, AppStyles.btnHeight44, AppStyles.inCenter]} onPress={() =>
+                        submitProposeWeight()}>
+                        <Text style={Styles.confirmBtnText}>CONFIRM</Text>
+                      </TouchableOpacity>
+                    </View>
+                  </View>
+                </View>
+              </View>
+            }
+            {/* End Propose Weight */}
+          </View> : <View style={AppStyles.pt32}></View>}
+
+          {item.proposed_weight_confirm == '2' && <View style={[AppStyles.flex1, AppStyles.pv10]}>
+            <Text style={[AppStyles.txtBlackRegular, AppStyles.f16, AppStyles.txtmangoTwoBold]}>Proposed Weight Sent</Text>
+          </View>
+          }
+        </View>
+      </View>
+
+      {/* Start Material pickup confirmation */}
+      <View style={[AppStyles.flexDir]}>
+        <View style={[AppStyles.flexpointone, AppStyles.inCenter, AppStyles.mr20]}>
+          <CheckBoxWrapper
+            isChecked={item.pickup_confirmed == '1' ? true : false}
+            checkBoxHandler={() => { }}
+          />
+          <View style={[AppStyles.flex1]}>
+            <Dash
+              key={2}
+              dashColor={Colors.warmGrey}
+              dashThickness={1}
+              dashGap={2}
+              style={{
+                width: 1,
+                height: item.pickup_confirmed == '0' && isShowPickUpMainView ? '100%' :
+                  item.pickup_confirmed == '2' ? 60 : item.is_seller_confirmed == '2' ? 60 : 35,
+                flexDirection: 'column'
+              }} />
+          </View>
+        </View>
+
+        <View style={[AppStyles.flexpointnine]}>
+          <Text style={[AppStyles.txtBlackRegular, AppStyles.f15, AppStyles.mt12,]}>Material Pick-up confirmation</Text>
+          {item.pickup_confirmed == '0' && isShowPickUpMainView ? <View>
+            <View style={[AppStyles.mt20]}>
+              <Text style={[AppStyles.txtBlackRegular, AppStyles.f15, AppStyles.mb6,]}>Payment Required</Text>
+              <View style={{ flex: 1, flexDirection: 'row' }}>
+                <TextInput placeholder={"25,864"}
+                  editable={false}
+                  value={item.price}
+                  style={[Styles.inputTextf, Styles.Requiredprice]} />
+                <FAIcon style={Styles.rupee} size={15} name="rupee" />
+              </View>
             </View>
 
-            <View style={[AppStyles.flexDir, AppStyles.mt20]}>
-              <View style={[AppStyles.flex1]}>
+            <View style={[AppStyles.mt20,]}>
+              <View style={AppStyles.flexDir}>
+                <View style={AppStyles.flexpointseven}>
+                  <Text style={[AppStyles.txtBlackRegular, AppStyles.f15, AppStyles.mb6]}>Payment Made</Text>
+                </View>
+                {/* <View style={AppStyles.flexpointthree}>
+              <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f11, AppStyles.ml30, AppStyles.mt5]}>enter value</Text>
+            </View> */}
+              </View>
+
+              <TextInput
+                placeholder="Enter Paid Amount"
+                value={paymentRequestForm.values.paymentmade}
+                onChangeText={(txt) => paymentRequestForm.setFieldValue('paymentmade', txt)}
+                style={{ backgroundColor: Colors.grayBackground, borderRadius: 10, paddingLeft: 10 }}
+                maxLength={50}
+                returnKeyType='next'
+                keyboardType='number-pad'
+                onSubmitEditing={() => refPaymentDetail.current?.focus()}
+              />
+              {paymentClickConfirm && paymentRequestForm.errors.paymentmade ? (
+                <CustomText
+                  fontSize={15}
+                  color={Colors.red}
+                  styling={{ marginTop: RfH(10) }}>
+                  {paymentRequestForm.errors.paymentmade}
+                </CustomText>
+              ) : null}
+            </View>
+
+            <View style={[AppStyles.mt20,]}>
+              <Text style={[AppStyles.txtBlackRegular, AppStyles.f15, AppStyles.mb6,]}>Select Payment Mode</Text>
+              <DropDown
+                items={paymentMode}
+                placeholderText="Select Payment Mode"
+                itemStyle={{ color: '#000' }}
+                onValueChange={(val) => paymentRequestForm.setFieldValue('paymentmode', val)}
+                selectedValue={paymentRequestForm.values.paymentmode}
+                containerStyle={{ borderRadius: 10, backgroundColor: Colors.grayBackground, paddingLeft: 10 }}
+              />
+
+              {paymentClickConfirm && paymentRequestForm.errors.paymentmode ? (
+                <CustomText
+                  fontSize={15}
+                  color={Colors.red}
+                  styling={{ marginTop: RfH(10) }}>
+                  {paymentRequestForm.errors.paymentmode}
+                </CustomText>
+              ) : null}
+            </View>
+
+            <View style={[AppStyles.mt20,]}>
+              <View style={AppStyles.flexDir}>
+                <View style={AppStyles.flexpointsix}>
+                  <Text style={[AppStyles.txtBlackRegular, AppStyles.f15, AppStyles.mb6,]}>Payment Details</Text>
+                </View>
+                <View style={AppStyles.flexpointfour}>
+                  <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f11, AppStyles.mt5, AppStyles.ml20,]}>Transaction number</Text>
+                </View>
+              </View>
+              <TextInput
+                ref={refPaymentDetail}
+                placeholder={"1235567778"}
+                value={paymentRequestForm.values.paymentdetails}
+                onChangeText={(txt) => paymentRequestForm.setFieldValue('paymentdetails', txt)}
+                //keyboardType='number-pad'
+                style={Styles.inputText}
+                maxLength={50}
+                returnKeyType='done'
+              />
+              {paymentClickConfirm && paymentRequestForm.errors.paymentdetails ? (
+                <CustomText
+                  fontSize={15}
+                  color={Colors.red}
+                  styling={{ marginTop: RfH(10) }}>
+                  {paymentRequestForm.errors.paymentdetails}
+                </CustomText>
+              ) : null}
+            </View>
+
+            <View>
+              <View style={[AppStyles.flexDir, AppStyles.alignCenter, AppStyles.mt20]}>
+                <Checkbox
+                  disabled={false}
+                  value={paymentRequestForm.values.checkCondition}
+                  tintColors={{ true: Colors.mango, false: '#777' }}
+                  onValueChange={(newValue) => paymentRequestForm.setFieldValue('checkCondition', newValue)}
+                />
+                <View style={{ marginLeft: RfW(10) }}>
+                  <CustomText
+                    color={Colors.warmGrey}
+                    fontSize={15}
+                    styling={{ paddingVertical: RfH(4) }}>
+                    I agree to the terms and conditions
+                </CustomText>
+                </View>
+              </View>
+              {paymentClickConfirm && paymentRequestForm.errors.checkCondition ? (
+                <CustomText fontSize={15} color={Colors.red} styling={{ marginLeft: 27 }}>
+                  { paymentRequestForm.errors.checkCondition}
+                </CustomText>
+              ) : null}
+            </View>
+
+            <View style={AppStyles.flexDir}>
+              <View style={AppStyles.flex1}>
                 <View style={{ marginTop: RfH(10), marginTop: 5, marginBottom: 25 }}>
-                  <TouchableOpacity activeOpacity={0.8} style={[Styles.confirmButtonn, AppStyles.btnHeight44, AppStyles.inCenter]}
-                    onPress={() => navi}>
+                  <TouchableOpacity activeOpacity={0.8} style={[Styles.confirmButtonn, AppStyles.btnHeight44, AppStyles.inCenter]} onPress={() => navigation.pop()}>
                     <Text style={Styles.confirmBtnTextt}>CANCEL</Text>
                   </TouchableOpacity>
                 </View>
               </View>
-              <View style={[AppStyles.flex1]}>
+              <View style={AppStyles.flex1}>
                 <View style={{ marginTop: RfH(10), marginTop: 5, marginBottom: 25 }}>
-                  <TouchableOpacity activeOpacity={0.8} style={[Styles.confirmButton, AppStyles.btnHeight44, AppStyles.inCenter]} onPress={() => handelWeightConfirm()}>
+                  <TouchableOpacity activeOpacity={0.8} style={[Styles.confirmButton, AppStyles.btnHeight44, AppStyles.inCenter]} onPress={() => handleSubmitPayment()}>
                     <Text style={Styles.confirmBtnText}>CONFIRM</Text>
                   </TouchableOpacity>
                 </View>
               </View>
             </View>
           </View>
-        }
 
-        {/* End Confirm Weight */}
+            :
+            <View style={AppStyles.pt32}></View>
+          }
 
-        {/* Start Propose Weight */}
-        {!toggleConfirmProposeWeight &&
-          <View>
-            <View style={Styles.viewVolume}>
-              <Text style={Styles.inputLabelText}>Enter New Volume</Text>
-              <View>
-                <View style={{ flexDirection: 'row' }}>
-                  <View style={{ flex: 2, paddingRight: 10 }}>
-                    <TextInput
-                      placeholder="Enter volume"
-                      value={proposeRequestForm.values.volume}
-                      keyboardType={'numeric'}
-                      onChangeText={(txt) => proposeRequestForm.setFieldValue("volume", txt)}
-                      style={{ backgroundColor: Colors.grayBackground, borderRadius: 10, paddingLeft: 10 }}
-                    />
-                    {proposeClickConfirm && proposeRequestForm.errors.volume ? (
-                      <CustomText
-                        fontSize={15}
-                        color={Colors.red}
-                        styling={{ marginTop: RfH(5) }}>
-                        {proposeRequestForm.errors.volume}
-                      </CustomText>
-                    ) : null}
-
-                  </View>
-                  <View style={{ flex: 1 }}>
-                    <DropDown
-                      items={unitPickerData}
-                      placeholderText="Units"
-                      //itemStyle={{ color: '#000' }}
-                      onValueChange={onChangeUnit}
-                      selectedValue={proposeRequestForm.values.unit}
-                      containerStyle={{ borderRadius: 10, backgroundColor: Colors.grayBackground, paddingLeft: 10 }}
-                    />
-
-                    {proposeClickConfirm && proposeRequestForm.errors.unit ? (
-                      <CustomText
-                        fontSize={15}
-                        color={Colors.red}
-                        styling={{ marginTop: RfH(5) }}>
-                        {proposeRequestForm.errors.unit}
-                      </CustomText>
-                    ) : null}
-                  </View>
-                </View>
-              </View>
+          {item.is_seller_confirmed == '2' ? <View style={[AppStyles.flex1, AppStyles.pv10]}>
+            <Text style={[AppStyles.txtBlackRegular, AppStyles.f16, AppStyles.txtmangoTwoBold]}>Payment Confirmation Sent</Text>
+          </View>
+            : item.pickup_confirmed == '2' && <View style={[AppStyles.flex1, AppStyles.pv10]}>
+              <Text style={[AppStyles.txtBlackRegular, AppStyles.f16, AppStyles.txtmangoTwoBold]}>Payment Confirmation Sent</Text>
             </View>
+          }
 
+          {isShowPickUpConfirmButton && <TouchableOpacity activeOpacity={0.8}
+            style={[Styles.btnConfirmPickup, AppStyles.inCenter]}
+            onPress={() => handelPickupConfirm()}>
+            <Text style={[AppStyles.txtWhiteRegular, AppStyles.f17]}>Confirm Pickup</Text>
+          </TouchableOpacity>}
+
+          {/* End Material pickup confirmation */}
+        </View>
+
+      </View>
+
+      <View style={[AppStyles.flexDir, AppStyles.mb20]}>
+        <View style={[AppStyles.flexpointone, AppStyles.alignCenter, AppStyles.mr20]}>
+          <CheckBoxWrapper
+            isChecked={item.is_completed == '1' ? true : false}
+            checkBoxHandler={() => { }}
+          />
+        </View>
+
+        <View style={[AppStyles.flexpointnine]}>
+          <Text style={[AppStyles.txtBlackRegular, AppStyles.f15, AppStyles.mt12]}>Has the material reached your warehouse</Text>
+          {/* Start material reached your warehouse */}
+          {isShowWareHouseMainView && <View>
             <View style={{ marginTop: 20 }}>
-              <View>
-                <Text style={[Styles.inputLabelText, AppStyles.mt20]}>Kanta Slip Number</Text>
-              </View>
-              <View>
-                <TextInput
-                  value={proposeRequestForm.values.Proposekantaslipno}
-                  placeholder="Slip Number"
-                  onChangeText={(txt) => proposeRequestForm.setFieldValue('Proposekantaslipno', txt)}
-                  style={{ backgroundColor: Colors.grayBackground, borderRadius: 10, paddingLeft: 10 }}
-                />
-                {proposeClickConfirm && proposeRequestForm.errors.Proposekantaslipno ? (
-                  <CustomText
-                    fontSize={15}
-                    color={Colors.red}
-                    styling={{ marginTop: RfH(5) }}>
-                    {proposeRequestForm.errors.Proposekantaslipno}
-                  </CustomText>
-                ) : null}
-              </View>
+              <Text style={Styles.inputLabelText}>Vehicle Number</Text>
+              <TextInput placeholder={"Enter Vehicle Number"}
+                value={receiptRequestForm.values.vechileNo}
+                onChangeText={(txt) => receiptRequestForm.setFieldValue('vechileNo', txt)}
+                style={Styles.inputText} />
+              {receiptClickConfirm && receiptRequestForm.errors.vechileNo ? (
+                <CustomText
+                  fontSize={15}
+                  color={Colors.red}
+                  styling={{ marginTop: RfH(10) }}>
+                  {receiptRequestForm.errors.vechileNo}
+                </CustomText>
+              ) : null}
             </View>
 
-            <View style={[AppStyles.flexDir, Styles.viewVolume, AppStyles.mr5]}>
+            <View style={[AppStyles.flexDir, Styles.viewVolume]}>
               <View style={AppStyles.flex1}>
                 <Text style={Styles.inputLabelText}>Date</Text>
                 <View>
                   <TouchableOpacity activeOpacity={0.8}
-                    onPress={() => setPickerProposeWeight(true)}
+                    onPress={() => setPickerWarehouse(true)}
                     style={[AppStyles.flexRowAlignCenter, AppStyles.btnSecandary, AppStyles.br10, AppStyles.mb10, { padding: 10 }]}>
                     <FAIcon size={22} name='calendar-o' color={Colors.mangoTwo} />
-                    <Text style={[[AppStyles.txtBlackRegular, AppStyles.f16, AppStyles.pl20]]}>{formatDisplayDate(proposeWeightDate)}</Text>
+                    <Text style={[[AppStyles.txtBlackRegular, AppStyles.f16, AppStyles.pl20]]}>{formatDisplayDate(warehouseDate)}</Text>
                   </TouchableOpacity>
-                  {showPickerProposeWeight && (<DateTimePicker
+                  {showPickerWarehouse && (<DateTimePicker
                     testID="dateTimePicker"
                     value={new Date()}
                     minimumDate={new Date(moment(new Date()).add(1, 'days').format('YYYY-MM-DD'))}
                     mode={'date'}
                     is24Hour={false}
                     display="default"
-                    onChange={onChangeProposeWeightDate}
+                    onChange={onChangeWareHouseDate}
                   />)}
                 </View>
               </View>
-              <View style={[AppStyles.flex1, AppStyles.ml5]}>
+              <View style={[AppStyles.flex1, AppStyles.ml10]}>
                 <Text style={Styles.inputLabelText}>Upload Documents</Text>
                 <View>
-                  <TouchableOpacity activeOpacity={0.8} style={[Styles.inputText, Styles.inputIcon, AppStyles.br10]} onPress={() => setImageUpload1(!imageUpload1)}>
-                    {/* <Text style={Styles.txtFileUpload}>Upload file</Text> */}
-                    <Text style={[AppStyles.txtSecandaryRegular, { color: proposeWeightImgData.length > 0 ? Colors.green : Colors.warmGrey }]}>{proposeWeightImgData.length > 0 ? 'File Attached' : 'Attach File'}</Text>
+                  <TouchableOpacity activeOpacity={0.8} style={[Styles.inputText, Styles.inputIcon, AppStyles.br10]} onPress={() => setWarehouseImageUpload(!warehouseImageUpload)}>
+                    <Text style={[AppStyles.txtSecandaryRegular, { color: receiptImgData.length > 0 ? Colors.green : Colors.warmGrey }]}>{receiptImgData.length > 0 ? 'File Attached' : 'Attach File'}</Text>
                     <MIcon name="attachment" size={25} color={Colors.grayThree} />
                   </TouchableOpacity>
-                  {proposeClickConfirm && proposeWeightImgData.length === 0 ? (
+                  {receiptClickConfirm && receiptImgData.length == 0 ? (
                     <CustomText
                       fontSize={15}
                       color={Colors.red}
@@ -741,9 +1037,9 @@ const PaymentVerification = () => {
                       Upload Picture
                     </CustomText>
                   ) : null}
-                  <UploadDocument handleClose={() => setImageUpload1(false)}
-                    isVisible={imageUpload1}
-                    ImageData={proposeWeightImageData} />
+                  <UploadDocument handleClose={() => setWarehouseImageUpload(false)}
+                    isVisible={warehouseImageUpload}
+                    ImageData={receiptImageData} />
                 </View>
               </View>
             </View>
@@ -751,322 +1047,55 @@ const PaymentVerification = () => {
             <View style={AppStyles.flexDir}>
               <View style={[AppStyles.flex1, AppStyles.mt20]}>
                 <View style={{ marginTop: RfH(10), marginTop: 5, marginBottom: 25 }}>
-                  <TouchableOpacity activeOpacity={0.8} style={[Styles.confirmButtonn, AppStyles.btnHeight44, AppStyles.inCenter]}
-                    onPress={() => navigation.pop()}>
+                  <TouchableOpacity activeOpacity={0.8} style={[Styles.confirmButtonn, AppStyles.btnHeight44, AppStyles.inCenter]} onPress={() => navigation.pop()}>
                     <Text style={Styles.confirmBtnTextt}>CANCEL</Text>
                   </TouchableOpacity>
                 </View>
               </View>
               <View style={[AppStyles.flex1, AppStyles.mt20]}>
                 <View style={{ marginTop: RfH(10), marginTop: 5, marginBottom: 25 }}>
-                  <TouchableOpacity activeOpacity={0.8} style={[Styles.confirmButton, AppStyles.btnHeight44, AppStyles.inCenter]} onPress={() =>
-                    submitProposeWeight()}>
+                  <TouchableOpacity activeOpacity={0.8} style={[Styles.confirmButton, AppStyles.btnHeight44, AppStyles.inCenter]} onPress={() => handleSubmitReceipt()}>
                     <Text style={Styles.confirmBtnText}>CONFIRM</Text>
                   </TouchableOpacity>
                 </View>
               </View>
             </View>
           </View>
-        }
-        {/* End Propose Weight */}
-      </View>}
+          }
+          {/* End material reached your warehouse */}
 
-      {item.proposed_weight_confirm == '2' && <View style={[AppStyles.alignCenter, AppStyles.justifyCon, AppStyles.pv10]}>
-        <Text style={[AppStyles.txtBlackRegular, AppStyles.f16, AppStyles.txtmangoTwoBold]}>Proposed Weight Sent</Text>
-      </View>
-      }
-
-      {/* Start Material pickup confirmation */}
-      <View style={[AppStyles.flexDir, AppStyles.mt20, AppStyles.inCenter]}>
-        <TouchableOpacity activeOpacity={0.8} style={[AppStyles.flexpointfour]}>
-          <Text style={[AppStyles.txtBlackRegular, AppStyles.f15,]}>Material Pick-up confirmation</Text>
-        </TouchableOpacity>
-
-        <View style={[AppStyles.flexpointsix, AppStyles.alignfend, AppStyles.mr10]}>
-          <CheckBoxWrapper
-            isChecked={item.pickup_confirmed == '1' ? true : false}
-            checkBoxHandler={() => { }}
-          />
-        </View>
-      </View>
-
-      {item.pickup_confirmed == '0' && isShowPickUpMainView && <View>
-        <View style={[AppStyles.mt20]}>
-          <Text style={[AppStyles.txtBlackRegular, AppStyles.f15, AppStyles.mb6,]}>Payment Required</Text>
-          <View style={{ flex: 1, flexDirection: 'row' }}>
-            <TextInput placeholder={"25,864"}
-              editable={false}
-              value={item.price}
-              style={[Styles.inputTextf, Styles.Requiredprice]} />
-            <FAIcon style={Styles.rupee} size={15} name="rupee" />
-          </View>
-        </View>
-
-        <View style={[AppStyles.mt20,]}>
-          <View style={AppStyles.flexDir}>
-            <View style={AppStyles.flexpointseven}>
-              <Text style={[AppStyles.txtBlackRegular, AppStyles.f15, AppStyles.mb6]}>Payment Made</Text>
+          {item.is_completed == '1' && <View style={[AppStyles.flex1, AppStyles.ph20, AppStyles.mt20, { borderTopColor: Colors.grayLine, borderTopWidth: RfH(1) }]}>
+            <View style={[AppStyles.flexDir, AppStyles.flexRowSpaceBetween, AppStyles.pv10]}>
+              <Text style={[AppStyles.flex1, AppStyles.txtPrimaryBold, AppStyles.f15, AppStyles.textalig]}>Sub Category</Text>
+              <Text style={[AppStyles.flex1, AppStyles.txtPrimaryBold, AppStyles.f15, AppStyles.textalig]}>Quantity</Text>
             </View>
-            {/* <View style={AppStyles.flexpointthree}>
-              <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f11, AppStyles.ml30, AppStyles.mt5]}>enter value</Text>
-            </View> */}
-          </View>
-
-          <TextInput
-            placeholder="Enter Paid Amount"
-            value={paymentRequestForm.values.paymentmade}
-            onChangeText={(txt) => paymentRequestForm.setFieldValue('paymentmade', txt)}
-            style={{ backgroundColor: Colors.grayBackground, borderRadius: 10, paddingLeft: 10 }}
-            maxLength={50}
-            returnKeyType='next'
-            keyboardType='number-pad'
-            onSubmitEditing={() => refPaymentDetail.current?.focus()}
-          />
-          {paymentClickConfirm && paymentRequestForm.errors.paymentmade ? (
-            <CustomText
-              fontSize={15}
-              color={Colors.red}
-              styling={{ marginTop: RfH(10) }}>
-              {paymentRequestForm.errors.paymentmade}
-            </CustomText>
-          ) : null}
-        </View>
-
-        <View style={[AppStyles.mt20,]}>
-          <Text style={[AppStyles.txtBlackRegular, AppStyles.f15, AppStyles.mb6,]}>Select Payment Mode</Text>
-          <DropDown
-            items={paymentMode}
-            placeholderText="Select Payment Mode"
-            itemStyle={{ color: '#000' }}
-            onValueChange={(val) => paymentRequestForm.setFieldValue('paymentmode', val)}
-            selectedValue={paymentRequestForm.values.paymentmode}
-            containerStyle={{ borderRadius: 10, backgroundColor: Colors.grayBackground, paddingLeft: 10 }}
-          />
-
-          {paymentClickConfirm && paymentRequestForm.errors.paymentmode ? (
-            <CustomText
-              fontSize={15}
-              color={Colors.red}
-              styling={{ marginTop: RfH(10) }}>
-              {paymentRequestForm.errors.paymentmode}
-            </CustomText>
-          ) : null}
-        </View>
-
-        <View style={[AppStyles.mt20,]}>
-          <View style={AppStyles.flexDir}>
-            <View style={AppStyles.flexpointsix}>
-              <Text style={[AppStyles.txtBlackRegular, AppStyles.f15, AppStyles.mb6,]}>Payment Details</Text>
-            </View>
-            <View style={AppStyles.flexpointfour}>
-              <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f11, AppStyles.mt5, AppStyles.ml20,]}>Transaction number</Text>
-            </View>
-          </View>
-          <TextInput
-            ref={refPaymentDetail}
-            placeholder={"1235567778"}
-            value={paymentRequestForm.values.paymentdetails}
-            onChangeText={(txt) => paymentRequestForm.setFieldValue('paymentdetails', txt)}
-            //keyboardType='number-pad'
-            style={Styles.inputText}
-            maxLength={50}
-            returnKeyType='done'
-          />
-          {paymentClickConfirm && paymentRequestForm.errors.paymentdetails ? (
-            <CustomText
-              fontSize={15}
-              color={Colors.red}
-              styling={{ marginTop: RfH(10) }}>
-              {paymentRequestForm.errors.paymentdetails}
-            </CustomText>
-          ) : null}
-        </View>
-
-        <View>
-          <View style={[AppStyles.flexDir, AppStyles.alignCenter, AppStyles.mt20]}>
-          <Checkbox
-              disabled={false}
-              value={paymentRequestForm.values.checkCondition}
-              tintColors={{ true: Colors.mango, false: '#777' }}
-              onValueChange={(newValue) => paymentRequestForm.setFieldValue('checkCondition', newValue)}
-            />
-            <View style={{ marginLeft: RfW(10) }}>
-              <CustomText
-                color={Colors.warmGrey}
-                fontSize={15}
-                styling={{ paddingVertical: RfH(4) }}>
-                I agree to the terms and conditions
-                </CustomText>
-            </View>
-          </View>
-          {paymentClickConfirm && paymentRequestForm.errors.checkCondition ? (
-            <CustomText fontSize={15} color={Colors.red} styling={{ marginLeft: 27 }}>
-              { paymentRequestForm.errors.checkCondition}
-            </CustomText>
-          ) : null}
-        </View>
-
-
-        <View style={AppStyles.flexDir}>
-          <View style={AppStyles.flex1}>
-            <View style={{ marginTop: RfH(10), marginTop: 5, marginBottom: 25 }}>
-              <TouchableOpacity activeOpacity={0.8} style={[Styles.confirmButtonn, AppStyles.btnHeight44, AppStyles.inCenter]} onPress={() => navigation.pop()}>
-                <Text style={Styles.confirmBtnTextt}>CANCEL</Text>
-              </TouchableOpacity>
-            </View>
-          </View>
-          <View style={AppStyles.flex1}>
-            <View style={{ marginTop: RfH(10), marginTop: 5, marginBottom: 25 }}>
-              <TouchableOpacity activeOpacity={0.8} style={[Styles.confirmButton, AppStyles.btnHeight44, AppStyles.inCenter]} onPress={() => handleSubmitPayment()}>
-                <Text style={Styles.confirmBtnText}>CONFIRM</Text>
-              </TouchableOpacity>
-            </View>
-          </View>
-        </View>
-      </View>
-      }
-
-      {item.is_seller_confirmed == '2' ? <View style={[AppStyles.alignCenter, AppStyles.justifyCon, AppStyles.pv10]}>
-        <Text style={[AppStyles.txtBlackRegular, AppStyles.f16, AppStyles.txtmangoTwoBold]}>Payment Confirmation Sent</Text>
-      </View>
-        : item.pickup_confirmed == '2' && <View style={[AppStyles.alignCenter, AppStyles.justifyCon, AppStyles.pv10]}>
-          <Text style={[AppStyles.txtBlackRegular, AppStyles.f16, AppStyles.txtmangoTwoBold]}>Payment Confirmation Sent</Text>
-        </View>
-      }
-
-      {isShowPickUpConfirmButton && <TouchableOpacity activeOpacity={0.8}
-        style={Styles.btnConfirmPickup}
-        onPress={() => handelPickupConfirm()}>
-        <Text style={[AppStyles.txtWhiteRegular, AppStyles.f17, AppStyles.mt10,]}>Confirm Pickup</Text>
-      </TouchableOpacity>}
-
-      {/* End Material pickup confirmation */}
-
-      <View style={[AppStyles.flexDir, AppStyles.mt20,  AppStyles.inCenter]}>
-        <TouchableOpacity activeOpacity={0.8} style={[AppStyles.flexpointsix]}>
-          <Text style={[AppStyles.txtBlackRegular, AppStyles.f15,]}>Has the material reached your warehouse</Text>
-        </TouchableOpacity>
-
-        <View style={[AppStyles.flexpointfour, AppStyles.alignfend, AppStyles.mr10]}>
-          <CheckBoxWrapper           
-            isChecked={item.is_completed == '1' ? true : false}
-            checkBoxHandler={() => { }}
-          />
-        </View>
-      </View>
-
-      {/* Start material reached your warehouse */}
-      {isShowWareHouseMainView && <View>
-        <View style={{ marginTop: 20 }}>
-          <Text style={Styles.inputLabelText}>Vehicle Number</Text>
-          <TextInput placeholder={"Enter Vehicle Number"}
-            value={receiptRequestForm.values.vechileNo}
-            onChangeText={(txt) => receiptRequestForm.setFieldValue('vechileNo', txt)}
-            style={Styles.inputText} />
-          {receiptClickConfirm && receiptRequestForm.errors.vechileNo ? (
-            <CustomText
-              fontSize={15}
-              color={Colors.red}
-              styling={{ marginTop: RfH(10) }}>
-              {receiptRequestForm.errors.vechileNo}
-            </CustomText>
-          ) : null}
-        </View>
-
-        <View style={[AppStyles.flexDir, Styles.viewVolume]}>
-          <View style={AppStyles.flex1}>
-            <Text style={Styles.inputLabelText}>Date</Text>
-            <View>
-              <TouchableOpacity activeOpacity={0.8}
-                onPress={() => setPickerWarehouse(true)}
-                style={[AppStyles.flexRowAlignCenter, AppStyles.btnSecandary, AppStyles.br10, AppStyles.mb10, { padding: 10 }]}>
-                <FAIcon size={22} name='calendar-o' color={Colors.mangoTwo} />
-                <Text style={[[AppStyles.txtBlackRegular, AppStyles.f16, AppStyles.pl20]]}>{formatDisplayDate(warehouseDate)}</Text>
-              </TouchableOpacity>
-              {showPickerWarehouse && (<DateTimePicker
-                testID="dateTimePicker"
-                value={new Date()}
-                minimumDate={new Date(moment(new Date()).add(1, 'days').format('YYYY-MM-DD'))}
-                mode={'date'}
-                is24Hour={false}
-                display="default"
-                onChange={onChangeWareHouseDate}
-              />)}
-            </View>
-          </View>
-          <View style={[AppStyles.flex1, AppStyles.ml10]}>
-            <Text style={Styles.inputLabelText}>Upload Documents</Text>
-            <View>
-              <TouchableOpacity activeOpacity={0.8} style={[Styles.inputText, Styles.inputIcon, AppStyles.br10]} onPress={() => setWarehouseImageUpload(!warehouseImageUpload)}>
-                <Text style={[AppStyles.txtSecandaryRegular, { color: receiptImgData.length > 0 ? Colors.green : Colors.warmGrey }]}>{receiptImgData.length > 0 ? 'File Attached' : 'Attach File'}</Text>
-                <MIcon name="attachment" size={25} color={Colors.grayThree} />
-              </TouchableOpacity>
-              {receiptClickConfirm && receiptImgData.length == 0 ? (
+            {receiptData.map((item, index) => (
+              <View
+                key={index}
+                style={[AppStyles.flexDir, AppStyles.flexRowSpaceBetween, { backgroundColor: index % 2 == 0 ? Colors.grayBorder : Colors.grayTwo }]}>
                 <CustomText
+                  styling={{ flex: 1, paddingVertical: RfH(20), textAlign: 'center' }}
                   fontSize={15}
-                  color={Colors.red}
-                  styling={{ marginTop: RfH(5) }}>
-                  Upload Picture
+                  color={Colors.blackOne}
+                  fontFamily={Fonts.regular}
+                  fontWeight='bold'>
+                  {item.sub_category_name}
                 </CustomText>
-              ) : null}
-              <UploadDocument handleClose={() => setWarehouseImageUpload(false)}
-                isVisible={warehouseImageUpload}
-                ImageData={receiptImageData} />
-            </View>
-          </View>
-        </View>
-
-        <View style={AppStyles.flexDir}>
-          <View style={[AppStyles.flex1, AppStyles.mt20]}>
-            <View style={{ marginTop: RfH(10), marginTop: 5, marginBottom: 25 }}>
-              <TouchableOpacity activeOpacity={0.8} style={[Styles.confirmButtonn, AppStyles.btnHeight44, AppStyles.inCenter]} onPress={() => navigation.pop()}>
-                <Text style={Styles.confirmBtnTextt}>CANCEL</Text>
-              </TouchableOpacity>
-            </View>
-          </View>
-          <View style={[AppStyles.flex1, AppStyles.mt20]}>
-            <View style={{ marginTop: RfH(10), marginTop: 5, marginBottom: 25 }}>
-              <TouchableOpacity activeOpacity={0.8} style={[Styles.confirmButton, AppStyles.btnHeight44, AppStyles.inCenter]} onPress={() => handleSubmitReceipt()}>
-                <Text style={Styles.confirmBtnText}>CONFIRM</Text>
-              </TouchableOpacity>
-            </View>
-          </View>
+                <CustomText
+                  styling={{ flex: 1, paddingVertical: RfH(20), textAlign: 'center' }}
+                  fontSize={15}
+                  color={Colors.blackOne}
+                  fontFamily={Fonts.regular}
+                  fontWeight='bold'>
+                  {item.receipt_qty} {item.unit_name}
+                </CustomText>
+              </View>
+            ))}
+          </View>}
         </View>
       </View>
-      }
-      {/* End material reached your warehouse */}
 
-      {item.is_completed == '1' && <View style={[AppStyles.flex1, AppStyles.ph20, AppStyles.pv10, { borderTopColor: Colors.grayLine, borderTopWidth: RfH(1) }]}>
-        <View style={[AppStyles.flexDir, AppStyles.flexRowSpaceBetween, AppStyles.pv10]}>
-          <Text style={[AppStyles.flex1, AppStyles.txtPrimaryBold, AppStyles.f15, AppStyles.textalig]}>Sub Category</Text>
-          <Text style={[AppStyles.flex1, AppStyles.txtPrimaryBold, AppStyles.f15, AppStyles.textalig]}>Quantity</Text>
-        </View>
-        {receiptData.map((item, index) => (
-          <View
-            key={index}
-            style={[AppStyles.flexDir, AppStyles.flexRowSpaceBetween, { backgroundColor: index % 2 == 0 ? Colors.grayBorder : Colors.grayTwo }]}>
-            <CustomText
-              styling={{ flex: 1, paddingVertical: RfH(20), textAlign: 'center' }}
-              fontSize={15}
-              color={Colors.blackOne}
-              fontFamily={Fonts.regular}
-              fontWeight='bold'>
-              {item.sub_category_name}
-            </CustomText>
-            <CustomText
-              styling={{ flex: 1, paddingVertical: RfH(20), textAlign: 'center' }}
-              fontSize={15}
-              color={Colors.blackOne}
-              fontFamily={Fonts.regular}
-              fontWeight='bold'>
-              {item.receipt_qty} {item.unit_name}
-            </CustomText>
-          </View>
-        ))}
-      </View>}
     </KeyboardAwareScrollView>
-
   );
 };
-
 export default PaymentVerification;

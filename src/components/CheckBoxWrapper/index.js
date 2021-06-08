@@ -1,5 +1,4 @@
 import React from 'react';
-import {Image} from 'react-native';
 import PropTypes from 'prop-types';
 import {RfH, RfW} from '../../utils/helpers';
 import IconButtonWrapper from '../IconWrapper';
@@ -16,8 +15,8 @@ const CheckBoxWrapper = (props) => {
 
   return (
     <IconButtonWrapper
-      iconHeight={RfH(44)}
-      iconWidth={RfW(44)}
+      iconHeight={RfH(32)}
+      iconWidth={RfW(32)}
       iconImage={isChecked ? checkedIcon : unCheckedIcon}
       submitFunction={() => checkBoxHandler(checkBoxName)}
     />

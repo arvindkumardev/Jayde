@@ -51,6 +51,9 @@ const spaces = StyleSheet.create({
     pt30:{
         paddingTop: RfH(30)
     },
+    pt32:{
+        paddingTop: RfH(32)
+    },
     pl10:{
         paddingLeft: RfW(10)
     },

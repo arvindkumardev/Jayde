@@ -147,9 +147,9 @@ const commonCss = StyleSheet.create({
   cardStyle: {
     borderWidth: 1,
     borderColor: Colors.cardBorder,
-    marginTop:  RfH(20),
-    marginLeft:  RfW(24),
-    marginRight:  RfW(24),
+    marginTop:  RfH(16),
+    marginLeft:  RfW(16),
+    marginRight:  RfW(16),
     borderRadius:  RfH(10),
   },
 
