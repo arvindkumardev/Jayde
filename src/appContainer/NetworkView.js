@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
-import NetworkCloud from '../assets/Images/error_internet.png';
+import NetworkCloud from '../assets/Images/Common/error_internet.png';
 import { Colors, Fonts, AppStyles } from "../theme";
 
 const NetworkView = (props) => {

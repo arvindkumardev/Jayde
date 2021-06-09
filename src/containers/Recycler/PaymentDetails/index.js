@@ -43,7 +43,7 @@ function PaymentDetails() {
 
         <View style={[AppStyles.flexDir, AppStyles.mt20]}>
           <View style={[AppStyles.flexpointtwo, AppStyles.ml20]}>
-            <Image source={require('../../../assets/Images/Aggregator/Inventory/Group10150.png')} />
+            <Image source={require('../../../assets/Images/NewOrderList/Group_10089.png')} />
           </View>
           <View style={[AppStyles.flexpointsix, AppStyles.ml10]}>
             <Text style={[AppStyles.txtBlackRegular, AppStyles.f15]}>Paper</Text>

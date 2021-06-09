@@ -19,8 +19,8 @@ import { signUp } from './middleware';
 import DropDown from '../../components/Picker/index';
 
 // Image
-import leftArrowImg from '../../assets/Images/ForgotPassword/LeftArrowIcon.png';
-import logoImg from '../../assets/Images/signupImage/JaydeLogo01.png';
+import leftArrowImg from '../../assets/Images/Common/LeftArrowIcon.png';
+import logoImg from '../../assets/Images/Common/JaydeLogo01.png';
 import { inputs } from '../../utils/constants';
 
 function SignUp() {

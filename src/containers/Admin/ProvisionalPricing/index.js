@@ -9,7 +9,7 @@ import { AppStyles } from '../../../theme';
 import arraydata from '../../../utils/arraydata5.json';
 
 //Image
-import PaperImg from '../../../assets/Images/Aggregator/Inventory/Group10150.png'
+import PaperImg from '../../../assets/Images/NewOrderList/Group_10089.png'
 
 
 function ProvisionalPricing() {
