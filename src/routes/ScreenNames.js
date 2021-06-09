@@ -106,6 +106,7 @@ const NavigationRouteNames = {
   PROPOSE_TIME: "ProposeTime",
   ADD_USER: 'AddUser',
   WORK_ORDERDETAIL: "WorkOrderDetail",
+  ADD_SUBCATEGORY: "AddSubCategory",
 };
 
 export default NavigationRouteNames;

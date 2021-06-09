@@ -5,8 +5,9 @@ import Styles from "./styles";
 import NavigationRouteNames from '../../../routes/ScreenNames';
 import { useNavigation } from '@react-navigation/core';
 import { useRoute } from '@react-navigation/native';
-import { AppStyles } from '../../../theme';
+import { AppStyles, Colors } from '../../../theme';
 import arraydata from '../../../utils/arraydata4.json';
+import FAIcon from 'react-native-vector-icons/FontAwesome';
 
 //Image
 import PaperImg from '../../../assets/Images/NewOrderList/Group_10089.png'
@@ -18,15 +19,37 @@ function SubCategoryDetails() {
   const route = useRoute();
 
   const screenNavigate = () => {
-    navigation.navigate(NavigationRouteNames.HOMESCREEN);
+    navigation.navigate(NavigationRouteNames.ADD_SUBCATEGORY);
   }
 
   useLayoutEffect(() => {
     const title = 'Sub Category Details';
     navigation.setOptions({
-      title,
+      title, headerRight: () => (
+        <TouchableOpacity
+          activeOpacity={0.8}
+          style={[AppStyles.pv10, AppStyles.ph20]}
+          onPress={() => screenNavigate()}>
+          <FAIcon size={28} name='plus-circle' color={Colors.mangoTwo} />
+        </TouchableOpacity>
+      ),
     });
   }, []);
+
+  const delView = () => {
+    Alert.alert(
+      "Would You Want To Delete ?",
+      "",
+      [
+        {
+          text: "Yes",
+          onPress: () => console.log("Cancel Pressed"),
+          style: "cancel"
+        },
+        { text: "No", onPress: () => console.log("OK Pressed") }
+      ]
+    );
+  }
 
   const _RenderItem = (index, item) => {
     return (
@@ -49,12 +72,14 @@ function SubCategoryDetails() {
         <View style={[Styles.btnContainer, AppStyles.flexDir]}>
           <View style={AppStyles.flex1}>
             <TouchableOpacity
+              onPress={() => screenNavigate()}
               style={[Styles.editBtn, AppStyles.btnHeight44, AppStyles.inCenter]}>
               <Text style={[AppStyles.txtPrimaryRegular, AppStyles.f17, AppStyles.textalig]}>EDIT</Text>
             </TouchableOpacity>
           </View>
           <View style={AppStyles.flex1}>
             <TouchableOpacity
+              onPress={() => { delView() }}
               style={[Styles.deleteBtn, AppStyles.mb20, AppStyles.btnHeight44, AppStyles.inCenter]}>
               <Text style={[AppStyles.txtWhiteRegular, AppStyles.f17, AppStyles.textalig]}>DELETE</Text>
             </TouchableOpacity>
