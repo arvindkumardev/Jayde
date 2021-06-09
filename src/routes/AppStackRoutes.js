@@ -40,6 +40,7 @@ import OrderAssign from "../containers/Admin/OrderAssign";
 import DownloadReport from "../containers/Admin/DownloadReport";
 import ManageEPR from "../containers/Admin/ManageEPR";
 import SubCategoryDetails from "../containers/Admin/SubCategoryDetails";
+import AddSubCategory from "../containers/Admin/AddSubCategory";
 import ProvisionalPricing from "../containers/Admin/ProvisionalPricing";
 import OrderFailed from "../containers/Seller/OrderFailed";
 import WorkOrderDetails from "../containers/CommonScreen/WorkOrderDetails";
@@ -912,6 +913,13 @@ const AppStack = (props) => {
           <Stack.Screen
             name={NavigationRouteNames.ADD_USER}
             component={AddUser}
+            options={CommonHeaderStyle}
+          />
+
+          {/* Sub Category Screen*/}
+          <Stack.Screen
+            name={NavigationRouteNames.ADD_SUBCATEGORY}
+            component={AddSubCategory}
             options={CommonHeaderStyle}
           />
 
