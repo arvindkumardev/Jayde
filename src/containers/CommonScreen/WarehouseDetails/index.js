@@ -23,7 +23,7 @@ function WarehouseDetails() {
 
   const navigation = useNavigation();
   const route = useRoute();
-  const { setLoader } = useContext(UserContext);
+  const { setLoader, userRole } = useContext(UserContext);
 
   const [item, setItem] = useState({});
   const [subCategories, setSubCategories] = useState([]);
@@ -44,7 +44,7 @@ function WarehouseDetails() {
 
   const [{ data: subData }, onGetSubCategories] = getSubCategories();
   const [{ data: unitsData }, onGetUnits] = getUnits();
-  const [{ data: addReceiptData, loading, error }, onAddRecept] = addReceiptQuantity();
+  const [{ data: addReceiptData, loading, error }, onAddRecept] = addReceiptQuantity(userRole);
 
   const [addMoreCount, setMoreCount] = useState(1);
   const [receiptData, setReceiptData] = useState([

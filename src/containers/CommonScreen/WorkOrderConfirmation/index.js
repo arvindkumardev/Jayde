@@ -1,15 +1,13 @@
-import React, { useContext, useEffect, useLayoutEffect, useState } from 'react';
+import React, {useEffect, useState } from 'react';
 import * as Alert from 'react-native';
-import { KeyboardAvoidingView, Platform, TouchableOpacity, View, Text, Image, TextInput, FlatList, ScrollView } from 'react-native';
+import { TouchableOpacity, View, Text, Image } from 'react-native';
 import Styles from "./styles";
 import { AppStyles } from "../../../theme";
 import AppStyle from "../../../theme/Styles/spaces";
 import style from "../../../theme/Styles/container";
 import styles from '../../../components/CustomImage/style';
-import NavigationRouteNames from '../../../routes/ScreenNames';
 import { useNavigation } from '@react-navigation/core';
 import { useRoute } from '@react-navigation/native';
-import FAIcon from "react-native-vector-icons/FontAwesome";
 
 import SuccessImg from '../../../assets/Images/AccountCreate/Group.png'
 
