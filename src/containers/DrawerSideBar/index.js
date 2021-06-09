@@ -14,7 +14,7 @@ import { DRAWER_MENU } from "../../routes/constants";
 import { RfH, RfW } from '../../utils/helpers';
 import { RFValue } from 'react-native-responsive-fontsize';
 
-import newLocal from '../../assets/Images/placeholder.jpg';
+import newLocal from '../../assets/Images/Common/placeholder.jpg';
 
 const DrawerSideBar = (props) => {
     const [name, setName] = useState("");

@@ -9,7 +9,7 @@ import { useNavigation } from '@react-navigation/core';
 import { useRoute } from '@react-navigation/native';
 import { LOCAL_STORAGE_DATA_KEY } from '../../../utils/constants';
 import { getSaveData } from '../../../utils/helpers';
-import successLogo from '../../../assets/Images/WorkOrderEmail/Group.png'
+import successLogo from '../../../assets/Images/AccountCreate/Group.png'
 
 function WorkOrderEmail() {
   const navigation = useNavigation();

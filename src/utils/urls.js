@@ -45,7 +45,6 @@ const AGGREGATOR_NEWORDER = `/api/mobile/aggregator/newOrders/`;
 const CONFIRM_SCHEDULE = `/api/mobile/aggregator/reScheduleConfirm`;
 const AGGREGATOR_REJECTORDER = `/api/mobile/aggregator/reject`;
 const GET_AGGREGATORS = `/api/mobile/aggregators`;
-
 const AGGREGATORS_CONFIRM_NEW_ORDER = `/api/mobile/aggregator/confirm`;
 const CONFIRM_WEIGHT = `/api/mobile/aggregator/confirmWeight`;
 const PROPOSE_WEIGHT = `/api/mobile/aggregator/proposeWeight`;

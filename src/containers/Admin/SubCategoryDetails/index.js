@@ -10,7 +10,7 @@ import arraydata from '../../../utils/arraydata4.json';
 import FAIcon from 'react-native-vector-icons/FontAwesome';
 
 //Image
-import PaperImg from '../../../assets/Images/Aggregator/Inventory/Group10150.png'
+import PaperImg from '../../../assets/Images/NewOrderList/Group_10089.png'
 
 
 function SubCategoryDetails() {

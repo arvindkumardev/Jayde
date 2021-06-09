@@ -16,8 +16,8 @@ import { useRoute } from '@react-navigation/native';
 import NavigationRouteNames from '../../routes/ScreenNames';
 
 //Image
-import leftArrow from '../../assets/Images/ForgotPassword/LeftArrowIcon.png';
-import Logo from '../../assets/Images/LoginWithEmail/JaydeLogo01.png';
+import leftArrow from '../../assets/Images/Common/LeftArrowIcon.png';
+import Logo from '../../assets/Images/Common/JaydeLogo01.png';
 
 function PasswordReset() {
   const navigation = useNavigation();

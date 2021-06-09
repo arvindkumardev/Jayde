@@ -16,8 +16,6 @@ import EWasteImg from './../../../assets/Images/NewOrderList/Group_10091.png'
 import PaperImg from './../../../assets/Images/NewOrderList/Group_10089.png'
 import PlasticImg from './../../../assets/Images/NewOrderList/Group_10090.png'
 import MixWasterImg from './../../../assets/Images/NewOrderList/Group_10088.png'
-import PendingImg from '../../../assets/Images/AddSubUser/pending.png'
-import CompletedImg from '../../../assets/Images/Dashboard/Group_9995.png'
 import FAIcon from 'react-native-vector-icons/FontAwesome';
 
 const ORDER_IMAGE = {
@@ -162,7 +160,7 @@ function CompletedOrder() {
 
         <View style={[AppStyles.flexDir, AppStyles.mt10]}>
           <View style={[AppStyles.flexpointtwo, AppStyles.ml20]}>
-            <Image source={require('../../../assets/Images/Aggregator/Inventory/Group10150.png')} />
+            <Image source={require('../../../assets/Images/NewOrderList/Group_10089.png')} />
           </View>
           <View style={[AppStyles.flexpointfive, AppStyles.ml10]}>
             <Text style={[AppStyles.txtBlackRegular, AppStyles.f15, AppStyles.mt5]}>{item.category_name}</Text>

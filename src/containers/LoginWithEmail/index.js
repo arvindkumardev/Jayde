@@ -28,7 +28,7 @@ import { useRoute } from '@react-navigation/native';
 import { inputs } from '../../utils/constants';
 import { NotificationService } from '../../services/firebase'
 
-import logoImg from '../../assets/Images/signupImage/JaydeLogo01.png'
+import logoImg from '../../assets/Images/Common/JaydeLogo01.png'
 
 function LoginWithEmail() {
   const navigation = useNavigation();

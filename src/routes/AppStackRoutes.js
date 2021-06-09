@@ -26,7 +26,7 @@ import SellerOrderDetail from "../containers/Seller/MyOrderDetail/index";
 
 import Dashboard from "../containers/Dashboard/index";
 import PaymentVerification from "../containers/CommonScreen/PaymentVerification";
-import WorkOrderEmail from "../containers/Aggregator/WorkOrderEmail";
+import WorkOrderEmail from "../containers/CommonScreen/WorkOrderEmail";
 import OrderDetails from "../containers/Seller/OrderDetails";
 import CallBackConfirmation from "../containers/Seller/CallBackConfirmation";
 import { USER_ROLE } from "./constants";
@@ -46,13 +46,13 @@ import OrderFailed from "../containers/Seller/OrderFailed";
 import WorkOrderDetails from "../containers/CommonScreen/WorkOrderDetails";
 import Payment from "../containers/Seller/Payment";
 import OrderConfirmation from "../containers/CommonScreen/OrderConfirmation";
-import WarehouseDetails from "../containers/Aggregator/WarehouseDetails";
+import WarehouseDetails from "../containers/CommonScreen/WarehouseDetails";
 import ScheduledOrder from "../containers/Aggregator/ScheduledOrder";
 import AggregatorScheduleOrderList from '../containers/Aggregator/ScheduleOrderList';
 import Inventory from "../containers/CommonScreen/Inventory";
 import NewWorkOrder from "../containers/CommonScreen/CreateWorkOrder";
 import AggregatorWorkOrderList from './../containers/Aggregator/NewWorkOrderList';
-import WorkOrderConfirmation from './../containers/Aggregator/WorkOrderConfirmation';
+import WorkOrderConfirmation from '../containers/CommonScreen/WorkOrderConfirmation';
 
 import RecyclerNewOrderList from "../containers/Recycler/NewOrderList";
 import RecyclerScheduleOrderList from "../containers/Recycler/ScheduleOrderList";
@@ -307,7 +307,7 @@ const AppStack = (props) => {
             component={DrawerStack}
             options={({ navigation }) => ({
               title: null,
-              headerStyle: {borderBottomWidth: 0, elevation: 0},
+              headerStyle: { borderBottomWidth: 0, elevation: 0 },
               headerLeft: () => <TouchableOpacity activeOpacity={0.6} onPress={() => {
                 navigation.dispatch(DrawerActions.toggleDrawer());
               }} style={AppStyles.ml14}><EvilIcons name="navicon" size={30} /></TouchableOpacity>,
@@ -411,8 +411,8 @@ const AppStack = (props) => {
             options={CommonHeaderStyle}
           />
 
-           {/* Order Screen number: 21*/}
-           <Stack.Screen
+          {/* Order Screen number: 21*/}
+          <Stack.Screen
             name={NavigationRouteNames.WORK_ORDER_VERIFICATION}
             component={WorkOrderVerification}
             options={CommonHeaderStyle}
@@ -527,7 +527,7 @@ const AppStack = (props) => {
             options={NoHeaderScreen}
           />
 
-          {/* Confirmation Screen */}
+          {/* Work Order Confirmation Screen */}
           <Stack.Screen
             name={NavigationRouteNames.WORK_ORDER_CONFIRMATION}
             component={WorkOrderConfirmation}
@@ -650,12 +650,27 @@ const AppStack = (props) => {
             options={CommonHeaderStyle}
           />
 
+           {/* Warehouse Details screen number: 33 */}
+           <Stack.Screen
+            name={NavigationRouteNames.WORKORDER_EMAIL}
+            component={WorkOrderEmail}
+            options={NoHeaderScreen}
+          />
+
           {/* Confirmation Screen */}
           <Stack.Screen
             name={NavigationRouteNames.ORDER_CONFIRMATION}
             component={OrderConfirmation}
             options={CommonHeaderStyle}
           />
+
+           {/* Work Order Confirmation Screen */}
+           <Stack.Screen
+            name={NavigationRouteNames.WORK_ORDER_CONFIRMATION}
+            component={WorkOrderConfirmation}
+            options={NoHeaderScreen}
+          />
+          
           {/* Reject Order Screen */}
           <Stack.Screen
             name={NavigationRouteNames.REJECT_ORDER}
@@ -673,6 +688,13 @@ const AppStack = (props) => {
           <Stack.Screen
             name={NavigationRouteNames.PAYMENT_VERIFICATION}
             component={PaymentVerification}
+            options={CommonHeaderStyle}
+          />
+
+          {/* Warehouse Details screen number: 32 */}
+          <Stack.Screen
+            name={NavigationRouteNames.WAREHOUSE_DETAILS}
+            component={WarehouseDetails}
             options={CommonHeaderStyle}
           />
 
