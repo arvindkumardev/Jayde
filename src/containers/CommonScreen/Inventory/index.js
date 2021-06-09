@@ -47,7 +47,6 @@ function Inventory() {
     try {
       const { data } = await onGetInventory();
       setLoader(false)
-      console.log("Response :", data, data.data[0].inventory)
       setPerPage(data.data[0].links.per_page)
       setTotalCount(data.data[0].links.total_count)
       setInventoryList(data.data[0].inventory)
@@ -61,7 +60,7 @@ function Inventory() {
     if (error)
       setLoader(false)
   }, [error])
-  
+
   const loadMoreResults = async info => {
     if (loadMore)
       return
@@ -74,17 +73,16 @@ function Inventory() {
   }
 
   useEffect(() => {
-    triggerLoadMore();
-  }, [offset])
+    if (loadMore)
+      triggerLoadMore();
+  }, [loadMore])
 
   const triggerLoadMore = async () => {
     try {
       const { data } = await onGetInventory();
-      console.log('triggerLoadMore data: ', data);
-      let listData = inventoryList;
-      let data1 = listData.concat(data.data[0].inventory);
+      let currentData = data.data[0].inventory;
       setLoadMore(false);
-      setInventoryList([...data1]);
+      setInventoryList(prevState => [...prevState, ...currentData]);
     }
     catch (e) {
       console.log("Response error", e);

@@ -41,7 +41,6 @@ function OwnedContracts() {
     try {
       const { data } = await onOwnedContracts({ data: {} });
       setLoader(false);
-      console.log('data', data.data[0].orderDetails);
       setPerPage(data.data[0].links.per_page);
       setTotalCount(data.data[0].links.total_count);
       setArraydata(data.data[0].orderDetails);
@@ -66,18 +65,18 @@ function OwnedContracts() {
   const triggerLoadMore = async () => {
     try {
       const { data } = await onOwnedContracts({ data: {} });
-      const listData = arraydata;
-      const data1 = listData.concat(data.data[0].orderDetails);
+      let currentData = data.data[0].orderDetails;
       setLoadMore(false);
-      setArraydata([...data1]);
+      setArraydata(prevState => [...prevState, ...currentData]);
     } catch (e) {
       console.log('Response error', e);
     }
   };
 
   useEffect(() => {
-    triggerLoadMore();
-  }, [offset]);
+    if (loadMore)
+      triggerLoadMore();
+  }, [loadMore])
 
   const screenNavigate = () => {
     navigation.navigate(NavigationRouteNames.SMARTCONTRACT_DETAIL);
@@ -124,7 +123,7 @@ function OwnedContracts() {
   const _RenderItem = (index, item) => {
     const btnText = getButtonText(item);
     return (
-      <TouchableOpacity activeOpacity = {0.8} key = {index} onPress={() => screenNavigate()}>
+      <TouchableOpacity activeOpacity={0.8} key={index} onPress={() => screenNavigate()}>
         <View style={[Styles.boxView, AppStyles.shadow]}>
           <View style={[AppStyles.flexDir]}>
             <View style={AppStyles.flexpointseven}>
@@ -194,6 +193,7 @@ function OwnedContracts() {
     <View style={Styles.mainView}>
       {arraydata.length > 0 ? (
         <FlatList
+          showsVerticalScrollIndicator={false}
           style={{ flex: 1 }}
           data={arraydata}
           renderItem={({ index, item }) => _RenderItem(index, item)}

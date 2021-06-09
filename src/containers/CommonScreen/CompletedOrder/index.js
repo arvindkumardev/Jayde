@@ -5,7 +5,7 @@ import NavigationRouteNames from '../../../routes/ScreenNames';
 import { useNavigation } from '@react-navigation/core';
 import { useRoute } from '@react-navigation/native';
 import { AppStyles, Colors } from '../../../theme';
-import  CheckBoxWrapper  from '../../../components/CheckBoxWrapper';
+import CheckBoxWrapper from '../../../components/CheckBoxWrapper';
 import { getCompletedOrder } from '../Middelware';
 import UserContext from '../../../appContainer/context/user.context';
 import moment from 'moment';
@@ -51,7 +51,7 @@ function CompletedOrder() {
 
   const handelNavigation = (item) => {
     if (item.paid_amount !== null && item.is_seller_confirmed == 0) {
-      navigation.navigate(NavigationRouteNames.WORKORDER_DETAILS, {item, getActionType: getActionType})
+      navigation.navigate(NavigationRouteNames.WORKORDER_DETAILS, { item, getActionType: getActionType })
     }
   }
 
@@ -82,10 +82,9 @@ function CompletedOrder() {
   const triggerLoadMore = async () => {
     try {
       const { data } = await onGetOrder({ data: {} });
-      let listData = orderList;
-      let data1 = listData.concat(data.data[0].completeOrders);
+      let currentData = data.data[0].completeOrders;
       setLoadMore(false);
-      setOrderList([...data1]);
+      setOrderList(prevState => [...prevState, ...currentData]);
     } catch (e) {
       console.log("Response error", e);
     }
@@ -100,8 +99,9 @@ function CompletedOrder() {
   }, []);
 
   useEffect(() => {
-    triggerLoadMore();
-  }, [offset])
+    if (loadMore)
+      triggerLoadMore();
+  }, [loadMore])
 
   useEffect(() => {
     if (refreshPage) {
@@ -132,8 +132,8 @@ function CompletedOrder() {
         <View style={[AppStyles.flexDir, AppStyles.mt20]}>
           <View style={[AppStyles.ml24, AppStyles.flexpointseven]}>
             <Text style={[AppStyles.txtBlackRegular, AppStyles.f15]}>{item.work_order_no}</Text>
-            <Text numberOfLines = {1} 
-            style={[AppStyles.txtSecandaryRegular, AppStyles.f13, AppStyles.mt3]}>{item.business_name}</Text>
+            <Text numberOfLines={1}
+              style={[AppStyles.txtSecandaryRegular, AppStyles.f13, AppStyles.mt3]}>{item.business_name}</Text>
           </View>
           <View style={[AppStyles.flexpointthree,]}>
             <View style={[AppStyles.inCenter]}>
@@ -141,7 +141,7 @@ function CompletedOrder() {
                 <TouchableOpacity
                   activeOpacity={0.8}
                   onPress={() => handelNavigation(item)}
-                  style={[Styles.confirmBtn,  AppStyles.inCenter]}>
+                  style={[Styles.confirmBtn, AppStyles.inCenter]}>
                   <Text style={[AppStyles.txtWhiteRegular, AppStyles.f11, AppStyles.textalig]}>Confirm Payment</Text>
                 </TouchableOpacity>
                 : item.work_status == 1 ?

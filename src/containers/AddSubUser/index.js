@@ -68,11 +68,10 @@ function AddSubUser() {
 
   const subUserLoadMore = async () => {
     try {
-      const { data } = await onSubUser({ data: {} });
-      let listData = subUserList;
-      let data1 = listData.concat(data.data[0].subUsers);
+      const { data } = await onSubUser({ data: {} });      
+      let currentData = data.data[0].subUsers;
       setLoadMore(false);
-      setSubUserList([...data1]);
+      setSubUserList(prevState => [...prevState, ...currentData]);
     }
     catch (e) {
       console.log("Response error", e);
@@ -101,8 +100,9 @@ function AddSubUser() {
   }, [refreshPage])
 
   useEffect(() => {
+    if(loadMore)
     subUserLoadMore();
-  }, [offset])
+  }, [loadMore])
 
   const loadMoreResults = async info => {
 

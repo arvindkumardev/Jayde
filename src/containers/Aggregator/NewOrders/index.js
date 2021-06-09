@@ -35,11 +35,9 @@ function AggregatorNewOrder() {
     try {
       const { data } = await onGetOrder({ data: {} });
       setLoader(false)
-      //console.log("Response from login ", data.data[0].newOrders)
       setOrderList(data.data[0].newOrders)
       setPerPage(data.data[0].links.per_page)
       setTotalCount(data.data[0].links.total_count)
-      setOrderList(data.data[0].newOrders)
     } catch (e) {
       console.log("Response error", e);
     }
@@ -48,10 +46,9 @@ function AggregatorNewOrder() {
   const triggerLoadMore = async () => {
     try {
       const { data } = await onGetOrder({ data: {} });
-      let listData = orderList;
-      let data1 = listData.concat(data.data[0].newOrders);
+      let currentData = data.data[0].newOrders;
       setLoadMore(false);
-      setOrderList([...data1]);
+      setOrderList(prevState => [...prevState, ...currentData]);
     } catch (e) {
       console.log("Response error", e);
     }
@@ -71,8 +68,9 @@ function AggregatorNewOrder() {
   }, []);
 
   useEffect(() => {
-    triggerLoadMore();
-  }, [offset])
+    if (loadMore)
+      triggerLoadMore();
+  }, [loadMore])
 
   const screenNavigate = (item) => {
     navigation.navigate(NavigationRouteNames.ORDER_CONFIRMATION, { Item: item, getActionType: getActionType });

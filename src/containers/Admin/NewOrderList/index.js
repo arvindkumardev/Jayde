@@ -60,11 +60,10 @@ function AdminNewOrderList() {
 
   const triggerLoadMore = async () => {
     try {
-      const { data } = await onAdminNewOrder({ data: {} });
-      let listData = adminOrderList;
-      let data1 = listData.concat(data.data[0].newOrders);
+      const { data } = await onAdminNewOrder({ data: {} });     
+      let currentData = data.data[0].newOrders;
       setLoadMore(false);
-      setAdminOrderList([...data1]);
+      setAdminOrderList(prevState => [...prevState, ...currentData]);
     }
     catch (e) {
       console.log("Response error", e);
@@ -93,8 +92,9 @@ function AdminNewOrderList() {
   }, []);
 
   useEffect(() => {
-    triggerLoadMore();
-  }, [offset])
+    if (loadMore)
+      triggerLoadMore();
+  }, [loadMore])
 
   useLayoutEffect(() => {
     const title = 'New Orders';

@@ -39,15 +39,16 @@ function SellerMyOrder() {
     setRefreshPage(true)
     setLoader(true)
   }
+
   const triggerNewOrder = async () => {
     try {
       const { data } = await onMyOrder({ data: {} });
       setLoader(false)
       setPerPage(data.data[0].links.per_page)
       setTotalCount(data.data[0].links.total_count)
-      setOrderList(data.data[0].orderDetails)
-    }
-    catch (e) {
+      let currentData = data.data[0].orderDetails;
+      setOrderList(currentData);
+    } catch (e) {
       console.log("Response error", e);
     }
   };
@@ -55,12 +56,10 @@ function SellerMyOrder() {
   const triggerLoadMore = async () => {
     try {
       const { data } = await onMyOrder({ data: {} });
-      let listData = orderList;
-      let data1 = listData.concat(data.data[0].orderDetails);
+      let currentData = data.data[0].orderDetails;
       setLoadMore(false);
-      setOrderList([...data1]);
-    }
-    catch (e) {
+      setOrderList(prevState => [...prevState, ...currentData]);
+    } catch (e) {
       console.log("Response error", e);
     }
   };
@@ -70,12 +69,11 @@ function SellerMyOrder() {
       setLoader(false)
   }, [error])
 
-
   useEffect(() => {
     setLoader(true)
     triggerNewOrder();
     return () => {
-      setLoader(false)
+      setLoader(false);
     }
   }, []);
 
@@ -88,8 +86,9 @@ function SellerMyOrder() {
   }, [refreshPage])
 
   useEffect(() => {
-    triggerLoadMore();
-  }, [offset])
+    if (loadMore)
+      triggerLoadMore();
+  }, [loadMore])
 
   useLayoutEffect(() => {
     const title = 'My Orders';
@@ -117,8 +116,8 @@ function SellerMyOrder() {
         renderItem={({ index, item }) =>
           <ItemRow item={item}
             index={index}
-            screenNavigate = {screenNavigate}
-            userRole = {userRole}>
+            screenNavigate={screenNavigate}
+            userRole={userRole}>
           </ItemRow>
         }
         extraData={useState}

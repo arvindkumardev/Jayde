@@ -46,11 +46,10 @@ function Users() {
 
   const triggerLoadMore = async () => {
     try {
-      const { data } = await onGetUser({ data: {} });
-      let listData = userList;
-      let data1 = listData.concat(data.data[0].users);
+      const { data } = await onGetUser({ data: {} });     
+      let currentData = data.data[0].users;
       setLoadMore(false);
-      setUserList([...data1]);
+      setUserList(prevState => [...prevState, ...currentData]);
     }
     catch (e) {
       console.log("Response error", e);
@@ -72,8 +71,9 @@ function Users() {
 
   
   useEffect(() => {
-    triggerLoadMore();
-  }, [offset])
+    if (loadMore)
+      triggerLoadMore();
+  }, [loadMore])
 
   useLayoutEffect(() => {
     const title = 'Jayde Users';

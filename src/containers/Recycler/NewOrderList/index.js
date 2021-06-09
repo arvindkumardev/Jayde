@@ -62,10 +62,9 @@ function RecyclerNewOrderList() {
   const workOrderLoadMore = async () => {
     try {
       const { data } = await onMyOrder({ data: {} });
-      let listData = workOrderList;
-      let data1 = listData.concat(data.data[0].newOrders);
+      let currentData = data.data[0].newOrders;
       setLoadMore(false);
-      setOrderList([...data1]);
+      setOrderList(prevState => [...prevState, ...currentData]);
     }
     catch (e) {
       console.log("Response error", e);
@@ -86,8 +85,9 @@ function RecyclerNewOrderList() {
   }, []);
 
   useEffect(() => {
-    workOrderLoadMore();
-  }, [offset]);
+    if (loadMore)
+      workOrderLoadMore();
+  }, [loadMore]);
 
   useEffect(() => {
     if (refreshPage) {
