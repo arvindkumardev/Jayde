@@ -1,6 +1,7 @@
 import useAxios from 'axios-hooks';
 import {
   CREATE_QUOTE_PAPER, CREATE_QUOTE_PLASTIC, CREATE_QUOTE_MIX_WASTER,
+  DELETE_QUOTE_MIX_WASTER, DELETE_QUOTE_PLASTIC, DELETE_QUOTE_PAPER,
   ADD_SCHEDULE_PAPER, ADD_SCHEDULE_PLASTIC, ADD_SCHEDULE_MIX_WASTE,
   SELLER_CONFIRM_RESCHEDULE, SELLER_CONFIRM_PROPOSED_WEIGHT,
   SELLER_CONFIRM_PAYMENT, ADD_ORDER_PAPER, ADD_ORDER_PLASTIC,
@@ -11,6 +12,17 @@ const createQuote = (category) => {
   return useAxios(
     {
       url: category === 'Paper' ? CREATE_QUOTE_PAPER : category === 'Plastic' ? CREATE_QUOTE_PLASTIC : category === 'Mix Waste' && CREATE_QUOTE_MIX_WASTER,
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+    },
+    { manual: true }
+  );
+}
+
+const deleteQuote = (category) => {
+  return useAxios(
+    {
+      url: category === 'Paper' ? DELETE_QUOTE_PAPER : category === 'Plastic' ? DELETE_QUOTE_PLASTIC : category === 'Mix Waste' && DELETE_QUOTE_MIX_WASTER,
       method: 'POST',
       headers: { 'content-type': 'application/json' },
     },
@@ -62,4 +74,4 @@ const confirmOrder = (item) => {
   );
 }
 
-export { createQuote, addSchedule, confirmOrder, addOrder, requestCallBack };
+export { createQuote, deleteQuote, addSchedule, confirmOrder, addOrder, requestCallBack };

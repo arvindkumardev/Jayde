@@ -40,11 +40,7 @@ function RejectOrder() {
     return () => {
       setLoader(false)
     }
-  })
-
-  useEffect(() => {
-    setLoader(loading)    
-  }, [rejectData, loading])
+  },[])
 
   useLayoutEffect(() => {
     const { Item } = route.params;
@@ -55,6 +51,7 @@ function RejectOrder() {
 
   const handleConfirm = async (reason) => {   
     try {
+      setLoader(true)
       const { data } = await onRejectOrder({
         data: {
           assignedId: item.assigned_id,
@@ -62,6 +59,7 @@ function RejectOrder() {
         },
       });
       console.log(data)
+      setLoader(false)
       if (data.status) {
         screenNavigate()
       } else {

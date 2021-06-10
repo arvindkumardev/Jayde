@@ -6,7 +6,7 @@ import Styles from "./styles";
 import NavigationRouteNames from '../../../routes/ScreenNames';
 import { Fonts, Colors, AppStyles } from '../../../theme';
 import { getQuoteData, getImageName } from '../../../utils/Global'
-import { createQuote, addOrder } from '../Middleware';
+import { deleteQuote, addOrder } from '../Middleware';
 import UserContext from '../../../appContainer/context/user.context';
 import NavClose from './../../../components/HeaderLeft'
 
@@ -17,7 +17,7 @@ const PriceConfirm = () => {
   const [schedulePick, setSchedulePick] = useState("");
   const { setLoader } = useContext(UserContext);
 
-  const [{ data: quoteData }, onSubmitQuote] = createQuote(getQuoteData().category_name);
+  const [{ data: deleteQuoteData, loading: QuoteLoading, error: deleteError }, onDeleteQuote] = deleteQuote(getQuoteData().category_name);
   const [{ data: orderData, loading: orderLoading, error }, onAddOrder] = addOrder(getQuoteData().category_name);
 
   useLayoutEffect(() => {
@@ -35,18 +35,16 @@ const PriceConfirm = () => {
   };
 
   useEffect(() => {
-    if (error)
+    if (error || deleteError)
       setLoader(false)
-  }, [error])
+  }, [error, deleteError])
 
   useEffect(() => {
-    setLoader(orderLoading);
-    if (quoteData && quoteData.status) {
-    }
+    setLoader(QuoteLoading);
     return () => {
       setLoader(false)
     }
-  }, [quoteData, orderLoading]);
+  }, [QuoteLoading, deleteQuoteData]);
 
   useEffect(() => {
     setLoader(orderLoading);
@@ -79,6 +77,25 @@ const PriceConfirm = () => {
       navigation.navigate(NavigationRouteNames.CONFIRM_ADDRESS);
     }
   };
+
+  const handelCheckStatus = async (rejected) => {   
+    if (route.params.status === '0') {
+      const { data } = await onDeleteQuote({
+        data: {
+          "id": getQuoteData().orderId
+        },
+      });
+      console.log(data.data)
+      if (data.status) {
+        rejected ? navigation.popToTop() : handleSchedulePickup()
+      } else {
+        alert(data.message)
+      }
+    } else {
+      handleSchedulePickup()
+    }
+  };
+
 
   return (
     <View style={[Styles.screenContainer,]}>
@@ -130,13 +147,13 @@ const PriceConfirm = () => {
           <TouchableOpacity
             activeOpacity={0.8}
             style={[AppStyles.mt20, AppStyles.br10, AppStyles.borderwidth1, AppStyles.borderColorMango, AppStyles.whitecolor, AppStyles.btnHeightwidth, AppStyles.inCenter]}
-            onPress={handleREQUESTCALLBACK}>
+            onPress={() => handleREQUESTCALLBACK()}>
             <Text style={[AppStyles.txtPrimaryRegular, AppStyles.f17]}>REQUEST CALL BACK</Text>
           </TouchableOpacity>
           <TouchableOpacity
             activeOpacity={0.8}
             style={[AppStyles.mt20, AppStyles.br10, AppStyles.btnPrimary, AppStyles.btnHeightwidth, AppStyles.inCenter]}
-            onPress={handleSchedulePickup}>
+            onPress={() => handelCheckStatus(false)}>
             <Text style={[AppStyles.txtWhiteRegular, AppStyles.f17]}>SCHEDULE PICKUP</Text>
           </TouchableOpacity>
         </View> : <View style={Styles.btnContainer}>
@@ -147,6 +164,7 @@ const PriceConfirm = () => {
             <Text style={[AppStyles.txtPrimaryRegular, AppStyles.f17]}>CONFIRM</Text>
           </TouchableOpacity>
           <TouchableOpacity
+            onPress={() => handelCheckStatus(true)}
             activeOpacity={0.8}
             style={[AppStyles.mt20, AppStyles.br10, AppStyles.btnPrimary, AppStyles.btnHeightwidth, AppStyles.borderwidth1, AppStyles.borderColorMango, AppStyles.inCenter]}>
             <Text style={[AppStyles.txtWhiteRegular, AppStyles.f17]}>REJECT</Text>
