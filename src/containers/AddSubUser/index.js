@@ -118,7 +118,7 @@ function AddSubUser() {
 
   const _RenderItem = (index, item) => {
     return (
-      <View style={[AppStyles.alignCenter]}>
+      <View key = {index} style={[AppStyles.alignCenter]}>
         <View style={[AppStyles.flexDir, AppStyles.ph20, AppStyles.pv10]}>
           <View style={AppStyles.flexpointeight}>
             <Text style={[AppStyles.txtBlackRegular, AppStyles.f17]}>{item.name}</Text>
