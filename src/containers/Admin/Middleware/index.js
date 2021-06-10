@@ -1,5 +1,5 @@
 import useAxios from 'axios-hooks';
-import {USERS, ENABLE_USER, DISABLE_USER, ADMIN_NEW_ORDER, ACCEPT_ORDER, REJECT_ORDER, ASSIGN_AGGREGATOR} from '../../..//utils/urls';
+import {USERS, ENABLE_USER, DISABLE_USER, ADMIN_NEW_ORDER, ACCEPT_ORDER, REJECT_ORDER, ASSIGN_AGGREGATOR, ADD_SUBCATEGORY, LIST_SUBCATEGORY} from '../../..//utils/urls';
 
 const users = (pageNumber) => {
     return useAxios(
@@ -68,4 +68,26 @@ const users = (pageNumber) => {
     );
   }
 
-  export {users,  enableUserByAdmin, disableUserByAdmin, acceptOrder, rejectOrder, assignAggregator}
+  const addSubCategory = () => {
+    return useAxios(
+      {
+        url: ADD_SUBCATEGORY,
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+      },
+      { manual: true }
+    );
+  }
+
+  const listSubCategory = (pageNumber) => {
+    return useAxios(
+      {
+        url: LIST_SUBCATEGORY + pageNumber,
+        method: 'GET',
+        headers: { 'content-type': 'application/json' },
+      },
+      { manual: true }
+    );
+  }
+
+  export {users,  enableUserByAdmin, disableUserByAdmin, acceptOrder, rejectOrder, assignAggregator, addSubCategory, listSubCategory}

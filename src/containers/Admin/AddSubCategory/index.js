@@ -12,10 +12,12 @@ import * as Yup from 'yup';
 import UserContext from '../../../appContainer/context/user.context';
 import DropDown from '../../../components/Picker/index';
 import { getCategories } from './../../../services/CommonController';
+import { addSubCategory } from "../Middleware";
 
 function AddSubCategory() {
   const refSubCategory = useRef(null);
   const refPrice = useRef(null);
+  const [item, setItem] = useState({});
   const [categoryPickerData, setCategoryData] = useState([]);
 
   const navigation = useNavigation();
@@ -23,6 +25,8 @@ function AddSubCategory() {
 
   const { setLoader } = useContext(UserContext);
   const [{ data: categoryData, loading, error }, onGetCategories] = getCategories();
+  const [{ data1, loading1, error1 }, onAddSubCategory] = addSubCategory();
+  
 
   useEffect(() => {
     if (error)
@@ -44,12 +48,21 @@ function AddSubCategory() {
   }, [categoryData]);
 
   useLayoutEffect(() => {
+    const { btnStatus } = route.params;
+    if ( btnStatus == '1' ) {  }  else { 
+      const { Item } = route.params;
+    setItem(Item)
+    console.log("abc", Item);
+    handleChange('price', Item.price_per_kg);
+    console.log("abcd", Item.price_per_kg);
+     }
+    
     const title = 'Add Sub Category';
     navigation.setOptions({ title });
   }, []);
 
   const handelNavigate = () => {
-    route.params.getActionType()
+    // route.params.getActionType()
     navigation.goBack()
   }
 
@@ -72,7 +85,7 @@ function AddSubCategory() {
   });
 
   const handelSave = async (category, subcategory, price) => {
-    const { data } = await onGetCategories({
+    const { data } = await onAddSubCategory({
       data: {
         "category": category,
         "subcategory": subcategory,
