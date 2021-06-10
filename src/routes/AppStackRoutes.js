@@ -42,6 +42,8 @@ import ManageEPR from "../containers/Admin/ManageEPR";
 import SubCategoryDetails from "../containers/Admin/SubCategoryDetails";
 import AddSubCategory from "../containers/Admin/AddSubCategory";
 import ProvisionalPricing from "../containers/Admin/ProvisionalPricing";
+import AddProvisionalPricing from "../containers/Admin/AddProvisionalPricing";
+
 import OrderFailed from "../containers/Seller/OrderFailed";
 import WorkOrderDetails from "../containers/CommonScreen/WorkOrderDetails";
 import Payment from "../containers/Seller/Payment";
@@ -916,6 +918,13 @@ const AppStack = (props) => {
           <Stack.Screen
             name={NavigationRouteNames.PROVISIONAL_PRICING}
             component={ProvisionalPricing}
+            options={CommonHeaderStyle}
+          />
+
+           {/* ADD Provisional Pricing Screen number: 94*/}
+           <Stack.Screen
+            name={NavigationRouteNames.ADD_PROVISIONAL_PRICING}
+            component={AddProvisionalPricing}
             options={CommonHeaderStyle}
           />
           {/* Password Reset Screen number: 53*/}

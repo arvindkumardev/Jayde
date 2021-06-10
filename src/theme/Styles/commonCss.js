@@ -34,7 +34,7 @@ const commonCss = StyleSheet.create({
     fontFamily: Fonts.regular,
   },
   btnContainer: {
-    marginTop: RfH(100),
+    marginTop: RfH(50),
     marginLeft: RfW(24),
     marginRight: RfW(24),
   },

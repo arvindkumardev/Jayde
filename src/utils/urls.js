@@ -33,13 +33,15 @@ const SELLER_CONFIRM_RESCHEDULE = `/api/mobile/order/confirmReschedule`;
 const SELLER_CONFIRM_PROPOSED_WEIGHT = `/api/mobile/order/confirmProposedWeight`;
 const SELLER_CONFIRM_PAYMENT = `/api/mobile/order/confirmPayment`;
 
-
 // Admin
 const ADMIN_NEW_ORDER = `/api/mobile/admin/newOrders/`;
 const ENABLE_USER = `/api/mobile/admin/activateUser`;
 const DISABLE_USER = `/api/mobile/admin/deactivateUser`;
 const ACCEPT_ORDER = `/api/mobile/admin/confirmOrder`;
 const REJECT_ORDER = `/api/mobile/admin/rejectOrder`;
+const PROVISIONAL_PRICE_LIST = `/api/mobile/admin/listSpecialPricing/`;
+const CUSTOMER = `/api/mobile/customers`;
+const ADD_PROVISIONAL_PRICE = `/api/mobile/admin/addSpecialPricing`;
 
 // Aggregators
 const AGGREGATOR_INVENTORY = `/api/mobile/aggregator/inventory/`;
@@ -100,5 +102,6 @@ export {
      SELLER_CONFIRM_RESCHEDULE, SELLER_CONFIRM_PROPOSED_WEIGHT, SELLER_CONFIRM_PAYMENT, ADD_ORDER_PAPER, ADD_ORDER_PLASTIC, ADD_ORDER_MIX_WASTER, SELLER_REQUEST_CALLBACK,
      AGGREGATOR_INVENTORY, AGGREGATOR_SWO_TO_AGGREGATOR, AGGREGATOR_SWO_TO_RECYCLER, AGGREGATOR_WORK_ORDER_LIST,
      AGGREGATOR_COMPLETED_ORDER_LIST, AGGREGATOR_SCHEDULE_ORDER_LIST, AGGREGATOR_SCHEDULE_ORDER_DETAIL, AGGREGATOR_ADD_RECEIPT_DATA,AGGREGATOR_CONFIRM_PAYMENT_WORK_ORDER,
-     AGGREGATOR_CONFIRM_WORK_ORDER_PAYMENT
+     AGGREGATOR_CONFIRM_WORK_ORDER_PAYMENT,
+     PROVISIONAL_PRICE_LIST, CUSTOMER, ADD_PROVISIONAL_PRICE
 };

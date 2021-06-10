@@ -91,6 +91,8 @@ const NavigationRouteNames = {
   MANAGE_EPR: "ManageEPR",
   SUBCATEGORY_DETAILS: "SubCategoryDetails",
   PROVISIONAL_PRICING: "ProvisionalPricing",
+  ADD_PROVISIONAL_PRICING: "AddProvisionalPricing",
+
   SMART_CONTRACT: "SmartContract",
   AUDIT_TRAIL: "AuditTrail",
   SMARTCONTRACT_DETAIL: "SmartContractDetail",
