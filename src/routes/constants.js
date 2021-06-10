@@ -295,14 +295,16 @@ const DRAWER_MENU = {
 const USERS_ROLE_MENU = {
   seller: [
     {
-      menuName: "New Order",
+      menuName: "NEW ORDER",
+      subMenuName: "View New Orders",
       menu1image: pencilIcon,
       iconName: 'pencil',
       color: Colors.mango,
       screenName: NavigationRouteNames.NEW_ORDER,
     },
     {
-      menuName: "Existing Order",
+      menuName: "EXISTING",
+      subMenuName: "View Existing Orders",
       menu1image: pencilIcon,
       iconName: 'folder-open',
       color: Colors.mango,
@@ -311,7 +313,8 @@ const USERS_ROLE_MENU = {
   ],
   admin: [
     {
-      menuName: "New Order",
+      menuName: "NEW ORDER",
+      subMenuName: "View New Orders",
       menu1image: pencilIcon,
       iconName: 'pencil',
       color: Colors.mango,
@@ -320,21 +323,24 @@ const USERS_ROLE_MENU = {
   ],
   aggregate: [
     {
-      menuName: "New Order",
+      menuName: "NEW ORDER",
+      subMenuName: "View New Orders",
       menu1image: pencilIcon,
       iconName: 'pencil',
       color: Colors.mango,
       screenName: NavigationRouteNames.AGGREGATOR_NEW_ORDERS,
     },
     {
-      menuName: "Scheduled Order",
+      menuName: "SCHEDULED",
+      subMenuName: "View Scheduled Orders",
       menu1image: pencilIcon,
       iconName: 'folder-open',
       color: Colors.mango,
       screenName: NavigationRouteNames.AGGREGATOR_SCHEDULE_ORDER_LIST,
     },
     {
-      menuName: "Completed Work Order",
+      menuName: "COMPLETED",
+      subMenuName: "View Completed Work Orders",
       menu1image: pencilIcon,
       iconName: 'check-circle',
       color: Colors.green,
@@ -342,14 +348,16 @@ const USERS_ROLE_MENU = {
     }
   ],
   recycler: [{
-    menuName: "Work Order",
+    menuName: "WORK ORDER",
+    subMenuName: "View Work Orders",
     menu1image: pencilIcon,
     iconName: 'pencil',
     color: Colors.mango,
     screenName: NavigationRouteNames.RECYCLER_WORK_ORDER_LIST,
   }],
   EPR: [{
-    menuName: "New Order",
+    menuName: "NEW ORDER",
+    subMenuName: "View New Orders",
     menu1image: pencilIcon,
     iconName: 'pencil',
     color: Colors.mango,

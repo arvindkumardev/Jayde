@@ -111,7 +111,7 @@ function HomeScreen() {
   };
   const _renderData = (index, item) => {
     return (
-      <TouchableOpacity activeOpacity = {0.8} key={index} style={[Styles.dataItemContainer, AppStyles.cardStyle, AppStyles.pv15]}>
+      <TouchableOpacity activeOpacity = {0.8} key={index} style={[Styles.dataItemContainer, AppStyles.userCardStyle, AppStyles.pv15]}>
         <View style={Styles.dataImage}>
           <Image source={ORDER_IMAGE[item.category_name]} style = {AppStyles.imgOrders}/>
         </View>
@@ -131,33 +131,28 @@ function HomeScreen() {
 
   const _renderMenu = (index, item) => {
     return (
-      <View key={index} style={[Styles.menuContainer, { backgroundColor: index == 0 ? Colors.mangoTwo : index == 1 ? Colors.paleGold : Colors.lightOlive, }]}>
-        <View>
-          <TouchableOpacity activeOpacity = {0.8} style={Styles.menuEllipseContainer}>
-            {/* <FAIcon name="ellipsis-v" color={Colors.white} size={20} /> */}
-          </TouchableOpacity>
+      <TouchableOpacity activeOpacity = {0.8} onPress={() => handleNavigate(item.screenName)}>
+      <View key={index} style={[Styles.menuContainer, { backgroundColor: index == 0 ? Colors.mangoTwo : index == 1 ? Colors.paleGold : Colors.lightOlive}, {marginLeft: index == 0 ? 24 : index == 1 ? 10 : 10,}, {marginRight: index == 2 ? 10 : null }]}>
+        <View style={Styles.menuActionItem}>
+          <View style={[AppStyles.mr20, AppStyles.mb10, AppStyles.alignfend, AppStyles.mt20]}>
+            <MCIcon name={item.iconName} color={Colors.white} size={25} />
+          </View>
+          <View style={[AppStyles.mb20, AppStyles.mt20, AppStyles.ml10, AppStyles.mr10]}>
+            <Text style={[AppStyles.txtWhiteBold, AppStyles.f17, AppStyles.ml10,]}>{item.menuName}</Text>
+            <Text style={[AppStyles.txtWhiteRegular, AppStyles.f13, AppStyles.mt3, AppStyles.ml10,]}>{item.subMenuName}</Text>
+          </View>
         </View>
-        <TouchableOpacity activeOpacity = {0.8} onPress={() => handleNavigate(item.screenName)} style={Styles.menuActionItem}>
-          <View style={[AppStyles.mr20, AppStyles.mb10, AppStyles.alignfend]}>
-            <MCIcon name={item.iconName} color={Colors.white} size={30} />
-          </View>
-          <View style={[AppStyles.aligncen, AppStyles.mb20]}>
-            <Text style={[AppStyles.txtWhiteBold, AppStyles.f17, AppStyles.textalig]}>{item.menuName}</Text>
-          </View>
-        </TouchableOpacity>
       </View>
+      </TouchableOpacity>
     );
   };
 
   return (
     <ScrollView showsVerticalScrollIndicator = {false} style={{ backgroundColor: Colors.white }}>
-      <View style={[AppStyles.flexDir, AppStyles.mt10, AppStyles.inCenter]}>
-        <View style={[AppStyles.flexpointseven, AppStyles.ml24]}>
-          <Text style={[AppStyles.txtBlackBold, AppStyles.f20]}>{getGreeting()}</Text>
-          <Text style={[AppStyles.txtBlackBold, AppStyles.f30]}>{name}</Text>
-        </View>
-        <View style={[AppStyles.flexpointthree, {right: -10}]}>
-          <Image source={BagImg} style = {[Styles.imgBag]} />
+      <View style={[AppStyles.flexDir, AppStyles.mt20, AppStyles.mb10]}>
+        <View style={[AppStyles.ml24]}>
+          <Text style={[AppStyles.txtBlackBold, AppStyles.f22]}>{getGreeting()}</Text>
+          <Text style={[AppStyles.txtBlackBold, AppStyles.f30, AppStyles.mt10]}>{name}</Text>
         </View>
       </View>
 
@@ -168,8 +163,8 @@ function HomeScreen() {
         renderItem={({ index, item }) => _renderMenu(index, item)}
         keyExtractor={(_, index) => `${index}1`}
       />
-      <View style={[AppStyles.mt35, AppStyles.ml24]}>
-        <Text style={[AppStyles.txtBlackBold, AppStyles.f20]}>Current Orders</Text>
+      <View style={[AppStyles.mt35, AppStyles.ml24, AppStyles.mb10]}>
+        <Text style={[AppStyles.txtBlackBold, AppStyles.f22]}>Current Orders</Text>
       </View>
 
       {size(homeOrder) > 0 ?

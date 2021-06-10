@@ -178,11 +178,11 @@ export const getBgColor = (status) => {
 export const getGreeting = () => {
   let greeting = '';
   if (new Date().getHours() < 12) {
-    greeting = 'Good Morning, ';
+    greeting = 'Good Morning ';
   } else if (new Date().getHours() < 17) {
-    greeting = 'Good Afternoon, ';
+    greeting = 'Good Afternoon ';
   } else {
-    greeting = 'Good Evening, ';
+    greeting = 'Good Evening ';
   }
   return greeting;
 };

@@ -83,6 +83,9 @@ const texts = StyleSheet.create({
   f20: {
     fontSize: RFValue(20, STANDARD_SCREEN_SIZE),
   },
+  f22: {
+    fontSize: RFValue(22, STANDARD_SCREEN_SIZE),
+  },
   f30: {
     fontSize: RFValue(30, STANDARD_SCREEN_SIZE),
   },
