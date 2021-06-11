@@ -46,17 +46,19 @@ function ProvisionalPricing() {
   const [refreshPage, setRefreshPage] = useState(false)
   const [retry, setRetry] = useState(false)
 
-  const [{ data, loading, error }, onProvisionalPricing] = provisionalPricingList(offset);
+  const [{ data: listData, loading: listLoading, error: listError }, onProvisionalPricing] = provisionalPricingList(offset);
   const [{ data: deleteData, loading: deleteLoading, error: deleteError }, onDeletePricing] = deletePricing();
 
   const screenNavigate = () => {
-    navigation.navigate(NavigationRouteNames.ADD_PROVISIONAL_PRICING, { getActionType: getActionType, editMode:false });
+    navigation.navigate(NavigationRouteNames.ADD_PROVISIONAL_PRICING,
+      { getActionType: getActionType, editMode: false, item: {} });
   }
 
- const _handelEdit = () => {
-    navigation.navigate(NavigationRouteNames.ADD_PROVISIONAL_PRICING, { getActionType: getActionType, editMode:false  });
+  const _handelEdit = (item) => {
+    navigation.navigate(NavigationRouteNames.ADD_PROVISIONAL_PRICING,
+      { getActionType: getActionType, editMode: true, item });
   }
-  
+
   useLayoutEffect(() => {
     const title = 'Provisional Pricing';
     navigation.setOptions({
@@ -81,10 +83,11 @@ function ProvisionalPricing() {
   const getProvisionalPrice = async () => {
     try {
       const { data } = await onProvisionalPricing({ data: {} });
-      setLoader(false)
+     
       setPerPage(data.data[0].links.per_page)
       setTotalCount(data.data[0].links.total_count)
       setPriceList(data.data[0].categories)
+      setLoader(false)
     } catch (e) {
       console.log("Response error", e);
     }
@@ -102,18 +105,20 @@ function ProvisionalPricing() {
     }
   };
 
-  useEffect(() => {
-    if (error || deleteError)
-      setLoader(false)
-  }, [error, deleteError])
+
 
   useEffect(() => {
-    setLoader(true)
     getProvisionalPrice();
+    setLoader(true)
     return () => {
-      setLoader(false)
+      setLoader(false);
     }
   }, [retry]);
+
+  useEffect(() => {
+    if (listError || deleteError)
+      setLoader(false);
+  }, [listError, deleteError])
 
   useEffect(() => {
     if (refreshPage) {
@@ -202,7 +207,7 @@ function ProvisionalPricing() {
         <View style={[Styles.btnContainer, AppStyles.flexDir]}>
           <View style={AppStyles.flex1}>
             <TouchableOpacity
-              onPress = {() => _handelEdit()}
+              onPress={() => _handelEdit(item)}
               activeOpacity={0.8}
               style={[Styles.aggregatebtn, AppStyles.btnHeight44, AppStyles.inCenter]}>
               <Text style={[AppStyles.txtPrimaryRegular, AppStyles.f17, AppStyles.textalig]}>EDIT</Text>
@@ -243,8 +248,8 @@ function ProvisionalPricing() {
           }}
         />
           :
-          !loading && error == null ? <EmptyView onBack={() => navigation.pop()}></EmptyView>
-            : error &&
+          !listLoading && listError == null ? <EmptyView onBack={() => navigation.pop()}></EmptyView>
+            : listError &&
             <NetworkView Retry={() => setRetry(!retry)}></NetworkView>
       }
     </View>

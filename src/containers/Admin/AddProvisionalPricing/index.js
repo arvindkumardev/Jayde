@@ -8,7 +8,7 @@ import { RfH, RfW } from "../../../utils/helpers";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-
+import { size } from 'lodash';
 import UserContext from '../../../appContainer/context/user.context';
 import DropDown from '../../../components/Picker/index';
 import { getCategories, getSubCategories } from '../../../services/CommonController';
@@ -25,13 +25,13 @@ function AddProvisionalPricing() {
 
   const [clickConfirm, setClickConfirm] = useState(false);
   const { setLoader } = useContext(UserContext);
-
+  const [EditMode, setEditMode] = useState(false);
+  const [item, setItem] = useState();
   //------------------- API------------
   const [{ data: customerData, loading: customerLoading, error: customerError }, onGetCustomer] = getCustomer();
   const [{ data: categoryData, loading, error }, onGetCategories] = getCategories();
   const [{ data: subCategoryData, loading: subCategoryLoading, error: subCategoryError }, onGetSubCategories] = getSubCategories();
   const [{ data: managePriceData, loading: addPriceLoading, error: addPriceError }, onAddPricing] = addProvisionalPrice();
-
 
   useEffect(() => {
     if (customerError || addPriceError || error || subCategoryError)
@@ -63,7 +63,8 @@ function AddProvisionalPricing() {
 
   useEffect(() => {
     if (categoryData) {
-      const itemData = categoryData.map((item) => ({ label: item.category_name, value: item.id }));
+      let values = categoryData.filter(item => item.category_name != 'E-Waste')
+      const itemData = values.map((item) => ({ label: item.category_name, value: item.id }));
       setCategoryData(itemData);
     }
   }, [categoryData]);
@@ -74,11 +75,6 @@ function AddProvisionalPricing() {
       setCustomerList(item);
     }
   }, [customerData])
-
-  useLayoutEffect(() => {
-    const title = 'Manage Pricing';
-    navigation.setOptions({ title });
-  }, []);
 
   const handelNavigate = () => {
     route.params.getActionType()
@@ -106,12 +102,13 @@ function AddProvisionalPricing() {
 
   const handelSave = async (category, subcategory, price) => {
     let param = {
+      "subId" : EditMode ? item.id : "0",
       "customer": requestForm.values.customer,
       "category": requestForm.values.category,
       "subcategory": requestForm.values.subcategory,
       "price": requestForm.values.price,
     }
-    console.log(param)   
+    console.log(param)
     const { data } = await onAddPricing({
       data: param
     });
@@ -132,6 +129,24 @@ function AddProvisionalPricing() {
     requestForm.setFieldValue('category', categoryId)
     onGetSubCategories({ data: { id: categoryId } });
   }
+
+  useLayoutEffect(() => {
+    const title = 'Manage Pricing';
+    navigation.setOptions({ title });
+    let { item, editMode } = route.params;
+    let value = item.special_price_per_kg
+    editMode && requestForm.setFieldValue('price', value);
+    setItem(item);   
+    setEditMode(editMode);
+  }, []);
+
+  useEffect(() => {
+    if (EditMode) {
+      size(customerList) > 0 && requestForm.setFieldValue('customer', item.user_id)
+      size(categoryPickerData) > 0 && requestForm.setFieldValue('category',item.category_id)
+      size(subCategoryData) > 0 && requestForm.setFieldValue('subcategory', item.sub_category_id)
+    }
+  }, [customerList, categoryPickerData, subCategoryData])
 
   return (
     <KeyboardAwareScrollView
