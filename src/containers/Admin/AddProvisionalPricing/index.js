@@ -20,36 +20,51 @@ function AddProvisionalPricing() {
   const route = useRoute();
 
   const [customerList, setCustomerList] = useState([]);
-
   const [categoryPickerData, setCategoryData] = useState([]);
+  const [subCategoryPickerData, setSubCategoryData] = useState([]);
+
   const [clickConfirm, setClickConfirm] = useState(false);
   const { setLoader } = useContext(UserContext);
 
   //------------------- API------------
   const [{ data: customerData, loading: customerLoading, error: customerError }, onGetCustomer] = getCustomer();
   const [{ data: categoryData, loading, error }, onGetCategories] = getCategories();
-
-  const [{ data: subData }, onGetSubCategories] = getSubCategories();
+  const [{ data: subCategoryData, loading: subCategoryLoading, error: subCategoryError }, onGetSubCategories] = getSubCategories();
+  const [{ data: managePriceData, loading: addPriceLoading, error: addPriceError }, onAddPricing] = addProvisionalPrice();
 
 
   useEffect(() => {
-    if (error)
+    if (customerError || addPriceError || error || subCategoryError)
       setLoader(false)
-  }, [error])
+  }, [customerError, addPriceError, error, subCategoryError])
 
   useEffect(() => {
     onGetCustomer()
     onGetCategories();
-
     return () => {
       setLoader(false)
     }
   }, []);
 
   useEffect(() => {
+    setLoader(customerLoading)
+  }, [customerData, customerLoading]);
+
+  useEffect(() => {
+    setLoader(subCategoryLoading)
+  }, [subCategoryData, subCategoryLoading]);
+
+  useEffect(() => {
+    if (subCategoryData) {
+      const itemData = subCategoryData.map((item) => ({ label: item.sub_category_name, value: item.id }));
+      setSubCategoryData(itemData);
+    }
+  }, [subCategoryData]);
+
+  useEffect(() => {
     if (categoryData) {
-      const pickderData = categoryData.map((item) => ({ label: item.category_name, value: item.id }));
-      setCategoryData(pickderData);
+      const itemData = categoryData.map((item) => ({ label: item.category_name, value: item.id }));
+      setCategoryData(itemData);
     }
   }, [categoryData]);
 
@@ -90,14 +105,17 @@ function AddProvisionalPricing() {
   });
 
   const handelSave = async (category, subcategory, price) => {
-    return
-    const { data } = await onGetCategories({
-      data: {
-        "category": category,
-        "subcategory": subcategory,
-        "price": price,
-      },
+    let param = {
+      "customer": requestForm.values.customer,
+      "category": requestForm.values.category,
+      "subcategory": requestForm.values.subcategory,
+      "price": requestForm.values.price,
+    }
+    console.log(param)   
+    const { data } = await onAddPricing({
+      data: param
     });
+
     console.log(data.data)
     if (data.status) {
       handelNavigate()
@@ -109,6 +127,10 @@ function AddProvisionalPricing() {
   const handelSubmit = async () => {
     setClickConfirm(true);
     await requestForm.submitForm();
+  }
+  const _handelCategory = (categoryId) => {
+    requestForm.setFieldValue('category', categoryId)
+    onGetSubCategories({ data: { id: categoryId } });
   }
 
   return (
@@ -145,7 +167,7 @@ function AddProvisionalPricing() {
             <DropDown
               items={categoryPickerData}
               itemStyle={{ color: '#000' }}
-              onValueChange={(id) => requestForm.setFieldValue('category', id)}
+              onValueChange={(id) => _handelCategory(id)}
               selectedValue={requestForm.values.category}
               containerStyle={AppStyles.inputTxtStyle}
             />
@@ -161,7 +183,7 @@ function AddProvisionalPricing() {
           <View style={[AppStyles.mt20, AppStyles.ml24, AppStyles.mr24]}>
             <Text style={[AppStyles.txtBlackRegular, AppStyles.f15, AppStyles.mb6,]}>Please choose a sub category</Text>
             <DropDown
-              items={categoryPickerData}
+              items={subCategoryPickerData}
               itemStyle={{ color: '#000' }}
               onValueChange={(id) => requestForm.setFieldValue('subcategory', id)}
               selectedValue={requestForm.values.subcategory}
@@ -184,7 +206,7 @@ function AddProvisionalPricing() {
               placeholder={"Price Per Kg*"}
               maxLength={12}
               keyboardType='number-pad'
-              returnKeyType='next'
+              returnKeyType='done'
               value={requestForm.values.price}
               onChangeText={(txt) => requestForm.setFieldValue('price', txt)}
               style={AppStyles.inputTxtStyle} />
