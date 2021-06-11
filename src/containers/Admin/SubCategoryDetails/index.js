@@ -8,7 +8,7 @@ import { useRoute } from '@react-navigation/native';
 import { AppStyles, Colors } from '../../../theme';
 import arraydata from '../../../utils/arraydata4.json';
 import FAIcon from 'react-native-vector-icons/FontAwesome';
-import { listSubCategory } from "../Middleware";
+import { listSubCategory, deleteSubCategory } from "../Middleware";
 import UserContext from '../../../appContainer/context/user.context';
 import FooterLoader from "../../../appContainer/footerLoader";
 import EmptyView from '../../../appContainer/EmptyView'
@@ -38,10 +38,19 @@ function SubCategoryDetails() {
   const [loadMore, setLoadMore] = useState(false);
   const [totalCount, setTotalCount] = useState(0)
   const [perPage, setPerPage] = useState(15)
+  const [refreshPage, setRefreshPage] = useState(false)
 
   const [subCategoryList, setSubCategoryList] = useState([])
 
   const [{ data, loading, error }, onListSubCategory] = listSubCategory(offset);
+  const [{ data: deleteSubCategoryData, loading: deleteSubCategoryLoading, error: deleteSubCategoryError }, onDeleteSubCategory] = deleteSubCategory();
+
+  const getActionType = () => {
+    setOffset(0)
+    setPerPage(0)
+    setRefreshPage(true)
+    setLoader(true)
+  }
 
   const triggerSubCategory = async () => {
     try {
@@ -70,9 +79,9 @@ function SubCategoryDetails() {
   };
 
   useEffect(() => {
-    if(error)
-    setLoader(false)   
-  }, [error])
+    if (error || deleteSubCategoryError)
+      setLoader(false)
+  }, [error, deleteSubCategoryError])
 
   useEffect(() => {
     setLoader(true)
@@ -81,6 +90,15 @@ function SubCategoryDetails() {
       setLoader(false)
     }
   }, []);
+
+  useEffect(() => {
+    if (refreshPage) {
+      setSubCategoryList([])
+      triggerSubCategory()
+      setRefreshPage(false)
+    }
+  }, [refreshPage])
+
 
   useEffect(() => {
     if (loadMore)
@@ -115,32 +133,47 @@ function SubCategoryDetails() {
     setOffset(offset + perPage);
   }
 
-  const getActionType = async () => {
-    setSubCategoryList([])
-    triggerSubCategory()
-  }
+  useEffect(() => {
+    setLoader(deleteSubCategoryLoading)
+  }, [deleteSubCategoryLoading, deleteSubCategoryData])
+
 
   const addSubCategory = () => {
-    navigation.navigate(NavigationRouteNames.ADD_SUBCATEGORY, { btnStatus: '1' });
+    navigation.navigate(NavigationRouteNames.ADD_SUBCATEGORY, { getActionType: getActionType, btnStatus: '1' });
   }
 
   const screenNavigate = (item) => {
     navigation.navigate(NavigationRouteNames.ADD_SUBCATEGORY, { Item: item, getActionType: getActionType, btnStatus: '0' });
   }
 
-  const delView = () => {
+  const delView = (id) => {
     Alert.alert(
-      "Would You Want To Delete ?",
-      "",
+      "Delete?",
+      "Are you sure you want to delete?",
       [
         {
-          text: "Yes",
-          onPress: () => console.log("Cancel Pressed"),
+          text: "Delete",
+           onPress: () => handelDelete(id),
           style: "cancel"
         },
-        { text: "No", onPress: () => console.log("OK Pressed") }
+        { text: "Cancel", onPress: () => console.log("OK Pressed") }
       ]
     );
+  }
+
+  
+  const handelDelete = async (id) => {
+    const { data } = await onDeleteSubCategory({
+      data: {
+        "id": id,
+      },
+    });
+    console.log(data.data)
+    if (data.status) {
+      triggerSubCategory()
+    } else {
+      alert(data.message)
+    }
   }
 
   const _RenderItem = (index, item) => {
@@ -171,7 +204,7 @@ function SubCategoryDetails() {
           </View>
           <View style={AppStyles.flex1}>
             <TouchableOpacity
-              onPress={() => { delView() }}
+              onPress={() => { delView(item.sub_category_id) }}
               style={[Styles.deleteBtn, AppStyles.mb20, AppStyles.btnHeight44, AppStyles.inCenter]}>
               <Text style={[AppStyles.txtWhiteRegular, AppStyles.f17, AppStyles.textalig]}>DELETE</Text>
             </TouchableOpacity>

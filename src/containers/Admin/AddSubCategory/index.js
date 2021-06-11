@@ -8,6 +8,8 @@ import { RfH, RfW } from "../../../utils/helpers";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
+import NavigationRouteNames from '../../../routes/ScreenNames';
+import { size } from 'lodash';
 
 import UserContext from '../../../appContainer/context/user.context';
 import DropDown from '../../../components/Picker/index';
@@ -17,54 +19,58 @@ import { addSubCategory } from "../Middleware";
 function AddSubCategory() {
   const refSubCategory = useRef(null);
   const refPrice = useRef(null);
+  const [clickLogin, setClickLogin] = useState(false);
   const [item, setItem] = useState({});
+  const [subid, setSubid] = useState(0);
   const [categoryPickerData, setCategoryData] = useState([]);
+  const [EditMode, setEditMode] = useState(false);
 
   const navigation = useNavigation();
   const route = useRoute();
 
   const { setLoader } = useContext(UserContext);
   const [{ data: categoryData, loading, error }, onGetCategories] = getCategories();
-  const [{ data1, loading1, error1 }, onAddSubCategory] = addSubCategory();
-  
+  const [{ data: addSubCategoryData, loading: addSubCategoryLoading, error: addSubCategoryError, }, onAddSubCategory] = addSubCategory();
 
   useEffect(() => {
-    if (error)
+    if (error || addSubCategoryError)
       setLoader(false)
-  }, [error])
-  
+  }, [error, addSubCategoryError])
+
+
   useEffect(() => {
     onGetCategories();
     return () => {
-      setLoader(false)     
+      setLoader(false)
     }
   }, []);
-  
-  useEffect(() => {
-    if (categoryData) {
-      const pickderData = categoryData.map((item) => ({ label: item.category_name, value: item.id }));
-      setCategoryData(pickderData);
-    }
-  }, [categoryData]);
+
+
+  const handelNavigate = () => {
+    route.params.getActionType()
+    navigation.goBack()
+  }
 
   useLayoutEffect(() => {
     const { btnStatus } = route.params;
-    if ( btnStatus == '1' ) {  }  else { 
+    if (btnStatus == '1') { } else {
       const { Item } = route.params;
-    setItem(Item)
-    console.log("abc", Item);
-    handleChange('price', Item.price_per_kg);
-    console.log("abcd", Item.price_per_kg);
-     }
-    
+      setItem(Item)
+      setSubid(Item.sub_category_id)
+      console.log("abc", Item);
+      subCategoryForm.setFieldValue('category', Item.category_name);
+      console.log("ab", Item.category_name);
+      subCategoryForm.setFieldValue('subcategory', Item.sub_category_name);
+      console.log("abcd", Item.sub_category_name);
+      subCategoryForm.setFieldValue('price', Item.price_per_kg);
+      console.log("abcde", Item.price_per_kg);
+
+    }
+
     const title = 'Add Sub Category';
     navigation.setOptions({ title });
+    setEditMode();
   }, []);
-
-  const handelNavigate = () => {
-    // route.params.getActionType()
-    navigation.goBack()
-  }
 
   const SubCategorySchema = Yup.object().shape({
     category: Yup.string().min(1, 'Invalid category').required('Required'),
@@ -72,23 +78,34 @@ function AddSubCategory() {
     price: Yup.string().min(1, 'Invalid price').required('Required'),
   });
 
-  const { handleChange, handleBlur, handleSubmit, values, errors, isValid } = useFormik({
-    initialValues:
-    {
+  const subCategoryForm = useFormik({
+    validateOnChange: true,
+    validateOnBlur: true,
+    initialValues: {
       category: '',
       subcategory: '',
       price: '',
     },
     validationSchema: SubCategorySchema,
-    onSubmit: values =>
-      handelSave(values.category, values.subcategory, values.price)
+    onSubmit: () =>
+      handelSave(
+        subCategoryForm.values.category,
+        subCategoryForm.values.subcategory,
+        subCategoryForm.values.price,
+      ),
   });
+
+  const handleSubCategoryUpdate = async () => {
+    setClickLogin(true);
+    await subCategoryForm.submitForm();
+  };
 
   const handelSave = async (category, subcategory, price) => {
     const { data } = await onAddSubCategory({
       data: {
+        "subId": subid,
         "category": category,
-        "subcategory": subcategory,
+        "subcategoryName": subcategory,
         "price": price,
       },
     });
@@ -99,6 +116,18 @@ function AddSubCategory() {
       alert(data.message)
     }
   }
+
+  useEffect(() => {
+    if (categoryData) {
+      const pickderData = categoryData.map((item) => ({ label: item.category_name, value: item.id }));
+      setCategoryData(pickderData);
+    }
+  }, [categoryData]);
+
+  useEffect(() => {
+    size(categoryPickerData) > 0 && subCategoryForm.setFieldValue('category', item.category_id)
+  }, [categoryPickerData])
+
 
   return (
     <KeyboardAwareScrollView
@@ -117,18 +146,16 @@ function AddSubCategory() {
               items={categoryPickerData}
               placeholderText="Select Category"
               itemStyle={{ color: '#000' }}
-              onValueChange={handleChange('category')}
-              selectedValue={values.category}
+              onValueChange={(id) => subCategoryForm.setFieldValue('category', id)}
+              selectedValue={subCategoryForm.values.category}
               containerStyle={AppStyles.inputTxtStyle}
               onSubmitEditing={() => refSubCategory.current?.focus()}
             />
-
-            {errors.category && <CustomText
-              fontSize={15}
-              color={Colors.red}
-              styling={{ marginTop: RfH(10) }}>
-              {errors.category}
-            </CustomText>}
+            {clickLogin && subCategoryForm.errors.category ? (
+              <CustomText fontSize={15} color={Colors.red} styling={{ marginTop: RfH(10) }}>
+                {subCategoryForm.errors.category}
+              </CustomText>
+            ) : null}
           </View>
 
           <View style={[AppStyles.mt20, AppStyles.ml24, AppStyles.mr24]}>
@@ -142,18 +169,16 @@ function AddSubCategory() {
               keyboardType='default'
               maxLength={50}
               returnKeyType='next'
-              value={values.subcategory}
-              onBlur={handleBlur('subcategory')}
-              onChangeText={handleChange('subcategory')}
+              value={subCategoryForm.values.subcategory}
+              onChangeText={(txt) => subCategoryForm.setFieldValue('subcategory', txt)}
               onSubmitEditing={() => refPrice.current?.focus()}
               style={AppStyles.inputTxtStyle} />
 
-            {errors.subcategory && <CustomText
-              fontSize={15}
-              color={Colors.red}
-              styling={{ marginTop: RfH(10) }}>
-              {errors.subcategory}
-            </CustomText>}
+            {clickLogin && subCategoryForm.errors.subcategory ? (
+              <CustomText fontSize={15} color={Colors.red} styling={{ marginTop: RfH(10) }}>
+                {subCategoryForm.errors.subcategory}
+              </CustomText>
+            ) : null}
           </View>
 
           <View style={[AppStyles.mt20, AppStyles.ml24, AppStyles.mr24]}>
@@ -166,17 +191,15 @@ function AddSubCategory() {
               maxLength={12}
               keyboardType='number-pad'
               returnKeyType='next'
-              value={values.price}
-              onBlur={handleBlur('price')}
-              onChangeText={handleChange('price')}
+              value={subCategoryForm.values.price}
+              onChangeText={(txt) => subCategoryForm.setFieldValue('price', txt)}
               style={AppStyles.inputTxtStyle} />
 
-            {errors.price && <CustomText
-              fontSize={15}
-              color={Colors.red}
-              styling={{ marginTop: RfH(10) }}>
-              {errors.price}
-            </CustomText>}
+            {clickLogin && subCategoryForm.errors.price ? (
+              <CustomText fontSize={15} color={Colors.red} styling={{ marginTop: RfH(10) }}>
+                {subCategoryForm.errors.price}
+              </CustomText>
+            ) : null}
           </View>
         </View>
 
@@ -193,8 +216,7 @@ function AddSubCategory() {
           <View style={AppStyles.flex1}>
             <TouchableOpacity
               activeOpacity={0.8}
-              disabled={!isValid}
-              onPress={handleSubmit}
+              onPress={() => handleSubCategoryUpdate()}
               style={[AppStyles.confirmButton, AppStyles.mb20, AppStyles.btnHeight44, AppStyles.inCenter]}>
               <Text style={[AppStyles.txtWhiteRegular, AppStyles.f17]}>SAVE</Text>
             </TouchableOpacity>

@@ -1,6 +1,6 @@
 import useAxios from 'axios-hooks';
 import {USERS, ENABLE_USER, DISABLE_USER, ACCEPT_ORDER, REJECT_ORDER, ASSIGN_AGGREGATOR, ADD_SUBCATEGORY,
-   LIST_SUBCATEGORY, PROVISIONAL_PRICE_LIST, CUSTOMER, ADD_PROVISIONAL_PRICE,DELETE_PRICE} from '../../..//utils/urls';
+   LIST_SUBCATEGORY, PROVISIONAL_PRICE_LIST, CUSTOMER, ADD_PROVISIONAL_PRICE, DELETE_PRICE, DELETE_SUBCATEGORY,} from '../../..//utils/urls';
 
 const users = (pageNumber) => {
   return useAxios(
@@ -51,6 +51,17 @@ const disableUserByAdmin = () => {
       {
         url: LIST_SUBCATEGORY + pageNumber,
         method: 'GET',
+        headers: { 'content-type': 'application/json' },
+      },
+      { manual: true }
+    );
+  }
+
+  const deleteSubCategory = () => {
+    return useAxios(
+      {
+        url: DELETE_SUBCATEGORY,
+        method: 'POST',
         headers: { 'content-type': 'application/json' },
       },
       { manual: true }
@@ -135,5 +146,5 @@ const deletePricing = () => {
   );
 }
 export {users, enableUserByAdmin, disableUserByAdmin, acceptOrder, rejectOrder, assignAggregator,
-   addSubCategory, listSubCategory, provisionalPricingList, getCustomer, addProvisionalPrice, deletePricing}
+   addSubCategory, listSubCategory, provisionalPricingList, getCustomer, addProvisionalPrice, deletePricing, deleteSubCategory}
 
