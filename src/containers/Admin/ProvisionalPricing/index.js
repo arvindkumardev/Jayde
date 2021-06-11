@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState, useLayoutEffect } from 'react';
 import { Alert } from "react-native";
-import { KeyboardAvoidingView, Platform, TouchableOpacity, View, Text, Image, TextInput, FlatList, ScrollView } from 'react-native';
+import { Platform, TouchableOpacity, View, Text, Image, TextInput, FlatList } from 'react-native';
 import Styles from "./styles";
 import NavigationRouteNames from '../../../routes/ScreenNames';
 import { useNavigation } from '@react-navigation/core';
@@ -11,7 +11,8 @@ import UserContext from '../../../appContainer/context/user.context';
 import FooterLoader from "../../../appContainer/footerLoader";
 import EmptyView from '../../../appContainer/EmptyView'
 import NetworkView from '../../../appContainer/NetworkView'
-import { provisionalPricingList } from '../Middleware';
+import { provisionalPricingList, deletePricing } from '../Middleware';
+import { alertBox } from '../../../utils/helpers';
 
 //Image
 import EWasteImg from '../../../assets/Images/NewOrderList/Group_10091.png'
@@ -46,12 +47,16 @@ function ProvisionalPricing() {
   const [retry, setRetry] = useState(false)
 
   const [{ data, loading, error }, onProvisionalPricing] = provisionalPricingList(offset);
-
+  const [{ data: deleteData, loading: deleteLoading, error: deleteError }, onDeletePricing] = deletePricing();
 
   const screenNavigate = () => {
-    navigation.navigate(NavigationRouteNames.ADD_PROVISIONAL_PRICING, { getActionType: getActionType });
+    navigation.navigate(NavigationRouteNames.ADD_PROVISIONAL_PRICING, { getActionType: getActionType, editMode:false });
   }
 
+ const _handelEdit = () => {
+    navigation.navigate(NavigationRouteNames.ADD_PROVISIONAL_PRICING, { getActionType: getActionType, editMode:false  });
+  }
+  
   useLayoutEffect(() => {
     const title = 'Provisional Pricing';
     navigation.setOptions({
@@ -98,9 +103,9 @@ function ProvisionalPricing() {
   };
 
   useEffect(() => {
-    if (error)
+    if (error || deleteError)
       setLoader(false)
-  }, [error])
+  }, [error, deleteError])
 
   useEffect(() => {
     setLoader(true)
@@ -135,6 +140,45 @@ function ProvisionalPricing() {
     setOffset(offset + perPage);
   }
 
+  useEffect(() => {
+    setLoader(deleteLoading)
+  }, [deleteLoading, deleteData])
+
+  const _handelDelete = async (priceID, index) => {
+    try {
+      const { data } = await onDeletePricing({ data: { "priceId": priceID } });
+      console.log(data)
+      if (data.status) {
+        if (index != -1) {
+          let tempData = [...priceList]
+          tempData.splice(index, 1);
+          setPriceList(tempData)
+        }
+
+      } else {
+        alert(data.message)
+      }
+    }
+    catch (e) {
+      console.log("Response error", e);
+    }
+  }
+
+  const _alertConfirmation = (priceID, index) => {
+    console.log(priceID)
+    alertBox('Delete?',
+      'Are you sure you want to delete?', {
+      positiveText: 'Delete',
+      onPositiveClick: () => {
+        _handelDelete(priceID, index)
+      },
+      negativeText: 'Cancel',
+      onNegativeClick: () => {
+
+      }
+    });
+  }
+
   const _RenderItem = (index, item) => {
     return (
       <TouchableOpacity key={index}>
@@ -158,12 +202,16 @@ function ProvisionalPricing() {
         <View style={[Styles.btnContainer, AppStyles.flexDir]}>
           <View style={AppStyles.flex1}>
             <TouchableOpacity
+              onPress = {() => _handelEdit()}
+              activeOpacity={0.8}
               style={[Styles.aggregatebtn, AppStyles.btnHeight44, AppStyles.inCenter]}>
               <Text style={[AppStyles.txtPrimaryRegular, AppStyles.f17, AppStyles.textalig]}>EDIT</Text>
             </TouchableOpacity>
           </View>
           <View style={AppStyles.flex1}>
             <TouchableOpacity
+              activeOpacity={0.8}
+              onPress={() => _alertConfirmation(item.priceId, index)}
               style={[Styles.confirmbtn, AppStyles.mb20, AppStyles.btnHeight44, AppStyles.inCenter]}>
               <Text style={[AppStyles.txtWhiteRegular, AppStyles.f17, AppStyles.textalig]}>DELETE</Text>
             </TouchableOpacity>
@@ -174,7 +222,6 @@ function ProvisionalPricing() {
       </TouchableOpacity>
     )
   }
-
 
   return (
     <View style={AppStyles.topView}>

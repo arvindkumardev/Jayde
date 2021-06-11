@@ -1,5 +1,6 @@
 import useAxios from 'axios-hooks';
-import {USERS, ENABLE_USER, DISABLE_USER, ADMIN_NEW_ORDER, ACCEPT_ORDER, REJECT_ORDER, ASSIGN_AGGREGATOR, ADD_SUBCATEGORY, LIST_SUBCATEGORY, PROVISIONAL_PRICE_LIST, CUSTOMER, ADD_PROVISIONAL_PRICE,} from '../../..//utils/urls';
+import {USERS, ENABLE_USER, DISABLE_USER, ACCEPT_ORDER, REJECT_ORDER, ASSIGN_AGGREGATOR, ADD_SUBCATEGORY,
+   LIST_SUBCATEGORY, PROVISIONAL_PRICE_LIST, CUSTOMER, ADD_PROVISIONAL_PRICE,DELETE_PRICE} from '../../..//utils/urls';
 
 const users = (pageNumber) => {
   return useAxios(
@@ -123,5 +124,16 @@ const addProvisionalPrice = () => {
   );
 }
 
-export {users, enableUserByAdmin, disableUserByAdmin, acceptOrder, rejectOrder, assignAggregator, addSubCategory, listSubCategory, provisionalPricingList, getCustomer, addProvisionalPrice}
+const deletePricing = () => {
+  return useAxios(
+    {
+      url: DELETE_PRICE,
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+    },
+    { manual: true }
+  );
+}
+export {users, enableUserByAdmin, disableUserByAdmin, acceptOrder, rejectOrder, assignAggregator,
+   addSubCategory, listSubCategory, provisionalPricingList, getCustomer, addProvisionalPrice, deletePricing}
 

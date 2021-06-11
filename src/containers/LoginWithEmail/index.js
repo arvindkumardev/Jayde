@@ -54,13 +54,13 @@ function LoginWithEmail() {
       if (data.status) {
         await setLogin(data.status);
         await storeData(LOCAL_STORAGE_DATA_KEY.JWT_TOKEN, data.data.token);
-        await storeData(LOCAL_STORAGE_DATA_KEY.USER_ROLE, data.data.business_type);
+        await storeData(LOCAL_STORAGE_DATA_KEY.USER_ROLE, data.data.business_sub_type);
         await storeData(LOCAL_STORAGE_DATA_KEY.USER_NAME, data.data.name);
         await storeData(LOCAL_STORAGE_DATA_KEY.USER_PHONE, data.data.phone);
         await storeData(LOCAL_STORAGE_DATA_KEY.USER_EMAIL, data.data.email);
 
         console.log(data);
-        await setUserRole(data.data.business_type);
+        await setUserRole(data.data.business_sub_type);
         await setUserObj(data.data);
       } else {
         alert(data.message);
