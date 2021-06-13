@@ -12,6 +12,7 @@ import { listSubCategory, deleteSubCategory } from "../Middleware";
 import UserContext from '../../../appContainer/context/user.context';
 import FooterLoader from "../../../appContainer/footerLoader";
 import EmptyView from '../../../appContainer/EmptyView'
+import { alertBox } from '../../../utils/helpers';
 
 //Image
 import EWasteImg from '../../../assets/Images/NewOrderList/Group_10091.png'
@@ -20,10 +21,10 @@ import PlasticImg from '../../../assets/Images/NewOrderList/Group_10090.png'
 import MixWasterImg from '../../../assets/Images/NewOrderList/Group_10088.png'
 
 const ORDER_IMAGE = {
-    'E-Waste': EWasteImg,
-    Paper: PaperImg,
-    Plastic: PlasticImg,
-    'Mix Waste': MixWasterImg,
+  'E-Waste': EWasteImg,
+  Paper: PaperImg,
+  Plastic: PlasticImg,
+  'Mix Waste': MixWasterImg,
 };
 
 
@@ -68,7 +69,7 @@ function SubCategoryDetails() {
 
   const triggerLoadMore = async () => {
     try {
-      const { data } = await onListSubCategory({ data: {} });     
+      const { data } = await onListSubCategory({ data: {} });
       let currentData = data.data[0].categories;
       setLoadMore(false);
       setSubCategoryList(prevState => [...prevState, ...currentData]);
@@ -105,7 +106,7 @@ function SubCategoryDetails() {
       triggerLoadMore();
   }, [loadMore])
 
-  
+
 
   useLayoutEffect(() => {
     const title = 'Sub Category Details';
@@ -133,10 +134,6 @@ function SubCategoryDetails() {
     setOffset(offset + perPage);
   }
 
-  useEffect(() => {
-    setLoader(deleteSubCategoryLoading)
-  }, [deleteSubCategoryLoading, deleteSubCategoryData])
-
 
   const addSubCategory = () => {
     navigation.navigate(NavigationRouteNames.ADD_SUBCATEGORY, { getActionType: getActionType, btnStatus: '1' });
@@ -146,50 +143,59 @@ function SubCategoryDetails() {
     navigation.navigate(NavigationRouteNames.ADD_SUBCATEGORY, { Item: item, getActionType: getActionType, btnStatus: '0' });
   }
 
-  const delView = (id) => {
-    Alert.alert(
-      "Delete?",
-      "Are you sure you want to delete?",
-      [
-        {
-          text: "Delete",
-           onPress: () => handelDelete(id),
-          style: "cancel"
-        },
-        { text: "Cancel", onPress: () => console.log("OK Pressed") }
-      ]
-    );
+  const alertConfirmation = (id, index) => {
+    alertBox('Delete?',
+      'Are you sure you want to delete?', {
+      positiveText: 'Delete',
+      onPositiveClick: () => {
+        handelDelete(id, index)
+      },
+      negativeText: 'Cancel',
+      onNegativeClick: () => {
+
+      }
+    });
   }
 
-  
-  const handelDelete = async (id) => {
-    const { data } = await onDeleteSubCategory({
-      data: {
-        "id": id,
-      },
-    });
-    console.log(data.data)
-    if (data.status) {
-      triggerSubCategory()
-    } else {
-      alert(data.message)
+
+  const handelDelete = async (id, index) => {
+    try {
+      setLoader(true)
+      const { data } = await onDeleteSubCategory({
+        data: {
+          "id": id,
+        },
+      });
+      console.log(data.data)
+      if (data.status) {
+        if (index != -1) {
+          let tempData = [...subCategoryList]
+          tempData.splice(index, 1);
+          setSubCategoryList(tempData)
+        }
+      } else {
+        alert(data.message)
+      }
+      setLoader(false)
+    }
+    catch (e) {
+      console.log("Response error", e);
     }
   }
 
   const _RenderItem = (index, item) => {
     return (
-      <TouchableOpacity>
-
+      <View key={index}>
         <View style={[AppStyles.flexDir, AppStyles.mt20]}>
           <View style={[AppStyles.flexpointtwo, AppStyles.ml20]}>
-            <Image source={ORDER_IMAGE[item.category_name]} style = {AppStyles.imgSubCategory}/>
+            <Image source={ORDER_IMAGE[item.category_name]} style={AppStyles.imgSubCategory} />
           </View>
           <View style={[AppStyles.flexpointsix, AppStyles.mt10]}>
             <Text style={[AppStyles.txtBlackRegular, AppStyles.f15]}>{item.category_name}</Text>
             <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f13]}>{item.sub_category_name}</Text>
           </View>
           <View style={[AppStyles.flexpointtwo, AppStyles.mt10]}>
-            
+
             <Text style={[AppStyles.txtBlackRegular, AppStyles.f15]}><FAIcon size={11} name='rupee' /> {item.price_per_kg}</Text>
           </View>
         </View>
@@ -197,6 +203,7 @@ function SubCategoryDetails() {
         <View style={[Styles.btnContainer, AppStyles.flexDir]}>
           <View style={AppStyles.flex1}>
             <TouchableOpacity
+              activeOpacity={0.8}
               onPress={() => screenNavigate(item)}
               style={[Styles.editBtn, AppStyles.btnHeight44, AppStyles.inCenter]}>
               <Text style={[AppStyles.txtPrimaryRegular, AppStyles.f17, AppStyles.textalig]}>EDIT</Text>
@@ -204,41 +211,40 @@ function SubCategoryDetails() {
           </View>
           <View style={AppStyles.flex1}>
             <TouchableOpacity
-              onPress={() => { delView(item.sub_category_id) }}
+              activeOpacity={0.8}
+              onPress={() => { alertConfirmation(item.sub_category_id, index) }}
               style={[Styles.deleteBtn, AppStyles.mb20, AppStyles.btnHeight44, AppStyles.inCenter]}>
               <Text style={[AppStyles.txtWhiteRegular, AppStyles.f17, AppStyles.textalig]}>DELETE</Text>
             </TouchableOpacity>
           </View>
         </View>
-
         <View style={[AppStyles.w100, Styles.bdrclr]}></View>
-      </TouchableOpacity>
+      </View>
     )
   }
 
 
   return (
-
     <View style={AppStyles.topView}>
-       {subCategoryList.length > 0 ? 
+      {subCategoryList.length > 0 ?
         <FlatList
           data={subCategoryList}
           renderItem={({ index, item }) =>
             _RenderItem(index, item)
           }
-        extraData={useState}
-        removeClippedSubviews={Platform.OS === 'android' && true}
-        numColumns={1}
-        keyExtractor={(_, index) => `${index}1`}
-        ListFooterComponent={<FooterLoader Loading={loadMore}></FooterLoader>}
-        onEndReachedThreshold={0.2}
-        onEndReached={info => {
-          loadMoreResults(info);
-        }}
+          extraData={useState}
+          removeClippedSubviews={Platform.OS === 'android' && true}
+          numColumns={1}
+          keyExtractor={(_, index) => `${index}1`}
+          ListFooterComponent={<FooterLoader Loading={loadMore}></FooterLoader>}
+          onEndReachedThreshold={0.2}
+          onEndReached={info => {
+            loadMoreResults(info);
+          }}
         />
-         :
-        !loading && <EmptyView onBack = {() => navigation.pop()}></EmptyView>
-      } 
+        :
+        !loading && <EmptyView onBack={() => navigation.pop()}></EmptyView>
+      }
     </View>
   );
 }

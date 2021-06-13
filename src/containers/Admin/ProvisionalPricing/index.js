@@ -145,12 +145,10 @@ function ProvisionalPricing() {
     setOffset(offset + perPage);
   }
 
-  useEffect(() => {
-    setLoader(deleteLoading)
-  }, [deleteLoading, deleteData])
 
   const _handelDelete = async (priceID, index) => {
     try {
+      setLoader(true)
       const { data } = await onDeletePricing({ data: { "priceId": priceID } });
       console.log(data)
       if (data.status) {
@@ -159,10 +157,10 @@ function ProvisionalPricing() {
           tempData.splice(index, 1);
           setPriceList(tempData)
         }
-
       } else {
         alert(data.message)
       }
+      setLoader(false)
     }
     catch (e) {
       console.log("Response error", e);
@@ -186,7 +184,7 @@ function ProvisionalPricing() {
 
   const _RenderItem = (index, item) => {
     return (
-      <TouchableOpacity key={index}>
+      <View key={index}>
         <View style={[AppStyles.flexDir, AppStyles.mt20]}>
           <View style={[AppStyles.flexpointtwo, AppStyles.ml20]}>
             <Image source={ORDER_IMAGE[item.category_name]} style={AppStyles.imgOrders} />
@@ -224,7 +222,7 @@ function ProvisionalPricing() {
         </View>
 
         <View style={[AppStyles.w100, Styles.bdrclr]}></View>
-      </TouchableOpacity>
+      </View>
     )
   }
 
