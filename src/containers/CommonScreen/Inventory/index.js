@@ -131,10 +131,10 @@ function Inventory() {
             </TouchableOpacity>
           </View>
           <View style={AppStyles.flex1}>
-            <TouchableOpacity activeOpacity={0.8}
+            {userRole != 'drcc' && <TouchableOpacity activeOpacity={0.8}
               style={[Styles.confirmbtn, AppStyles.mb20, AppStyles.btnHeight44, AppStyles.inCenter]} onPress={() => screenNavigate(item, 0)}>
               <Text style={[AppStyles.txtWhiteRegular, AppStyles.f17, AppStyles.textalig]}>RECYCLER</Text>
-            </TouchableOpacity>
+            </TouchableOpacity>}
           </View>
         </View>
 

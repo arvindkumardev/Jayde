@@ -102,7 +102,7 @@ function AddProvisionalPricing() {
 
   const handelSave = async () => {
     let param = {
-      "subId" : EditMode ? item.id : "0",
+      "subId" : EditMode ? item.priceId : "0",
       "customer": requestForm.values.customer,
       "category": requestForm.values.category,
       "subcategory": requestForm.values.subcategory,

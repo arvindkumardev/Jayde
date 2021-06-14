@@ -21,10 +21,10 @@ function Users() {
 
   const { setLoader } = useContext(UserContext);
 
-  const [offset, setOffset] = useState(1);
+  const [offset, setOffset] = useState(0);
   const [loadMore, setLoadMore] = useState(false);
   const [totalCount, setTotalCount] = useState(0)
-  const [perPage, setPerPage] = useState(5)
+  const [perPage, setPerPage] = useState(0)
 
   const [userList, setUserList] = useState([])
 
