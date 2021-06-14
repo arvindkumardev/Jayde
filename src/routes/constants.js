@@ -343,7 +343,7 @@ const DRAWER_MENU = {
       name: 'Profile',
       color: Colors.mango,
       iconName: 'users',
-      screenName: ''
+      screenName: NavigationRouteNames.UPDATE_PROFILE
     },
     {
       name: 'Order Summary',

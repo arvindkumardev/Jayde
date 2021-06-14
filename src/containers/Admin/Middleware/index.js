@@ -1,6 +1,6 @@
 import useAxios from 'axios-hooks';
-import {USERS, ENABLE_USER, DISABLE_USER, ACCEPT_ORDER, REJECT_ORDER, ASSIGN_AGGREGATOR, ADD_SUBCATEGORY,
-   LIST_SUBCATEGORY, PROVISIONAL_PRICE_LIST, CUSTOMER, ADD_PROVISIONAL_PRICE, DELETE_PRICE, DELETE_SUBCATEGORY,} from '../../..//utils/urls';
+import {USERS, ENABLE_USER, DISABLE_USER, ACCEPT_ORDER, REJECT_ORDER, ASSIGN_AGGREGATOR, ADD_SUBCATEGORY, 
+   LIST_SUBCATEGORY, PROVISIONAL_PRICE_LIST, CUSTOMER, ADD_PROVISIONAL_PRICE, DELETE_PRICE, DELETE_SUBCATEGORY, EPR_LIST, EPR_Aggregatorlist,} from '../../..//utils/urls';
 
 const users = (pageNumber) => {
   return useAxios(
@@ -145,6 +145,29 @@ const deletePricing = () => {
     { manual: true }
   );
 }
+
+const listEpr = (pageNumber) => {
+  return useAxios(
+    {
+      url: EPR_LIST + pageNumber,
+      method: 'GET',
+      headers: { 'content-type': 'application/json' },
+    },
+    { manual: true }
+  );
+}
+
+const listEprAggregator = () => {
+  return useAxios(
+    {
+      url: EPR_Aggregatorlist,
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+    },
+    { manual: true }
+  );
+}
+
 export {users, enableUserByAdmin, disableUserByAdmin, acceptOrder, rejectOrder, assignAggregator,
-   addSubCategory, listSubCategory, provisionalPricingList, getCustomer, addProvisionalPrice, deletePricing, deleteSubCategory}
+   addSubCategory, listSubCategory, provisionalPricingList, getCustomer, addProvisionalPrice, deletePricing, deleteSubCategory, listEpr, listEprAggregator}
 

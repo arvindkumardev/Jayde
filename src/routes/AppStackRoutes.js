@@ -84,6 +84,7 @@ import AddUser from "../containers/AddUser";
 import PasswordReset from "../containers/PasswordReset";
 import AdminNewOrderList from "../containers/Admin/NewOrderList";
 import AdminNewOrder from "../containers/Admin/OrderDetails";
+import EprAggregatorDetails from "../containers/Admin/EprAggregatorDetails";
 import AggregatorNewOrder from "../containers/Aggregator/NewOrders";
 import { resolveConfig } from "prettier";
 
@@ -1377,6 +1378,13 @@ const AppStack = (props) => {
             options={CommonHeaderStyle}
           />
 
+           {/* EPR Aggregator Details Screen*/}
+           <Stack.Screen
+            name={NavigationRouteNames.EPR_AGGREGATORDETAILS}
+            component={EprAggregatorDetails}
+            options={CommonHeaderStyle}
+          />
+
         </>;
      
      case USER_ROLE.EPR:
@@ -1395,80 +1403,6 @@ const AppStack = (props) => {
           })
           }
         />
-        {/* Screen - 19 */}
-        <Stack.Screen
-          name={NavigationRouteNames.CONFIRM_ADDRESS}
-          component={AddressConfirm}
-        />
-        {/* Screen - 15 */}
-        <Stack.Screen
-          name={NavigationRouteNames.PRICE_REQUEST}
-          component={PricingRequest}
-          initialParams={{ title: "Paper Waste" }}
-        />
-        {/* Screen - 17 */}
-        <Stack.Screen
-          name={NavigationRouteNames.PRICE_CONFIRM}
-          component={PriceConfirm}
-        />
-        {/* Screen - 16 */}
-        <Stack.Screen
-          name={NavigationRouteNames.NEW_ORDER_REQUEST}
-          component={NewOrder}
-        />
-        {/* Screen - 18 */}
-        <Stack.Screen
-          name={NavigationRouteNames.PICKUP_DETAILS}
-          component={PickupDetails}
-        />
-
-        {/* New Work Order List Screen number: 21*/}
-        <Stack.Screen
-          name={NavigationRouteNames.ADMIN_NEW_ORDER_LIST}
-          component={AdminNewOrderList}
-          options={CommonHeaderStyle}
-        />
-        {/* View Order Screen number: 20*/}
-        <Stack.Screen
-          name={NavigationRouteNames.ADMIN_NEW_ORDER}
-          component={AdminNewOrder}
-          options={CommonHeaderStyle}
-        />
-
-        {/* View Order Screen number: 20*/}
-        <Stack.Screen
-          name={NavigationRouteNames.ASSIGN_ORDER}
-          component={OrderAssign}
-          options={CommonHeaderStyle}
-        />
-
-
-        {/* Confirmation Screen */}
-        <Stack.Screen
-          name={NavigationRouteNames.CONFIRMATION}
-          component={Confirmation}
-          options={NoHeaderScreen}
-        />
-
-        {/* Failed Screen */}
-        <Stack.Screen
-          name={NavigationRouteNames.ORDER_FAILED}
-          component={OrderFailed}
-          options={NoHeaderScreen}
-        />
-
-
-        {/* Call request screen number: 70 */}
-        <Stack.Screen
-          name={NavigationRouteNames.CALL_REQUEST}
-          component={CallRequest}
-        />
-        {/* User Popup Screen */}
-        <Stack.Screen
-          name={NavigationRouteNames.ENABLEDISABLE_USER}
-          component={EnableDisableUser}
-          options={NoHeaderScreen}
-        />
         {/* Update Profile Screen number: 50 */}
         <Stack.Screen
           name={NavigationRouteNames.UPDATE_PROFILE}
@@ -1485,69 +1419,6 @@ const AppStack = (props) => {
         <Stack.Screen
           name={NavigationRouteNames.PROFILE_UPDATE}
           component={ProfileUpdate}
-          options={CommonHeaderStyle}
-        />
-        {/* User List Screen */}
-        <Stack.Screen
-          name={NavigationRouteNames.USERS}
-          component={Users}
-          options={CommonHeaderStyle}
-        />
-        {/* Download Report Screen number: 91*/}
-        <Stack.Screen
-          name={NavigationRouteNames.DOWNLOAD_REPORT}
-          component={DownloadReport}
-          options={CommonHeaderStyle}
-        />
-        {/* ManageEPR Screen number: 92*/}
-        <Stack.Screen
-          name={NavigationRouteNames.MANAGE_EPR}
-          component={ManageEPR}
-          options={CommonHeaderStyle}
-        />
-        {/* Sub Category Details Screen number: 93*/}
-        <Stack.Screen
-          name={NavigationRouteNames.SUBCATEGORY_DETAILS}
-          component={SubCategoryDetails}
-          options={CommonHeaderStyle}
-        />
-        {/* Provisional Pricing Screen number: 94*/}
-        <Stack.Screen
-          name={NavigationRouteNames.PROVISIONAL_PRICING}
-          component={ProvisionalPricing}
-          options={CommonHeaderStyle}
-        />
-
-         {/* ADD Provisional Pricing Screen number: 94*/}
-         <Stack.Screen
-          name={NavigationRouteNames.ADD_PROVISIONAL_PRICING}
-          component={AddProvisionalPricing}
-          options={CommonHeaderStyle}
-        />
-        {/* Password Reset Screen number: 53*/}
-        <Stack.Screen
-          name={NavigationRouteNames.PASSWORD_RESET}
-          component={PasswordReset}
-          options={NoHeaderScreen}
-        />
-        {/* Sub User Screen number: 81*/}
-        <Stack.Screen
-          name={NavigationRouteNames.ADD_SUBUSER}
-          component={AddSubUser}
-          options={CommonHeaderStyle}
-        />
-
-        {/* Sub User Screen number: 82*/}
-        <Stack.Screen
-          name={NavigationRouteNames.ADD_USER}
-          component={AddUser}
-          options={CommonHeaderStyle}
-        />
-
-        {/* Sub Category Screen*/}
-        <Stack.Screen
-          name={NavigationRouteNames.ADD_SUBCATEGORY}
-          component={AddSubCategory}
           options={CommonHeaderStyle}
         />
 
