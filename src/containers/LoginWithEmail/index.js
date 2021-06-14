@@ -186,7 +186,7 @@ function LoginWithEmail() {
           <Text style={[AppStyles.txtWhiteRegular, AppStyles.f15]}>Forgot password?</Text>
         </TouchableOpacity>
       </View>
-      <View style={{ width: '100%', alignItems: 'center', alignSelf: 'flex-end', marginBottom: 20 }}>
+      <View style={{ width: '100%', alignItems: 'center', alignSelf: 'flex-end', marginBottom: 40 }}>
         <View style={{ flexDirection: 'row' }}>
           <Text style={[AppStyles.txtWhiteRegular, AppStyles.f15]}>Don't have an account?</Text>
           <TouchableOpacity activeOpacity={0.8} onPress={() => navigation.navigate(NavigationRouteNames.SIGNUP)}>

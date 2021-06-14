@@ -11,7 +11,9 @@ const USER_ROLE = {
   ADMIN: "admin",
   AGGRATOR: "aggregate",
   RECYCLER: "recycler",
-  EPR: "EPR",
+  DRCC: "drcc",
+  SCHOOL: 'school',
+  EPR: "epr",
 };
 
 const DRAWER_MENU = {
@@ -196,6 +198,73 @@ const DRAWER_MENU = {
       screenName: 'logout'
     },
   ],
+  drcc: [
+    {
+      name: 'My Home',
+      color: Colors.mango,
+      iconName: 'home',
+      screenName: NavigationRouteNames.HOME_SCREEN
+    },
+    {
+      name: 'Profile',
+      color: Colors.mango,
+      iconName: 'user',
+      screenName: NavigationRouteNames.UPDATE_PROFILE
+    },
+    {
+      name: 'New Order',
+      color: Colors.mango,
+      iconName: 'pencil',
+      screenName: NavigationRouteNames.AGGREGATOR_NEW_ORDERS,
+    },
+
+    {
+      name: 'Scheduled Order',
+      color: Colors.mango,
+      iconName: 'wpforms',
+      screenName: NavigationRouteNames.AGGREGATOR_SCHEDULE_ORDER_LIST
+    },
+
+    {
+      name: 'Inventory',
+      color: Colors.mango,
+      iconName: 'archive',
+      screenName: NavigationRouteNames.INVENTORY
+    },
+    {
+      name: 'Work Orders',
+      color: Colors.mango,
+      iconName: 'folder',
+      screenName: NavigationRouteNames.AGGREGATOR_WORK_ORDER_LIST
+    },
+
+    {
+      name: 'Completed Order',
+      color: Colors.mango,
+      iconName: 'folder',
+      screenName: NavigationRouteNames.COMPLETED_ORDER
+    },
+
+    {
+      name: 'Users',
+      color: Colors.mango,
+      iconName: 'users',
+      screenName: NavigationRouteNames.ADD_SUBUSER
+    },
+
+    {
+      name: 'Smart Contracts',
+      color: Colors.mango,
+      iconName: 'sticky-note',
+      screenName: NavigationRouteNames.SMART_CONTRACT
+    },
+    {
+      name: 'Logout',
+      color: Colors.mango,
+      iconName: 'power-off',
+      screenName: 'logout'
+    },
+  ],
   recycler: [
     {
       name: 'My Home',
@@ -263,7 +332,7 @@ const DRAWER_MENU = {
       screenName: 'logout'
     },
   ],
-  EPR: [
+  epr: [
     {
       name: 'My Home',
       color: Colors.mango,
@@ -289,11 +358,28 @@ const DRAWER_MENU = {
       screenName: 'logout'
     },
   ],
-
 };
 
 const USERS_ROLE_MENU = {
   seller: [
+    {
+      menuName: "NEW ORDER",
+      subMenuName: "View New Orders",
+      menu1image: pencilIcon,
+      iconName: 'pencil',
+      color: Colors.mango,
+      screenName: NavigationRouteNames.NEW_ORDER,
+    },
+    {
+      menuName: "EXISTING",
+      subMenuName: "View Existing Orders",
+      menu1image: pencilIcon,
+      iconName: 'folder-open',
+      color: Colors.mango,
+      screenName: NavigationRouteNames.SELLER_MY_ORDER,
+    }
+  ],
+  school: [
     {
       menuName: "NEW ORDER",
       subMenuName: "View New Orders",
@@ -347,6 +433,32 @@ const USERS_ROLE_MENU = {
       screenName: NavigationRouteNames.COMPLETED_ORDER,
     }
   ],
+  drcc: [
+    {
+      menuName: "NEW ORDER",
+      subMenuName: "View New Orders",
+      menu1image: pencilIcon,
+      iconName: 'pencil',
+      color: Colors.mango,
+      screenName: NavigationRouteNames.AGGREGATOR_NEW_ORDERS,
+    },
+    {
+      menuName: "SCHEDULED",
+      subMenuName: "View Scheduled Orders",
+      menu1image: pencilIcon,
+      iconName: 'folder-open',
+      color: Colors.mango,
+      screenName: NavigationRouteNames.AGGREGATOR_SCHEDULE_ORDER_LIST,
+    },
+    {
+      menuName: "COMPLETED",
+      subMenuName: "View Completed Work Orders",
+      menu1image: pencilIcon,
+      iconName: 'check-circle',
+      color: Colors.green,
+      screenName: NavigationRouteNames.COMPLETED_ORDER,
+    }
+  ],
   recycler: [{
     menuName: "WORK ORDER",
     subMenuName: "View Work Orders",
@@ -355,7 +467,7 @@ const USERS_ROLE_MENU = {
     color: Colors.mango,
     screenName: NavigationRouteNames.RECYCLER_WORK_ORDER_LIST,
   }],
-  EPR: [{
+  epr: [{
     menuName: "NEW ORDER",
     subMenuName: "View New Orders",
     menu1image: pencilIcon,

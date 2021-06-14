@@ -217,6 +217,8 @@ function SignUp() {
                   { label: 'Aggregate', value: 'aggregate' },
                   { label: 'Recycler', value: 'recycler' },
                   { label: 'Epr', value: 'epr' },
+                  { label: 'DRCC', value: 'drcc' },
+                  { label: 'School', value: 'school' },
                 ]}
                 onValueChange={
                   (onChangeBusinesstype) => loginForm.setFieldValue('businesstype', onChangeBusinesstype) // {onChangeBusinesstype}
