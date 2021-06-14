@@ -20,6 +20,13 @@ const styles = StyleSheet.create({
     borderColor: Colors.mango,
     borderWidth: 1,
   },
+  btnGray: {
+    backgroundColor: Colors.grayOne,
+    borderRadius: 10,
+    paddingHorizontal: RfW(10),
+    marginLeft: 3,
+   
+  },
   aggregatebtn: {
     backgroundColor: Colors.white,
     borderRadius: 10,

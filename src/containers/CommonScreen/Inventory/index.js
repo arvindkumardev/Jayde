@@ -5,7 +5,7 @@ import Styles from "./styles";
 import NavigationRouteNames from '../../../routes/ScreenNames';
 import { useNavigation } from '@react-navigation/core';
 import { useRoute } from '@react-navigation/native';
-import { AppStyles } from '../../../theme';
+import { AppStyles, Colors } from '../../../theme';
 import { getInventory } from '../Middelware';
 import FooterLoader from "../../../appContainer/footerLoader";
 import EmptyView from '../../../appContainer/EmptyView'
@@ -131,7 +131,11 @@ function Inventory() {
             </TouchableOpacity>
           </View>
           <View style={AppStyles.flex1}>
-            {userRole != 'drcc' && <TouchableOpacity activeOpacity={0.8}
+            {userRole == 'drcc' ? <TouchableOpacity activeOpacity={1}
+              style={[Styles.btnGray, AppStyles.mb20, AppStyles.btnHeight44, AppStyles.inCenter]}>
+              <Text style={[AppStyles.txtWhiteRegular, AppStyles.f17, AppStyles.textalig]}>RECYCLER</Text>
+            </TouchableOpacity> : 
+            <TouchableOpacity activeOpacity={0.8}
               style={[Styles.confirmbtn, AppStyles.mb20, AppStyles.btnHeight44, AppStyles.inCenter]} onPress={() => screenNavigate(item, 0)}>
               <Text style={[AppStyles.txtWhiteRegular, AppStyles.f17, AppStyles.textalig]}>RECYCLER</Text>
             </TouchableOpacity>}
