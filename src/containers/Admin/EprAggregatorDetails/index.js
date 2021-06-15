@@ -161,7 +161,7 @@ return (
         <View style={Styles.confirmView}>
           <TouchableOpacity
             activeOpacity={0.8}
-            style={[Styles.confirmBtn, AppStyles.btnHeight44, AppStyles.inCenter]} onPress={() => { handelSubmitdfdf() }}>
+            style={[Styles.confirmBtn, AppStyles.btnHeight44, AppStyles.inCenter]} onPress={() => { }}>
             <Text style={[AppStyles.txtWhiteRegular, AppStyles.f17, AppStyles.textalig]}>ADD</Text>
           </TouchableOpacity>
         </View>
@@ -178,7 +178,7 @@ return (
           <View style={AppStyles.flex1}>
           <TouchableOpacity
             activeOpacity={0.8}
-            style={[Styles.deleteBtn, AppStyles.btnHeight44, AppStyles.inCenter, AppStyles.mr24]} onPress={() => { handelSubmitfgfg() }}>
+            style={[Styles.deleteBtn, AppStyles.btnHeight44, AppStyles.inCenter, AppStyles.mr24]} onPress={() => {  }}>
             <Text style={[AppStyles.txtWhiteRegular, AppStyles.f17, AppStyles.textalig]}>Delete</Text>
           </TouchableOpacity>
           </View>
@@ -194,7 +194,7 @@ return (
           <View style={AppStyles.flex1}>
           <TouchableOpacity
             activeOpacity={0.8}
-            style={[Styles.deleteBtn, AppStyles.btnHeight44, AppStyles.inCenter, AppStyles.mr24]} onPress={() => { handelSubmitfgfg() }}>
+            style={[Styles.deleteBtn, AppStyles.btnHeight44, AppStyles.inCenter, AppStyles.mr24]} onPress={() => {  }}>
             <Text style={[AppStyles.txtWhiteRegular, AppStyles.f17, AppStyles.textalig]}>Delete</Text>
           </TouchableOpacity>
           </View>
