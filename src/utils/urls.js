@@ -9,6 +9,10 @@ const PROFILE_UPDATE = `/api/mobile/user/updateProfile`;
 const BUSINESS_UPDATE = `/api/mobile/business/updateProfile`;
 const GETBUSINESS_PROFILE = `/api/mobile/business/viewProfile`;
 const OWNED_CONTRACTS = `/api/mobile/smartContracts/ownedContracts/`;
+const SELLER_TOP_ORDER = `/api/mobile/order/top`
+const AGGREGATOR_TOP_ORDER = `/api/mobile/aggregator/top`
+const RECYCLER_TOP_ORDER = `/api/mobile/recycler/top`
+const ADMIN_TOP_ORDER = `/api/mobile/admin/top`
 
 // Seller
 const GET_UNITS = `/api/mobile/units`;
@@ -94,6 +98,7 @@ const RECYCLER_ADD_RECEIPT_DATA = `/api/mobile/recycler/addReceiptData`;
 const RECYCLER_CONFIRM_PAYMENT_WORK_ORDER = `/api/mobile/recycler/confirmPaymentWork`;
 
 export {
+     SELLER_TOP_ORDER, AGGREGATOR_TOP_ORDER, RECYCLER_TOP_ORDER, ADMIN_TOP_ORDER,
      SUB_USER, ADD_SUB_USER, LOGIN_URL, SIGN_UP, PROFILE_UPDATE, BUSINESS_UPDATE, GETBUSINESS_PROFILE,
      OWNED_CONTRACTS, FORGOT_PASSWORD, GET_SUB_CATEGORY, GET_UNITS, CREATE_QUOTE_PAPER, CREATE_QUOTE_PLASTIC,
      CREATE_QUOTE_MIX_WASTER, DELETE_QUOTE_MIX_WASTER, DELETE_QUOTE_PLASTIC, DELETE_QUOTE_PAPER, USERS, GET_CATEGORIES,

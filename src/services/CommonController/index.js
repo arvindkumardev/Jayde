@@ -1,13 +1,21 @@
 import useAxios from 'axios-hooks';
 import {GET_CATEGORIES, GET_SUB_CATEGORY, GET_UNITS, ADD_SUB_USER, SUB_USER,
   GET_AGGREGATORS, GET_RECYCLERS,
-  SELLER_MY_ORDER, AGGREGATOR_NEWORDER, RECYCLER_NEW_ORDER, ADMIN_NEW_ORDER} from '../../utils/urls';
+  SELLER_MY_ORDER, AGGREGATOR_NEWORDER, RECYCLER_NEW_ORDER, ADMIN_NEW_ORDER,
+  SELLER_TOP_ORDER, AGGREGATOR_TOP_ORDER, RECYCLER_TOP_ORDER, ADMIN_TOP_ORDER} from '../../utils/urls';
 
   const USERS_ROLE_MENU = {
     seller: SELLER_MY_ORDER,
     admin: ADMIN_NEW_ORDER,
     aggregate: AGGREGATOR_NEWORDER,
     recycler: RECYCLER_NEW_ORDER
+  }
+
+  const USERS_ROLE_MENU_HOME = {
+    seller: SELLER_TOP_ORDER,
+    admin: ADMIN_TOP_ORDER,
+    aggregate: AGGREGATOR_TOP_ORDER,
+    recycler: RECYCLER_TOP_ORDER
   }
 
 const getCategories = () => {
@@ -99,5 +107,15 @@ const getNewOrder = (role, pageNumber) => {
   )
 };
   
+const getHomeTopOrder = (role) => {
+  return useAxios(
+    {
+      url: USERS_ROLE_MENU_HOME[role],
+      method: 'GET',
+      headers: { 'content-type': 'application/json' }
+    },
+    { manual: true }
+  )
+};
 export { getCategories, getSubCategories, getUnits, subUser, addSubUser, getAggregators, getRecyclers,
-  getNewOrder, };
+  getNewOrder, getHomeTopOrder};

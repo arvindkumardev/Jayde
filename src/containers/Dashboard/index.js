@@ -11,11 +11,12 @@ import { LOCAL_STORAGE_DATA_KEY } from '../../utils/constants';
 import UserContext from '../../appContainer/context/user.context';
 import { USERS_ROLE_MENU, STATUS_ICON } from '../../routes/constants';
 import Styles from './styles';
-import { getNewOrder } from "../../services/CommonController";
+import { getHomeTopOrder } from "../../services/CommonController";
 import { NotificationService } from '../../services/firebase'
 import LocalNotificationService from '../../services/firebase/LocalNotificationService'
 import { size } from 'lodash';
 import { RfH, RfW } from '../../utils/helpers';
+import ItemRow from '../../containers/Components/Dashboard'
 
 //Image
 import EWasteImg from './../../assets/Images/NewOrderList/Group_10091.png'
@@ -38,13 +39,15 @@ function HomeScreen() {
 
   const [name, setName] = useState("");
   const [homeOrder, setHomeOrder] = useState([]);
-  const [{ data, loading, error }, onOrderList] = getNewOrder(userRole, 0);
+  const [dataLoaded, setDataLoaded] = useState(false)
+  const [{ data, loading, error }, onOrderList] = getHomeTopOrder(userRole, 0);
 
   useEffect(() => {
     async function getUserName() {
       const username = await getSaveData(LOCAL_STORAGE_DATA_KEY.USER_NAME);
       setName(username)
     }
+    setDataLoaded(false)
     getUserName();
     getHomeOrder();
 
@@ -83,15 +86,11 @@ function HomeScreen() {
 
   const getHomeOrder = async () => {
     try {
-      const { data } = await onOrderList({ data: {} });
-      if (userRole === 'seller') {
-        setHomeOrder(data.data[0].orderDetails)
-      } else {
-        setHomeOrder(data.data[0].newOrders)
-      }
+      const { data } = await onOrderList({ data: {} });     
+      setHomeOrder(data.top)
+      setDataLoaded(true)
       //setLoader(loading)            
-    }
-    catch (e) {
+    } catch (e) {
       console.log("Response error", e);
     }
   };
@@ -109,11 +108,16 @@ function HomeScreen() {
       handleUserLogout();
     }
   };
+
+  const screenNavigate = (item) => {
+    //navigation.navigate(NavigationRouteNames.SELLER_ORDER_DETAIL, { Item: item, getActionType: getActionType })
+  }
+
   const _renderData = (index, item) => {
     return (
-      <TouchableOpacity activeOpacity = {0.8} key={index} style={[Styles.dataItemContainer, AppStyles.userCardStyle, AppStyles.pv15]}>
+      <TouchableOpacity activeOpacity={0.8} key={index} style={[Styles.dataItemContainer, AppStyles.userCardStyle, AppStyles.pv15]}>
         <View style={Styles.dataImage}>
-          <Image source={ORDER_IMAGE[item.category_name]} style = {AppStyles.imgOrders}/>
+          <Image source={ORDER_IMAGE[item.category_name]} style={AppStyles.imgOrders} />
         </View>
         <View style={[Styles.dataItemContent, AppStyles.ml15]}>
           <Text style={[AppStyles.txtBlackRegular, AppStyles.f17, AppStyles.mt5]}>{item.order_no}</Text>
@@ -131,24 +135,24 @@ function HomeScreen() {
 
   const _renderMenu = (index, item) => {
     return (
-      <TouchableOpacity activeOpacity = {0.8} onPress={() => handleNavigate(item.screenName)}>
-      <View key={index} style={[Styles.menuContainer, { backgroundColor: index == 0 ? Colors.mangoTwo : index == 1 ? Colors.paleGold : Colors.lightOlive}, {marginLeft: index == 0 ? 24 : index == 1 ? 10 : 10,}, {marginRight: index == 2 ? 10 : null }]}>
-        <View style={Styles.menuActionItem}>
-          <View style={[AppStyles.mr20, AppStyles.mb10, AppStyles.alignfend, AppStyles.mt20]}>
-            <MCIcon name={item.iconName} color={Colors.white} size={25} />
-          </View>
-          <View style={[AppStyles.mb20, AppStyles.mt20, AppStyles.ml10, AppStyles.mr10]}>
-            <Text style={[AppStyles.txtWhiteBold, AppStyles.f17, AppStyles.ml10,]}>{item.menuName}</Text>
-            <Text style={[AppStyles.txtWhiteRegular, AppStyles.f13, AppStyles.mt3, AppStyles.ml10,]}>{item.subMenuName}</Text>
+      <TouchableOpacity activeOpacity={0.8} onPress={() => handleNavigate(item.screenName)}>
+        <View key={index} style={[Styles.menuContainer, { backgroundColor: index == 0 ? Colors.mangoTwo : index == 1 ? Colors.paleGold : Colors.lightOlive }, { marginLeft: index == 0 ? 24 : index == 1 ? 10 : 10, }, { marginRight: index == 2 ? 10 : null }]}>
+          <View style={Styles.menuActionItem}>
+            <View style={[AppStyles.mr20, AppStyles.mb10, AppStyles.alignfend, AppStyles.mt20]}>
+              <MCIcon name={item.iconName} color={Colors.white} size={25} />
+            </View>
+            <View style={[AppStyles.mb20, AppStyles.mt20, AppStyles.ml10, AppStyles.mr10]}>
+              <Text style={[AppStyles.txtWhiteBold, AppStyles.f17, AppStyles.ml10,]}>{item.menuName}</Text>
+              <Text style={[AppStyles.txtWhiteRegular, AppStyles.f13, AppStyles.mt3, AppStyles.ml10,]}>{item.subMenuName}</Text>
+            </View>
           </View>
         </View>
-      </View>
       </TouchableOpacity>
     );
   };
 
   return (
-    <ScrollView showsVerticalScrollIndicator = {false} style={{ backgroundColor: Colors.white }}>
+    <ScrollView showsVerticalScrollIndicator={false} style={{ backgroundColor: Colors.white }}>
       <View style={[AppStyles.flexDir, AppStyles.mt20, AppStyles.mb10]}>
         <View style={[AppStyles.ml24]}>
           <Text style={[AppStyles.txtBlackBold, AppStyles.f22]}>{getGreeting()}</Text>
@@ -168,17 +172,24 @@ function HomeScreen() {
       </View>
 
       {size(homeOrder) > 0 ?
-      <FlatList data={homeOrder}
-        renderItem={({ index, item }) => _renderData(index, item)}
-        extraData={useState}
-        removeClippedSubviews={Platform.OS === 'android' && true}
-        numColumns={1}
-        keyExtractor={(_, index) => `${index}2`} />
+        <FlatList data={homeOrder}
+          renderItem={({ index, item }) =>
+            <ItemRow item={item}
+              index={index}
+              screenNavigate={screenNavigate}
+              userRole={userRole}>
+            </ItemRow>
+          }
+          ListFooterComponent = {<View style = {AppStyles.mb20}></View>}
+          extraData={useState}
+          removeClippedSubviews={Platform.OS === 'android' && true}
+          numColumns={1}
+          keyExtractor={(_, index) => `${index}2`} />
         :
-        !loading && <View style = {[AppStyles.inCenter, {height:RfH(320)}]}>
-          <Image source={NoRecordImg} style = {AppStyles.homeImgEmpty}/>
-        <Text style = {[AppStyles.txtBlackRegular, AppStyles.textalig, AppStyles.f18, AppStyles.mt20]}>No Pending Orders</Text>
-        </View> 
+        dataLoaded && <View style={[AppStyles.inCenter, { height: RfH(320) }]}>
+          <Image source={NoRecordImg} style={AppStyles.homeImgEmpty} />
+          <Text style={[AppStyles.txtBlackRegular, AppStyles.textalig, AppStyles.f18, AppStyles.mt20]}>No Pending Orders</Text>
+        </View>
       }
 
     </ScrollView>

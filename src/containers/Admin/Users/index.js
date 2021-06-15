@@ -114,7 +114,7 @@ function Users() {
 
           <View style={[AppStyles.flexDir, AppStyles.ml16, AppStyles.mt12]}>
             <View style={AppStyles.flexpointseven}>
-              <Text style={[AppStyles.f13, AppStyles.txtSecandaryRegular,]}>{item.email}</Text>
+              <Text numberOfLines = {1}  style={[AppStyles.f13, AppStyles.txtSecandaryRegular,]}>{item.email}</Text>
             </View>
             <View style={[AppStyles.flexpointthree, AppStyles.inCenter]}>
               <TouchableOpacity 
@@ -125,7 +125,7 @@ function Users() {
             </View>
           </View>
 
-          <Text style={[AppStyles.txtBlackRegular, AppStyles.f15, AppStyles.ml16, AppStyles.mt12]}>{item.business_name}</Text>
+          <Text  numberOfLines = {1} style={[AppStyles.txtBlackRegular, AppStyles.f15, AppStyles.ml16, AppStyles.mt12]}>{item.business_name}</Text>
           <Text style={[AppStyles.txtBlackRegular, AppStyles.f15, AppStyles.ml16,]}>{item.name}</Text>
 
 
