@@ -2,7 +2,8 @@ import useAxios from 'axios-hooks';
 import {GET_CATEGORIES, GET_SUB_CATEGORY, GET_UNITS, ADD_SUB_USER, SUB_USER,
   GET_AGGREGATORS, GET_RECYCLERS,
   SELLER_MY_ORDER, AGGREGATOR_NEWORDER, RECYCLER_NEW_ORDER, ADMIN_NEW_ORDER,
-  SELLER_TOP_ORDER, AGGREGATOR_TOP_ORDER, RECYCLER_TOP_ORDER, ADMIN_TOP_ORDER} from '../../utils/urls';
+  SELLER_TOP_ORDER, AGGREGATOR_TOP_ORDER, RECYCLER_TOP_ORDER,
+  ADMIN_TOP_ORDER, BUSINESS_EPR_PARTNER, BUSINESS_EPR_AGGREGATOR} from '../../utils/urls';
 
   const USERS_ROLE_MENU = {
     seller: SELLER_MY_ORDER,
@@ -117,5 +118,29 @@ const getHomeTopOrder = (role) => {
     { manual: true }
   )
 };
+
+
+const BusinessEprPartner = () => {
+  return useAxios(
+    {
+      url: BUSINESS_EPR_PARTNER,
+      method: 'GET',
+      headers: { 'content-type': 'application/json' },
+    },
+    { manual: true }
+  );
+}
+
+const BusinessEprAggregator = () => {
+  return useAxios(
+    {
+      url: BUSINESS_EPR_AGGREGATOR,
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+    },
+    { manual: true }
+  );
+}
+
 export { getCategories, getSubCategories, getUnits, subUser, addSubUser, getAggregators, getRecyclers,
-  getNewOrder, getHomeTopOrder};
+  getNewOrder, getHomeTopOrder, BusinessEprPartner, BusinessEprAggregator};

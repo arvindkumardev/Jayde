@@ -100,6 +100,13 @@ function DownloadReport() {
         }
   }  
 
+  // const handelData = () => {
+  //   const firstArray = [{ "id": 4, "name": "Tata" }, { "id": 11, "name": "Maruti" }], 
+  //   secondArray = [{ "id": 4, "name": "Tata" }, { "id": 11, "name": "Maruti" }, { "id": 15, "name": "Hyundai" }, { "id": 21, "name": "Honda" } ],
+  //   result = secondArray.filter(o => !firstArray.includes(o));
+  //   console.log(result);
+  // }
+
   const _RenderItem = (index, item) => {
       return (
         <TouchableOpacity>

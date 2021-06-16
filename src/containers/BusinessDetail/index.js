@@ -11,7 +11,7 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import * as Yup from 'yup';
 import { useFormik } from 'formik';
 import { businessUpdate, getBusinessProfile } from './middleware';
-import {listEpr, EprAggregator} from './../Admin/Middleware'
+import {BusinessEprPartner, BusinessEprAggregator} from './../../services/CommonController'
 import { useNavigation } from '@react-navigation/core';
 import { useRoute } from '@react-navigation/native';
 import DropDown from '../../components/Picker/index';
@@ -34,15 +34,15 @@ function BusinessDetail() {
   const [EPRAggregatorName, setEPRAggregatorName ] = useState([])
   const [{ data, loading, error: updateError }, onBusinessUpdate] = businessUpdate();
   const [{ data: profileData, loading: profileLoading, error: profileError }, onGetBusinessProfile] = getBusinessProfile();
-  const [{ data:eprUser, loading:eprLoading, error:eprError }, onListEpr] = listEpr(0);
-  const [{ data:eprAggregatorData, loading:eprAggregatorLoading, error:eprAggregatorError }, onEPRAggregator] = EprAggregator();
+  const [{ data:eprUser, loading:eprLoading, error:eprError }, onBusinessEprPartner] = BusinessEprPartner();
+  const [{ data:eprAggregatorData, loading:eprAggregatorLoading, error:eprAggregatorError }, onBusinessEprAggregator] = BusinessEprAggregator();
 
   const getBusinessData = async () => {
     try {
       const { data } = await onGetBusinessProfile({ data: {} });
       setLoader(false);
       console.log('data', data.data[0]);
-      return
+      //return
       businessForm.setFieldValue('businessname', data.data[0].business_name);
       businessForm.setFieldValue('address', data.data[0].address);
       businessForm.setFieldValue('city', data.data[0].city);
@@ -75,25 +75,27 @@ function BusinessDetail() {
 
   useEffect(() => {
     if (eprUser) {
-      const itemData = eprUser.data[0].eprs.map((item) => ({ label: item.business_name, value: item.userid }));
+      const itemData = eprUser.erp_partners.map((item) => ({ label: item.business_name, value: item.userid }));
       setEPRName(itemData);
     }
   }, [eprUser]);
 
   const confirmBusinessUpdate = async (businessname, address, city, pincode, gstin, pan) => {
     try {
+      let param = {
+        name: businessname,
+        address: address,
+        city: city,
+        pin: pincode,
+        gst: gstin,
+        pan: pan,
+        erp_partner:businessForm.values.eprUserID,
+        erp_aggregator:businessForm.values.eprAggregator,
+      };   
+      console.log(param)  
       setLoader(true)
       const { data } = await onBusinessUpdate({
-        data: {
-          name: businessname,
-          address: address,
-          city: city,
-          pin: pincode,
-          gst: gstin,
-          pan: pan,
-          erp_partner:"123",
-          erp_aggregator:"123"
-        },
+        data: param
       });
 
       console.log(data);
@@ -157,7 +159,7 @@ function BusinessDetail() {
       title,
     });
 
-    onListEpr({ data: {} })
+    onBusinessEprPartner({ data: {} })
   }, []);
 
   const screenNavigate = () => {
@@ -181,19 +183,16 @@ function BusinessDetail() {
       return
     }
     try {
-      const { data } = await onEPRAggregator({
+      const { data } = await onBusinessEprAggregator({
         data: {
-          "eprId": userID,
+          "eprPartnerId": userID,
           "page": 0,
         },
       });
       console.log("aggregator data", data)
-      if (data.status) {
-        // setPerPage(data.data[0].links.per_page)
-        // setTotalCount(data.data[0].links.total_count)
-        const itemData = data.data[0].aggregators.map((item) => ({ label: item.business_name, value: item.userid }));
-        setEPRAggregatorName(itemData);
-       //setEPRAggregatorName(data.data[0].aggregators)
+      if (data.status) {       
+        const itemData = data.aggregators.map((item) => ({ label: item.business_name, value: item.aggregatora_id }));
+        setEPRAggregatorName(itemData);    
         console.log("response", data.data[0].aggregators)
       } else {
         alert(data.message)
@@ -204,8 +203,7 @@ function BusinessDetail() {
   };
 
   const onChangeEPRPartner = (id) => {
-    businessForm.setFieldValue('eprUserID', id)
-    return
+    businessForm.setFieldValue('eprUserID', id)    
     getEPRAggregator(id)
   }
 
