@@ -9,14 +9,19 @@ import { AppStyles, Colors } from '../../theme/index';
 import { removeData, getGreeting, getSaveData, formatDisplayDate } from '../../utils/helpers';
 import { LOCAL_STORAGE_DATA_KEY } from '../../utils/constants';
 import UserContext from '../../appContainer/context/user.context';
-import { USERS_ROLE_MENU, STATUS_ICON } from '../../routes/constants';
+import { USERS_ROLE_MENU, STATUS_ICON, USER_ROLE } from '../../routes/constants';
+import NavigationRouteNames from '../../routes/ScreenNames';
+
 import Styles from './styles';
 import { getHomeTopOrder } from "../../services/CommonController";
 import { NotificationService } from '../../services/firebase'
 import LocalNotificationService from '../../services/firebase/LocalNotificationService'
 import { size } from 'lodash';
 import { RfH, RfW } from '../../utils/helpers';
-import ItemRow from '../../containers/Components/Dashboard'
+import NewOrderItem from '../../containers/Components/NewOrder'
+import ScheduledOrderItem from '../../containers/Components/ScheduleOrder'
+import WorkOrderItem from '../../containers/Components/WorkOrder'
+
 
 //Image
 import EWasteImg from './../../assets/Images/NewOrderList/Group_10091.png'
@@ -38,8 +43,12 @@ function HomeScreen() {
   const { userRole, setLogin, setLoader } = useContext(UserContext);
 
   const [name, setName] = useState("");
-  const [homeOrder, setHomeOrder] = useState([]);
-  const [dataLoaded, setDataLoaded] = useState(false)
+
+  const [NewOrder, setNewOrder] = useState([]);
+  const [ScheduledOrder, setScheduledOrder] = useState([]);
+  const [WorkOrder, setWorkOrder] = useState([]);
+
+  const [status, setStatus] = useState(false)
   const [{ data, loading, error }, onOrderList] = getHomeTopOrder(userRole, 0);
 
   useEffect(() => {
@@ -47,7 +56,7 @@ function HomeScreen() {
       const username = await getSaveData(LOCAL_STORAGE_DATA_KEY.USER_NAME);
       setName(username)
     }
-    setDataLoaded(false)
+    setStatus(false)
     getUserName();
     getHomeOrder();
 
@@ -86,10 +95,15 @@ function HomeScreen() {
 
   const getHomeOrder = async () => {
     try {
-      const { data } = await onOrderList({ data: {} });     
-      setHomeOrder(data.top)
-      setDataLoaded(true)
-      //setLoader(loading)            
+      const { data } = await onOrderList({ data: {} });
+      if (data.status) {
+        setNewOrder(data.newOrders)
+        setWorkOrder(data.workOrder)
+        setScheduledOrder(data.scheduleOrder)
+        setStatus(true)
+      } else {
+        setStatus(false)
+      }
     } catch (e) {
       console.log("Response error", e);
     }
@@ -109,8 +123,47 @@ function HomeScreen() {
     }
   };
 
-  const screenNavigate = (item) => {
-    //navigation.navigate(NavigationRouteNames.SELLER_ORDER_DETAIL, { Item: item, getActionType: getActionType })
+  const getActionType = async () => {
+
+  }
+
+  const navigateNewOrder = (item) => {
+    switch (userRole) {
+      case USER_ROLE.SELLER:
+        navigation.navigate(NavigationRouteNames.SELLER_ORDER_DETAIL, { Item: item, getActionType: getActionType })
+        break;
+      case USER_ROLE.AGGRATOR:
+        navigation.navigate(NavigationRouteNames.ORDER_CONFIRMATION, { Item: item, getActionType: getActionType });
+        break;
+      case USER_ROLE.RECYCLER:
+        navigation.navigate(NavigationRouteNames.ORDER_CONFIRMATION, { Item: item });
+        break;
+      case USER_ROLE.ADMIN:
+        item.is_confirmed == 2 ?
+          navigation.navigate(NavigationRouteNames.ORDER_ASSIGN, { Value: item, getActionType: getActionType })
+          :
+          navigation.navigate(NavigationRouteNames.ADMIN_NEW_ORDER, { Item: item, getActionType: getActionType })
+        break;
+    }
+  }
+
+  const navigateScheduledOrder = (item) => {
+    item.assigned_status == '1' &&
+      navigation.navigate(NavigationRouteNames.PAYMENT_VERIFICATION,
+        {
+          'assignedID': item.assigned_id,
+          getActionType: getActionType,
+          WhereFrom: NavigationRouteNames.HOME_SCREEN
+        });
+  }
+
+  const navigateWorkOrder = (item) => {
+    navigation.navigate(NavigationRouteNames.WORK_ORDER_VERIFICATION,
+      {
+        item,
+        'assignedID': item.assigned_id,
+        WhereFrom: NavigationRouteNames.HOME_SCREEN
+      });
   }
 
   const _renderData = (index, item) => {
@@ -160,25 +213,56 @@ function HomeScreen() {
         </View>
       </View>
 
-      <FlatList
+      {/* <FlatList
         data={USERS_ROLE_MENU[userRole]}
         horizontal
         showsHorizontalScrollIndicator={false}
         renderItem={({ index, item }) => _renderMenu(index, item)}
         keyExtractor={(_, index) => `${index}1`}
-      />
+      /> */}
+      <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+        {USERS_ROLE_MENU[userRole].map((item, index) => _renderMenu(index, item))}
+      </ScrollView>
+
       <View style={[AppStyles.mt35, AppStyles.ml24, AppStyles.mb10]}>
         <Text style={[AppStyles.txtBlackBold, AppStyles.f22]}>Current Orders</Text>
       </View>
+      {status && !loading ? <View style={[AppStyles.flex1]}>
 
-      {size(homeOrder) > 0 ?
+        {NewOrder.map((item, index) => <NewOrderItem item={item}
+          index={index}
+          screenNavigate={navigateNewOrder}
+          userRole={userRole}>
+        </NewOrderItem>)}
+
+        {WorkOrder.map((item, index) => <WorkOrderItem item={item}
+          index={index}
+          screenNavigate={navigateWorkOrder}
+          userRole={userRole}>
+        </WorkOrderItem>)}
+
+        {ScheduledOrder.map((item, index) => <ScheduledOrderItem item={item}
+          index={index}
+          screenNavigate={navigateScheduledOrder}
+          userRole={userRole}>
+        </ScheduledOrderItem>)}
+        <View style={AppStyles.mb20}></View>
+      </View>
+        :
+        !status && <View style={[AppStyles.inCenter, { height: RfH(320) }]}>
+          <Image source={NoRecordImg} style={AppStyles.homeImgEmpty} />
+          <Text style={[AppStyles.txtBlackRegular, AppStyles.textalig, AppStyles.f18, AppStyles.mt20]}>No Pending Orders</Text>
+        </View>
+      }
+
+      {/* {size(homeOrder) > 0 ?
         <FlatList data={homeOrder}
           renderItem={({ index, item }) =>
-            <ItemRow item={item}
+            <NewOrderItem item={item}
               index={index}
               screenNavigate={screenNavigate}
               userRole={userRole}>
-            </ItemRow>
+            </NewOrderItem>
           }
           ListFooterComponent = {<View style = {AppStyles.mb20}></View>}
           extraData={useState}
@@ -190,7 +274,7 @@ function HomeScreen() {
           <Image source={NoRecordImg} style={AppStyles.homeImgEmpty} />
           <Text style={[AppStyles.txtBlackRegular, AppStyles.textalig, AppStyles.f18, AppStyles.mt20]}>No Pending Orders</Text>
         </View>
-      }
+      } */}
 
     </ScrollView>
   );

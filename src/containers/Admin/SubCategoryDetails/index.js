@@ -6,7 +6,6 @@ import NavigationRouteNames from '../../../routes/ScreenNames';
 import { useNavigation } from '@react-navigation/core';
 import { useRoute } from '@react-navigation/native';
 import { AppStyles, Colors } from '../../../theme';
-import arraydata from '../../../utils/arraydata4.json';
 import FAIcon from 'react-native-vector-icons/FontAwesome';
 import { listSubCategory, deleteSubCategory } from "../Middleware";
 import UserContext from '../../../appContainer/context/user.context';
