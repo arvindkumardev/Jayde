@@ -50,29 +50,31 @@ function UpdateProfile() {
           </View>
         </View>
 
-        <View style={[Styles.btnContainer, AppStyles.inCenter]}>
-         
-           {userRole != 'admin' && <TouchableOpacity
+        <View style={[Styles.btnContainer, AppStyles.flexDir]}>
+          <View style={AppStyles.flex1}>
+            <TouchableOpacity
               activeOpacity={0.8}
               style={[Styles.businessButton, AppStyles.btnHeight44, AppStyles.inCenter]} onPress={() => screenNavigate()}>
               <Text style={[AppStyles.txtmangoTwoRegular, AppStyles.f17, AppStyles.textalig]}>UPDATE BUSINESS</Text>
-            </TouchableOpacity>}
-       
+            </TouchableOpacity>
+          </View>
+          <View style={AppStyles.flex1}>
             <TouchableOpacity
               activeOpacity={0.8}
               style={[Styles.profileButton, AppStyles.mb20, AppStyles.btnHeight44, AppStyles.inCenter]} onPress={() => updateProfile()}>
               <Text style={[AppStyles.txtWhiteRegular, AppStyles.f17, AppStyles.textalig]}>UPDATE PROFILE</Text>
             </TouchableOpacity>
           </View>
+        </View>
        
 
-        {/* <View style={AppStyles.aligncen}>
+         <View style={AppStyles.aligncen}>
           <TouchableOpacity
             activeOpacity={0.8}
             style={[Styles.completelaterbtn, AppStyles.btnHeight44, AppStyles.inCenter]} onPress={() => completeLater()}>
             <Text style={[AppStyles.txtmangoTwoRegular, AppStyles.f17, AppStyles.textalig]}>COMPLETE LATER</Text>
           </TouchableOpacity>
-        </View> */}
+        </View> 
 
     
     </View>

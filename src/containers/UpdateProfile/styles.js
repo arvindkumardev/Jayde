@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
   },
   profileButton: {
     backgroundColor: '#F7A435',
-    width: RfW(220),
+    paddingHorizontal: RfW(10),
     borderRadius: 10,
     borderColor: '#F7A435',
     borderWidth: 1,
@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
   },
   businessButton: {
     backgroundColor: '#fff',
-    width: RfW(220),
+    paddingHorizontal: RfW(10),
     borderRadius: 10,
     borderColor: '#F7A435',
     borderWidth: 1,

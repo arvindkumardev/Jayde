@@ -130,7 +130,7 @@ const DRAWER_MENU = {
       name: 'Profile',
       color: Colors.mango,
       iconName: 'user',
-      screenName: NavigationRouteNames.UPDATE_PROFILE
+      screenName: NavigationRouteNames.PROFILE_UPDATE
     },
     {
       name: 'Download Report',

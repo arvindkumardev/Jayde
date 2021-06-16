@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState, useLayoutEffect } from 'react';
 import { Alert } from "react-native";
-import { KeyboardAvoidingView, TouchableOpacity, View, Text, ScrollView, FlatList } from 'react-native';
+import { KeyboardAvoidingView, TouchableOpacity, View, Text, FlatList } from 'react-native';
 import Styles from "./styles";
 import NavigationRouteNames from '../../../routes/ScreenNames';
 import { useNavigation } from '@react-navigation/core';
