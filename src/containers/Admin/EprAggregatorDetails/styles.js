@@ -22,30 +22,15 @@ const styles = StyleSheet.create({
     marginRight: RfW(24),
     marginLeft: RfW(24),
   },
-  businessType: {
-    marginTop: RfH(20),
-    marginRight: RfW(24),
-    marginLeft: RfW(24),
-  },
-  refView: {
-    alignItems: 'center',
-    marginTop: RfH(25),
-  },
   bdrclr: {
     borderColor: '#f5f5f5',
     borderWidth: 4,
   },
-  deleteView: {
-    marginTop: RfH(20),
-    marginRight: RfW(24),
+  borderdrclr: {
+    borderColor: '#f5f5f5',
+    borderWidth: 1,
+    width: '85%',
     marginLeft: RfW(24),
-    marginBottom: RfH(20),
-  },
-  deleteBtn: {
-    borderRadius: 10,
-    backgroundColor: 'orange',
-    paddingHorizontal: 10,
-    alignItems: 'center',
   },
 });
 export default styles;

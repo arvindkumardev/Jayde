@@ -1,5 +1,5 @@
 import React, { useContext, useLayoutEffect, useEffect, useState } from 'react';
-import { KeyboardAvoidingView, Platform, TouchableOpacity, View, Text, ScrollView, FlatList, } from 'react-native';
+import { KeyboardAvoidingView, Platform, TouchableOpacity, View, Text, ScrollView, FlatList, Image, } from 'react-native';
 import DropDown from '../../../components/Picker/index';
 import Styles from "./styles";
 import { AppStyles, Colors } from '../../../theme';
@@ -15,6 +15,9 @@ import { getAggregators } from "../../../services/CommonController"
 import { listEprAggregator, addEprAggregator, removeEprAggregator } from "../Middleware";
 import FooterLoader from "../../../appContainer/footerLoader";
 import EmptyView from '../../../appContainer/EmptyView'
+
+//Image
+import delImg from '../../../assets/Images/Admin/delBox.png'
 
 function EprAggregatorDetails() {
   const [item, setItem] = useState({});
@@ -94,6 +97,7 @@ function EprAggregatorDetails() {
 
   const handleAdd = async (selectedID) => {
     try {
+      setLoader(true)
       const { data } = await onAddEprAggregator({
         data: {
           "aggregatorId": selectedID,
@@ -103,9 +107,11 @@ function EprAggregatorDetails() {
       console.log("aggregator data", data)
       if (data.status) {
         // screenNavigate()
+         handleAggregatorList(item.userid);
       } else {
         alert(data.message)
       }
+      setLoader(false)
     } catch (e) {
       console.log("Response error", e);
     }
@@ -113,6 +119,7 @@ function EprAggregatorDetails() {
 
   const handleAggregatorList = async (userid) => {
     try {
+      setLoader(true)
       const { data } = await onListAggregator({
         data: {
           "eprId": userid,
@@ -128,6 +135,7 @@ function EprAggregatorDetails() {
       } else {
         alert(data.message)
       }
+      setLoader(false)
     } catch (e) {
       console.log("Response error", e);
     }
@@ -220,18 +228,17 @@ function EprAggregatorDetails() {
       <View key={index}>
         <View>
           <View style={[AppStyles.flexDir, AppStyles.mt20, AppStyles.mb20]}>
-            <View style={[AppStyles.flex1, AppStyles.mt10, AppStyles.ml24]}>
-              <Text style={[AppStyles.txtBlackRegular, AppStyles.f15]}>{item.business_name}</Text>
+            <View style={[AppStyles.flexpointeight, AppStyles.mt10, AppStyles.ml24]}>
+              <Text style={[AppStyles.txtBlackRegular, AppStyles.f16]}>{item.business_name}</Text>
             </View>
-            <View style={AppStyles.flex1}>
-              <TouchableOpacity
-                activeOpacity={0.8}
-                style={[Styles.deleteBtn, AppStyles.btnHeight44, AppStyles.inCenter, AppStyles.mr24]} onPress={() => _alertConfirmation(item.epr_aggregator_mapping_id, userid, index)}>
-                <Text style={[AppStyles.txtWhiteRegular, AppStyles.f17, AppStyles.textalig]}>Delete</Text>
-              </TouchableOpacity>
+            <View style={[AppStyles.flexpointtwo, AppStyles.ml5]}>
+            <TouchableOpacity
+            activeOpacity={0.8} onPress={() => _alertConfirmation(item.epr_aggregator_mapping_id, userid, index)}>
+            <Image source={delImg} />
+            </TouchableOpacity>
             </View>
           </View>
-          <View style={[AppStyles.w100, Styles.bdrclr]}></View>
+          <View style={[Styles.borderdrclr]}></View>
         </View>
       </View>
     )

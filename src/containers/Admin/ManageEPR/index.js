@@ -109,7 +109,7 @@ function ManageEPR() {
       <TouchableOpacity
               activeOpacity={0.8}
               onPress={() => screenNavigate(item)}>
-        <Text style={[AppStyles.txtBlackRegular, AppStyles.f17, AppStyles.ml24, AppStyles.mt35]}>{item.business_name}</Text>
+        <Text style={[AppStyles.txtBlackRegular, AppStyles.f17, AppStyles.ml24, AppStyles.mt25]}>{item.business_name}</Text>
         <View style={AppStyles.flexDir}>
           <View style={AppStyles.flexpointeight}>
             <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f15, AppStyles.ml24,]}>Aggregator</Text>

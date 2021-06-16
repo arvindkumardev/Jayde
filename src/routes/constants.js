@@ -55,12 +55,63 @@ const DRAWER_MENU = {
       iconName: 'phone-square',
       screenName: NavigationRouteNames.CALL_REQUEST
     },
+    // {
+    //   name: 'Smart Contracts',
+    //   color: Colors.mango,
+    //   iconName: 'sticky-note',
+    //   screenName: NavigationRouteNames.SMART_CONTRACT
+    // },
     {
-      name: 'Smart Contracts',
+      name: 'Logout',
       color: Colors.mango,
-      iconName: 'sticky-note',
-      screenName: NavigationRouteNames.SMART_CONTRACT
+      iconName: 'power-off',
+      screenName: 'logout'
     },
+  ],
+  school: [
+    {
+      name: 'My Home',
+      color: Colors.mango,
+      iconName: 'home',
+      screenName: NavigationRouteNames.HOME_SCREEN
+    },
+    {
+      name: 'Profile',
+      color: Colors.mango,
+      iconName: 'user',
+      screenName: NavigationRouteNames.UPDATE_PROFILE
+    },
+    {
+      name: 'New Order',
+      color: Colors.mango,
+      iconName: 'folder-open',
+      screenName: NavigationRouteNames.NEW_ORDER
+
+    },
+    {
+      name: 'My Orders',
+      color: Colors.mango,
+      iconName: 'folder',
+      screenName: NavigationRouteNames.SELLER_MY_ORDER
+    },
+    {
+      name: 'Users',
+      color: Colors.mango,
+      iconName: 'users',
+      screenName: NavigationRouteNames.ADD_SUBUSER
+    },
+    {
+      name: 'Contact Jayde',
+      color: Colors.mango,
+      iconName: 'phone-square',
+      screenName: NavigationRouteNames.CALL_REQUEST
+    },
+    // {
+    //   name: 'Smart Contracts',
+    //   color: Colors.mango,
+    //   iconName: 'sticky-note',
+    //   screenName: NavigationRouteNames.SMART_CONTRACT
+    // },
     {
       name: 'Logout',
       color: Colors.mango,
@@ -185,12 +236,12 @@ const DRAWER_MENU = {
       screenName: NavigationRouteNames.ADD_SUBUSER
     },
 
-    {
-      name: 'Smart Contracts',
-      color: Colors.mango,
-      iconName: 'sticky-note',
-      screenName: NavigationRouteNames.SMART_CONTRACT
-    },
+    // {
+    //   name: 'Smart Contracts',
+    //   color: Colors.mango,
+    //   iconName: 'sticky-note',
+    //   screenName: NavigationRouteNames.SMART_CONTRACT
+    // },
     {
       name: 'Logout',
       color: Colors.mango,
@@ -252,12 +303,12 @@ const DRAWER_MENU = {
       screenName: NavigationRouteNames.ADD_SUBUSER
     },
 
-    {
-      name: 'Smart Contracts',
-      color: Colors.mango,
-      iconName: 'sticky-note',
-      screenName: NavigationRouteNames.SMART_CONTRACT
-    },
+    // {
+    //   name: 'Smart Contracts',
+    //   color: Colors.mango,
+    //   iconName: 'sticky-note',
+    //   screenName: NavigationRouteNames.SMART_CONTRACT
+    // },
     {
       name: 'Logout',
       color: Colors.mango,
@@ -319,12 +370,12 @@ const DRAWER_MENU = {
       iconName: 'users',
       screenName: NavigationRouteNames.ADD_SUBUSER
     },
-    {
-      name: 'Smart Contracts',
-      color: Colors.mango,
-      iconName: 'sticky-note',
-      screenName: NavigationRouteNames.SMART_CONTRACT
-    },
+    // {
+    //   name: 'Smart Contracts',
+    //   color: Colors.mango,
+    //   iconName: 'sticky-note',
+    //   screenName: NavigationRouteNames.SMART_CONTRACT
+    // },
     {
       name: 'Logout',
       color: Colors.mango,
