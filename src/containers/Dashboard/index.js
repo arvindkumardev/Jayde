@@ -227,7 +227,7 @@ function HomeScreen() {
       <View style={[AppStyles.mt35, AppStyles.ml24, AppStyles.mb10]}>
         <Text style={[AppStyles.txtBlackBold, AppStyles.f22]}>Current Orders</Text>
       </View>
-      <View style={[AppStyles.flex1]}>
+      {status && !loading ? <View style={[AppStyles.flex1]}>
 
         {NewOrder.map((item, index) => <NewOrderItem item={item}
           index={index}
@@ -248,6 +248,12 @@ function HomeScreen() {
         </ScheduledOrderItem>)}
         <View style={AppStyles.mb20}></View>
       </View>
+        :
+        !status && <View style={[AppStyles.inCenter, { height: RfH(320) }]}>
+          <Image source={NoRecordImg} style={AppStyles.homeImgEmpty} />
+          <Text style={[AppStyles.txtBlackRegular, AppStyles.textalig, AppStyles.f18, AppStyles.mt20]}>No Pending Orders</Text>
+        </View>
+      }
 
       {/* {size(homeOrder) > 0 ?
         <FlatList data={homeOrder}
