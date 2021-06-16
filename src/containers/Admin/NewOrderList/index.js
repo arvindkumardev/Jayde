@@ -29,13 +29,11 @@ function AdminNewOrderList() {
 
   const [{ data, loading, error }, onAdminNewOrder] = getNewOrder(userRole, offset);
 
-  const screenNavigate = (item) => {
-    {
+  const screenNavigate = (item) => {    
       item.is_confirmed == 2 ?
         navigation.navigate(NavigationRouteNames.ORDER_ASSIGN, { Value: item, getActionType: getActionType })
         :
-        navigation.navigate(NavigationRouteNames.ADMIN_NEW_ORDER, { Item: item, getActionType: getActionType })
-    }
+        navigation.navigate(NavigationRouteNames.ADMIN_NEW_ORDER, { Item: item, getActionType: getActionType })    
   }
 
   const getActionType = async () => {

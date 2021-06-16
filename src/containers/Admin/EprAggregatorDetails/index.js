@@ -12,7 +12,7 @@ import { useNavigation } from '@react-navigation/core';
 import { useRoute } from '@react-navigation/native';
 import UserContext from '../../../appContainer/context/user.context';
 import { getAggregators } from "../../../services/CommonController"
-import { listEprAggregator, addEprAggregator, removeEprAggregator } from "../Middleware";
+import { EprAggregator, addEprAggregator, removeEprAggregator } from "../Middleware";
 import FooterLoader from "../../../appContainer/footerLoader";
 import EmptyView from '../../../appContainer/EmptyView'
 
@@ -33,7 +33,7 @@ function EprAggregatorDetails() {
 
   // ---------------------- Start Api Section ---------------------
   const [{ data: aggregatorsData }, onGetAggregators] = getAggregators();
-  const [{ data, loading, error }, onListAggregator] = listEprAggregator(offset);
+  const [{ data, loading, error }, onListAggregator] = EprAggregator();
   const [{ data: addAggregatorEprData, loading: addAggregatorEprLoading, error: addAggregatorEprError }, onAddEprAggregator] = addEprAggregator();
   const [{ data: removeAggregatorEprData, loading: removeAggregatorEprLoading, error: removeAggregatorEprError }, onRemoveEprAggregator] = removeEprAggregator();
   // ---------------------- End Api Section ---------------------

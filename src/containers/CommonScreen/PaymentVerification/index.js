@@ -82,11 +82,12 @@ const PaymentVerification = () => {
   const [{ data: scheduleData, loading, error }, onScheduleOrderDetail] = scheduleOrderDetail(userRole);
 
   // ---------------------- End Api Section ---------------------
-
   const handelRefresh = () => {
     if (route.params.WhereFrom == NavigationRouteNames.AGGREGATOR_SCHEDULE_ORDER_LIST) {
       route.params.getActionType()
     } else if (route.params.WhereFrom == NavigationRouteNames.RECYCLER_SCHEDULED_ORDER_LIST) {
+      route.params.getActionType()
+    } else if (route.params.WhereFrom == NavigationRouteNames.HOME_SCREEN) {
       route.params.getActionType()
     }
   }
@@ -523,8 +524,8 @@ const PaymentVerification = () => {
               dashGap={2}
               style={{
                 width: 1,
-                height: item.proposed_weight_confirm == '0' && isShowWeightedMainView ? '100%' 
-                : item.proposed_weight_confirm == '2' ? 65 : 35,
+                height: item.proposed_weight_confirm == '0' && isShowWeightedMainView ? '100%'
+                  : item.proposed_weight_confirm == '2' ? 65 : 35,
                 flexDirection: 'column'
               }} />
           </View>
@@ -809,8 +810,8 @@ const PaymentVerification = () => {
               style={{
                 width: 1,
                 height: item.pickup_confirmed == '0' && isShowPickUpMainView ? '100%' :
-                  item.pickup_confirmed == '2' ? 65 : item.is_seller_confirmed == '2' ? 65 
-                  : isShowPickUpConfirmButton ? 85 : 35,
+                  item.pickup_confirmed == '2' ? 65 : item.is_seller_confirmed == '2' ? 65
+                    : isShowPickUpConfirmButton ? 85 : 35,
                 flexDirection: 'column'
               }} />
           </View>
@@ -924,12 +925,12 @@ const PaymentVerification = () => {
                     fontSize={15}
                     styling={{ paddingVertical: RfH(4) }}>
                     I agree to the terms and conditions
-                </CustomText>
+                  </CustomText>
                 </View>
               </View>
               {paymentClickConfirm && paymentRequestForm.errors.checkCondition ? (
                 <CustomText fontSize={15} color={Colors.red} styling={{ marginLeft: 27 }}>
-                  { paymentRequestForm.errors.checkCondition}
+                  {paymentRequestForm.errors.checkCondition}
                 </CustomText>
               ) : null}
             </View>

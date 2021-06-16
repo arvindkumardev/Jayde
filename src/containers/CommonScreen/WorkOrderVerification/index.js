@@ -88,8 +88,10 @@ const WorkOrderVerification = () => {
     } else if (route.params.WhereFrom === NavigationRouteNames.RECYCLER_WORK_ORDER_LIST) {
       navigation.popToTop()
       navigation.navigate(NavigationRouteNames.RECYCLER_WORK_ORDER_LIST);
+    } else if (route.params.WhereFrom === NavigationRouteNames.HOME_SCREEN) {
+      navigation.popToTop()
+      navigation.navigate(NavigationRouteNames.RECYCLER_WORK_ORDER_LIST);
     }
-
 
   }
 

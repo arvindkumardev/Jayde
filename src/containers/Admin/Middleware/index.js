@@ -1,6 +1,6 @@
 import useAxios from 'axios-hooks';
 import {USERS, ENABLE_USER, DISABLE_USER, ACCEPT_ORDER, REJECT_ORDER, ASSIGN_AGGREGATOR, ADD_SUBCATEGORY, 
-   LIST_SUBCATEGORY, PROVISIONAL_PRICE_LIST, CUSTOMER, ADD_PROVISIONAL_PRICE, DELETE_PRICE, DELETE_SUBCATEGORY, EPR_LIST, EPR_Aggregatorlist,
+   LIST_SUBCATEGORY, PROVISIONAL_PRICE_LIST, CUSTOMER, ADD_PROVISIONAL_PRICE, DELETE_PRICE, DELETE_SUBCATEGORY, EPR_LIST, EPR_AGGREGATOR,
    ADDEPR_AGGREGATOR, REMOVEEPR_AGGREGATOR } from '../../..//utils/urls';
 
 const users = (pageNumber) => {
@@ -158,10 +158,10 @@ const listEpr = (pageNumber) => {
   );
 }
 
-const listEprAggregator = () => {
+const EprAggregator = () => {
   return useAxios(
     {
-      url: EPR_Aggregatorlist,
+      url: EPR_AGGREGATOR,
       method: 'POST',
       headers: { 'content-type': 'application/json' },
     },
@@ -192,6 +192,6 @@ const removeEprAggregator = () => {
 }
 
 export {users, enableUserByAdmin, disableUserByAdmin, acceptOrder, rejectOrder, assignAggregator,
-   addSubCategory, listSubCategory, provisionalPricingList, getCustomer, addProvisionalPrice, deletePricing, deleteSubCategory, listEpr, listEprAggregator,
+   addSubCategory, listSubCategory, provisionalPricingList, getCustomer, addProvisionalPrice, deletePricing, deleteSubCategory, listEpr, EprAggregator,
    addEprAggregator, removeEprAggregator}
 

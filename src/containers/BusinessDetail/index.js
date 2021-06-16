@@ -11,8 +11,11 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import * as Yup from 'yup';
 import { useFormik } from 'formik';
 import { businessUpdate, getBusinessProfile } from './middleware';
+import {listEpr, EprAggregator} from './../Admin/Middleware'
 import { useNavigation } from '@react-navigation/core';
 import { useRoute } from '@react-navigation/native';
+import DropDown from '../../components/Picker/index';
+import {isEmpty, isNumber} from 'lodash';
 
 function BusinessDetail() {
   const navigation = useNavigation();
@@ -26,35 +29,41 @@ function BusinessDetail() {
   const refPAN = useRef(null);
 
   const [clickLogin, setClickLogin] = useState(false);
-  const { setLoader } = useContext(UserContext);
+  const { setLoader, userRole } = useContext(UserContext);
+  const [EPRName, setEPRName] = useState([]);
+  const [EPRAggregatorName, setEPRAggregatorName ] = useState([])
   const [{ data, loading, error: updateError }, onBusinessUpdate] = businessUpdate();
-  const [{ data: getdata, loading: profileLoading, error: profileError }, onGetBusinessProfile] = getBusinessProfile();
+  const [{ data: profileData, loading: profileLoading, error: profileError }, onGetBusinessProfile] = getBusinessProfile();
+  const [{ data:eprUser, loading:eprLoading, error:eprError }, onListEpr] = listEpr(0);
+  const [{ data:eprAggregatorData, loading:eprAggregatorLoading, error:eprAggregatorError }, onEPRAggregator] = EprAggregator();
 
   const getBusinessData = async () => {
     try {
       const { data } = await onGetBusinessProfile({ data: {} });
       setLoader(false);
+      console.log('data', data.data[0]);
+      return
       businessForm.setFieldValue('businessname', data.data[0].business_name);
       businessForm.setFieldValue('address', data.data[0].address);
       businessForm.setFieldValue('city', data.data[0].city);
       businessForm.setFieldValue('pincode', data.data[0].pin_code);
       businessForm.setFieldValue('gstin', data.data[0].gst_number);
       businessForm.setFieldValue('pan', data.data[0].pan_number);
-      //console.log('data', data.data[0]);
+     
     } catch (e) {
       console.log('Response error', e);
     }
   };
 
   useEffect(() => {
-    if (updateError)
+    if (updateError || eprError)
       setLoader(false)
   }, [updateError])
 
   useEffect(() => {
     if (profileError)
       setLoader(false)
-  }, [profileError])
+  }, [profileError || eprError])
 
   useEffect(() => {
     setLoader(true);
@@ -63,6 +72,13 @@ function BusinessDetail() {
       setLoader(false)
     }
   }, []);
+
+  useEffect(() => {
+    if (eprUser) {
+      const itemData = eprUser.data[0].eprs.map((item) => ({ label: item.business_name, value: item.userid }));
+      setEPRName(itemData);
+    }
+  }, [eprUser]);
 
   const confirmBusinessUpdate = async (businessname, address, city, pincode, gstin, pan) => {
     try {
@@ -75,6 +91,8 @@ function BusinessDetail() {
           pin: pincode,
           gst: gstin,
           pan: pan,
+          erp_partner:"123",
+          erp_aggregator:"123"
         },
       });
 
@@ -113,6 +131,8 @@ function BusinessDetail() {
       gstin: '',
       pan: '',
       checkcondition: false,
+      eprUserID: '',
+      eprAggregator: ''
     },
     validationSchema,
     onSubmit: () =>
@@ -136,11 +156,58 @@ function BusinessDetail() {
     navigation.setOptions({
       title,
     });
+
+    onListEpr({ data: {} })
   }, []);
 
   const screenNavigate = () => {
     navigation.navigate(NavigationRouteNames.UPDATE_PROFILE);
   };
+
+  useEffect(() => {
+    setLoader(eprAggregatorLoading)
+  }, [eprAggregatorData, eprAggregatorLoading]);
+
+  // useEffect(() => {
+  //   if (eprAggregatorData) {
+  //     const itemData = eprAggregatorData.map((item) => ({ label: item.sub_category_name, value: item.id }));
+  //     setSubCategoryData(itemData);
+  //   }
+  // }, [eprAggregatorData]);
+
+
+  const getEPRAggregator = async (userID) => {
+    if(isEmpty(userID)){
+      return
+    }
+    try {
+      const { data } = await onEPRAggregator({
+        data: {
+          "eprId": userID,
+          "page": 0,
+        },
+      });
+      console.log("aggregator data", data)
+      if (data.status) {
+        // setPerPage(data.data[0].links.per_page)
+        // setTotalCount(data.data[0].links.total_count)
+        const itemData = data.data[0].aggregators.map((item) => ({ label: item.business_name, value: item.userid }));
+        setEPRAggregatorName(itemData);
+       //setEPRAggregatorName(data.data[0].aggregators)
+        console.log("response", data.data[0].aggregators)
+      } else {
+        alert(data.message)
+      }
+    } catch (e) {
+      console.log("Response error", e);
+    }
+  };
+
+  const onChangeEPRPartner = (id) => {
+    businessForm.setFieldValue('eprUserID', id)
+    return
+    getEPRAggregator(id)
+  }
 
   return (
     <KeyboardAwareScrollView
@@ -278,6 +345,30 @@ function BusinessDetail() {
             ) : null}
           </View>
 
+          <View style={[AppStyles.mt20, AppStyles.ml24, AppStyles.mr24]}>
+          <Text style={[AppStyles.txtBlackRegular, AppStyles.mb10]}>Select EPR Partner (Optional)</Text>
+          <DropDown
+            placeholderText="Select one"
+            items={EPRName}
+            itemStyle={{ color: '#000' }}
+            onValueChange={(id) => onChangeEPRPartner(id)}
+            selectedValue={businessForm.values.eprUserID}
+            containerStyle={{ borderRadius: 10, backgroundColor: Colors.grayTwo, paddingLeft: 10 }}
+          />
+          </View>
+
+          {!isEmpty(businessForm.values.eprUserID) && <View style={[AppStyles.mt20, AppStyles.ml24, AppStyles.mr24]}>
+          <Text style={[AppStyles.txtBlackRegular, AppStyles.mb10]}>Select EPR Partner's Aggregator</Text>
+          <DropDown
+            placeholderText="Select one"
+            items={EPRAggregatorName}
+            itemStyle={{ color: '#000' }}
+            onValueChange={(id) => businessForm.setFieldValue('eprAggregator', id)}
+            selectedValue={businessForm.values.eprAggregator}
+            containerStyle={{ borderRadius: 10, backgroundColor: Colors.grayTwo, paddingLeft: 10 }}
+          />
+          </View>}
+
           <View>
             <View style={[AppStyles.flexDir, AppStyles.alignCenter, AppStyles.mt14, AppStyles.ml20]}>
               <Checkbox
@@ -298,6 +389,8 @@ function BusinessDetail() {
               </CustomText>
             ) : null}
           </View>
+
+          
 
           <View style={[Styles.btnContainer, AppStyles.flexDir]}>
             <View style={AppStyles.flex1}>
