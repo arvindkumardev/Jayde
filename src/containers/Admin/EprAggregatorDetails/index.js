@@ -51,6 +51,7 @@ function EprAggregatorDetails() {
     }
   }, [aggregatorsData]);
 
+
   useLayoutEffect(() => {
     const title = 'EPR Aggregator Details';
     navigation.setOptions({ title });

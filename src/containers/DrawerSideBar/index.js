@@ -30,7 +30,10 @@ const DrawerSideBar = (props) => {
     }, [userRole]);
 
     const viewProfile = () => {
-        navigation.navigate(NavigationRouteNames.UPDATE_PROFILE);
+        if (userRole != 'admin') {
+        navigation.navigate(NavigationRouteNames.UPDATE_PROFILE);  
+        } else {
+        navigation.navigate(NavigationRouteNames.PROFILE_UPDATE);  }
     }
 
     const handleUserLogout = async () => {

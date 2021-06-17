@@ -23,13 +23,17 @@ function ProfileUpdate() {
   const refMobile = useRef(null);
   const refPassword = useRef(null);
   const refConfPassword = useRef(null);
+  const {userRole} = useContext(UserContext)
   const { setLoader } = useContext(UserContext);
 
   const [clickLogin, setClickLogin] = useState(false);
   const [{ data, loading, error }, onProfileUpdate] = profileUpdate();
 
   const screenNavigate = () => {
+    if (userRole != 'admin') {
     navigation.navigate(NavigationRouteNames.UPDATE_PROFILE);
+    } else {
+    navigation.navigate(NavigationRouteNames.HOME_SCREEN);  }
   };
 
   useLayoutEffect(() => {
