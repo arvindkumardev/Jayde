@@ -6,18 +6,20 @@ import NavigationRouteNames from '../../routes/ScreenNames';
 import { AppStyles, Colors } from '../../theme';
 import Checkbox from '@react-native-community/checkbox';
 import UserContext from '../../appContainer/context/user.context';
-import { RfH, RfW } from '../../utils/helpers';
+import { RfH, RfW, storeData } from '../../utils/helpers';
+import { LOCAL_STORAGE_DATA_KEY } from "../../utils/constants";
+
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import * as Yup from 'yup';
 import { useFormik } from 'formik';
 import { businessUpdate, getBusinessProfile } from './middleware';
-import { BusinessEprPartner, BusinessEprAggregator } from './../../services/CommonController'
+import { BusinessEprPartner, BusinessEprAggregator } from '../../services/CommonController'
 import { useNavigation } from '@react-navigation/core';
 import { useRoute } from '@react-navigation/native';
 import DropDown from '../../components/Picker/index';
 import { isEmpty, isNumber } from 'lodash';
 
-function BusinessDetail() {
+function CheckBusinessProfile() {
   const navigation = useNavigation();
   const route = useRoute();
 
@@ -29,7 +31,7 @@ function BusinessDetail() {
   const refPAN = useRef(null);
 
   const [clickLogin, setClickLogin] = useState(false);
-  const { setLoader, userRole } = useContext(UserContext);
+  const { setLoader, userRole, setProfileCompleted } = useContext(UserContext);
   const [status, setStatus] = useState(true);
   const [EPRName, setEPRName] = useState([]);
   const [EPRAggregatorName, setEPRAggregatorName] = useState([])
@@ -78,7 +80,7 @@ function BusinessDetail() {
   }, [eprUser]);
 
   const confirmBusinessUpdate = async (businessname, address, city, pincode, gstin, pan) => {
-    if(!isEmpty(businessForm.values.eprPartnerId) && isEmpty(businessForm.values.eprAggregatorId)) return
+    if (!isEmpty(businessForm.values.eprPartnerId) && isEmpty(businessForm.values.eprAggregatorId)) return
     try {
       let param = {
         name: businessname,
@@ -99,7 +101,9 @@ function BusinessDetail() {
       console.log(data);
       if (data.status) {
         alert(data.message);
-        screenNavigate();
+        await storeData(LOCAL_STORAGE_DATA_KEY.USER_PROFILE_COMPLETED, true);
+        await setProfileCompleted(true)   
+        //screenNavigate();
       } else {
         alert(data.message);
       }
@@ -161,7 +165,8 @@ function BusinessDetail() {
   }, []);
 
   const screenNavigate = () => {
-    navigation.navigate(NavigationRouteNames.UPDATE_PROFILE);
+    // navigation.navigate(NavigationRouteNames.UPDATE_PROFILE);
+    navigation.goBack()
   };
 
   // useEffect(() => {
@@ -369,10 +374,10 @@ function BusinessDetail() {
               selectedValue={businessForm.values.eprAggregatorId}
               containerStyle={{ borderRadius: 10, backgroundColor: Colors.grayTwo, paddingLeft: 10 }}
             />
-           { clickLogin && !isEmpty(businessForm.values.eprPartnerId)
-            && isEmpty(businessForm.values.eprAggregatorId) ?
-            <CustomText fontSize={15} color={Colors.red} styling={{ marginTop: RfH(10) }}>Select EPR Partner's Aggregator              
-            </CustomText> : null}
+            {clickLogin && !isEmpty(businessForm.values.eprPartnerId)
+              && isEmpty(businessForm.values.eprAggregatorId) ?
+              <CustomText fontSize={15} color={Colors.red} styling={{ marginTop: RfH(10) }}>Select EPR Partner's Aggregator
+              </CustomText> : null}
 
           </View>}
 
@@ -422,4 +427,4 @@ function BusinessDetail() {
     </KeyboardAwareScrollView>
   );
 }
-export default BusinessDetail;
+export default CheckBusinessProfile;

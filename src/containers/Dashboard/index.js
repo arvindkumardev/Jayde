@@ -40,7 +40,7 @@ const ORDER_IMAGE = {
 
 function HomeScreen() {
   const navigation = useNavigation();
-  const { userRole, setLogin, setLoader } = useContext(UserContext);
+  const { userRole, setLogin, setLoader, setProfileCompleted } = useContext(UserContext);
 
   const [name, setName] = useState("");
 
@@ -54,15 +54,15 @@ function HomeScreen() {
   useEffect(() => {
     async function getUserName() {
       const username = await getSaveData(LOCAL_STORAGE_DATA_KEY.USER_NAME);
-      setName(username)
+      setName(username);
     }
-    setStatus(false)
+    setStatus(false);
     getUserName();
     getHomeOrder();
 
     // Initialization Notification
-    NotificationService.initializeNotification(onNotification, onOpenNotification)
-    LocalNotificationService.configure(onOpenNotification)
+    NotificationService.initializeNotification(onNotification, onOpenNotification);
+    LocalNotificationService.configure(onOpenNotification);
     return () => {
       NotificationService.unsubscribe() // Unsubscribe on Notification
       LocalNotificationService.unregister()
@@ -71,13 +71,13 @@ function HomeScreen() {
 
   //Handel Background Notification
   const onOpenNotification = (remoteMessage) => {
-    console.log("onOpenNotification", JSON.stringify(remoteMessage))
+    console.log("onOpenNotification", JSON.stringify(remoteMessage));
   }
 
   //Handel Foreground Notification
   const onNotification = (remoteMessage) => {
-    console.log("onNotification", JSON.stringify(remoteMessage))
-    var notification = remoteMessage.notification
+    console.log("onNotification", JSON.stringify(remoteMessage));
+    var notification = remoteMessage.notification;
     const options = {
       soundName: 'default',
       playSound: true,
@@ -97,12 +97,12 @@ function HomeScreen() {
     try {
       const { data } = await onOrderList({ data: {} });
       if (data.status) {
-        setNewOrder(data.newOrders)
-        setWorkOrder(data.workOrder)
-        setScheduledOrder(data.scheduleOrder)
-        setStatus(true)
+        setNewOrder(data.newOrders);
+        setWorkOrder(data.workOrder);
+        setScheduledOrder(data.scheduleOrder);
+        setStatus(true);
       } else {
-        setStatus(false)
+        setStatus(false);
       }
     } catch (e) {
       console.log("Response error", e);
@@ -112,7 +112,9 @@ function HomeScreen() {
   const handleUserLogout = async () => {
     await removeData(LOCAL_STORAGE_DATA_KEY.JWT_TOKEN);
     await removeData(LOCAL_STORAGE_DATA_KEY.USER_ROLE);
+    await removeData(LOCAL_STORAGE_DATA_KEY.USER_PROFILE_COMPLETED);
     setLogin(false);
+    setProfileCompleted(false);
   };
 
   const handleNavigate = (screenName) => {

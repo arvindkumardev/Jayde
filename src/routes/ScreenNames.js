@@ -86,6 +86,8 @@ const NavigationRouteNames = {
 
   UPDATE_PROFILE: "UpdateProfile",
   BUSINESS_DETAIL: "BusinessDetail",
+  CHECK_BUSINESS_DETAIL: "CheckBusinessProfile",
+
   PROFILE_UPDATE: "ProfileUpdate",
   DOWNLOAD_REPORT: "DownloadReport",
   MANAGE_EPR: "ManageEPR",

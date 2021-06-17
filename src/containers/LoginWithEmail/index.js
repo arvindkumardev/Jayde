@@ -12,7 +12,7 @@ import { isEmpty, isNumber } from 'lodash';
 import * as Yup from "yup";
 import { useFormik } from "formik";
 import Colors from "../../theme/Colors";
-import CustomTextInput  from "../../components/CustomTextInput";
+import CustomTextInput from "../../components/CustomTextInput";
 import { isValidUserName, RfH, storeData, removeData } from "../../utils/helpers";
 import Images from "../../theme/Images";
 import NavigationRouteNames from "../../routes/ScreenNames";
@@ -38,18 +38,20 @@ function LoginWithEmail() {
     isLogin,
     setUserObj,
     setLogin,
+    setProfileCompleted,
     setUserRole,
     setLoader
   } = useContext(UserContext);
   const [selectCompany, setSelectCompany] = useState({});
   const [hidePassword, setHidePassword] = useState(false);
 
-  const [{ data, loading, error }, emLogin] = userLogin();
+  const [{ data: loginData, loading, error }, emLogin] = userLogin();
   const [firebaseToken, setFirebaseToken] = useState('')
 
 
   const triggerLogin = async (username, password) => {
     try {
+      setLoader(true)
       const { data } = await emLogin({ data: { email: username, password } });
       if (data.status) {
         await setLogin(data.status);
@@ -58,30 +60,30 @@ function LoginWithEmail() {
         await storeData(LOCAL_STORAGE_DATA_KEY.USER_NAME, data.data.name);
         await storeData(LOCAL_STORAGE_DATA_KEY.USER_PHONE, data.data.phone);
         await storeData(LOCAL_STORAGE_DATA_KEY.USER_EMAIL, data.data.email);
-
-        console.log(data);
         await setUserRole(data.data.business_sub_type);
         await setUserObj(data.data);
+        await storeData(LOCAL_STORAGE_DATA_KEY.USER_PROFILE_COMPLETED, data.isProfileCompleted);
+        await setProfileCompleted(data.isProfileCompleted) 
       } else {
         alert(data.message);
       }
-
+      setLoader(false)
     } catch (e) {
       console.log("Response error", e);
     }
   };
 
+ 
   useEffect(() => {
     if (error)
       setLoader(false)
   }, [error])
 
-  useEffect(() => {
-    setLoader(loading)
+  useEffect(() => {  
     return () => {
       setLoader(false)
     }
-  }, [loading])
+  }, [])
 
   const successHandler = (token) => {
     console.log(token)
@@ -138,7 +140,7 @@ function LoginWithEmail() {
         <View style={[AppStyles.alignCenter, AppStyles.mt40]}>
           <Text style={[AppStyles.txtWhiteBold, AppStyles.f40, AppStyles.pv10]}>
             Hello!
-                </Text>
+          </Text>
         </View>
         <View style={styles.formContainer}>
           <View style={AppStyles.pv20}>

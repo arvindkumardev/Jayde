@@ -7,12 +7,14 @@ const UserContext = createContext({
   userRole: '',
   fcmToken: '',
   orgData: [],
-  setUserObj: (userObj) => {},
-  setLogin: (login) => {},
-  setLoader: (loading) => {},
-  setUserRole: (role) => {},
-  setOrgData: (orgData) => {},
-  setFcmToken: (token) => {}
+  isProfileCompleted: false,
+  setUserObj: (userObj) => { },
+  setLogin: (login) => { },
+  setProfileCompleted: (value) => { },
+  setLoader: (loading) => { },
+  setUserRole: (role) => { },
+  setOrgData: (orgData) => { },
+  setFcmToken: (token) => { }
 });
 
 export default UserContext;

@@ -71,6 +71,7 @@ import PaymentDetails from "../containers/Recycler/PaymentDetails";
 
 import UpdateProfile from "../containers/UpdateProfile";
 import BusinessDetail from "../containers/BusinessDetail";
+import CheckBusinessProfile from "../containers/BusinessDetail/CheckProfile";
 import ProfileUpdate from "../containers/ProfileUpdate";
 import Confirmation from "../containers/Confirmation";
 import SmartContract from "../containers/SmartContract";
@@ -115,16 +116,18 @@ const DrawerStack = () => {
 };
 
 const AppStack = (props) => {
-  const { isLogin, userRole, setLogin, setUserRole } = useContext(UserContext);
+  const { isLogin, isProfileCompleted, userRole, setLogin, setUserRole } = useContext(UserContext);
 
   useEffect(() => {
     async function getToken() {
       const token = await getSaveData(LOCAL_STORAGE_DATA_KEY.JWT_TOKEN);
       const role = await getSaveData(LOCAL_STORAGE_DATA_KEY.USER_ROLE);
+      //const isProfileCompleted = await getSaveData(LOCAL_STORAGE_DATA_KEY.USER_PROFILE_COMPLETED);
       if (token) {
         setLogin(true);
         setUserRole(role);
       }
+      //setProfileCompleted(isProfileCompleted)
       setTimeout(() => {
         SplashScreen.hide();
       }, 2500);
@@ -136,6 +139,7 @@ const AppStack = (props) => {
 
   const role = userRole || props.userRole;
   const loginCheck = isLogin || props.isLogin;
+
   const SwitchNavigation = (role) => {
     switch (role) {
       case USER_ROLE.SELLER:
@@ -303,7 +307,7 @@ const AppStack = (props) => {
             options={CommonHeaderStyle}
           />
         </>;
-      
+
       case USER_ROLE.SCHOOL:
         return <>
           {/* Dashboard SCREEN */}
@@ -469,7 +473,7 @@ const AppStack = (props) => {
             options={CommonHeaderStyle}
           />
         </>;
-      
+
       case USER_ROLE.AGGRATOR:
         return <>
           <Stack.Screen
@@ -723,7 +727,7 @@ const AppStack = (props) => {
             options={CommonHeaderStyle}
           />
         </>;
-      
+
       case USER_ROLE.DRCC:
         return <>
           <Stack.Screen
@@ -977,7 +981,7 @@ const AppStack = (props) => {
             options={CommonHeaderStyle}
           />
         </>;
-      
+
       case USER_ROLE.RECYCLER:
         return <>
           <Stack.Screen
@@ -1075,8 +1079,8 @@ const AppStack = (props) => {
             options={CommonHeaderStyle}
           />
 
-           {/* Warehouse Details screen number: 33 */}
-           <Stack.Screen
+          {/* Warehouse Details screen number: 33 */}
+          <Stack.Screen
             name={NavigationRouteNames.WORKORDER_EMAIL}
             component={WorkOrderEmail}
             options={NoHeaderScreen}
@@ -1089,13 +1093,13 @@ const AppStack = (props) => {
             options={CommonHeaderStyle}
           />
 
-           {/* Work Order Confirmation Screen */}
-           <Stack.Screen
+          {/* Work Order Confirmation Screen */}
+          <Stack.Screen
             name={NavigationRouteNames.WORK_ORDER_CONFIRMATION}
             component={WorkOrderConfirmation}
             options={NoHeaderScreen}
           />
-          
+
           {/* Reject Order Screen */}
           <Stack.Screen
             name={NavigationRouteNames.REJECT_ORDER}
@@ -1205,8 +1209,8 @@ const AppStack = (props) => {
             options={CommonHeaderStyle}
           />
         </>;
-     
-     case USER_ROLE.ADMIN:
+
+      case USER_ROLE.ADMIN:
         return <>
           {/* Dashboard SCREEN */}
           <Stack.Screen
@@ -1345,8 +1349,8 @@ const AppStack = (props) => {
             options={CommonHeaderStyle}
           />
 
-           {/* ADD Provisional Pricing Screen number: 94*/}
-           <Stack.Screen
+          {/* ADD Provisional Pricing Screen number: 94*/}
+          <Stack.Screen
             name={NavigationRouteNames.ADD_PROVISIONAL_PRICING}
             component={AddProvisionalPricing}
             options={CommonHeaderStyle}
@@ -1378,59 +1382,54 @@ const AppStack = (props) => {
             options={CommonHeaderStyle}
           />
 
-           {/* EPR Aggregator Details Screen*/}
-           <Stack.Screen
+          {/* EPR Aggregator Details Screen*/}
+          <Stack.Screen
             name={NavigationRouteNames.EPR_AGGREGATORDETAILS}
             component={EprAggregatorDetails}
             options={CommonHeaderStyle}
           />
 
         </>;
-     
-     case USER_ROLE.EPR:
-      return <>
-        {/* Dashboard SCREEN */}
-        <Stack.Screen
-          name={NavigationRouteNames.HOME_SCREEN}
-          component={DrawerStack}
-          options={({ navigation }) => ({
-            title: null,
-            headerStyle: { borderBottomWidth: 0, elevation: 0 },
-            headerLeft: () => <TouchableOpacity activeOpacity={0.6} onPress={() => {
-              navigation.dispatch(DrawerActions.toggleDrawer());
-            }} style={AppStyles.ml14}><EvilIcons name="navicon" size={30} /></TouchableOpacity>,
-            headerRight: () => <Text style={[AppStyles.txtBlackBold, AppStyles.mr14, AppStyles.f20, { textTransform: 'capitalize' }]}>{role}</Text>,
-          })
-          }
-        />
-        {/* Update Profile Screen number: 50 */}
-        <Stack.Screen
-          name={NavigationRouteNames.UPDATE_PROFILE}
-          component={UpdateProfile}
-          options={NoTitleHeader}
-        />
-        {/* Business Detail Screen number: 51 */}
-        <Stack.Screen
-          name={NavigationRouteNames.BUSINESS_DETAIL}
-          component={BusinessDetail}
-          options={CommonHeaderStyle}
-        />
-        {/* Profile Update Screen number: 52 */}
-        <Stack.Screen
-          name={NavigationRouteNames.PROFILE_UPDATE}
-          component={ProfileUpdate}
-          options={CommonHeaderStyle}
-        />
 
-      </>;
-   
-     default:
+      case USER_ROLE.EPR:
         return <>
+          {/* Dashboard SCREEN */}
           <Stack.Screen
-            name={NavigationRouteNames.SIGNUP}
-            component={SignUp}
-            options={NoHeaderScreen}
+            name={NavigationRouteNames.HOME_SCREEN}
+            component={DrawerStack}
+            options={({ navigation }) => ({
+              title: null,
+              headerStyle: { borderBottomWidth: 0, elevation: 0 },
+              headerLeft: () => <TouchableOpacity activeOpacity={0.6} onPress={() => {
+                navigation.dispatch(DrawerActions.toggleDrawer());
+              }} style={AppStyles.ml14}><EvilIcons name="navicon" size={30} /></TouchableOpacity>,
+              headerRight: () => <Text style={[AppStyles.txtBlackBold, AppStyles.mr14, AppStyles.f20, { textTransform: 'capitalize' }]}>{role}</Text>,
+            })
+            }
           />
+          {/* Update Profile Screen number: 50 */}
+          <Stack.Screen
+            name={NavigationRouteNames.UPDATE_PROFILE}
+            component={UpdateProfile}
+            options={NoTitleHeader}
+          />
+          {/* Business Detail Screen number: 51 */}
+          <Stack.Screen
+            name={NavigationRouteNames.BUSINESS_DETAIL}
+            component={BusinessDetail}
+            options={CommonHeaderStyle}
+          />
+          {/* Profile Update Screen number: 52 */}
+          <Stack.Screen
+            name={NavigationRouteNames.PROFILE_UPDATE}
+            component={ProfileUpdate}
+            options={CommonHeaderStyle}
+          />
+
+        </>;
+
+      default:
+        return <>
           {/* Login SCREEN */}
           <Stack.Screen
             name={NavigationRouteNames.LOGIN_WITH_EMAIL}
@@ -1438,6 +1437,17 @@ const AppStack = (props) => {
             options={NoHeaderScreen}
           />
 
+          <Stack.Screen
+            name={NavigationRouteNames.SIGNUP}
+            component={SignUp}
+            options={NoHeaderScreen}
+          />
+
+          <Stack.Screen
+            name={NavigationRouteNames.PASSWORD_RESET}
+            component={PasswordReset}
+            options={NoHeaderScreen}
+          />
         </>;
     }
   };
@@ -1446,24 +1456,25 @@ const AppStack = (props) => {
     <Stack.Navigator
       headerMode="screen"
       initialRouteName={
-        props.isLogin
-          ? props.homePage
-          : NavigationRouteNames.LOGIN_WITH_EMAIL
+        !isLogin ? NavigationRouteNames.LOGIN_WITH_EMAIL :         
+         NavigationRouteNames.HOME_SCREEN
       }
     >
-    {!loginCheck ? (
+      {!loginCheck ? (
         <>
-          <Stack.Screen
-            name={NavigationRouteNames.SIGNUP}
-            component={SignUp}
-            options={NoHeaderScreen}
-          />
           {/* Login SCREEN */}
           <Stack.Screen
             name={NavigationRouteNames.LOGIN_WITH_EMAIL}
             component={LoginWithEmail}
             options={NoHeaderScreen}
           />
+
+          <Stack.Screen
+            name={NavigationRouteNames.SIGNUP}
+            component={SignUp}
+            options={NoHeaderScreen}
+          />
+
           {/* Password Reset SCREEN */}
           <Stack.Screen
             name={NavigationRouteNames.PASSWORD_RESET}
@@ -1471,8 +1482,9 @@ const AppStack = (props) => {
             options={NoHeaderScreen}
           />
         </>
-    ) : SwitchNavigation(role)}
-  </Stack.Navigator>
+      ) :
+        SwitchNavigation(role)}
+    </Stack.Navigator>
   );
 };
 export default AppStack;
