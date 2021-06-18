@@ -82,6 +82,7 @@ import AddSubUser from "../containers/AddSubUser";
 import AddUser from "../containers/AddUser";
 
 import PasswordReset from "../containers/PasswordReset";
+import ThankYou from "../containers/ThankYou";
 import AdminNewOrderList from "../containers/Admin/NewOrderList";
 import AdminNewOrder from "../containers/Admin/OrderDetails";
 import EprAggregatorDetails from "../containers/Admin/EprAggregatorDetails";
@@ -301,6 +302,12 @@ const AppStack = (props) => {
             component={ProfileUpdate}
             options={CommonHeaderStyle}
           />
+           {/* Thank You Screen */}
+           <Stack.Screen
+            name={NavigationRouteNames.THANKYOU}
+            component={ThankYou}
+            options={NoHeaderScreen}
+          />
         </>;
 
       case USER_ROLE.SCHOOL:
@@ -466,6 +473,12 @@ const AppStack = (props) => {
             name={NavigationRouteNames.PROFILE_UPDATE}
             component={ProfileUpdate}
             options={CommonHeaderStyle}
+          />
+          {/* Thank You Screen */}
+          <Stack.Screen
+            name={NavigationRouteNames.THANKYOU}
+            component={ThankYou}
+            options={NoHeaderScreen}
           />
         </>;
 
@@ -721,6 +734,12 @@ const AppStack = (props) => {
             component={WorkOrderDetail}
             options={CommonHeaderStyle}
           />
+          {/* Thank You Screen */}
+          <Stack.Screen
+            name={NavigationRouteNames.THANKYOU}
+            component={ThankYou}
+            options={NoHeaderScreen}
+          />
         </>;
 
       case USER_ROLE.DRCC:
@@ -975,6 +994,12 @@ const AppStack = (props) => {
             component={WorkOrderDetail}
             options={CommonHeaderStyle}
           />
+          {/* Thank You Screen */}
+          <Stack.Screen
+            name={NavigationRouteNames.THANKYOU}
+            component={ThankYou}
+            options={NoHeaderScreen}
+          />
         </>;
 
       case USER_ROLE.RECYCLER:
@@ -1203,6 +1228,12 @@ const AppStack = (props) => {
             component={SmartContractViewItem}
             options={CommonHeaderStyle}
           />
+          {/* Thank You Screen */}
+          <Stack.Screen
+            name={NavigationRouteNames.THANKYOU}
+            component={ThankYou}
+            options={NoHeaderScreen}
+          />
         </>;
 
       case USER_ROLE.ADMIN:
@@ -1419,6 +1450,12 @@ const AppStack = (props) => {
             name={NavigationRouteNames.PROFILE_UPDATE}
             component={ProfileUpdate}
             options={CommonHeaderStyle}
+          />
+          {/* Thank You Screen */}
+          <Stack.Screen
+            name={NavigationRouteNames.THANKYOU}
+            component={ThankYou}
+            options={NoHeaderScreen}
           />
 
         </>;

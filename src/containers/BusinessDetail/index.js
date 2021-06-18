@@ -108,8 +108,8 @@ function BusinessDetail() {
       console.log(data);
       if (data.status) {
         await storeData(LOCAL_STORAGE_DATA_KEY.USER_PROFILE_COMPLETED, true);
-        alert(data.message);
-        screenNavigate();
+        // alert(data.message);
+        thankNavigate();
       } else {
         alert(data.message);
       }
@@ -170,6 +170,10 @@ function BusinessDetail() {
 
   const screenNavigate = () => {
     navigation.popToTop()
+  };
+
+  const thankNavigate = () => {
+    navigation.navigate(NavigationRouteNames.THANKYOU);
   };
 
   // useEffect(() => {

@@ -112,6 +112,7 @@ const NavigationRouteNames = {
   WORK_ORDERDETAIL: "WorkOrderDetail",
   ADD_SUBCATEGORY: "AddSubCategory",
   EPR_AGGREGATORDETAILS: "EprAggregatorDetails",
+  THANKYOU: "ThankYou",
 };
 
 export default NavigationRouteNames;

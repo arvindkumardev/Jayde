@@ -52,13 +52,13 @@ function ProfileUpdate() {
           password,
         },
       });
-
       console.log(data);
       if (data.status) {
         alert(data.message);
         screenNavigate();
       } else {
         alert(data.message);
+        // screenNavigate();
       }
       setLoader(false)
     } catch (e) {
