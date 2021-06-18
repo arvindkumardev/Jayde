@@ -8,14 +8,14 @@ import MIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { AppStyles, Colors } from '../../../theme';
 import NavigationRouteNames from '../../../routes/ScreenNames';
 import DropDown from '../../../components/Picker/index';
-import  UploadDocument  from '../../../components/UploadDocument';
+import UploadDocument from '../../../components/UploadDocument';
 import { createQuote, addOrder } from '../Middleware';
 import { getSubCategories, getUnits } from './../../../services/CommonController';
 
 import UserContext from '../../../appContainer/context/user.context';
 import CustomText from '../../../components/CustomText';
 import { RfH, RfW, isValidVolume } from '../../../utils/helpers';
-import { setQuoteData, setImageName } from '../../../utils/Global';
+import { setQuoteData, setImageName, setEPRName, setEPRAggregatorID, setAggregator } from '../../../utils/Global';
 
 function PricingRequest() {
   const navigation = useNavigation();
@@ -139,19 +139,22 @@ function PricingRequest() {
             qty: volume,
             unit,
             location,
+            uploaded_files: imgData,
           },
         });
         console.log(data.data);
         // Save Global
         setImageName(imgData);
         setQuoteData(data.data.orderDetails);
+        setEPRName(data.data.eprName);
+        setEPRAggregatorID(data.data.businessDetails.epr_aggregator_id);
+        setAggregator(data.data.aggregators);
         if (data.status) {
           handleGetQuote();
         } else {
           alert(data.message);
         }
-      }
-      catch (e) {
+      } catch (e) {
         console.log("Response error", e);
       }
     }
@@ -214,127 +217,127 @@ function PricingRequest() {
 
   return (
     <KeyboardAwareScrollView
-      contentInsetAdjustmentBehavior = 'always'
-      showsVerticalScrollIndicator = {false}
-      contentContainerStyle = {{flexGrow:1}}
-      automaticallyAdjustContentInsets = {false}
-      style={[AppStyles.flex1, AppStyles.whitebackgrnd, AppStyles.ph20, ]}>
-    
-   
-        <View style={AppStyles.flex1}>
-          <View style={AppStyles.alignCenter}>
-            <Text style={[AppStyles.txtBlackBold, AppStyles.f18]}>
-              {quotestatus === '0' ? 'Get Quote' : 'Schedule Order'}
-            </Text>
-          </View>
-          <View style={[AppStyles.mt15]}>
-            <Text style={[AppStyles.txtBlackRegular, AppStyles.f16, AppStyles.mb10]}>Please choose a sub category</Text>
-            <DropDown
-              items={subCategories}
-              onValueChange={onChangeCategory}
-              selectedValue={requestForm.values.category}
-              containerStyle={AppStyles.inputTxtStyle}
-            />
-            {clickConfirm && requestForm.errors.category ? (
-              <CustomText fontSize={15} color={Colors.red} styling={{ marginTop: RfH(10) }}>
-                {requestForm.errors.category}
-              </CustomText>
-            ) : null}
-          </View>
-          <View style={[AppStyles.mt15]}>
-            <View>
-              <Text style={[AppStyles.txtBlackRegular, AppStyles.f16, AppStyles.mb10]}>Volume</Text>
-            </View>
-            <View style={{ flexDirection: 'row' }}>
-              <View style={{ flex: 2, paddingRight: 10 }}>
-                <TextInput
-                  placeholder="Enter volume"
-                  value={requestForm.values.volume}
-                  keyboardType="numeric"
-                  onChangeText={(txt) => requestForm.setFieldValue('volume', txt)}
-                  style={AppStyles.inputTxtStyle}
-                />
-                {clickConfirm && requestForm.errors.volume ? (
-                  <CustomText fontSize={15} color={Colors.red} styling={{ marginTop: RfH(10) }}>
-                    {requestForm.errors.volume}
-                  </CustomText>
-                ) : null}
-              </View>
-              <View style={{ flex: 1 }}>
-                <DropDown
-                  items={unitPickerData}
-                  placeholderText="Units"
-                  onValueChange={onChangeUnit}
-                  selectedValue={requestForm.values.unit}
-                  containerStyle={AppStyles.inputTxtStyle}
-                />
+      contentInsetAdjustmentBehavior='always'
+      showsVerticalScrollIndicator={false}
+      contentContainerStyle={{ flexGrow: 1 }}
+      automaticallyAdjustContentInsets={false}
+      style={[AppStyles.flex1, AppStyles.whitebackgrnd, AppStyles.ph20,]}>
 
-                {clickConfirm && requestForm.errors.unit ? (
-                  <CustomText fontSize={15} color={Colors.red} styling={{ marginTop: RfH(10) }}>
-                    {requestForm.errors.unit}
-                  </CustomText>
-                ) : null}
-              </View>
-            </View>
+
+      <View style={AppStyles.flex1}>
+        <View style={AppStyles.alignCenter}>
+          <Text style={[AppStyles.txtBlackBold, AppStyles.f18]}>
+            {quotestatus === '0' ? 'Get Quote' : 'Schedule Order'}
+          </Text>
+        </View>
+        <View style={[AppStyles.mt15]}>
+          <Text style={[AppStyles.txtBlackRegular, AppStyles.f16, AppStyles.mb10]}>Please choose a sub category</Text>
+          <DropDown
+            items={subCategories}
+            onValueChange={onChangeCategory}
+            selectedValue={requestForm.values.category}
+            containerStyle={AppStyles.inputTxtStyle}
+          />
+          {clickConfirm && requestForm.errors.category ? (
+            <CustomText fontSize={15} color={Colors.red} styling={{ marginTop: RfH(10) }}>
+              {requestForm.errors.category}
+            </CustomText>
+          ) : null}
+        </View>
+        <View style={[AppStyles.mt15]}>
+          <View>
+            <Text style={[AppStyles.txtBlackRegular, AppStyles.f16, AppStyles.mb10]}>Volume</Text>
           </View>
-          <View style={[AppStyles.mt15]}>
-            <View>
-              <Text style={[AppStyles.txtBlackRegular, AppStyles.f16, AppStyles.mb10]}>Add Location</Text>
-            </View>
-            <View>
+          <View style={{ flexDirection: 'row' }}>
+            <View style={{ flex: 2, paddingRight: 10 }}>
               <TextInput
-                value={requestForm.values.location}
-                placeholder="Enter location"
-                onChangeText={(txt) => requestForm.setFieldValue('location', txt)}
+                placeholder="Enter volume"
+                value={requestForm.values.volume}
+                keyboardType="numeric"
+                onChangeText={(txt) => requestForm.setFieldValue('volume', txt)}
                 style={AppStyles.inputTxtStyle}
               />
-              {clickConfirm && requestForm.errors.location ? (
+              {clickConfirm && requestForm.errors.volume ? (
                 <CustomText fontSize={15} color={Colors.red} styling={{ marginTop: RfH(10) }}>
-                  {requestForm.errors.location}
+                  {requestForm.errors.volume}
                 </CustomText>
               ) : null}
             </View>
-          </View>
-          <View style={[AppStyles.mt15]}>
-            <View>
-              <Text style={[AppStyles.txtBlackRegular, AppStyles.f16, AppStyles.mb10]}>Add Picture</Text>
-            </View>
-            <View>
-              <TouchableOpacity
-                activeOpacity={0.8}
-                onPress={() => setImageUpload(!imageUpload)}
-                style={[AppStyles.pv10, { backgroundColor: Colors.grayTwo }, AppStyles.alignCenter, AppStyles.inputIcon]}>
-                {/* <FAIcon name="photo" size={25} /> */}
-                <Text
-                  style={[AppStyles.txtSecandaryRegular, { color: imgData.length > 0 ? Colors.green : Colors.warmGrey }]}>
-                  {imgData.length > 0 ? 'File Attached' : 'Attach File'}
-                </Text>
-                <MIcon name="attachment" size={25} color={Colors.grayThree} />
-              </TouchableOpacity>
-              {clickConfirm && imgData.length === 0 ? (
+            <View style={{ flex: 1 }}>
+              <DropDown
+                items={unitPickerData}
+                placeholderText="Units"
+                onValueChange={onChangeUnit}
+                selectedValue={requestForm.values.unit}
+                containerStyle={AppStyles.inputTxtStyle}
+              />
+
+              {clickConfirm && requestForm.errors.unit ? (
                 <CustomText fontSize={15} color={Colors.red} styling={{ marginTop: RfH(10) }}>
-                  Upload Picture
+                  {requestForm.errors.unit}
                 </CustomText>
               ) : null}
-              <UploadDocument handleClose={() => setImageUpload(false)} isVisible={imageUpload} ImageData={ImageData} />
             </View>
           </View>
         </View>
+        <View style={[AppStyles.mt15]}>
+          <View>
+            <Text style={[AppStyles.txtBlackRegular, AppStyles.f16, AppStyles.mb10]}>Add Location</Text>
+          </View>
+          <View>
+            <TextInput
+              value={requestForm.values.location}
+              placeholder="Enter location"
+              onChangeText={(txt) => requestForm.setFieldValue('location', txt)}
+              style={AppStyles.inputTxtStyle}
+            />
+            {clickConfirm && requestForm.errors.location ? (
+              <CustomText fontSize={15} color={Colors.red} styling={{ marginTop: RfH(10) }}>
+                {requestForm.errors.location}
+              </CustomText>
+            ) : null}
+          </View>
+        </View>
+        <View style={[AppStyles.mt15]}>
+          <View>
+            <Text style={[AppStyles.txtBlackRegular, AppStyles.f16, AppStyles.mb10]}>Add Picture</Text>
+          </View>
+          <View>
+            <TouchableOpacity
+              activeOpacity={0.8}
+              onPress={() => setImageUpload(!imageUpload)}
+              style={[AppStyles.pv10, { backgroundColor: Colors.grayTwo }, AppStyles.alignCenter, AppStyles.inputIcon]}>
+              {/* <FAIcon name="photo" size={25} /> */}
+              <Text
+                style={[AppStyles.txtSecandaryRegular, { color: imgData.length > 0 ? Colors.green : Colors.warmGrey }]}>
+                {imgData.length > 0 ? 'File Attached' : 'Attach File'}
+              </Text>
+              <MIcon name="attachment" size={25} color={Colors.grayThree} />
+            </TouchableOpacity>
+            {clickConfirm && imgData.length === 0 ? (
+              <CustomText fontSize={15} color={Colors.red} styling={{ marginTop: RfH(10) }}>
+                Upload Picture
+              </CustomText>
+            ) : null}
+            <UploadDocument handleClose={() => setImageUpload(false)} isVisible={imageUpload} ImageData={ImageData} />
+          </View>
+        </View>
+      </View>
 
-        
-          <TouchableOpacity
-            activeOpacity={0.8}
-            style={[AppStyles.btnPrimary, AppStyles.inCenter, 
-            AppStyles.btnHeightwidth, AppStyles.br10, AppStyles.mt50, AppStyles.mb20]}            
-            onPress={() => {
-              handelSubmitQuote();
-            }}>
-            <Text style={[AppStyles.txtWhiteRegular, AppStyles.f18]}>CONFIRM</Text>
-          </TouchableOpacity>
-      
 
-           
-      
+      <TouchableOpacity
+        activeOpacity={0.8}
+        style={[AppStyles.btnPrimary, AppStyles.inCenter,
+        AppStyles.btnHeightwidth, AppStyles.br10, AppStyles.mt50, AppStyles.mb20]}
+        onPress={() => {
+          handelSubmitQuote();
+        }}>
+        <Text style={[AppStyles.txtWhiteRegular, AppStyles.f18]}>CONFIRM</Text>
+      </TouchableOpacity>
+
+
+
+
     </KeyboardAwareScrollView>
   );
 }

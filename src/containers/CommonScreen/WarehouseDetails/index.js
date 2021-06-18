@@ -358,7 +358,7 @@ function WarehouseDetails() {
                 itemStyle={{ color: '#000' }}
                 onValueChange={(val) => setValueCategory(val, index)}
                 selectedValue={getValueCategory(index)}
-                containerStyle={{ borderRadius: 10, backgroundColor: Colors.grayTwo, paddingLeft: 10 }}
+                containerStyle={AppStyles.inputTxtStyle}
               />
             </View>
             <View style={[AppStyles.mt20]}>
@@ -384,7 +384,7 @@ function WarehouseDetails() {
                     itemStyle={{ color: '#000' }}
                     onValueChange={(val) => setValueUnit(val, index)}
                     selectedValue={getValueUnit(index)}
-                    containerStyle={{ borderRadius: 10, backgroundColor: Colors.grayTwo, paddingLeft: 10 }}
+                    containerStyle={AppStyles.inputTxtStyle}
                   />
                 </View>
               </View>

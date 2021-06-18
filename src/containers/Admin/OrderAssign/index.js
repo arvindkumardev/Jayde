@@ -253,7 +253,7 @@ return (
             itemStyle={{ color: '#000' }}
             onValueChange={handelBusinessType}
             selectedValue={requestForm.values.businessType}
-            containerStyle={{ borderRadius: 10, backgroundColor: Colors.grayTwo, paddingLeft: 10 }}
+            containerStyle={AppStyles.inputTxtStyle}
           />
           {clickConfirm && requestForm.errors.businessType ?
             <CustomText
@@ -273,7 +273,7 @@ return (
             itemStyle={{ color: '#000' }}
             onValueChange={onChangeAggregator}
             selectedValue={requestForm.values.selectedID}
-            containerStyle={{ borderRadius: 10, backgroundColor: Colors.grayTwo, paddingLeft: 10 }}
+            containerStyle={AppStyles.inputTxtStyle}
           />
           {clickConfirm && requestForm.values.selectedID == '' ?
             <CustomText

@@ -1,6 +1,6 @@
 /* eslint-disable global-require */
 /* eslint-disable no-underscore-dangle */
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState, useLayoutEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { TouchableOpacity, View, Text, Image, FlatList, ScrollView } from 'react-native';
 import FAIcon from 'react-native-vector-icons/FontAwesome';
@@ -40,7 +40,7 @@ const ORDER_IMAGE = {
 
 function HomeScreen() {
   const navigation = useNavigation();
-  const { userRole, setLogin, setLoader, setProfileCompleted } = useContext(UserContext);
+  const { userRole, setLogin, setLoader } = useContext(UserContext);
 
   const [name, setName] = useState("");
 
@@ -54,6 +54,11 @@ function HomeScreen() {
   useEffect(() => {
     async function getUserName() {
       const username = await getSaveData(LOCAL_STORAGE_DATA_KEY.USER_NAME);
+      const isProfileCompleted = await getSaveData(LOCAL_STORAGE_DATA_KEY.USER_PROFILE_COMPLETED);
+      console.log('isProfileCompleted', isProfileCompleted)
+      if(!isProfileCompleted){
+        navigation.navigate(NavigationRouteNames.BUSINESS_DETAIL)
+      }
       setName(username);
     }
     setStatus(false);
@@ -67,7 +72,7 @@ function HomeScreen() {
       NotificationService.unsubscribe() // Unsubscribe on Notification
       LocalNotificationService.unregister()
     }
-  }, [userRole]);
+  }, [userRole]);  
 
   //Handel Background Notification
   const onOpenNotification = (remoteMessage) => {
@@ -113,8 +118,7 @@ function HomeScreen() {
     await removeData(LOCAL_STORAGE_DATA_KEY.JWT_TOKEN);
     await removeData(LOCAL_STORAGE_DATA_KEY.USER_ROLE);
     await removeData(LOCAL_STORAGE_DATA_KEY.USER_PROFILE_COMPLETED);
-    setLogin(false);
-    setProfileCompleted(false);
+    setLogin(false);    
   };
 
   const handleNavigate = (screenName) => {

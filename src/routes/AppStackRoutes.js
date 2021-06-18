@@ -71,7 +71,6 @@ import PaymentDetails from "../containers/Recycler/PaymentDetails";
 
 import UpdateProfile from "../containers/UpdateProfile";
 import BusinessDetail from "../containers/BusinessDetail";
-import CheckBusinessProfile from "../containers/BusinessDetail/CheckProfile";
 import ProfileUpdate from "../containers/ProfileUpdate";
 import Confirmation from "../containers/Confirmation";
 import SmartContract from "../containers/SmartContract";
@@ -116,25 +115,21 @@ const DrawerStack = () => {
 };
 
 const AppStack = (props) => {
-  const { isLogin, isProfileCompleted, userRole, setLogin, setUserRole } = useContext(UserContext);
+  const { isLogin, userRole, setLogin, setUserRole } = useContext(UserContext);
 
   useEffect(() => {
     async function getToken() {
       const token = await getSaveData(LOCAL_STORAGE_DATA_KEY.JWT_TOKEN);
-      const role = await getSaveData(LOCAL_STORAGE_DATA_KEY.USER_ROLE);
-      //const isProfileCompleted = await getSaveData(LOCAL_STORAGE_DATA_KEY.USER_PROFILE_COMPLETED);
+      const role = await getSaveData(LOCAL_STORAGE_DATA_KEY.USER_ROLE);     
       if (token) {
         setLogin(true);
         setUserRole(role);
-      }
-      //setProfileCompleted(isProfileCompleted)
+      }     
       setTimeout(() => {
         SplashScreen.hide();
       }, 2500);
     };
-
     getToken();
-
   }, []);
 
   const role = userRole || props.userRole;

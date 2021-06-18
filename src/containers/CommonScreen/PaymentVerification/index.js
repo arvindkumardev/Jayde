@@ -682,7 +682,7 @@ const PaymentVerification = () => {
                           itemStyle={{ color: '#000' }}
                           onValueChange={onChangeUnit}
                           selectedValue={proposeRequestForm.values.unit}
-                          containerStyle={{ borderRadius: 10, backgroundColor: Colors.grayBackground, paddingLeft: 10 }}
+                          containerStyle={AppStyles.inputTxtStyle}
                         />
 
                         {proposeClickConfirm && proposeRequestForm.errors.unit ? (
@@ -869,7 +869,7 @@ const PaymentVerification = () => {
                 itemStyle={{ color: '#000' }}
                 onValueChange={(val) => paymentRequestForm.setFieldValue('paymentmode', val)}
                 selectedValue={paymentRequestForm.values.paymentmode}
-                containerStyle={{ borderRadius: 10, backgroundColor: Colors.grayBackground, paddingLeft: 10 }}
+                containerStyle={AppStyles.inputTxtStyle}
               />
 
               {paymentClickConfirm && paymentRequestForm.errors.paymentmode ? (

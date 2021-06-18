@@ -17,6 +17,7 @@ import commonStyles from '../../theme/commonStyles';
 import { AppStyles } from "../../theme";
 import { signUp } from './middleware';
 import DropDown from '../../components/Picker/index';
+import DeviceInfo from 'react-native-device-info';
 
 // Image
 import leftArrowImg from '../../assets/Images/Common/LeftArrowIcon.png';
@@ -54,6 +55,13 @@ function SignUp() {
           phone: phoneno,
           password: password,
           businessType: businesstype,
+          Manufacturer: DeviceInfo.getManufacturerSync(),
+          Model: DeviceInfo.getModel(),
+          OsVersionRelease: Platform.Version,
+          AppVersion: DeviceInfo.getVersion(),
+          FcmToken: firebaseToken,
+          OsType: Platform.OS === "ios" ? "Ios" : "Android",
+          DeviceId: DeviceInfo.getUniqueId()
         },
       });
 

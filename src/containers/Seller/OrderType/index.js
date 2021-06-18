@@ -6,7 +6,6 @@ import { AppStyles, Colors } from '../../../theme';
 import { getCategories } from './../../../services/CommonController';
 import UserContext from '../../../appContainer/context/user.context';
 import Styles from './styles';
-import { setCategory } from '../../../utils/Global'
 
 //Image
 import EWasteImg from '../../../assets/Images/NewOrderList/Group_10091.png'
@@ -50,7 +49,6 @@ function OrderType() {
 
   const handleNavigate = (title, category) => {
     navigation.pop()
-    setCategory(title)
     navigation.navigate(NavigationRouteNames.NEW_ORDER_REQUEST, { title, categoryId: category });
   };
   const _renderItem = (index, item) => (

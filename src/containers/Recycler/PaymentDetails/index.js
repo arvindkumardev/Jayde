@@ -91,7 +91,7 @@ function PaymentDetails() {
                 itemStyle={{ color: '#000' }}
                 onValueChange={(val) => setUnit(val)}
                 selectedValue={unit}
-                containerStyle={{ borderRadius: 10, backgroundColor: Colors.grayTwo, paddingLeft: 10 }}
+                containerStyle={AppStyles.inputTxtStyle}
               />
             </View>
           </View>

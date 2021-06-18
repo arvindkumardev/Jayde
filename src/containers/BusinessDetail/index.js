@@ -6,7 +6,9 @@ import NavigationRouteNames from '../../routes/ScreenNames';
 import { AppStyles, Colors } from '../../theme';
 import Checkbox from '@react-native-community/checkbox';
 import UserContext from '../../appContainer/context/user.context';
-import { RfH, RfW } from '../../utils/helpers';
+import { RfH, RfW, storeData } from '../../utils/helpers';
+import { LOCAL_STORAGE_DATA_KEY } from "../../utils/constants";
+
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import * as Yup from 'yup';
 import { useFormik } from 'formik';
@@ -31,6 +33,8 @@ function BusinessDetail() {
   const [clickLogin, setClickLogin] = useState(false);
   const { setLoader, userRole } = useContext(UserContext);
   const [status, setStatus] = useState(true);
+  const [eprSelected, setEprSelected] = useState(true);
+
   const [EPRName, setEPRName] = useState([]);
   const [EPRAggregatorName, setEPRAggregatorName] = useState([])
   const [{ data, loading, error: updateError }, onBusinessUpdate] = businessUpdate();
@@ -50,7 +54,8 @@ function BusinessDetail() {
         businessForm.setFieldValue('pincode', data.data[0].pin_code);
         businessForm.setFieldValue('gstin', data.data[0].gst_number);
         businessForm.setFieldValue('pan', data.data[0].pan_number);
-        businessForm.setFieldValue('eprPartnerId', data.data[0].epr_partner_id);
+
+        onBusinessEprPartner({ data: {} })
       }
     } catch (e) {
       console.log('Response error', e);
@@ -74,11 +79,15 @@ function BusinessDetail() {
     if (eprUser) {
       const itemData = eprUser.erp_partners.map((item) => ({ label: item.business_name, value: item.userid }));
       setEPRName(itemData);
+      if (eprSelected && profileData) {
+        businessForm.setFieldValue('eprPartnerId', profileData.data[0].epr_partner_id);
+        setEprSelected(false)
+      }
     }
   }, [eprUser]);
 
   const confirmBusinessUpdate = async (businessname, address, city, pincode, gstin, pan) => {
-    if(!isEmpty(businessForm.values.eprPartnerId) && isEmpty(businessForm.values.eprAggregatorId)) return
+    if (!isEmpty(businessForm.values.eprPartnerId) && isEmpty(businessForm.values.eprAggregatorId)) return
     try {
       let param = {
         name: businessname,
@@ -98,6 +107,7 @@ function BusinessDetail() {
 
       console.log(data);
       if (data.status) {
+        await storeData(LOCAL_STORAGE_DATA_KEY.USER_PROFILE_COMPLETED, true);
         alert(data.message);
         screenNavigate();
       } else {
@@ -156,12 +166,10 @@ function BusinessDetail() {
     navigation.setOptions({
       title,
     });
-
-    onBusinessEprPartner({ data: {} })
   }, []);
 
   const screenNavigate = () => {
-    navigation.navigate(NavigationRouteNames.UPDATE_PROFILE);
+    navigation.popToTop()
   };
 
   // useEffect(() => {
@@ -355,7 +363,7 @@ function BusinessDetail() {
               itemStyle={{ color: '#000' }}
               onValueChange={(id) => onChangeEPRPartner(id)}
               selectedValue={businessForm.values.eprPartnerId}
-              containerStyle={{ borderRadius: 10, backgroundColor: Colors.grayTwo, paddingLeft: 10 }}
+              containerStyle={AppStyles.inputTxtStyle}
             />
           </View>
 
@@ -367,12 +375,12 @@ function BusinessDetail() {
               itemStyle={{ color: '#000' }}
               onValueChange={(id) => businessForm.setFieldValue('eprAggregatorId', id)}
               selectedValue={businessForm.values.eprAggregatorId}
-              containerStyle={{ borderRadius: 10, backgroundColor: Colors.grayTwo, paddingLeft: 10 }}
+              containerStyle={AppStyles.inputTxtStyle}
             />
-           { clickLogin && !isEmpty(businessForm.values.eprPartnerId)
-            && isEmpty(businessForm.values.eprAggregatorId) ?
-            <CustomText fontSize={15} color={Colors.red} styling={{ marginTop: RfH(10) }}>Select EPR Partner's Aggregator              
-            </CustomText> : null}
+            {clickLogin && !isEmpty(businessForm.values.eprPartnerId)
+              && isEmpty(businessForm.values.eprAggregatorId) ?
+              <CustomText fontSize={15} color={Colors.red} styling={{ marginTop: RfH(10) }}>Select EPR Partner's Aggregator
+              </CustomText> : null}
 
           </View>}
 

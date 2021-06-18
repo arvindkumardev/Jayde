@@ -5,7 +5,7 @@ import FAIcon from "react-native-vector-icons/FontAwesome";
 import Styles from "./styles";
 import NavigationRouteNames from '../../../routes/ScreenNames';
 import { Fonts, Colors, AppStyles } from '../../../theme';
-import { getQuoteData, getImageName } from '../../../utils/Global'
+import { getQuoteData, getImageName, setEPRName, setEPRAggregatorID, setAggregator } from '../../../utils/Global'
 import { deleteQuote, addOrder } from '../Middleware';
 import UserContext from '../../../appContainer/context/user.context';
 import NavClose from './../../../components/HeaderLeft'
@@ -69,6 +69,10 @@ const PriceConfirm = () => {
       });
       console.log(data.data)
       if (data.status) {
+        setQuoteData(data.data.orderDetails);
+        setEPRName(data.data.eprName);
+        setEPRAggregatorID(data.data.businessDetails.epr_aggregator_id);
+        setAggregator(data.data.aggregators);        
         navigation.navigate(NavigationRouteNames.CONFIRM_ADDRESS);
       } else {
         alert(data.message)

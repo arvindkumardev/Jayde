@@ -145,10 +145,6 @@ export const isValidVolume = (val) => {
 export const getImageSource = (imagePath) =>
   isNumber(imagePath) ? imagePath : {uri: imagePath};
 
-export const isDisplayWithNotch = () => {
-  return DeviceInfo.hasNotch();
-};
-
 export const getFirstName = (name) => {
   return name ? name.split(' ')[0] : '';
 };
@@ -205,84 +201,13 @@ export const getCategoryImage = (category) => {
   }
 };
 
-export const getApprovalModuleImage = (id) => {
-  switch (id) {
-    case 1:
-      return Images.finance;
-    case 2:
-      return Images.hr;
-    case 3:
-      return Images.procurement;
-    case 4:
-      return Images.finance;
-    case 5:
-      return Images.hr;
-    case 6:
-      return Images.finance;
-    case 7:
-      return Images.procurement;
-    case 8:
-      return Images.hr;
-    case 9:
-      return Images.finance;
-    case 10:
-      return Images.procurement;
-    case 11:
-      return Images.hr;
-    case 12:
-      return Images.finance;
-    case 13:
-      return Images.hr;
-    case 14:
-      return Images.procurement;
-    case 15:
-      return Images.hr;
-    default:
-      return Images.finance;
-  }
-};
-
-export const getSubmoduleScreenName =(subModule)=>{
-  switch (subModule.id) {
-    // case 1:
-    //   return NavigationRouteNames.APPROVAL_FINANCE_LIST;
-    // case 2:
-    //   return NavigationRouteNames.APPROVAL_FINANCE_LIST;
-    case 3:
-      return NavigationRouteNames.EDUCATION_CLAIM;
-    case 4:
-      return NavigationRouteNames.LEAVE;
-    // case 6:
-    //   return NavigationRouteNames.APPROVAL_PURCHASE_REQUEST_LIST;
-    // case 7:
-    //   return NavigationRouteNames.APPROVAL_PURCHASE_ORDER_LIST;
-    // case 7:
-    //   return NavigationRouteNames.APPROVAL_SALES_LIST;
-    // case 7:
-    //   return NavigationRouteNames.APPROVAL_OPERA_LIST;
-    // case 11:
-    //   return NavigationRouteNames.APPROVAL_MALLS_LIST;
-    default:
-      return '';
-  }
-};
-
-
-export const getMainModuleScreenName =(module)=>{
-  return '';
-  // switch (module.id) {
-  //   case 5:
-  //     return NavigationRouteNames.APPROVAL_SALES_LIST;
-  //   case 9:
-  //     return NavigationRouteNames.APPROVAL_OPERA_LIST;
-  //   default:
-  //     return '';
-  // }
-};
-
 export const formatDisplayDate = (value) => {
   return moment(value).format('DD-MMM-YYYY')
 } 
 export const displayShortDate = (value) => {
   return moment(value).format('DD-MMM-YY')
 } 
+
+export const isDisplayWithNotch = () => {
+  return DeviceInfo.hasNotch();
+};

@@ -27,6 +27,7 @@ import FAIcon from "react-native-vector-icons/FontAwesome";
 import { useRoute } from '@react-navigation/native';
 import { inputs } from '../../utils/constants';
 import { NotificationService } from '../../services/firebase'
+import DeviceInfo from 'react-native-device-info';
 
 import logoImg from '../../assets/Images/Common/JaydeLogo01.png'
 
@@ -38,7 +39,6 @@ function LoginWithEmail() {
     isLogin,
     setUserObj,
     setLogin,
-    setProfileCompleted,
     setUserRole,
     setLoader
   } = useContext(UserContext);
@@ -51,9 +51,23 @@ function LoginWithEmail() {
 
   const triggerLogin = async (username, password) => {
     try {
+      let param = {
+        email: username,
+        password,
+        Manufacturer: DeviceInfo.getManufacturerSync(),
+        Model: DeviceInfo.getModel(),
+        OsVersionRelease: Platform.Version,
+        AppVersion: DeviceInfo.getVersion(),
+        FcmToken: firebaseToken,
+        OsType: Platform.OS === "ios" ? "Ios" : "Android",
+        DeviceId: DeviceInfo.getUniqueId()
+      }      
       setLoader(true)
-      const { data } = await emLogin({ data: { email: username, password } });
+      const { data } = await emLogin({
+        data: param        
+      });
       if (data.status) {
+        console.log(data)
         await setLogin(data.status);
         await storeData(LOCAL_STORAGE_DATA_KEY.JWT_TOKEN, data.data.token);
         await storeData(LOCAL_STORAGE_DATA_KEY.USER_ROLE, data.data.business_sub_type);
@@ -62,8 +76,7 @@ function LoginWithEmail() {
         await storeData(LOCAL_STORAGE_DATA_KEY.USER_EMAIL, data.data.email);
         await setUserRole(data.data.business_sub_type);
         await setUserObj(data.data);
-        await storeData(LOCAL_STORAGE_DATA_KEY.USER_PROFILE_COMPLETED, data.isProfileCompleted);
-        await setProfileCompleted(data.isProfileCompleted) 
+        await storeData(LOCAL_STORAGE_DATA_KEY.USER_PROFILE_COMPLETED, data.data.isProfileCompleted);
       } else {
         alert(data.message);
       }
@@ -73,13 +86,13 @@ function LoginWithEmail() {
     }
   };
 
- 
+
   useEffect(() => {
     if (error)
       setLoader(false)
   }, [error])
 
-  useEffect(() => {  
+  useEffect(() => {
     return () => {
       setLoader(false)
     }
@@ -113,8 +126,7 @@ function LoginWithEmail() {
     validationSchema,
     onSubmit: () => triggerLogin(
       loginForm.values.username,
-      loginForm.values.password,
-      selectCompany,
+      loginForm.values.password
     )
   });
 

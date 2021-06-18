@@ -265,7 +265,7 @@ function EprAggregatorDetails() {
             itemStyle={{ color: '#000' }}
             onValueChange={(id) => requestForm.setFieldValue('selectedID', id)}
             selectedValue={requestForm.values.selectedID}
-            containerStyle={{ borderRadius: 10, backgroundColor: Colors.grayTwo, paddingLeft: 10 }}
+            containerStyle={AppStyles.inputTxtStyle}
           />
           {clickConfirm && requestForm.errors.selectedID ?
             <CustomText
