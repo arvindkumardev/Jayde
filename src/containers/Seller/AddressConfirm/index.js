@@ -11,6 +11,8 @@ import { getQuoteData, setImageName, getEPRName, getAggregator, getEPRAggregator
 
 import NavigationRouteNames from '../../../routes/ScreenNames';
 import { Colors, AppStyles } from '../../../theme';
+import CustomText from '../../../components/CustomText';
+import { RfH, RfW } from '../../../utils/helpers';
 
 import { addSchedule } from '../Middleware';
 import UserContext from '../../../appContainer/context/user.context';
@@ -68,13 +70,13 @@ const AddressConfirm = () => {
       }
     }
     getUserAddress();
+    console.log(getEPRName(), getEPRAggregatorID())
 
     var tempList = [];
-    if (size(getAggregator()).size > 0) {
-      tempList = getAggregator().map((item) => ({ label: item.business_name, value: item.aggregatora_id }));
-    }
-    tempList.push({label: 'Do Not Send This Order To EPR Partner', value: 'noEPRnoAggregator'})
-    setEPRAggregatorName(itemData);
+    getAggregator().forEach((item, index) => tempList.push({ label: item.business_name,  value: item.aggregatora_id }))
+    tempList.push({label: 'Do not send this order to EPR Partner', value: 'noEPRnoAggregator'})
+    setEPRAggregatorList(tempList);
+    businessForm.setFieldValue('eprAggregatorId', getEPRAggregatorID())
 
     return () => {
       setLoader(false)
@@ -138,8 +140,7 @@ const AddressConfirm = () => {
       'orderIds': getQuoteData().orderId,
       'aggregator': businessForm.values.eprAggregatorId,
     }
-    console.log(param)
-    return;
+    console.log(param)    
     try {
       const { data } = await onAddSchedule({ data: param })
       console.log(data)
@@ -275,22 +276,22 @@ const AddressConfirm = () => {
             }
 
             <View style={[AppStyles.flexDir, AppStyles.mt20, AppStyles.mb6, AppStyles.ml5]}>
-              <Text style={[AppStyles.txtBlackRegular, AppStyles.f17]}>Preferred EPR Partner: </Text>
+              <Text style={[AppStyles.txtBlackRegular, AppStyles.f17]}>Preferred EPR Partner : </Text>
               <Text style={[AppStyles.txtPrimaryBold, AppStyles.f17]}>{getEPRName()}</Text>
             </View>
 
             <View style={[AppStyles.mt20]}>
-              <Text style={[AppStyles.txtBlackRegular, AppStyles.mb10, AppStyles.ml7, AppStyles.f15]}>EPR Aggregators</Text>
+              <Text style={[AppStyles.txtBlackRegular, AppStyles.mb10, AppStyles.ml5,  AppStyles.f17]}>EPR Aggregators</Text>
               <DropDown
                 placeholderText="Select one"
                 items={EPRAggregatorList}
                 itemStyle={{ color: '#000' }}
                 onValueChange={(id) => businessForm.setFieldValue('eprAggregatorId', id)}
                 selectedValue={businessForm.values.eprAggregatorId}
-                containerStyle={AppStyles.inputTxtStyle}
+                containerStyle={[AppStyles.inputTxtStyle,  style.btnSecandary]}
               />
-              {clickLogin && !isEmpty(businessForm.error.eprPartnerId) ?
-                <CustomText fontSize={15} color={Colors.red} styling={{ marginTop: RfH(10) }}>{businessForm.error.eprPartnerId}</CustomText> : null}
+              {clickLogin && businessForm.errors.eprAggregatorId ?
+                <CustomText fontSize={15} color={Colors.red} styling={{ marginTop: RfH(10) }}>{businessForm.errors.eprAggregatorId}</CustomText> : null}
 
             </View>
 

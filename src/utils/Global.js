@@ -37,7 +37,7 @@ export function setEPRName(value){
 }
 
 export function getEPRName(){
-    GlobalData.EPRName
+    return GlobalData.EPRName
 }
 
 export function setEPRAggregatorID(value){
@@ -45,7 +45,7 @@ export function setEPRAggregatorID(value){
 }
 
 export function getEPRAggregatorID(){
-    GlobalData.EPRAggregatorID
+    return GlobalData.EPRAggregatorID
 }
 
 export function setAggregator(value) {

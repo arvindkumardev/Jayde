@@ -117,10 +117,11 @@ function PricingRequest() {
           },
         });
         console.log(data.data.quoteDetails);
-        // Save Global
-        setImageName(imgData);
-        setQuoteData(data.data.quoteDetails);
         if (data.status) {
+          // Save Global
+          setImageName(imgData);
+          setQuoteData(data.data.quoteDetails);
+
           handleGetQuote();
         } else {
           alert(data.message);
@@ -144,12 +145,12 @@ function PricingRequest() {
         });
         console.log(data.data);
         // Save Global
-        setImageName(imgData);
-        setQuoteData(data.data.orderDetails);
-        setEPRName(data.data.eprName);
-        setEPRAggregatorID(data.data.businessDetails.epr_aggregator_id);
-        setAggregator(data.data.aggregators);
         if (data.status) {
+          setImageName(imgData);
+          setQuoteData(data.data.orderDetails);
+          setEPRName(data.data.eprName);
+          setEPRAggregatorID(data.data.businessDetails.epr_aggregator_id);
+          setAggregator(data.data.aggregators);
           handleGetQuote();
         } else {
           alert(data.message);
