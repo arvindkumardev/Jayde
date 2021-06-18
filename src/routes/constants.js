@@ -132,12 +132,12 @@ const DRAWER_MENU = {
       iconName: 'user',
       screenName: NavigationRouteNames.PROFILE_UPDATE
     },
-    {
-      name: 'Download Report',
-      color: Colors.mango,
-      iconName: 'download',
-      screenName: NavigationRouteNames.DOWNLOAD_REPORT,
-    },
+    // {
+    //   name: 'Download Report',
+    //   color: Colors.mango,
+    //   iconName: 'download',
+    //   screenName: NavigationRouteNames.DOWNLOAD_REPORT,
+    // },
     {
       name: 'Manage Orders',
       color: Colors.mango,
@@ -145,12 +145,12 @@ const DRAWER_MENU = {
       screenName: NavigationRouteNames.ADMIN_NEW_ORDER_LIST
 
     },
-    {
-      name: 'Manage EPR',
-      color: Colors.mango,
-      iconName: 'th-large',
-      screenName: NavigationRouteNames.MANAGE_EPR
-    },
+    // {
+    //   name: 'Manage EPR',
+    //   color: Colors.mango,
+    //   iconName: 'th-large',
+    //   screenName: NavigationRouteNames.MANAGE_EPR
+    // },
     {
       name: 'Manage Sub Category',
       color: Colors.mango,

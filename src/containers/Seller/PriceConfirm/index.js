@@ -5,7 +5,7 @@ import FAIcon from "react-native-vector-icons/FontAwesome";
 import Styles from "./styles";
 import NavigationRouteNames from '../../../routes/ScreenNames';
 import { Fonts, Colors, AppStyles } from '../../../theme';
-import { getQuoteData, getImageName, setEPRName, setEPRAggregatorID, setAggregator } from '../../../utils/Global'
+import { getQuoteData, getImageName,setQuoteData, setEPRName, setEPRAggregatorID, setAggregator } from '../../../utils/Global'
 import { deleteQuote, addOrder } from '../Middleware';
 import UserContext from '../../../appContainer/context/user.context';
 import NavClose from './../../../components/HeaderLeft'
