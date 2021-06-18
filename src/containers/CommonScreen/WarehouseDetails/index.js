@@ -319,7 +319,7 @@ function WarehouseDetails() {
               <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f15, AppStyles.mt10, AppStyles.ml20]}>Pickup Address</Text>
             </View>
             <View style={[style.flexpointfour, AppStyles.alignfend]}>
-              <Text style={[AppStyles.txtBlackRegular, AppStyles.f11, AppStyles.mt10, AppStyles.mr20]}>{item.landmark} {item.location}</Text>
+              <Text style={[AppStyles.txtBlackRegular, AppStyles.f11, AppStyles.mt10, AppStyles.textAlignRight, AppStyles.mr20]}>{item.landmark} {item.location}</Text>
             </View>
           </View>
         </View>
@@ -328,10 +328,10 @@ function WarehouseDetails() {
           <TouchableOpacity
             activeOpacity={0.8}
             onPress={() => handelAddMore()}
-            style={[AppStyles.pv10, AppStyles.ph10, { backgroundColor: Colors.mangoTwo, borderRadius: 5 }, AppStyles.flexDir, AppStyles.alignCenter]}
+            style={[AppStyles.pv5, AppStyles.ph10, { backgroundColor: Colors.mangoTwo, borderRadius: 5 }, AppStyles.flexDir, AppStyles.alignCenter]}
             activeOpacity={0.6}>
-            <Text style={[AppStyles.txtWhiteRegular,]}>Add more  </Text>
-            <FAIcon name='plus-circle' color={Colors.white} size={18}></FAIcon>
+            <Text style={[AppStyles.txtWhiteRegular, AppStyles.f13]}>Add more  </Text>
+            <FAIcon name='plus-circle' color={Colors.white} size={16}></FAIcon>
           </TouchableOpacity>
         </View> : <View style={AppStyles.pv10}></View>}
 
@@ -348,8 +348,8 @@ function WarehouseDetails() {
                   onPress={() => handelRemoveLine(index)}
                   style={[AppStyles.pv5, AppStyles.ph5, { backgroundColor: Colors.mangoTwo, borderRadius: 5 }, AppStyles.flexDir, AppStyles.alignCenter]}
                   activeOpacity={0.6}>
-                  <Text style={[AppStyles.txtWhiteRegular,]}>Remove  </Text>
-                  <FAIcon name='times-circle-o' color={Colors.white} size={18}></FAIcon>
+                  <Text style={[AppStyles.txtWhiteRegular, AppStyles.f13]}>Remove  </Text>
+                  <FAIcon name='times-circle-o' color={Colors.white} size={16}></FAIcon>
                 </TouchableOpacity>}
               </View>
               <DropDown
