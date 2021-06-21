@@ -6,7 +6,7 @@ import { useNavigation } from '@react-navigation/core';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import Checkbox from '@react-native-community/checkbox';
 import Colors from '../../theme/Colors';
-import CustomTextInput  from '../../components/CustomTextInput';
+import CustomTextInput from '../../components/CustomTextInput';
 import { isValidUserName, RfH, RfW, storeData } from '../../utils/helpers';
 import CustomText from '../../components/CustomText';
 import Images from '../../theme/Images';
@@ -55,13 +55,13 @@ function SignUp() {
           phone: phoneno,
           password: password,
           businessType: businesstype,
-          Manufacturer: DeviceInfo.getManufacturerSync(),
-          Model: DeviceInfo.getModel(),
-          OsVersionRelease: Platform.Version,
-          AppVersion: DeviceInfo.getVersion(),
-          FcmToken: firebaseToken,
-          OsType: Platform.OS === "ios" ? "Ios" : "Android",
-          DeviceId: DeviceInfo.getUniqueId()
+          manufacturer: DeviceInfo.getManufacturerSync(),
+          model: DeviceInfo.getModel(),
+          osVersionRelease: Platform.Version,
+          appVersion: DeviceInfo.getVersion(),
+          fcmToken: firebaseToken,
+          osType: Platform.OS === "ios" ? "Ios" : "Android",
+          deviceId: DeviceInfo.getUniqueId()
         },
       });
 

@@ -54,13 +54,13 @@ function LoginWithEmail() {
       let param = {
         email: username,
         password,
-        Manufacturer: DeviceInfo.getManufacturerSync(),
-        Model: DeviceInfo.getModel(),
-        OsVersionRelease: Platform.Version,
-        AppVersion: DeviceInfo.getVersion(),
-        FcmToken: firebaseToken,
-        OsType: Platform.OS === "ios" ? "Ios" : "Android",
-        DeviceId: DeviceInfo.getUniqueId()
+        manufacturer: DeviceInfo.getManufacturerSync(),
+        model: DeviceInfo.getModel(),
+        osVersionRelease: Platform.Version,
+        appVersion: DeviceInfo.getVersion(),
+        fcmToken: firebaseToken,
+        osType: Platform.OS === "ios" ? "Ios" : "Android",
+        deviceId: DeviceInfo.getUniqueId()
       }      
       setLoader(true)
       const { data } = await emLogin({

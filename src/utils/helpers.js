@@ -1,13 +1,12 @@
-import {Alert, Dimensions, Linking} from 'react-native';
+import { Alert, Dimensions, Linking } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
-import {isEmpty, isNumber} from 'lodash';
-import {LOCAL_STORAGE_DATA_KEY, STANDARD_SCREEN_DIMENSIONS} from './constants';
+import { LOCAL_STORAGE_DATA_KEY, STANDARD_SCREEN_DIMENSIONS } from './constants';
 import DeviceInfo from 'react-native-device-info';
-import {Colors, Images} from '../theme';
+import { Colors, Images } from '../theme';
 import aes from 'aes-js';
 import NavigationRouteNames from '../routes/ScreenNames';
 import moment from 'moment';
-
+import { isEmpty, isNil, isNull, isNumber, isUndefined } from 'lodash';
 
 export const storeData = async (key, value) => {
   try {
@@ -36,7 +35,7 @@ export const removeData = async (key) => {
 export const clearAll = async () => {
   try {
     await AsyncStorage.clear();
-  } catch (e) {}
+  } catch (e) { }
 };
 
 export const logout = async () => {
@@ -44,7 +43,7 @@ export const logout = async () => {
     await AsyncStorage.removeItem(LOCAL_STORAGE_DATA_KEY.IS_BIOMETRIC_ENABLE);
     await AsyncStorage.removeItem(LOCAL_STORAGE_DATA_KEY.USER_INFO);
     await AsyncStorage.removeItem(LOCAL_STORAGE_DATA_KEY.REMEMBER_ME);
-  } catch (e) {}
+  } catch (e) { }
 };
 
 export const alertBox = (
@@ -143,7 +142,7 @@ export const isValidVolume = (val) => {
 };
 
 export const getImageSource = (imagePath) =>
-  isNumber(imagePath) ? imagePath : {uri: imagePath};
+  isNumber(imagePath) ? imagePath : { uri: imagePath };
 
 export const getFirstName = (name) => {
   return name ? name.split(' ')[0] : '';
@@ -201,12 +200,21 @@ export const getCategoryImage = (category) => {
   }
 };
 
-export const formatDisplayDate = (value) => {
-  return moment(value).format('DD-MMM-YYYY')
-} 
-export const displayShortDate = (value) => {
-  return moment(value).format('DD-MMM-YY')
-} 
+export const formatDisplayDate = (myDate) => {
+  if (!isUndefined(myDate) && !isNull(myDate) && !isNil(myDate) && !isEmpty(myDate)) {
+    return moment(myDate).format('DD-MMM-YYYY');
+  } else {
+    return '';
+  }
+
+}
+export const displayShortDate = (myDate) => {
+  if (!isUndefined(myDate) && !isNull(myDate) && !isNil(myDate) && !isEmpty(myDate)) {
+    return moment(myDate).format('DD-MMM-YY');
+  } else {
+    return '';
+  }
+}
 
 export const isDisplayWithNotch = () => {
   return DeviceInfo.hasNotch();
