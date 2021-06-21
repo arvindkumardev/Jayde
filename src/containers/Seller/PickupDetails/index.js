@@ -5,7 +5,7 @@
 import React, { useContext, useEffect, useState, useLayoutEffect } from 'react';
 import {
   View, Text, TouchableOpacity, TextInput, PermissionsAndroid,
-  Platform
+  Platform, Alert
 } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import Styles from "./styles";
@@ -30,6 +30,7 @@ import UserContext from '../../../appContainer/context/user.context';
 import Search from 'react-native-search-box';
 const { width, height } = Dimensions.get('window');
 import Geolocation from '@react-native-community/geolocation';
+import GetLocation from 'react-native-get-location'
 import Geocoder from 'react-native-geocoding';
 import RNAndroidLocationEnabler from 'react-native-android-location-enabler';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
@@ -40,8 +41,8 @@ const PickupDetails = () => {
   const route = useRoute();
 
   const ASPECT_RATIO = width / height;
-  const LATITUDE = 28.4655;
-  const LONGITUDE = 77.0247;
+  const LATITUDE = 0.00;
+  const LONGITUDE = 0.00;
   const LATITUDE_DELTA = 0.0122;
   const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
 
@@ -100,40 +101,70 @@ const PickupDetails = () => {
     //   //Geolocation.clearWatch(watchID);
     // };
     return () => {
-      setLoader(false)     
+      setLoader(false)
     }
   }, []);
 
   const getOneTimeLocation = () => {
-   // setLoader(true);
-    setLocationStatus('Getting Location ...');
-    Geolocation.getCurrentPosition(
-      (position) => {
-        setLoader(false);
-        setLocationStatus('You are Here');
-        const currentLongitude = position.coords.longitude
-        const currentLatitude = position.coords.latitude
+
+    GetLocation.getCurrentPosition({
+      enableHighAccuracy: true,
+      timeout: 30000,
+    })
+      .then(location => {
+        const currentLongitude = location.longitude
+        const currentLatitude = location.latitude
         setLang(currentLongitude);
         setLat(currentLatitude);
         setRegion({
-          latitude: position.coords.latitude,
-          longitude: position.coords.longitude,
+          latitude: location.latitude,
+          longitude: location.longitude,
           latitudeDelta: LATITUDE_DELTA,
           longitudeDelta: LONGITUDE_DELTA,
-          accuracy: position.coords.accuracy
+          accuracy: location.accuracy
         })
         console.log(currentLatitude, currentLongitude)
         getAddress(currentLatitude, currentLongitude)
-      },
-      (error) => {
-        setLocationStatus(error.message);
-      },
-      {
-        enableHighAccuracy: true,
-        timeout: 30000,
-        maximumAge: 1000
-      },
-    );
+        console.log('DSK', location);
+      }).catch(error => {
+        const { code, message } = error;
+        if (code === 'TIMEOUT') {
+          Alert.alert('Location request timed out');
+        }
+        if (code === 'UNAUTHORIZED') {
+          Alert.alert('Authorization denied');
+        }
+        console.warn(code, message);
+      })
+    // setLoader(true);
+    // setLocationStatus('Getting Location ...');
+    // Geolocation.getCurrentPosition(
+    //   (position) => {
+    //     setLoader(false);
+    //     setLocationStatus('You are Here');
+    //     const currentLongitude = position.coords.longitude
+    //     const currentLatitude = position.coords.latitude
+    //     setLang(currentLongitude);
+    //     setLat(currentLatitude);
+    //     setRegion({
+    //       latitude: position.coords.latitude,
+    //       longitude: position.coords.longitude,
+    //       latitudeDelta: LATITUDE_DELTA,
+    //       longitudeDelta: LONGITUDE_DELTA,
+    //       accuracy: position.coords.accuracy
+    //     })
+    //     console.log(currentLatitude, currentLongitude)
+    //     getAddress(currentLatitude, currentLongitude)
+    //   },
+    //   (error) => {
+    //     setLocationStatus(error.message);
+    //   },
+    //   {
+    //     enableHighAccuracy: true,
+    //     timeout: 30000,
+    //     maximumAge: 1000
+    //   },
+    // );
   };
 
   const subscribeLocationLocation = () => {
@@ -173,6 +204,7 @@ const PickupDetails = () => {
       RNAndroidLocationEnabler.promptForEnableLocationIfNeeded({ interval: 10000, fastInterval: 5000 })
         .then(data => {
           getOneTimeLocation();
+
         }).catch(err => {
           navigation.pop();
         });
@@ -414,12 +446,12 @@ const PickupDetails = () => {
               </View>
             </View>
           </View>
-        </View>       
+        </View>
 
-        <TouchableOpacity 
-        activeOpacity={0.8}
-        style={[AppStyles.mt20, AppStyles.br10, AppStyles.btnPrimary,
-        AppStyles.btnHeightwidth, AppStyles.inCenter]}
+        <TouchableOpacity
+          activeOpacity={0.8}
+          style={[AppStyles.mt20, AppStyles.br10, AppStyles.btnPrimary,
+          AppStyles.btnHeightwidth, AppStyles.inCenter]}
           onPress={() => addressConfirm()}>
           <Text style={[AppStyles.txtWhiteRegular, AppStyles.f18]}>CONFIRM LOCATION</Text>
         </TouchableOpacity>
