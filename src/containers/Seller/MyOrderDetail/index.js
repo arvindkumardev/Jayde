@@ -3,6 +3,7 @@ import * as Alert from 'react-native';
 import { Platform, TouchableOpacity, View, Text, ScrollView } from 'react-native';
 import Styles from "./styles";
 import FAIcon from 'react-native-vector-icons/FontAwesome';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 import NavigationRouteNames from '../../../routes/ScreenNames';
 import { useNavigation } from '@react-navigation/core';
@@ -62,8 +63,15 @@ function SellerOrderDetail() {
   }
 
   return (
+    <KeyboardAwareScrollView
+      contentInsetAdjustmentBehavior='always'
+      showsVerticalScrollIndicator={false}
+      contentContainerStyle={{ flexGrow: 1 }}
+      automaticallyAdjustContentInsets={false}
+      >
+
     <View style={AppStyles.topView}>
-      <ScrollView>
+      <View style={AppStyles.flex1}>
         <View style={AppStyles.aligncen}>
           <Text style={[AppStyles.txtBlackBold, AppStyles.f17, AppStyles.mt30,]}>Ref No- {item.order_no}</Text>
         </View>
@@ -146,6 +154,7 @@ function SellerOrderDetail() {
             </View>
           </View>
         </View>
+        </View>
 
         {item.assigned_status == 2 ?
           <View style={[AppStyles.flex1, Styles.btnContainer]}>
@@ -178,8 +187,8 @@ function SellerOrderDetail() {
               </TouchableOpacity>
             </View>
         }
-      </ScrollView>
     </View>
+    </KeyboardAwareScrollView>
   );
 }
 export default SellerOrderDetail;
