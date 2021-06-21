@@ -29,7 +29,6 @@ import UserContext from '../../../appContainer/context/user.context';
 
 import Search from 'react-native-search-box';
 const { width, height } = Dimensions.get('window');
-import Geolocation from '@react-native-community/geolocation';
 import GetLocation from 'react-native-get-location'
 import Geocoder from 'react-native-geocoding';
 import RNAndroidLocationEnabler from 'react-native-android-location-enabler';
@@ -97,16 +96,13 @@ const PickupDetails = () => {
 
     requestLocationPermission();
     Geocoder.init("AIzaSyBGluo2-LxarAw4DqSC-hYiGsVZ55NkkVw", { language: "en" }); // set the language
-    // return () => {
-    //   //Geolocation.clearWatch(watchID);
-    // };
     return () => {
       setLoader(false)
     }
   }, []);
 
   const getOneTimeLocation = () => {
-
+    setLoader(true);
     GetLocation.getCurrentPosition({
       enableHighAccuracy: true,
       timeout: 30000,
@@ -120,12 +116,11 @@ const PickupDetails = () => {
           latitude: location.latitude,
           longitude: location.longitude,
           latitudeDelta: LATITUDE_DELTA,
-          longitudeDelta: LONGITUDE_DELTA,
-          accuracy: location.accuracy
+          longitudeDelta: LONGITUDE_DELTA         
         })
-        console.log(currentLatitude, currentLongitude)
+        console.log(location )
         getAddress(currentLatitude, currentLongitude)
-        console.log('DSK', location);
+        setLoader(false);
       }).catch(error => {
         const { code, message } = error;
         if (code === 'TIMEOUT') {
@@ -134,69 +129,9 @@ const PickupDetails = () => {
         if (code === 'UNAUTHORIZED') {
           Alert.alert('Authorization denied');
         }
-        console.warn(code, message);
+       // console.warn(code, message);
+        setLoader(false);
       })
-    // setLoader(true);
-    // setLocationStatus('Getting Location ...');
-    // Geolocation.getCurrentPosition(
-    //   (position) => {
-    //     setLoader(false);
-    //     setLocationStatus('You are Here');
-    //     const currentLongitude = position.coords.longitude
-    //     const currentLatitude = position.coords.latitude
-    //     setLang(currentLongitude);
-    //     setLat(currentLatitude);
-    //     setRegion({
-    //       latitude: position.coords.latitude,
-    //       longitude: position.coords.longitude,
-    //       latitudeDelta: LATITUDE_DELTA,
-    //       longitudeDelta: LONGITUDE_DELTA,
-    //       accuracy: position.coords.accuracy
-    //     })
-    //     console.log(currentLatitude, currentLongitude)
-    //     getAddress(currentLatitude, currentLongitude)
-    //   },
-    //   (error) => {
-    //     setLocationStatus(error.message);
-    //   },
-    //   {
-    //     enableHighAccuracy: true,
-    //     timeout: 30000,
-    //     maximumAge: 1000
-    //   },
-    // );
-  };
-
-  const subscribeLocationLocation = () => {
-    watchID = Geolocation.watchPosition(
-      (position) => {
-        //Will give you the location on location change
-
-        setLocationStatus('You are Here');
-        console.log(position);
-
-        //getting the Longitude from the location json        
-        const currentLongitude =
-          JSON.stringify(position.coords.longitude);
-
-        //getting the Latitude from the location json
-        const currentLatitude =
-          JSON.stringify(position.coords.latitude);
-
-        //Setting Longitude state
-        setLang(currentLongitude);
-
-        //Setting Latitude state
-        setLat(currentLatitude);
-      },
-      (error) => {
-        setLocationStatus(error.message);
-      },
-      {
-        enableHighAccuracy: false,
-        maximumAge: 1000
-      },
-    );
   };
 
   const checkGPS = () => {
@@ -237,7 +172,7 @@ const PickupDetails = () => {
   }
 
   const onRegionChange = region => {
-    console.log(region.latitude)
+    console.log(region)
     if (initialState) {
       setRegion(region)
       getAddress(region.latitude, region.longitude)
@@ -353,9 +288,11 @@ const PickupDetails = () => {
           zoomEnabled={false}
           loadingEnabled={true}
           dragging={true}
-          scrollWheelZoom={false}
+          cacheEnabled = {false}
+          scrollWheelZoom={false}          
           onRegionChangeComplete={onRegionChange}
           region={region}
+          //initialRegion={region}
         />
       </View>
       <View style={Styles.userInputContainer}>

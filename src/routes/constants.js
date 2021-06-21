@@ -34,7 +34,7 @@ const DRAWER_MENU = {
       name: 'New Order',
       color: Colors.mango,
       iconName: 'folder-open',
-      screenName: NavigationRouteNames.PICKUP_DETAILS
+      screenName: NavigationRouteNames.NEW_ORDER
 
     },
     {
