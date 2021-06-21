@@ -56,17 +56,15 @@ const PickupDetails = () => {
   const [searchValue, setSearchValue] = useState('')
   const { setLoader } = useContext(UserContext);
 
-  const [Lat, setLat] = useState(0)
-  const [Lang, setLang] = useState(0)
   const [landMark, setLandMak] = useState('')
   const [locationStatus, setLocationStatus] = useState('');
   const [initialState, setInitialState] = useState(false)
+  const [isLocationFetch, setLocationFetch] = useState(false);
 
   useLayoutEffect(() => {
-    navigation.setOptions({
-      title: <Text style={[AppStyles.txtBlackBold, AppStyles.f18]}>Add Address</Text>,
-    });
-  }, [navigation]);
+    const title = 'Add Address';
+    navigation.setOptions({ title });
+  }, []);
 
   useEffect(() => {
     const requestLocationPermission = async () => {
@@ -110,17 +108,17 @@ const PickupDetails = () => {
       .then(location => {
         const currentLongitude = location.longitude
         const currentLatitude = location.latitude
-        setLang(currentLongitude);
-        setLat(currentLatitude);
+
         setRegion({
           latitude: location.latitude,
           longitude: location.longitude,
           latitudeDelta: LATITUDE_DELTA,
-          longitudeDelta: LONGITUDE_DELTA         
+          longitudeDelta: LONGITUDE_DELTA
         })
-        console.log(location )
+        console.log(location)
         getAddress(currentLatitude, currentLongitude)
         setLoader(false);
+        setLocationFetch(true)
       }).catch(error => {
         const { code, message } = error;
         if (code === 'TIMEOUT') {
@@ -129,7 +127,7 @@ const PickupDetails = () => {
         if (code === 'UNAUTHORIZED') {
           Alert.alert('Authorization denied');
         }
-       // console.warn(code, message);
+        // console.warn(code, message);
         setLoader(false);
       })
   };
@@ -183,9 +181,9 @@ const PickupDetails = () => {
 
   const _handelSearch = () => {
     console.log(searchValue)
-
     if (searchValue.length > 0) {
-
+      setLoader(true)
+      setLocationFetch(false)
       Geocoder.from(searchValue.trim())
         .then(json => {
           var location = json.results[0].geometry.location;
@@ -200,8 +198,11 @@ const PickupDetails = () => {
 
           setRegion(params)
           getAddress(lat, lng)
-          console.log("Near Loc", lat, lng);
-          console.log(location);
+
+          setLocationFetch(true)
+          setLoader(false)
+          // console.log("Near Loc", lat, lng);
+          //console.log("Near Loc", location);
         }).catch(error => console.warn(error));
     }
   }
@@ -246,7 +247,7 @@ const PickupDetails = () => {
   }
 
   return (
-    <KeyboardAwareScrollView
+    isLocationFetch && <KeyboardAwareScrollView
       style={[Styles.mainContainer,
       style.whitebackgrnd]}>
 
@@ -258,7 +259,6 @@ const PickupDetails = () => {
         keyboardDismissOnSubmit={true}
         onChangeText={value => setSearchValue(value)}
         onSearch={_handelSearch}
-
       />
 
       <View>
@@ -288,11 +288,11 @@ const PickupDetails = () => {
           zoomEnabled={false}
           loadingEnabled={true}
           dragging={true}
-          cacheEnabled = {false}
-          scrollWheelZoom={false}          
+          cacheEnabled={false}
+          scrollWheelZoom={false}
           onRegionChangeComplete={onRegionChange}
-          region={region}
-          //initialRegion={region}
+          //region={region}
+          initialRegion={region}
         />
       </View>
       <View style={Styles.userInputContainer}>
