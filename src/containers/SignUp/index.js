@@ -18,6 +18,7 @@ import { AppStyles } from "../../theme";
 import { signUp } from './middleware';
 import DropDown from '../../components/Picker/index';
 import DeviceInfo from 'react-native-device-info';
+import { NotificationService } from '../../services/firebase'
 
 // Image
 import leftArrowImg from '../../assets/Images/Common/LeftArrowIcon.png';
@@ -27,6 +28,7 @@ import { inputs } from '../../utils/constants';
 function SignUp() {
   const navigation = useNavigation();
   const [clickLogin, setClickLogin] = useState(false);
+  const [firebaseToken, setFirebaseToken] = useState('')
 
   const { user, setUserObj, setLogin, orgLoading, orgData, setLoader } = useContext(UserContext);
   const [tries, setTries] = useState(2);
@@ -45,24 +47,36 @@ function SignUp() {
   });
   const [{ data, loading, error }, onSignUp] = signUp();
 
+  const successHandler = (token) => {
+    console.log(token)
+    setFirebaseToken(token)
+  }
+
+  useEffect(() => {
+    NotificationService.getFcmToken(successHandler)
+  }, [])
+
   const confirmSignup = async (name, username, password, phoneno, businesstype) => {
     setLoader(true)
     try {
+      let param = {
+        name: name,
+        email: username,
+        phone: phoneno,
+        password: password,
+        businessType: businesstype,
+        manufacturer: DeviceInfo.getManufacturerSync(),
+        model: DeviceInfo.getModel(),
+        osVersionRelease: Platform.Version,
+        appVersion: DeviceInfo.getVersion(),
+        fcmToken: firebaseToken,
+        osType: Platform.OS === "ios" ? "Ios" : "Android",
+        deviceId: DeviceInfo.getUniqueId()
+      };
+      console.log(param)
+      
       const { data } = await onSignUp({
-        data: {
-          name: name,
-          email: username,
-          phone: phoneno,
-          password: password,
-          businessType: businesstype,
-          manufacturer: DeviceInfo.getManufacturerSync(),
-          model: DeviceInfo.getModel(),
-          osVersionRelease: Platform.Version,
-          appVersion: DeviceInfo.getVersion(),
-          fcmToken: firebaseToken,
-          osType: Platform.OS === "ios" ? "Ios" : "Android",
-          deviceId: DeviceInfo.getUniqueId()
-        },
+        data: param
       });
 
       console.log(data)
