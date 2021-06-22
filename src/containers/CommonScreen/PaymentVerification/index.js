@@ -592,7 +592,7 @@ const PaymentVerification = () => {
                         onPress={() => setPickerConfirmWeight(true)}
                         style={[AppStyles.flexRowAlignCenter, AppStyles.btnSecandary, AppStyles.br10, AppStyles.mb10, { padding: 10 }]}>
                         <FAIcon size={22} name='calendar-o' color={Colors.mangoTwo} />
-                        <Text style={[[AppStyles.txtBlackRegular, AppStyles.f16, AppStyles.pl20]]}>{formatDisplayDate(confirmWeightDate)}</Text>
+                        <Text style={[[AppStyles.txtBlackRegular, AppStyles.f16, AppStyles.pl10]]}>{formatDisplayDate(confirmWeightDate)}</Text>
                       </TouchableOpacity>
                       {showPickerConfirmWeight && (<DateTimePicker
                         testID="dateTimePicker"
@@ -606,7 +606,7 @@ const PaymentVerification = () => {
                     </View>
                   </View>
                   <View style={[AppStyles.flex1, AppStyles.ml10]}>
-                    <Text style={Styles.inputLabelText}>Upload Documents</Text>
+                    <Text style={Styles.inputLabelText}>Upload</Text>
                     <View>
                       <View>
                         <TouchableOpacity activeOpacity={0.8} style={[Styles.inputText, Styles.inputIcon, AppStyles.br10]} onPress={() => setImageUpload(!imageUpload)}>
@@ -728,7 +728,7 @@ const PaymentVerification = () => {
                         onPress={() => setPickerProposeWeight(true)}
                         style={[AppStyles.flexRowAlignCenter, AppStyles.btnSecandary, AppStyles.br10, AppStyles.mb10, { padding: 10 }]}>
                         <FAIcon size={22} name='calendar-o' color={Colors.mangoTwo} />
-                        <Text style={[[AppStyles.txtBlackRegular, AppStyles.f16, AppStyles.pl20]]}>{formatDisplayDate(proposeWeightDate)}</Text>
+                        <Text style={[[AppStyles.txtBlackRegular, AppStyles.f16, AppStyles.pl10]]}>{formatDisplayDate(proposeWeightDate)}</Text>
                       </TouchableOpacity>
                       {showPickerProposeWeight && (<DateTimePicker
                         testID="dateTimePicker"
@@ -742,7 +742,7 @@ const PaymentVerification = () => {
                     </View>
                   </View>
                   <View style={[AppStyles.flex1, AppStyles.ml5]}>
-                    <Text style={Styles.inputLabelText}>Upload Documents</Text>
+                    <Text style={Styles.inputLabelText}>Upload</Text>
                     <View>
                       <TouchableOpacity activeOpacity={0.8} style={[Styles.inputText, Styles.inputIcon, AppStyles.br10]} onPress={() => setImageUpload1(!imageUpload1)}>
                         {/* <Text style={Styles.txtFileUpload}>Upload file</Text> */}
@@ -888,7 +888,7 @@ const PaymentVerification = () => {
                   <Text style={[AppStyles.txtBlackRegular, AppStyles.f15, AppStyles.mb6,]}>Payment Details</Text>
                 </View>
                 <View style={AppStyles.flexpointfour}>
-                  <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f11, AppStyles.mt5, AppStyles.ml20,]}>Transaction number</Text>
+                  <Text style={[AppStyles.txtSecandaryRegular, AppStyles.f11, AppStyles.mt5, AppStyles.ml5]}>Transaction number</Text>
                 </View>
               </View>
               <TextInput
@@ -1012,7 +1012,7 @@ const PaymentVerification = () => {
                     onPress={() => setPickerWarehouse(true)}
                     style={[AppStyles.flexRowAlignCenter, AppStyles.btnSecandary, AppStyles.br10, AppStyles.mb10, { padding: 10 }]}>
                     <FAIcon size={22} name='calendar-o' color={Colors.mangoTwo} />
-                    <Text style={[[AppStyles.txtBlackRegular, AppStyles.f16, AppStyles.pl20]]}>{formatDisplayDate(warehouseDate)}</Text>
+                    <Text style={[[AppStyles.txtBlackRegular, AppStyles.f16, AppStyles.pl10]]}>{formatDisplayDate(warehouseDate)}</Text>
                   </TouchableOpacity>
                   {showPickerWarehouse && (<DateTimePicker
                     testID="dateTimePicker"
@@ -1026,7 +1026,7 @@ const PaymentVerification = () => {
                 </View>
               </View>
               <View style={[AppStyles.flex1, AppStyles.ml10]}>
-                <Text style={Styles.inputLabelText}>Upload Documents</Text>
+                <Text style={Styles.inputLabelText}>Upload</Text>
                 <View>
                   <TouchableOpacity activeOpacity={0.8} style={[Styles.inputText, Styles.inputIcon, AppStyles.br10]} onPress={() => setWarehouseImageUpload(!warehouseImageUpload)}>
                     <Text style={[AppStyles.txtSecandaryRegular, { color: receiptImgData.length > 0 ? Colors.green : Colors.warmGrey }]}>{receiptImgData.length > 0 ? 'File Attached' : 'Attach File'}</Text>

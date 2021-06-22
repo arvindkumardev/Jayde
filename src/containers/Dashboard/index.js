@@ -200,7 +200,7 @@ function HomeScreen() {
             <View style={[AppStyles.mr20, AppStyles.mb10, AppStyles.alignfend, AppStyles.mt20]}>
               <MCIcon name={item.iconName} color={Colors.white} size={25} />
             </View>
-            <View style={[AppStyles.mb20, AppStyles.mt20, AppStyles.ml10, AppStyles.mr10]}>
+            <View style={[AppStyles.mb20, AppStyles.mt15, AppStyles.ml10, AppStyles.mr10]}>
               <Text style={[AppStyles.txtWhiteBold, AppStyles.f17, AppStyles.ml10,]}>{item.menuName}</Text>
               <Text style={[AppStyles.txtWhiteRegular, AppStyles.f13, AppStyles.mt3, AppStyles.ml10,]}>{item.subMenuName}</Text>
             </View>
